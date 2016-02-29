@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: nse_holo_trt.aux
+The style file: ans.bst
+Database file #1: references.bib
+Warning--empty booktitle in willert
+Warning--empty booktitle in park
+Warning--empty booktitle in ans_2014
+You've used 14 entries,
+            2272 wiz_defined-function locations,
+            602 strings with 6538 characters,
+and the built_in function-call counts, 4554 in all, are:
+= -- 256
+> -- 127
+< -- 0
++ -- 48
+- -- 34
+* -- 375
+:= -- 488
+add.period$ -- 25
+call.type$ -- 14
+change.case$ -- 1
+chr.to.int$ -- 0
+cite$ -- 17
+duplicate$ -- 509
+empty$ -- 492
+format.name$ -- 45
+if$ -- 948
+int.to.chr$ -- 0
+int.to.str$ -- 14
+missing$ -- 132
+newline$ -- 46
+num.names$ -- 14
+pop$ -- 192
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 61
+stack$ -- 0
+substring$ -- 196
+swap$ -- 349
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 27
+width$ -- 16
+write$ -- 124
+(There were 3 warnings)

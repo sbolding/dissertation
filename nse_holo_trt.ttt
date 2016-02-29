@@ -1,0 +1,117 @@
+\begin{table}[H]
+\centering
+\caption{\label{marshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.   Simulation end time is $\mathbf{t=5}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} &
+    \multicolumn{2}{|c|}{\FOM} \\ \hline
+hists./step   & IMC & HOLO-ECMC &  IMC & HOLO-ECMC   \\ \hline
+   12,000  & 3.40\%  & 0.28\% &  1    &  145      \\
+  100,000    & 1.22\%  & 0.057\% & 0.93    &   422     \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+        \caption{Material properties for two material problem\label{two_mat_props}}
+\centering
+        \begin{tabular}{|c|cc|}  \cline{2-3}
+            \multicolumn{1}{c|}{}   & $x \in [0,0.5)$ cm & $x \in [0.5,1.0]$ cm   \\ \hline
+            $\sigma_a$ (cm$^-1$)  & 0.2 & 2000 \\
+            $\rho$ (g cm$^-3$) & 0.01 & 10.0 \\
+            $c_v$ (jks/keV-g) & $0.1$ & $0.1$ \\ \hline
+        \end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\centering
+\caption{\label{twomat_var} \textbf{Comparison of sample statistics for the
+    two material problem for 200 $x$ cells.   Simulation end time is $\mathbf{t=2}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} & \multicolumn{2}{|c|}{$s_{\max}$} \\ \hline
+hists./step     & IMC & HOLO-ECMC  &  IMC & HOLO-ECMC   \\ \hline
+   30,000     & 3.63\%  & 0.01\% &  1      &   104,000      \\
+  100,000       & 1.96\%  & 0.003\% & 1.03   &   360,000      \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\centering
+\caption{\label{marshak_table} \textbf{Comparison of average CPU times per history
+    and LO iteration counts for the Marshak Wave problem. }}
+\vspace{-0.1in}
+\begin{tabular}{|cc|c|cc|}\hline
+hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist) & Newton
+iters./LO solve \\ \hline
+100,000                    &   0.001 & 10  &  5.3   & 3.8               \\
+12,000           &   0.001 & 9.7 &  8.1   & 4.1               \\
+12,000          &   0.005 & 19  &  9.4   & 6.2                \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[htb!]
+\centering
+\caption{\label{twomat_table} \textbf{Average CPU times per history and LO iteration
+counts required for the two material problem.}}
+\begin{tabular}{|cc|c|cc|} \hline
+hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist)  &
+Newton iters./LO Solve\\ \hline
+100,000          &   0.001 & 17  & 3.5   & 4.9 \\
+30,000   &    0.001 & 18  & 6.9   &    5.0 \\
+30,000    &   0.005 & 59  & 7.4   &    7.6 \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\centering
+\caption{\label{homarshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.  Number of ECMC batches is
+indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &     \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
+   12,000    & 2.77\%  & 0.10\% &  0.28\% &   1.50    & 1280  & 145     \\
+  100,000      & 0.98\%  & 0.03\% &  0.06\% &   1.43    & 1270  & 422     \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\centering
+\caption{\label{hotwomat_var} \textbf{Comparison of sample standard deviations for the
+    two material problem. Number of ECMC batches is indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC
+(3)   \\ \hline
+   30,000   & 5.35\%   & 0.002953\% & 0.011\%  & 0.46     & 1.51$\times10^6$   & $1.04\times10^4$          \\
+  100,000     & 2.85\%   & 0.001474\% & 0.0033\% & 0.49     & 1.80$\times10^6$   & $3.59\times10^4$          \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 
+\begin{table}[H]
+\centering
+\caption{\label{preheat_var} \textbf{Comparison of sample statistics for the
+    pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is
+indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
+   12,000   & 0.86\%   & 0.13\% & 0.24\% & 1      & 41  & 13      \\
+  100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\
+  99,881 (AMR, 9 batches) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
+  \multicolumn{2}{c|}{61}               \\ \hline
+\end{tabular}
+\end{table}
+\efloatseparator
+ 

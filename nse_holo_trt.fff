@@ -1,0 +1,39 @@
+\begin{figure}[htb]
+    \centering
+\begin{subfigure}{0.7\textwidth}
+  \centering
+    \includegraphics[width=0.99\linewidth]{marshak_mesh_conv.pdf}
+    \caption{\label{marshak_mesh_conv} Convergence of IMC and HOLO-ECMC solutions.}
+\end{subfigure}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+  \includegraphics[width=0.99\linewidth]{marshak_200_compare.pdf}
+  \caption{\label{marshak_200_compare}  Comparison of solutions for 200 spatial cells. }
+\end{subfigure}
+\caption{\bf Comparison of radiation temperatures for Marshak wave problem at $\mathbf{t=5}$ sh.}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}
+    \centering
+\begin{subfigure}{0.65\textwidth}
+    \centering
+    \includegraphics[width=0.99\textwidth]{two_mat_conv.pdf}
+    \caption{Comparison of IMC and HOLO-ECMC.\label{twomat_full}}
+\end{subfigure}    \begin{subfigure}{0.65\textwidth}
+\centering
+    \includegraphics[width=0.99\textwidth]{two_mat_ho_compare.pdf}
+    \caption{Comparison of SMC and ECMC HO solvers. \label{compare_ho}}
+\end{subfigure}
+    \caption{\bf Comparison of radiation temperatures for two material problem. \label{twomat}}
+\end{figure}
+\efloatseparator
+ 
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
+    \caption{\label{hot_plot}\bf Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
+    $x$ cells at $\mathbf{t=0.5}$ sh.}
+\end{figure}
+\efloatseparator
+ 

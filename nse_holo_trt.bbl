@@ -1,0 +1,74 @@
+\begin{thebibliography}{10}
+\newcommand{\enquote}[1]{``#1''}
+
+\bibitem{fnc}
+{J.~A. Fleck, Jr.} and {J.~D. Cummings, Jr.}, \enquote{An Implicit Monte Carlo
+  Scheme for Calculating Time and Frequency Dependent Nonlinear Radiation
+  Transport,} \emph{J. Comput. Phys.}, \textbf{8}, 3, pp. 313--342 (Dec. 1971).
+
+\bibitem{imd}
+{N.~Gentile}, \enquote{Implicit Monte Carlo diffusion: An acceleration method
+  for Monte Carlo time-dependent radiative transfer simulations,} \emph{Journal
+  of Computational Physics}, \textbf{172}, 2, pp. 543--571 (2001).
+
+\bibitem{ddmc}
+{J.~D. Densmore}, {K.~G. Thompson}, and {T.~J. Urbatsch}, \enquote{A hybrid
+  transport-diffusion Monte Carlo method for frequency-dependent
+  radiative-transfer simulations,} \emph{Journal of Computational Physics},
+  \textbf{231}, 20, pp. 6924--6934 (2012).
+
+\bibitem{wollaber2013discrete}
+{A.~B. Wollaber}, {E.~W. Larsen}, and {J.~D. Densmore}, \enquote{A Discrete
+  Maximum Principle for the Implicit Monte Carlo Equations,} \emph{Nuclear
+  Science and Engineering}, \textbf{173}, 3, pp. 259--275 (2013).
+
+\bibitem{teleportation}
+{M.~S. McKinley}, {E.~D. Brooks~III}, and {A.~Szoke}, \enquote{Comparison of
+  implicit and symbolic implicit Monte Carlo line transport with frequency
+  weight vector extension,} \emph{Journal of Computational Physics},
+  \textbf{189}, 1, pp. 330--349 (2003).
+
+\bibitem{willert}
+{J.~Willert}, {C.~Kelly}, {D.~Knoll}, and {H.~Park}, \enquote{{A Hybrid
+  Approach to the Neutron Transport k-Eigenvalue Problem using NDA-based
+  Algorithms},} M\&C. Sun Valley, ID (2013).
+
+\bibitem{park}
+{H.~Park}, {J.~Densmore}, {A.~Wollaber}, {D.~Knoll}, and {R.~Ramenzahn},
+  \enquote{{Monte Carlo Solution Methods in a Moment-Based Scale-Bridging
+  Algorithm For Thermal Radiative Transfer Problems},} M\&C. Sun Valley, ID
+  (2013).
+
+\bibitem{rmc}
+{J.~Willert} and {H.~Park}, \enquote{Residual Monte Carlo High-order Solver for
+  Moment-Based Accelerated Thermal Radiative Transfer Equations,} \emph{Journal
+  of Computational Physics}, \textbf{276}, pp. 405 -- 421 (2014).
+
+\bibitem{ans_2014}
+{S.~Bolding} and {J.~Morel}, \enquote{{A High-Order Low-Order Algorithm with
+  Exponentially-Convergent Monte Carlo for $k$-Eigenvalue problems},} ANS
+  Winter Meeting. Anaheim, CA (2014).
+
+\bibitem{jake}
+{J.~Peterson}, \emph{{E}xponentially {C}onvergent {M}onte {C}arlo for the 1-D
+  {T}ransport {E}quation}, Master's thesis, Texas A\&M (2014).
+
+\bibitem{wolters}
+{E.~Wolters}, \emph{Hybrid Monte Carlo - Deterministic Neutron Transport
+  Methods Using Nonlinear Functionals}, Ph.D. dissertation, Michigan (2011).
+
+\bibitem{morel_newton}
+{J.~Morel}, {T.~Wareing}, and {K.~Smith}, \enquote{{Linear-Discontinuous
+  Spatial Differencing Scheme for $S_n$ Radiative Transfer Calculations},}
+  \emph{Journal of Computational Physics}, \textbf{128}, pp. 445--462 (1996).
+
+\bibitem{shultis_mc}
+{J.~Shultis} and {W.~Dunn}, \emph{{E}xploring {M}onte {C}arlo {M}ethods},
+  Academic Press, Burlington, MA 01803 (2012).
+
+\bibitem{jayenne}
+{T.~Urbatsch} and {T.~Evans}, \enquote{{Milagro Version 2 An Implicit Monte
+  Carlo Code for Thermal Radiative Transfer: Capabilities, Development, and
+  Usage},} Los Alamos National Laboratory Report LA-14195-MS (2006).
+
+\end{thebibliography}
