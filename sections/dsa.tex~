@@ -195,9 +195,10 @@ We can also break up $\phi$ in Eq.~\eqref{eq:jelim} into its half-range componen
 producing the equations
 \begin{align}
     \left(\gamma\phi_{i,R} + J_{i,R} - \left[ \gamma\frac{\phi_{\ir}^C}{2} +
-    \frac{\phi_{i,R}}{4} + \frac{3}{2} \gamma J_{i,R} \right] \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
+    \frac{\phi_{i,R}}{4} + \frac{3}{4} \gamma J_{i,R} \right] \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
     \frac{2}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
-    \frac{J_{L,i} + J_{R,i}}{2} -\left(\frac{\phi_{i-1/2}^C}{2} - \gamma \phi_{i,L} +
+    \frac{J_{L,i} + J_{R,i}}{2} -\left(\left[ \frac{\gamma}{2} \phi_{i-1/2}^C +
+    \frac{\phi_{i,L}}{4} - \frac{3}{4}\gamma J_{i,L} \right] - \gamma \phi_{i,L} +
     J_{i,L}\right) + \frac{\sigma_{a,i} h_i}{2}
     \left(\frac{2}{3} \phi_{L,i} +
     \frac{1}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i} 
@@ -229,9 +230,15 @@ approximation for the angular intensity
  \delta I(\mu) = \frac{\delta\phi}{4\pi} + \frac{3\delta J}{4\pi} \mu.
 \end{equation}
 Taking the half range integrals gives
-\begin{equation}
+\begin{equation}\label{eq:p1psi}
     \delta \phi^{\pm} = \frac{\delta \phi}{2} \pm \frac{3 \delta J}{4}
 \end{equation}
+Spatial moments are taken of $\delta \phi^{\pm}$, using the LD definition on the interior
+\begin{align}
+    \mom{\delta \phi^{\pm}}_L =&  \frac{2}{3}\delta \phi^{\pm}_{L} + \frac{1}{3}\delta \phi^{\pm}_{R}  \\
+    \mom{\delta \phi^{\pm}}_R =&  \frac{1}{3}\delta \phi^{\pm}_{L} + \frac{2}{3}\delta \phi^{\pm}_{R}      ,
+\end{align}
+where Eq.~\eqref{eq:p1psi} can be used to get in terms of $\delta \phi_{L/R}$ and $\delta J_{L/R}$.
 Thus, each of the volumetric moments can be updated accordingly.
 
 
