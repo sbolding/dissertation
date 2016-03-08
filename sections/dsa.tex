@@ -17,7 +17,8 @@ spatial finite element moments are taken. The spatial moments are defined as
     \mom{\cdot}_R &= \frac{2}{h_i} \int_{\xl}^{\xr} \! \d x \,b_{R,i}(x) \left( \cdot \right).
 \end{align}
 where $b_{L,i}(x) = (\xr - x)/h_i$ and $b_{R,i}(x) = (x - \xl)/h_i$.
-The scalar flux $\phi$ will ultimately be assumed continuous.  For now it assumed LD, i.e.,
+The scalar flux $\phi$ will ultimately be assumed continuous at faces. The scalar
+flux is assumed linear on the interior of the cell, i.e.,
 $\phi(x)=\phi_Lb_L(x) + \phi_Rb_R(x)$, for $x\in(\xl,\xr)$.   Taking the left moment,
 evaluating integrals, and rearranging yields
 \begin{equation}
@@ -54,7 +55,20 @@ equation:
         \frac{D_{i}}{h_{i}}\right)\phi_{i-1/2} = \frac{h_{i+1}}{2} \mom{q}_{L,i+1} +
         \frac{h_{i}}{2}\mom{q}_{R,i}\;\,. 
 \end{multline}
-This system can be solved to get $\phi$ at each face.
+This system can be solved to get $\phi$ at each face.  To allow for the use of lumped
+or standard LD in these equations, we introduce the factor $\theta$, with
+$\theta=1/3$ for standard
+LD, and $\theta=1$ for lumped LD.  The diffusion equation becomes
+\begin{multline}
+    \left(\frac{\sigma_{a,i+1} h_{i+1}}{4}\left(1 - \theta\right)  -
+        \frac{D_{i+1}}{h_{i+1}}\right)\phi_{i+3/2} + \left(\frac{D_{i+1}}{h_{i+1}} +
+        \frac{D_{i}}{h_i} + \left(\frac{1+\theta}{2} \right)\left[\frac{\sigma_{a,i+1} h_{i+1}}{2} + \frac{\sigma_{a,i}
+        h_{i}}{2}\right]\right)\phi_{i+1/2} \\ + \left(\frac{\sigma_{a,i}
+        h_{i}}{4}\left(1 - \theta\right) -
+        \frac{D_{i}}{h_{i}}\right)\phi_{i-1/2} = \frac{h_{i+1}}{2} \mom{q}_{L,i+1} +
+        \frac{h_{i}}{2}\mom{q}_{R,i}
+        \;\,. 
+\end{multline}
 
 \subsubsection{Boundary Conditions}
 
@@ -62,7 +76,8 @@ The LO system exactly satisfies the inflow boundary conditions, therefore we cho
 vacuum boundary condition for the left-most cell.  The equation for the left moment
 at the first cell is given by
 \begin{equation}\label{eq:dsa_bc}
-    J_{1} - J_{1/2}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{2}{3} \phi_{L,i} + \frac{1}{3}
+    J_{1} - J_{1/2}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{1+\theta}{2} \phi_{L,i}
+    + \frac{1-\theta}{2}
     \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{L,i}\,\,,
 \end{equation}
 The Marshak boundary condition for the vacuum inflow at face $x_{1/2}$ is given as
@@ -72,8 +87,8 @@ The Marshak boundary condition for the vacuum inflow at face $x_{1/2}$ is given 
 which can be solved for $J_{1/2}$.  Substitution of the above equation and
 Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:dsa_bc} gives 
 \begin{equation}
-    \left(\frac{1}{2}+ \frac{\sigma_{a,1}h_1}{3} - \frac{D_1}{h_1}\right)\phi_{1/2} +
-    \left( \frac{\sigma_{a,1}{h_1}}{6} - \frac{D_1}{h_1}  \right)\phi_{3/2} =
+    \left(\frac{1}{2}+ \sigma_{a,1}h_1\frac{1+\theta}{4} - \frac{D_1}{h_1}\right)\phi_{1/2} +
+    \left( {\sigma_{a,1}{h_1}}\frac{1-\theta}{4} - \frac{D_1}{h_1}  \right)\phi_{3/2} =
     \frac{h_i}{2} \mom{q}_{L,1}
 \end{equation}
 a similar expression can be derived for the last cell.
@@ -103,106 +118,171 @@ The moment equations for Eq.~\eqref{eq:p1} are
     \frac{\sigma_{t,i} h_i}{2} \left(\frac{2}{3} J_{L,i} + \frac{1}{3}J_{R,i}\right)
     &= 0 
 \end{align}
-The currents and fluxes on faces are decomposed into half-range values. This allows
-the cells to be decoupled by using values of $\phi_{i+1/2}^C$. 
 
-First, the definitions at face $\xr$ are considered.  The current is composed as $J_{i+1/2} = J_{\ir}^+ - J_{\ir}^-$ and the scalar flux as $\phi_{i+1/2} =
-\phi_{i+1/2}^+ + \phi_{i+1/2}^-$, where $+$ and $-$ denote the positive and negative
-half ranges of $\mu$, respectively.  The negative direction values $J_{\ir}^-$ and
-$\phi_{\ir}^-$ are upwinded from cell $i+1$. However, we approximate these values
-based on $\phi_{i+1/2}^C$.  The incoming flux is assumed isotropic, which yields an
-incoming current of $J^-_{\ir} = \gamma\frac{\phi_{\ir}^C}{2}$, where $\gamma$
-accounts for the different between the LO equations estimate of the current compared
-to the P$_1$ assumption of the flux that is used in the approximate equations.
-Similarly, the half-range flux on the face is $\phi^-_{\ir} =
-\frac{\phi_{\ir}^-}{2}$.   In the positive direction, at the right face, the
+Using similar equation for all the inflow currents, the balance equations for $\phi$
+become
+The face terms $J_{i\pm 1/2}$ and $\phi_{i\pm 1/2}$ need to be eliminated from the
+system. The scalar flux is assumed to be the value provided by the continuous
+diffusion solution at each face, i.e., $\phi_{i\pm1/2} = \phi_{i\pm1/2}^C$.
+The currents are decomposed into half-range values to decouple the equations
+between cells.  At $x_{\ir}$, the current is composed as $J_{i+1/2} = J_{\ir}^+ - J_{\ir}^-$,
+where $+$ and $-$ denote the positive and negative
+half ranges of $\mu$, respectively.  Typically, the incoming current $J_{\ir}^-$ is
+upwinded from cell $i+1$. However, we approximate the incoming current based on $\phi_{i+1/2}^C$.  
+The P$_1$ approximation provides the following relation
+\begin{equation}
+    \phi = 2(J^+ + J^-).
+\end{equation}
+At $\xr$, the above expression is solved for the incoming current $J_{i+1/2}^-$.  The
+total current becomes, with $\phi_{i+1/2}=\phi_{i+1/2}^C$,
+\begin{equation}\label{eq:jelim}
+    J_{\ir} = J_{\ir}^+ - J_{\ir}^- = 2J_{\ir}^+ - \frac{\phi_{i+1/2}^C}{2},
+\end{equation}
+In the positive direction, at the right face, the
 values of $\phi$ and $J$ are based on the LD representation within the cell at that
 face, i.e., $\phi_{R,i}$ and $J_{R,i}$.  The standard P$_1$ approximation for the
 half-range currents and fluxes are used\cite{stacy}, i.e.,
 \begin{align}
-    J^{\pm} &= \frac{\gamma \phi}{2} \pm \frac{J}{2} \\
-    \phi{\pm} &= \frac{\phi}{2} \pm \frac{3J\gamma}{2}.
+    J^{\pm} &= \frac{\gamma \phi}{2} \pm \frac{J}{2},
 \end{align}
-Thus, for the right face and positive half-range,
+where $\gamma$ accounts for the difference between the LO parameters and the true
+P$_1$ approximation. Thus, for the right face and positive half-range,
 \begin{align}
-    J_{\ir}^+ &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} \\
-    \phi_{\ir}^+  &= \frac{\phi_{i,R}}{2} + \frac{3\gamma}{2} J_{i,R}
+    J_{\ir}^+ &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} 
 \end{align}
-The currents and partial fluxes are defined similarly for $\xl$.  Combining these
-results, the remaining equations necessary for solving the system are
+A similar expression can be derived for $\xl$.  The total currents at each face are
+thus
 \begin{align}
-    J_{i+1/2} &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} -
-    \frac{\gamma}{2}\phi_{\ir}^C \\
-    J_{i-1/2} &= \frac{\gamma}{2}\phi_{\il}^C - \left(\frac{\gamma}{2}\phi_{i,L} -
-    \frac{J_{i,L}}{2}\right) \\
-    \phi_{i+1/2} &= \frac{1}{2}\phi_{i,R} + \frac{3\gamma J_{i,R}}{2} +
-    \frac{1}{2}\phi_{\ir}^C  \\
-    \phi_{i-1/2} &= \frac{1}{2}\phi_{i,L} - \frac{3\gamma J_{i,L}}{2} +
-    \frac{1}{2}\phi_{\il}^C  
+    J_{i+1/2} &= \gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \\
+    J_{i-1/2} &= \frac{\phi_{i-1/2}^C}{2} - \gamma \phi_{i,L} + J_{i,L}
 \end{align}
-These equations are substituted back into the original system to produce
+Substitution of these results back into the LD balance equations and introduction of the
+lumping notation yields the final equations 
 \begin{align}
-\frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} -
-    \frac{\gamma}{2}\phi_{\ir}^C    - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
-    \frac{2}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
-    \frac{J_{L,i} + J_{R,i}}{2} -\left(\frac{\gamma}{2}\phi_{\il}^C -
-    \frac{\gamma}{2}\phi_{i,L} + \frac{J_{i,L}}{2}\right) + \frac{\sigma_{a,i} h_i}{2}
-    \left(\frac{2}{3} \phi_{L,i} +
-    \frac{1}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i} \\
-    \frac{1}{3}\left(\frac{1}{2}\phi_{i,R} + \frac{3\gamma J_{i,R}}{2} +
-    \frac{1}{2}\phi_{\ir}^C - \frac{\phi_{i,L} + \phi_{i,R}}{2}\right) +
-    \frac{\sigma_{t,i} h_i}{2} \left(\frac{1}{3} J_{L,i} + \frac{2}{3}J_{R,i}\right)
-    &= 0 \\
-    \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \left[\frac{1}{2}\phi_{i,L} - \frac{3\gamma J_{i,L}}{2} +
-    \frac{1}{2}\phi_{\il}^C\right] \right) +
-    \frac{\sigma_{t,i} h_i}{2} \left(\frac{2}{3} J_{L,i} + \frac{1}{3}J_{R,i}\right)
-    &= 0 
+    \left(\gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(
+    \frac{(1-\theta)}{2} \phi_{L,i} +
+    \frac{(1+\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
+    \frac{J_{L,i} + J_{R,i}}{2} -\left(\frac{\phi_{i-1/2}^C}{2} - \gamma \phi_{i,L} +
+    J_{i,L}\right) + \frac{\sigma_{a,i} h_i}{2} \left(
+    \frac{(1+\theta)}{2} \phi_{L,i} +
+    \frac{(1-\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i} 
+    \\
+    \frac{1}{3}\left(\phi_{i+1/2}^C - \frac{\phi_{i,L} + \phi_{i,R}}{2}\right) +
+    \frac{\sigma_{t,i} h_i}{2}\left( \frac{(1-\theta)}{2} J_{L,i} +
+    \frac{(1+\theta)}{2}J_{R,i}\right)    &= 0 \\
+    \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \phi^C_{i-1/2} \right) +
+    \frac{\sigma_{t,i} h_i}{2} \left( \frac{(1+\theta)}{2} J_{L,i} +
+    \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 .
 \end{align}
-These equations are completely local to each cell and fully defined.  The system can be
+The above equations are completely local to each cell and fully defined.  The system can be
 solved for the the desired unknowns
 $\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$.
 
-\subsection{Alternative update equations}
-
-As an alternative approach, we can use the following equation (which is true for
-P$_1$ expansion of the flux) to eliminate the incoming
-currents:
-\begin{equation}
-    \phi = 2(J^+ + J^-)
-\end{equation}
-At a face, the continuous solution provides $\phi$, and 
-the current are eliminated in terms of the outflow current on that face.  For the
-left face, the total current then becomes
-\begin{equation}\label{eq:jelim}
-    J_{\il} = J_{\il}^+ - J_{\il}^- = \frac{\phi}{2} - 2J_{\il}^-
-\end{equation}
-Substituting the continuous solution, the current becomes
-\begin{equation}
-    J_{\il} = \frac{\phi_{\il}^C}{2} - 2J^-_{\il} = \frac{\phi_{\il}^C}{2} -
-    2\left(\frac{\gamma}{2}\phi_{i,L} - \frac{J_{i,L}}{2}\right)
-\end{equation}
-Using similar equation for all the inflow currents, the balance equations for $\phi$
-become
-\begin{align}
-    \left(\gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
-    \frac{2}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
-    \frac{J_{L,i} + J_{R,i}}{2} -\left(\frac{\phi_{i-1/2}^C}{2} - \gamma \phi_{i,L} +
-    J_{i,L}\right) + \frac{\sigma_{a,i} h_i}{2}
-    \left(\frac{2}{3} \phi_{L,i} +
-    \frac{1}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i} 
-\end{align}
-We can also break up $\phi$ in Eq.~\eqref{eq:jelim} into its half-range components,
-producing the equations
-\begin{align}
-    \left(\gamma\phi_{i,R} + J_{i,R} - \left[ \gamma\frac{\phi_{\ir}^C}{2} +
-    \frac{\phi_{i,R}}{4} + \frac{3}{4} \gamma J_{i,R} \right] \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
-    \frac{2}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
-    \frac{J_{L,i} + J_{R,i}}{2} -\left(\left[ \frac{\gamma}{2} \phi_{i-1/2}^C +
-    \frac{\phi_{i,L}}{4} - \frac{3}{4}\gamma J_{i,L} \right] - \gamma \phi_{i,L} +
-    J_{i,L}\right) + \frac{\sigma_{a,i} h_i}{2}
-    \left(\frac{2}{3} \phi_{L,i} +
-    \frac{1}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i} 
-\end{align}
+%\subsection{Wareing version of mapping solution onto LD Unknowns using P$_1$ incident currents}
+%
+%Solution of the continuous diffusion equation in the previous section provides
+%correction values for $\phi$ on the faces, denoted as $\phi_{i+1/2}^C$. We now need
+%to determine the correction these results provide for the LD representation of
+%$\phi$. To do this, first we take the $L$ and $R$ finite element moments of the P$_1$
+%equations.  A LDFE dependence is assumed on the interior of the cell for $J$ and
+%$\phi$.  Taking moments of Eq.~\eqref{eq:dsa_bal} and simplifying yields
+%\begin{align}
+%    J_{\ir} - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
+%    \frac{2}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
+%    \frac{J_{L,i} + J_{R,i}}{2} - J_{i-1/2} + \frac{\sigma_{a,i} h_i}{2}
+%    \left(\frac{2}{3} \phi_{L,i} +
+%    \frac{1}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i}
+%\end{align}
+%The moment equations for Eq.~\eqref{eq:p1} are
+%\begin{align}
+%    \frac{1}{3}\left(\phi_{\ir} - \frac{\phi_{i,L} + \phi_{i,R}}{2}\right) +
+%    \frac{\sigma_{t,i} h_i}{2} \left(\frac{1}{3} J_{L,i} + \frac{2}{3}J_{R,i}\right)
+%    &= 0 \\
+%    \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \phi_{i-1/2} \right) +
+%    \frac{\sigma_{t,i} h_i}{2} \left(\frac{2}{3} J_{L,i} + \frac{1}{3}J_{R,i}\right)
+%    &= 0 
+%\end{align}
+%The currents and fluxes on faces are decomposed into half-range values. This allows
+%the cells to be decoupled by using values of $\phi_{i+1/2}^C$. 
+%
+%First, the definitions at face $\xr$ are considered.  The current is composed as $J_{i+1/2} = J_{\ir}^+ - J_{\ir}^-$ and the scalar flux as $\phi_{i+1/2} =
+%\phi_{i+1/2}^+ + \phi_{i+1/2}^-$, where $+$ and $-$ denote the positive and negative
+%half ranges of $\mu$, respectively.  The negative direction values $J_{\ir}^-$ and
+%$\phi_{\ir}^-$ are upwinded from cell $i+1$. However, we approximate these values
+%based on a P$_1$ expansion of the incident flux, e.g.,
+%\begin{equation}
+%    \psi_{\ir}^C = \frac{\phi_{\ir}^C + 3\mu J_{\ir}^C}{2}, \quad \mu<0
+%\end{equation}
+%We do not know $J_{\ir}^C$, but taking angular moments of the LD closure equations
+%will provide enough equations to eliminate $J_{i\pm 1/2}^C$ from the system with an
+%approximation.
+%In the positive direction, at the right face, the
+%values of $\phi$ and $J$ are based on the LD representation within the cell at that
+%face, i.e., $\phi_{R,i}$ and $J_{R,i}$.  The standard P$_1$ approximation for the
+%half-range currents and fluxes are used\cite{stacy}, i.e.,
+%\begin{align}
+%    J^{\pm} &= \frac{\gamma \phi}{2} \pm \frac{J}{2} \\
+%    \phi{\pm} &= \frac{\phi}{2} \pm \frac{3J\gamma}{2}.
+%\end{align}
+%Thus, for the right face and positive half-range,
+%\begin{align}
+%    J_{\ir}^+ &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} \\
+%    \phi_{\ir}^+  &= \frac{\phi_{i,R}}{2} + \frac{3\gamma}{2} J_{i,R}
+%\end{align}
+%The currents and partial fluxes are defined similarly for $\xl$.  Combining these
+%results, equations can be formed for the face terms as
+%\begin{align}
+%    J_{i+1/2} &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} -
+%    \left(\frac{\gamma \phi_{\ir}^C}{2} - \frac{J_{\ir}^C}{2}\right) \label{eq:jpclose} \\
+%    J_{i-1/2} &= \left(\frac{\gamma \phi_{\il}^C}{2} + \frac{J_{\il}^C}{2}\right) - \left(\frac{\gamma}{2}\phi_{i,L} -
+%    \frac{J_{i,L}}{2}\right) \label{eq:jlclose} \\
+%    \phi_{i+1/2} &= \frac{1}{2}\phi_{i,R} + \frac{3\gamma J_{i,R}}{2} +
+%    \left( \frac{\phi_{\ir}^C}{2} - \frac{3\gamma J_{\ir}^C}{2}  \right)
+%    \label{eq:ppclose}  \\
+%    \phi_{i-1/2} &= \frac{1}{2}\phi_{i,L} - \frac{3\gamma J_{i,L}}{2} +
+%    \left(\frac{\phi_{i-1/2}^C}{2} + \frac{3 \gamma J_{\il}^C}{2}  \right)
+%    \label{eq:plclose}
+%\end{align}
+%The lumping notation is introduced, which yields the balance equations
+%\begin{align}
+%    J_{\ir}^C - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(
+%    \frac{(1-\theta)}{2} \phi_{L,i} +
+%    \frac{(1+\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \left(
+%    \frac{(1-\theta)}{2} q_{L,i} +
+%    \frac{(1+\theta)}{2}q_{R,i}\right) \\
+%    \frac{J_{L,i} + J_{R,i}}{2} - J_{i-1/2}^C + \frac{\sigma_{a,i} h_i}{2}\left(
+%    \frac{(1+\theta)}{2} \phi_{L,i} +
+%    \frac{(1-\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \left(
+%    \frac{(1+\theta)}{2} q_{L,i} +
+%    \frac{(1-\theta)}{2}q_{R,i}\right)      \\
+%    \frac{1}{3}\left(\phi_{i+1/2}^C - \frac{\phi_{i,L} + \phi_{i,R}}{2}\right) +
+%    \frac{\sigma_{t,i} h_i}{2}\left( \frac{(1-\theta)}{2} J_{L,i} +
+%    \frac{(1+\theta)}{2}J_{R,i}\right)    &= 0 \\
+%    \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \phi^C_{i-1/2} \right) +
+%    \frac{\sigma_{t,i} h_i}{2} \left( \frac{(1+\theta)}{2} J_{L,i} +
+%    \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 .
+%\end{align}
+%The $q$ sources on the edges are obtained from the source moments as $q_{L,i} =
+%2\mom{q}_{L,i} - \mom{q}_{R,i}$ and $q_{R,i} =
+%2\mom{q}_{R,i} - \mom{q}_{L,i}$.
+%Angular moments of the closure equation are manipulated to form the necessary 2 remaining equations.
+%The sum of Eq.~\eqref{eq:plclose} and~\eqref{eq:ppclose} and the sum of
+%Eq.~\eqref{eq:jlclose} and~\eqref{eq:jpclose} provide the two auxiliary equations,
+%where we make the assumption of $J_{i+1/2}=J_{i+1/2}^C$ (this is not an
+%approximation, as much as a side effect of my notation. The currents can be
+%eliminated before we ever make the assumption that $\phi_{i+1/2}=\phi_{i+1/2}^C$):
+%\begin{align}
+%    \frac{1}{2}\left(\phi_{L,i} + \phi_{R,i}\right) + 3\gamma\left(J_{R,i} -
+%    J_{L,i}\right) - 3\gamma\left(J_{i+1/2}^C - J_{i-1/2}^C\right) &=
+%    \frac{1}{2}\left(\phi_{i+1/2}^C + \phi_{i-1/2}^C\right) \\
+%    \frac{\gamma}{2}\left(\phi_{R,i} - \phi_{L,i}\right) + \frac{1}{2}\left(J_{R,i} +
+%    J_{L,i}\right) - \frac{1}{2}\left(J_{i+1/2}^C + J_{i-1/2}^C\right) &=
+%    \frac{\gamma}{2}\left( \phi_{i+1/2} - \phi_{i-1/2} \right)
+%\end{align}
+%These equations are completely local to each cell and fully defined.  The system can be
+%solved for the desired unknowns
+%$\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$, as well as the auxiliary
+%unknowns $J_{i\pm 1/2}^C$.
 
 
 \subsection{DSA Source Definition}
@@ -218,28 +298,35 @@ The spatial moments are straight forward:
     \mom{q}_{L,i} = \sigma_{s,i}\left(\mom{\phi^{l+1/2}}_{L,i} -
     \mom{\phi^{l}}_{L,i}\right)
 \end{equation}
+The above equation is valid for lumping or standard LD.  This is because the LO
+moments are defined differently for LLD or LD, resulting in equations that are
+consistent.  For instance, for lumped LD, the LO system uses the spatial closure that
+the edge value is defined as the moment, i.e., $\mom{\phi}_{R,i} \equiv \phi_{R,i}$.
+For a standard lumped source, we desire the right equation to have $\mom{q}_{R,i} =
+\sigma_s(\phi^{l+1/2}_{R,i} - \phi^{l}_{R,i})$.  Substituting the lumped closure into
+the right hand side of this equation gives back the original equation, i.e., $\mom{q}_{R,i} = \sigma_{s,i}\left(\mom{\phi^{l+1/2}}_{R,i} -
+    \mom{\phi^{l}}_{R,i}\right) $.  The same is true for standard LD.
 
 \subsection{Updating the LO Unkowns}
 
 We now have a correction to $J$ and $\phi$ for the volumetric finite element
 unknowns.
 Because we are interested in the time-dependent solution, we need to accelerate the solution for the
-half-range fluxes, rather than just the scalar flux. Beginning with the P$_1$
-approximation for the angular intensity
-\begin{equation}
- \delta I(\mu) = \frac{\delta\phi}{4\pi} + \frac{3\delta J}{4\pi} \mu.
-\end{equation}
-Taking the half range integrals gives
+half-range fluxes, rather than just the scalar flux. We only accelerate the zeroth
+moment of the angular intensity.  The error in the scalar intensities are defined as
 \begin{equation}\label{eq:p1psi}
     \delta \phi^{\pm} = \frac{\delta \phi}{2} \pm \frac{3 \delta J}{4}
 \end{equation}
-Spatial moments are taken of $\delta \phi^{\pm}$, using the LD definition on the interior
+Spatial moments are taken of $\delta \phi^{\pm}$, using the lumping notation of LD on the interior
 \begin{align}
-    \mom{\delta \phi^{\pm}}_L =&  \frac{2}{3}\delta \phi^{\pm}_{L} + \frac{1}{3}\delta \phi^{\pm}_{R}  \\
-    \mom{\delta \phi^{\pm}}_R =&  \frac{1}{3}\delta \phi^{\pm}_{L} + \frac{2}{3}\delta \phi^{\pm}_{R}      ,
+    \mom{\delta \phi^{\pm}}_L =&  \frac{1+\theta}{2}\delta \phi^{\pm}_{L} +
+    \frac{1-\theta}{2}\delta \phi^{\pm}_{R}  \\
+    \mom{\delta \phi^{\pm}}_R =&  \frac{1-\theta}{2}\delta \phi^{\pm}_{L} +
+    \frac{1+\theta}{2}\delta \phi^{\pm}_{R}      ,
 \end{align}
 where Eq.~\eqref{eq:p1psi} can be used to get in terms of $\delta \phi_{L/R}$ and $\delta J_{L/R}$.
-Thus, each of the volumetric moments can be updated accordingly.
+It is noted that for consistency, the updates to the moments depend on the lumping
+notation, even though the sources are defined the same in both cases.
 
 
 
