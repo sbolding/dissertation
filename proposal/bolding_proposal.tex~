@@ -197,10 +197,7 @@ energy balance equation. Integration of the
 time-variable is treated continuously over the time step via MC sampling, but the
 linearized Planckian source in the transport equation is based on a time-discrete
 approximation.
-In IMC, temperature-dependent
-material properties, in particular cross sections, are evaluated at the previous-time
-step temperature. These lagged cross sections can produce inaccurate solutions but
-do not cause stability issues.  
+  
 
 The IMC method has some limitations.  In optically thick regions, or for
 large time steps, the
@@ -208,43 +205,46 @@ effective scattering dominates interactions.  In these diffusive regions IMC
 becomes computationally expensive. Acceleration methods typically attempt to improve
 efficiency by allowing particles to take discrete steps through optically-thick
 regions based on a spatially-discretized diffusion approximation~\cite{imd,ddmc}. 
-Also, the 
-approximate linearization of the system is not iterated on for greater accuracy due
-to the high computational cost of the MC transport, for each time step; this
-imposes a limit on the time step size to produce physically accurate
-results~\cite{wollaber2013discrete}.  The unphysical behavior is a violation of the
-discrete maximum principle, caused by the emission source not being
-truly implicit in time. 
-  In problems where the maximum principle
-is violated, the material energy becomes artificially larger than the radiation
-temperature, greater in magnitude than the boundary conditions and sources
-should physically allow.  The work in~\cite{iimc_gentile} produces an implicit system
-which prevents this from happening, but has very poor convergence in diffusive
-problems.
+Another issue occurs due to the approximate linearization of the system which can not
+be iteratively improved due
+to the high computational cost of the MC transport.  For some problems, the
+linearization can yield non-physical results that violate the discrete maximum
+principle if the time step size is too large or the cell size is too
+small~\cite{wollaber2013discrete}.  The violation of the maximum principle results in
+the material temperature being artificially higher than the boundary conditions and
+sources should physically allow.  The violation is caused by the temperature in the
+emission source not being fully implicit in time due to the necessary linearization.
+The work in~\cite{iimc_gentile} uses less-expensive MC iterations to produce an implicit system
+which prevents this from happening, but has very slow iterative convergence in diffusive
+problems.  
+In IMC, temperature-dependent
+material properties, in particular cross sections, are evaluated at the previous-time
+step temperature. These lagged cross sections can produce inaccurate solutions but
+do not cause stability issues.  
 
-PICTURE OF STANDARD MC SOLUTION AND MAXIMUM PRINCIPLE VIOLATION?
+%PICTURE OF STANDARD MC SOLUTION AND MAXIMUM PRINCIPLE VIOLATION?
 
-WHAT IS UP WITH THE WEIRD DIFFUSION LIMIT
- 
+%WHAT IS UP WITH THE WEIRD DIFFUSION LIMIT
+
 For TRT simulations, inaccurate spatial representation of the emission source over a cell can result in
 energy propagating through the domain artificially fast, yielding non-physical
 results referred to as ``teleportation error"~\cite{teleportation}.  The IMC method uses a fixup known as source tilting
 to mitigate this problem.  Source tilting reconstructs a more accurate
 linear-discontinuous representation of the
 emission source within a cell based on the cell-averaged material temperatures in adjacent
-cells. This reconstruction is also necessary to preserve the equilibrium diffusion
-limit~\cite{diff_limit_imc}.  Preserving the equilibrium diffusion limit is an
-important aspect of a numerical method for TRT problems.  In this limit, the material
-and radiation energy fields approach equilibrium, and the radiation solution becomes
-isotropics.  Spatial discretizations which do not preserve the EDL can produce highly-inaccurate
-solutions in relatively smooth regions of the problem, where the inaccuracies are not described by standard truncation
-error~\cite{morel_newton}.
+cells. This linear reconstruction is also necessary to preserve the asymptotic equilibrium diffusion
+limit (EDL), at least for a more general time step size and class of problems than for a piece-wise constant representation~\cite{diff_limit_imc}.  Preserving the equilibrium diffusion limit is an
+important aspect of a numerical method for TRT problems. 
+In this limit, cells are optically thick and diffusive, and the material
+and radiation energy fields approach equilibrium.
+Spatial discretizations which do not preserve the EDL can produce inaccurate
+solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_newton}.
 
-\subsection{Previous work on related methods}
+\subsection{Previous work on moment-based acceleration methods}
 
-An alternative MC approach to the TRT equations is moment-based hybrid Monte
-Carlo (MC) methods.  Recent work has focused on so-called high-order low-order (HOLO)
-methods~\cite{willert,park,rmc,ans_2014}. These methods involved fixed-point
+An alternative application of MC to the TRT equations is moment-based hybrid MC methods.
+Recent work has focused on so-called high-order low-order (HOLO)
+methods~\cite{willert,park,rmc,ans_2014}. These methods involve fixed-point
 iterations between high-order (HO) MC solution of a transport equation and a deterministic LO
 system.  The low-order (LO)
 operator is based on angular moments of the transport equation, formulated over a fixed
@@ -252,64 +252,57 @@ spatial mesh.  Physics operators that are time consuming for MC
 to resolve, e.g., absorption-reemission physics, are moved to the LO
 system.  The reduced angular dimensionality of the system and Newton methods allow for non-linearities in the LO equations to be fully
 resolved efficiently~\cite{willert,park}.  The high-order (HO) transport problem is defined by 
-Eq.~\eqref{ho_cont}, with sources estimated from the previous LO solution.  These
-sources have a truly implicit time-discretization, preserving the maximum principle.
-The HO equation can be solved via MC to produce a high-fidelity solution for
+Eq.~\eqref{ho_cont}, with sources estimated from the previous LO solution.  
+The high-order (HO) transport equation is solved via MC to produce a high-fidelity solution for
 the angular intensity.  The MC estimate of the angular intensity is used to estimate
 consistency terms,
 present in the LO equations, that require the LO system to preserve the angular accuracy of the
-MC solution.  The HO system does not directly estimate a new material temperature,
-eliminating stability issues that would require linearization of the emission source
-in Eq.~\eqref{ho_cont}.  
+MC solution.   
 These consistency terms are present in all spatial-regions of the problem, requiring
 statistical variance to be reduced sufficiently throughout the entire domain of the
-problem. Too much statistical variance can contaminate the LO solution.
+problem. 
 
-
-Another key area of related research to the proposed research here is application of
-residual Monte Carlo. This is also referred to as the difference formulation.
-  The work in~\cite{rmc} used residual MC as a HO solver to significantly reduce
-statistical variance.  However, a piecewise constant representation was used for the
+Another area of related research is application of
+residual Monte Carlo.  The residual MC method is also referred to as the difference
+formulation of the transport equation, with some minor differences in implementation.
+The goal of these methods is to modify the transport equation, by subtracting
+equilibrium terms, such that the MC simulation solves for unknowns representing only the change
+in the intensity over a time step. This has the potential to limit statistical noise
+significantly in regions where the solution is near equilibrium.
+The work in~\cite{rmc} used residual MC as a HO solver for 1D grey problems. The
+  residual MC demonstrated impressive reduction in statistical variance.
+  However, a piecewise constant representation was used for the
 space-angle representation of the intensity, which
 does not preserve the EDL and can be inaccurate in angularly complex regions of the
-problem. The RMC
-algorithm  uses a piecewise constant trial space representation for the intensity in
-$x$ and $\mu$.  An approach similar to IMC is the symbolic IMC method (SIMC), which
-as been performed in conjunction with the difference formulation..  SIMC forms a
-standard FE solution to the material energy balance equation, and uses symoblic
-weights in the MC transport to solve for expansion coefficents.  
-This has added complexity of solving for a mix of expansion coefficients and physical
-particle weights.  The SIMC has also been applied with what is known as a difference
-formulation, which is similar to teh RMC in ~\cite{rmc}.
- The formulation of the residual in both~\cite{rmc,simc} can produce minimal
+problem. The difference formulation has also been applied to another algorithm known as the symbolic IMC method
+(SIMC), for the case of 1D multi-frequency problems~\cite{simc_const}.  SIMC forms a
+standard FE solution to the material energy balance equation, and uses symbolic
+weights in the MC transport to solve for expansion coefficents.  The difference
+formulation was also applied to a linear-discontinuous FE spatial
+representation of the emission source, demonstrating accuracy in the EDL~\cite{simc}. 
+Both~\cite{simc_const} and~\cite{rmc} produced minimal
 statistical noise in slowly varying problems where the behavior of the system is near
-equilibrium.   You are just solving for
-the deviation from equilibrium, which can limit MC statistical noise.  This is only
-really true in regions of minimal variation. The SIMC method has been applied to the
-case of a piece-wise linear FE representation of the emission source. The SIMC work
-made some attempts as higher-accuracy time treatment, but with little investigation
-into a second order treatment.
+equilibrium. 
 
 \subsection{Proposed algorithm}
 
-The research proposed herein provides a new HOLO approach for radiative transfer.
-In this work, we demonstrate the utility of an S$_2$-like LO operator~\cite{wolters}
+The research proposed herein provides a new HOLO algorithm for radiative transfer.
+In this work, we propose an S$_2$-like LO operator~\cite{wolters}
 in conjunction with an exponentially-convergent MC (ECMC) method~\cite{jake} for the
 HO solver. Our LO system and approach to enforcing consistency contrast greatly from the typical formulation
-in~\cite{rmc,willert,park}.  
-Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an algorithm that can efficiently
+in~\cite{rmc,willert,park}. We have derived the LO operator directly from the transport
+equation, using a linear-discontinuous (LD) finite-element (FE) spatial
+discretization.   
+Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an iterative algorithm that can efficiently
 reduce statistical noise to the same order as the HOLO iteration error with
 significantly less particle histories than standard MC. In particular, ECMC is
 exceptionally efficient in time-dependent TRT problems because information about the
 intensity from the previous time step can be used as an accurate initial guess for
-the new end of time step intensity. Additionally, no particle histories are required
-in regions where the radiation and material energy field are in equilibrium.  However, implementation
+the new end of time step intensity.   However, implementation
 of ECMC is non-trivial, requiring a finite-element representation of the solution in
-all phase-space variables that are being sampled with MC.  The particle histories have less computational cost than the often slow, scattering-dominated
-IMC histories.  We have derived the LO operator directly from the transport
-equation, using a linear-discontinuous (LD) finite-element (FE) spatial
-discretization.  The method contains many of the desired qualities, such as
-preserving the equilibrium diffusion limit, prserving the maximum principle, and in
+all phase-space variables that are being sampled with MC.  
+The method contains many of the desired qualities, such as
+preserving the equilibrium diffusion limit, preserving the maximum principle, and in
 particular, providing high-fidelity MC solution to the TRT equations in an efficient
 manner.
 
@@ -341,7 +334,7 @@ the $n$-th time step. Cross sections are evaluated at the end of time step
 temperature, i.e., $\sigma_a^{n+1}\equiv\sigma_a(T^{n+1})$.   
 
 In the HOLO context, the LO solver models the physical scattering and
-resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
+resolves the material temperature spatial distribution $T^{n+1}(x)$, for each time step.  The LO equations are formed via half-range 
 angular and spatial moments of
 Eq.~\eqref{ho_trans} and Eq.~\eqref{lo_mat}. The spatial moments are formed over a
 finite-element
@@ -355,11 +348,11 @@ spatial discretization.  These consistency parameters are lagged in each LO solv
 estimated from the previous HO solution for the intensity, or from a previous time
 step.  The discrete LO equations always conserve total energy, independent of the accuracy of the consistency terms.
 It is noted that our LO operator is different from the nonlinear
-diffusion acceleration (NDA) methods (similar to coarse-mesh finite difference
-methods~\cite{cmfd}) used by other HOLO methods~\cite{rmc,park,willert}.  In
-DNA methods an artificial term is added to the equations and estimated using a
-previous HO solution to enforce consistency.  In our method we have simply
-manipulated space-angle moments of equations, which will ideally produce more
+diffusion acceleration (NDA) methods used by other HOLO methods~\cite{rmc,park,willert}.  In
+NDA methods, an artificial term is added to the LO equations to enforce consistency and estimated using a
+previous HO solution.  In our method we have simply algebraically 
+manipulated space-angle moment equations to produce our consistency terms,
+which will hopefully produce more
 stability in optically-thick regions where NDA methods demonstrate stability issues.
 
 The solution to the LO system is used to construct a LDFE spatial representation of
@@ -370,23 +363,22 @@ sources. We will solve this transport problem using ECMC~\cite{jake}.  The outpu
 $\tilde{I}^{n+1}(x,\mu)$, a space-angle LDFE projection of the exact solution for
 $I^{n+1}(x,\mu)$.  Once computed, $\tilde{I}^{n+1}(x,\mu)$ is used
 to directly evaluate the necessary consistency parameters for the next LO solve.   The HO solution is not used to directly estimate a new
-temperature at the end of the time step; it is
-only used to estimate the angular consistency parameters for the LO equations, which eliminates
-typical operator splitting stability issues that require linearization of the emission source.
+material temperature, which eliminates
+typical operator splitting stability issues that require linearization of the
+emission source in Eq.~\eqref{ho_cont}. 
 
 The process of performing subsequential HO and LO solves, within a single time step, can be repeated to obtain an increasingly accurate solution for $\phi^{n+1}(x)$ and $T^{n+1}(x)$.  Thus, the HOLO algorithm, for the $n$-th time step, is
 \begin{enumerate}
-\item Perform a LO solve to produce an initial guess for $T^{n+1,0}(x)$
-    and $\phi^{n+1,0}(x)$, based on consistency terms estimated with $\tilde{I}^{n}$.
-\item Solve the HO system for $\tilde{I}^{n+1,k+1/2}(x,\mu)$ with ECMC, based on the current
-    LO estimate of the emission and scattering sources.%$\sigma_s(T^k)\phi^{k}$ and $B(T)^{k}$.
-\item Compute LO consistency parameters with $\tilde{I}^{n+1,k+1/2}$.  
+\item Perform a LO solve to produce an initial guess for $T^{n+1}(x)$
+    and $\phi^{n+1}(x)$, based on consistency terms estimated with $\tilde{I}^{n}$.
+\item Solve the HO system with ECMC for $\tilde{I}^{n+1}(x,\mu)$, based on the current
+    LO estimate of emission and scattering sources.%$\sigma_s(T^k)\phi^{k}$ and $B(T)^{k}$.
+\item Compute new LO consistency parameters with $\tilde{I}^{n+1}$.  
 \item Solve the LO system with HO consistency parameters to produce a new
-    estimate of $\phi^{n+1,k+1}$ and $T^{n+1,k+1}$.
+    estimate of $\phi^{n+1}$ and $T^{n+1}$.
 \item Optionally repeat 2 -- 4 until desired convergence is achieved.
 \item Store $\tilde{I}^{n}\leftarrow\tilde{I}^{n+1}$, and move to the next time step.
 \end{enumerate}
-where the superscript $k$ denotes the outer HOLO iteration.
 The consistency terms force the HO
 and LO solutions for $\phi^{n+1}(x)$ to be consistent to the order of the current HOLO
 iteration error, as long as the LDFE spatial representation can accurately represent
@@ -396,7 +388,7 @@ $\phi(x)$ and $T(x)$.
 %LO system for $T^{n+1}(x)$ and $\phi^{n+1}(x)$.
 
 
-\subsection{Forming the Low-Order System}
+\subsection{The Low-Order Equations}
 
 This section contain explicit details of the LO operator.
 To form the LO system of equations, spatial moments are taken over each spatial cell $i$:
@@ -471,27 +463,24 @@ average temperature within the element, i.e., $\sigma_{a,i}^{n+1} =
 The six degrees of freedom (DOF) over each cell $i$ are the four moments $\mom{\phi}_{L,i}^+$,
 $\mom{\phi}_{R,i}^+$, $\mom{\phi}_{L,i}^-$, and $\mom{\phi}_{R,i}^-$ and the two
 spatial edge values $T_{L,i}$ and $T_{R,i}$. The relation between the volume and face averaged quantities and the angular consistency parameters (e.g., Eq.~\eqref{const}) are not known a priori. 
-To close the LO system spatially, the usual upwinding
-approximation is used.  For example, for positive flow (e.g., Eq.~\eqref{lo_tran}) the face terms $\mu_{i-1/2}$ and $\phi_{i-1/2}$
+To close the LO system spatially, the standard LDFE approximation with upwinding is
+used.  For example, for positive flow (e.g., Eq.~\eqref{lo_tran}) the face terms $\mu_{i-1/2}$ and $\phi_{i-1/2}$
 are upwinded from the previous cell $i-1$ or from a boundary condition; the terms
 at $x_{i+1/2}$ are linearly extrapolated, computed using the $L$ and $R$ basis
 moments, e.g., $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ - \mom{\phi}_L^+$. 
-A lagged estimate of $I^{n+1}$ from the previous HO solve is
-used to estimate the angular consistency parameters. In the HOLO algorithm, the equations for LO unknowns at iteration $k+1$ use consistency parameters
-computed (via relations, e.g., Eq.~\eqref{const}) using the latest HO solution $\tilde{I}^{n+1,k+1/2}$
-as an approximation for $I^{n+1}(x,\mu)$. 
-
+A lagged estimate of $I^{n+1}$ from the latest HO solve is
+used to estimate the angular consistency parameters. 
 
 \subsection{Solution of the LO equations and Diffusion Synthetic Accleration}
 
 Newton's method is used to solve the global system of coupled LO
 equations, based on a typical linearization of the Planckian source with cross
-sections evaluated at temperatures of the previous iteration, as described
+sections evaluated at lagged temperatures.  This procedure is described
 in~\cite{morel_newton}. 
 Once the system is linearized, a discrete matrix equation is formed.  Scattering can
 be included in the system matrix, producing a banded-matrix which can be efficiently
 inverted directly.  However, an S$_2$ like system cannot be efficiently inverted
-directly in higher dimensions.  Thus, we will also investigate the use of a standard
+directly in higher spatial dimensions.  Thus, we will also investigate the use of a standard
 source iteration scheme with a nearly-consistent DSA method to accelerate source
 iterations~\cite{wla}.
 
@@ -504,8 +493,6 @@ scattering source includes an effective scattering source resulting from the
 lineraization of the planckian emission osurce~\cite{morel_newton}.  This effective
 scattering source becomes dominant in .  In such problems, 
 
-Newton iterations are repeated until $\phi^{n+1}(x)$ and $T^{n+1}(x)$ are converged
-to a desired relative tolerance.  
 
 
 %Application of the first order Taylor expansion in time of the
@@ -690,6 +677,9 @@ rapidly occur.
 \label{sec:time}
 
 
+Additionally, the SIMC work
+explored alternate time discretizations for the temperature in the residual treatment, including a
+a second-order accurate time treatment.  However, the second-order approximation
 
 
 \section{COMPUTATIONAL RESULTS}
@@ -769,11 +759,9 @@ The remaining research to be performed is summarized below:
 
 \pagebreak
 
-% This includes all references from the BibTeX file in the bibliography
-\nocite{*}
 
 \begin{spacing}{1}
-  \bibliographystyle{plain}
+  \bibliographystyle{unsrt}
   \bibliography{references}
 \end{spacing}
 
