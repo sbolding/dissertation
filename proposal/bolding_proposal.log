@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  22 MAR 2016 17:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  25 MAR 2016 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -964,210 +964,42 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 125.
 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+
+LaTeX Warning: Citation `something' on page 1 undefined on input line 150.
+
+[1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-
-LaTeX Warning: Citation `fnc' on page 2 undefined on input line 163.
-
-
-LaTeX Warning: Citation `imd' on page 2 undefined on input line 174.
-
-
-LaTeX Warning: Citation `ddmc' on page 2 undefined on input line 174.
-
-
-LaTeX Warning: Citation `wollaber2013discrete' on page 2 undefined on input lin
-e 179.
-
-
-LaTeX Warning: Citation `teleportation' on page 2 undefined on input line 184.
-
-
-LaTeX Warning: Citation `willert' on page 2 undefined on input line 192.
-
-
-LaTeX Warning: Citation `park' on page 2 undefined on input line 192.
-
-
-LaTeX Warning: Citation `rmc' on page 2 undefined on input line 192.
-
-
-LaTeX Warning: Citation `ans_2014' on page 2 undefined on input line 192.
-
-
-LaTeX Warning: Citation `willert' on page 2 undefined on input line 197.
-
 [2]
 
-LaTeX Warning: Citation `jake' on page 3 undefined on input line 206.
+LaTeX Warning: Citation `iimc_gentile' on page 3 undefined on input line 221.
 
 
-LaTeX Warning: Citation `ans_2014' on page 3 undefined on input line 206.
+LaTeX Warning: Citation `diff_limit_imc' on page 3 undefined on input line 236.
 
 
-LaTeX Warning: Citation `rmc' on page 3 undefined on input line 212.
+[3] [4]
 
+LaTeX Warning: Citation `simc' on page 5 undefined on input line 284.
 
-LaTeX Warning: Citation `rmc' on page 3 undefined on input line 219.
+[5]
 
+LaTeX Warning: Citation `cmfd' on page 6 undefined on input line 359.
 
-LaTeX Warning: Citation `rmc' on page 3 undefined on input line 222.
-
-
-LaTeX Warning: Citation `rmc' on page 3 undefined on input line 232.
-
-
-LaTeX Warning: Citation `rmc' on page 3 undefined on input line 243.
-
-
-LaTeX Warning: Citation `willert' on page 3 undefined on input line 243.
-
-
-LaTeX Warning: Citation `park' on page 3 undefined on input line 243.
-
-[3]
-
-LaTeX Warning: Citation `wolters' on page 4 undefined on input line 249.
-
-
-LaTeX Warning: Citation `jake' on page 4 undefined on input line 250.
-
-[4]
-
-LaTeX Warning: Citation `wolters' on page 5 undefined on input line 284.
-
-[5] [6]
-
-LaTeX Warning: Citation `wolters' on page 7 undefined on input line 355.
-
-[7] [8]
-
-LaTeX Warning: Citation `morel_newton' on page 9 undefined on input line 432.
-
-[9]
-
-LaTeX Warning: Citation `morel_newton' on page 10 undefined on input line 446.
-
-
-LaTeX Warning: Citation `jake' on page 10 undefined on input line 491.
-
-[10]
-Overfull \hbox (13.08858pt too wide) detected at line 513
-\OML/cmm/m/it/10.95 r[] \OT1/cmr/m/n/10.95 = []\OML/cmm/m/it/10.95 ^^^[] \OT1/c
-mr/m/n/10.95 + [] [][] + [] \OMS/cmsy/m/n/10.95 ^^@ [][]
+[6] [7] [8] [9]
+Overfull \hbox (1.28545pt too wide) in paragraph at lines 485--485
+[]\OT1/cmr/bx/n/12 Solution of the LO equa-tions and Dif-fu-sion Syn-thetic Ac-
+cler-a-tion 
  []
 
-[11]
+[10] [11] [12] [13] [14]
 
-LaTeX Warning: Reference `app:tallies' on page 12 undefined on input line 544.
+LaTeX Warning: Reference `timing' on page 15 undefined on input line 699.
 
-
-LaTeX Warning: Citation `rmc' on page 12 undefined on input line 561.
-
-
-LaTeX Warning: Citation `shultis_mc' on page 12 undefined on input line 569.
-
-[12]
-
-LaTeX Warning: Citation `jake' on page 13 undefined on input line 581.
-
-
-LaTeX Warning: Citation `ans_2014' on page 13 undefined on input line 581.
-
-
-LaTeX Warning: Citation `park' on page 13 undefined on input line 603.
-
-
-LaTeX Warning: Reference `app:tallies' on page 13 undefined on input line 608.
-
-[13]
-
-LaTeX Warning: Citation `shultis_mc' on page 14 undefined on input line 614.
-
-
-LaTeX Warning: Citation `jake' on page 14 undefined on input line 621.
-
-[14]
-
-LaTeX Warning: Citation `jayenne' on page 15 undefined on input line 657.
-
-
-LaTeX Warning: Citation `shultis_mc' on page 15 undefined on input line 692.
-
-[15]
-
-LaTeX Warning: Citation `ans_2014' on page 16 undefined on input line 713.
-
-<marshak_mesh_conv.pdf, id=67, 517.71071pt x 409.79662pt>
-File: marshak_mesh_conv.pdf Graphic file (type pdf)
-
-<use marshak_mesh_conv.pdf>
-Package pdftex.def Info: marshak_mesh_conv.pdf used on input line 720.
-(pdftex.def)             Requested size: 300.49901pt x 237.86978pt.
-
-<marshak_200_compare.pdf, id=68, 508.9671pt x 409.79662pt>
-File: marshak_200_compare.pdf Graphic file (type pdf)
-
-<use marshak_200_compare.pdf>
-Package pdftex.def Info: marshak_200_compare.pdf used on input line 725.
-(pdftex.def)             Requested size: 300.49901pt x 241.95924pt.
- [16] [17]
-<two_mat_conv.pdf, id=75, 501.29784pt x 409.79662pt>
-File: two_mat_conv.pdf Graphic file (type pdf)
- <use two_mat_conv.pdf>
-Package pdftex.def Info: two_mat_conv.pdf used on input line 833.
-(pdftex.def)             Requested size: 279.03339pt x 228.10263pt.
-
-<two_mat_ho_compare.pdf, id=76, 501.29784pt x 409.79662pt>
-File: two_mat_ho_compare.pdf Graphic file (type pdf)
-
-<use two_mat_ho_compare.pdf>
-Package pdftex.def Info: two_mat_ho_compare.pdf used on input line 837.
-(pdftex.def)             Requested size: 279.03339pt x 228.10263pt.
- [18] [19]
-
-LaTeX Warning: Citation `park' on page 20 undefined on input line 886.
-
-
-LaTeX Warning: Citation `rmc' on page 20 undefined on input line 922.
-
-[20] [21]
-Overfull \hbox (5.39807pt too wide) in paragraph at lines 967--967
-[]\OT1/cmr/bx/n/12 Pre-heated Mar-shak wave prob-lem and adap-tive mesh re-fine
--ment 
- []
-
-
-LaTeX Warning: Reference `app:refinement' on page 22 undefined on input line 99
-1.
-
-<heated_marshak.pdf, id=90, 526.7194pt x 417.02364pt>
-File: heated_marshak.pdf Graphic file (type pdf)
- <use heated_marshak.pdf>
-Package pdftex.def Info: heated_marshak.pdf used on input line 1008.
-(pdftex.def)             Requested size: 281.85034pt x 223.15953pt.
-
-[22] [23]
-
-LaTeX Warning: Citation `rmc' on page 24 undefined on input line 1075.
-
-[24] [25]
-No file bolding_proposal.bbl.
-[26 <./marshak_mesh_conv.pdf> <./marshak_200_compare.pdf
-
-pdfTeX warning: pdflatex (file ./marshak_200_compare.pdf): PDF inclusion: multi
-ple pdfs with page group included in a single page
->] [27 <./two_mat_conv.pdf> <./two_mat_ho_compare.pdf
-
-pdfTeX warning: pdflatex (file ./two_mat_ho_compare.pdf): PDF inclusion: multip
-le pdfs with page group included in a single page
->] [28 <./heated_marshak.pdf>] (./bolding_proposal.aux)
+[15] [16] [17] [18] (./bolding_proposal.bbl [19]) [20] (./bolding_proposal.aux)
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  )
 (\end occurred inside a group at level 1)
@@ -1175,13 +1007,13 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 ### semi simple group (level 1) entered at line 127 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 22755 strings out of 493089
- 437535 string characters out of 6134842
- 473281 words of memory out of 5000000
- 25852 multiletter control sequences out of 15000+600000
- 15048 words of font info for 55 fonts, out of 8000000 for 9000
+ 22706 strings out of 493089
+ 436521 string characters out of 6134842
+ 471145 words of memory out of 5000000
+ 25805 multiletter control sequences out of 15000+600000
+ 15086 words of font info for 55 fonts, out of 8000000 for 9000
  1142 hyphenation exceptions out of 8191
- 55i,14n,54p,10426b,566s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,9n,54p,10426b,307s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/c
@@ -1195,11 +1027,12 @@ b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><
 /usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></us
 r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 /local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on bolding_proposal.pdf (28 pages, 324689 bytes).
+ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on bolding_proposal.pdf (20 pages, 219707 bytes).
 PDF statistics:
- 425 PDF objects out of 1000 (max. 8388607)
- 176 compressed objects within 2 object streams
+ 132 PDF objects out of 1000 (max. 8388607)
+ 94 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 38 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

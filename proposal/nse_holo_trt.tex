@@ -161,7 +161,7 @@ THERMAL RADIATIVE TRANSFER
 % FIRST AUTHORS 
 %
 \setlength{\baselineskip}{14pt}
-\textbf{\\Simon R. Bolding\footnote{LA-UR-??????}} \\
+\textbf{\\Simon R. Bolding} \\  %\footnote{LA-UR-??????}} \\
 Department of Nuclear Engineering\\
 Texas A\&M University  \\
 College Station, TX 77843 \\
@@ -199,7 +199,7 @@ TAMU 3133\\
 College Station, TX  77843-3133\\
 morel@tamu.edu\\
 \vspace{0.25in}
-47 Pages -- 8 Tables -- 5 Figures  \\
+45 Pages -- 8 Tables -- 5 Figures  \\
 \ec
 \ess
 
@@ -241,7 +241,7 @@ demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algori
 
 \setlength{\parindent}{5ex}
 
-\section{Introduction}
+\section{INTRODUCTION}
 
 We have implemented a high-order low-order (HOLO) algorithm for the case of 1D gray thermal radiative transfer (TRT) problems. The governing equations are the radiation and
 material energy balance equations, i.e.,\vspace{-0.05in}
@@ -270,7 +270,7 @@ streaming and optically-thick, diffusive regions.
 Monte Carlo (MC) solution to the TRT equations is typically achieved by the 
 implicit Monte Carlo (IMC) method~\cite{fnc}. This
 method linearizes Eq.~\eqref{ho_cont} \& Eq.~\eqref{t_cont} over a discrete time
-step.  The linearization of the system produces a transport equation that contains an approximate emission source and an effective scattering cross section representing
+step.  Linearization of the system produces a transport equation that contains an approximate emission source and an effective scattering cross section representing
 absorption and reemission of photons over a time step. This transport equation is
 advanced over a time step via MC. The MC simulation tallies energy absorption
 over a discretized spatial mesh.  The energy absorption in each mesh cell is used to directly estimate
@@ -360,8 +360,8 @@ The ECMC algorithm uses information about the intensity from the previous time s
 the HOLO iteration error with significantly less particle histories than standard MC
 simulations, with less computational cost than IMC per history.  We have derived the LO operator directly from the transport
 equation, using a linear-discontinuous (LD) finite-element (FE) spatial
-discretization, such that the HO and LO solutions are converging towards the same
-solution. Herein we describe the algorithm and present results for one-dimensional test problems.
+discretization for the HO and LO solutions. Herein we describe the algorithm and
+present results for 1D, gray test problems.
 
 \section{Overview of the HOLO Algorithm}
 
@@ -386,7 +386,7 @@ energy due to the implicit time differencing in optically thin regions.
 In the HOLO context, the LO solver models the physical scattering and
 resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
 angular and spatial moments of
-Eq.~\eqref{ho_trans} and Eq.~\eqref{lo_mat}, formed over a spatial finite element
+Eq.~\eqref{ho_trans} and Eq.~\eqref{eq:lo_mat}, formed over a spatial finite element
 mesh.  The angular treatment in the LO equations has the same form as those used in the
 hybrid-S$_2$ method in~\cite{wolters},  with
 element-averaged consistency parameters that are analogous to a variable
@@ -524,10 +524,11 @@ approximation is used.  For example, for positive flow (e.g., Eq.~\eqref{lo_tran
 are upwinded from the previous cell $i-1$ or from a boundary condition; the terms
 at $x_{i+1/2}$ are linearly extrapolated, computed using the $L$ and $R$ basis
 moments, e.g., $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ - \mom{\phi}_L^+$. 
-The HO ECMC solver computes an LDFE representation of the intensity, so the same
-spatial closure is used to calculate volume and face averaged consistency terms.  Thus, the spatial closure between the LO and HO solvers are inherently
-consistent.  Because there are no
-spatial temperature derivatives, there is no need to define $T$ on the faces; the temperature has been assumed linear over a cell to
+%The HO ECMC solver computes an LDFE representation of the intensity, using the
+%LD spatial closure to relate intensity on the faces to the volumetric
+%moments.
+Because there are no derivatives of the $T$ in Eq.~\eqref{lo_mat}, there is no need
+to define $T$ on the faces; the temperature has been assumed linear within a cell to
 relate $T$ and $T^4$.
 
 The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
@@ -638,7 +639,7 @@ the Monte Carlo LDFE projection of the error in $\tilde{I}^{n+1,(m)}$, i.e.,
 where $\B L^{-1}$ is the Monte Carlo inversion of the streaming and removal operator.
 This inversion is strictly a standard Monte Carlo simulation.  The space-angle moments of the
 error computed in $\tilde{\epsilon}^{(m)}$ can be added to the moments of
-$\tilde{I}^{n+1},(m)$ to produce a more accurate solution.
+$\tilde{I}^{n+1}(m)$ to produce a more accurate solution.
 
 Here, we emphasize the solution $\tilde{I}^{n+1,(m)}$ represents the projection of the exact Monte Carlo
 solution onto the LDFE trial space.  This is in general far more accurate than a standard
@@ -647,7 +648,10 @@ deposition within a cell is computed using a standard path-length volumetric flu
 tally; the zeroth moment of the LDFE projection of $\tilde{\epsilon}$ is computed
 using an equivalent tally.  The primary truncation error is in the LD spatial
 representation of the source term $q$.  Volumetric flux tallies over
-each space-angle element are required to represent $\tilde{\epsilon}^{(m)}$.  The
+each space-angle element are required to represent $\tilde{\epsilon}^{(m)}$.
+The LD approximation in space is used to relate the outflow within a cell to the
+volumetric moments, eliminating the need for face-averaged tallies.
+  The
 procedure for representing the solution and tally definitions are given in Appendix~\ref{app:tallies}.
 
 The ECMC algorithm is
@@ -675,19 +679,22 @@ $I^{n+1}$.  Each MC
 estimate of the moments of $\epsilon$ still has a statistical uncertainty that is
 governed by the standard $1/\sqrt{N}$ convergence rate~\cite{shultis_mc}, for a
 particular source $r^{(m)}$, where $N$ is the number of histories performed.  If the statistical estimate of the projection $\tilde\epsilon$ is not sufficiently
-accurate, then the iterations would diverge.  Although the
-variance in tallies of $\epsilon^{(m)}$ can be estimated with the sample variance of
-histories, the variance in the moments of $I^{n+1,(m+1)}$ cannot be easily
-estimated due to the correlation between $I^{n+1,(m)}$ and the source
-$r^{(m)}$.
+accurate, then the iterations would diverge. 
+%Although the
+%variance in tallies of $\epsilon^{(m)}$ can be estimated with the sample variance of
+%histories, the variance in the moments of $I^{n+1,(m+1)}$ cannot be easily
+%estimated due to the correlation between $I^{n+1,(m)}$ and the source
+%$r^{(m)}$.
 
 Because the exact angular intensity does not in general lie within the LDFE trial space, the
 iterative estimate of the error will eventually stagnate once the error cannot be sufficiently
 represented by a given FE mesh.  An adaptive $h-$refinement algorithm has been
 implemented that can be used to allow the system to continue converging towards the
-exact solution~\cite{jake,ans_2014}. In general, for TRT problems, optically thick and slowly varying
-regions of the problem do not require as refined of a mesh as neutronics calculation to accurately capture the
-solution because there is less variation in the angular dependence of the solution.
+exact solution~\cite{jake,ans_2014}. For TRT problems where absorption-reemission
+physics dominate, the diffusive and slowly varying
+regions of the problem require a less refined angular mesh to capture the solution than typical neutronics
+problems.  However, greater spatial resolution is needed due to steep spatial
+gradients.   
 Once error stagnation has occurred (and mesh refinement has reached a maximum level),
 additional histories can be performed with a
 fixed residual source to estimate the remaining error in the current solution.  Although the remaining error will
@@ -1001,22 +1008,24 @@ resulting in longer simulation times.
     and LO iteration counts for the Marshak Wave problem. }}
 \vspace{-0.1in}
 	\begin{tabular}{|cc|c|cc|}\hline
-hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist) & Iters./LO solve \\ \hline
-10$^5$                    &   0.001	& 10  &  5.3   & 3.8               \\
-$1.2\times10^4 $          &   0.001	& 9.7 &	 8.1   & 4.1               \\
-$1.2\times10^4$           &   0.005	& 19  &  9.4   & 6.2                \\ \hline
+hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist) & Newton
+iters./LO solve \\ \hline
+100,000                    &   0.001	& 10  &  5.3   & 3.8               \\
+12,000           &   0.001	& 9.7 &	 8.1   & 4.1               \\
+12,000          &   0.005	& 19  &  9.4   & 6.2                \\ \hline
 \end{tabular}
 \end{table}
 
 \begin{table}[htb!]
 \centering
 \caption{\label{twomat_table} \textbf{Average CPU times per history and LO iteration
-counst required for the two material problem.}}
+counts required for the two material problem.}}
 	\begin{tabular}{|cc|c|cc|} \hline
-hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist)  &  Iters./LO Solve\\ \hline
-10$^5$            &   0.001	& 17  &	3.5   & 4.9 \\
-$3\times10^4 $   &    0.001	& 18  &	6.9   &    5.0 \\
-$3\times10^4$     &   0.005	& 59  & 7.4   &    7.6 \\ \hline
+hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist)  &
+Newton iters./LO Solve\\ \hline
+100,000          &   0.001	& 17  &	3.5   & 4.9 \\
+30,000   &    0.001	& 18  &	6.9   &    5.0 \\
+30,000    &   0.005	& 59  & 7.4   &    7.6 \\ \hline
 \end{tabular}
 \end{table}
 
@@ -1129,8 +1138,9 @@ indicated in parenthesis.}}
     \multicolumn{3}{|c|}{\FOM} \\ \hline
 hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
    12,000	  & 0.86\%   & 0.13\% & 0.24\% & 1      & 41  & 13      \\
-  100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\
-  99,881 (AMR) & --  & --  & 0.038\% & -- & -- &   61               \\ \hline
+  100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\ 
+  99,881 (AMR, 9 batches) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
+  \multicolumn{2}{c|}{61}               \\ \hline
 \end{tabular}
 \end{table}
 
@@ -1165,8 +1175,7 @@ that allows for time-continuous MC transport (similar to IMC) is also currently 
 investigated.  This may reduce some of the loss of accuracy in optically thin regions
 due to the time discretization of the transport equation in the HO solver.
 However, greater time accuracy is not of primary concern as this method is intended
-for use in problems dominated by large absorption opacities, where the
-absorption-reemission physics make the LO acceleration is critical.  
+for use in problems dominated by large absorption opacities, where the LO acceleration is critical.  
 
 Future work will also explore the accuracy of the HOLO method, in particular,
 analyzing the optimal number of batches and the benefit of adaptive refinement.  This will likely
