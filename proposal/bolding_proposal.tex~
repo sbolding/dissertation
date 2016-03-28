@@ -291,7 +291,7 @@ In this work, we propose an S$_2$-like LO operator~\cite{wolters}
 in conjunction with an exponentially-convergent MC (ECMC) method~\cite{jake} for the
 HO solver. Our LO system and approach to enforcing consistency contrast greatly from the typical formulation
 in~\cite{rmc,willert,park}. We have derived the LO operator directly from the transport
-equation, using a linear-discontinuous (LD) finite-element (FE) spatial
+equation, using a linear-discontinuous finite-element (LDFE) spatial
 discretization.   
 Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an iterative algorithm that can efficiently
 reduce statistical noise to the same order as the HOLO iteration error with
@@ -487,7 +487,7 @@ higher dimensions, we will also investigate the use of a standard
 source iteration scheme accelerated with a nearly-consistent diffusion synthetic acceleration
 (DSA) method~\cite{wla,wla_thesis}.
 
-We perform a standard source iteration by lagging the scattering source in the LO
+We perform standard source iterations by lagging the scattering source in the LO
 equations, which
 uncouples unknowns between the two half-ranges.  This produces a lower-triangular
 system where the spatial unknowns can be determined sequentially along the two directions of flow via a
@@ -513,7 +513,8 @@ volumetric moment unknowns via a LD discretization of diffusion equation~\cite{w
 The LD mapping resolves issues that would occur in optically-thick cells, while the
 continuous diffusion equation is accurate in the EDL where acceleration is important.
 It is noted that in higher dimensions, it would likely be necessary to recast the DSA as a
-preconditioner to a Krylov method for the acceleration to be effective~\cite{morel}.
+preconditioner to a Krylov method for the acceleration to be
+effective~\cite{morel_newton}.
 %because DSA
 %becomes less effective in mixed optical thicknesses and high spatial cell aspect
 %ratios~\cite{morel_newton}.
@@ -547,23 +548,22 @@ I^{n+1}
 = \frac{\sigma_s}{2} \phi_{LO}^{n+1} +\frac{1}{2} \left(\sigma_a a c T_{LO}^4
 \right)^{n+1} + \frac{\tilde I^n}{c\Delta t},
 \end{equation}
-where the emission and scattering source are known from the previous LO solution and
+where the emission and scattering sources are known from the previous LO solution and
 $\tilde{I}^n$ is the LDFE projection of $I(x,\mu)$ from the previous time step.
  This defines a 
-fixed-source, pure absorber transport problem. 
-In operator notation, EQ.~\eqref{eq:ho_base} can be written as
+fixed-source, pure absorber transport problem that must be solved for each HO solve. 
+In operator notation, Eq.~\eqref{eq:ho_base} can be written as
 \begin{equation}\label{te_oper}
     \B L I^{n+1} = q
 \end{equation}
-where $I^{n+1}$ is the transport solution of the end-of-time-step intensity.y based on the
-$k$-th LO estimate of $q^k$.
-The linear operator $\B L^k$ is the streaming plus
+where $I^{n+1}$ is the exact transport solution for the end-of-time-step intensity.
+The linear operator $\B L$ is the streaming plus
 removal operator defined by the left hand
 side of Eq.~\eqref{ho_trans}.
 The $m$-th approximate LDFE solution to Eq.~\eqref{te_oper} ($m$ is the index of inner HO
 batches) is represented as
 $\tilde{I}^{n+1,(m)}$.    
-The $m$-th residual is defined as $r^{(m)} = q - \B L^k\tilde{I}^{n+1,(m)}.$ 
+The $m$-th residual is defined as $r^{(m)} = q - \B L\tilde{I}^{n+1,(m)}.$ 
 Addition of $\B L I^{n+1} - q=0$ to the residual equation 
 and manipulation of the result yields the error equation
 \begin{equation}
@@ -579,15 +579,14 @@ the Monte Carlo LDFE projection of the error in $\tilde{I}^{n+1,(m)}$, i.e.,
 \end{equation}
 where $\B L^{-1}$ is the inversion of the streaming and removal operator via MC
 simulation.  The fundamental transport of particles is the same
-as standard MC transport codes, but the source will now contain positive and
+as standard MC particle transport codes, but the LDFE source will now contain positive and
 negative weight particles.
- The space-angle moments of the
-error computed in $\tilde{\epsilon}^{(m)}$ can be added to the moments of
-$\tilde{I}^{n+1},(m)$ to produce a more accurate solution.
+ The space-angle moments of the computed error $\tilde{\epsilon}^{(m)}$ can be added to the moments of
+$\tilde{I}^{n+1,(m)}$ to produce a more accurate solution.
 
 Here, we emphasize the solution $\tilde{I}^{n+1,(m)}$ represents the projection of the exact Monte Carlo
 solution onto the LDFE trial space.  This is in general far more accurate than a standard
-finite element solution.  For example, in typical IMC calculations the average energy
+finite element solution, particularly in the angular variable.  For example, in typical IMC calculations the average energy
 deposition within a cell is computed using a standard path-length volumetric flux
 tally; the zeroth moment of the LDFE projection of $\tilde{\epsilon}$ is computed
 using an equivalent tally.  The primary truncation error is in the LD spatial
@@ -596,7 +595,7 @@ each space-angle element are required to represent $\tilde{\epsilon}^{(m)}$.
 
 The ECMC algorithm is
 \begin{enumerate}
-    \item Initialize the guess for $\tilde{I}^{n+1,(0)}$ to $\tilde{I}^{n}$ or the
+    \item Initialize guess for $\tilde{I}^{n+1,(0)}$ to $\tilde{I}^{n}$ or the
         projection of $\tilde{I}^{n+1}$ from the latest HO solve
 \item Compute $r^{(m)}$.
 \item Perform a MC simulation to obtain $\tilde{\epsilon}^{(m)} = \B L^{-1} r^{(m)}$
@@ -624,14 +623,8 @@ implemented that can be used to allow the system to continue converging towards 
 exact solution~\cite{jake,ans_2014}. In general, for TRT problems, optically thick and slowly varying
 regions of the problem do not require as refined of a mesh as neutronics calculation to accurately capture the
 solution because there is less variation in the angular dependence of the solution.
-Once error stagnation has occurred (and mesh refinement has reached a maximum level),
-additional histories can be performed with a
-fixed residual source to reduce the statistical variances in of the estimate of the
-remaining error in the current solution.  Although the remaining error will
-converge statistically at a standard $1/\sqrt{N}$ convergence rate, the remaining
-error will be much smaller than for a standard MC simulation, producing a much more
-efficient solution method overall.
-
+It is noted the adaptive refinement is only applied to the HO mesh; the LO spatial
+mesh is fixed.
 
 We can apply some simple and common variance reduction techniques.
  Because we are solving a pure absorber problem with Monte Carlo, we will allow
@@ -639,82 +632,171 @@ particles to stream without absorption to reduce statistical
 variance in the tallies.  The weight of particles is reduced deterministically along
 the path as they stream, with no need to sample a path length.  Another aspect of
 variance reduction is biased source sampling locations.  The goal is to effectively distribute particle
-histories to regions of importance, but to sample a sufficient number of histories in
+histories to regions of importance, but to sample a minimum number of histories in
 less probable regions to prevent large statistical noise.  However, there is no need
-to sample histories in regions in equilibrium.
-The residual gives a good indication of where
-histories are most likely to contribute to the error, particularly in optically thick
-cells where particles do not transport long distances. This is perofrmed using a modified
-systematic sampling
-method~\cite{shultis_mc}   For cells that are significant, but have a predetermined number of histories below some preset
-minimum histories to be sampled.  Particle weights are adjusted to prevent biasing.
+to sample histories where the solution is in equilibrium.
+%The residual gives a good indication of where
+%histories are most likely to contribute to the error, particularly in optically thick
+%cells where particles do not transport long distances.
+The importance sampling is
+performed using a modified
+systematic sampling method~\cite{shultis_mc}. 
 
-\section{Issues in Optically THick Cellsm}
-
+\subsection{Resolving Issues in Optically Thick Cells}
 
 The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
-optically thick cells with a steep intensity gradient, the solution becomes negative.
-These negativities can propagate to adjacent cells. In thick regions of
+optically thick cells with a steep intensity gradient, the intensity becomes negative.
+These negativities are not physical and can propagate to adjacent cells. In thick regions of
 TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
 free paths; negativities with an LD representation are unavoidable in practice for
-such cells and mesh refinement is of minimal use.  Typically, for a standard LDFE method,
+such cells, and mesh refinement is of minimal use.  Several methods will be explored
+for resolving negativities.  
+
+Typically, for a standard LDFE method,
 the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
-HO solution.  Thus, an alternative spatial closure is used that is equivalent to the
-standard FE lumping procedure.  The $L$ and $R$ moments are defined the same as before,
-preserving the same average within a cell, but the relation between the moments and
-the outflow is modified.   For example, for positive $\mu$,
-the outflow is now defined as $\phi^+_{i+1/2} = \mom{\phi}_R^+.$  Because the basis function $b_{R,i}(x)$ is strictly
-positive, the outflow is positive.  This closure is only used
-in cells where negativities occur.
+HO solution.  Also, lumping does not guarantee positivity for the space-angle LDFE
+representation for the HO intensity.  For the LO equations, a modified spatial closure can be used that is equivalent to the
+standard FE lumping procedure by modifying the relation between the spatial moments and
+the outflow.  This can be used, in conjunction with S$_2$ equivalent consistency
+terms, as an initial attempt and preserving positivity.  Alternatively, the equations are modified to ensure the outflow is not
+below the floor value (the initial temperature of the problem), and energy balance is
+conserved.  The LD shape is reconstructed by extrapolating from the outflow back
+through the average.  This closure is more promising for extendability into higher
+dimensions and for resolving with the HO solver.
 
-For the HO solver, in cells near the radiation wave front, the LDFE trial space results in negativities in
-$\tilde{I}^{n+1}(x,\mu)$, similar to the LO solver.  Because the residual formulation in ECMC allows for negative weight
-particles to occur, currently we do not treat these cells specially.  We detect if
-the consistency terms lie in the appropriate half space at the end of the HO solve,
-an indication that the intensity was negative within that cell.  If the terms are non-physical, then
-they are replaced with the corresponding S$_2$-equivalent value. In general,
-in such cells where the trial space cannot accurately represent the solution, error stagnation will
-rapidly occur. 
-             In strongly absorbing regions, the linear discontinuous spatial
-                representation can lead to unphysical negative solutions in certain cells
-             In the LO system,  we set a strict floor value and preserve energy
-                conservation to determine the cell average.
-            For the HO system, we rotate $\tilde{I}(x,\mu)$ to be strictly positive after
-                each batch. However, $\tilde{I}_{\text{rotated}}(x,\mu)$ doesn't satisfy
-                the original residual equation, so the ECMC convergence quickly
-                stagnates.  Thus, we add an artifical source
-                $\tilde\delta(x,\mu)$, which is 
-                estimated iteratively as
-                \begin{equation*}
-                    \tilde\delta(x,\mu) = \mathbf{L}(\tilde{I}^{n+1} -
-                    \tilde{I}^{n+1}_{\text{rotated}})
-                \end{equation*}
-                where $\mathbf{L}$ is the continuous streaming plus removal operator. The solution will now converge 
-                towards the strictly positive projection $\tilde{I}_{\text{rotated}}^{n+1}$.
-             We also allow the outflow from the cell to be discontinuous, allowing for greater angular accuracy on faces
+For the HO solver, after an ECMC batch, we detect cells that produced a negative
+intensity. In these cells, we rotated the linear intensity (in $x$ and $\mu$) to be greater than the floor
+value.  This rotation process is underdefined, so there is not a unique way to enforce
+positivity.  The rotation procedure is not an emphasis of the research, so we choose the simple
+approach of scaling the slopes such that the ratio of the slope in $x$ and $\mu$ is unchanged.  The rotated
+intensity will not satisfy the original residual equation accurately because we have
+modified the first moments.   Thus, the ECMC error estimates will rapidly stagnate,
+and produce relatively inaccurate solutions.  This rotation can also lead to
+negativities in unexpected down-stream cells.  To mitigate
+stagnation and improve accuracy, we will add an artifical source $\tilde\delta^{m+1}(x,\mu)$ to the HO equation.
+This source is estimated iteratively as
+\begin{equation*}
+    \tilde\delta(x,\mu)^{(m+1)} = \mathbf{L}(\tilde{I}^{n+1,(m)} -
+    \tilde{I}^{n+1,(m)}_{\text{rot}}),
+\end{equation*}
+where $\tilde{I}_{rot}^{n+1}$ is the modified positive solution.
+Essentially, this source is modifying the first moments of the transport equation (but not the
+zeroth moment) to ensure a positive solution within the negative cells.  Neglecting
+statistical noise, the solution will converge towards the strictly positive projection
+$\tilde{I}_{\text{rotated}}^{n+1}$ in the next batch. We can thus
+estimate the necessary source again in the next batch.  The source
+$\tilde\delta$ lies in the same functional space as the residual, and thus can use
+the existing code for computing the residual and will be straight forward to extend
+to higher dimensions. 
 
+We will also explore the possibility of a doubly discontinuous trial space, allowing
+the outflow from the cell to be discontinuous in space in flagged cells. This should produce greater
+angular accuracy on faces, and prevent issues with the spatial slope being
+artificially high to account for the discrepancy in angular shape between the
+internal and face solution. In application, the outflow would be computed using a
+face-based tally of the MC solution.  However, for simple proof of concept, we know
+that in 1D test problems the true outflow at these locations is isotropic
+at the floor temperature (the dominant source of particles at the outgoing face in
+optically thick, cold cells will be from the floor-temperature emission source at
+that point).  It may become necessary for robustness to include face tallies to
+actually compute the outflow from these cells, although these tallies are expected to
+have very poor statistics.
+It will be necessary to investigate the accuracy and robustness of this
+added source method, and whether it should be applied in later batches or only when cells
+go negative again.  It will also be necessary to ensure consistency with the LO
+solution, particularly in the case of adaptively refined meshes and the
+doubly-discontinuous trial space.  Statistical noise may lead to the
+doubly-discontinuous trial space being inaccurate in cells where the projected
+outflow should not physically be negative.
 
-\section{Alternative time discretization}
+\subsection{Alternative time discretization}
 \label{sec:time}
 
+A final area of research to be investigated is in an alternative time discretization
+of the system.  This is the least developed portion of the research.  The goal of
+an alternative time discretization is to produce a more accurate solution in
+optically thin regions where particles transport a long distance.  This is an area
+where the MC treatment of the time-variable by IMC can produce greater accuracy,
+whereas a BE discretization will result in artificially fast propagation of energy.
+This may be important in applications such as stellar atmosphere calculations.  
 
-Additionally, the SIMC work
-explored alternate time discretizations for the temperature in the residual treatment, including a
-a second-order accurate time treatment.  However, the second-order approximation
+First, the ECMC
+solution is considered. The emission source
+is still treated as fully implicit, however the intensity is allowed to be continuous
+in time.  In inverting the $\B L$ operator, particles are born with some specific
+time, and their time is tracked until they reach the end of the time step.  Tallies are adjusted
+to account for the averaging over the time step.
+in terms of MC, letting . As with the spatial and angular variables, we assume a trial
+space for the time variable as well.  Two different options are considered.
+The first, is a doubly-discontinous treatement, where teh outflow in time is solved
+for with the MC.  Fig.~\ref{fig:dd_time} demonstrates the basic principle of this
+closure in time.  The second options is a linear discontinuous trial space in time.
+The first approach requires typical census type tallies~\cite{fig}, which adds
+significant complexity in terms of tallies.  The second will
+require the first moment in time to be tallied.  
+Again, ECMC will be computing the projection of the exact solution onto the trial
+space, so this will have the accuracy of IMC for the radiation.    Neither of these cases require the
+addition of Adds one extra set of unknowns to be stored. 
+
+Next, consistency with the LO system is
+necessary.  The goal is to not add additional equations to solve for the
+time-dependent unknowns, but to   Previous work has attempted to simply subtract the continuous HO solution
+from a BE discretziation of the discretized time-derivatives to add an artificial
+term, with the addition of extra terms from hydrodynamics~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
+time-averaged unknowns.  As an alternative, we will estimate a parameter based on the
+ratio of the outflow in time to the average over the time step. One possible closure
+is
+\begin{equation}
+    I^{n+1} = 2\gamma_t \overline{I} - I^{n}
+\end{equation}
+where $\gamma_t$ is the closure factor and $\overline{I}$ is the time-averaged
+intensity.  A spatial and angle discretized version of the above equation can be used to
+eliminate the extra unknowns from the LO system.  The value of $\gamma_t$ is
+estimated by solving the above equation based on the latest HO solution for all
+parameters.  The stability and accuracy of these methods will need
+to be investigated. As a first step, a truly BE time discretization in the HO can be
+used in conjunction with the LO solver.
 
 
-\section{COMPUTATIONAL RESULTS}
 
-We will compare results of the HOLO method to IMC with
-a source tilting algorithm for two test problems~\cite{jayenne}.  
-Also, we briefly compare performance in Section~\ref{timing}.
+
+
+FIGURE OF DIFFERENT TIME CLOSURES.
+
+  There
+is some difficulty in making the LO time-averaged quantities match with the HO
+solution, which may require some approximation.  However, this is not that different
+than the discrete case because the representation of $\tilde I^{n}$ is lagged an
+iteration anyways. 
+%It is noted that the SIMC method explored 
+%some similar alternate time discretizations for the temperature in the residual
+%treatment, but second-order accurate time treatment.  However, the second-order approximation
+
+\section{Summary of Research and Code Testing}
+
+We will explore several test problems to demonstrate the utility of the HOLO method.
+There are several factors that are important to discus.
+It will be compared to IMC with a source tilting algorithm for two test problems~\cite{jayenne}.  
+Also, we will briefly compare computational efficiency of a production IMC code.
+Optimization is not an important issue in our research code, so the goal is only to
+demonstrate relative scaling between the methods; how the two methods scale with
+sizes of 
+HOLO method to demonstrate how the cost of histories and the LO solves varies with
+different 
 Finally,  we will demonstrate the efficiency advantage of ECMC in our HOLO
 algorithm by comparing the results to the same HOLO algorithm if the ECMC algorithm
-is replaced with a standard Monte Carlo (SMC) simulation.  Results are also given for
-the case of a single ECMC batch, which is similar to a RMC method.
+is replaced with a standard Monte Carlo (SMC) simulation.  It is important to test
+problems based on the accuracy, as well as the .  The DSA will be investigated for
+the ability to accelerate source convergence robustly, in a mix of optically thick
+and thin regions.   
 
-\section{CONCLUSIONS}
+One difficult aspect of testing 
+
+Although not discussed, this code is also implemented for neutronics
+codes~\cite{ans_2014}For some cases, a simple neutronics problem where an analytic
+solution is known may provide the best approach to determining the efficacy of the
+negativity fixups discussed.
 
 Unlike IMC, our method requires no effective scattering
 events to be included in the MC simulation, which limits the run time of particle
@@ -726,7 +808,7 @@ previous radiation intensity, results in efficient reduction of statistical erro
 allows for particles to be distributed to largely varying regions of the problem.
 The LO solver resolves the non-linearities in the equations resulting in a fully
 implicit time discretization
-The LO solver
+The LO solver 
 can accurately and efficiently resolve the solution in diffusive regions, while the HO
 transport solver provides the accuracy of a full transport treatment where necessary. 
 
