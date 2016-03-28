@@ -471,27 +471,52 @@ moments, e.g., $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ - \mom{\phi}_L^+$.
 A lagged estimate of $I^{n+1}$ from the latest HO solve is
 used to estimate the angular consistency parameters. 
 
-\subsection{Solution of the LO equations and Diffusion Synthetic Accleration}
+\subsection{Solution of the LO equations and Diffusion Synthetic Acceleration}
 
 Newton's method is used to solve the global system of coupled LO
 equations, based on a typical linearization of the Planckian source with cross
 sections evaluated at lagged temperatures.  This procedure is described
 in~\cite{morel_newton}. 
-Once the system is linearized, a discrete matrix equation is formed.  Scattering can
+Once the system is linearized, a discrete matrix equation is formed.  Scattering
+(including the effective scattering resulting from the linearization of the
+Planckian source) can
 be included in the system matrix, producing a banded-matrix which can be efficiently
 inverted directly.  However, an S$_2$ like system cannot be efficiently inverted
-directly in higher spatial dimensions.  Thus, we will also investigate the use of a standard
-source iteration scheme with a nearly-consistent DSA method to accelerate source
-iterations~\cite{wla}.
+directly in higher spatial dimensions.  To demonstrate a possible path forward in
+higher dimensions, we will also investigate the use of a standard
+source iteration scheme accelerated with a nearly-consistent diffusion synthetic acceleration
+(DSA) method~\cite{wla,wla_thesis}.
 
-It is improtance for the effectiveness of acceleration methods to 
-A true LDFE discretization for DSA results in equations that cannot be efficiently
-solved.  T
-The diffusion synthetic accleration method solves for the error in a current sourc
-eiteration (in this case the residual is from the scattering source,w here the
-scattering source includes an effective scattering source resulting from the
-lineraization of the planckian emission osurce~\cite{morel_newton}.  This effective
-scattering source becomes dominant in .  In such problems, 
+We perform a standard source iteration by lagging the scattering source in the LO
+equations, which
+uncouples unknowns between the two half-ranges.  This produces a lower-triangular
+system where the spatial unknowns can be determined sequentially along the two directions of flow via a
+standard sweeping procedure~\cite{lewis,morel_newton}.  The newly computed half-range
+intensities can be used to compute the scattering source for the next iteration.  This
+process is repeated until convergence.  However, as
+material properties become more diffusive (e.g., $c_v$ is small and $\sigma_a$ is
+large), the effective scattering source becomes large.  This results in a spectral radius of the source iterations that approaches
+unity~\cite{morel_newton}.  
+
+A form of DSA referred to as the WLA method is used to accelerate the source iterations~\cite{wla}. 
+Between each source iteration, a residual equation is formed that provides 
+the error in the current scattering iteration. The DSA method uses an approximate,
+lower-order operator to estimate the error in the zeroth angular moment of the
+intensity.  The DSA equations can be more efficiently
+solved than the S$_2$-like sweeps that are being accelerated, but will accurately resolve the
+slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
+equations to be closely related to the discretization of the LO equations for the
+acceleration to be effective.  The WLA method first solves a spatially-continuous
+discretization of the diffusion equation
+for the iterative error on faces.  The error on the faces is then mapped onto the
+volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
+The LD mapping resolves issues that would occur in optically-thick cells, while the
+continuous diffusion equation is accurate in the EDL where acceleration is important.
+It is noted that in higher dimensions, it would likely be necessary to recast the DSA as a
+preconditioner to a Krylov method for the acceleration to be effective~\cite{morel}.
+%because DSA
+%becomes less effective in mixed optical thicknesses and high spatial cell aspect
+%ratios~\cite{morel_newton}.
 
 
 
@@ -513,27 +538,24 @@ scattering source becomes dominant in .  In such problems,
 %conserve the total energy.  This estimate of $T^{n+1}$ can now be used as $T^*$ to form a more
 %accurate linearization of the emission source. 
 
-\section{The ECMC High Order Solver}
+\subsection{The ECMC High Order Solver}
 
 The transport equation to be solved by the HO solver is
 \begin{equation}\label{eq:ho_base}
-\mu \pderiv{I^{n+1,k+1/2}}{x} + \left(\sigma_t^k + \frac{1}{c \Delta t }\right)
-I^{n+1,k+1/2}
-= \frac{\sigma_s}{2} \phi^{n+1,k} +\frac{1}{2} \left(\sigma_a^k a c T^4
-\right)^{n+1,k} + \frac{\tilde I^n}{c\Delta t} 
+\mu \pderiv{I^{n+1}}{x} + \left(\sigma_t + \frac{1}{c \Delta t }\right)
+I^{n+1}
+= \frac{\sigma_s}{2} \phi_{LO}^{n+1} +\frac{1}{2} \left(\sigma_a a c T_{LO}^4
+\right)^{n+1} + \frac{\tilde I^n}{c\Delta t},
 \end{equation}
-where the superscript $k$ represents the outer HOLO iteration index.  Material property indices will be
-suppressed from now on.  Here, $k+1/2$ denotes the
-ECMC solution within outer HOLO iteration $k$, whereas $k$ and $k+1$ represent successive LO
-solves. The sources at $k$ in Eq.~\eqref{eq:ho_base} are estimated by the previous LO solution. The LDFE representation of the emission source mitigates teleportation error and
-preserves the EDL. As all sources on the right side of the equation are known,
-this defines a fixed-source, pure absorber transport problem. 
-
- In operator notation, the previous equation can be written as
+where the emission and scattering source are known from the previous LO solution and
+$\tilde{I}^n$ is the LDFE projection of $I(x,\mu)$ from the previous time step.
+ This defines a 
+fixed-source, pure absorber transport problem. 
+In operator notation, EQ.~\eqref{eq:ho_base} can be written as
 \begin{equation}\label{te_oper}
-\B L^k I^{n+1,k+1/2}  = q^{k}
+    \B L I^{n+1} = q
 \end{equation}
-where $I^{n+1,k+1/2}$ is the transport solution of the angular intensity based on the
+where $I^{n+1}$ is the transport solution of the end-of-time-step intensity.
 $k$-th LO estimate of $q^k$.
 The linear operator $\B L^k$ is the streaming plus
 removal operator defined by the left hand
