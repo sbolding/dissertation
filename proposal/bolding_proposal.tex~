@@ -313,8 +313,7 @@ manner.
 %for TRT equations.
 
 
-\section{Proposed Research}
-
+\section{Description of Research}
 
 
 \subsection{Overview of the HOLO Algorithm}
@@ -710,70 +709,69 @@ doubly-discontinuous trial space.  Statistical noise may lead to the
 doubly-discontinuous trial space being inaccurate in cells where the projected
 outflow should not physically be negative.
 
-\subsection{Alternative time discretization}
-\label{sec:time}
-
-A final area of research to be investigated is in an alternative time discretization
-of the system.  This is the least developed portion of the research.  The goal of
-an alternative time discretization is to produce a more accurate solution in
-optically thin regions where particles transport a long distance.  This is an area
-where the MC treatment of the time-variable by IMC can produce greater accuracy,
-whereas a BE discretization will result in artificially fast propagation of energy.
-This may be important in applications such as stellar atmosphere calculations.  
-
-First, the ECMC
-solution is considered. The emission source
-is still treated as fully implicit, however the intensity is allowed to be continuous
-in time.  In inverting the $\B L$ operator, particles are born with some specific
-time, and their time is tracked until they reach the end of the time step.  Tallies are adjusted
-to account for the averaging over the time step.
-in terms of MC, letting . As with the spatial and angular variables, we assume a trial
-space for the time variable as well.  Two different options are considered.
-The first, is a doubly-discontinous treatement, where teh outflow in time is solved
-for with the MC.  Fig.~\ref{fig:dd_time} demonstrates the basic principle of this
-closure in time.  The second options is a linear discontinuous trial space in time.
-The first approach requires typical census type tallies~\cite{fig}, which adds
-significant complexity in terms of tallies.  The second will
-require the first moment in time to be tallied.  
-Again, ECMC will be computing the projection of the exact solution onto the trial
-space, so this will have the accuracy of IMC for the radiation.    Neither of these cases require the
-addition of Adds one extra set of unknowns to be stored. 
-
-Next, consistency with the LO system is
-necessary.  The goal is to not add additional equations to solve for the
-time-dependent unknowns, but to   Previous work has attempted to simply subtract the continuous HO solution
-from a BE discretziation of the discretized time-derivatives to add an artificial
-term, with the addition of extra terms from hydrodynamics~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
-time-averaged unknowns.  As an alternative, we will estimate a parameter based on the
-ratio of the outflow in time to the average over the time step. One possible closure
-is
-\begin{equation}
-    I^{n+1} = 2\gamma_t \overline{I} - I^{n}
-\end{equation}
-where $\gamma_t$ is the closure factor and $\overline{I}$ is the time-averaged
-intensity.  A spatial and angle discretized version of the above equation can be used to
-eliminate the extra unknowns from the LO system.  The value of $\gamma_t$ is
-estimated by solving the above equation based on the latest HO solution for all
-parameters.  The stability and accuracy of these methods will need
-to be investigated. As a first step, a truly BE time discretization in the HO can be
-used in conjunction with the LO solver.
-
-
+%\subsection{Alternative time discretization}
+%\label{sec:time}
+%
+%A final area of research to be investigated is in an alternative time discretization
+%of the system.  This is the least developed portion of the research.  The goal of
+%an alternative time discretization is to produce a more accurate solution in
+%optically thin regions where particles transport a long distance.  This is an area
+%where the MC treatment of the time-variable by IMC can produce greater accuracy,
+%whereas a BE discretization will result in artificially fast propagation of energy.
+%This may be important in applications such as stellar atmosphere calculations.  
+%
+%First, the ECMC
+%solution is considered. The emission source
+%is still treated as fully implicit, however the intensity is allowed to be continuous
+%in time.  In inverting the $\B L$ operator, particles are born with some specific
+%time, and their time is tracked until they reach the end of the time step.  Tallies are adjusted
+%to account for the averaging over the time step.
+%in terms of MC, letting . As with the spatial and angular variables, we assume a trial
+%space for the time variable as well.  Two different options are considered.
+%The first, is a doubly-discontinous treatement, where teh outflow in time is solved
+%for with the MC.  Fig.~\ref{fig:dd_time} demonstrates the basic principle of this
+%closure in time.  The second options is a linear discontinuous trial space in time.
+%The first approach requires typical census type tallies~\cite{fig}, which adds
+%significant complexity in terms of tallies.  The second will
+%require the first moment in time to be tallied.  
+%Again, ECMC will be computing the projection of the exact solution onto the trial
+%space, so this will have the accuracy of IMC for the radiation.    Neither of these cases require the
+%addition of Adds one extra set of unknowns to be stored. 
+%
+%Next, consistency with the LO system is
+%necessary.  The goal is to not add additional equations to solve for the
+%time-dependent unknowns, but to   Previous work has attempted to simply subtract the continuous HO solution
+%from a BE discretziation of the discretized time-derivatives to add an artificial
+%term, with the addition of extra terms from hydrodynamics~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
+%time-averaged unknowns.  As an alternative, we will estimate a parameter based on the
+%ratio of the outflow in time to the average over the time step. One possible closure
+%is
+%\begin{equation}
+%    I^{n+1} = 2\gamma_t \overline{I} - I^{n}
+%\end{equation}
+%where $\gamma_t$ is the closure factor and $\overline{I}$ is the time-averaged
+%intensity.  A spatial and angle discretized version of the above equation can be used to
+%eliminate the extra unknowns from the LO system.  The value of $\gamma_t$ is
+%estimated by solving the above equation based on the latest HO solution for all
+%parameters.  The stability and accuracy of these methods will need
+%to be investigated. As a first step, a truly BE time discretization in the HO can be
+%used in conjunction with the LO solver.
 
 
 
-FIGURE OF DIFFERENT TIME CLOSURES.
 
-  There
-is some difficulty in making the LO time-averaged quantities match with the HO
-solution, which may require some approximation.  However, this is not that different
-than the discrete case because the representation of $\tilde I^{n}$ is lagged an
-iteration anyways. 
+
+%
+%  There
+%is some difficulty in making the LO time-averaged quantities match with the HO
+%solution, which may require some approximation.  However, this is not that different
+%than the discrete case because the representation of $\tilde I^{n}$ is lagged an
+%iteration anyways. 
 %It is noted that the SIMC method explored 
 %some similar alternate time discretizations for the temperature in the residual
 %treatment, but second-order accurate time treatment.  However, the second-order approximation
 
-\section{Summary of Research and Code Testing}
+\section{Computational Testing}
 
 We will explore several test problems to demonstrate the utility of the HOLO method.
 There are several factors that are important to discus.
@@ -845,7 +843,7 @@ regions of the problem while still allowing for a consistent, LDFE solution that
 
 The remaining research to be performed is summarized below:
 \begin{enumerate}
-    \item To finish implementation of the time-continuous treatment for the ECMC
+    \item Implement the time-continuous treatment for the ECMC
         algorithm, and a consistent LO algorithm.  Once implemented, this will be
         investigated on optically thin problem and compared to IMC for accuracy in 
         wave-fronts.
