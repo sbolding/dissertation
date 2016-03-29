@@ -147,7 +147,7 @@ high-dimensional space results in a difficult, nonlinear transport problem.
 
  This research will focus on a simplified one spatial dimension and
  frequency-integrated (grey) TRT model.  The governing equations for this simplified model are the radiation and material
- energy balance equations~\cite{something}
+ energy balance equations
 \begin{align}\label{ho_cont}
     \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
     I(x,\mu,t)
@@ -306,8 +306,10 @@ preserving the equilibrium diffusion limit, preserving the maximum principle, an
 particular, providing high-fidelity MC solution to the TRT equations in an efficient
 manner.
 
+Herein an overview of our algorithm and the research performed thus far is
+detailed.  Then, the remaining areas to be investigated are proposed.  Finally, a
+summary of the research and outline of research to be performed are given.
 
-%The LDFE
 %representation in the HO and LO systems enforces spatial consistency and ensures the
 %solution correctly produce the equilibrium diffusion limit, a critical aspect
 %for TRT equations.
@@ -315,12 +317,10 @@ manner.
 
 \section{Description of Research}
 
-
 \subsection{Overview of the HOLO Algorithm}
 
-For simplicity, the HOLO method is described with a backwards Euler discretization in time, as
-well as constant specific heats and cell-wise constant cross sections. An alternative
-time discretization is discussed in Sec.~\ref{sec:time}. The time-discretized
+For simplicity, our HOLO method uses a backwards Euler discretization in time, as
+well as constant specific heats and cell-wise constant cross sections. The time-discretized
 equations are
 \begin{align}
     \mu \pderiv{I^{n+1}}{x} + \left(\sigma_t^{n+1} + \frac{1}{c \Delta t }\right) I^{n+1}
@@ -471,6 +471,7 @@ A lagged estimate of $I^{n+1}$ from the latest HO solve is
 used to estimate the angular consistency parameters. 
 
 \subsection{Solution of the LO equations and Diffusion Synthetic Acceleration}
+\label{sec:lo_sol}
 
 Newton's method is used to solve the global system of coupled LO
 equations, based on a typical linearization of the Planckian source with cross
@@ -479,46 +480,10 @@ in~\cite{morel_newton}.
 Once the system is linearized, a discrete matrix equation is formed.  Scattering
 (including the effective scattering resulting from the linearization of the
 Planckian source) can
-be included in the system matrix, producing a banded-matrix which can be efficiently
-inverted directly.  However, an S$_2$ like system cannot be efficiently inverted
-directly in higher spatial dimensions.  To demonstrate a possible path forward in
-higher dimensions, we will also investigate the use of a standard
-source iteration scheme accelerated with a nearly-consistent diffusion synthetic acceleration
-(DSA) method~\cite{wla,wla_thesis}.
-
-We perform standard source iterations by lagging the scattering source in the LO
-equations, which
-uncouples unknowns between the two half-ranges.  This produces a lower-triangular
-system where the spatial unknowns can be determined sequentially along the two directions of flow via a
-standard sweeping procedure~\cite{lewis,morel_newton}.  The newly computed half-range
-intensities can be used to compute the scattering source for the next iteration.  This
-process is repeated until convergence.  However, as
-material properties become more diffusive (e.g., $c_v$ is small and $\sigma_a$ is
-large), the effective scattering source becomes large.  This results in a spectral radius of the source iterations that approaches
-unity~\cite{morel_newton}.  
-
-A form of DSA referred to as the WLA method is used to accelerate the source iterations~\cite{wla}. 
-Between each source iteration, a residual equation is formed that provides 
-the error in the current scattering iteration. The DSA method uses an approximate,
-lower-order operator to estimate the error in the zeroth angular moment of the
-intensity.  The DSA equations can be more efficiently
-solved than the S$_2$-like sweeps that are being accelerated, but will accurately resolve the
-slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
-equations to be closely related to the discretization of the LO equations for the
-acceleration to be effective.  The WLA method first solves a spatially-continuous
-discretization of the diffusion equation
-for the iterative error on faces.  The error on the faces is then mapped onto the
-volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
-The LD mapping resolves issues that would occur in optically-thick cells, while the
-continuous diffusion equation is accurate in the EDL where acceleration is important.
-It is noted that in higher dimensions, it would likely be necessary to recast the DSA as a
-preconditioner to a Krylov method for the acceleration to be
-effective~\cite{morel_newton}.
-%because DSA
-%becomes less effective in mixed optical thicknesses and high spatial cell aspect
-%ratios~\cite{morel_newton}.
-
-
+be included in the system matrix, producing an asymmetric, banded-matrix.  The matrix
+has a band width of seven and is inverted directly.
+Newton iterations are repeated until $\phi^{n+1}(x)$ and $T^{n+1}(x)$ are converged
+to a desired relative tolerance. 
 
 %Application of the first order Taylor expansion in time of the
 %gray emission source, about some temperature $T^*$ at some
@@ -625,7 +590,7 @@ solution because there is less variation in the angular dependence of the soluti
 It is noted the adaptive refinement is only applied to the HO mesh; the LO spatial
 mesh is fixed.
 
-We can apply some simple and common variance reduction techniques.
+We apply some simple and common variance reduction techniques.
  Because we are solving a pure absorber problem with Monte Carlo, we will allow
 particles to stream without absorption to reduce statistical 
 variance in the tallies.  The weight of particles is reduced deterministically along
@@ -641,14 +606,135 @@ The importance sampling is
 performed using a modified
 systematic sampling method~\cite{shultis_mc}. 
 
+\subsection{Computational Results}
+
+To demonstrate the efficacy of our algorithm, we provide results of our HOLO
+algorithm for two Marshak wave test problems.  Marshak wave problems provide a standard test
+for computational methods in radiative transfer.  
+For the first problem, the radiation and material energies are initially in
+equilibrium at a cold temperature.   A large, isotropic incident intensity is applied
+at $x=0$.  The absorption cross section varies as $\sigma(T) = 0.001\;\rho\; T^{-3}$ (cm$^{-1}$).
+The simulation is advanced until $t=5$~sh~(1~sh~$\equiv$~10$^{-8}$~s) with a fixed time step size of 0.001 sh. 
+We have performed no mesh refinement, only performed one HOLO iteration per time
+step, and used a fixed 3 HO batches with equal number of histories per batch. 
+Radiation energy distributions are plotted as an equivalent temperature given by
+$T_r=(\phi/(ac))^{0.25}$.  Cell-averaged quantities are plotted.
+
+
+Fig.~\ref{marshak_mesh_conv} compares the cell-averaged radiation temperatures  for
+IMC with source tilting and the HOLO method with ECMC, for various number of spatial mesh cells $N_c$; we
+have used HOLO-ECMC to denote our algorithm because later results will use different
+HO solvers.  The IMC and HOLO solutions agree as the mesh is converged.  
+Fig.~\ref{marshak_200_compare} compares solutions
+for the case of 200 cells.  The HOLO method demonstrates significantly less
+statistical noise, even though it used fewer histories per time step.
+\begin{figure}[H]
+    \centering
+\begin{subfigure}{0.49\textwidth}
+  \centering
+    \includegraphics[width=0.99\linewidth]{marshak_mesh_conv.pdf}
+    \caption{\label{marshak_mesh_conv} Spatial convergence of IMC and HOLO.}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+    \vspace{0.021in}
+  \centering
+  \includegraphics[width=0.99\linewidth]{marshak_200_compare.pdf}
+  \caption{\label{marshak_200_compare}  Comparison of solutions for 200 spatial cells. }
+\end{subfigure}
+\caption{\bf Comparison of radiation temperatures for Marshak wave problem at $\mathbf{t=5}$ sh.}
+\end{figure}
+
+The second problem has similar behavior to the first problem, however the geometry consists of an optically thin (left) and an optically thick (right) material region,
+with temperature-independent cross sections.  Fig.~\ref{twomat_full} compares the HOLO and IMC radiation 
+temperatures at the end of the simulation. The
+IMC and HOLO results show good agreement
+over the finer mesh.
+On the coarse mesh ($N_c=20$), the LDFE representation of $T^4$ in the HOLO method predicts the location of the
+wave front more accurately than the source tilting of the IMC method.
+Fig.~\ref{compare_ho} demonstrates the benefit of ECMC as a HO solver compared to
+standard MC.  The HOLO algorithm
+with the ECMC HO solver (HOLO-ECMC) results
+are for running 3 batches of 10,000 histories, per time step. The solution for the HOLO method with a standard MC solver as the HO solver
+(HOLO-SMC) with standard source sampling uses 10$^5$ histories per time step. The HOLO-SMC solution demonstrates significant
+statistical noise.  This noise is introduced into the LO solver by poor statistics in
+the MC computed consistency terms. Also
+plotted is an S$_2$ solution obtained with consistency terms that are equivalent
+to S$_2$ and no HO correction.  The S$_2$ solution results in an artificially fast
+wave front, as expected, demonstrating the necessity of HO correction in this problem.
+\begin{figure}[H]
+    \centering
+\begin{subfigure}{0.49\textwidth}
+    \centering
+    \includegraphics[width=0.99\textwidth]{two_mat_conv.pdf}
+    \caption{Comparison of IMC and HOLO-ECMC.\label{twomat_full}}
+\end{subfigure}    
+\begin{subfigure}{0.49\textwidth}
+    \vspace{0.16792in}
+\centering
+    \includegraphics[width=0.99\textwidth]{two_mat_ho_compare.pdf}
+    \caption{Comparison of SMC and ECMC HO solvers. \label{compare_ho}}
+\end{subfigure}
+    \caption{\bf Comparison of radiation temperatures for two material problem. \label{twomat}}
+\end{figure}
+
+\section{Proposed Research}
+
+\subsection{Diffusion Synthetic Acceleration of the LO Equations}
+
+As described in Sec.~\ref{sec:lo_sol}, the fully-discretized LO equations can include
+the scattering term in the system matrix.  This allows for the system to be directly
+inverted.
+However, an S$_2$ like system cannot be efficiently inverted
+directly in higher spatial dimensions.  To demonstrate a possible path forward in
+higher dimensions, we will investigate the use of a standard
+source iteration scheme to solve the LO equations.  As
+material properties become more diffusive (e.g., $c_v$ is small and $\sigma_a$ is
+large), the effective scattering source becomes large.  This results in a spectral radius of the source iterations that approaches
+unity~\cite{morel_newton}.  These regimes are typical in TRT simulations, so an
+acceleration method is necessary.  We will accelerate the source iterations with a nearly-consistent diffusion synthetic acceleration
+(DSA) method~\cite{wla,wla_thesis}.
+
+We can perform standard source iterations by lagging the scattering source in the LO
+equations, which
+uncouples unknowns between the two half-ranges.  This produces a lower-triangular
+system where the spatial unknowns can be determined sequentially along the two directions of flow via a
+standard sweeping procedure~\cite{lewis,morel_newton}.  The newly computed half-range
+intensities can be used to compute the scattering source for the next iteration.  This
+process is repeated until convergence.  
+A form of DSA referred to as the WLA method is used to accelerate the source iterations~\cite{wla}. 
+Between each source iteration, a residual equation is formed that provides 
+the error in the current scattering iteration. The DSA method uses an approximate,
+lower-order operator to estimate the error in the zeroth angular moment of the
+intensity.  The DSA equations can be more efficiently
+solved than the S$_2$-like sweeps that are being accelerated, but will accurately resolve the
+slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
+equations to be closely related to the discretization of the LO equations for the
+acceleration to be effective.  The WLA method first solves a spatially-continuous
+discretization of the diffusion equation
+for the iterative error on faces.  The error on the faces is then mapped onto the
+volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
+The LD mapping resolves issues that would occur in optically-thick cells, while the
+continuous diffusion equation is accurate in the EDL where acceleration is important.
+It is noted that in higher dimensions, it would likely be necessary to recast the DSA as a
+preconditioner to a Krylov method for the acceleration to be
+effective~\cite{morel_newton}.
+%because DSA
+%becomes less effective in mixed optical thicknesses and high spatial cell aspect
+%ratios~\cite{morel_newton}.
+
+
+
 \subsection{Resolving Issues in Optically Thick Cells}
+\label{sec:negs}
 
 The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
-optically thick cells with a steep intensity gradient, the intensity becomes negative.
+optically thick cells with a steep intensity gradient, the intensity becomes
+negative. In typical TRT problems (e.g., the Marshak wave problems above), this negativity occurs at the wave-front of the
+radiation intensity in thick materials.
 These negativities are not physical and can propagate to adjacent cells. In thick regions of
 TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
 free paths; negativities with an LD representation are unavoidable in practice for
-such cells, and mesh refinement is of minimal use.  Several methods will be explored
+such cells, and mesh refinement is of minimal use.  We will explore several methods
 for resolving negativities.  
 
 Typically, for a standard LDFE method,
@@ -657,12 +743,14 @@ procedures would introduce difficulties in computing the consistency terms from 
 HO solution.  Also, lumping does not guarantee positivity for the space-angle LDFE
 representation for the HO intensity.  For the LO equations, a modified spatial closure can be used that is equivalent to the
 standard FE lumping procedure by modifying the relation between the spatial moments and
-the outflow.  This can be used, in conjunction with S$_2$ equivalent consistency
-terms, as an initial attempt and preserving positivity.  Alternatively, the equations are modified to ensure the outflow is not
+the outflow.  This lumping-equivalent closure, in conjunction with S$_2$ equivalent consistency
+terms, has been used to preserve positivity.  However, this approach is not
+extendable to higher-dimensions and will not work in general problems.
+Alternatively, the equations within a cell can be modified to ensure the outflow is not
 below the floor value (the initial temperature of the problem), and energy balance is
 conserved.  The LD shape is reconstructed by extrapolating from the outflow back
 through the average.  This closure is more promising for extendability into higher
-dimensions and for resolving with the HO solver.
+dimensions and being consistent with the HO solver.
 
 For the HO solver, after an ECMC batch, we detect cells that produced a negative
 intensity. In these cells, we rotated the linear intensity (in $x$ and $\mu$) to be greater than the floor
@@ -683,27 +771,29 @@ where $\tilde{I}_{rot}^{n+1}$ is the modified positive solution.
 Essentially, this source is modifying the first moments of the transport equation (but not the
 zeroth moment) to ensure a positive solution within the negative cells.  Neglecting
 statistical noise, the solution will converge towards the strictly positive projection
-$\tilde{I}_{\text{rotated}}^{n+1}$ in the next batch. We can thus
-estimate the necessary source again in the next batch.  The source
+$\tilde{I}_{\text{rotated}}^{n+1}$ in the next batch. We can estimate the necessary source again in the next batch.  The source
 $\tilde\delta$ lies in the same functional space as the residual, and thus can use
 the existing code for computing the residual and will be straight forward to extend
-to higher dimensions. 
+to higher dimensions.  
 
 We will also explore the possibility of a doubly discontinuous trial space, allowing
-the outflow from the cell to be discontinuous in space in flagged cells. This should produce greater
-angular accuracy on faces, and prevent issues with the spatial slope being
+the outflow from the cell to be discontinuous in space for difficult cells. This should produce greater
+angular accuracy on faces, and limit observed issues with the spatial slope being
 artificially high to account for the discrepancy in angular shape between the
 internal and face solution. In application, the outflow would be computed using a
-face-based tally of the MC solution.  However, for simple proof of concept, we know
+face-based tally of the MC solution.  However, for simple proof of concept, we choose
+the outflow to be isotropic at the floor temperature in fixed-up cells.  We know
 that in 1D test problems the true outflow at these locations is isotropic
 at the floor temperature (the dominant source of particles at the outgoing face in
 optically thick, cold cells will be from the floor-temperature emission source at
-that point).  It may become necessary for robustness to include face tallies to
-actually compute the outflow from these cells, although these tallies are expected to
-have very poor statistics.
-It will be necessary to investigate the accuracy and robustness of this
-added source method, and whether it should be applied in later batches or only when cells
-go negative again.  It will also be necessary to ensure consistency with the LO
+that point).  It may become necessary to include face tallies to
+compute the outflow from these cells, particularly if statistics results in
+activation of the fixup in cells that are not near the wave-front.  However, it is
+expected these face tallies will have very poor statistics due to undersampling.
+
+It will be necessary to investigate the accuracy and robustness of the
+added source method, and whether it should be applied in every batch or only when cells
+go negative again. It will also be necessary to ensure consistency with the LO
 solution, particularly in the case of adaptively refined meshes and the
 doubly-discontinuous trial space.  Statistical noise may lead to the
 doubly-discontinuous trial space being inaccurate in cells where the projected
@@ -771,93 +861,64 @@ outflow should not physically be negative.
 %some similar alternate time discretizations for the temperature in the residual
 %treatment, but second-order accurate time treatment.  However, the second-order approximation
 
-\section{Computational Testing}
+\section{Summary}
 
-We will explore several test problems to demonstrate the utility of the HOLO method.
-There are several factors that are important to discus.
-It will be compared to IMC with a source tilting algorithm for two test problems~\cite{jayenne}.  
-Also, we will briefly compare computational efficiency of a production IMC code.
-Optimization is not an important issue in our research code, so the goal is only to
-demonstrate relative scaling between the methods; how the two methods scale with
-sizes of 
-HOLO method to demonstrate how the cost of histories and the LO solves varies with
-different 
-Finally,  we will demonstrate the efficiency advantage of ECMC in our HOLO
-algorithm by comparing the results to the same HOLO algorithm if the ECMC algorithm
-is replaced with a standard Monte Carlo (SMC) simulation.  It is important to test
-problems based on the accuracy, as well as the .  The DSA will be investigated for
-the ability to accelerate source convergence robustly, in a mix of optically thick
-and thin regions.   
-
-One difficult aspect of testing 
-
-Although not discussed, this code is also implemented for neutronics
-codes~\cite{ans_2014}For some cases, a simple neutronics problem where an analytic
-solution is known may provide the best approach to determining the efficacy of the
-negativity fixups discussed.
-
-Unlike IMC, our method requires no effective scattering
-events to be included in the MC simulation, which limits the run time of particle
-tracking, while adding the cost of a LO newton solver. Average LO iteration counts
-did not significantly increase as the time step size was increased. The LDFE spatial representation
-mitigates issues with teleportation error, producing results with spatial accuracy
-comparable to IMC with source tilting.  The ECMC approach, with initial guesses based on the
+A new HOLO algorithm has been implemented, and results have demonstrated the ability
+to reproduce IMC solutions accurately for two difficult Marshak
+wave test problems.  The ECMC approach, with initial guesses based on the
 previous radiation intensity, results in efficient reduction of statistical error and
 allows for particles to be distributed to largely varying regions of the problem.
 The LO solver resolves the non-linearities in the equations resulting in a fully
-implicit time discretization
-The LO solver 
+implicit time discretization. Overall, the LO solver 
 can accurately and efficiently resolve the solution in diffusive regions, while the HO
 transport solver provides the accuracy of a full transport treatment where necessary. 
 
-The primary difficulty to overcome in the ECMC algorithm is when the solution cannot
-be accurately represented by the trial space, e.g., in optically thick cells where
-the solution is driven negative.   We are currently developing an approach to allow
+We have proposed extensions of our method in 1D to demonstrate the efficacy of our method.  
+The ability to overcome rapid stagnation in the ECMC algorithm when the solution cannot
+be accurately represented by the trial space, e.g., negativities in optically thick
+cells,  will be key for generalization of this
+method to higher dimensions.  The goal of our proposed fixup is to allow the
 the ECMC iterations to continue converging globally when there are such regions
-present.  It is necessary to ensure the
- closure in the LO system is consistent with the HO
-representation for the solution in such regions.  The ability to represent the solution accurately in
-rapidly varying regions of the problem will be key for generalization of this method
-to higher dimensions.  A formulization of the ECMC method
-that allows for time-continuous MC transport (similar to IMC) is also currently being
-investigated.  This may reduce some of the loss of accuracy in optically thin regions
-due to the time discretization of the transport equation in the HO solver.
-However, greater time accuracy is not of primary concern as this method is intended
-for use in problems dominated by large absorption opacities, where the
-absorption-reemission physics make the LO acceleration is critical.  
+present.  Ideally, the added source will reduce the error to the point that the
+stagnation is on the order of the global stagnation that occurs due to the solution
+lieing outside the mesh.  It is important to investigate difficulties that may arise
+in consistency between the LO and HO solutions in such regions.  We also need to demonstrate the
+ability of DSA to accelerate our LO equations.  Thus, we propose the following work:
+\begin{enumerate}
+    \item The source iteration method with DSA for the LO solver will be implemented
+        and applied to test problems to ensure a significant reduction in total scattering
+        iterations in diffusive problems.  Problems that provide a mix of optically
+        thick and thin regions will be investigated.
+    \item Problems where IMC violates the maximum principle will be simulated with our
+        method.  We will demonstrate that our implicit equations preserve the maximum
+        principle, and that our method can produce higher accuracy due to implicit cross section
+        treatment. Such problems will likely require implementation of damping in the
+        Newton iterations.
+    \item We will numerically demonstrate the ability of our method to preserve
+        the equilibrium diffusion limit.  The HOLO method will also be tested with a step
+        discretization to demonstrate inaccuracy in the EDL.
+    \item The negativity fix-ups discussed in Sec.~\ref{sec:negs} will be investigated for robustness and
+        accuracy.  An analytic neutronics problem or refined deterministic TRT solution
+        will be used to test for accuracy.  The ability of ECMC to reduce noise in
+        the fixup regions will also be investigated.
+    \item We will investigate the sensitivity of ECMC and the LO equations to
+        variable parameters, e.g., initial mesh-sizes, adaptive refinement, time step size, history
+        counts, and batch sizes.  The computational cost of the HOLO method, in particular
+        particle tracking times, as compared to IMC will be briefly explored.
+\end{enumerate}
+
+
 
 Future work will also explore the accuracy of the HOLO method, in particular,
-analyzing the optimal number of batches and the benefit of adaptive refinement.  This will likely
-require the use of manufactured solutions.  The sensitivity of the method to mesh sizes and time step sizes will be
-investigated more thoroughly.  
-For TRT problems, it is important that
-the LO spatial discretization satisfies the equilibirium diffusion limit.  To extend
-to higher dimensions, our LDFE representation may require the use of a higher-degree
-spatial representation for the LO system to achieve the diffusion
-limit. Further asymptotic
-analysis on the method will be applied before implementation. It may be necessary to use a different LO system (e.g., the non-linear diffusion
-acceleration approach in~\cite{rmc}), if the S$_2$-like equations become too
-inefficient or difficult to implement in higher dimensions.  Alternatively, a
-variable Eddington Tensor approach may provide more stability in rapidly variable
-regions of the problem while still allowing for a consistent, LDFE solution that is efficiently solvable.
+analyzing the optimal number of batches and the benefit of adaptive refinement.  This
+could be performed with a refined deterministic transport solution, or a.
+The sensitivity of the method to mesh sizes will be investigated more thoroughly.
+To demonstrate the potential extension of our LO operator to higher dimensions is
+source iterations with .  The S$_2$ equations can ideally be sweeped efficiently.  
+More test problems and finding regimes in which the ECMC is significantly beneficial.
+Understanding of what mesh sizes are really necessary.
 
 The remaining research to be performed is summarized below:
-\begin{enumerate}
-    \item Implement the time-continuous treatment for the ECMC
-        algorithm, and a consistent LO algorithm.  Once implemented, this will be
-        investigated on optically thin problem and compared to IMC for accuracy in 
-        wave-fronts.
-    \item Investigate the maximum principle violation, and demonstrate, with
-        sufficient convergence of Newton iterations, that our method will preserve
-        the maximum value principle.
-    \item Numerically demonstrate the ability of this method to accurately preserve	the equilibrium diffusion-limit
-	      compared to a step discretization which will not.
-    \item Diffusion synthetic acceleration of scattering source iterations in the LO
-        system. Demonstrating the ability to accelerate the iterations in diffusive, optically thick problems.
-    \item Test this method.  In particular, difficult 1D test problems, such as 1D
-        Marshak waves, featuring a mix of optically thick and optically thin problems, with material-dependent problems. Compare the benefits
-		of ECMC in this algorithm, as well as comparing to the accuracy of e
-\end{enumerate}
 
 \pagebreak
 
