@@ -907,19 +907,6 @@ ability of DSA to accelerate our LO equations.  Thus, we propose the following w
         particle tracking times, as compared to IMC will be briefly explored.
 \end{enumerate}
 
-
-
-Future work will also explore the accuracy of the HOLO method, in particular,
-analyzing the optimal number of batches and the benefit of adaptive refinement.  This
-could be performed with a refined deterministic transport solution, or a.
-The sensitivity of the method to mesh sizes will be investigated more thoroughly.
-To demonstrate the potential extension of our LO operator to higher dimensions is
-source iterations with .  The S$_2$ equations can ideally be sweeped efficiently.  
-More test problems and finding regimes in which the ECMC is significantly beneficial.
-Understanding of what mesh sizes are really necessary.
-
-The remaining research to be performed is summarized below:
-
 \pagebreak
 
 
