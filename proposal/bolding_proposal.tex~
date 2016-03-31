@@ -263,21 +263,23 @@ statistical variance to be reduced sufficiently throughout the entire domain of 
 problem. 
 
 Another area of related research is application of
-residual Monte Carlo.  The residual MC method is also referred to as the difference
-formulation of the transport equation, with some minor differences in implementation.
-The goal of these methods is to modify the transport equation, by subtracting
-equilibrium terms, such that the MC simulation solves for unknowns representing only the change
-in the intensity over a time step. This has the potential to limit statistical noise
+residual Monte Carlo.  The goal of these methods is to modify the transport equation, by subtracting
+particular source terms, such that the MC simulation solves for unknowns representing
+a small change in the intensity over a time step.  In~\cite{rmc}, the MC simulation
+solves for the change in intensity from the previous time step. This has the potential to limit statistical noise
 significantly in regions where the solution is near equilibrium.
 The work in~\cite{rmc} used residual MC as a HO solver for 1D grey problems. The
   residual MC demonstrated impressive reduction in statistical variance.
   However, a piecewise constant representation was used for the
 space-angle representation of the intensity, which
 does not preserve the EDL and can be inaccurate in angularly complex regions of the
-problem. The difference formulation has also been applied to another algorithm known as the symbolic IMC method
-(SIMC), for the case of 1D multi-frequency problems~\cite{simc_const}.  SIMC forms a
+problem.  Similar to RMC, the difference formulation has been applied to another algorithm known as the symbolic IMC method
+(SIMC), for the case of 1D frequency-dependent problems~\cite{simc_const}.  SIMC forms a
 standard FE solution to the material energy balance equation, and uses symbolic
 weights in the MC transport to solve for expansion coefficents.  The difference
+formulation modifies the transport equation to solve for unknowns representing the
+deviation of the intensity from
+equilibrium with the material energy.  The difference
 formulation was also applied to a linear-discontinuous FE spatial
 representation of the emission source, demonstrating accuracy in the EDL~\cite{simc}. 
 Both~\cite{simc_const} and~\cite{rmc} produced minimal
