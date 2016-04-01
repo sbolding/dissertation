@@ -145,7 +145,7 @@ frequency.  The material energy distribution is described by the material intern
 energy (often described by material temperature) as a function of position.  The
 high-dimensional space results in a difficult, nonlinear transport problem.
 
- This research will focus on a simplified one spatial dimension and
+ This research will focus on a simplified 1D slab-geometry and
  frequency-integrated (grey) TRT model.  The governing equations for this simplified model are the radiation and material
  energy balance equations
 \begin{align}\label{ho_cont}
