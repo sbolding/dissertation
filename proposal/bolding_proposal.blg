@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: bolding_proposal.aux
+The style file: unsrt.bst
+Database file #1: references.bib
+Warning--empty booktitle in willert
+Warning--empty booktitle in park
+Warning--empty booktitle in ans_2014
+You've used 21 entries,
+            1791 wiz_defined-function locations,
+            560 strings with 7231 characters,
+and the built_in function-call counts, 4345 in all, are:
+= -- 388
+> -- 187
+< -- 1
++ -- 71
+- -- 50
+* -- 294
+:= -- 722
+add.period$ -- 63
+call.type$ -- 21
+change.case$ -- 17
+chr.to.int$ -- 0
+cite$ -- 24
+duplicate$ -- 188
+empty$ -- 437
+format.name$ -- 50
+if$ -- 954
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 19
+newline$ -- 108
+num.names$ -- 21
+pop$ -- 60
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 55
+stack$ -- 0
+substring$ -- 282
+swap$ -- 17
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 38
+width$ -- 23
+write$ -- 229
+(There were 3 warnings)

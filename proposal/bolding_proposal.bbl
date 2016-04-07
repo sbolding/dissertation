@@ -1,0 +1,128 @@
+\begin{thebibliography}{10}
+
+\bibitem{shultis_mc}
+J.K. Shultis and W.L. Dunn.
+\newblock {\em {E}xploring {M}onte {C}arlo {M}ethods}.
+\newblock Academic Press, Burlington, MA 01803, 2012.
+
+\bibitem{fnc}
+J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
+\newblock An implicit monte carlo scheme for calculating time and frequency
+  dependent nonlinear radiation transport.
+\newblock {\em J. Comput. Phys.}, 8(3):313--342, December 1971.
+
+\bibitem{imd}
+NA~Gentile.
+\newblock Implicit monte carlo diffusion: An acceleration method for monte
+  carlo time-dependent radiative transfer simulations.
+\newblock {\em Journal of Computational Physics}, 172(2):543--571, 2001.
+
+\bibitem{ddmc}
+Jeffery~D Densmore, Kelly~G Thompson, and Todd~J Urbatsch.
+\newblock A hybrid transport-diffusion monte carlo method for
+  frequency-dependent radiative-transfer simulations.
+\newblock {\em Journal of Computational Physics}, 231(20):6924--6934, 2012.
+
+\bibitem{wollaber2013discrete}
+Allan~B Wollaber, Edward~W Larsen, and Jeffery~D Densmore.
+\newblock A discrete maximum principle for the implicit monte carlo equations.
+\newblock {\em Nuclear Science and Engineering}, 173(3):259--275, 2013.
+
+\bibitem{iimc_gentile}
+N.~A. Gentile and Ben~C. Yee.
+\newblock Iterative implicit monte carlo.
+\newblock {\em Journal of Computational and Theoretical Transport}, 0(0):1--31,
+  0.
+
+\bibitem{teleportation}
+Michael~Scott McKinley, Eugene~D Brooks~III, and Abraham Szoke.
+\newblock Comparison of implicit and symbolic implicit monte carlo line
+  transport with frequency weight vector extension.
+\newblock {\em Journal of Computational Physics}, 189(1):330--349, 2003.
+
+\bibitem{diff_limit_imc}
+Jeffery~D. Densmore.
+\newblock Asymptotic analysis of the spatial discretization of radiation
+  absorption and re-emission in implicit monte carlo.
+\newblock {\em Journal of Computational Physics}, 230(4):1116 -- 1133, 2011.
+
+\bibitem{morel_newton}
+J.E. Morel, T.A. Wareing, and K.~Smith.
+\newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
+  Transfer Calculations}.
+\newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
+
+\bibitem{willert}
+J.~Willert, C.T. Kelly, D.A. Knoll, and H.~Park.
+\newblock {A Hybrid Approach to the Neutron Transport k-Eigenvalue Problem
+  using NDA-based Algorithms}.
+\newblock M\&C. Sun Valley, ID, 2013.
+
+\bibitem{park}
+H.~Park, J.D. Densmore, A.B. Wollaber, D.A. Knoll, and R.M. Ramenzahn.
+\newblock {Monte Carlo Solution Methods in a Moment-Based Scale-Bridging
+  Algorithm For Thermal Radiative Transfer Problems}.
+\newblock M\&C. Sun Valley, ID, 2013.
+
+\bibitem{rmc}
+Jeffrey Willert and H.~Park.
+\newblock Residual monte carlo high-order solver for moment-based accelerated
+  thermal radiative transfer equations.
+\newblock {\em Journal of Computational Physics}, 276:405 -- 421, 2014.
+
+\bibitem{ans_2014}
+S.R. Bolding and J.E. Morel.
+\newblock {A High-Order Low-Order Algorithm with Exponentially-Convergent Monte
+  Carlo for $k$-Eigenvalue problems}.
+\newblock ANS Winter Meeting. Anaheim, CA, 2014.
+
+\bibitem{simc_const}
+Eugene D.~Brooks III, Michael~Scott McKinley, Frank Daffin, and Abraham Szöke.
+\newblock Symbolic implicit monte carlo radiation transport in the difference
+  formulation: a piecewise constant discretization.
+\newblock {\em Journal of Computational Physics}, 205(2):737 -- 754, 2005.
+
+\bibitem{simc}
+Eugene D.~Brooks III, Abraham Szőke, and Jayson~D.L. Peterson.
+\newblock ``piecewise linear discretization of symbolic implicit monte carlo
+  radiation transport in the difference formulation ''.
+\newblock {\em ``Journal of Computational Physics ''}, "220"(1):471 -- 497,
+  2006.
+
+\bibitem{wolters}
+E.R. Wolters.
+\newblock {\em Hybrid Monte Carlo - Deterministic Neutron Transport Methods
+  Using Nonlinear Functionals}.
+\newblock PhD thesis, Michigan, 2011.
+
+\bibitem{jake}
+J.R. Peterson.
+\newblock {E}xponentially {C}onvergent {M}onte {C}arlo for the 1-d {T}ransport
+  {E}quation.
+\newblock Master's thesis, Texas A\&M, 2014.
+
+\bibitem{wla}
+T.A. Wareing, E.W. Larsen, and M.L. Adams.
+\newblock {Asymptotic Diffusion Accelerated Discontinuous Finite Element
+  Schemes for the S$_N$ Equations in Slab and X-Y Geometries}.
+\newblock In {\em {International Topical Meeting on Advances in Mathematics,
+  Computations, Reactor Physics}}, volume~3, Pittsburgh, PA, 1991.
+
+\bibitem{wla_thesis}
+T.A. Wareing.
+\newblock {\em {Asymptotic diffusion accelerated discontinuous finite element
+  methods for transport problems}}.
+\newblock PhD thesis, Michigan, 1991.
+
+\bibitem{lewis}
+Elmer~Eugene Lewis and Warren~F Miller.
+\newblock {\em Computational methods of neutron transport}.
+\newblock John Wiley and Sons, Inc., New York, NY, 1984.
+
+\bibitem{jayenne}
+T.J. Urbatsch and T.M. Evans.
+\newblock {Milagro Version 2 An Implicit Monte Carlo Code for Thermal Radiative
+  Transfer: Capabilities, Development, and Usage}.
+\newblock Los Alamos National Laboratory Report LA-14195-MS, 2006.
+
+\end{thebibliography}
