@@ -119,10 +119,10 @@ Elmer~Eugene Lewis and Warren~F Miller.
 \newblock {\em Computational methods of neutron transport}.
 \newblock John Wiley and Sons, Inc., New York, NY, 1984.
 
-\bibitem{jayenne}
-T.J. Urbatsch and T.M. Evans.
-\newblock {Milagro Version 2 An Implicit Monte Carlo Code for Thermal Radiative
-  Transfer: Capabilities, Development, and Usage}.
-\newblock Los Alamos National Laboratory Report LA-14195-MS, 2006.
+\bibitem{larson_morel_sn}
+{Edward W. Larsen and Jim E. Morel}.
+\newblock Advances in discrete-ordinates methodology.
+\newblock {\em Nuclear Computational Science. Springer Netherlands}, pages
+  1--–84, 2010.
 
 \end{thebibliography}

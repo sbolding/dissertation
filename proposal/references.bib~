@@ -80,6 +80,11 @@
     author = {Allan B. Wollaber and H. Park and R.B. Lowrie and R.M. Rauenzahn and
         M.E. Cleveland},
     title = {Radiation Hydrodynamics with a High-Order, Low-Order Method},
+    booktitle = {ANS Topical Meeting, International Topical Meeting on Mathematics
+        and Computation},
+    address = {Nashville Tennessee},
+    year = {2015}
+}
 
 
 
@@ -230,7 +235,24 @@ author = "Jeffery D. Densmore"
     volume = 128
 }
 
+@article{warsa_dsa,
+    author = {Warsa, JS and Wareing, TA and Morel, JE},
+    journal = {NUCLEAR SCIENCE AND ENGINEERING},
+    Keywords = {NUCLEAR SCIENCE & TECHNOLOGY},
+    number = {3},
+    pages = {236 - 251},
+    title = {Fully consistent diffusion synthetic acceleration of linear discontinuous S-N transport discretizations on unstructured tetrahedral meshes.},
+    volume = {141},
+    year = {2002},
+}
 
+@article{larson_morel_sn,
+    title   = "Advances in discrete-ordinates methodology",
+    journal = "Nuclear Computational Science. Springer Netherlands",
+    pages   = "1-–84",
+    year    = "2010",
+    author  = "{Edward W. Larsen and Jim E. Morel}"
+}
 
 
 
