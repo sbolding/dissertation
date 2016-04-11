@@ -39,6 +39,7 @@
 \newcommand{\xr}{{x_{i+1/2}}}
 \newcommand{\jl}{{j-1/2}}
 \newcommand{\jr}{{j+1/2}}
+\newcommand{\E}[1]{\ensuremath{\operatername{E}_{#1}}}
 
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -75,6 +76,6 @@
 
 
 \input{sections/dsa.tex}
-
+\input{sections/analytic_neutronics.tex}
 
 \end{document}
