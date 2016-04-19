@@ -24,8 +24,6 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \tikzstyle{arrow} = [thick,line width=0.5mm,->,>=stealth]
 \tikzstyle{arrow1} = [dashed,->,>=stealth]
 
-\setbeamertemplate{navigation symbols}{}%remove navigation symbols
-\useoutertheme{infolines}
 
 %\definecolor{myblue}{rgb}{0.7, 0.7, 60.0}
 \definecolor{mylightblue}{rgb}{1,1,1}
@@ -70,16 +68,17 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\xr}{{x_{i+1/2}}}
 \newcommand{\il}{{i-1/2}}
 \newcommand{\ir}{{i+1/2}}
+\newcommand{\shorttitle}{\color{black} A HOLO Algorithm for Thermal Radiative Transfer}
+
 
 %The next lines automatically add outline slides at start of each section
 \AtBeginSection[]
 {
     \begin{frame}<*>
-        \frametitle{Outline}
+        \frametitle{\shorttitle}
         \tableofcontents[currentsection,currentsubsection]
     \end{frame}
 }
-
 
 \setbeamerfont{frametitle}{size=\large}
 \setbeamerfont{normal font}{size=\tiny}
@@ -110,11 +109,11 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 %Aggie-themed
 \pgfdeclareimage[height=0.1in]{TAMUlogo}{tamu_engineering.png}
-\logo{\raisebox{-8pt}{\pgfuseimage{TAMUlogo}}}
+%\logo{\raisebox{-8pt}{\pgfuseimage{TAMUlogo}}}
 \setlength\tabcolsep{0.2310in}
-\titlegraphic{\hspace{-0.2in}\centering\begin{tabular}{lcr}\includegraphics[trip=4.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
-\includegraphics[height=0.18\textheight]{tamu_seal.png} &
-\includegraphics[height=0.18\textheight]{lanl-logo-footer.png}\end{tabular}}
+\titlegraphic{\centering\begin{tabular}{lcr}\hspace{-2em}\includegraphics[trip=4.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
+ \hspace{-1em}\includegraphics[height=0.18\textheight]{tamu_seal.png} &
+\includegraphics[height=0.18\textheight]{cert_logo_maroon.png}\end{tabular}}
 %Michigan-themed
 %\pgfdeclareimage[height=0.1in]{UMlogo}{michigan_engineering.png}
 %\logo{\raisebox{-8pt}{\pgfuseimage{UMlogo}}}
@@ -133,20 +132,25 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage[english]{babel}
-\usetheme{Frankfurt}
+\usetheme{boxes}
 
 %Make it Aggie Maroon
-\usecolortheme[RGB={80,0,0}]{structure}  
+%\usecolortheme[RGB={80,0,0}]{structure}  
 %Or Michigan Blue
 %\usecolortheme[RGB={0,0,153}]{structure}  
 %Or Michigan Maize
 %\usecolortheme[RGB={255,204,0}]{structure}  
 
+
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+\setbeamertemplate{footline}[frame number]
+
   % This will typeset only the frames (or slides) that have the given label ("current" in this case).
 
 \title[HOLO for TRT]{A High-Order Low-Order Algorithm with Exponentially-Convergent Monte Carlo for
     Thermal Radiative Transfer}
-    \author[S.R. Bolding]{{\large Preliminary Exam - Simon Bolding, }}
+    \author[S.R. Bolding]{{Simon Bolding \\ \vspace{1.0em}\emph{Preliminary Exam}}}
 \date{{06 May 2016} }
 \subject{}
 %\institute{Los Alamos National Laboratory}
@@ -159,6 +163,12 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 % \dissableframenumber
 \begin{document}
+\setbeamercolor*{title}{use=structure,fg=white,bg=structure.fg}
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true,shadow=true]
+
+\def\beginpage{\null\vfill\bgroup
+\offinterlineskip\leftskip=\z@}
+\def\endpage{\egroup\eject}
 
 \begin{frame}
     \titlepage \vspace{-0.213in}
@@ -168,24 +178,8 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 \setlength{\tabcolsep}{6pt}
 
-\begin{frame}
-\frametitle{Outline}
-\begin{minipage}{0.061\linewidth}
-\hfill                      
-\end{minipage}
-\begin{minipage}{0.8\linewidth}
-\tableofcontents[
-hideothersubsections,
-sectionstyle=show,
-subsectionstyle=hide
-]
-\end{minipage}
+\setbeamercolor*{frametitle}{fg=black}
 
-\end{frame}
-
-
-\section{Introduction}
-\subsection{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -276,6 +270,22 @@ subsectionstyle=hide
                 \end{itemize}
         \end{itemize}
     }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{\shorttitle}
+\begin{minipage}{0.061\linewidth}
+\hfill                      
+\end{minipage}
+\begin{minipage}{0.8\linewidth}
+\tableofcontents[
+hideothersubsections,
+sectionstyle=show,
+subsectionstyle=hide
+]
+\end{minipage}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
