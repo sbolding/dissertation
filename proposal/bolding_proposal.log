@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  8 APR 2016 15:43
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  21 APR 2016 17:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -959,7 +959,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3] [4]
-Overfull \hbox (23.95757pt too wide) in paragraph at lines 301--323
+Overfull \hbox (23.95757pt too wide) in paragraph at lines 302--324
 \OT1/cmr/m/n/10.95 finite-element (LDFE) spa-tial dis-cretiza-tion. Exponential
 ly-convergent Monte Carlo (ECMC)[[],
  []
@@ -969,27 +969,27 @@ ly-convergent Monte Carlo (ECMC)[[],
 File: marshak_mesh_conv.pdf Graphic file (type pdf)
 
 <use marshak_mesh_conv.pdf>
-Package pdftex.def Info: marshak_mesh_conv.pdf used on input line 647.
+Package pdftex.def Info: marshak_mesh_conv.pdf used on input line 649.
 (pdftex.def)             Requested size: 210.35257pt x 166.50447pt.
 
 <marshak_200_compare.pdf, id=58, 508.9671pt x 409.79662pt>
 File: marshak_200_compare.pdf Graphic file (type pdf)
 
 <use marshak_200_compare.pdf>
-Package pdftex.def Info: marshak_200_compare.pdf used on input line 653.
+Package pdftex.def Info: marshak_200_compare.pdf used on input line 655.
 (pdftex.def)             Requested size: 210.35257pt x 169.36833pt.
  [13]
 <two_mat_conv.pdf, id=63, 501.29784pt x 409.79662pt>
 File: two_mat_conv.pdf Graphic file (type pdf)
  <use two_mat_conv.pdf>
-Package pdftex.def Info: two_mat_conv.pdf used on input line 680.
+Package pdftex.def Info: two_mat_conv.pdf used on input line 682.
 (pdftex.def)             Requested size: 210.35257pt x 171.95708pt.
 
 <two_mat_ho_compare.pdf, id=64, 501.29784pt x 409.79662pt>
 File: two_mat_ho_compare.pdf Graphic file (type pdf)
 
 <use two_mat_ho_compare.pdf>
-Package pdftex.def Info: two_mat_ho_compare.pdf used on input line 686.
+Package pdftex.def Info: two_mat_ho_compare.pdf used on input line 688.
 (pdftex.def)             Requested size: 210.35257pt x 171.95708pt.
  [14 <./marshak_mesh_conv.pdf> <./marshak_200_compare.pdf
 
@@ -1009,7 +1009,11 @@ Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no “ in font cmr10!
 ) [23]
-(./bolding_proposal.aux) )
+(./bolding_proposal.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ )
 (\end occurred inside a group at level 1)
 
 ### semi simple group (level 1) entered at line 127 (\begingroup)
@@ -1036,7 +1040,7 @@ msfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
 y6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on bolding_proposal.pdf (23 pages, 306828 bytes).
+Output written on bolding_proposal.pdf (23 pages, 306987 bytes).
 PDF statistics:
  358 PDF objects out of 1000 (max. 8388607)
  154 compressed objects within 2 object streams
