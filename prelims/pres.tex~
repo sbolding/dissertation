@@ -24,6 +24,16 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \tikzstyle{arrow} = [thick,line width=0.5mm,->,>=stealth]
 \tikzstyle{arrow1} = [dashed,->,>=stealth]
 
+\usepackage[absolute,overlay]{textpos}
+
+\newdimen\pc \pc=14bp
+\def\XY#1#2{\xy{#1\pc}{#2\pc}}
+
+\newcommand\myblock[3]{%
+    \begin{textblock*}{\paperwidth}(#1\paperwidth,#2\paperwidth)
+        \raggedright #3\hspace{0.5em}
+    \end{textblock*}}
+
 
 %\definecolor{myblue}{rgb}{0.7, 0.7, 60.0}
 \definecolor{mylightblue}{rgb}{1,1,1}
@@ -70,7 +80,6 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\ir}{{i+1/2}}
 \newcommand{\shorttitle}{\color{black} A HOLO Algorithm for Thermal Radiative Transfer}
 
-
 %The next lines automatically add outline slides at start of each section
 \AtBeginSection[]
 {
@@ -90,6 +99,9 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \usepackage[]{datetime}
 \usepackage{multirow}
 \newcommand{\thedate}{\today}
+
+%Adjust margin to be more in
+\setlength{\leftmargini}{0.05\textwidth}
 
 
 %\addtobeamertemplate{navigation symbols}{}{ %
@@ -183,19 +195,15 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Overview}
-\begin{itemize}
-\item We are interested in modeling thermal radiation transport in the high-energy density physics regime
+\frametitle{We are interested in modeling thermal radiation transport in the high-energy,
+    high-density physics regime}
 \begin{itemize}
 \item Temperatures on order of $10^6$ K or more
 \item Significant energy and momentum may be exchanged with material
-\end{itemize}\pause
 \item Radiative transfer simulations important in modeling
-\begin{itemize}
 \item Material under extreme conditions
 \item Inertial confinement fusion
 \item Supernovae and other astrophysical phenomena
-\end{itemize}
 \end{itemize}
 \end{frame}
 
@@ -203,6 +211,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{The Grey TRT Equations}
+\myblock{0.1}{0.15}{
 \begin{itemize}
 \item The 1D, grey equations
 \begin{align*}\label{ho_cont}
@@ -217,6 +226,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
         \item Absorption cross section ($\sigma_a$) can be a strong function of $T$
         \item Equations are nonlinear and may be tightly coupled 
 \end{itemize}
+}
 
 \end{frame}
 
