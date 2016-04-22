@@ -766,18 +766,26 @@ of the equations is not changed, ensuring energy conservation.
 \subsection{Estimating the Spatial Closure from the HO Solution}
 
 We will explore the possibility of a linear, doubly-discontinuous trial space in
-in the HO and LO equations. This should allow for higher consistency between the HO and LO
-equations. This trial space allows
-the outflow from a cell to be discontinuous in space, introducing extra unknowns.  For the HO solution, a discontinuous outflow for a space-angle cell should produce greater
+in the HO and LO equations. This trial space allows
+the outflow from a cell to be discontinuous in space, introducing extra unknowns. The
+linear shape on the interior of the cell is still used to represent the temperature
+unknowns, scattering source, and emission source.  The choice of this 
+trial space should allow for higher consistency between the HO and LO
+equations by using MC to compute outflows from space-angle cells, rather than an LD
+extrapolation of the solution.    For the HO solution, a discontinuous outflow for a space-angle cell should produce greater
 angular accuracy on faces.  In optically thick cells, this will mitigate observed issues with the spatial slope being
 artificially high to account for the discrepancy in angular shape between the
 internal and face solutions. The outflow will be estimated using a
-face-based tally of the MC solution.  The error equation can be modified to estimate the outflow for a given batch.  For the LO equations, a parametric relation between the outflow and internal moments, as estimated by the lates HO solution,
-will be used to eliminate the extra  unknowns. This will produce a consistent spatial closure between the HO and LO
-solutions upon convergence.  The linear shape on the interior of the cell is still necessary due to the
-temperature unknowns.  It is possible that poor statistics for the face
-tallies may result in this trial space producing less acurate results compared to the standard LDFE solution, at least for fine meshes.  It is expected that this closure should improve accuracy in cells
-where the in cells where the LDFE trial space does not produce a positive solution. 
+face-based tally of the MC solution.  The error equation can be modified to estimate the outflow for a given batch. 
+For the LO equations, a parametric relation between the outflow and internal moments, as
+estimated by the latest HO solution,
+will be used to eliminate the extra  unknowns.  This will produce a consistent spatial closure between the HO and LO
+solutions upon convergence. The closure relation will be averaged
+over each half-range, similar to the angular consistency parameters.   Poor statistics for the face tallies may result in this trial space producing less
+accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
+can accurately represent the solution.  Although the closure will be applied everywhere,
+we expect the greatest improvement in accuracy for cells where the LDFE trial space
+produces a negative solution.
 
 \subsection{Diffusion Synthetic Acceleration of the LO Equations}
 
@@ -821,13 +829,13 @@ acceleration is effective.  However, we have only considered the case when
 the LO equations and DSA equations are lumped.  We will investigate the effect of acceleration when alternative negativity fix-ups are
 implemented that result in DSA and LO equations that are not spatially consistent.
 We will recast the DSA method as a preconditioner to an iterative
-Krylov solution~\cite{larson_morel_sn} of the LO equations.  Generally, Krylov
+Krylov solution~\cite{larson_morel_sn} of the LO equations if acceleration degrades.  Generally, Krylov
 methods mitigate acceleration losses due to inconsistencies in the acceleration
 method.  In higher dimensions, the use of a Krylov method is necessary for effective
 acceleration for nearly-consistent acceleration methods such as WLA in problems with
 mixed optical thicknesses~\cite{larson_morel_sn}, e.g., typical radiative transfer
 problems.
-  We will apply the preconditioned-Krylov approach to allow for the use of lumped DSA
+  We would apply the preconditioned-Krylov approach to allow for the use of lumped DSA
   equations as a preconditioner, with the LO equations using one of the other fixup
 approaches detailed
 in the previous section.  It is noted we are not interested in measuring the reduction of
@@ -929,10 +937,13 @@ desirable properties of our algorithm that remain to be tested, e.g., preservati
 the maximum principle.  In summary, we propose performing the following work to
 complete this dissertation research:
 \begin{enumerate}
-    \item The source iteration method with DSA for the LO solver will be recast as a
-        DSA-preconditioned Krylov method.  The scheme will be applied to test problems to ensure a significant reduction in total scattering
+    \item The source iteration method with DSA for the LO solver will be applied to
+        various test problems to ensure a significant reduction in total scattering
         iterations and the numerically estimated spectral radius in diffusive problems.  Problems that provide a mix of optically
-        thick and thin regions, with the fix-ups defined in Sec.~\ref{sec:negs} will be investigated.
+        thick and thin regions, particularly those with the fix-ups defined in
+        Sec.~\ref{sec:negs} where acceleration may degrade, will be
+        investigated.  The acceleration method will be recast as a
+        DSA-preconditioned Krylov method if required for robustness and effectivness.
     \item Problems where IMC violates the maximum principle will be simulated with our
         method.  We will demonstrate that our implicit equations preserve the maximum
         principle, and that our method can produce higher accuracy due to implicit cross section
