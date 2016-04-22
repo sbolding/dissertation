@@ -617,6 +617,7 @@ performed using a modified
 systematic sampling method~\cite{shultis_mc}. 
 
 \subsection{Computational Results}
+\label{results}
 
 The research described thus far has been implemented in a stand alone research code.
 To demonstrate the efficacy of our algorithm, we provide results of our HOLO
@@ -640,8 +641,8 @@ Fig.~\ref{marshak_200_compare} compares solutions
 for the case of 200 cells.  The HOLO method demonstrates significantly less
 statistical noise, even though it used fewer histories per time step. To prevent
 negativities in the LO equations, a modified spatial closure was used that is equivalent to the
-standard FE lumping procedure.  This lumping-equivalent closure, in conjunction with S$_2$ equivalent consistency
-terms, has been used to preserve positivity.  An alternative approach to resolving negativities is proposed in Sec.~\ref{sec:negs}.
+standard FE lumping procedure.  This lumping-equivalent closure and S$_2$ equivalent consistency
+terms are applied in cells where negative values occur to ensure positivity.  An alternative approach to resolving negativities is proposed in Sec.~\ref{sec:negs}.
 \begin{figure}[H]
     \centering
 \begin{subfigure}{0.49\textwidth}
@@ -711,20 +712,20 @@ for resolving negativities.  Ideally the solutions in
 such cells should be as consistent as possible for the HO and LO equations.  However,
 the differences between the solution methods of the two equations, as well as the
 fact that some terms are lagged, have lead to the development of independent
-approaches for the LO and HO systems.
+approaches for the LO and HO systems thus far.
 
 Typically, for a standard LDFE method,
 the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
-HO solution.  The lumping procedure does not guarantee positivity for the space-angle LDFE
-representation of the HO intensity.  Additionally, the lumping approach is not
-extendible to higher-dimensions where the choice of $S_2$ terms will not produce
-accurate wave fronts for general problems.
+HO solution.    The results in Sec.~\ref{results} used a lumping-equivalent closure for the LO equations and $S_2$ equivalent angular terms..
+This approach will not produce
+accurate results for general problems in higher spatial dimensions. Also, a lumping equivalent closure in $x$ does not guarantee positivity for the space-angle LDFE
+representation of the HO intensity.
 Alternatively, the equations within a cell can be modified to ensure the outflow is not
 below the floor value (the initial temperature of the problem), and energy balance is
 conserved.  The LD shape is reconstructed by extrapolating from the outflow back
 through the average.  This closure has been implemented and is more promising for extendability into higher
-dimensions and for consistency with the HO approach.
+dimensions.
 
 For the HO solver, after an ECMC batch, we detect cells that produced a negative
 intensity. In these cells, we scale the linear representation of the intensity (in
@@ -755,12 +756,11 @@ magnitude of the MC estimated error, producing a positive solution. We still nee
 investigate the accuracy and robustness of the
 added source method, and whether it should be recomputed every batch, once it has been
 triggered, or only when the
-solution becomes negative again.  Ideally, the added source will not alter the zeroth
-moment of the solution, but that remains to be demonstrated numerically.  We will also
+solution becomes negative again.   We will also
 investigate adding the source to the LO equations for greater consistency and accuracy in
 the LO equations.  This will not
-necessarily guarantee positivity in the LO equations due to the fixed-point iteration
-process.  We may need to alter the source computation to ensure that the zeroth moment
+necessarily guarantee positivity in the LO equations due to the lagged estimate of the emission source in
+used in the previous HO solution.  We will investigate altering the  method for computing the added source computation to ensure the zeroth moment
 of the equations is not changed, ensuring energy conservation.
 
 \subsection{Estimating the Spatial Closure from the HO Solution}
@@ -768,29 +768,23 @@ of the equations is not changed, ensuring energy conservation.
 We will explore the possibility of a linear, doubly-discontinuous trial space in
 in the HO and LO equations. This should allow for higher consistency between the HO and LO
 equations. This trial space allows
-the outflow from a cell to be discontinuous in space, introducing an extra
-spatial unknown. This should produce greater
-angular accuracy on faces in the HO solution.  In optically thick cells, this will mitigate observed issues with the spatial slope being
+the outflow from a cell to be discontinuous in space, introducing extra unknowns.  For the HO solution, a discontinuous outflow for a space-angle cell should produce greater
+angular accuracy on faces.  In optically thick cells, this will mitigate observed issues with the spatial slope being
 artificially high to account for the discrepancy in angular shape between the
-internal and face solutions. A relation between the HO outflow and internal moments
-will be used to eliminate the extra cell unknowns of the doubly-discontinuous trial
-space in the LO equations, producing a consistent spatial closure between the HO and LO
-solutions.  The linear shape on the interior of the cell is still necessary due to the
-temperature unknowns.  In application, the HO outflow will be estimated using a
-face-based tally of the MC solution.  It is possible that poor statistics in the face
-tallies may result in this closure becoming inapplicable due to understampling in optically
-thick regions.
-It will also be necessary to ensure consistency with the LO
-solution, particularly in the case of adaptively refined meshes and the
-doubly-discontinuous trial space.  This will likely improve the accuracy in low-order
-equations, but may not produce a more accurate solution in the HO equations.
+internal and face solutions. The outflow will be estimated using a
+face-based tally of the MC solution.  The error equation can be modified to estimate the outflow for a given batch.  For the LO equations, a parametric relation between the outflow and internal moments, as estimated by the lates HO solution,
+will be used to eliminate the extra  unknowns. This will produce a consistent spatial closure between the HO and LO
+solutions upon convergence.  The linear shape on the interior of the cell is still necessary due to the
+temperature unknowns.  It is possible that poor statistics for the face
+tallies may result in this trial space producing less acurate results compared to the standard LDFE solution, at least for fine meshes.  It is expected that this closure should improve accuracy in cells
+where the in cells where the LDFE trial space does not produce a positive solution. 
 
 \subsection{Diffusion Synthetic Acceleration of the LO Equations}
 
 As described in Sec.~\ref{sec:lo_sol}, the fully-discretized LO equations can include
 the scattering term in the system matrix.  This allows for the system to be directly
 inverted.
-However, an S$_2$ like system cannot be efficiently inverted
+However, the S$_2$ like system cannot be efficiently inverted
 directly in higher spatial dimensions.  To demonstrate a possible path forward in
 higher dimensions, we will investigate the use of a standard
 source iteration scheme to solve the LO equations.  As
@@ -948,11 +942,13 @@ complete this dissertation research:
         the equilibrium diffusion limit.  The HOLO method will also be tested with a step
         discretization in the LO equations to demonstrate inaccuracy in the EDL.
     \item The negativity fix-ups discussed in Sec.~\ref{sec:negs} will be investigated for robustness and
-        accuracy.  The doubly-discontinuous fix-up with a consistent closure in the
-        LO equations remains to be implemented.  An analytic neutronics problem or a refined deterministic TRT solution
+        accuracy.   An analytic neutronics problem or a refined deterministic TRT solution
         will be used to test for accuracy.  The ability of the modified ECMC
         algorithm to reduce noise in
         the fixup regions will be investigated by measuring sample statistics.
+    \item The doubly-discontinuous trial space with a consistent spatial closure in the
+        LO equations remains to be implemented. This approach will be compared to the
+        standard LD closure for accuracy, particularly in the case of negative cells.  
     \item We will investigate the sensitivity of ECMC and the LO equations to
         parameters, e.g., initial mesh-sizes, adaptive refinement, time step size, history
         counts, and batch sizes.  Additional test problems will be simulated as
