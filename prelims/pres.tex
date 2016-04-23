@@ -1,10 +1,12 @@
 \pdfminorversion=4
-\documentclass[xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
+\documentclass[graphics,xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
 \usepackage{tabls}
 \usepackage{graphicx}
 \usepackage{subcaption}
 %\usepackage{animate}
 
+%To add a grid to the slides for aligning stuff
+%\usepackage[texcoord,grid,gridunit=mm,gridcolor=gray,subgridcolor=gray!10,gridBG=true]{eso-pic}
 
 
 
@@ -147,7 +149,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \usetheme{boxes}
 
 %Make it Aggie Maroon
-%\usecolortheme[RGB={80,0,0}]{structure}  
+\usecolortheme[RGB={80,0,0}]{structure}  
 %Or Michigan Blue
 %\usecolortheme[RGB={0,0,153}]{structure}  
 %Or Michigan Maize
@@ -195,24 +197,17 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{We are interested in modeling thermal radiation transport in the high-energy,
-    high-density physics regime}
-\begin{itemize}
-\item Temperatures on order of $10^6$ K or more
-\item Significant energy and momentum may be exchanged with material
-\item Radiative transfer simulations important in modeling
-\item Material under extreme conditions
-\item Inertial confinement fusion
-\item Supernovae and other astrophysical phenomena
-\end{itemize}
+\frametitle{We are interested in modeling thermal radiation transport in the high energy,
+    density physics regime}
+    \begin{picture}(130mm,85mm)
+\end{picture}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{The Grey TRT Equations}
-\setlength{\unitlength}{
-\begin{picture}
+\setlength{\unitlength}{\textwidth}
 \begin{itemize}
 \item The 1D, grey equations
 \begin{align*}\label{ho_cont}
@@ -227,7 +222,6 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
         \item Absorption cross section ($\sigma_a$) can be a strong function of $T$
         \item Equations are nonlinear and may be tightly coupled 
 \end{itemize}
-}
 
 \end{frame}
 
