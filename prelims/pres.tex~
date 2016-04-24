@@ -1,8 +1,9 @@
 \pdfminorversion=4
-\documentclass[graphics,xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
+\documentclass[xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
 \usepackage{tabls}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\captionsetup{compatibility=false}
 %\usepackage{animate}
 
 %To add a grid to the slides for aligning stuff
@@ -11,7 +12,6 @@
 
 
 %Load the myriad packages
-\usepackage{xcolor}
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows}
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2cm, text
@@ -103,7 +103,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\thedate}{\today}
 
 %Adjust margin to be more in
-\setlength{\leftmargini}{0.05\textwidth}
+\setlength{\leftmargini}{0.1\textwidth}
 
 
 %\addtobeamertemplate{navigation symbols}{}{ %
@@ -125,7 +125,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \pgfdeclareimage[height=0.1in]{TAMUlogo}{tamu_engineering.png}
 %\logo{\raisebox{-8pt}{\pgfuseimage{TAMUlogo}}}
 \setlength\tabcolsep{0.2310in}
-\titlegraphic{\centering\begin{tabular}{lcr}\hspace{-2em}\includegraphics[trip=4.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
+\titlegraphic{\centering\begin{tabular}{lcr}\hspace{-2em}\includegraphics[trim=0.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
  \hspace{-1em}\includegraphics[height=0.18\textheight]{tamu_seal.png} &
 \includegraphics[height=0.18\textheight]{cert_logo_maroon.png}\end{tabular}}
 %Michigan-themed
@@ -199,8 +199,16 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \begin{frame}
 \frametitle{We are interested in modeling thermal radiation transport in the high energy,
     density physics regime}
-    \begin{picture}(130mm,85mm)
-\end{picture}
+\begin{itemize}
+\item Temperatures on order of $10^6$ K or more
+\item Significant energy and momentum may be exchanged with material
+\item Radiative transfer simulations important in modeling
+\item Material under extreme conditions
+\item Inertial confinement fusion
+\item Supernovae and other astrophysical phenomena
+    \end{itemize}
+%    \begin{picture}(130mm,85mm)
+%\end{picture}
 \end{frame}
 
 
