@@ -1,6 +1,7 @@
 %\pdfminorversion=4
 \documentclass[xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
 \usepackage{tabls}
+\usepackage{picture}
 \usepackage{graphicx}
 \usepackage{subcaption}
 \captionsetup{compatibility=false}
@@ -54,6 +55,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\colg}[1]{{\color{ForestGreen} #1}}
 \newcommand{\coly}[1]{{\color{yellow} #1}}
 \newcommand{\colb}[1]{{\color{blue} #1}}
+\newcommand{\colG}[1]{{\color{Gray} #1}}
 \newcommand{\colr}[1]{{\color{red} #1}}
 \usepackage{amsfonts}
 \newlength{\wideitemsep}
@@ -91,7 +93,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \end{frame}
 }
 
-\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{frametitle}{size=\fontsize{13.7pt}{14.2pt}}
 \setbeamerfont{normal font}{size=\tiny}
 
 \graphicspath{{figures/}}
@@ -102,9 +104,12 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \usepackage{multirow}
 \newcommand{\thedate}{\today}
 
-%Adjust margin to be more in
-\setlength{\leftmargini}{0.14\textwidth}
-
+%Adjust margin to be more towards the right
+\setlength\leftmargini{0.15\textwidth}
+\addtolength\leftmarginii{0.05\textwidth}
+\setbeamersize{sidebar width left=0.21em}
+\setbeamersize{sidebar width right=0.21em}
+\addtobeamertemplate{frametitle}{\vspace{0.31em}}{}
 
 %\addtobeamertemplate{navigation symbols}{}{ %
 %    \usebeamerfont{footline}%
@@ -140,8 +145,6 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newlength \figwidth
 \setlength \figwidth {0.5\textwidth}
 
-\setlength{\leftmargin}{-2cm}
-\setlength{\rightmargin}{-2cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -159,6 +162,12 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \setbeamertemplate{headline}{}
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
 \setbeamertemplate{footline}[frame number]
+
+
+
+\setbeamersize{text margin left=1cm}
+\setbeamersize{text margin right=1cm}
+
 
   % This will typeset only the frames (or slides) that have the given label ("current" in this case).
 
@@ -192,126 +201,73 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 \setlength{\tabcolsep}{6pt}
 
-\setbeamercolor*{frametitle}{fg=black}
+\setbeamercolor*{frametitle}{fg=Black!78}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \addtolength{\leftmargini}{0.08in}
 \begin{frame}
-\frametitle{We are interested in modeling thermal radiation transport in the high energy,
-    density physics regime}
+\frametitle{We are interested in modeling thermal radiation transport \\ in the high energy,
+    density physics regime.}
     \addtolength{\wideitemsep}{0.08in}
 \begin{itemize}
-    \item[] Materials under extreme conditions \\ {\color{Gray} Temperatures on order of $10^6$ K or more}
+    \item[] Materials under extreme conditions \\ \colG{Temperatures on order of $10^6$ K or more}
     \item[] Photon radiation field interacts with material \\ 
-        {\color{Gray} Significant \colb{energy} and momentum may be exchanged}
+        \colG{Significant \colb{energy} and momentum may be exchanged}
  \item[] We want to improve efficiency of calculations \\
-     {\color{Gray} for inertial confinement fusion, supernovae, et. al.}
+     \colG{for inertial confinement fusion, supernovae, et. al.}
     \end{itemize}
-%    \begin{picture}(130mm,85mm)
-%\end{picture}
 \end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{We are interested in modeling thermal radiation transport in the high energy,
-    density physics regime}
-\begin{itemize}
-    \item[] Materials under extreme conditions \\ {\color{Gray} Temperatures on order of $10^6$ K or more}
-    \item[] Photon radiation field interacts with material \\ 
-        {\color{Gray} Significant \colb{energy} and momentum may be exchanged}
- \item[] We want to improve efficiency of calculations
-     {\color{Gray} Inertial confinement fusion, supernovae, et. al.}
-    \end{itemize}
-%    \begin{picture}(130mm,85mm)
-%\end{picture}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-\frametitle{We have applied our method to the 1D grey TRT equations}
+\frametitle{Our method has been applied to a simplied model, \\ the 1D grey TRT equations}
 \setlength{\unitlength}{\textwidth}
-\begin{itemize}
-\item The 1D, grey equations
+\begin{center}
 \begin{align*}\label{ho_cont}
-    \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu)
-    &= \frac{1}{4\pi} \left( \sigma_a a c T^4(x) + \sigma_s \phi(x)\right),
+    \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
+    &= \frac{1}{4\pi} \left( \sigma_a a c T^4 + \sigma_s \phi\right),
   \\
-  C_v \pderiv{T}{t} &=  \sigma_a \left(\phi(x) - a c T^4(x)\right) \\
-   \phi(x) &= 2\pi\int_{-1}^1 I(x,\mu) \d \mu.
+  C_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4\\
 \end{align*}
-        \item Fundamental unknowns are the radiation intensity $I(x,\mu)$ and material
-            temperature $T(x)$
-        \item Absorption cross section ($\sigma_a$) can be a strong function of $T$
-        \item Equations are nonlinear and may be tightly coupled 
+\end{center}
+\begin{itemize}
+        \item Fundamental unknowns are the radiation intensity $I(x,\mu,t)$ and material
+            temperature $T(x,t)$
+        \item Equations are nonlinear and may be tightly coupled \\  
+               \colG{through absorption and reemission of photons}
+        \item For practical applications, spatial discretization must preserve the \colb{equilibrium diffusion limit} (EDL)
 \end{itemize}
-
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{The Implicit Monte Carlo Method}
+\frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo solution method for TRT problems.}
 \begin{itemize}
-\item Equations often solved with Monte Carlo (MC) via the Implicit Monte Carlo (IMC) method
-\item The material energy equation is linearized over a time step and eliminated from the system
+\item[] The system is linearized over a time step \vspace{0.1in}
+\setlength\wideitemsep{0.2in}
     \begin{itemize}
-        \item Results in linear transport equation with a discrete emission and scattering terms
-\item Continuous integration of transport equation in time
+        \item Results in a \textbf{linear transport equation }
+               \\ \colG{with effective emission and scattering terms}
+\item Continuous time integration of intensity via MC
+        \\ \colG{but opacities are evaluated at begining time and \emph{emission source is not fully implicit}}
+        \item Use source tilting to mitigate energy propagation \\
+            \colG{reconstruction of linear-discontinuous source shape}
     \end{itemize}
-    \pause
-\item Drawbacks 
-\begin{itemize}
-\item Effective scattering cross section can be very large 
-    \begin{itemize}
-        \item Local acceleration methods based on discrete diffusion approximations
-    \end{itemize}
-\item Linearization can cause non-physical results
-\item Reconstruction of linear source shape in cell (source tilting)
-\end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Our method improves on several aspects of IMC}
-    \begin{columns}
-        \begin{column}{0.49\textwidth}
-
-        \end{column}
-        \begin{column}{0.49\textwidth}
-        \end{column}
-
-    \end{columns}
+    \frametitle{Our high-order low-order (HOLO) method improves several drawbacks of IMC}
+{\scriptsize
+\begin{tabular}{lr} \hline
+\multicolumn{1}{c}{\textbf{IMC}} & \multicolumn{1}{c}{\colb{HOLO Method}} \\  \hline
+Effective scattering cross section can be very large & LO system resolves nonlinearities \\
+Linearization can cause non-physical results & Fully implicit time-discretization \\
+\parbox{0.4\textwidth}{Reconstruction of linear source shape,\\ for preserving equilibrium diffusion limit} & Linear-discontinuous FE for $T(x)$
+\end{tabular}
+}
 \end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-    \frametitle{An alternative  High-Order Low-Order approach}
-    {\small
-        \begin{itemize}
-            \item[]<1-> \begin{block}{Basic Idea} Solve a fully non-linear, low-order (LO) system
-                that preserves a high-order (HO) solution from efficient MC
-            simulations. Iterations are performed \emph{each time step}\end{block}
-                \vspace{-0.321in}
-            \item<2-> The \textbf{LO system} consists of space-angle moment equations, formed over a fixed finite-element (FE) spatial mesh
-                \begin{itemize}
-                    \item<2-> \colb{Lower dimensionality} in angle
-              \item<2-> Non-linear temperature dependence converged with Newton's method 
-              \item<2-> \textbf{Output:} a linear-discontinuous (LD) FE representation
-                        of scattering and emission source
-                  %  \item Consistency terms derived directly from transport equation
-                \end{itemize}
-                \vspace{-0.1in}
-            \item<3-> The \textbf{HO system} is a fixed-source, pure-absorber
-                transport equation
-                \begin{itemize}
-                    \item<3-> \colb{No effective scattering} events
-                    \item<3-> Solved with ECMC for efficient reduction of statistical noise 
-                    \item<3-> \textbf{Output:} angular consistency terms
-                \end{itemize}
-        \end{itemize}
-    }
-\end{frame}
-
 
 \begin{frame}
     \frametitle{\shorttitle}
@@ -327,6 +283,78 @@ subsectionstyle=hide
 \end{minipage}
 
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview of algorithm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{We solves a non-linear low-order system with high-order angular correction from efficient MC simulations.}
+    \setlength{\unitlength}{1mm}
+    \begin{picture}(120,80)(0,-80)
+    \put(-5,-15){
+    \begin{minipage}[t]{1.1\textwidth}
+        \begin{itemize}
+\setlength\wideitemsep{0.06in}
+            \item[] The \textbf{LO system} consists of space-angle moment equations,\\
+                    \colG{formed over a fixed finite-element (FE) spatial mesh}
+                \vspace{0.02in}
+                {\scriptsize
+                \begin{itemize}
+                    \item Reduced dimensionality in angle\\
+                         \colG{allows for solution with Newton's method}
+              \item \textbf{Output:} a linear-discontinuous (LD) FE representation
+                        of \colb{scattering and emission source}
+                  %  \item Consistency terms derived directly from transport equation
+                \end{itemize}
+}\vspace{0.04in}
+            \item[] The \textbf{HO system} is pure-absorber transport problem
+                {\scriptsize
+                \begin{itemize}
+                    \item Solved with exponentially-convergent MC (ECMC) \\ \colG{for efficient reduction of statistical noise }
+                    \item \textbf{Output:} \colb{angular consistency terms}
+                \end{itemize}
+}
+        \end{itemize}
+    \end{minipage}
+
+}
+\end{picture}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Iterations between the HO and LO systems \\ are performed each time step}
+    %\fontsize{9}{5.0}\selectfont
+        \hspace{-0.1in}
+        \resizebox{1.04\linewidth}{!}{
+    \fontsize{10}{12.0}\selectfont
+    \begin{tikzpicture}[node distance=2cm]
+        \node (start) [startstop] {Initialize LO system using $\tilde{I}^n$};
+        \node (in1) [process, right of=start, xshift=2cm, text width=3.3cm]  {
+        {LO Newton solve, fully converged}};
+        \node (pro1) [io, below of=in1] {$T_{LO}^{n+1}(x)$, $\phi_{LO}^{n+1}(x)$};
+        \node (dec1) [decision, below of=pro1, yshift=-0.5cm, text width=1.74cm] {Outers Complete?};
+        \node (pro2a) [process, left of=dec1, xshift=-2.0cm] {Move to next time
+        step};
+        \node (srcs) [process, right of=dec1, xshift=3.0cm, text width=2.8cm] {
+        {Construct LDFE emission source}};
+        \node (pro2b) [process, text width=3.0cm, above of=srcs, yshift=0.5cm] {{HO ECMC solve}
+           for $\tilde I^{n+1}(x,\mu)$};
+        \node (cons) [process, above of=pro2b, text width=3.0cm] {{Compute consistency
+        terms}};
+        \draw [arrow1] (start) -- (in1);
+        \draw [arrow] (in1) -- (pro1);
+        \draw [arrow] (pro1) -- (dec1);
+        \draw [arrow] (srcs) -- (pro2b);
+        \draw [arrow] (dec1.east) -- node[anchor=south] {no} (srcs);
+        \draw [arrow1] (dec1.west) -- node[anchor=south] {yes} (pro2a);
+        \draw [arrow1] (pro2a) -- (start);
+        \draw [arrow] (pro2b) -- (cons);
+        \draw [arrow] (cons) -- (in1);
+    \end{tikzpicture}
+}
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\begin{frame}
@@ -364,17 +392,15 @@ subsectionstyle=hide
 
 
 
-\section{Low-Order Solver}
+\section{The LO system}
 \subsection{}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{LO Discretization \& Space-Angle Moments}
+    \frametitle{The LO equations are formed from spatial and angular moments of the TRT equations}
     \begin{itemize}
-        \item The LO system is ``S$_2$-like'' equations (similar to [Wolters 2013]),
-            with a backward Euler discretization in time
-            \pause
+        \item A backward Euler time discretization is used\\ \colG{in both the HO and LO equations}
 \item \colb{Linear discontinuous} FE in space for $\phi$, $T$, and $T^4(x)$   \end{itemize}
     \begin{centering}
         \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
@@ -403,9 +429,7 @@ subsectionstyle=hide
         \end{tikzpicture}
     \end{centering}
     \begin{itemize}
-            \pause
     \item \colb{Half-range integrals} over $+$ and $-$ $\mu$
-        \pause
     \item \emph{\u{Examples}} of moments:\vspace{-0.05in}
     \end{itemize}
     \begin{center}
@@ -428,7 +452,7 @@ subsectionstyle=hide
      %\item Take the FE spatial moments of the TRT equations over spatial elements.
      %   \item Integrate resulting transport equation over $+$ and $-$ $\mu$ half ranges 
       \item Applying moments to the TRT equations yields 4 radiation equations, and 2 material energy
-          equations, per cell \pause \vspace{-0.062in}
+          equations, per cell \vspace{-0.062in}
     \item The resulting radiation equations are  manipulated to produce weighted
         averages, which we refer to as \colb{consistency
           terms}, e.g.,
@@ -439,12 +463,11 @@ I^{n+1}(x,\mu) \;\d x \d \mu }
 {\displaystyle \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
 I^{n+1}(x,\mu)\; \d x \d \mu} 
     \end{equation*}
-    \pause
     \vspace{-0.1in}
 \item Use \colb{$\tilde{I}_{HO}^{n+1}(x,\mu)$} \& LD spatial closure to close the system
     \end{enumerate}
     \begin{itemize}
-            \pause
+            
         \item Cell unknowns are: $\mom{\phi}_{L,i}^{+}$, $\mom{\phi}_{R,i}^{+}$,
         $\mom{\phi}_{L,i}^{-}$, $\mom{\phi}_{R,i}^{-}$, $T_{L,i}$, $T_{R,i}$
      \item Non-linear, fully discrete system, solved with approximate Newton's method
@@ -456,7 +479,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 
 
-\section{High-Order Solver}
+\section{Exponentially Convergent MC High-Order Solver}
 \subsection{}
 
 
@@ -474,7 +497,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
      \end{itemize}
     \begin{minipage}{0.6\linewidth}
         \vspace{-2.0in}
-        \pause
+        
      \begin{itemize}
      \item Requires a \colr{functional form} of the angular intensity $\tilde I(x,\mu)$
             \begin{itemize}
@@ -507,9 +530,6 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \frametitle{High Order System and ECMC Algorithm}
-    \begin{itemize}
-        \item \colb{Pure absorber} transport problem because we have LD
-            representation of $T^4$ from LO solution
         \begin{align*}
             \hspace{-0.2in}
             \left[\mu \pderiv{}{x} + \left(\sigma_t^{n+1}+\frac{1}{c\Delta t}\right)\right]I^{n+1}
@@ -517,8 +537,11 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     T_{LO}^{n+1,4}+\sigma_s\phi_{LO}^{n+1}\right)} \\
             \B L I^{n+1} &= \colb{q_{LO}}
      \end{align*}
+    \begin{itemize}
+        \item \colb{Pure absorber} transport problem because we have LD
+            representation of $T^4$ from LO solution
         \vspace{-0.3in}
-        \pause
+        
         \end{itemize}
         \begin{block}{For each batch $m$:}
          \begin{itemize}
@@ -539,41 +562,6 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \end{block}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Algorithm}
-    \subsection{}
-
-\begin{frame}
-    \frametitle{High-Order Low-Order Algorithm}
-    %\fontsize{9}{5.0}\selectfont
-        \resizebox{0.99\linewidth}{!}{
-    \fontsize{10}{12.0}\selectfont
-    \begin{tikzpicture}[node distance=2cm]
-        \node (start) [startstop] {Initialize LO system using $\tilde{I}^n$};
-        \node (in1) [process, right of=start, xshift=2cm, text width=3.3cm]  {
-        {LO Newton solve, fully converged}};
-        \node (pro1) [io, below of=in1] {$T_{LO}^{n+1}(x)$, $\phi_{LO}^{n+1}(x)$};
-        \node (dec1) [decision, below of=pro1, yshift=-0.5cm, text width=1.74cm] {Outers Complete?};
-        \node (pro2a) [process, left of=dec1, xshift=-2.0cm] {Move to next time
-        step};
-        \node (srcs) [process, right of=dec1, xshift=3.0cm, text width=2.8cm] {
-        {Construct LD emission source}};
-        \node (pro2b) [process, text width=3.0cm, above of=srcs, yshift=0.5cm] {{HO ECMC solve}
-           for $\tilde I^{n+1}(x,\mu)$};
-        \node (cons) [process, above of=pro2b, text width=3.0cm] {{Compute consistency
-        terms}};
-        \draw [arrow1] (start) -- (in1);
-        \draw [arrow] (in1) -- (pro1);
-        \draw [arrow] (pro1) -- (dec1);
-        \draw [arrow] (srcs) -- (pro2b);
-        \draw [arrow] (dec1.east) -- node[anchor=south] {no} (srcs);
-        \draw [arrow1] (dec1.west) -- node[anchor=south] {yes} (pro2a);
-        \draw [arrow1] (pro2a) -- (start);
-        \draw [arrow] (pro2b) -- (cons);
-        \draw [arrow] (cons) -- (in1);
-    \end{tikzpicture}
-}
-\end{frame}
 
 
 
@@ -590,7 +578,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \item In these results, no correction is applied to the HO solution, and the LO
                 solution uses lumped LD and S$_2$ equivalent terms in bad cells
         \end{itemize}
-     \pause
+     
  \item \u{For all results}
         \begin{itemize}
     \item LO Newton iterations are is fully converged each solve
@@ -674,9 +662,6 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 }
 
-\section{Conclusions}
-\subsection{}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \frametitle{Current \& Future Development}
@@ -688,7 +673,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \item LO solver determines non-linear Material temperature distribution
             \item LD representation of $T^4$ mitigates teleportation error
         \end{itemize}
-        \pause
+        
     \item Currently developing strategies for dealing with unresolvable solutions
     \item Next step will be to implement in 2 spatial dimensions
     \end{itemize}
