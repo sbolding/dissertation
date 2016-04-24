@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  23 APR 2016 22:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 APR 2016 11:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -703,9 +703,6 @@ Package: beamercolorthemedefault 2012/12/19  (rcs-revision 1686da3db3c9)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/beamer/themes/inner/beamerinnerth
 emedefault.sty
 Package: beamerinnerthemedefault 2014/06/30  (rcs-revision 580088513a67)
-
-pdfTeX warning (Object streams): \pdfobjcompresslevel > 0 requires \pdfminorver
-sion > 4. Object streams disabled now.
 \beamer@dima=\dimen186
 \beamer@dimb=\dimen187
 )
@@ -1187,19 +1184,19 @@ line 191.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
-) <NEUP.jpg, id=40, 764.8575pt x 313.17pt>
+) <NEUP.jpg, id=49, 764.8575pt x 313.17pt>
 File: NEUP.jpg Graphic file (type jpg)
  <use NEUP.jpg>
 Package pdftex.def Info: NEUP.jpg used on input line 191.
 (pdftex.def)             Requested size: 114.79369pt x 47.00447pt.
 
-<tamu_seal.png, id=42, 222.8325pt x 222.8325pt>
+<tamu_seal.png, id=51, 222.8325pt x 222.8325pt>
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
 Package pdftex.def Info: tamu_seal.png used on input line 191.
 (pdftex.def)             Requested size: 47.0036pt x 47.00447pt.
 
-<cert_logo_maroon.png, id=43, 1003.75pt x 493.845pt>
+<cert_logo_maroon.png, id=52, 1003.75pt x 493.845pt>
 File: cert_logo_maroon.png Graphic file (type png)
 
 <use cert_logo_maroon.png>
@@ -1227,161 +1224,238 @@ jpg> <./tamu_seal.png> <./cert_logo_maroon.png>] [2
 
 ] [6
 
-] [7
+]
+Overfull \vbox (39.06752pt too high) detected at line 301
+ []
+
+[7
 
 ]
+Overfull \vbox (39.06752pt too high) detected at line 301
+ []
+
 [8
 
-] (./pres.toc) [9
+]
+Overfull \vbox (39.06752pt too high) detected at line 301
+ []
+
+[9
 
 ] (./pres.toc) [10
 
-] [11
-
-] [12
-
-] [13
-
-] [14
-
-] [15
-
-] [16
-
-] [17
+] (./pres.toc) [11
 
 ]
-[18
-
-] (./pres.toc) [19
-
-]
-Overfull \hbox (57.10547pt too wide) in paragraph at lines 477--477
- [][] 
+Overfull \vbox (10.8689pt too high) detected at line 407
  []
 
-[20
+[12
 
 ]
-Overfull \hbox (57.10547pt too wide) in paragraph at lines 477--477
+Overfull \vbox (10.8689pt too high) detected at line 407
+ []
+
+[13
+
+]
+Overfull \vbox (10.8689pt too high) detected at line 407
+ []
+
+[14
+
+]
+Overfull \vbox (10.8689pt too high) detected at line 407
+ []
+
+[15
+
+]
+Overfull \vbox (5.7141pt too high) detected at line 443
+ []
+
+[16
+
+]
+Overfull \vbox (5.7141pt too high) detected at line 443
+ []
+
+[17
+
+]
+Overfull \vbox (5.7141pt too high) detected at line 443
+ []
+
+[18
+
+]
+Overfull \vbox (5.7141pt too high) detected at line 443
+ []
+
+[19
+
+] (./pres.toc) [20
+
+]
+Overfull \hbox (57.10547pt too wide) in paragraph at lines 492--492
  [][] 
  []
 
 [21
 
 ]
-Overfull \hbox (17.71281pt too wide) in paragraph at lines 513--513
-[]  
+Overfull \hbox (57.10547pt too wide) in paragraph at lines 492--492
+ [][] 
  []
 
 [22
 
 ]
-Overfull \hbox (17.71281pt too wide) in paragraph at lines 513--513
+Overfull \hbox (17.71281pt too wide) in paragraph at lines 528--528
 []  
+ []
+
+
+Overfull \vbox (13.30887pt too high) detected at line 528
  []
 
 [23
 
-] (./pres.toc) [24
+]
+Overfull \hbox (17.71281pt too wide) in paragraph at lines 528--528
+[]  
+ []
 
-] [25
 
-] (./pres.toc) [26
+Overfull \vbox (13.30887pt too high) detected at line 528
+ []
 
-] [27
+[24
+
+] (./pres.toc) [25
+
+] [26
+
+] (./pres.toc) [27
 
 ] [28
 
+] [29
+
 ]
-<figures/marshak_200_compare.pdf, id=246, 508.9671pt x 409.79662pt>
+<figures/marshak_200_compare.pdf, id=267, 508.9671pt x 409.79662pt>
 File: figures/marshak_200_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_200_compare.pdf>
-Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 599
+Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 614
 .
 (pdftex.def)             Requested size: 189.22878pt x 152.36021pt.
 
-Overfull \vbox (14.35378pt too high) detected at line 599
- []
-
-[29
-
- <./figures/marshak_200_compare.pdf>]
-<figures/two_mat_conv.pdf, id=309, 501.29784pt x 409.79662pt>
-File: figures/two_mat_conv.pdf Graphic file (type pdf)
-
-<use figures/two_mat_conv.pdf>
-Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 615.
-(pdftex.def)             Requested size: 207.59978pt x 169.706pt.
-
-Overfull \vbox (15.67873pt too high) detected at line 615
+Overfull \vbox (19.35378pt too high) detected at line 614
  []
 
 [30
 
- <./figures/two_mat_conv.pdf>]
-<figures/two_mat_ho_compare.pdf, id=366, 501.29784pt x 409.79662pt>
-File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
+ <./figures/marshak_200_compare.pdf>]
+<figures/two_mat_conv.pdf, id=330, 501.29784pt x 409.79662pt>
+File: figures/two_mat_conv.pdf Graphic file (type pdf)
 
-<use figures/two_mat_ho_compare.pdf>
-Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 634.
+<use figures/two_mat_conv.pdf>
+Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 630.
+(pdftex.def)             Requested size: 207.59978pt x 169.706pt.
 
-(pdftex.def)             Requested size: 205.85551pt x 168.28032pt.
-
-Overfull \vbox (3.82387pt too high) detected at line 634
+Overfull \vbox (15.67873pt too high) detected at line 630
  []
 
 [31
 
- <./figures/two_mat_ho_compare.pdf>] (./pres.toc) [32
+ <./figures/two_mat_conv.pdf>] [32
 
-] [33
+]
+<figures/two_mat_ho_compare.pdf, id=394, 501.29784pt x 409.79662pt>
+File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
 
-] [34
+<use figures/two_mat_ho_compare.pdf>
+Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 655.
+
+(pdftex.def)             Requested size: 205.85551pt x 168.28032pt.
+
+Overfull \vbox (3.82387pt too high) detected at line 655
+ []
+
+[33
+
+ <./figures/two_mat_ho_compare.pdf>] [34
+
+] (./pres.toc) [35
+
+] [36
+
+] [37
+
+]
+(./pres.toc) [38
+
+] [39
+
+] [40
+
+] [41
+
+] [42
 
 ]
 File: NEUP.jpg Graphic file (type jpg)
-
-<use NEUP.jpg>
-Package pdftex.def Info: NEUP.jpg used on input line 663.
+ <use NEUP.jpg>
+Package pdftex.def Info: NEUP.jpg used on input line 714.
 (pdftex.def)             Requested size: 114.79369pt x 47.00447pt.
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 663.
+Package pdftex.def Info: tamu_seal.png used on input line 714.
 (pdftex.def)             Requested size: 47.0036pt x 47.00447pt.
 File: cert_logo_maroon.png Graphic file (type png)
- <use cert_logo_maroon.png>
-Package pdftex.def Info: cert_logo_maroon.png used on input line 663.
+
+<use cert_logo_maroon.png>
+Package pdftex.def Info: cert_logo_maroon.png used on input line 714.
 (pdftex.def)             Requested size: 95.52571pt x 47.00447pt.
- [35
+ [43
 
 ]
 \c@finalframe=\count202
 
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 670.
+(hyperref)                setting the option has no effect on input line 721.
 
-<figures/quick_compare.pdf, id=460, 503.30533pt x 409.79662pt>
+<figures/quick_compare.pdf, id=525, 503.30533pt x 409.79662pt>
 File: figures/quick_compare.pdf Graphic file (type pdf)
 
 <use figures/quick_compare.pdf>
-Package pdftex.def Info: figures/quick_compare.pdf used on input line 686.
+Package pdftex.def Info: figures/quick_compare.pdf used on input line 737.
 (pdftex.def)             Requested size: 178.19586pt x 145.088pt.
- [36
+ [44
 
  <./figures/quick_compare.pdf>]
-Overfull \hbox (4.06819pt too wide) detected at line 711
+Overfull \hbox (22.13945pt too wide) detected at line 762
  []$[]   \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmss/m/n/10.95 2\OML/cmm/m/it/10.95 ^^V[]
 ^^^[] \OT1/cmss/m/n/10.95 + [][] \OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/10.95 ^^^\O
 MS/cmsy/m/n/10.95 i[] \OT1/cmss/m/n/10.95 + [][] \OMS/cmsy/m/n/10.95 h\OML/cmm/
 m/it/10.95 ^^^\OMS/cmsy/m/n/10.95 i[]\OT1/cmss/m/n/10.95 +$ 
  []
 
-[37
 
-] [38
+Overfull \hbox (6.72493pt too wide) detected at line 762
+ []$[] [] \OT1/mathkerncmss/m/sl/10.95 h[]\OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/10
+.95 ^^^\OMS/cmsy/m/n/10.95 i[] ^^@ [] []$ 
+ []
+
+[45
+
+]
+Overfull \vbox (33.48994pt too high) detected at line 790
+ []
+
+[46
 
 ]
 \tf@nav=\write7
@@ -1393,25 +1467,25 @@ m/it/10.95 ^^^\OMS/cmsy/m/n/10.95 i[]\OT1/cmss/m/n/10.95 +$
 \tf@snm=\write9
 \openout9 = `pres.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 742.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 742.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 793.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 793.
  (./pres.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 742.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 742.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 793.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 793.
 Package rerunfilecheck Info: File `pres.out' has not changed.
-(rerunfilecheck)             Checksum: C640EB95CCFC06F69B5CBE579170B6C9;249.
+(rerunfilecheck)             Checksum: A3712FF0038EC50AD1C07095F8A30FA0;343.
 
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 742.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 793.
  ) 
 Here is how much of TeX's memory you used:
- 23814 strings out of 493089
- 467357 string characters out of 6134842
- 560693 words of memory out of 5000000
- 26642 multiletter control sequences out of 15000+600000
+ 23854 strings out of 493089
+ 467716 string characters out of 6134842
+ 560711 words of memory out of 5000000
+ 26663 multiletter control sequences out of 15000+600000
  21521 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  56i,17n,64p,1007b,699s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1441,9 +1515,10 @@ e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/20
 15/texmf-dist/fonts/type1/public/amsfonts/symbols/msam7.pfb>
-Output written on pres.pdf (38 pages, 986365 bytes).
+Output written on pres.pdf (46 pages, 923148 bytes).
 PDF statistics:
- 643 PDF objects out of 1000 (max. 8388607)
- 89 named destinations out of 1000 (max. 500000)
- 153 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 712 PDF objects out of 1000 (max. 8388607)
+ 445 compressed objects within 5 object streams
+ 106 named destinations out of 1000 (max. 500000)
+ 169 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,4 @@
-\pdfminorversion=4
+%\pdfminorversion=4
 \documentclass[xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
 \usepackage{tabls}
 \usepackage{graphicx}
@@ -58,7 +58,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \usepackage{amsfonts}
 \newlength{\wideitemsep}
 \setlength{\wideitemsep}{8pt}
-%\addtolength{\wideitemsep}{5pt}
+\addtolength{\wideitemsep}{5pt}
 \let\olditem\item
 \renewcommand{\item}{\setlength{\itemsep}{\wideitemsep}\olditem}
 
@@ -103,7 +103,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\thedate}{\today}
 
 %Adjust margin to be more in
-\setlength{\leftmargini}{0.1\textwidth}
+\setlength{\leftmargini}{0.14\textwidth}
 
 
 %\addtobeamertemplate{navigation symbols}{}{ %
@@ -196,25 +196,40 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \addtolength{\leftmargini}{0.08in}
 \begin{frame}
 \frametitle{We are interested in modeling thermal radiation transport in the high energy,
     density physics regime}
+    \addtolength{\wideitemsep}{0.08in}
 \begin{itemize}
-\item Temperatures on order of $10^6$ K or more
-\item Significant energy and momentum may be exchanged with material
-\item Radiative transfer simulations important in modeling
-\item Material under extreme conditions
-\item Inertial confinement fusion
-\item Supernovae and other astrophysical phenomena
+    \item[] Materials under extreme conditions \\ {\color{Gray} Temperatures on order of $10^6$ K or more}
+    \item[] Photon radiation field interacts with material \\ 
+        {\color{Gray} Significant \colb{energy} and momentum may be exchanged}
+ \item[] We want to improve efficiency of calculations \\
+     {\color{Gray} for inertial confinement fusion, supernovae, et. al.}
     \end{itemize}
 %    \begin{picture}(130mm,85mm)
 %\end{picture}
 \end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+\frametitle{We are interested in modeling thermal radiation transport in the high energy,
+    density physics regime}
+\begin{itemize}
+    \item[] Materials under extreme conditions \\ {\color{Gray} Temperatures on order of $10^6$ K or more}
+    \item[] Photon radiation field interacts with material \\ 
+        {\color{Gray} Significant \colb{energy} and momentum may be exchanged}
+ \item[] We want to improve efficiency of calculations
+     {\color{Gray} Inertial confinement fusion, supernovae, et. al.}
+    \end{itemize}
+%    \begin{picture}(130mm,85mm)
+%\end{picture}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{The Grey TRT Equations}
+\frametitle{We have applied our method to the 1D grey TRT equations}
 \setlength{\unitlength}{\textwidth}
 \begin{itemize}
 \item The 1D, grey equations
@@ -254,6 +269,18 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \item Reconstruction of linear source shape in cell (source tilting)
 \end{itemize}
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Our method improves on several aspects of IMC}
+    \begin{columns}
+        \begin{column}{0.49\textwidth}
+
+        \end{column}
+        \begin{column}{0.49\textwidth}
+        \end{column}
+
+    \end{columns}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -614,6 +641,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{DIFFUSION LIMIT PROBLEM}
+
+\end{frame}
+
 \begin{frame}
     \frametitle{Comparison of statistical noise for standard and ECMC HO solvers}
     \begin{block}{}
@@ -632,6 +665,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \centering
     \end{figure}
 \end{frame}
+
+\begin{frame}
+    \frametitle{ADD FOM AND ERROR FOR SMOOTH PROBLEM}
+
+\end{frame}
+
 
 }
 
@@ -654,6 +693,30 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \item Next step will be to implement in 2 spatial dimensions
     \end{itemize}
 \end{frame}
+
+\section{Remaining Research}
+\begin{frame}
+    \frametitle{We need a way to resolve issues when the LDFE projection produces non-physical solutions}
+\end{frame}
+
+\begin{frame}
+    \frametitle{DSA with source iterations may provide a practical application of the LO equaitons in 2D}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{We would like to use the HO solution to close the system}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{\colb{There are several investigations left to do:}}
+        \begin{enumerate}
+            \item DSA
+            \item hey
+        \end{enumerate}
+    \end{frame}
 
 \date{}
 \begin{frame}
