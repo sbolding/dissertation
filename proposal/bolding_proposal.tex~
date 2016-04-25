@@ -940,7 +940,7 @@ complete this dissertation research:
     \item The source iteration method with DSA for the LO solver will be applied to
         various test problems to ensure a significant reduction in total scattering
         iterations and the numerically estimated spectral radius in diffusive problems.  Problems that provide a mix of optically
-        thick and thin regions, particularly those with the fix-ups defined in
+        thick and thin regions, particularly those that require the fix-ups defined in
         Sec.~\ref{sec:negs} where acceleration may degrade, will be
         investigated.  The acceleration method will be recast as a
         DSA-preconditioned Krylov method if required for robustness and effectivness.

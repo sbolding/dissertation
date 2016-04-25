@@ -38,13 +38,17 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \end{textblock*}}
 
 
-%\definecolor{myblue}{rgb}{0.7, 0.7, 60.0}
+
+\definecolor{myblue}{rgb}{0.7, 0.7, 60.0}
 \definecolor{mylightblue}{rgb}{1,1,1}
 \newcommand*{\boxedcolor}{blue}
 \makeatletter
 \renewcommand{\boxed}[1]{\textcolor{\boxedcolor}{%
   \fbox{\normalcolor\m@th$\displaystyle#1$}}}
 \makeatother
+
+\newcommand{\highlight}[1]{%
+    \colorbox{myblue!50}{\ensuremath{\displaystyle#1}}}
 
 \renewcommand{\u}[1]{\underline{#1}}
 
@@ -55,7 +59,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\colg}[1]{{\color{ForestGreen} #1}}
 \newcommand{\coly}[1]{{\color{yellow} #1}}
 \newcommand{\colb}[1]{{\color{blue} #1}}
-\newcommand{\colG}[1]{{\color{Gray} #1}}
+\newcommand{\colG}[1]{{\color{Gray!110} #1}}
 \newcommand{\colr}[1]{{\color{red} #1}}
 \usepackage{amsfonts}
 \newlength{\wideitemsep}
@@ -115,7 +119,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\thedate}{\today}
 
 %Adjust margin to be more towards the right
-\setlength\leftmargini{0.15\textwidth}
+\setlength\leftmargini{0.17\textwidth}
 \addtolength\leftmarginii{0.05\textwidth}
 \setbeamersize{sidebar width left=0.21em}
 \setbeamersize{sidebar width right=0.21em}
@@ -411,30 +415,20 @@ subsectionstyle=hide
 
 
 
-\section{The LO system}
+\section{Derivation of the LO equations}
 \subsection{}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \frametitle{The LO equations are formed from spatial and angular moments of the TRT equations}
-    \begin{itemize}
-        \item A backward Euler time discretization is used\\ \colG{in both the HO and LO equations}
-\item \colb{Linear discontinuous} FE in space for $\phi$, $T$, and $T^4(x)$   \end{itemize}
+    \begin{itemize} \vspace{0.15in}
+        \item The time discretization is backward Euler\\ \colG{for both the HO and LO equations}
+\item FE basis functions are used for spatial moments   \end{itemize}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
     \begin{centering}
         \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
-            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
-            size=4.2pt] {};
-            \filldraw[color=black, fill=white] (1,2.1250) circle (2.1pt);
-            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
-            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
-            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
-            \node at (4.6,3.70) {$\phi^+(x)$};
-            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
-            \draw (1.0,2.125) -- (5.90,3.70);
-            \draw [dashed] (5.90,0.5) -- (5.90,4);
-            \draw [dashed] (1.0,0.5) -- (1.0,4);
-
             \draw (10.8,4.0) -- (11.2,4.0) node[anchor=east]{$1$ \hspace{0.4em} };
             \draw (11.0,0.4) -- (11.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (15.90,0.4) -- (15.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
@@ -447,53 +441,111 @@ subsectionstyle=hide
             \draw (15.90,0.5) -- (11.0,4.0);
         \end{tikzpicture}
     \end{centering}
-    \begin{itemize}
-    \item \colb{Half-range integrals} over $+$ and $-$ $\mu$
-    \item \emph{\u{Examples}} of moments:\vspace{-0.05in}
-    \end{itemize}
-    \begin{center}
-    \begin{tabular}{cc}
-        \underline{Spatial: left basis} & \underline{Angular: positive flow} \\ 
-        $ {\displaystyle \mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_\il}^{x_\ir}
-        b_{L,i}(x)(\cdot) \d x \quad }$  & ${ \quad \displaystyle \phi^+(x) =
-        2\pi\int_0^1 I(x,\mu) \d \mu}$
-    \end{tabular}
-    \end{center}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+        \begin{equation*}
+          {\displaystyle \mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_\il}^{x_\ir}
+        b_{L,i}(x)(\cdot) \d x \quad }  
+        \end{equation*}
+    \end{column}
+\end{columns}
+\begin{itemize}
+        \vspace{0.2in}
+    \item Angular half-range integrals reduce angular dimensionality
+    \begin{equation*}
+        {\displaystyle \phi^+(x) =
+        2\pi\int_0^1 I(x,\mu) \d \mu}
+    \end{equation*}
+\end{itemize}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Forming the LO System}
-    \vspace{-0.1in}
-    {\small
-    \begin{enumerate}
-     %\item Take the FE spatial moments of the TRT equations over spatial elements.
-     %   \item Integrate resulting transport equation over $+$ and $-$ $\mu$ half ranges 
-      \item Applying moments to the TRT equations yields 4 radiation equations, and 2 material energy
-          equations, per cell \vspace{-0.062in}
-    \item The resulting radiation equations are  manipulated to produce weighted
-        averages, which we refer to as \colb{consistency
-          terms}, e.g.,
+    \frametitle{Moments of the transport equation are manipulated \\ to form \colb{consistency
+    terms}}
+    \vspace{-0.15in}
+\begin{multline*}\label{lo_tran}
+    -2\highlight{{\mu}_{i-1/2}^{n+1,+}} \phi_{i-1/2}^{n+1,+} + \highlight{\cur
+        {\mu}_{L,i}^{n+1,+}}
+  \mom{\phi}_{L,i}^{n+1,+}
+  +  \highlight{ \cur\mu_{R,i}^{n+1,+}}
+  \mom{\phi}_{R,i}^{n+1,+} +  \\ \left(\sigma_t^{n+1}+\frac{1}{c \Delta t} \right) h_i 
+  \mom{\phi}_{L,i}^{n+1,+} -  \frac{\sigma_s h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
+  \mom\phi_{L,i}^{n+1,-}\right) \\ = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
+  \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+}
+\end{multline*}
+    {\addtolength{\leftmargini}{-1.2cm}
+    \begin{itemize}
+        \item[] At this point, these equations are \textbf{exact}. \\ \colG{ We performed
+                algebra to form \colb{consistency terms:}}
+        \end{itemize}
+    }\vspace{-0.1in}
     \begin{equation*}
-\{{\mu}\}_{L,i}^{+} := \frac{\displaystyle 
+\{{\mu}\}_{L,i}^{n+1,+} := \frac{\displaystyle 
     \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x) 
 I^{n+1}(x,\mu) \;\d x \d \mu } 
 {\displaystyle \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
 I^{n+1}(x,\mu)\; \d x \d \mu} 
     \end{equation*}
     \vspace{-0.1in}
-\item Use \colb{$\tilde{I}_{HO}^{n+1}(x,\mu)$} \& LD spatial closure to close the system
-    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{We close the system with HO angular information \\ and a LD spatial
+    discretization}
+    \begin{columns}
+        \begin{column}{0.2\linewidth}
+    \begin{centering}
+        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+            \draw (1.0,2.125) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
+            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
+            \node at (5.6,4.1) {$T_{i,R}^4$};
+            \node at (1.2,2.7) {$T_{i,L}^4$};
+            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
+            \draw (1.0,2.125) -- (5.90,3.70);
+            \draw (5.9,3.70) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+        \end{tikzpicture}
+        \vspace{0.1in}
+        \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
+            \hspace{-0.13in}
+            \draw [Gray,thick,dashed] (-1.2,-1.) -- (6.25,-1.);
+        \end{tikzpicture}
+        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+            \filldraw[color=black, fill=white] (1,2.1250) circle (2.1pt);
+            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
+            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
+            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
+            \node at (4.6,3.70) {$\phi^+(x)$};
+            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
+            \draw (1.0,2.125) -- (5.90,3.50);
+            \draw (5.9,3.50) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+        \end{tikzpicture}
+    \end{centering}
+\end{column}
+\begin{column}{0.75\linewidth}
+    \addtolength{\wideitemsep}{0.11in}
     \begin{itemize}
-            
-        \item Cell unknowns are: $\mom{\phi}_{L,i}^{+}$, $\mom{\phi}_{R,i}^{+}$,
-        $\mom{\phi}_{L,i}^{-}$, $\mom{\phi}_{R,i}^{-}$, $T_{L,i}$, $T_{R,i}$
-     \item Non-linear, fully discrete system, solved with approximate Newton's method
- \end{itemize}
-
-
-}
+        \item Assume $T(x)$ and $T^4(x)$ are LD \\ \colG{ensuring preservation of the EDL}
+        \item Eliminate $\phi_{i+1/2}^\pm$ with LD closure:
+            \begin{center}{\textcolor{Gray}{%
+                    \fbox{ {\color{black} $\displaystyle  
+      \phi_{i+1/2}^+ = 2\mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+$}}}}
+            \end{center}
+        \item \colb{ $\tilde{I}_{\text{HO}}^{n+1}$} used to evaluate
+            consistency terms 
+        \item
+               \colG{Global system solved with Newton's method, with lagged opacities}
+    \end{itemize}
+    \end{column}
+\end{columns}
 \end{frame}
 
 
@@ -505,31 +557,31 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Overview of Exponentially Convergent Monte Carlo}
+    \frametitle{The HO transport equation is solved with Exponentially Convergent Monte Carlo}
     \begin{itemize}
-        \item Each batch tallies the \colb{error} in current estimate of solution
-            \begin{itemize}
-    \item Can reduce statistical error \colb{globally} $\propto e^{-\alpha N}$
-    \item In TRT problems, $I^{n}$ often provides a \emph{very good} approximation of
-        $I^{n+1}$, significantly reducing the required number of histories
-\end{itemize}
+        \item[] Each batch tallies the \colb{error} in current solution, \\
+            \colG{particles perform standard linear MC history}
+
+        \item[] Can reduce statistical error \colb{globally} $\propto e^{-\alpha N}$
+            \colG{adaptive $h$-refinement is necessary}
+        \item[] For TRT, $I^{n}$ often provides a \emph{very good} estimate of
+            $I^{n+1}$,  \colG{and no need to sample equilibrium regions}
      \end{itemize}
-    \begin{minipage}{0.6\linewidth}
-        \vspace{-2.0in}
-        
+ \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{frame}
+     \frametitle{ECMC requires a global, functional \\representation of the angular intensity}
      \begin{itemize}
-     \item Requires a \colr{functional form} of the angular intensity $\tilde I(x,\mu)$
-            \begin{itemize}
-                \item Use LD \u{\colb{projection}} of the solution onto a space-angle FE
-                    mesh
-        \item LD FE $\tilde  I^{HO}(x,\mu)$ allows for direct computation of
-            consistency terms
+         \item[] We use \u{\colb{projection}} of the angular intensity $\tilde I(x,\mu)$
+             \\ \colG{onto a LDFE space-angle mesh}
+         \item[] Uniform, adaptive $h$-refinement is used 
+             \\ \colG{when trial space does not accurately represent error}
     \end{itemize}
-    \end{itemize}
-    \end{minipage}
-    \begin{minipage}[t]{0.3\linewidth}
+    \begin{minipage}[t]{0.2\linewidth}
+        \vspace{0pt}
         \centering
-        \scalebox{0.8}{
+        \scalebox{0.7}{
         \begin{tikzpicture}
             \draw (1,1) rectangle (4,4);
             \node[draw,circle,inner sep=1.2 pt,fill] at (2.5,2.5) {};
@@ -543,45 +595,61 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         \end{tikzpicture}
     }
     \end{minipage}%
+    \begin{minipage}[t]{0.8\linewidth}
+        \vspace{0pt}
+        \begin{itemize}
+         \item Moments computed with volumetric tallies \\
+                \colG{preserving moments of error}
+             \begin{equation*}
+                 \tilde{I}_{ij}(x,\mu) = I_{a,ij} + \frac{2}{h_x}I_{x,ij}(x-x_i) +
+                 \frac{2}{h_\mu}I_{\mu,ij}(\mu-\mu_i)
+             \end{equation*}
+        \end{itemize}
+    \end{minipage}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{High Order System and ECMC Algorithm}
+    \frametitle{The \colb{pure-absorber} HO transport equation\\ is solved with ECMC}
         \begin{align*}
             \hspace{-0.2in}
             \left[\mu \pderiv{}{x} + \left(\sigma_t^{n+1}+\frac{1}{c\Delta t}\right)\right]I^{n+1}
-            &= \frac{I^{n}}{c\Delta t} + \boxed{\frac{1}{4\pi}\left(\sigma_a^{n+1} a c
-    T_{LO}^{n+1,4}+\sigma_s\phi_{LO}^{n+1}\right)} \\
+            &= \frac{I^{n}}{c\Delta t} + \boxed{\frac{1}{4\pi}\left[\sigma_a^{n+1} a c
+        \left(T_{LO}^{n+1}\right)^4+\sigma_s\phi_{LO}^{n+1}\right]} \\
             \B L I^{n+1} &= \colb{q_{LO}}
      \end{align*}
-    \begin{itemize}
-        \item \colb{Pure absorber} transport problem because we have LD
-            representation of $T^4$ from LO solution
-        \vspace{-0.3in}
-        
-        \end{itemize}
-        \begin{block}{For each batch $m$:}
+        \begin{block}{The ECMC algorithm is, for each batch $m$:}
          \begin{itemize}
         \item Residual Equation: $\displaystyle \B L \tilde 
             \epsilon^{(m)} =
             \tilde r^{(m)} = q - \B L \tilde I^{n+1,(m)}$
-        \item Compute $\tilde{\epsilon}^{(m)} = \B L^{-1} \tilde{r}^{(m)}$ with MC 
-            \begin{itemize}
-                \item Particles are allowed to stream along path $s$, $w(s)=w_0 e^{-\sigma_t s}$
-                \item Use cell-wise {systematic} sampling for $|r^{(m)}|$ source
-            \end{itemize}
-        \item Update: $\tilde I^{n+1,(m)} = \tilde I^{n+1,(m-1)} + \tilde \epsilon^{(m)}$
-        \begin{itemize}
-            \item If $\tilde{\epsilon}$ is reduced each batch, \colb{exponential convergence
-                achieved}
-        \end{itemize}
+        \item Compute $\tilde{\epsilon}^{(m)} = \B L^{-1} \tilde{r}^{(m)}$ with MC  \\
+            \vspace{0.051in}
+            \hspace{0.575in}
+            \colG{$\tilde{\epsilon}^{(m)} = \B L^{-1} q - \B L^{-1} \B L \tilde
+            I^{n+1,(m)}$}
+        \item Update moments: $\tilde I^{n+1,(m+1)} = \tilde I^{n+1,(m)} + \tilde \epsilon^{(m)}$
     \end{itemize}
 \end{block}
 \end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \frametitle{Our HO system allows for simple application of variance reduction methods}
+    \addtolength{\wideitemsep}{0.15in}
+    \begin{itemize}
+        \item[] Particles are allowed to stream without collision \\
+            \colG{along path $s$, $w(s)=w_0 e^{-\sigma_t s}$}
+        \item[] Use cell-wise {systematic} sampling for $|r^{(m)}|$ source
+            \begin{itemize}
+                \item $N$ in each $x$-$\mu$ cell $\propto |r^{(m)}|$
+                \item Set minimum $N$ for cells  \\
+                    \colG{except for cells in thermal equilibrium}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 
 \section{Computational Results}
@@ -615,7 +683,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \setbeamertemplate{footline}{}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Marshak Wave Test Problem}
+    \frametitle{The HOLO solution produces significantly less noise \\ than IMC for a Marshak Wave Test Problem}
     \centering
     \begin{block}{}
         \begin{itemize}
@@ -624,7 +692,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
                 boundary at $t=0$. With $\sigma_a\propto T^{-3}$; energy slowly moves across the
                 system.
             \item Transient solution after 5 shakes plotted as $T_r =
-                \sqrt[4]{\phi/ac}$, with 200~$x$ and 4~$\mu$  cells }
+                \sqrt[4]{\phi/ac}$ \\ \colG{200~$x$ cells and for ECMC 4~$\mu$  cells }}
         \end{itemize}
     \end{block}
     \begin{figure}
@@ -634,13 +702,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Two Material Problem, Comparison of Spatial Convergence}
-    \begin{block}{}
+    \frametitle{The LD representation has higher spatial accuracy than source tilting for
+    two material problem}
         \begin{itemize}
-            \item Same as Marshak Wave, but with constant opacities and an optically thin (left) and
-                optically thick (right) region. ECMC uses 8 $\mu$ cells
+            \item[] Problem features an optically thin (left) and
+                optically thick (right) region. \colG{ECMC uses 8 $\mu$ cells}
         \end{itemize}
-    \end{block}
 \begin{figure}
     \centering
     \includegraphics[width=0.6755799\textwidth]{two_mat_conv.pdf}
@@ -650,8 +717,11 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 
 \begin{frame}
-    \frametitle{DIFFUSION LIMIT PROBLEM}
-
+    \frametitle{The LDFE discretization for LO equations \\ preserves the equilibrium diffusion limit}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
+\end{figure}
 \end{frame}
 
 \begin{frame}
@@ -681,35 +751,71 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Remaining Research}
 \begin{frame}
-    \frametitle{Current \& Future Development}
-    \begin{itemize}
-        \item Can accurately reproduce IMC results with HOLO method
-        \begin{itemize}
-            \item ECMC requires \colb{significantly less particles} than standard MC
-            \item HO solver requires no effective scattering events
-            \item LO solver determines non-linear Material temperature distribution
-            \item LD representation of $T^4$ mitigates teleportation error
-        \end{itemize}
+    \frametitle{We need a way to resolve issues when the LDFE projection produces negative
+    solutions}
         
-    \item Currently developing strategies for dealing with unresolvable solutions
-    \item Next step will be to implement in 2 spatial dimensions
+\end{frame}
+
+\begin{frame}
+    \frametitle{A doubly-discontinous trial space provides more freedom in fixups}
+    \begin{center}
+        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+            \filldraw[color=black, fill=white] (1,2.1250) circle (2.1pt);
+            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
+            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
+            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
+            \node at (4.6,3.70) {$\phi^+(x)$};
+            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
+            \draw (1.0,2.125) -- (5.90,3.50);
+            \draw (5.9,3.50) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+        \end{tikzpicture}
+    \end{center}
+
+    \begin{itemize}
+\item In HO solution, solution on face is uniquely defined
+    \end{itemize}
+           
+\end{frame}
+
+\begin{frame}
+    \frametitle{Can the HO solution be used to close LO equations spatially?}
+    \begin{itemize}
+        \item[] Parameterize spatial closure for cell $i$:
+            \begin{equation*}
+                \phi^{+}_{i+1/2} = \frac{1+\beta_i^+}{3} \mom{\phi}_{R,i}^+ +
+                \frac{1-\beta^+_i}{3}
+                \mom{\phi}_{L,i}^+
+            \end{equation*}
+            \vspace{0.02in}
+        \item[] Use doubly discontinuous trial space to introduce extra unknown \\
+             \colG{while still preserving EDL with linear shape}
+        \item[] Estimate $\beta$ parameters using HO solution \\
+            \colG{in each coarse spatial cell}
+        \item[] This closure will be more consistent\\
+                \colG{as long as outers are converged}
     \end{itemize}
 \end{frame}
 
-\section{Remaining Research}
 \begin{frame}
-    \frametitle{We need a way to resolve issues when the LDFE projection produces non-physical solutions}
-\end{frame}
-
-\begin{frame}
-    \frametitle{DSA with source iterations may provide a practical application of the LO equaitons in 2D}
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{We would like to use the HO solution to close the system}
+    \frametitle{We will use source-iteration with diffusion-synthetic acceleration (DSA) to solve LO system}
+    \begin{itemize}
+        \item[] In higher dimensions, the scattering terms in LO system cannot be directly inverted efficiently
+        \item[] Use source iteration with WLA-DSA \\ \colG{for each Newton step}
+            \begin{enumerate}
+                \item Sweep for a new $\phi^{\pm}$ \\ \colG{with a lagged scattering
+                    source}
+                \item Solve approximate \colb{continuous} diffusion equation for error in
+                    scattering iterations
+                \item Update with local balance equations over cells
+            \end{enumerate}
+        \item[] Inconsistencies may cause difficulties in convergence \\
+            \colG{but can be resolved with preconditioned Krylov methods}
+    \end{itemize}
 
 \end{frame}
 
@@ -717,8 +823,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \begin{frame}
     \frametitle{\colb{There are several investigations left to do:}}
         \begin{enumerate}
-            \item DSA
-            \item hey
+            \item Resolving negativity issues
+                \begin{itemize}
+                    \item Accuracy of added source method
+                    \item Consistency with LO solution
+                \end{itemize}
+            \item Source iterations with DSA
         \end{enumerate}
     \end{frame}
 
@@ -736,6 +846,14 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \title{Backup Slides}
 \author{}
 \date{}
+
+\begin{frame}   
+    \frametitle{The angular flux for the two material problem is difficult to resolve near
+    $\mu=0$}
+    \begin{figure}
+        \includegraphics[width=0.57\textwidth]{ang_flux.png}
+    \end{figure}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
@@ -756,7 +874,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 
 \begin{frame}
-    \frametitle{LO System}
+    \frametitle{Derivation of LO System}
     \begin{itemize}
         \item Taking moments of TE yields \colb{4 equations}, per cell $i$, e.g.
 \begin{multline}\label{lo_tran}

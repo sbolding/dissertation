@@ -744,9 +744,9 @@ This source is estimated iteratively as
     \tilde{I}^{n+1,(m)}_{\text{pos}}),
 \end{equation*}
 where $\tilde{I}_{pos}^{n+1}$ is the modified positive solution.
-Essentially, this source is modifying the first moments of the transport equation to ensure a positive solution within the negative cells.  Neglecting
-statistical noise, the solution will converge towards the strictly positive projection
-$\tilde{I}_{\text{pos}}^{n+1}$ in the next batch. We can estimate the necessary source again in the next batch.  The source
+Essentially, this source is modifying the first moments of the transport equation to
+ensure a positive solution within the negative cells.   If necessary, we can estimate a
+new source again in the next batch.  The source
 $\tilde\delta$ lies in the same functional space as the residual, and thus can use
 the existing code for computing the residual and will be straight forward to extend
 to higher dimensions.  
