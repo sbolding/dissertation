@@ -82,14 +82,24 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\xr}{{x_{i+1/2}}}
 \newcommand{\il}{{i-1/2}}
 \newcommand{\ir}{{i+1/2}}
-\newcommand{\shorttitle}{\color{black} A HOLO Algorithm for Thermal Radiative Transfer}
+\newcommand{\shorttitle}{\color{black} A HOLO Algorithm for Thermal Radiative Transfer
+    \makebox[\linewidth]{\rule{\textwidth}{5pt}}
+}
 
 %The next lines automatically add outline slides at start of each section
 \AtBeginSection[]
 {
     \begin{frame}<*>
         \frametitle{\shorttitle}
+        \vspace{0pt}
+        \begin{minipage}[c][0.6\textheight]{0.2\textwidth}
+            \hspace{-2em}\includegraphics[width=\textwidth]{tamu_seal.png}\hspace{1em}
+            \rule[-0.3\textheight]{1pt}{0.8\textheight}
+        \end{minipage}
+    \vspace{0pt}
+        \begin{minipage}[c][0.6\textheight]{0.74\textwidth}
         \tableofcontents[currentsection,currentsubsection]
+         \end{minipage}
     \end{frame}
 }
 
@@ -167,6 +177,13 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 \setbeamersize{text margin left=1cm}
 \setbeamersize{text margin right=1cm}
+
+\makeatletter
+\let\old@rule\@rule
+\def\@rule[#1]#2#3{\textcolor{rulecolor}{\old@rule[#1]{#2}{#3}}}
+\makeatother
+
+\definecolor{rulecolor}{RGB}{80,0,0}
 
 
   % This will typeset only the frames (or slides) that have the given label ("current" in this case).
@@ -269,19 +286,21 @@ Linearization can cause non-physical results & Fully implicit time-discretizatio
 }
 \end{frame}
 
-\begin{frame}
+\begin{frame}<*>
     \frametitle{\shorttitle}
-\begin{minipage}{0.061\linewidth}
-\hfill                      
-\end{minipage}
-\begin{minipage}{0.8\linewidth}
+        \vspace{0pt}
+        \begin{minipage}[c][0.6\textheight]{0.2\textwidth}
+            \hspace{-2em}\includegraphics[width=\textwidth]{tamu_seal.png}\hspace{1em}
+            \rule[-0.3\textheight]{1pt}{0.8\textheight}
+        \end{minipage}
+    \vspace{0pt}
+        \begin{minipage}[c][0.6\textheight]{0.74\textwidth}
 \tableofcontents[
 hideothersubsections,
 sectionstyle=show,
 subsectionstyle=hide
 ]
-\end{minipage}
-
+         \end{minipage}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Overview of algorithm}
