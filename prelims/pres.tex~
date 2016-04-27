@@ -12,9 +12,9 @@
 
 
 
-%Load the myriad packages
+%Tikz stuff
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric, arrows,shapes.arrows}
+\usetikzlibrary{shapes.geometric, arrows,shapes.arrows,calc,positioning}
 \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2cm, text
     width=1.8cm, minimum height=1cm,text centered, text=white,draw=black, fill=Gray!140]
 \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110,
@@ -26,6 +26,17 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     height=0.81cm,aspect=1.40, text centered, draw=black, fill=Gray!,text=white]
 \tikzstyle{arrow} = [thick,line width=0.5mm,->,>=stealth]
 \tikzstyle{arrow1} = [dashed,->,>=stealth]
+
+
+\tikzset{>=stealth}
+
+\newcommand{\tikzmark}[3][]{\tikz[overlay,remember picture,baseline] \node [anchor=base,#1](#2) {\ensuremath{#3}};}
+
+
+
+
+
+
 
 \usepackage[absolute,overlay]{textpos}
 
@@ -63,6 +74,8 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\colr}[1]{{\color{red} #1}}
 \usepackage{amsfonts}
 \newlength{\wideitemsep}
+\newlength{\tabsep}
+\setlength{\tabsep}{0.99cm}
 \setlength{\wideitemsep}{8pt}
 \addtolength{\wideitemsep}{5pt}
 \let\olditem\item
@@ -244,20 +257,22 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \begin{frame}
 \frametitle{Our method has been applied to a simplied model, \\ the 1D grey TRT equations}
 \setlength{\unitlength}{\textwidth}
-\begin{center}
-\begin{align*}\label{ho_cont}
+\vspace{-0.2in}
+\begin{itemize}
+    \item[] \begin{align*}\label{ho_cont}
+\hspace{-0.3in}
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
     &= \frac{1}{4\pi} \left( \sigma_a a c T^4 + \sigma_s \phi\right),
   \\
   C_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4\\
 \end{align*}
-\end{center}
-\begin{itemize}
-        \item Energy balance for angular radiation intensity $I(x,\mu,t)$ \\ and material
+    \item[] \vspace{-0.3in}Energy balance for angular radiation intensity $I(x,\mu,t)$ \\ and material
             temperature $T(x,t)$
-        \item Equations are nonlinear and may be tightly coupled. \\  
+            \vspace{0.13in}
+        \item[] Equations are nonlinear and may be tightly coupled. \\  
             \colG{Opacities can be a strong function of $T$}
-        \item For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
+            \vspace{0.13in}
+        \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
 \end{itemize}
 \end{frame}
 
@@ -281,15 +296,25 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \end{frame}
 
 \begin{frame}
-    \frametitle{Our high-order low-order (HOLO) method improves several drawbacks of IMC}
-{\scriptsize
+    \frametitle{Our high-order low-order (HOLO) method \\improves on several drawbacks of IMC}
+    \begin{center}
+{\footnotesize
 \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}} 
-\multicolumn{1}{c}{\textbf{IMC}} & \multicolumn{1}{c}{\colb{HOLO Method}} \\  \hline
-Effective scattering can make MC very expensive  & MC solution has no scattering \\
-Linearization can cause non-physical results & Fully implicit time-discretization and LO system resolves nonlinearities \\
-\parbox{0.4\textwidth}{Reconstruction of linear source shape,\\ for preserving equilibrium diffusion limit} & Linear-discontinuous FE for $T(x)$
+    \multicolumn{1}{l}{\textbf{\normalsize  IMC}} & \multicolumn{1}{l}{\textbf{\normalsize
+    HOLO Method}} \\ \hline [2pt]
+    \parbox{0.4\textwidth}{Large \colr{statistical noise} possible} & 
+    \parbox{0.4\textwidth}{ECMC is very efficient \\for TRT problems} \\ [\tabsep]
+ \parbox{0.4\textwidth}{{\color{red}Effective scattering} can make \\ MC  very expensive}
+ & \parbox{0.4\textwidth}{MC solution has \colb{no
+ scattering}} \\[\tabsep] 
+ \parbox{0.5\textwidth}{Linearization can cause \colr{non-physical}\\ results  (maximum principle
+ violations)} & \parbox{0.5\textwidth}{Fully \colb{implicit} time-discretization
+ and LO solution \colb{resolves nonlinearities}} \\[\tabsep] 
+ \parbox{0.5\textwidth}{\colG{Reconstruction of linear source shape}} &
+ \parbox{0.5\textwidth}{Linear-discontinuous FE for $T(x)$ \\ which preserves EDL} 
 \end{tabular}
 }
+\end{center}
 \end{frame}
 
 \begin{frame}<*>
@@ -313,29 +338,30 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{We solves a non-linear low-order system with high-order angular correction from efficient MC simulations.}
+    \frametitle{Solve a non-linear low-order system with high-order angular correction from efficient MC simulations}
     \setlength{\unitlength}{1mm}
-    \begin{picture}(120,80)(0,-80)
+    \begin{picture}(120,80)(0,-84)
     \put(-5,-15){
     \begin{minipage}[t]{1.1\textwidth}
         \begin{itemize}
-\setlength\wideitemsep{0.06in}
-            \item[] The \textbf{LO system} consists of space-angle moment equations,\\
+\setlength\wideitemsep{0.2in}
+            \item[] The \textbf{LO system} is space-angle moment equations,\\
                     \colG{formed over a fixed finite-element (FE) spatial mesh}
                 \vspace{0.02in}
                 {\scriptsize
                 \begin{itemize}
                     \item Reduced dimensionality in angle\\
                          \colG{allows for solution with Newton's method}
-              \item \textbf{Output:} a linear-discontinuous (LD) FE representation
-                        of \colb{scattering and emission source}
+              \item \textbf{Output:} a linear-discontinuous (LD) FE \\ 
+                         \colb{scattering and emission source}
                   %  \item Consistency terms derived directly from transport equation
                 \end{itemize}
-}\vspace{0.04in}
+}\vspace{0.2in}
             \item[] The \textbf{HO system} is pure-absorber transport problem
                 {\scriptsize
                 \begin{itemize}
-                    \item Solved with exponentially-convergent MC (ECMC) \\ \colG{for efficient reduction of statistical noise }
+                    \item Solved with exponentially-convergent MC (ECMC) \\ \colG{for
+                            \emph{efficient} reduction of statistical noise }
                     \item \textbf{Output:} \colb{angular consistency terms}
                 \end{itemize}
 }
@@ -423,7 +449,8 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The LO equations are formed from spatial and angular moments of the TRT equations}
+    \frametitle{The LO equations are formed as consistently as possible with spatial and
+    angular moments of TRT equations}
     \begin{itemize} \vspace{0.15in}
         \item The time discretization is backward Euler\\ \colG{for both the HO and LO equations}
 \item FE basis functions are used for spatial moments   \end{itemize}
@@ -431,13 +458,13 @@ subsectionstyle=hide
         \begin{column}{0.5\textwidth}
     \begin{centering}
         \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
-            \draw (10.8,4.0) -- (11.2,4.0) node[anchor=east]{$1$ \hspace{0.4em} };
+            \node at (10.4,4.0) {$\colb{1}$ \hspace{0.8em} };
+            \draw [Blue,->] (10.4,4.0) -- (10.8,4.0);
             \draw (11.0,0.4) -- (11.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (15.90,0.4) -- (15.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
             \node at (14.8,4.0) {$b_{R,i}(x)$};
             \node at (12.0,4.0) {$b_{L,i}(x)$};
             \draw [thick,->] (9.5,0.5) -- (17.0,0.5) node[anchor=north west] {$x$};
-            \draw [dashed,-] (15.90,0.5) -- (15.90,4);
             \draw [dashed,->] (11.0,0.5) -- (11.0,4.5);
             \draw (11.0,0.5) -- (15.90,4.0);
             \draw (15.90,0.5) -- (11.0,4.0);
@@ -453,7 +480,7 @@ subsectionstyle=hide
 \end{columns}
 \begin{itemize}
         \vspace{0.2in}
-    \item Angular half-range integrals reduce angular dimensionality
+    \item Half-range integrals reduce angular dimensionality
     \begin{equation*}
         {\displaystyle \phi^+(x) =
         2\pi\int_0^1 I(x,\mu) \d \mu}
@@ -464,7 +491,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Moments of the transport equation are manipulated \\ to form \colb{consistency
+    \frametitle{Four moments of the transport equation are manipulated \\ to form \colb{consistency
     terms}}
     \vspace{-0.15in}
 \begin{multline*}\label{lo_tran}
@@ -545,7 +572,9 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
                     \fbox{ {\color{black} $\displaystyle  
       \phi_{i+1/2}^+ = 2\mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+$}}}}
             \end{center}
-       \item \colG{Global system is solved with Newton's method, with lagged opacities}
+       \item Global system is solved with Newton's method and \textbf{implicit
+           opacities}
+           lagged\\ \colG{Energy is always conserved}
        \end{enumerate}
     \end{column}
 \end{columns}
@@ -559,39 +588,61 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\addtolength\leftmargini{-0.165in}
 \begin{frame}
     \frametitle{The HO transport equation is solved with Exponentially Convergent Monte Carlo}
     \begin{itemize}
-        \item[] Each batch tallies the \colb{error} in current solution
+            \addtolength{\wideitemsep}{0.14in}
+        \item[] Each MC batch tallies the \colb{error} in current solution 
             \begin{itemize}
                 \item \colG{standard MC particle tracking}
-            \item \colG{source can be negative}
+                    \vspace{-0.21in}
+                \item \colG{source is complex and can be \colr{negative}}
     \end{itemize}
 
         \item[] Can reduce solution error \colb{globally} $\propto e^{-\alpha N}$ \\
-            \colG{Adaptive $h$-refinement is required}
+            \colG{Adaptive $h$-refinement is required to represent error}
         \item[] $I^{n}(x,\mu)$ often provides an \emph{excellent} estimate of
             $I^{n+1}(x,\mu)$\\  \colG{No MC sampling for equilibrium regions}
      \end{itemize}
  \end{frame}
+ }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \begin{frame}
-     \frametitle{ECMC requires a global, functional \\representation of the angular intensity}
-     \begin{itemize}
+     \frametitle{ECMC requires a global, functional representation \\ of the angular intensity}
+     \begin{itemize}\vspace{0.1in}
          \item[] We use \u{\colb{projection}} of the angular intensity $\tilde I(x,\mu)$
              \\ \colG{onto a LDFE space-angle mesh}
-         \item[] Uniform, adaptive $h$-refinement is used 
-             \\ \colG{when trial space does not accurately represent error}
+{\small
+    \begin{minipage}[c]{0.9\linewidth}
+        \vspace{24pt}
+             \begin{equation*}
+                 \tilde{I}_{ij}(x,\mu) = \ \ \tikzmark{moma}{\colb{I_{a,ij}}}\ \ + \frac{2}{h_x}\;\;\tikzmark{momx}{\colb{I_{x,ij}}}\ \ (x-x_i) +
+                 \frac{2}{h_\mu} \ \ \tikzmark{mommu}{\colb{I_{\mu,ij}}}\ \ (\mu-\mu_i)
+             \end{equation*}
+        \begin{tikzpicture}[overlay, remember picture]
+    \node (descr) at (4,2) {local volumetric tallies};
+    \draw[,->,thick,Gray!60] (descr) to [in=90,out=-90] (moma);
+    \draw[,->,thick,Gray!60] (descr) to [in=90,out=-90] (momx);
+    \draw[,->,thick,Gray!60] (descr) to [in=90,out=-90] (mommu);
+        \end{tikzpicture}
+    \end{minipage}
+}
     \end{itemize}
-    \begin{minipage}[t]{0.2\linewidth}
+   { \setlength\unitlength{1mm}
+    \begin{picture}(130mm,40mm)
+    \put(-4,40){
+    \begin{minipage}[t]{0.6\linewidth}
         \vspace{0pt}
         \centering
         \scalebox{0.7}{
         \begin{tikzpicture}
+            \hspace{-0.5in}
             \draw (1,1) rectangle (4,4);
             \node[draw,circle,inner sep=1.2 pt,fill] at (2.5,2.5) {};
             \node[above] at (2.5,2.5) {$(x_i,\mu_j)$};
+            \node at (2.5,5.0) {Single $x$-$\mu$ cell};
             \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (4.0,0.4) -- (4.0,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
             \draw (0.4,1.0) -- (0.6,1.0) node[left, pos=0.4] {$\mu_{j-1/2}$};
@@ -600,18 +651,10 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \draw [thick,->] (0.5,0.5) -- (0.5,5) node[anchor=east] {$\mu$};
         \end{tikzpicture}
     }
-    \end{minipage}%
-    \begin{minipage}[t]{0.8\linewidth}
-        \vspace{0pt}
-        \begin{itemize}
-         \item Moments computed with volumetric tallies \\
-                \colG{preserving moments of error}
-             \begin{equation*}
-                 \tilde{I}_{ij}(x,\mu) = I_{a,ij} + \frac{2}{h_x}I_{x,ij}(x-x_i) +
-                 \frac{2}{h_\mu}I_{\mu,ij}(\mu-\mu_i)
-             \end{equation*}
-        \end{itemize}
-    \end{minipage}
+    \end{minipage}} 
+    \put(55,0){\centering\includegraphics[width=0.55\textwidth]{zoom_angflux.pdf}
+        }
+    \end{picture}}
 \end{frame}
 
 
@@ -625,12 +668,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         \left(T_{LO}^{n+1}\right)^4+\sigma_s\phi_{LO}^{n+1}\right]} \\
             \B L I^{n+1} &= \colb{q_{LO}}
      \end{align*}
-        \begin{block}{The ECMC algorithm is, for each batch $m$:}
+        \begin{block}{For each batch $m$:}
          \begin{itemize}
         \item Residual Equation: $\displaystyle \B L \tilde 
             \epsilon^{(m)} =
-            \tilde r^{(m)} = q - \B L \tilde I^{n+1,(m)}$
-        \item Compute $\tilde{\epsilon}^{(m)} = \B L^{-1} \tilde{r}^{(m)}$ with MC  \\
+            r^{(m)} = q - \B L \tilde I^{n+1,(m)}$
+        \item Compute $\tilde{\epsilon}^{(m)} = \B L^{-1} {r}^{(m)}$ via MC simulation  \\
             \vspace{0.051in}
             \hspace{0.575in}
             \colG{$\tilde{\epsilon}^{(m)} = \B L^{-1} q - \B L^{-1} \B L \tilde
@@ -646,11 +689,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \frametitle{Our HO system allows for simple application of variance reduction methods}
     \addtolength{\wideitemsep}{0.15in}
     \begin{itemize}
-        \item[] Particles are allowed to stream without collision \\
-            \colG{along path $s$, $w(s)=w_0 e^{-\sigma_t s}$}
+        \item[] Histories stream without collision \\
+            \colG{along path $s$, thus $w(s)=w_0 e^{-\sigma_t s}$}
         \item[] Use cell-wise {systematic} sampling for $|r^{(m)}|$ source
             \begin{itemize}
                 \item $N$ in each $x$-$\mu$ cell $\propto |r^{(m)}|$
+                \vspace{-0.2in}
                 \item Set minimum $N$ for cells  \\
                     \colG{except for cells in thermal equilibrium}
             \end{itemize}
@@ -661,46 +705,30 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \section{Computational Results}
 \subsection{}
 
-\begin{frame}
-    \frametitle{Relevant Problem and Implementation Specifics }
-    \begin{itemize}
-    \item Difficulties in resolving the solution near the wave-front
-        \begin{itemize}
-            \item The LD representation of $I(x,\mu)$ results in negative values within a
-                cell
-            \item In these results, no correction is applied to the HO solution, and the LO
-                solution uses lumped LD and S$_2$ equivalent terms in bad cells
-        \end{itemize}
-     
- \item \u{For all results}
-        \begin{itemize}
-    \item LO Newton iterations are is fully converged each solve
-    \item Fixed $\Delta t$ of $0.001$ shakes (0.01 ns)
-    \item One HO solve per time step (predictor-corrector)
-        \begin{itemize}
-            \item \emph{each HO} solve has 3 ECMC batches
-        \end{itemize}
-    \item $\sigma_s = 0$
-    \end{itemize}
-    \end{itemize}
-\end{frame}
 
 {
 \setbeamertemplate{footline}{}
+
+\begin{frame}
+    \frametitle{We will test our method with several \\ Marshak Wave test problems}
+    \centering
+        \begin{itemize}
+            \item[] From thermal equilibrium, a radiation source is applied at the left
+                boundary at $t=0$. Energy slowly moves across the
+                system.
+            \item[] Results depict \colb{radiation temperature} $T_r = \sqrt[4]{\phi/ac}$ 
+        \end{itemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The HOLO solution produces significantly less noise \\ than IMC for a Marshak Wave Test Problem}
+    \frametitle{The HOLO method produces significantly less noise \\ than IMC for a Marshak Wave Test Problem}
     \centering
-    \begin{block}{}
         \begin{itemize}
                 {\footnotesize
-            \item From equilibrium, a radiation source is applied at the left
-                boundary at $t=0$. With $\sigma_a\propto T^{-3}$; energy slowly moves across the
-                system.
-            \item Transient solution after 5 shakes plotted as $T_r =
-                \sqrt[4]{\phi/ac}$ \\ \colG{200~$x$ cells and for ECMC 4~$\mu$  cells }}
+            \item \colb{$\sigma_a\propto T^{-3}$}. 
+            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and for ECMC 4~$\mu$  cells }}
         \end{itemize}
-    \end{block}
     \begin{figure}
     \includegraphics[width=0.615799\textwidth]{marshak_200_compare.pdf}
     \end{figure}
@@ -726,27 +754,24 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \frametitle{The LDFE discretization for LO equations \\ preserves the equilibrium diffusion limit}
 \begin{figure}
     \centering
-    %\includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
+    \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
 \end{figure}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Comparison of statistical noise for standard and ECMC HO solvers}
-    \begin{block}{}
-        {\small
-    \begin{itemize}
-        \item Different HO solvers: a
-            comparison of
-            \colb{ECMC} with 3 batches and standard MC (\colr{SMC}), as well as an S$_2$
-            solution
-    \end{itemize}
-}
-    \end{block}
+    \frametitle{ECMC is more efficient than\\
+ standard MC (SMC) as a HO solver }
     \centering
     \begin{figure}
     \includegraphics[width=0.6699\textwidth]{two_mat_ho_compare.pdf}
     \centering
     \end{figure}
+        {\small
+    \begin{itemize}
+        \item[] Different HO solvers: \colb{ECMC} with 3 batches, \\ standard MC (\colr{SMC}), and an S$_2$
+            solution
+    \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
@@ -779,13 +804,15 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \end{tikzpicture}
         \item Can produce $\B L \tilde I_{\text{pos}}$ by scaling moments
             \\ \colG{currently we scale the slopes}
-        \item Add source to LO equation \\ \colG{ensure energy balance is unchanged}
+        \item Add source to LO equation \\ \colG{but would affect energy conservation of LO solution}
     \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{A doubly-discontinous trial space \\ may increase accuracy}
+    \frametitle{We will add a doubly-discontinous trial space \\ which allows for higher spatial accuracy}
+    \begin{columns}
+        \begin{column}{0.2\textwidth}
     \begin{center}
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
             \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
@@ -801,16 +828,11 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
         \end{tikzpicture}
     \end{center}
-
+    \end{column}
+    \begin{column}{0.7\textwidth}
+    \vspace{0pt}
     \begin{itemize}
 \item For HO solution, LD $\mu$ projection along the outgoing face
-    \end{itemize}
-           
-\end{frame}
-
-\begin{frame}
-    \frametitle{Can the HO solution be used to close LO equations spatially?}
-    \begin{itemize}
         \item[] Parameterize spatial closure for cell $i$:
             \begin{equation*}
                 \phi^{+}_{i+1/2} = \frac{1+\beta_i^+}{3} \mom{\phi}_{R,i}^+ +
@@ -825,6 +847,8 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         \item[] This closure will be more consistent\\
                 \colG{as long as outers are converged}
     \end{itemize}
+    \end{column}      
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -872,12 +896,33 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \title{Backup Slides}
 \author{}
 \date{}
+\begin{frame}
+    \frametitle{Implementation specifics for results in the computational
+                results section }
+    \begin{itemize}
+    \item The LD representation of $I(x,\mu)$ is negative near the wave-front
+        \begin{itemize}
+            \item Here, no correction is applied to the HO solution, and the LO
+                solution uses lumped LD and S$_2$ equivalent terms in bad cells
+        \end{itemize}
+     
+ \item \u{For all results}
+        \begin{enumerate}
+    \item Fixed $\Delta t$ of $0.001$ shakes (0.01 ns)
+    \item One HO solve per time step (predictor-corrector)
+        \begin{itemize}
+            \item \emph{each HO} solve has 3 ECMC batches
+        \end{itemize}
+    \item $\sigma_s=0$
+    \end{enumerate} 
+    \end{itemize}
+\end{frame}
 
 \begin{frame}   
     \frametitle{The angular flux for the two material problem is difficult to resolve near
     $\mu=0$}
     \begin{figure}
-        %\includegraphics[width=0.57\textwidth]{ang_flux.png}
+        \includegraphics[width=0.57\textwidth]{ang_flux.png}
     \end{figure}
 \end{frame}
 
