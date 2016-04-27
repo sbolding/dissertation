@@ -227,15 +227,15 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{We are interested in modeling thermal radiation transport \\ in the high energy,
+\frametitle{We are interested in modeling thermal radiation transport \\ in the high energy
     density physics regime.}
     \addtolength{\wideitemsep}{0.08in}
 \begin{itemize}
-    \item[] Materials under extreme conditions \\ \colG{Temperatures on order of $10^6$ K or more}
-    \item[] Photon radiation field interacts with material \\ 
+    \item[] Materials under extreme conditions \\ \colG{Temperatures $\mathcal{O}(10^6)$ K or more}
+    \item[] Photon radiation transports through a material \\ 
         \colG{Significant \colb{energy} and momentum may be exchanged}
  \item[] We want to improve efficiency of calculations \\
-     \colG{for inertial confinement fusion, supernovae, et. al.}
+     \colG{e.g., inertial confinement fusion, supernovae, et. al.}
     \end{itemize}
 \end{frame}
 
@@ -253,27 +253,29 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \end{align*}
 \end{center}
 \begin{itemize}
-        \item Fundamental unknowns are the radiation intensity $I(x,\mu,t)$ and material
+        \item Energy balance for angular radiation intensity $I(x,\mu,t)$ \\ and material
             temperature $T(x,t)$
-        \item Equations are nonlinear and may be tightly coupled \\  
-               \colG{through absorption and reemission of photons}
-        \item For practical applications, spatial discretization must preserve the \colb{equilibrium diffusion limit} (EDL)
+        \item Equations are nonlinear and may be tightly coupled. \\  
+            \colG{Opacities can be a strong function of $T$}
+        \item For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
 \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-\frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo solution method for TRT problems.}
+    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems.}
+        \vspace{-0.2in}
 \begin{itemize}
-\item[] The system is linearized over a time step \vspace{0.1in}
+    \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
+        \colG{Opacities are evaluated at $t^n$}\vspace{0.1in}
 \setlength\wideitemsep{0.2in}
     \begin{itemize}
-        \item Results in a \textbf{linear transport equation }
+        \item Produces a linear MC transport problem 
                \\ \colG{with effective emission and scattering terms}
-\item Continuous time integration of intensity via MC
-        \\ \colG{but opacities are evaluated at begining time and \emph{emission source is not fully implicit}}
-        \item Use source tilting to mitigate energy propagation \\
-            \colG{reconstruction of linear-discontinuous source shape}
+        \item Reconstructed linear emission shape in space
+            \\ \colG{to mitigate artificial energy propogation} 
+        \item Emission source is \textbf{not} fully implicit.\\
+            \colG{Monte Carlo integration over $\Delta t$ for intensity}
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -281,10 +283,10 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \begin{frame}
     \frametitle{Our high-order low-order (HOLO) method improves several drawbacks of IMC}
 {\scriptsize
-\begin{tabular}{lr} \hline
+\begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}} 
 \multicolumn{1}{c}{\textbf{IMC}} & \multicolumn{1}{c}{\colb{HOLO Method}} \\  \hline
-Effective scattering cross section can be very large & LO system resolves nonlinearities \\
-Linearization can cause non-physical results & Fully implicit time-discretization \\
+Effective scattering can make MC very expensive  & MC solution has no scattering \\
+Linearization can cause non-physical results & Fully implicit time-discretization and LO system resolves nonlinearities \\
 \parbox{0.4\textwidth}{Reconstruction of linear source shape,\\ for preserving equilibrium diffusion limit} & Linear-discontinuous FE for $T(x)$
 \end{tabular}
 }
@@ -493,7 +495,8 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 
 \begin{frame}
-    \frametitle{We close the system with HO angular information \\ and a LD spatial
+    \frametitle{We close the system with HO angular information \\ and a 
+        linear-discontinuous (LD) spatial
     discretization}
     \begin{columns}
         \begin{column}{0.2\linewidth}
@@ -532,18 +535,18 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \end{column}
 \begin{column}{0.75\linewidth}
     \addtolength{\wideitemsep}{0.11in}
-    \begin{itemize}
-        \item Assume $T(x)$ and $T^4(x)$ are LD \\ \colG{ensuring preservation of the EDL}
-        \item Eliminate $\phi_{i+1/2}^\pm$ with LD closure:
+    \begin{enumerate}
+        \item Assume $T(x)$ and $T^4(x)$ are LD 
+        \item \colb{ $\tilde{I}_{\text{HO}}^{n+1}$} is used to evaluate
+            consistency terms with high accuracy
+        \item Eliminate $\phi_{i+1/2}^\pm$ with LD closure
+            \colG{ensuring preservation of the EDL}
             \begin{center}{\textcolor{Gray}{%
                     \fbox{ {\color{black} $\displaystyle  
       \phi_{i+1/2}^+ = 2\mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+$}}}}
             \end{center}
-        \item \colb{ $\tilde{I}_{\text{HO}}^{n+1}$} used to evaluate
-            consistency terms 
-        \item
-               \colG{Global system solved with Newton's method, with lagged opacities}
-    \end{itemize}
+       \item \colG{Global system is solved with Newton's method, with lagged opacities}
+       \end{enumerate}
     \end{column}
 \end{columns}
 \end{frame}
@@ -559,13 +562,16 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \begin{frame}
     \frametitle{The HO transport equation is solved with Exponentially Convergent Monte Carlo}
     \begin{itemize}
-        \item[] Each batch tallies the \colb{error} in current solution, \\
-            \colG{particles perform standard linear MC history}
+        \item[] Each batch tallies the \colb{error} in current solution
+            \begin{itemize}
+                \item \colG{standard MC particle tracking}
+            \item \colG{source can be negative}
+    \end{itemize}
 
-        \item[] Can reduce statistical error \colb{globally} $\propto e^{-\alpha N}$
-            \colG{adaptive $h$-refinement is necessary}
-        \item[] For TRT, $I^{n}$ often provides a \emph{very good} estimate of
-            $I^{n+1}$,  \colG{and no need to sample equilibrium regions}
+        \item[] Can reduce solution error \colb{globally} $\propto e^{-\alpha N}$ \\
+            \colG{Adaptive $h$-refinement is required}
+        \item[] $I^{n}(x,\mu)$ often provides an \emph{excellent} estimate of
+            $I^{n+1}(x,\mu)$\\  \colG{No MC sampling for equilibrium regions}
      \end{itemize}
  \end{frame}
 
@@ -720,7 +726,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \frametitle{The LDFE discretization for LO equations \\ preserves the equilibrium diffusion limit}
 \begin{figure}
     \centering
-    \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
+    %\includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
 \end{figure}
 \end{frame}
 
@@ -871,7 +877,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \frametitle{The angular flux for the two material problem is difficult to resolve near
     $\mu=0$}
     \begin{figure}
-        \includegraphics[width=0.57\textwidth]{ang_flux.png}
+        %\includegraphics[width=0.57\textwidth]{ang_flux.png}
     \end{figure}
 \end{frame}
 
