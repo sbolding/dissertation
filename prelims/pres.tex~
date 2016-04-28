@@ -193,7 +193,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 
 \setbeamersize{text margin left=1cm}
-\setbeamersize{text margin right=1cm}
+\setbeamersize{text margin right=0.75 cm}
 
 \makeatletter
 \let\old@rule\@rule
@@ -254,33 +254,37 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\addtolength{\leftmargini}{-0.1in}
 \begin{frame}
 \frametitle{Our method has been applied to a simplied model, \\ the 1D grey TRT equations}
 \setlength{\unitlength}{\textwidth}
 \vspace{-0.2in}
 \begin{itemize}
     \item[] \begin{align*}\label{ho_cont}
-\hspace{-0.3in}
+\hspace{-0.4in}
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
     &= \frac{1}{4\pi} \left( \sigma_a a c T^4 + \sigma_s \phi\right),
   \\
   C_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4\\
 \end{align*}
-    \item[] \vspace{-0.3in}Energy balance for angular radiation intensity $I(x,\mu,t)$ \\ and material
-            temperature $T(x,t)$
-            \vspace{0.13in}
+    \item[] \vspace{-0.25in}Energy balance equations for radiation and material \\
+            \colG{radiation intensity $I(x,\mu,t)$, material 
+    temperature $T(x,t)$}
+            \vspace{0.043in}
         \item[] Equations are nonlinear and may be tightly coupled. \\  
             \colG{Opacities can be a strong function of $T$}
             \vspace{0.13in}
         \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
 \end{itemize}
 \end{frame}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems.}
         \vspace{-0.2in}
 \begin{itemize}
+    \item[] MAYBE ADD PIC OF PARTICLE TRACKING
     \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
         \colG{Opacities are evaluated at $t^n$}\vspace{0.1in}
 \setlength\wideitemsep{0.2in}
@@ -458,12 +462,13 @@ subsectionstyle=hide
         \begin{column}{0.5\textwidth}
     \begin{centering}
         \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
+            \fill[fill=blue!20!white!30] (11.0,0.5) rectangle (15.90,4.0);
             \node at (10.4,4.0) {$\colb{1}$ \hspace{0.8em} };
             \draw [Blue,->] (10.4,4.0) -- (10.8,4.0);
             \draw (11.0,0.4) -- (11.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (15.90,0.4) -- (15.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
-            \node at (14.8,4.0) {$b_{R,i}(x)$};
-            \node at (12.0,4.0) {$b_{L,i}(x)$};
+            \node at (14.92,4.02) {$b_{R,i}(x)$};
+            \node at (12.0,4.02) {$b_{L,i}(x)$};
             \draw [thick,->] (9.5,0.5) -- (17.0,0.5) node[anchor=north west] {$x$};
             \draw [dashed,->] (11.0,0.5) -- (11.0,4.5);
             \draw (11.0,0.5) -- (15.90,4.0);
@@ -597,7 +602,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \begin{itemize}
                 \item \colG{standard MC particle tracking}
                     \vspace{-0.21in}
-                \item \colG{source is complex and can be \colr{negative}}
+                \item \colG{source is \colr{complex} and produces negative weights}
     \end{itemize}
 
         \item[] Can reduce solution error \colb{globally} $\propto e^{-\alpha N}$ \\
@@ -642,7 +647,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \draw (1,1) rectangle (4,4);
             \node[draw,circle,inner sep=1.2 pt,fill] at (2.5,2.5) {};
             \node[above] at (2.5,2.5) {$(x_i,\mu_j)$};
-            \node at (2.5,5.0) {Single $x$-$\mu$ cell};
+            \node at (2.5,5.0) {Each $x$-$\mu$ cell};
             \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (4.0,0.4) -- (4.0,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
             \draw (0.4,1.0) -- (0.6,1.0) node[left, pos=0.4] {$\mu_{j-1/2}$};
@@ -652,7 +657,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         \end{tikzpicture}
     }
     \end{minipage}} 
-    \put(55,0){\centering\includegraphics[width=0.55\textwidth]{zoom_angflux.pdf}
+    \put(55,0){\centering\includegraphics[trim=0.0in 0.0in 0.0in 0.5in,clip,width=0.55\textwidth]{zoom_angflux.pdf}
         }
     \end{picture}}
 \end{frame}
@@ -663,10 +668,10 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \frametitle{The \colb{pure-absorber} HO transport equation\\ is solved with ECMC}
         \begin{align*}
             \hspace{-0.2in}
-            \left[\mu \pderiv{}{x} + \left(\sigma_t^{n+1}+\frac{1}{c\Delta t}\right)\right]I^{n+1}
-            &= \frac{I^{n}}{c\Delta t} + \boxed{\frac{1}{4\pi}\left[\sigma_a^{n+1} a c
-        \left(T_{LO}^{n+1}\right)^4+\sigma_s\phi_{LO}^{n+1}\right]} \\
-            \B L I^{n+1} &= \colb{q_{LO}}
+            \left[\mu \pderiv{}{x} + \left(\sigma_t+\frac{1}{c\Delta t}\right)\right]I^{n+1}
+            &=  \frac{1}{4\pi}\left[\highlight{\sigma_a a c
+    \left(T_{LO}^{n+1}\right)^4+\sigma_s\phi_{LO}^{n+1}}\right]+ \frac{I^{n}}{c\Delta t}  \\[5pt]
+            \B L I^{n+1} &= q
      \end{align*}
         \begin{block}{For each batch $m$:}
          \begin{itemize}
@@ -686,16 +691,18 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Our HO system allows for simple application of variance reduction methods}
+    \frametitle{Our HO system allows for effective \\ and simple variance reduction methods}
     \addtolength{\wideitemsep}{0.15in}
     \begin{itemize}
         \item[] Histories stream without collision \\
-            \colG{along path $s$, thus $w(s)=w_0 e^{-\sigma_t s}$}
+            \colG{Along path $s$, weight reduces as $w(s)=w_0 e^{-\sigma_t s}$}
         \item[] Use cell-wise {systematic} sampling for $|r^{(m)}|$ source
+            \colG{Particularly effective in thick cells}
             \begin{itemize}
-                \item $N$ in each $x$-$\mu$ cell $\propto |r^{(m)}|$
-                \vspace{-0.2in}
-                \item Set minimum $N$ for cells  \\
+                    \vspace{0.02in}
+                \item $n$ particles in  each $x$-$\mu$ cell $\propto |r^{(m)}|$
+                \vspace{-0.15in}
+                \item Set minimum $n$ for cells  \\
                     \colG{except for cells in thermal equilibrium}
             \end{itemize}
     \end{itemize}
@@ -725,9 +732,8 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \frametitle{The HOLO method produces significantly less noise \\ than IMC for a Marshak Wave Test Problem}
     \centering
         \begin{itemize}
-                {\footnotesize
             \item \colb{$\sigma_a\propto T^{-3}$}. 
-            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and for ECMC 4~$\mu$  cells }}
+            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and for ECMC 4~$\mu$  cells }
         \end{itemize}
     \begin{figure}
     \includegraphics[width=0.615799\textwidth]{marshak_200_compare.pdf}
