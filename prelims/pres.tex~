@@ -453,7 +453,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The LO equations are formed as consistently as possible with spatial and
+    \frametitle{The LO equations are formed as \emph{consistently} as possible with spatial and
     angular moments of TRT equations}
     \begin{itemize} \vspace{0.15in}
         \item The time discretization is backward Euler\\ \colG{for both the HO and LO equations}
@@ -595,12 +595,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\addtolength\leftmargini{-0.165in}
 \begin{frame}
-    \frametitle{The HO transport equation is solved with Exponentially Convergent Monte Carlo}
+    \frametitle{The HO transport problem is solved with \\ Exponentially Convergent Monte Carlo}
     \begin{itemize}
             \addtolength{\wideitemsep}{0.14in}
-        \item[] Each MC batch tallies the \colb{error} in current solution 
+        \item[] Each MC batch tallies the \colb{error} in the solution 
             \begin{itemize}
-                \item \colG{standard MC particle tracking}
+                \item \colG{standard MC particle transport}
                     \vspace{-0.21in}
                 \item \colG{source is \colr{complex} and produces negative weights}
     \end{itemize}
@@ -675,13 +675,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
      \end{align*}
         \begin{block}{For each batch $m$:}
          \begin{itemize}
-        \item Residual Equation: $\displaystyle \B L \tilde 
-            \epsilon^{(m)} =
-            r^{(m)} = q - \B L \tilde I^{n+1,(m)}$
-        \item Compute $\tilde{\epsilon}^{(m)} = \B L^{-1} {r}^{(m)}$ via MC simulation  \\
+        \item Evaluate residual source: $r^{(m)} = q - \B L \tilde I^{n+1,(m)}$
+        \item Estimate ${\epsilon}^{(m)} = \B L^{-1} {r}^{(m)}\;\;$ via \colb{Monte Carlo
+            simulation}  \\
             \vspace{0.051in}
-            \hspace{0.575in}
-            \colG{$\tilde{\epsilon}^{(m)} = \B L^{-1} q - \B L^{-1} \B L \tilde
+            \hspace{0.56in}
+            \colG{${\epsilon}^{(m)} = \B L^{-1} q - \B L^{-1} \B L \tilde
             I^{n+1,(m)}$}
         \item Update moments: $\tilde I^{n+1,(m+1)} = \tilde I^{n+1,(m)} + \tilde \epsilon^{(m)}$
     \end{itemize}
@@ -713,18 +712,25 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \subsection{}
 
 
-{
-\setbeamertemplate{footline}{}
+
 
 \begin{frame}
-    \frametitle{We will test our method with several \\ Marshak Wave test problems}
-    \centering
+    \frametitle{We will test our method with several \\ standard \textbf{Marshak Wave} problems}
+    {\setlength\unitlength{1mm}
+    \begin{picture}(150mm,80mm)(0,0)
+    \put(0,20){
+    \begin{minipage}[t]{\linewidth}
+        \vspace{0pt}
         \begin{itemize}
-            \item[] From thermal equilibrium, a radiation source is applied at the left
-                boundary at $t=0$. Energy slowly moves across the
-                system.
-            \item[] Results depict \colb{radiation temperature} $T_r = \sqrt[4]{\phi/ac}$ 
+            \item[] Results show \colb{radiation temperature} $T_r = \sqrt[4]{\phi/ac}$
         \end{itemize}
+    \end{minipage}} 
+    \put(0,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
+    0.0in,clip,width=0.485\textwidth]{start_time_labeled.pdf}}
+    \put(65,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
+    0.0in,clip,width=0.4\textwidth]{end_time.pdf}}
+    \put(50,50){\tikz{\draw[->,line width=2mm,Gray!90] (0,0) -- (12mm,0);}}
+\end{picture}}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -781,42 +787,68 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \end{frame}
 
 \begin{frame}
-    \frametitle{ADD FOM AND ERROR FOR SMOOTH PROBLEM}
+    \frametitle{ADD ECMC ERROR CONVERGENCE FOR SMOOTH PROBLEM}
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
+    \caption{\label{hot_plot}\bf Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
+    $x$ cells at $\mathbf{t=0.5}$ sh.}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\caption{\label{preheat_var} \textbf{Comparison of sample statistics for the 
+    pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is
+indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
+   12,000	  & 0.86\%   & 0.13\% & 0.24\% & 1      & 41  & 13      \\
+  100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\ 
+  99,881 (AMR, 9 batches) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
+  \multicolumn{2}{c|}{61}               \\ \hline
+\end{tabular}
+\end{table}
 
 \end{frame}
 
 
-}
-
 \section{Remaining Research}
 
 \begin{frame}
-    \frametitle{We need a way to resolve issues when the LDFE intensity produces negative
-    solutions}
+    \frametitle{We need a way to resolve issues when the LDFE representation is
+        negative for the HO solution }
     \begin{itemize} 
-        \item Add a source to produce a positive intensity \\ \colG{which satisfies the
-            residual equation} 
+        \item[] Add source $\delta$ to produce a positive projection $\tilde I_{pos}$ \\ \colG{so $\tilde I_{pos}$ satisfies the
+    latest residual equation}
             \vspace{0.1in}
             \begin{tikzpicture}
-                \hspace{-0.2in}
+                \hspace{-0.0771in}
             \node at (0,0) {$\!\begin{aligned}
                 \B L \tilde I^{(m)}  &= q - r^{(m)} \\
-                \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \tilde\delta^{(m)}
-    \end{aligned}$};
-             \node at (3,0) [fill=Gray!90,shape=single arrow,text width=0.7cm,text
+                \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \delta^{(m+1)}
+            \end{aligned}$};
+             \node at (2.58,0) [fill=Gray!50,shape=single arrow,text width=0.7cm,text
              height=0.00001cm,line width=0.01cm] {};
-             \node at (6,0) {${\displaystyle \tilde\delta^{m+1} = \B L \left(\tilde I^{(m)} - \tilde
-             I_{\text{pos}}^{(m)}\right)}$}; 
+             \node at (5.2,0){$\!\boxed{\begin{aligned}
+              \delta^{m+1} &= \B L \left(\tilde I^{(m)} - \tilde
+             I_{\text{pos}}^{(m)}\right)  \\
+                q &\rightarrow q + \delta^{m+1}
+            \end{aligned}}$};
             \end{tikzpicture}
-        \item Can produce $\B L \tilde I_{\text{pos}}$ by scaling moments
-            \\ \colG{currently we scale the slopes}
-        \item Add source to LO equation \\ \colG{but would affect energy conservation of LO solution}
+        \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
+            \\ \colG{to estimate source for the next iteration}
+        \item[] Could add source to LO equation \\ \colG{but it would affect energy conservation}
     \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{We will add a doubly-discontinous trial space \\ which allows for higher spatial accuracy}
+    \frametitle{We will use a linear doubly-discontinous (LDD) trial space \\ to allow for a HO
+        spatial closure}
     \begin{columns}
         \begin{column}{0.2\textwidth}
     \begin{center}
@@ -826,7 +858,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
             \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
-            \node at (3.6,3.06) {$\phi^+(x)$};
+            \node at (3.6,3.06) {$\phi_{LO}^+(x)$};
             \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
             \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
             \draw (1.0,3.125) -- (5.90,2.120);
@@ -835,56 +867,62 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         \end{tikzpicture}
     \end{center}
     \end{column}
-    \begin{column}{0.7\textwidth}
+    \begin{column}{0.8\textwidth}
     \vspace{0pt}
     \begin{itemize}
-\item For HO solution, LD $\mu$ projection along the outgoing face
-        \item[] Parameterize spatial closure for cell $i$:
+\item $\tilde I(x,\mu)$ will be linear in $\mu$ along face, \\
+    \colG{estimated with MC face tallies}
+    \end{itemize}
+    \end{column}      
+    \end{columns}
+    \begin{itemize}
+        \item In LO equations use LDD trial space for $\phi^{\pm}$\\
+             \colG{The linear representations on interior will preserve EDL}
+        \item Parameterize LO spatial closure to eliminate outflow:
             \begin{equation*}
                 \phi^{+}_{i+1/2} = \frac{1+\beta_i^+}{3} \mom{\phi}_{R,i}^+ +
                 \frac{1-\beta^+_i}{3}
                 \mom{\phi}_{L,i}^+
             \end{equation*}
-            \vspace{0.02in}
-        \item[] Use doubly discontinuous trial space to introduce extra unknown \\
-             \colG{while still preserving EDL with linear shape}
-        \item[] Estimate $\beta$ parameters using HO solution \\
+        \item Estimate $\beta$ parameters using HO solution \\
             \colG{in each coarse spatial cell}
-        \item[] This closure will be more consistent\\
-                \colG{as long as outers are converged}
     \end{itemize}
-    \end{column}      
-    \end{columns}
+
 \end{frame}
 
 \begin{frame}
     \frametitle{We will use source-iteration with diffusion-synthetic acceleration (DSA) to solve LO system}
     \begin{itemize}
         \item[] In higher dimensions, the scattering terms in LO system cannot be directly inverted efficiently
-        \item[] Use source iteration with WLA-DSA \\ \colG{for each Newton step}
+        \item[] Use source iteration with WLA-DSA \\ \colG{for (effective) scattering source
+            of each Newton step}
             \begin{enumerate}
                 \item Sweep for a new $\phi^{\pm}$ \\ \colG{with a lagged scattering
                     source}
-                \item Solve approximate \colb{continuous} diffusion equation for error in
+                \item Solve approximate \colb{spatially continuous} diffusion equation for error in
                     scattering iterations
-                \item Update with local balance equations over cells
+                \item Update with local balance equations over elements
             \end{enumerate}
         \item[] Inconsistencies may cause difficulties in convergence \\
-            \colG{but can be resolved with preconditioned Krylov methods}
+            \colG{will resolve with DSA-preconditioned Krylov methods}
     \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{\colb{There are several investigations left to do:}}
+    \frametitle{\colb{There are several topics left to investigate:}}
         \begin{enumerate}
-            \item Resolving negativity issues
+            \item Resolving issues with negative intensities\colG{
                 \begin{itemize}
                     \item Accuracy of added source method
                     \item Consistency with LO solution
-                \end{itemize}
-            \item Source iterations with DSA
+                \end{itemize}}
+            \item Using HO solution to estimate spatial closure
+            \item Source iterations with DSA for LO system
+            \item Damped Newton methods to demonstrate maximum principle preservation in
+                extreme problems
+            \item (Stretch goal) MC integration in time and consistent LO equations
         \end{enumerate}
     \end{frame}
 
@@ -903,13 +941,13 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \author{}
 \date{}
 \begin{frame}
-    \frametitle{Implementation specifics for results in the computational
+    \frametitle{Implementation specifics for results in  \\ the computational
                 results section }
     \begin{itemize}
     \item The LD representation of $I(x,\mu)$ is negative near the wave-front
         \begin{itemize}
             \item Here, no correction is applied to the HO solution, and the LO
-                solution uses lumped LD and S$_2$ equivalent terms in bad cells
+                solution uses lumped LD and S$_2$ equivalent terms in negative elements
         \end{itemize}
      
  \item \u{For all results}
@@ -920,8 +958,34 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \item \emph{each HO} solve has 3 ECMC batches
         \end{itemize}
     \item $\sigma_s=0$
+    \item No mesh refinement in ECMC
     \end{enumerate} 
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solving LO System with Newton's Method}
+    \begin{block}{}
+    \begin{itemize}
+        \item Linearization: $\displaystyle \u B(T^{n+1}) = \u B(T^*) + \left(T^{n+1} -
+                T^*\right) \pderiv{\u B}{t}\bigg|_{t^*}$
+        \vspace{-0.15in}
+        \item Modified system
+            \begin{gather*}
+                \displaystyle \left[\B  D(\mu^\pm) - \sigma_a^*(1-f^*) \right]\underline
+                \Phi^{n+1}  = f^* \u B(T^*) + \frac{ \underline \Phi^n}{c\Delta t} \\
+                \boxed{\hat{ \B  D }\Phi^{n+1} = \underline Q}
+            \end{gather*}
+        \vspace{-0.07in}
+        \begin{center}
+         $\displaystyle f = \left( 1 + \sigma_a^*c \Delta t \frac{4aT^{*3}}{\rho
+            c_v} \right)^{-1}$  \hspace{0.3in}
+         $\displaystyle T_i^* = \frac{T^{*}_{L,i}+T^{*}_{R,i}}{2}$
+     \end{center}
+ \item Equation for $T^{n+1}$ based on linearization that is conservative
+ \item Converge $T^{n+1}$ and $\mom{\phi}$ with Newton Iterations
+ \end{itemize}
+ \end{block}
 \end{frame}
 
 \begin{frame}   
@@ -972,33 +1036,6 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Solving LO System with Newton's Method}
-    \begin{block}{}
-    \begin{itemize}
-        \item Linearization: $\displaystyle \u B(T^{n+1}) = \u B(T^*) + \left(T^{n+1} -
-                T^*\right) \pderiv{\u B}{t}\bigg|_{t^*}$
-        \vspace{-0.15in}
-        \item Modified system
-            \begin{gather*}
-                \displaystyle \left[\B  D(\mu^\pm) - \sigma_a^*(1-f^*) \right]\underline
-                \Phi^{n+1}  = f^* \u B(T^*) + \frac{ \underline \Phi^n}{c\Delta t} \\
-                \boxed{\hat{ \B  D }\Phi^{n+1} = \underline Q}
-            \end{gather*}
-        \vspace{-0.07in}
-        \begin{center}
-         $\displaystyle f = \left( 1 + \sigma_a^*c \Delta t \frac{4aT^{*3}}{\rho
-            c_v} \right)^{-1}$  \hspace{0.3in}
-         $\displaystyle T_i^* = \frac{T^{*}_{L,i}+T^{*}_{R,i}}{2}$
-     \end{center}
- \item Equation for $T^{n+1}$ based on linearization that is conservative
- \item Converge $T^{n+1}$ and $\mom{\phi}$ with Newton Iterations
-     \begin{itemize}
- \item Spatial representation can result in negative temperatures
-     \end{itemize}
- \end{itemize}
- \end{block}
-\end{frame}
 
 \setcounter{framenumber}{\value{finalframe}}
 \end{document}
