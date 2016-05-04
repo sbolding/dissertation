@@ -271,7 +271,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
             \colG{radiation intensity $I(x,\mu,t)$, material 
     temperature $T(x,t)$}
             \vspace{0.043in}
-        \item[] Equations are nonlinear and may be tightly coupled. \\  
+        \item[] Equations are nonlinear and may be tightly coupled \\  
             \colG{through photon \textbf{absorption} and \textbf{emission}}
             \vspace{0.13in}
         \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
@@ -818,13 +818,14 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \section{Remaining Research}
 
 \begin{frame}
-    \frametitle{Strong gradients can lead to the LDFE representation producing a negative solution}
+    \frametitle{Strong gradients in optically thick regions\\ result in a negative
+    LDFE intensity}
     \begin{itemize}
-        \item[] In optically thick cells, LD represnetation of intensity becomes negative
-        \item[] $\tilde I(x,\mu)$ can go negative \\ \colG{require positive solution for consistency terms}
-        \item[] This is unavoidable in TRT problems
-         \item[] Can make positive, but affects convergence of ECMC
-         \item[] Independent fix up for LO solution, where only spatial variable negative
+        \item[] Require positive $\tilde I_{HO}(x,\mu)$ for consistency terms \\
+            \colG{to produce a physical, stable LO solution}
+         \item[] Forcing a positive solution affects convergence of ECMC
+         \item[] Independent fix up for LO solution may be necessary
+             \colG{\\ Can lump or preserve balance with a floored solution}
     \end{itemize}
 
 \end{frame}
