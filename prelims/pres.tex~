@@ -241,12 +241,12 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
 \frametitle{We are interested in modeling thermal radiation transport \\ in the high energy
-    density physics regime.}
+    density physics regime}
     \addtolength{\wideitemsep}{0.08in}
 \begin{itemize}
     \item[] Materials under extreme conditions \\ \colG{Temperatures $\mathcal{O}(10^6)$ K or more}
     \item[] Photon radiation transports through a material \\ 
-        \colG{Significant \colb{energy} and momentum may be exchanged}
+        \colG{Significant \colb{energy}  may be exchanged}
  \item[] We want to improve efficiency of calculations \\
      \colG{e.g., inertial confinement fusion, supernovae, et. al.}
     \end{itemize}
@@ -256,7 +256,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\addtolength{\leftmargini}{-0.1in}
 \begin{frame}
-\frametitle{Our method has been applied to a simplied model, \\ the 1D grey TRT equations}
+\frametitle{Our method has been applied to a simplified model, \\ the 1D grey TRT equations}
 \setlength{\unitlength}{\textwidth}
 \vspace{-0.2in}
 \begin{itemize}
@@ -265,14 +265,14 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
     &= \frac{1}{4\pi} \left( \sigma_a a c T^4 + \sigma_s \phi\right),
   \\
-  C_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4\\
+  C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
     \item[] \vspace{-0.25in}Energy balance equations for radiation and material \\
             \colG{radiation intensity $I(x,\mu,t)$, material 
     temperature $T(x,t)$}
             \vspace{0.043in}
         \item[] Equations are nonlinear and may be tightly coupled. \\  
-            \colG{Opacities can be a strong function of $T$}
+            \colG{through photon \textbf{absorption} and \textbf{emission}}
             \vspace{0.13in}
         \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
 \end{itemize}
@@ -281,12 +281,11 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems.}
+    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems}
         \vspace{-0.2in}
 \begin{itemize}
-    \item[] MAYBE ADD PIC OF PARTICLE TRACKING
     \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
-        \colG{Opacities are evaluated at $t^n$}\vspace{0.1in}
+        \colG{Opacities are evaluated with $T(t^n)$}\vspace{0.1in}
 \setlength\wideitemsep{0.2in}
     \begin{itemize}
         \item Produces a linear MC transport problem 
@@ -356,8 +355,8 @@ subsectionstyle=hide
                 \begin{itemize}
                     \item Reduced dimensionality in angle\\
                          \colG{allows for solution with Newton's method}
-              \item \textbf{Output:} a linear-discontinuous (LD) FE \\ 
-                         \colb{scattering and emission source}
+                     \item \textbf{Output:} linear-discontinuous $\phi(x)$, $T(x)$\\ 
+                         \colb{Construct scattering and emission source}
                   %  \item Consistency terms derived directly from transport equation
                 \end{itemize}
 }\vspace{0.2in}
@@ -819,6 +818,16 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \section{Remaining Research}
 
 \begin{frame}
+    \frametitle{Strong gradients can lead to the LDFE representation producing a negative solution}
+    \begin{itemize}
+        \item[] In optically thick cells, LD represnetation of intensity becomes negative
+        \item[] $\tilde I(x,\mu)$ can go negative \\ \colG{require positive solution for consistency terms}
+        \item[] This is unavoidable in TRT problems
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
     \frametitle{We need a way to resolve issues when the LDFE representation is
         negative for the HO solution }
     \begin{itemize} 
@@ -826,18 +835,18 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
     latest residual equation}
             \vspace{0.1in}
             \begin{tikzpicture}
-                \hspace{-0.0771in}
+                \hspace{-0.20771in}
             \node at (0,0) {$\!\begin{aligned}
                 \B L \tilde I^{(m)}  &= q - r^{(m)} \\
-                \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \delta^{(m+1)}
+                    \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \colb{\delta^{(m+1)}}
             \end{aligned}$};
-             \node at (2.58,0) [fill=Gray!50,shape=single arrow,text width=0.7cm,text
+             \node at (2.73,0.1) [fill=Gray!50,shape=single arrow,text width=0.7cm,text
              height=0.00001cm,line width=0.01cm] {};
-             \node at (5.2,0){$\!\boxed{\begin{aligned}
-              \delta^{m+1} &= \B L \left(\tilde I^{(m)} - \tilde
+             \node at (5.62,0){$\!\begin{aligned}
+                     \delta^{(m+1)} &= \B L \left(\tilde I^{(m)} - \tilde
              I_{\text{pos}}^{(m)}\right)  \\
-                q &\rightarrow q + \delta^{m+1}
-            \end{aligned}}$};
+             q &\rightarrow q + \delta^{(m+1)}
+            \end{aligned}$};
             \end{tikzpicture}
         \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
             \\ \colG{to estimate source for the next iteration}
@@ -850,7 +859,8 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
     \frametitle{We will use a linear doubly-discontinous (LDD) trial space \\ to allow for a HO
         spatial closure}
     \begin{columns}
-        \begin{column}{0.2\textwidth}
+        \begin{column}[t]{0.2\textwidth}
+            \vspace{0pt}
     \begin{center}
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
             \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
@@ -867,27 +877,22 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
         \end{tikzpicture}
     \end{center}
     \end{column}
-    \begin{column}{0.8\textwidth}
+    \begin{column}[t]{0.8\textwidth}
     \vspace{0pt}
     \begin{itemize}
-\item $\tilde I(x,\mu)$ will be linear in $\mu$ along face, \\
-    \colG{estimated with MC face tallies}
+        \item $\tilde I_{HO}(x,\mu)$ will be linear in $\mu$ along face \\
+    \colG{Error estimated with MC face tallies}
+        \item In LO equations use LDD for $\phi^{\pm}$\\
+             \colG{The linear representation on interior\\ will preserve the EDL}
+        \item Parameterize LO spatial closure to eliminate outflow:
+            \begin{equation*}
+                \phi^{+}_{i+1/2} = \frac{3+\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
+                \frac{\highlight{\gamma^+_{i,HO}} - 3}{2}
+                \mom{\phi}_{L,i}^+
+            \end{equation*}
     \end{itemize}
     \end{column}      
     \end{columns}
-    \begin{itemize}
-        \item In LO equations use LDD trial space for $\phi^{\pm}$\\
-             \colG{The linear representations on interior will preserve EDL}
-        \item Parameterize LO spatial closure to eliminate outflow:
-            \begin{equation*}
-                \phi^{+}_{i+1/2} = \frac{1+\beta_i^+}{3} \mom{\phi}_{R,i}^+ +
-                \frac{1-\beta^+_i}{3}
-                \mom{\phi}_{L,i}^+
-            \end{equation*}
-        \item Estimate $\beta$ parameters using HO solution \\
-            \colG{in each coarse spatial cell}
-    \end{itemize}
-
 \end{frame}
 
 \begin{frame}
@@ -904,7 +909,7 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
                 \item Update with local balance equations over elements
             \end{enumerate}
         \item[] Inconsistencies may cause difficulties in convergence \\
-            \colG{will resolve with DSA-preconditioned Krylov methods}
+            \colG{Will resolve with DSA-preconditioned Krylov methods}
     \end{itemize}
 
 \end{frame}
