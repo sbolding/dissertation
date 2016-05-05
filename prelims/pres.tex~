@@ -258,8 +258,11 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \begin{frame}
 \frametitle{Our method has been applied to a simplified model, \\ the 1D grey TRT equations}
 \setlength{\unitlength}{\textwidth}
-\vspace{-0.2in}
+\vspace{0.2in}
 \begin{itemize}
+    \item[] Energy balance equations for radiation and material. \\
+            \colG{radiation intensity $I(x,\mu,t)$, material 
+            temperature $T(x,t)$}\vspace{-0.24in}
     \item[] \begin{align*}\label{ho_cont}
 \hspace{-0.4in}
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
@@ -267,13 +270,9 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
   \\
   C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
-    \item[] \vspace{-0.25in}Energy balance equations for radiation and material \\
-            \colG{radiation intensity $I(x,\mu,t)$, material 
-    temperature $T(x,t)$}
-            \vspace{0.043in}
+            \vspace{-0.1043in}
         \item[] Equations are nonlinear and may be tightly coupled \\  
-            \colG{through photon \textbf{absorption} and \textbf{emission}}
-            \vspace{0.13in}
+            \colG{Absorption opacity ($\sigma_a$) can be a strong function of $T$}
         \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
 \end{itemize}
 \end{frame}
@@ -290,16 +289,16 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \begin{itemize}
         \item Produces a linear MC transport problem 
                \\ \colG{with effective emission and scattering terms}
-        \item Reconstructed linear emission shape in space
-            \\ \colG{to mitigate artificial energy propogation} 
         \item Emission source is \textbf{not} fully implicit.\\
             \colG{Monte Carlo integration over $\Delta t$ for intensity}
+        \item Reconstructed linear emission shape in space
+            \\ \colG{to mitigate artificial energy propogation} 
     \end{itemize}
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Our high-order low-order (HOLO) method \\improves on several drawbacks of IMC}
+    \frametitle{\colb{Our high-order low-order (HOLO) method \\improves on several drawbacks of IMC}}
     \begin{center}
 {\footnotesize
 \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}} 
@@ -497,7 +496,7 @@ subsectionstyle=hide
 \begin{frame}
     \frametitle{Four moments of the transport equation are manipulated \\ to form \colb{consistency
     terms}}
-    \vspace{-0.15in}
+    \vspace{-0.15in}\pause
 \begin{multline*}\label{lo_tran}
     -2\highlight{{\mu}_{i-1/2}^{n+1,+}} \phi_{i-1/2}^{n+1,+} + \highlight{\cur
         {\mu}_{L,i}^{n+1,+}}
@@ -664,12 +663,12 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The \colb{pure-absorber} HO transport equation\\ is solved with ECMC}
+    \frametitle{We apply the ECMC algorithm to \\ the \colb{pure-absorber} HO transport equation}
         \begin{align*}
             \hspace{-0.2in}
             \left[\mu \pderiv{}{x} + \left(\sigma_t+\frac{1}{c\Delta t}\right)\right]I^{n+1}
             &=  \frac{1}{4\pi}\left[\highlight{\sigma_a a c
-    \left(T_{LO}^{n+1}\right)^4+\sigma_s\phi_{LO}^{n+1}}\right]+ \frac{I^{n}}{c\Delta t}  \\[5pt]
+    \left(T_{LO}^{n+1}\right)^4+\sigma_s\phi_{LO}^{n+1}}\right]+ \frac{\tilde I^{n}}{c\Delta t}  \\[5pt]
             \B L I^{n+1} &= q
      \end{align*}
         \begin{block}{For each batch $m$:}
@@ -747,7 +746,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The LD representation has higher spatial accuracy than source tilting for
+    \frametitle{The LDFE representation has higher spatial accuracy than IMC linear reconstruction for
     two material problem}
         \begin{itemize}
             \item[] Problem features an optically thin (left) and
@@ -820,13 +819,15 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \begin{frame}
     \frametitle{Strong gradients in optically thick regions\\ result in a negative
     LDFE intensity}
+    {\addtolength\wideitemsep{5pt}
     \begin{itemize}
-        \item[] Require positive $\tilde I_{HO}(x,\mu)$ for consistency terms \\
+        \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
             \colG{to produce a physical, stable LO solution}
          \item[] Forcing a positive solution affects convergence of ECMC
          \item[] Independent fix up for LO solution may be necessary
-             \colG{\\ Can lump or preserve balance with a floored solution}
+             \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
     \end{itemize}
+}
 
 \end{frame}
 
@@ -885,8 +886,10 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
     \begin{itemize}
         \item $\tilde I_{HO}(x,\mu)$ will be linear in $\mu$ along face \\
     \colG{Error estimated with MC face tallies}
+        \vspace{0.1in}
         \item In LO equations use LDD for $\phi^{\pm}$\\
-             \colG{The linear representation on interior\\ will preserve the EDL}
+             \colG{The linear interior preserves the EDL}
+        \vspace{0.1in}
         \item Parameterize LO spatial closure to eliminate outflow:
             \begin{equation*}
                 \phi^{+}_{i+1/2} = \frac{3+\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
@@ -930,7 +933,7 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
             \item Source iterations with DSA for LO system
             \item Damped Newton methods to demonstrate maximum principle preservation in
                 extreme problems
-            \item (Stretch goal) MC integration in time and consistent LO equations
+            \item \colG{ (Stretch goal) MC integration in time and consistent LO equations}
         \end{enumerate}
     \end{frame}
 
