@@ -303,14 +303,14 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \multicolumn{1}{l}{\textbf{\normalsize  IMC}} & \multicolumn{1}{l}{\textbf{\normalsize
     HOLO Method}} \\ \hline [2pt]
     \parbox{0.4\textwidth}{Large \colr{statistical noise} possible} & 
-    \parbox{0.4\textwidth}{ECMC is very efficient \\for TRT problems} \\ [\tabsep]
+    \parbox{0.4\textwidth}{ECMC is \colb{very efficient} \\for TRT problems} \\ [\tabsep]
  \parbox{0.4\textwidth}{{\color{red}Effective scattering} can make \\ MC  very expensive}
  & \parbox{0.4\textwidth}{MC solution has \colb{no
  scattering}} \\[\tabsep] 
  \parbox{0.5\textwidth}{Linearization can cause \colr{non-physical}\\ results  (maximum principle
  violations)} & \parbox{0.5\textwidth}{Fully \colb{implicit} time-discretization
- and LO solution \colb{resolves nonlinearities}} \\[\tabsep] 
- \parbox{0.5\textwidth}{\colG{Reconstruction of linear emission shape limits artificial energy propogation}} &
+ and \\ LO solution \colb{resolves nonlinearities}} \\[\tabsep] 
+ \parbox{0.5\textwidth}{\colG{Reconstruction of linear emission shape limits artificial energy propagation}} &
  \parbox{0.5\textwidth}{Linear-discontinuous FE for $T(x)$ \\ which preserves EDL} 
 \end{tabular}
 }
@@ -757,15 +757,6 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 \end{frame}
 
-
-\begin{frame}
-    \frametitle{The LDFE discretization for LO equations \\ preserves the equilibrium diffusion limit}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
-\end{figure}
-\end{frame}
-
 \begin{frame}
     \frametitle{ECMC is more efficient than\\
  standard MC (SMC) as a HO solver }
@@ -781,6 +772,15 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \end{itemize}
 }
 \end{frame}
+
+\begin{frame}
+    \frametitle{The LDFE discretization for the LO equations \\ preserves the equilibrium diffusion limit}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{Exponential convergence can be maintained if the LDFE mesh resolves the solution reasonably}
@@ -808,7 +808,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         negative}
     {\addtolength\wideitemsep{5pt}
     \begin{itemize}
-        \item[] Negative intensities occur in optically thick cells \\
+        \item[] Negative intensities can occur in optically thick cells \\
             \colG{Mesh refinement is of minimal use}
         \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
             \colG{to produce a physical, stable LO solution}
@@ -842,8 +842,8 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \end{aligned}$};
             \end{tikzpicture}
         \item[] Could add source to LO equation \\ \colG{but it would affect energy conservation}
-        \item[]\pause \textbf{Alternatively}, add $\delta = -r_{\text{pos}}(x,\mu)$ to negative cells
-            \\ \colG{accepting current $I_{\text{pos}}$}
+        \item[]\pause \textbf{Alternatively}, add $\delta = -r^{(m)}_{\text{pos}}(x,\mu)$ to negative cells
+            \\ \colG{$I_{\text{pos}}$ must be recomputing based on balance}
     \end{itemize}
 }
 \end{frame}
@@ -920,9 +920,9 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
                 \end{itemize}}
             \item Using HO solution to estimate spatial closure
             \item Source iterations with DSA for LO system
-            \item Damped Newton methods to demonstrate maximum principle preservation in
+            \item Implement damped Newton method to demonstrate maximum principle preservation in
                 extreme problems
-            \item \colG{ (Stretch goal) MC integration in time and consistent LO equations}
+            \item \colG{ (Stretch goal) MC integration in time \\ with consistent LO equations}
         \end{enumerate}
     \end{frame}
 
