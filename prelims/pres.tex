@@ -783,31 +783,20 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \end{frame}
 
 \begin{frame}
-    \frametitle{ADD ECMC ERROR CONVERGENCE FOR SMOOTH PROBLEM}
-\begin{figure}[htb]
+    \frametitle{Exponential convergence can be maintained if the LDFE mesh resolves the solution reasonably}
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \vspace{0pt}
   \centering
-    \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
-    \caption{\label{hot_plot}\bf Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
-    $x$ cells at $\mathbf{t=0.5}$ sh.}
-\end{figure}
+    \includegraphics[width=\linewidth]{heated_marshak_new.pdf}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \vspace{0pt}
+        \centering
+        \includegraphics[width=\linewidth]{errors.pdf}
+    \end{column}
+\end{columns}
 
-
-\begin{table}[H]
-\centering
-\caption{\label{preheat_var} \textbf{Comparison of sample statistics for the 
-    pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is
-indicated in parenthesis.}}
-\vspace{-0.1in}
-\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
-    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
-    \multicolumn{3}{|c|}{FOM} \\ \hline
-hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
-   12,000	  & 0.86\%   & 0.13\% & 0.24\% & 1      & 41  & 13      \\
-  100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\ 
-  99,881 (AMR, 9 batches) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
-  \multicolumn{2}{c|}{61}               \\ \hline
-\end{tabular}
-\end{table}
 
 \end{frame}
 
@@ -815,13 +804,14 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \section{Remaining Research}
 
 \begin{frame}
-    \frametitle{Strong gradients in optically thick regions\\ result in a negative
-    LDFE intensity}
+    \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
+        negative}
     {\addtolength\wideitemsep{5pt}
     \begin{itemize}
+        \item[] Negative intensities occur in optically thick cells \\
+            \colG{Mesh refinement is of minimal use}
         \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
             \colG{to produce a physical, stable LO solution}
-         \item[] Forcing a positive solution affects convergence of ECMC
          \item[] Independent fix up for LO solution may be necessary
              \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
     \end{itemize}
@@ -830,12 +820,13 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \end{frame}
 
 \begin{frame}
-    \frametitle{We need a way to resolve issues when the LDFE representation is
-        negative for the HO solution }
-    \begin{itemize} 
-        \item[] Add source $\delta$ to produce a positive projection $\tilde I_{pos}$ \\ \colG{so $\tilde I_{pos}$ satisfies the
+    \frametitle{Can add source $\delta$ to produce a positive projection $\tilde I_{pos}$ 
+        such that $\tilde I_{pos}$ satisfies the
     latest residual equation}
-            \vspace{0.1in}
+    {\addtolength\wideitemsep{0.1in}
+    \begin{itemize} 
+        \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
+            \\ \colG{to estimate source for the next iteration\vspace{0.1in}}
             \begin{tikzpicture}
                 \hspace{-0.20771in}
             \node at (0,0) {$\!\begin{aligned}
@@ -850,15 +841,15 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
              q &\rightarrow q + \delta^{(m+1)}
             \end{aligned}$};
             \end{tikzpicture}
-        \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
-            \\ \colG{to estimate source for the next iteration}
         \item[] Could add source to LO equation \\ \colG{but it would affect energy conservation}
+        \item[]\pause \textbf{Alternatively}, add $\delta = -r_{\text{pos}}(x,\mu)$ to negative cells
+            \\ \colG{accepting current $I_{\text{pos}}$}
     \end{itemize}
-
+}
 \end{frame}
 
 \begin{frame}
-    \frametitle{We will use a linear doubly-discontinous (LDD) trial space \\ to allow for a HO
+    \frametitle{We will use a linear doubly-discontinuous (LDD) trial space  to allow for a HO
         spatial closure}
     \begin{columns}
         \begin{column}[t]{0.2\textwidth}
@@ -961,7 +952,7 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
      
  \item \u{For all results}
         \begin{enumerate}
-    \item Fixed $\Delta t$ of $0.001$ shakes (0.01 ns)
+    \item Initial $\Delta t$ of $0.001$ sh (0.01 ns), linearly increased to 0.01 sh by 15\% per step
     \item One HO solve per time step (predictor-corrector)
         \begin{itemize}
             \item \emph{each HO} solve has 3 ECMC batches
