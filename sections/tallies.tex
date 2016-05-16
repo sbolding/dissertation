@@ -1,0 +1,34 @@
+
+\subsection{Computing 
+
+
+
+\subsection{Face Tallies and correction near $\mu=0$}
+
+Face-averaged estimators of the angular error are required to compute the outflow for
+estimating the spatial closure. The standard face-based
+estimators~\cite{shultis_mc,favorite_faces} are used.  The tallies are weighted by
+the appropriate basis functions to compute a linear projection along the face.  The
+tally score, for the angular-average error on a face, is defined as
+\begin{equation}
+    \hat \epsilon_{a,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}}
+\frac{w_m(x_{i\pm1/2},\mu})}{h |\mu|}
+\end{equation}
+where $N$ is the number of histories performed and $N_{i+1/2,j}$ is the number of histories
+that crossed the surface of interest, in the appropriate angular bin. For the first
+moment, the tally is
+\begin{equation}
+    \hat \epsilon_{\mu,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}} 
+        6\frac{\mu-\mu_j}{h_\mu} \frac{w_m(x_{i\pm1/2},\mu)}{|\mu|}
+\end{equation}
+
+Near $\mu=0$, particles can contribute large scores which can lead to large and
+unbounded variance~\cite{favorite_faces}.  To avoid this, the standard fixup 
+is used~\cite{mcnp,favorite_faces}.  If $|\mu|$ is below some small cutoff $\mu_{cut}$, then 
+particles contribute the average score over the range $(0,\mu_{cut})$, based on an
+approximate isotropic intensity.  Assuming an isotropic intensity, the average of
+1/$|mu|$ is given by
+\begin{equation}
+
+\end{equation}
+
