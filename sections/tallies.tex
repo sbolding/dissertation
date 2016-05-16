@@ -1,9 +1,29 @@
 
-\subsection{Computing 
+\subsection{MC solution with LDD trial space}
+
+The inclusion of the outflow discontinuity has a minimal effect on the treatment of the
+residual source. The residual source and process of estimating moments of
+the error on the interior of a space-angle cell is unchanged.  The process of estimating
+the solution on the outgoing face requires tallying the solution when particles leave a
+cell. The specific
+tallies are described in Section~\ref{sec:face_tallies}.  As far as face source of the
+residual, there is no need to change the residual source on faces either, however care
+must be taken in how the error is added to the solution on a frace.  
+
+To demonstrate that the residual face source is unchanged, it is necessary to look at the
+$\delta$-function face source, which results from the discontinuity in the trial space.  For
+positive flow, at the node $x_{i+1/2}$, the face source is defined as
+\begin{equation}
+    \rface = -\mu \pderiv{I^{(m)}}{x}\big|_{x_{i+1/2}}  
+\end{equation}
+
+PROOF THAT FACE SOURCES CANCEL OUT IN EFFECT AND THAT SOURCES CANCEL OUT
+
 
 
 
 \subsection{Face Tallies and correction near $\mu=0$}
+\label{sec:face_tallies}
 
 Face-averaged estimators of the angular error are required to compute the outflow for
 estimating the spatial closure. The standard face-based
@@ -12,7 +32,7 @@ the appropriate basis functions to compute a linear projection along the face.  
 tally score, for the angular-average error on a face, is defined as
 \begin{equation}
     \hat \epsilon_{a,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}}
-\frac{w_m(x_{i\pm1/2},\mu})}{h |\mu|}
+\frac{w_m(x_{i\pm1/2},\mu)}{h |\mu|}
 \end{equation}
 where $N$ is the number of histories performed and $N_{i+1/2,j}$ is the number of histories
 that crossed the surface of interest, in the appropriate angular bin. For the first
@@ -29,6 +49,5 @@ particles contribute the average score over the range $(0,\mu_{cut})$, based on 
 approximate isotropic intensity.  Assuming an isotropic intensity, the average of
 1/$|mu|$ is given by
 \begin{equation}
-
 \end{equation}
 
