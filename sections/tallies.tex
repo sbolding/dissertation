@@ -43,9 +43,6 @@ taking the limit as $\epsilon\ra 0$
 
 
 
-
-
-
 \subsection{Face Tallies and correction near $\mu=0$}
 \label{sec:face_tallies}
 
@@ -85,3 +82,97 @@ equations are evaluated with $\mu = 2/\mu_cut$.  It is noted that the first mome
 could be estimated without this correction, but it would be inconsistent with the zeroth
 moment.  However, this helps to smooth the solution near $\mu=0$, which the LD trial space
 generally cannot resolve anyways, resulting in a floored zeroth moment.
+
+
+STUFF ABOUT LDFE NOW FROM NSE ARTICLE
+
+
+
+\section{Implementation of ECMC finite-element space, tallies, and residual sampling}
+
+\label{app:tallies}
+
+The ECMC solver uses a finite element representation in space and angle. On the
+interior of the cell with the $i$-th spatial index and $j$-th angular index, the linear representation is defined as
+\begin{equation*}
+    \tilde I(x,\mu) = I_{a,ij} + \frac{2}{h_x}I_{x,ij}\left(x-x_i\right) +
+    \frac{2}{h_\mu}I_{\mu,ij}\left(\mu-\mu_j\right), \quad x_\il <  x < x_\ir,\quad
+     \mu_\jl \leq \mu \leq \mu_\jr
+\end{equation*}
+The spatial cell width is $h_x$, the angular width is
+$h_\mu$, the center of the cell is $(x_i,\mu_j)$, and
+\begin{align}\label{app1}
+    I_{a,ij} &= \frac{1}{h_x h_\mu} \iint\limits_{\mathcal{D}} I(x,\mu)\, \d x \d \mu \\
+    I_{x,ij} &= \frac{6}{h_xh_\mu}\iint\limits_{\mathcal{D}} \left(\frac{x - x_i}{h_{x}}\right)
+    I(x,\mu)\, \d x \d \mu \\ \label{app2}
+    I_{\mu,ij} &= \frac{6}{h_xh_\mu}\iint\limits_{\mathcal{D}}
+     \left(\frac{\mu - \mu_j}{h_{\mu}}\right)
+    I(x,\mu)\, \d x \d \mu,
+\end{align}
+where $\mathcal{D}: x_\il \leq  x \leq  x_\ir \times \mu_\jl \leq \mu \leq \mu_\jr$.
+%$I_a$ is the cell average intensity, and $I_\mu$ and $I_x$ define the
+%the first moment in $\mu$ and $x$ of the intensity, respectively. 
+Standard upwinding in space is used to
+define $I(\mu)$ on incoming faces. 
+
+This representation can directly be plugged into
+Eq.~\eqref{eq:resid} and evaluated to produce the residual source in the ECMC HO transport
+problem.  The MC source $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err}
+consists of both face and volumetric sources and can produce positive and
+negative weight particles.  The distribution for sampling particle coordinates, in space and angle, is based on the $L_1$
+norm over space and angle of the residual~\cite{jake}.  A particular cell volume or face 
+is sampled, and then rejection sampling~\cite{shultis_mc} is used to sample from
+the appropriate distribution on the face or interior of the space-angle cell.  If the
+residual is negative at the sampled coordinates, the weight of the particle history is negative.
+
+During a MC batch, moments of the error are tallied.  The necessary moments of the error are
+defined analogously to Eq.'s~\eqref{app1}--\eqref{app2}.
+The tallies are evaluated by weighting the particle density with the appropriate
+basis function and integrating along the history path through the cell.  For the cell average, the $n$-th
+particle makes the contribution
+\begin{equation}
+    \epsilon^n_{a,ij} = \frac{1}{h_xh_\mu} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \d s,
+\end{equation}
+where $s_o^n$ and $s_f^n$ are the beginning and end of the $n$-th particle track in the cell and $w(x,\mu)$ is
+the weight of the error particle in the MC simulation.  Weight is attenuated exponentially, i.e., $w(x,\mu)\propto
+\exp(-\sigma_t|x/\mu|)$.
+Substitution of the exponential attenuation of the weight produces the result
+\begin{equation}
+    \epsilon^n_{a,ij} = \frac{w(x_0,\mu)}{\sigma_t h_x h_\mu} \left(1 -
+    e^{-\sigma_ts^n}\right).
+\end{equation}
+Here, $w(x_0,\mu)$ is the particle weight at the start of the path and $s^n$ is the
+length of the track. The contribution of a
+particle track to $\epsilon_x$ is given by
+\begin{equation}
+    \epsilon^n_{x,ij} = \frac{w(x_0,\mu)}{h_x^2h_\mu \sigma_t} \left[x_0 - x_f e^{-\sigma_t s^n}
+        + \left(\frac{\mu}{\sigma_t} - x_i \right)\left(1-e^{-\sigma_t s^n}\right),
+    \right]
+\end{equation}
+where $x_0$ and $x_f$ are the beginning and ending $x$ coordinates of the $n$-th
+path.  The contribution to the first moment in $\mu$ is 
+\begin{equation}
+    \epsilon^n_{\mu,ij} = \frac{w(x_0,\mu)}{h_{\mu}^2h_x\sigma_t}\left(\mu -
+    \mu_j\right) \left(1 - e^{-\sigma_ts^n}\right),
+\end{equation}
+where the particle $x$-direction cosine $\mu$ does not change because it is a pure-absorber simulation.
+Finally, the moments of the error are simply the average contribution of all particles.
+
+\section{Adaptive Mesh Refinement}
+\label{app:refinement}
+This section describes the adaptive refinement strategy for the ECMC algorithm.
+Detailed equations for performing projections between meshes and computing the residual source on
+the refined meshes can be found in~\cite{jake}.  At the end of the ECMC batch,
+refinement is performed in space-angle cells based on a jump indicator.  The jump
+indicator is the magnitude of the different between $I(x,\mu)$ in adjacent cells,
+averaged over each edge.  The value of the largest jump, out of the four edges within a
+cell, is used as the
+indicator for that cell.  Based on this indicator, the 20\% of cells with the largest jump are
+refined.  Future work will explore simply using $\epsilon$ to indicate refinement,
+rather than the jump error.  The refinement of a cell is chosen to be symmetric, with each space-angle cell divided into four
+equal-sized cells.  The solution for $\tilde{I}^{n+1}(x,\mu)$ of the batch is projected onto
+the finer mesh for the next batch. Because the dimensionality of the sample space has
+increased, we increase the number of histories per batch s.t. the ratio of the number
+of histories to total cells is approximately constant for all meshes.  At the end of the last HO solve in a time step,
+$\tilde{I}^{n+1}$ is projected back onto the original, coarsest mesh and stored as
+$\tilde{I}^{n}$ for the next time step.
