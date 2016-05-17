@@ -1,3 +1,5 @@
+%Commands for this section
+\newcommand{\dep}{\ensuremath{\delta\epsilon^{(m)}}}
 
 \subsection{MC solution with LDD trial space}
 \label{sec:ldd_mc}
@@ -11,8 +13,8 @@ tallies are described in Section~\ref{sec:face_tallies}.  As far as face source 
 residual, there is no need to change the residual source on faces either, however care
 must be taken in how the error is added to the solution on a frace.  
 
-To demonstrate that the residual face source is unchanged, it is necessary to look at the
-$\delta$-function face source, which results from the discontinuity in the trial space.  For
+To demonstrate that the residual face source is unchanged, it is necessary to look at both 
+$\delta$-function face sources, which results from the discontinuity in the trial space.  For
 positive flow, at the node $x_{i+1/2}$, the face source is defined as
 \begin{equation}
     \label{eq:res_face}
@@ -23,12 +25,21 @@ which is equivalent to the initial residual source.
 The only difference from the original residual
 is that particles born from the $\delta^-$ source will contribute to the face tally at $x_{i+1/2}$.  
 Rather than sampling this source and contributing to these tallies, we can derive
-the analytic solution at that point.  Consider the HO transport equation
+the analytic solution at that point resulting from the face source and add it to the MC
+solution without the contributions to the face from that tally.  Define the additional error
+from the face source as $\delta \epsilon^{(m)}$.  The transport equation satisfied by $\delta
+\epsilon^{(m)}$ with effective total cross 
+section $\hat \sigma_t$ is
 \begin{equation}
     \label{eq:ho_face}
-    EQUATION
+    \mu \pderiv{\delta\epsilon^{(m)}}{x} + \hat\sigma_t \epsilon^{n+1} = 
 \end{equation}
-We now integrate this equation
+This equation is integrated from $x_{i+1/2}-\epsilon$ to $x_{i+1/2}$
+\begin{equation}
+    \dep(x_{i+1/2},\mu) - \dep(x_{i+1/2}-\epsilon,\mu)  + \int_{x_{i+1/2}-\epsilon}^0 
+      \hat \sigma_t \dep = 
+\end{equation}
+taking the limit as $\epsilon\ra 0$
 
 
 
@@ -66,6 +77,11 @@ particles contribute the average score over the range $(0,\mu_{cut})$, based on 
 approximate isotropic intensity.  Assuming an isotropic intensity, the average of
 $1/|\mu|$ in s given by
 \begin{equation}
-
+    \mom{1/\mu} = \frac{\int_0^{\mu_{cut}}\frac{1}{\mu} I \d \mu}{\int_0^{\mu_{cut}} I \d \mu} =
+    \frac{2}{\mu_{cut}}.
 \end{equation}
-
+All particles in the range $(0,\mu_{cut})$ contribute the expected score, thus the tally
+equations are evaluated with $\mu = 2/\mu_cut$.  It is noted that the first moment of $\mu$
+could be estimated without this correction, but it would be inconsistent with the zeroth
+moment.  However, this helps to smooth the solution near $\mu=0$, which the LD trial space
+generally cannot resolve anyways, resulting in a floored zeroth moment.
