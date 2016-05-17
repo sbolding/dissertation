@@ -1,8 +1,0 @@
-\BOOKMARK [1][-]{section.0.1}{Diffusion Synthetic Acceleration}{}% 1
-\BOOKMARK [2][-]{subsection.0.1.1}{Forming a Continuous Diffusion Equation}{section.0.1}% 2
-\BOOKMARK [2][-]{subsection.0.1.2}{Mapping Solution onto LD Unknowns}{section.0.1}% 3
-\BOOKMARK [2][-]{subsection.0.1.3}{DSA Source Definition}{section.0.1}% 4
-\BOOKMARK [2][-]{subsection.0.1.4}{Updating the LO Unkowns}{section.0.1}% 5
-\BOOKMARK [1][-]{section.0.2}{Analytic Neutronics answer for Source fixup}{}% 6
-\BOOKMARK [2][-]{subsection.0.2.1}{MC solution with LDD trial space}{section.0.2}% 7
-\BOOKMARK [2][-]{subsection.0.2.2}{Face Tallies and correction near =0}{section.0.2}% 8
