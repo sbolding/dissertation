@@ -9,7 +9,9 @@ residual source. The residual source and process of estimating moments of
 the error on the interior of a space-angle cell is unchanged.  The process of estimating
 the solution on the outgoing face requires tallying the solution when particles leave a
 cell. The specific
-tallies are described in Section~\ref{sec:face_tallies}.  As far as face source of the
+tallies are described in Section~\ref{sec:face_tallies}.  The introduction of the 
+discontinuity results in two $\delta$ function face sources.  Ultimately
+face source of the
 residual, there is no need to change the residual source on faces either, however care
 must be taken in how the error is added to the solution on a frace.  
 
