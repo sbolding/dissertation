@@ -1,0 +1,198 @@
+diff --git a/sections/tallies.tex b/sections/tallies.tex
+index 3562500..8098308 100644
+--- a/sections/tallies.tex
++++ b/sections/tallies.tex
+@@ -1,89 +1,132 @@
+ %Commands for this section
+ \newcommand{\dep}{\ensuremath{\delta\epsilon^{(m)}}}
+ 
+-\subsection{MC solution with LDD trial space}
+-\label{sec:ldd_mc}
+ 
+-The inclusion of the outflow discontinuity has a minimal effect on the treatment of the
+-residual source. The residual source and process of estimating moments of
+-the error on the interior of a space-angle cell is unchanged.  The process of estimating
+-the solution on the outgoing face requires tallying the solution when particles leave a
+-cell. The specific
+-tallies are described in Section~\ref{sec:face_tallies}.  The introduction of the 
+-discontinuity results in two $\delta$ function face sources.  Ultimately
+-face source of the
+-residual, there is no need to change the residual source on faces either, however care
+-must be taken in how the error is added to the solution on a frace.  
+-
+-To demonstrate that the residual face source is unchanged, it is necessary to look at both 
+-$\delta$-function face sources, which results from the discontinuity in the trial space.  For
+-positive flow, at the node $x_{i+1/2}$, the face source is defined as
+-\begin{equation}
+-    \label{eq:res_face}
+-    \rface = -\mu \pderiv{I^{(m)}}{x}\big|_{x_{i+1/2}} =-\mu\left( I^{(m)}(x_{i+1/2}^+,\mu) -I^{(m)}(x_{i+1/2}^-,\mu) \right)
+-\end{equation}
+-which is equivalent to the initial residual source. 
+-
+-The only difference from the original residual
+-is that particles born from the $\delta^-$ source will contribute to the face tally at $x_{i+1/2}$.  
+-Rather than sampling this source and contributing to these tallies, we can derive
+-the analytic solution at that point resulting from the face source and add it to the MC
+-solution without the contributions to the face from that tally.  Define the additional error
+-from the face source as $\delta \epsilon^{(m)}$.  The transport equation satisfied by $\delta
+-\epsilon^{(m)}$ with effective total cross 
+-section $\hat \sigma_t$ is
+-\begin{equation}
+-    \label{eq:ho_face}
+-    \mu \pderiv{\delta\epsilon^{(m)}}{x} + \hat\sigma_t \epsilon^{n+1} = 
+-\end{equation}
+-This equation is integrated from $x_{i+1/2}-\epsilon$ to $x_{i+1/2}$
+-\begin{equation}
+-    \dep(x_{i+1/2},\mu) - \dep(x_{i+1/2}-\epsilon,\mu)  + \int_{x_{i+1/2}-\epsilon}^0 
+-      \hat \sigma_t \dep = 
+-\end{equation}
+-taking the limit as $\epsilon\ra 0$
+ 
+-
+-
+-\subsection{Face Tallies and correction near $\mu=0$}
++\section{Face Tallies and correction near $\mu=0$}
+ \label{sec:face_tallies}
+ 
+ Face-averaged estimators of the angular error are required to compute the outflow for
+ estimating the spatial closure. The standard face-based
+ tallies~\cite{shultis_mc,favorite_faces} are used.  Tallies are weighted by
+-the appropriate basis functions to compute a linear projection along the face.  The
++the appropriate basis functions to compute a linear FE projection in $\mu$ at each face.  The
+ tally score, for the angular-averaged error $\epsilon_{a,i}$ is defined as
+ \begin{equation}
+-    \hat \epsilon_{a,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}}
+-    \frac{w_m(x_{i\pm1/2},\mu)}{h_{\mu} |\mu|}
++    \hat \epsilon_{a,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i\pm1/2,j}}
++    \frac{w_m(x_{i\pm1/2},\mu)}{h_{\mu} |\mu|},
+ \end{equation}
+-where $N$ is the number of histories performed and $N_{i+1/2,j}$ is the number of histories
+-that crossed the surface $i+1/2$, in the $j$ angular element.   For the first
++where $N$ is the number of histories performed and $N_{i\pm1/2,j}$ is the number of histories
++that crossed the surface $i\pm1/2$, in the $j$ angular element.   For the first
+ moment, the tally is
+-\begin{equation}
++\begin{equation}\label{eq:face_mutally}
+     \hat \epsilon_{\mu,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}} 
+-    6\left(\frac{\mu-\mu_j}{h_\mu}\right) \frac{w_m(x_{i\pm1/2},\mu)}{|\mu| h_{\mu}}
++    6\left(\frac{\mu-\mu_j}{h_\mu}\right) \frac{w_m(x_{i\pm1/2},\mu)}{|\mu| h_{\mu}}.
+ \end{equation}
+ For positive and negative direction outflows are tallied
+ on the $x_{i+1/2}$ and $x_{i-1/2}$ faces, respectively. Particles are only tallied after leaving
+ a cell, and, as discussed in Section~\ref{sec:ldd_mc}, particles born on a surface do not contribute
+ to the tally of that surface.
+ 
+-Near $\mu=0$, particles can contribute large scores which can lead to large and
++Near $\mu=0$, particles can contribute large scores to the zeroth angular moment that lead to large and
+ unbounded variances~\cite{favorite_faces}.  To avoid large variances, we have applied the standard fixup~\cite{mcnp,favorite_faces}.  
+-For $|\mu|$ below some small value $\mu_{cut}$, then 
+-particles contribute the average score over the range $(0,\mu_{cut})$, based on an
+-approximate isotropic intensity.  Assuming an isotropic intensity, the average of
+-$1/|\mu|$ in s given by
++For $|\mu|$ below some small value $\mu_{cut}$, 
++particles contribute the expected score over the range $(0,|\mu_{cut}|)$, based on an
++approximate, isotropic particle density. Thus, scores in this range have no variance.  Assuming
++an isotropic particle density $I_0$, the average of
++$1/\mu$, for positive $\mu$, is
+ \begin{equation}
+-    \mom{1/\mu} = \frac{\int_0^{\mu_{cut}}\frac{1}{\mu} I \d \mu}{\int_0^{\mu_{cut}} I \d \mu} =
++    \overline{1/\mu} = \frac{\displaystyle \int_0^{\mu_{cut}}\frac{1}{\mu} I_0 \,\d
++\mu}{\displaystyle \int_0^{\mu_{cut}} I_0\, \d \mu} =
+     \frac{2}{\mu_{cut}}.
+ \end{equation}
+-All particles in the range $(0,\mu_{cut})$ contribute the expected score, thus the tally
+-equations are evaluated with $\mu = 2/\mu_cut$.  It is noted that the first moment of $\mu$
+-could be estimated without this correction, but it would be inconsistent with the zeroth
+-moment.  However, this helps to smooth the solution near $\mu=0$, which the LD trial space
+-generally cannot resolve anyways, resulting in a floored zeroth moment.
++For negative $\mu$, $\overline{1/\mu}=-2/\mu_{cut}$.
++All particles in the range $(0,|\mu_{cut}|)$ contribute the expected score by evaluating
++the tallies at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first moment of $\mu$
++can be estimated without this correction by only applying the correction to the constant
++weighted in Eq.~\eqref{eq:face_mutally}.  However, this would be inconsistent with the zeroth
++moment tally.  Additionally, assuming an isotropic intensity over the range helps to limit
++the first moment near $\mu=0$, which the LD trial space
++generally cannot resolve anyways, as discussed in ???.
++
++\section{MC solution with LDD trial space}
++\label{sec:ldd_mc}
++
++The inclusion of the outflow discontinuity has a minimal effect on the treatment of the
++residual source. The residual source and process of estimating moments of
++the error on the interior of a space-angle cell is unchanged.  The process of estimating
++the solution on the outgoing face requires tallying the solution when particles leave a
++cell. The tallying process is discussed later in Section~\ref{sec:face_tallies}.  
++
++Applying $L$ to the LDD trial space, as shown in Fig.~\ref{fig:ldd}, results in two $\delta$ functions at each interior face.
++For positive flow, at a face $x_{i+1/2}$, the face portion of the residual is defined as
++\begin{align}
++    \label{eq:res_face}
++    \rface(x_{i+1/2}) &= -\mu \pderiv{\tilde I^{(m)}}{x}\big|_{x_{i+1/2}}\\
++    &= \rface(x_{i+1/2}^-)\delta^-(x - x_{i+1/2}) + \rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) 
++\end{align}
++where
++\begin{align}
++    \rface(x_{i+1/2}^-) &= -\mu\left( \tilde I^{(m)}(x_{i+1/2},\mu) - \tilde I^{(m)}(x_{i+1/2}^-,\mu)
++           \right)\\
++    \rface(x_{i+1/2}^+) &= -\mu\left( \tilde I^{(m)}(x_{i+1/2}^+,\mu) -
++           \tilde I^{(m)}(x_{i+1/2},\mu)
++           \right).
++\end{align}
++Here, $I^{(m)}(x_{i+1/2}^+)$ and $I^{(m)}(x_{i+1/2}^-)$ are the LD solution extrapolated to $x_{i+1/2}$ from the
++$x$ cell $i$ and cell $i+1$, respectively.
++Particles sampled from the two $\delta$-functions have the same starting location.  The
++only difference is, for positive $\mu$,  particles sampled from $\rface(x^-_{i+1/2})$ will
++contribute to the face tally at $x_{i+1/2}$; the opposite is true for negative $\mu$.
++
++To reduce variance, we do not sample the two $\delta$ functions independently.
++%or score contributions to the outflow face from the interior face source. 
++Instead, we combine the
++two $\delta$-functions into a single face source,
++do not score particles at the face they are sampled from, and add the analytic
++contribution from the interior face source to the error at the end of a batch.
++It is noted the combination of the two $\delta$-functions produces the same residual source as the
++original LD residual.
++
++Define the additional error contribution 
++from the face sources at $x_{i+1/2}$ as $\dep$.  This additional error is tallied
++everywhere by MC, except for at $x_{i+1/2}$.  The transport equation satisfied by $\dep$, for positive
++$\mu$, with effective total cross 
++section $\hat \sigma_t$, is
++\begin{equation}
++    \label{eq:ho_face}
++    \mu \pderiv{\dep}{x} + \hat\sigma_t \dep = \rface(x_{i+1/2}^-)\delta^-(x - x_{i+1/2}) + \rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) 
++\end{equation}
++This equation is integrated from $x_{i+1/2}-\alpha$ to $x_{i+1/2}$ to produce
++\begin{multline}
++    \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
++    \hat \sigma_t \dep \d x  \\ =  \rface(x_{i+1/2}^-) +
++        \int\limits_{x_{i+1/2}-\alpha}^0\rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) \d x.
++\end{multline}
++The integral on the right side of the equation is zero because $\delta^+(x-x_{i+1/2})$ is
++zero for $(-\infty,x_{i+1/2}]$.  The limit of the above equation is taken as $\alpha\to0$, i.e.,
++\begin{multline}
++    \lim_{\alpha\to0}\left( \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
++    \hat \sigma_t \dep \d x \right)  = \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
++\end{multline}
++The integral goes to zero because $\dep$ is smooth on the interior of the cell, and
++$\mu\dep(x_{i+1/2}-\alpha,\mu)$ goes to zero because there is no source upstream of
++$x_{i+1/2}^-$. Thus, the final solution is
++\begin{equation}
++    \dep(x_{i+1/2},\mu) = \frac{\rface(x_{i+1/2}^-)}{\mu} = 
++     \tilde I^{(m)}(x_{i+1/2}^-,\mu) - \tilde I^{(m)}(x_{i+1/2},\mu)
++.
++\end{equation}
++The update for $I(x_{i+1/2},\mu)$ is 
++\begin{align}
++   \tilde I^{(m+1)}(x_{i+1/2},\mu) &= \tilde I^{(m)}(x_{i+1/2},\mu) + \epsilon^{(m)}(x_{i+1/2},\mu) +
++    \dep(x_{i+1/2},\mu) \\ 
++        &= \tilde I^{(m)}(x_{i+1/2}^-,\mu) + \epsilon^{(m)}(x_{i+1/2},\mu).
++\end{align}
++This result has the peculiar effect that the estimation of the solution on a face depends only on
++the interior solution $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and not the previous face value 
++$\tilde I^{(m)}(x_{i+1/2},\mu)$. This could be used to only estimate
++face values in particular cells, at any particular batch.
++
+ 
+ 
+ STUFF ABOUT LDFE NOW FROM NSE ARTICLE

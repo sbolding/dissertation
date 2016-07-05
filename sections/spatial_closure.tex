@@ -1,0 +1,21 @@
+\section{MC Estimation of the Spatial Closure}
+
+By introducing a LDD trial space into the LO equations, we introduce an additional
+unknown in each half-range equation.  This extra unknown is eliminated as a function
+of the interior moments.  
+
+In theory, if the problem were linear, or the nonlinear problem was fully converged,
+then the HO and LO solutions would produce exactly the same moments.  There are
+several issues with ECMC that cause this to not be true, even for a linear problem.
+With ECMC, global energy balance is not preserved, but local energy balance is also
+not preserved.  There are source biasing techniques for standard MC (systematic
+sampling) that would exactly preserve the zeroth moment of the source~\cite{shultis_mc}). 
+It is a requirement that the HO solution satisfies the zeroth moment equation. If the
+closure relation also uses the first moment, then it must also satisfy the first
+spatial moment equation.  However, because we have to reconstruct the bilnear moment
+of $x$ and $\mu$, the consistency terms do not exactly preserve the first moment
+equation.  One final reason is that the analog treatment of absorption (at low
+weights as discussed in Sec.~\ref{???}) results in the fact that the product of
+$\phi_i$ (as estimated via path-length estimators) and the removal cross section 
+flux does not exactly equal the absorption density of weight within that cell, due to
+statistical noise.  
