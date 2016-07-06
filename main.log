@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  1 JUL 2016 14:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  6 JUL 2016 09:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1008,21 +1008,21 @@ LaTeX Warning: Citation `favorite_faces' on page 50 undefined on input line 31.
 
 [50]
 
-LaTeX Warning: Reference `fig:ldd' on page 51 undefined on input line 60.
+LaTeX Warning: Reference `fig:ldd' on page 51 undefined on input line 59.
 
 [51]
-Overfull \hbox (72.6403pt too wide) detected at line 111
+Overfull \hbox (72.6403pt too wide) detected at line 110
  []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
 mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
  []
 
 
-Overfull \hbox (2.1676pt too wide) in paragraph at lines 133--133
+Overfull \hbox (2.1676pt too wide) in paragraph at lines 132--132
 []\OT1/cmr/bx/n/17.28 Implementation of ECMC finite-element
  []
 
 [52]
-Overfull \hbox (87.30841pt too wide) detected at line 143
+Overfull \hbox (87.30841pt too wide) detected at line 142
 []\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; ^^V\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 
 I[] \OT1/cmr/m/n/12 + []\OML/cmm/m/it/12 I[] [] \OT1/cmr/m/n/12 + []\OML/cmm/m/
 it/12 I[] [] ;  x[] < x < x[];  ^^V[] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V
@@ -1030,14 +1030,14 @@ it/12 I[] [] ;  x[] < x < x[];  ^^V[] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V
  []
 
 
-LaTeX Warning: Citation `jake' on page 53 undefined on input line 165.
+LaTeX Warning: Citation `jake' on page 53 undefined on input line 164.
 
 
-LaTeX Warning: Citation `shultis_mc' on page 53 undefined on input line 166.
+LaTeX Warning: Citation `shultis_mc' on page 53 undefined on input line 165.
 
 [53]
 
-LaTeX Warning: Citation `jake' on page 54 undefined on input line 207.
+LaTeX Warning: Citation `jake' on page 54 undefined on input line 206.
 
 ) [54]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 84.
@@ -1077,10 +1077,10 @@ cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (59 pages, 422473 bytes).
+Output written on main.pdf (59 pages, 422834 bytes).
 PDF statistics:
- 1023 PDF objects out of 1200 (max. 8388607)
- 737 compressed objects within 8 object streams
+ 1022 PDF objects out of 1200 (max. 8388607)
+ 736 compressed objects within 8 object streams
  233 named destinations out of 1000 (max. 500000)
  378 words of extra memory for PDF output out of 10000 (max. 10000000)
 
