@@ -13,17 +13,51 @@ with the HO solution and the inflow term $\phi_{i-1/2}^+$ is upwinded from the p
 cell.  An additional equation is needed to eliminate $\phi_{i+1/2}^+$ to produce an
 equation for a single unknown $\phi_{i+1/2}^+$.  We choose a parameteric combination of
 \begin{equation}
-    \phi_{i+1/2}^+ = 
+    \phi_{i+1/2}^+ = f(\gamma_i, \phi_i^+, \phi_x^+)
 \end{equation}
-where $\gamma$ is some constant and 
+where $\gamma$ is some constant and $f$ is some function of the input variables.  We will
+explore two different closure options: a scaled slope, i.e.,
+\begin{equation}
+    \phi_{i\pm1/2}^\pm = \phi_i^+ \pm \gamma_i \phi_x^+
+\end{equation}
+and a scaled average
+\begin{equation}
+    \phi_{i\pm1/2}^\pm = \gamma_i \phi_i^+ \pm \phi_x^+,
+\end{equation}
+where a value of $\gamma_i = 1$ produces the standard linear discontinuous expressions for
+the extrapolated outflows.  The 
+closures are only used to eliminate the extrapolated face values, not the inflow values
+for the particular direction equation.
+
+We now use the HO solution to estimate $\gamma_i$.  For example, 
+\begin{equation}
+    \gamma_i^{+,HO} = \frac{\phi_{i+1/2}^+ - \phi_x^+}{\phi_i^+}
+\end{equation}
+in the scaled slope case.  For this closure, as the slope goes to zero this expression
+becomes undefined.  In cells where the slope is $O(10^{-13} \psi_i)$, we use $\gamma_i=1$.
+No problems have been observed with the fact that at relatively modest slopes $\gamma$
+becomes very large.  The main reason for using this closure is it allows for values of
+$\gamma$ that are equivalent to step and lumping.
+
+The expression for the outflow face term is substituted in each equation, using the
+$\gamma$ estimated from a HO solution.
+For instance, the positive balance equation becomes
+\begin{equation}
+    \overline\mu^+_{i+1/2}\left( \gamma_i^{+,HO} \phi_i^+ + \phi_x^+ \right) - \overline\mu^+_{i-1/2}\phi_{i+1/2}^+ +
+    \frac{\sigma_{a,i}}h_i}{2} \phi_i^+ = \frac{h_i}{2} q_i,
+    \equation{eqn:clsd_posbal}
+\end{equation}
+noting that $\phi_i^+$ and $\phi_x^+$ remain as unknowns.
+
+Our solution is in terms of the $L$ and $R$ moments, however.
 The MC solution provides evaluation of the face values. 
 
 
-However, in the HOLO context, the HO solution used a lagged source $q_i$
 
 By introducing a LDD trial space into the LO equations, we introduce an additional
 unknown in each half-range equation.  This extra unknown is eliminated as a function
 of the interior moments.  
+However, in the HOLO context, the HO solution used a lagged source $q_i$.
 
 In theory, if the problem were linear, or the nonlinear problem was fully converged,
 then the HO and LO solutions would produce exactly the same moments.  There are
