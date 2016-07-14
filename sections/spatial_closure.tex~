@@ -47,10 +47,10 @@ For instance, the positive balance equation becomes
     \frac{\sigma_{a,i}}h_i}{2} \phi_i^+ = \frac{h_i}{2} q_i,
     \equation{eqn:clsd_posbal}
 \end{equation}
-noting that $\phi_i^+$ and $\phi_x^+$ remain as unknowns.
+noting that $\phi_i^+$ and $\phi_x^+$ remain as unknowns. The MC solution can provides the
+face values.
 
 Our solution is in terms of the $L$ and $R$ moments, however.
-The MC solution provides evaluation of the face values. 
 
 
 
