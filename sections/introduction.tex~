@@ -23,6 +23,199 @@ demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algori
 \end{abstract}
 
 
+\section{INTRODUCTION}
+
+We have implemented a high-order low-order (HOLO) algorithm for the case of 1D gray thermal radiative transfer (TRT) problems. The governing equations are the radiation and
+material energy balance equations, i.e.,\vspace{-0.05in}
+\begin{align}\label{ho_cont}
+    \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
+    I(x,\mu,t)
+&= \frac{\sigma_s}{2} \phi(x,t) +\frac{1}{2} \sigma_a a c T^4(x,t)
+    \\ \label{t_cont}
+  \rho c_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4(x,t).
+\end{align}
+In the above equations $x$ is the position, $t$ is the time, $\mu$ is
+the $x$-direction cosine of the angular intensity $I(x,\mu,t)$, and $a$, $c$, $\rho$,
+and
+$c_v$ are the radiation constant, speed of light, mass density, and specific heat; $\sigma_a$, $\sigma_s$, and
+$\sigma_t$ are the absorption, scattering, and total
+cross sections (cm$^{-1}$), respectively. The desired unknowns are the material
+temperature $T(x,t)$ and the scalar radiation intensity $\phi(x,t)=\int_{-1}^1
+I(x,\mu,t) \d \mu$.  The scalar intensity is related to the radiation energy density
+$E$ by the relation $E = \phi/c$.  The equations are
+strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
+is a nonlinear function of temperature, and the absorption
+term $\sigma_a \phi$.   In general, the material properties are a function of $T$.  The temperature dependent material properties and
+absorption and reemission physics lead to systems that require solution in a mix of
+streaming and optically thick, diffusive regions. 
+
+Monte Carlo (MC) solution to the TRT equations is typically achieved by the 
+implicit Monte Carlo (IMC) method~\cite{fnc}. This
+method partially linearizes Eq.~\eqref{ho_cont} \& Eq.~\eqref{t_cont} over a discrete time
+step, with material properties evaluated at the previous temperature.  Linearization of the system produces a transport equation that contains an approximate emission source and an effective scattering cross section representing
+absorption and reemission of photons over a time step. This transport equation is
+advanced over a time step via MC. The MC simulation tallies energy absorption
+over a discretized spatial mesh.  The energy absorption in each mesh cell is used to directly estimate
+a new end of time step temperature in that cell.  In optically thick regions, or for
+large time steps, the
+effective scattering dominates interactions.  In these diffusive regions IMC
+becomes computationally expensive. Acceleration methods typically attempt to improve
+efficiency by allowing particles to take discrete steps through optically thick
+regions based on a discretized diffusion approximation~\cite{imd,ddmc}. 
+In IMC the
+approximate linearization of the emission source is not iterated on within a time
+step due to the large computational cost of the MC transport each time step; this
+imposes a limit on the time step size to produce physically accurate
+results~\cite{wollaber2013discrete}. 
+
+In IMC the material and radiation energy fields are discretized spatially to solve for cell-averaged values.
+Inaccurate spatial representation of the emission source over a cell can result in
+energy propagating through the domain artificially fast, yielding non-physical
+results referred to as ``teleportation error"~\cite{teleportation}.  The IMC method uses a fixup known as source tilting
+to mitigate this problem.  Source tilting reconstructs a more accurate
+linear-discontinuous representation of the
+emission source within a cell based on the cell-averaged material temperatures in adjacent
+cells. 
+
+Moment-based hybrid Monte Carlo (MC) methods provide an alternative solution method.
+Recent work has focused on so-called high-order low-order (HOLO)
+approaches~\cite{willert,park,rmc,ans_2014}.  Such methods utilize a low-order (LO)
+operator based on angular moments of the transport equation, formulated over a fixed
+spatial mesh. Physics operators that are time consuming for MC
+to resolve, e.g., absorption-reemission and physical scattering events, are moved to the LO
+system.  Newton methods allow for non-linearities in the LO equations to be fully
+resolved efficiently~\cite{willert}.  The high-order (HO) transport equation is defined by 
+Eq.~\eqref{ho_cont}, with sources that are truly implicit in time estimated from the LO solution. The HO equation is solved via MC to produce a high-fidelity solution for
+the angular intensity.  The MC estimate of the angular intensity is used to estimate consistency terms,
+present in the LO equations, that require the LO system to preserve the angular accuracy of the
+MC solution.  The HO system does not directly estimate a new material temperature,
+eliminating stability issues that require linearization of the emission source.
+
+Sufficient MC histories must be performed to eliminate statistical
+noise in the consistency terms that can contaminate the LO solution.
+Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an algorithm that can efficiently
+reduce statistical noise to the same order as the HOLO iteration error with
+significantly less particle histories than standard MC. In particular, ECMC is
+exceptionally efficient in time-dependent TRT problems because information about the
+intensity from the previous time step can be used as an accurate initial guess for
+the new end of time step intensity. Additionally, no particle histories are required
+in regions where the radiation and material energy field are in equilibrium, similar to~\cite{rmc}.  However, implementation
+of ECMC is non-trivial, requiring a finite-element representation of the solution in
+all phase-space variables that are being sampled with MC.  The fundamental transport of particles is the same
+as standard Monte Carlo transport codes, but the source will now contain positive and
+negative weight particles.
+
+Our ECMC solver contains similarities to the residual Monte Carlo (RMC) HO solver
+in~\cite{rmc}, with some key differences.  The RMC algorithm uses a particular, fixed 
+estimate of the solution to significantly reduce the statistical noise in the
+simulation compared to a standard MC simulation. The guess for the solution is chosen to produce only sources on the faces of
+cells, reducing the dimension of the phase-space to be sampled~\cite{rmc}. The RMC
+algorithm  uses a piecewise constant trial space representation for the intensity in
+$x$ and $\mu$.
+The primary difference between the methods is that ECMC iteratively estimates the
+solution, in batches, producing a known MC estimate
+of the error in that estimate.  The ECMC algorithm projects the intensity onto a linear-discontinuous
+finite-element (LDFE) trial space, although the RMC
+algorithm could similarly be formulated with an LDFE representation.  Adaptive
+mesh-refinement can be used in ECMC to produce highly accurate solutions with minimal
+statistical noise, as long as sufficient particle histories are performed. 
+The formulation of the residual in~\cite{rmc} use an estimate of the solution such
+that only face sources need to be sampled.  This residual formulation can produce minimal
+statistical noise in slowly varying problems where the behavior of the system is near
+equilibrium. Our ECMC algorithm has similar statistical efficiency by choosing the previous time step intensity as the initial guess to
+the algorithm; however, a linear volumetric source must be sampled in addition to face
+sources.  The ECMC algorithm will generally be more efficient in cases where
+the solution varies greatly over a time step or when very low statistical noise is
+desired.  Generally, the minimum number of histories per batch to obtain convergence with the
+LDFE trial space is larger than a piece-wise constant representation because additional
+histories are needed to sufficiently estimate the first moment in $x$ and $\mu$ of the
+intensity. 
+It is noted that our formulation of the LO
+equations and consistency terms contrast greatly from the typical formulation
+in~\cite{rmc,willert,park}.  
+
+In this work, we demonstrate the utility of an S$_2$-like LO operator~\cite{wolters}
+in conjunction with an ECMC method~\cite{jake} for the HO solver.
+The ECMC algorithm uses information about the intensity from the previous time step to reduce statistical noise to the same order as
+the HOLO iteration error with significantly less particle histories than standard MC
+simulations, with less computational cost than IMC per history.  We have derived the LO operator directly from the transport
+equation, using a linear-discontinuous (LD) finite-element (FE) spatial
+discretization for the HO and LO solutions. Herein we describe the algorithm and
+present results for 1D, gray test problems.
+
+\section{Overview of the HOLO Algorithm}
+
+For simplicity, our HOLO method will use a backwards Euler discretization in time, as
+well as constant specific heats and cell-wise constant cross sections. The time-discretized
+equations are
+\begin{align}
+    \mu \pderiv{I^{n+1}}{x} + \left(\sigma_t^{n+1} + \frac{1}{c \Delta t }\right) I^{n+1}
+&= \frac{\sigma_s}{2} \phi^{n+1} +\frac{1}{2} \left(\sigma_a a c T^4 \right)^{n+1} + \frac{I^n}{c \Delta t} \label{ho_trans} \\
+\rho c_v \frac{T^{n+1} - T^n}{\Delta t} &= \sigma_a^{n+1} \phi^{n+1}
+- \sigma_a a c (T^4)^{n+1} \label{lo_mat},
+\end{align}
+where $\Delta t$ is the uniform time step size, the superscript $n$ is used to indicate
+the $n$-th time step. Cross sections are evaluated at the end of time step
+temperature, i.e., $\sigma_a^{n+1}\equiv\sigma_a(T^{n+1})$. It is noted that in IMC the time derivative in
+Eq.~\eqref{ho_cont} is typically treated continuously using time-dependent MC over each
+time step.  Our HO transport equation is
+discrete in time for simpler application of ECMC and to avoid difficulties in coupling to the
+fully-discrete LO solver.  However, this does introduce some artificial propagation of
+energy due to the implicit time differencing in optically thin regions. 
+
+In the HOLO context, the LO solver models isotropic scattering and
+resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
+angular and spatial moments of
+Eq.~\eqref{ho_trans} and Eq.~\eqref{lo_mat}, formed over a spatial finite element
+mesh.  The angular treatment in the LO equations has the same form as those used in the
+hybrid-S$_2$ method in~\cite{wolters},  with
+element-averaged consistency parameters that are analogous to a variable
+Eddington factor.  If the angular consistency parameters were exact, then the LO equations
+are exact, neglecting spatial discretization errors.  These consistency parameters are lagged in each LO solve,
+estimated from the previous HO solution for $I^{n+1}(x,\mu)$, as explained below. For
+the initial LO solve for each time step, the parameters are calculated with
+$I^{n}(x,\mu)$.  The discrete LO equations always conserve total energy, independent of the accuracy of the consistency terms.
+The LO system uses a LDFE spatial discretization for the temperature and half-range scalar intensities.  The LDFE spatial discretization should correctly preserve the equilibrium diffusion limit, a critical aspect
+for TRT equations~\cite{larsen_edl,morel_newton}.  Additionally, the implicit time discretization with sufficient convergence of the nonlinear emission source will 
+ensure that the method will not exhibit maximum principle violations~\cite{larsen_mpv}.
+
+The solution to the LO system is used to construct a LDFE spatial representation of
+the isotropic scattering and emission sources on the right hand side of
+Eq.~\eqref{ho_trans}.   The LDFE representation of the emission source mitigates teleportation error.
+ This defines a fixed-source, pure absorber
+transport problem for the HO operator. This HO transport problem represents a characteristic method that uses MC to
+invert the continuous streaming plus removal operator with an LDFE representation of
+sources; the representation of sources is similar to the linear moments method
+discussed in~\cite{larsen_error}.  We will solve this transport problem using ECMC.  The output from ECMC is
+$\tilde{I}^{n+1}(x,\mu)$, a space-angle LDFE projection of the exact solution
+$I^{n+1}(x,\mu)$ to the described transport problem.  Once computed, $\tilde{I}^{n+1}(x,\mu)$ is used
+to directly evaluate the necessary consistency parameters for the next LO solve.  Since there is a global, functional representation of
+the angular intensity,  LO parameters are estimated using quadrature and do not
+require additional tallies.  The HO solution is not used to directly estimate a new
+temperature at the end of the time step; it is
+only used to estimate the angular consistency parameters for the LO equations, which eliminates
+typical operator splitting stability issues that require linearization of the emission source.
+
+The process of performing subsequential HO and LO solves, within a single time step, can be repeated to obtain an increasingly accurate solution for $\phi^{n+1}(x)$ and $T^{n+1}(x)$.  Thus, the HOLO algorithm, for the $n$-th time step, is
+\begin{enumerate}
+\item Perform a LO solve to produce an initial guess for $T^{n+1,0}(x)$
+    and $\phi^{n+1,0}(x)$, based on consistency terms estimated with $\tilde{I}^{n}$.
+\item Solve the HO system for $\tilde{I}^{n+1,k+1/2}(x,\mu)$ with ECMC, based on the current
+    LO estimate of the emission and scattering sources.%$\sigma_s(T^k)\phi^{k}$ and $B(T)^{k}$.
+\item Compute LO consistency parameters with $\tilde{I}^{n+1,k+1/2}$.  
+\item Solve the LO system with HO consistency parameters to produce a new
+    estimate of $\phi^{n+1,k+1}$ and $T^{n+1,k+1}$.
+\item Optionally repeat 2 -- 4 until desired convergence is achieved.
+\item Store $\tilde{I}^{n}\leftarrow\tilde{I}^{n+1}$, and move to the next time step.
+\end{enumerate}
+where the superscript $k$ denotes the outer HOLO iteration.
+The consistency terms force the HO
+and LO solutions for $\phi^{n+1}(x)$ to be consistent to the order of the current HOLO
+iteration error, as long as the LDFE spatial representation can accurately represent
+$\phi(x)$ and $T(x)$.
+%One HOLO fixed-point iteration $k$ denotes the process of an ECMC solve of the HO problem to estimate LO parameters, based on
+%the current LO estimate of sources, followed by a solution of the 
+%LO system for $T^{n+1}(x)$ and $\phi^{n+1}(x)$.
 
 \section{Overview}
 

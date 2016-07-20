@@ -42,3 +42,5 @@
 \BOOKMARK [1][-]{section.0.15}{MC solution with LDD trial space}{}% 42
 \BOOKMARK [1][-]{section.0.16}{Implementation of ECMC finite-element space, tallies, and residual sampling}{}% 43
 \BOOKMARK [1][-]{section.0.17}{Adaptive Mesh Refinement}{}% 44
+\BOOKMARK [1][-]{section.0.18}{MC Estimation of the Spatial Closure}{}% 45
+\BOOKMARK [1][-]{section.0.19}{Preservation of the Discrete Maximum Principle}{}% 46
