@@ -13,9 +13,15 @@ convergence of the nonlinear emission source~\cite{larsen_mpv}.
 To numerically demonstrate that our method preserves the MP, we have simulated problems similar to those in~\cite{wollaber2013discrete}.
 We modify the Marshak wave problem in Sec.~\ref{sec:marshak???} to produce a problem which
 results in MP violations for IMC at various time step sizes.  The material specifications
-are given in Table~\ref{tab:mpv_prob}.  The radiation and material energies are initially in
+are given in Table~\ref{tab:mpv_prob}. The domain width is 1.0 cm wih $N_c=150$ spatial mesh cells.  The radiation and material energies are initially in
 equilibrium at $0.01$ keV, before an isotropic boundary source of $1$ keV is applied at
-the left boundary. 
+the left boundary at $t=0$. The simulation is ran unitl $t=0.1$ sh. 
+
+The material and radiation temperature are given for an IMC simulation in Figure~\ref{fig:imc_mpv1}.  Figure~\ref{fig:imc_mpv} depicts the material temperature for various time step sizes and a ifxed
+mesh size of 150 equally spaced cells. All IMC simulations used 100,000 histories. As demonstrated, the material temperature exceeds the boundary condition and is artificially hotter than the radiation temperature.  As larger timestep sizes are taken the nonphysical results worsen.  This is a clear violation of the MP.
+
+The simulations are repeated with the same specifications
+
 
 
 
@@ -38,7 +44,6 @@ NO FIXUP APPLIED, NEWTON CONVERGENCE OF 10e-06.  MODIFIED MARSHAK WAVE PROBLEM.
 ACCURACY ALSO AN ISSUE.  even for short time step at early time steps it does appear
 
 \begin{table}[H]
-    \begin{tabular}
         \caption{\label{tab:mpv_prob}Problem specifications for maximum principle
         violation. Absorption cross section has form $\sigma_a = \sigma_{a,0}/T^3$.}
 \centering
