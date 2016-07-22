@@ -17,9 +17,9 @@ are given in Table~\ref{tab:mpv_prob}. The domain width is 1.0 cm wih $N_c=150$ 
 equilibrium at $0.01$ keV, before an isotropic boundary source of $1$ keV is applied at
 the left boundary at $t=0$. The simulation is ran unitl $t=0.1$ sh. 
 
-The material and radiation temperature are given for an IMC simulation in Figure~\ref{fig:imc_mpv1}.  Figure~\ref{fig:imc_mpv} depicts the material temperature for various time step sizes and a ifxed
+The material and radiation temperature are given for an IMC simulation in Figure~\ref{fig:imc_mpvrad}.  Figure~\ref{fig:imc_mpv} depicts the material temperature for various time step sizes and a ifxed
 mesh size of 150 equally spaced cells. All IMC simulations used 100,000 histories per time
-step. As demonstrated in Fig.~\ref{fig:imc_mpv1}, the material temperature exceeds the
+step. As demonstrated in Fig.~\ref{fig:imc_mpvrad}, the material temperature exceeds the
 specified boundary temperature and is artificially hotter than the radiation temperature.
 This artificial ``temperature spike'' also leads to a slower propagation of the wave.
 As shown in Fig.~\ref{fig:imc_mpv}, as larger timestep sizes are taken the nonphysical results worsen.
@@ -50,6 +50,16 @@ The damped newton is necessary.
 NO FIXUP APPLIED, NEWTON CONVERGENCE OF 10e-06.  MODIFIED MARSHAK WAVE PROBLEM.
 
 ACCURACY ALSO AN ISSUE.  even for short time step at early time steps it does appear
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{mpv_rad_imc.pdf}
+    \caption{Simulation of MP violation problem with IMC method and $\Delta t = 0.001$}
+\end{figure}
+
+
+
+
 
 \begin{table}[H]
         \caption{\label{tab:mpv_prob}Problem specifications for maximum principle
