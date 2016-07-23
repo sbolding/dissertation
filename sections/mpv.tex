@@ -2,15 +2,20 @@
 \section{Preservation of the Discrete Maximum Principle}
 
 An important property of a discretization of the TRT equations is preservation of the
-discrete maximum principle (MP).  This is a property that the analytic solution to the
-TRT equations satisfies~\cite{larsen_mpv}.
-Violation of the maximum principle results in
-the material temperature being artificially higher than the boundary conditions and
-sources should physically allow. As discussed in Sec.~\ref{sec:intro}, IMC can violate the MP due to the approximate
-linearization of the emission source in the time discretization; it is not truly implicit in time. 
-We expect our
-method, with a truly implicit time discretization, to preserve the MP with sufficient
-convergence of the nonlinear emission source~\cite{larsen_mpv}.
+discrete maximum principle (MP).  If a method preserves the MP, then the
+material temperature and mean intensity in the interior of the domain are bounded by the solution at the boundaries of
+the domain, in the absense of internal sources~\cite{wollaber2013discrete,larsen_mpv}.
+This is true for all times.
+For the discrete MP, we expect the numerical solution to be bounded by the boundary
+conditions from time step to time step.  Violation of the maximum principle results in the
+material temperature being artificially higher than the boundary conditions and sources
+should physically allow.  The analytic solution to the TRT equations satisfies a maximum
+principle~\cite{larsen_mpv}, so we desire numerical approximations that preserve the MP in
+a discrete sense.  As discussed in Sec.~\ref{sec:intro}, IMC can violate the MP due to the
+approximate linearization of the emission source in the time discretization; it is not
+truly implicit in time.  We expect our method, with a truly implicit time discretization,
+to preserve the MP with sufficient convergence of the nonlinear emission
+source~\cite{larsen_mpv}.
 
 To numerically demonstrate that our method preserves the MP, we have simulated problems
 similar to those in~\cite{wollaber2013discrete}.  We modify the Marshak wave problem in
