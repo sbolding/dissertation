@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  22 JUL 2016 15:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  23 JUL 2016 14:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -447,20 +447,26 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-(./sections/introduction.tex
-LaTeX Font Info:    Try loading font information for U+msa on input line 8.
+Chapter 1.
+(./sections/introduction.tex [1
 
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Try loading font information for U+msa on input line 8.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 8.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
-
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+)pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.23 \end{abstract}
+                    [1]
 
 LaTeX Warning: Citation `fnc' on page 1 undefined on input line 53.
 
@@ -719,14 +725,14 @@ LaTeX Warning: Citation `ans_2014' on page 16 undefined on input line 686.
 
 LaTeX Warning: Citation `shultis_mc' on page 17 undefined on input line 706.
 
-<figures/marshak_mesh_conv.pdf, id=338, 517.71071pt x 409.79662pt>
+<figures/marshak_mesh_conv.pdf, id=349, 517.71071pt x 409.79662pt>
 File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
 
 <use figures/marshak_mesh_conv.pdf>
 Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 739.
 (pdftex.def)             Requested size: 189.19217pt x 149.75273pt.
 
-<figures/marshak_200_compare.pdf, id=339, 508.9671pt x 409.79662pt>
+<figures/marshak_200_compare.pdf, id=350, 508.9671pt x 409.79662pt>
 File: figures/marshak_200_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_200_compare.pdf>
@@ -734,14 +740,14 @@ Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 745
 .
 (pdftex.def)             Requested size: 189.19217pt x 152.32895pt.
  [17]
-<figures/two_mat_conv.pdf, id=347, 501.29784pt x 409.79662pt>
+<figures/two_mat_conv.pdf, id=359, 501.29784pt x 409.79662pt>
 File: figures/two_mat_conv.pdf Graphic file (type pdf)
 
 <use figures/two_mat_conv.pdf>
 Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 772.
 (pdftex.def)             Requested size: 189.19217pt x 154.66132pt.
 
-<figures/two_mat_ho_compare.pdf, id=348, 501.29784pt x 409.79662pt>
+<figures/two_mat_ho_compare.pdf, id=360, 501.29784pt x 409.79662pt>
 File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
 
 <use figures/two_mat_ho_compare.pdf>
@@ -944,7 +950,7 @@ Overfull \hbox (22.8369pt too wide) in paragraph at lines 310--318
  [][] 
  []
 
-[40] <figures/heated_marshak.pdf, id=724, 526.7194pt x 417.02364pt>
+[40] <figures/heated_marshak.pdf, id=735, 526.7194pt x 417.02364pt>
 File: figures/heated_marshak.pdf Graphic file (type pdf)
 
 <use figures/heated_marshak.pdf>
@@ -963,6 +969,12 @@ LaTeX Warning: Citation `rmc' on page 42 undefined on input line 432.
 Overfull \hbox (86.67368pt too wide) detected at line 71
  []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
  
+ []
+
+
+Overfull \hbox (2.9861pt too wide) in paragraph at lines 86--89
+\OT1/cmr/m/n/12 which can be solved for $\OML/cmm/m/it/12 J[]$\OT1/cmr/m/n/12 .
+ Sub-sti-tu-tion of the above equa-tion and Eq. []
  []
 
 [45]
@@ -1053,57 +1065,73 @@ LaTeX Warning: Citation `shultis_mc' on page 56 undefined on input line 75.
 
 LaTeX Warning: Reference `???' on page 56 undefined on input line 81.
 
-) (./sections/mpv.tex [56]
+) [56] [57] [58] [59] [60 <./figures/heated_marshak.pdf>]
+Chapter 2.
+(./sections/mpv.tex
 
-LaTeX Warning: Reference `sec:intro' on page 57 undefined on input line 7.
-
-
-LaTeX Warning: Citation `larsen_mpv' on page 57 undefined on input line 11.
-
-
-LaTeX Warning: Citation `wollaber2013discrete' on page 57 undefined on input li
-ne 13.
+LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 6.
 
 
-LaTeX Warning: Reference `sec:marshak???' on page 57 undefined on input line 14
+LaTeX Warning: Reference `sec:intro' on page 61 undefined on input line 9.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 13.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 61 undefined on input li
+ne 16.
+
+
+LaTeX Warning: Reference `sec:marshak???' on page 61 undefined on input line 17
 .
 
+[61
 
-LaTeX Warning: Reference `fig:imc_mpv' on page 57 undefined on input line 20.
+]
 
-
-LaTeX Warning: Reference `fig:imc_mpv' on page 57 undefined on input line 25.
-
-
-LaTeX Warning: Reference `fig:holo_mpv' on page 57 undefined on input line 28.
+LaTeX Warning: Reference `tab:blah' on page 62 undefined on input line 37.
 
 
-LaTeX Warning: Reference `tab:blah' on page 57 undefined on input line 31.
+LaTeX Warning: Citation `wollaber2013discrete' on page 62 undefined on input li
+ne 44.
 
-[57]
-
-LaTeX Warning: Citation `wollaber2013discrete' on page 58 undefined on input li
-ne 38.
-
-<figures/mpv_rad_imc.pdf, id=883, 507.35954pt x 408.27531pt>
+<figures/mpv_rad_imc.pdf, id=970, 508.3633pt x 411.3493pt>
 File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_rad_imc.pdf>
-Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 56.
-(pdftex.def)             Requested size: 234.00238pt x 188.3073pt.
- [58 <./figures/mpv_rad_imc.pdf>]
+Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 59.
+(pdftex.def)             Requested size: 234.00238pt x 189.34222pt.
+ [62]
+<figures/mpv_mats_imc.pdf, id=976, 508.80243pt x 411.71002pt>
+File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
 
-LaTeX Warning: Citation `ans_2014' on page 59 undefined on input line 91.
+<use figures/mpv_mats_imc.pdf>
+Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 65.
+(pdftex.def)             Requested size: 234.00238pt x 189.34492pt.
+
+<figures/mpv_mats_holo.pdf, id=977, 513.05269pt x 411.71002pt>
+File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_holo.pdf>
+Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 72.
+(pdftex.def)             Requested size: 234.00238pt x 187.78067pt.
+ [63 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
+
+pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>]
+
+LaTeX Warning: Citation `ans_2014' on page 64 undefined on input line 105.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 88.
- [59] [60] [61] [62 <./figures/heated_marshak.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 88.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 93.
+ [64 <./figures/mpv_mats_holo.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 93.
  (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 88.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 88.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 93.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 93.
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B0463A13D52561247FAAB345D8D33AAD;3655.
+(rerunfilecheck)             Checksum: 503A8D60FEC7B12D3E60249B4CE82173;3916.
 
 
 LaTeX Warning: There were undefined references.
@@ -1113,11 +1141,11 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9170 strings out of 493304
- 134768 string characters out of 6139871
+ 9190 strings out of 493304
+ 135156 string characters out of 6139871
  253975 words of memory out of 5000000
- 12252 multiletter control sequences out of 15000+600000
- 13034 words of font info for 49 fonts, out of 8000000 for 9000
+ 12264 multiletter control sequences out of 15000+600000
+ 13640 words of font info for 51 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  42i,13n,40p,802b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
@@ -1133,10 +1161,10 @@ cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (63 pages, 449240 bytes).
+Output written on main.pdf (66 pages, 485020 bytes).
 PDF statistics:
- 1111 PDF objects out of 1200 (max. 8388607)
- 785 compressed objects within 8 object streams
- 247 named destinations out of 1000 (max. 500000)
- 399 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1250 PDF objects out of 1440 (max. 8388607)
+ 835 compressed objects within 9 object streams
+ 253 named destinations out of 1000 (max. 500000)
+ 425 words of extra memory for PDF output out of 10000 (max. 10000000)
 
