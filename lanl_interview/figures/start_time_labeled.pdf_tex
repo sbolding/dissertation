@@ -1,0 +1,69 @@
+%% Creator: Inkscape inkscape 0.48.4, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'start_time_labeled.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{586.65528276bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.75687052)%
+    \put(0,0){\includegraphics[width=\unitlength]{start_time_labeled.pdf}}%
+    \put(0.55527546,0.01999684){\makebox(0,0)[lb]{\smash{x}}}%
+    \put(0.58405687,0.01999684){\makebox(0,0)[lb]{\smash{(cm)}}}%
+    \put(0.20879857,0.28106901){\rotatebox{90}{\makebox(0,0)[lb]{\smash{T}}}}%
+    \put(0.21706029,0.29998251){\rotatebox{90}{\makebox(0,0)[lb]{\smash{r}}}}%
+    \put(0.20879857,0.3248895){\rotatebox{90}{\makebox(0,0)[lb]{\smash{(keV)}}}}%
+    \put(0.52885449,0.65112768){\makebox(0,0)[lb]{\smash{t}}}%
+    \put(0.54714209,0.65112768){\makebox(0,0)[lb]{\smash{=}}}%
+    \put(0.58663038,0.65112768){\makebox(0,0)[lb]{\smash{0 (sh)}}}%
+    \put(0.7524952,0.58464912){\makebox(0,0)[lb]{\smash{radiation}}}%
+    \put(0.91554546,0.58464912){\makebox(0,0)[lb]{\smash{T}}}%
+    \put(0.9354544,0.57595257){\makebox(0,0)[lb]{\smash{r}}}%
+    \put(0.7524952,0.53010261){\makebox(0,0)[lb]{\smash{material}}}%
+    \put(0.90562428,0.53010261){\makebox(0,0)[lb]{\smash{T}}}%
+    \put(0.92553322,0.52140606){\makebox(0,0)[lb]{\smash{m}}}%
+    \put(0.00011289,0.76462589){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.31544921\unitlength}\centering constant boundary  source\\ \\ \end{minipage}}}%
+  \end{picture}%
+\endgroup%
