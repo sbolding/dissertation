@@ -744,8 +744,9 @@ This source is estimated iteratively as
     \tilde{I}^{n+1,(m)}_{\text{pos}}),
 \end{equation*}
 where $\tilde{I}_{pos}^{n+1}$ is the modified positive solution.
-Essentially, this source is modifying the first moments of the transport equation to
-ensure a positive solution within the negative cells.   If necessary, we can estimate a
+The goal of this modified transport problem is to maintain the zeroth moment of the solution, while
+modifying the slope of the solution such that the ECMC solution is converging towards a
+positive solution, at the rate the mesh resolution allows. If necessary, we can estimate a
 new source again in the next batch.  The source
 $\tilde\delta$ lies in the same functional space as the residual, and thus can use
 the existing code for computing the residual and will be straight forward to extend
@@ -756,12 +757,10 @@ magnitude of the MC estimated error, producing a positive solution. We still nee
 investigate the accuracy and robustness of the
 added source method, and whether it should be recomputed every batch, once it has been
 triggered, or only when the
-solution becomes negative again.   We will also
-investigate adding the source to the LO equations for greater consistency and accuracy in
-the LO equations.  This will not
-necessarily guarantee positivity in the LO equations due to the lagged estimate of the emission source in
-used in the previous HO solution.  We will investigate altering the  method for computing the added source computation to ensure the zeroth moment
-of the equations is not changed, ensuring energy conservation.
+solution becomes negative again.  We will also investigate this source in conjuction with
+a modified trial space obtained by extrapolating the MC solution on an outflow face
+through the interior of the solution. The next section explains how the solution on faces
+is computed.
 
 \subsection{Estimating the Spatial Closure from the HO Solution}
 
@@ -786,6 +785,35 @@ accurate results compared to the standard LDFE solution, at least for sufficient
 can accurately represent the solution.  Although the closure will be applied everywhere,
 we expect the greatest improvement in accuracy for cells where the LDFE trial space
 produces a negative solution.
+
+\subsection{Inclusion of the Time Variable in ECMC Trial Space}
+
+We hope to improve the efficiency of MC calculations in thin regions with ECMC while still
+preserving the accuracy of a MC treatment in the time variable, e.g., error of the time trial space by 
+including the time variable in the trial space for ECMC.  Thus, our $L$ operator is
+now modified to include the time derivative, i.e.,
+\begin{equation}
+    LI = \frac{1}{c}\pderiv{I}{t} + \sigma_t I + \mu \pderiv{I}{x}
+\end{equation}
+The choice of trial space in time will also be investigated.  A doubly-discontinuous
+trial space that is constant over the interior of the time step will be easiest to
+implement. However, this trial space may produce problems in estimating the end of
+time-step intensity if few particles reach the end of time step time.  We will explore the
+option of using importance sampling in the time variable to ensure some fraction of
+histories reach the end of the time step.  If this proves to be too noise, a
+linear-discontinuous treatment in time is an alternative solution.  The downside to this
+approach is there is a projection error in the time.
+This requires inversion of $L$ via MC to track the time of the particle and compute
+averages of the particle.  It is necessary to close the equations in time.  All
+consistency terms will exist as before, but now time-averaged quantities.  However we need
+to eliminate the end of time step intensity in terms of time-averaged quantities,
+incorporating the appropriate spatial discretization.  We will explore which form
+of the closure is best by making some parametric combination of the known variables. This
+closure forms LO equations that have the same difficulty to solve as the LO equations, but
+have the potential, neglecting statistical noise, to preserve the accuracy in time of the
+HO trial space.
+
+
 
 \subsection{Diffusion Synthetic Acceleration of the LO Equations}
 
@@ -960,10 +988,13 @@ complete this dissertation research:
     \item The doubly-discontinuous trial space with a consistent spatial closure in the
         LO equations remains to be implemented. This approach will be compared to the
         standard LD closure for accuracy, particularly in the case of negative cells.  
-    \item We will investigate the sensitivity of ECMC and the LO equations to
-        parameters, e.g., initial mesh-sizes, adaptive refinement, time step size, history
-        counts, and batch sizes.  Additional test problems will be simulated as
-        necessary.
+    \item The inclusion of the time variable in the MC trial space with consistent
+        closure of the LO equations remains to be implemented. We will test this in
+        optically thin problems where the benefit of the time closure will be most
+        apparent, as well as in thick problems where the closure needs to be stable enough
+        to preserve the solution.  It may be necessary to implement some form of filtering
+        on these closure parameters.
+    \item Additional test problems will be simulated as necessary.
 \end{enumerate}
 \pagebreak
 
