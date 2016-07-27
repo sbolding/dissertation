@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  23 JUL 2016 14:19
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  24 JUL 2016 11:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1069,51 +1069,62 @@ LaTeX Warning: Reference `???' on page 56 undefined on input line 81.
 Chapter 2.
 (./sections/mpv.tex
 
-LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 6.
+LaTeX Warning: Citation `wollaber2013discrete' on page 61 undefined on input li
+ne 7.
 
 
-LaTeX Warning: Reference `sec:intro' on page 61 undefined on input line 9.
+LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 7.
 
 
-LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 13.
+LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 9.
+
+
+LaTeX Warning: Reference `sec:intro' on page 61 undefined on input line 15.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page 61 undefined on input line 19.
 
 
 LaTeX Warning: Citation `wollaber2013discrete' on page 61 undefined on input li
-ne 16.
+ne 22.
 
 
-LaTeX Warning: Reference `sec:marshak???' on page 61 undefined on input line 17
+LaTeX Warning: Reference `sec:marshak???' on page 61 undefined on input line 23
 .
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 61 undefined on input li
+ne 26.
 
 [61
 
 ]
 
-LaTeX Warning: Reference `tab:blah' on page 62 undefined on input line 37.
-
-
 LaTeX Warning: Citation `wollaber2013discrete' on page 62 undefined on input li
-ne 44.
+ne 43.
 
-<figures/mpv_rad_imc.pdf, id=970, 508.3633pt x 411.3493pt>
+
+LaTeX Warning: Reference `tab:blah' on page 62 undefined on input line 55.
+
+<figures/mpv_rad_imc.pdf, id=967, 508.3633pt x 411.3493pt>
 File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_rad_imc.pdf>
-Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 59.
+Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 66.
 (pdftex.def)             Requested size: 234.00238pt x 189.34222pt.
  [62]
 <figures/mpv_mats_imc.pdf, id=976, 508.80243pt x 411.71002pt>
 File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_imc.pdf>
-Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 65.
+Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 72.
 (pdftex.def)             Requested size: 234.00238pt x 189.34492pt.
 
 <figures/mpv_mats_holo.pdf, id=977, 513.05269pt x 411.71002pt>
 File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_holo.pdf>
-Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 72.
+Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 79.
 (pdftex.def)             Requested size: 234.00238pt x 187.78067pt.
  [63 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
 
@@ -1121,7 +1132,7 @@ pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
 iple pdfs with page group included in a single page
 >]
 
-LaTeX Warning: Citation `ans_2014' on page 64 undefined on input line 105.
+LaTeX Warning: Citation `ans_2014' on page 64 undefined on input line 112.
 
 )
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 93.
@@ -1161,7 +1172,7 @@ cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on main.pdf (66 pages, 485020 bytes).
+Output written on main.pdf (66 pages, 485419 bytes).
 PDF statistics:
  1250 PDF objects out of 1440 (max. 8388607)
  835 compressed objects within 9 object streams
