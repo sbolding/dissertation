@@ -715,9 +715,10 @@ fact that some terms are lagged, have lead to the development of independent
 approaches for the LO and HO systems thus far.
 
 Typically, for a standard LDFE method,
-the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
+the equations are lumped to produce a solution that is strongly resistant to negative
+solutions (for 1D)~\cite{morel_newton}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
-HO solution.    The results in Sec.~\ref{results} used a lumping-equivalent closure for the LO equations and $S_2$ equivalent angular terms..
+HO solution.    The results in Sec.~\ref{results} used a lumping-equivalent closure for the LO equations and $S_2$ equivalent angular terms.
 This approach will not produce
 accurate results for general problems in higher spatial dimensions. Also, a lumping equivalent closure in $x$ does not guarantee positivity for the space-angle LDFE
 representation of the HO intensity.
@@ -725,7 +726,8 @@ Alternatively, the equations within a cell can be modified to ensure the outflow
 below the floor value (the initial temperature of the problem), and energy balance is
 conserved.  The LD shape is reconstructed by extrapolating from the outflow back
 through the average.  This closure has been implemented and is more promising for extendability into higher
-dimensions.
+dimensions, although it can produce convergence issues with the Newton method in very
+diffusive problems.
 
 For the HO solver, after an ECMC batch, we detect cells that produced a negative
 intensity. In these cells, we scale the linear representation of the intensity (in
@@ -734,7 +736,7 @@ value.  This scaling process of the two moments is underdefined, so there is not
 positivity.  The scaling procedure is not an emphasis of the research, so we apply the simple
 approach of scaling the slopes such that the ratio of the slope in $x$ and $\mu$ is
 unchanged.  The scaled intensity will not satisfy the original residual equation accurately because we have
-modified the first moments.   Thus, the ECMC error estimates will rapidly stagnate,
+modified the first space-angle moments.   Thus, the ECMC error estimates will rapidly stagnate,
 and produce relatively inaccurate solutions.  This scaling can also lead to
 negativities in down-stream cells that is unphysical in later batches.  To mitigate
 stagnation and improve accuracy, we will add an artifical source $\tilde\delta^{m+1}(x,\mu)$ to the HO equation.
@@ -755,11 +757,9 @@ to higher dimensions.
 We have implemented this artificial source and found it to reduce the
 magnitude of the MC estimated error, producing a positive solution. We still need to
 investigate the accuracy and robustness of the
-added source method, and whether it should be recomputed every batch, once it has been
-triggered, or only when the
-solution becomes negative again.  We will also investigate this source in conjuction with
-a modified trial space obtained by extrapolating the MC solution on an outflow face
-through the interior of the solution. The next section explains how the solution on faces
+added source method.  We will also investigate this source in conjuction with
+a modified trial space obtained by linearly extrapolating the MC solution on an outflow face
+through the average value of the solution. The next section explains how the solution on faces
 is computed.
 
 \subsection{Estimating the Spatial Closure from the HO Solution}
@@ -784,36 +784,68 @@ over each half-range, similar to the angular consistency parameters.   Poor stat
 accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
 can accurately represent the solution.  Although the closure will be applied everywhere,
 we expect the greatest improvement in accuracy for cells where the LDFE trial space
-produces a negative solution.
+produces a negative solution.  The introduction of the discontinuous outflow, will also
+affect the way fixups are applied to the linear interor solution of the LO equations.
+This may improve convergence of the Newton method for the balance preserving fixup
+discussed in the previous section.
 
 \subsection{Inclusion of the Time Variable in ECMC Trial Space}
 
-We hope to improve the efficiency of MC calculations in thin regions with ECMC while still
-preserving the accuracy of a MC treatment in the time variable, e.g., error of the time trial space by 
-including the time variable in the trial space for ECMC.  Thus, our $L$ operator is
-now modified to include the time derivative, i.e.,
+\label{sec:time}
+Another area of investigation for closing the LO equations is in the time discretization
+of the system.  The goal of
+an alternative time discretization is to produce a more accurate solution in optically
+thin regions where particles transport a long distance.  A potential application is in 
+stellar atmosphere calculations.  In optically thin regions, the MC
+integration of the time-variable by IMC can produce greater accuracy, whereas an implicit
+Euler discretization will result in artificially fast propagation of energy.  We hope to improve
+the efficiency of MC calculations in thin regions with the ECMC method while still preserving the
+accuracy of a MC treatment in the time variable.  The time variable will be included in
+the trial space for ECMC and the LO equations will be closed in time consistently.  We
+will not be performing adaptive refinement in time, so maintained exponential convergence
+is not possible.  However, we still expect the residual MC formulation of the ECMC method
+to show improvement over standard MC.
+
+Inclusion of time $t$ in the MC trial space allows for no discretization of the
+transport operator $L$.  The transport operator becomes
 \begin{equation}
     LI = \frac{1}{c}\pderiv{I}{t} + \sigma_t I + \mu \pderiv{I}{x}
 \end{equation}
-The choice of trial space in time will also be investigated.  A doubly-discontinuous
-trial space that is constant over the interior of the time step will be easiest to
-implement. However, this trial space may produce problems in estimating the end of
+The emission source
+is still treated as fully implicit, similar to IMC.
+  In inverting the $\B L$ operator, particles are born with some specific
+time, and their time is tracked until they reach the end of the time step.  Tallies are adjusted
+to account for the averaging over the time step, and to compute the intensity at the end
+of time step as necessary, depending on the chosen trial space.
+
+The choice of trial space in time for the intensity will also be investigated.  A doubly-discontinuous
+trial space that is constant over the interior of the time step allows for much of the
+residual machinery from the discrete case to be reused.  However, this trial space may produce problems in estimating the end of
 time-step intensity if few particles reach the end of time step time.  We will explore the
 option of using importance sampling in the time variable to ensure some fraction of
-histories reach the end of the time step.  If this proves to be too noise, a
-linear-discontinuous treatment in time is an alternative solution.  The downside to this
-approach is there is a projection error in the time.
-This requires inversion of $L$ via MC to track the time of the particle and compute
-averages of the particle.  It is necessary to close the equations in time.  All
-consistency terms will exist as before, but now time-averaged quantities.  However we need
-to eliminate the end of time step intensity in terms of time-averaged quantities,
-incorporating the appropriate spatial discretization.  We will explore which form
-of the closure is best by making some parametric combination of the known variables. This
-closure forms LO equations that have the same difficulty to solve as the LO equations, but
-have the potential, neglecting statistical noise, to preserve the accuracy in time of the
-HO trial space.
+histories reach the end of the time step.  If there is too much statistical noise in the
+end of time step values, a
+linear-discontinuous (LD) treatment in time could be implemented, which would make all
+particle tracks contribute to the estimation of the slope in $t$.  The LD time
+representation has a couple downsides.  This approach has a projection error for computing
+the end of time step intensity.  Additionally, the third linear variable would
+substantially complicate computation and sampling of the residual.  This would require
+implementation of an alternative sampling method.
 
-
+The LO equations must now have a closure in time to be consistent with the HO equations. 
+Previous work has attempted to simply subtract the continuous HO solution
+from a BE discretziation of the discretized time-derivatives to add an artificial
+term, with the addition of extra terms from hydrodynamics~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
+time-averaged unknowns.  We will alternatively use a parameteric closure in the time
+variable similar to the spatial closures discussed in the previous section.  All
+consistency terms will exist as before, but now as time-averaged quantities.  All that
+remains is to eliminate the end of time step unknowns in terms of time-averaged
+unknowns and previous time step solution, as estimated by the previous HO solution.  We
+will investigate different parameteric forms of the closure for robustness.  The closure
+produces LO equations that have the same numerical difficulty to solve as the fully-discrete LO equations, but
+have the potential to preserve the accuracy of the MC integration in time.   Once the time-averaged unknowns have been calculated,
+the time closures can be used to advance to the end of time step values for the next
+time step.
 
 \subsection{Diffusion Synthetic Acceleration of the LO Equations}
 
@@ -857,11 +889,12 @@ acceleration is effective.  However, we have only considered the case when
 the LO equations and DSA equations are lumped.  We will investigate the effect of acceleration when alternative negativity fix-ups are
 implemented that result in DSA and LO equations that are not spatially consistent.
 We will recast the DSA method as a preconditioner to an iterative
-Krylov solution~\cite{larson_morel_sn} of the LO equations if acceleration degrades.  Generally, Krylov
+Krylov solution~\cite{larson_morel_sn} of the LO equations to improve acceleration in such
+cases.  Generally, Krylov
 methods mitigate acceleration losses due to inconsistencies in the acceleration
 method.  In higher dimensions, the use of a Krylov method is necessary for effective
 acceleration for nearly-consistent acceleration methods such as WLA in problems with
-mixed optical thicknesses~\cite{larson_morel_sn}, e.g., typical radiative transfer
+mixed optical thicknesses~\cite{larson_morel_sn}, which are typical in TRT
 problems.
   We would apply the preconditioned-Krylov approach to allow for the use of lumped DSA
   equations as a preconditioner, with the LO equations using one of the other fixup
@@ -870,70 +903,8 @@ in the previous section.  It is noted we are not interested in measuring the red
 computational time because in 1D the LO equations can be directly solved efficiently.
 We are just interested in ensuring that DSA or a preconditioned-Krylov methods can reduce the
 number of scattering iterations sufficiently, including cases where inconsistencies
-in the LO equations are present.  %because DSA
-%becomes less effective in mixed optical thicknesses and high spatial cell aspect
-%ratios~\cite{morel_newton}.
-%\subsection{Alternative time discretization}
-%\label{sec:time}
-%
-%A final area of research to be investigated is in an alternative time discretization
-%of the system.  This is the least developed portion of the research.  The goal of
-%an alternative time discretization is to produce a more accurate solution in
-%optically thin regions where particles transport a long distance.  This is an area
-%where the MC treatment of the time-variable by IMC can produce greater accuracy,
-%whereas a BE discretization will result in artificially fast propagation of energy.
-%This may be important in applications such as stellar atmosphere calculations.  
-%
-%First, the ECMC
-%solution is considered. The emission source
-%is still treated as fully implicit, however the intensity is allowed to be continuous
-%in time.  In inverting the $\B L$ operator, particles are born with some specific
-%time, and their time is tracked until they reach the end of the time step.  Tallies are adjusted
-%to account for the averaging over the time step.
-%in terms of MC, letting . As with the spatial and angular variables, we assume a trial
-%space for the time variable as well.  Two different options are considered.
-%The first, is a doubly-discontinous treatement, where teh outflow in time is solved
-%for with the MC.  Fig.~\ref{fig:dd_time} demonstrates the basic principle of this
-%closure in time.  The second options is a linear discontinuous trial space in time.
-%The first approach requires typical census type tallies~\cite{fig}, which adds
-%significant complexity in terms of tallies.  The second will
-%require the first moment in time to be tallied.  
-%Again, ECMC will be computing the projection of the exact solution onto the trial
-%space, so this will have the accuracy of IMC for the radiation.    Neither of these cases require the
-%addition of Adds one extra set of unknowns to be stored. 
-%
-%Next, consistency with the LO system is
-%necessary.  The goal is to not add additional equations to solve for the
-%time-dependent unknowns, but to   Previous work has attempted to simply subtract the continuous HO solution
-%from a BE discretziation of the discretized time-derivatives to add an artificial
-%term, with the addition of extra terms from hydrodynamics~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
-%time-averaged unknowns.  As an alternative, we will estimate a parameter based on the
-%ratio of the outflow in time to the average over the time step. One possible closure
-%is
-%\begin{equation}
-%    I^{n+1} = 2\gamma_t \overline{I} - I^{n}
-%\end{equation}
-%where $\gamma_t$ is the closure factor and $\overline{I}$ is the time-averaged
-%intensity.  A spatial and angle discretized version of the above equation can be used to
-%eliminate the extra unknowns from the LO system.  The value of $\gamma_t$ is
-%estimated by solving the above equation based on the latest HO solution for all
-%parameters.  The stability and accuracy of these methods will need
-%to be investigated. As a first step, a truly BE time discretization in the HO can be
-%used in conjunction with the LO solver.
+in the LO equations are present.  
 
-
-
-
-
-%
-%  There
-%is some difficulty in making the LO time-averaged quantities match with the HO
-%solution, which may require some approximation.  However, this is not that different
-%than the discrete case because the representation of $\tilde I^{n}$ is lagged an
-%iteration anyways. 
-%It is noted that the SIMC method explored 
-%some similar alternate time discretizations for the temperature in the residual
-%treatment, but second-order accurate time treatment.  However, the second-order approximation
 
 \section{Summary and Outline of Remaining Research}
 \label{sec:summary}
@@ -958,7 +929,8 @@ batch.  Ideally, the added source will reduce the stagnation to order of the glo
 stagnation that occurs in other regions of the problem due to mesh resolution and a
 finite number of histories per batch.  The LO and HO solutions will independently resolve issues with
 negativities, with the goal of producing as consistent and accurate of solutions as
-possible.  We also need to numerically demonstrate the
+possible.  Inclusion of the time variable into the ECMC trial space needs to be
+implemented and tested.  We also need to numerically demonstrate the
 ability of DSA to accelerate our LO equations, in conjunction with a iterative Krylov
 solution method.  There are other
 desirable properties of our algorithm that remain to be tested, e.g., preservation of
@@ -970,8 +942,8 @@ complete this dissertation research:
         iterations and the numerically estimated spectral radius in diffusive problems.  Problems that provide a mix of optically
         thick and thin regions, particularly those that require the fix-ups defined in
         Sec.~\ref{sec:negs} where acceleration may degrade, will be
-        investigated.  The acceleration method will be recast as a
-        DSA-preconditioned Krylov method if required for robustness and effectivness.
+        investigated.  The acceleration method will also be recast as a
+        DSA-preconditioned Krylov method and tested.
     \item Problems where IMC violates the maximum principle will be simulated with our
         method.  We will demonstrate that our implicit equations preserve the maximum
         principle, and that our method can produce higher accuracy due to implicit cross section

@@ -1,5 +1,6 @@
 %\pdfminorversion=4
-\documentclass[xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed]{beamer}
+\documentclass[xcolor=dvipsnames,hyperref={pdfpagelabels=false},unknownkeysallowed,
+handout]{beamer}
 \usepackage{tabls}
 \usepackage{picture}
 \usepackage{graphicx}
@@ -254,14 +255,15 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-{\addtolength{\leftmargini}{-0.1in}
+{\addtolength{\leftmargini}{-0.2in}
 \begin{frame}
-\frametitle{Our method has been applied to a simplified model, \\ the 1D grey TRT equations}
+\frametitle{Our method has been applied to a simplified model:\\ the 1D grey radiative
+transfer equations}
 \setlength{\unitlength}{\textwidth}
-\vspace{0.2in}
+\vspace{0.152in}
 \begin{itemize}
     \item[] Energy balance equations for radiation and material. \\
-            \colG{radiation intensity $I(x,\mu,t)$, material 
+            \colG{Radiation intensity $I(x,\mu,t)$, material 
             temperature $T(x,t)$}\vspace{-0.34in}
     \item[] \begin{align*}\label{ho_cont}
 \hspace{-0.134in}
@@ -270,7 +272,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
   \\
   C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
-            \vspace{-0.24043in}
+            \vspace{-0.34043in}
         \item[] Equations are \colb{nonlinear} and may be tightly coupled \\  
             \colG{Absorption opacity ($\sigma_a$) can be a strong function of $T$}
 %        \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
@@ -345,14 +347,15 @@ subsectionstyle=hide
     \begin{minipage}[t]{1.1\textwidth}
         \begin{itemize}
 \setlength\wideitemsep{0.2in}
+\pause
             \item[] The \textbf{LO system} is space-angle moment equations,\\
-                    \colG{formed over a fixed finite-element (FE) spatial mesh}
+                    \colG{on a fixed finite-element (FE) spatial mesh}
                 \vspace{0.02in}
                 {\scriptsize
                 \begin{itemize}
                     \item Reduced dimensionality in angle\\
                          \colG{allows for solution with Newton's method}
-                     \item \textbf{Output:} linear-discontinuous  $\phi(x)$, $T(x)$\\ 
+                     \item \textbf{Output:} linear-discontinuous  $\phi(x)$ and $T(x)$\\ 
                          \colb{Construct LDFE scattering and emission source}
                   %  \item Consistency terms derived directly from transport equation
                 \end{itemize}
@@ -363,7 +366,7 @@ subsectionstyle=hide
                 \begin{itemize}
                     \item Solved with exponentially-convergent MC (ECMC) \\ \colG{for
                             \emph{efficient} reduction of statistical noise }
-                    \item \textbf{Output:} \colb{consistency terms}
+                    \item \textbf{Output:} \colb{consistency terms} \\
                 \end{itemize}
 }
         \end{itemize}
@@ -392,7 +395,7 @@ subsectionstyle=hide
         {Construct LDFE emission source}};
         \node (pro2b) [process, text width=3.0cm, above of=srcs, yshift=0.5cm] {{HO ECMC solve}
            for $\tilde I^{n+1}(x,\mu)$};
-        \node (cons) [process, above of=pro2b, text width=3.0cm] {{Compute consistency
+        \node (cons) [process, above of=pro2b, text width=3.0cm] {{Consistency
         terms}};
         \draw [arrow1] (start) -- (in1);
         \draw [arrow] (in1) -- (pro1);
@@ -493,7 +496,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Four moments of the transport equation are manipulated \\ to form angular \colb{consistency
+    \frametitle{Four moments of the transport equation \\ are manipulated to form angular \colb{consistency
     terms}}
     \vspace{-0.15in}\pause
 \begin{multline*}\label{lo_tran}
@@ -687,16 +690,16 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Our HO system allows for effective \\ and simple variance reduction methods}
+    \frametitle{Our HO system allows for \\ simple variance reduction methods}
     \addtolength{\wideitemsep}{0.15in}
     \begin{itemize}
         \item[] Histories stream without collision \\
-            \colG{Along path $s$, weight reduces as $w(s)=w_0 e^{-\sigma_t s}$}
+            \colG{along path $s$, weight reduces as $w(s)=w_0 e^{-\sigma_t s}$}
         \item[] Use cell-wise {systematic} sampling for $|r^{(m)}|$ source
             \colG{Particularly effective in thick cells}
             \begin{itemize}
                     \vspace{0.02in}
-                \item $n$ particles in  each $x$-$\mu$ cell $\propto |r^{(m)}|$
+                \item Particles in  each $x$-$\mu$ cell $\propto |r^{(m)}|$ in cell
                 \vspace{-0.15in}
                 \item Set minimum $n$ for cells  \\
                     \colG{except for cells in thermal equilibrium}
@@ -736,7 +739,8 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \centering
         \begin{itemize}
             \item \colb{$\sigma_a\propto T^{-3}$}. 
-            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and for ECMC 4~$\mu$  cells }
+            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and 4~$\mu$
+                cells (for ECMC)}
         \end{itemize}
     \begin{figure}
     \includegraphics[width=0.615799\textwidth]{marshak_200_compare.pdf}
@@ -776,10 +780,26 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 \begin{frame}
     \frametitle{The LDFE discretization for the LO equations \\ preserves the equilibrium diffusion limit}
+        \begin{itemize}
+            \item \colb{$\sigma_a\propto T^{-3}$}. 
+            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and 4~$\mu$
+                cells (for ECMC)}
+        \end{itemize}
 \begin{figure}
     \centering
     \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
 \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Maximum Principle Violations}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{DSA calculations}
+
 \end{frame}
 
 
@@ -797,12 +817,11 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
         \includegraphics[width=\linewidth]{errors.pdf}
     \end{column}
 \end{columns}
-
-
 \end{frame}
 
 
-\section{Remaining Research}
+
+\section{Ongoing Research}
 
 \begin{frame}
     \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is

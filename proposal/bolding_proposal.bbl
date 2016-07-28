@@ -101,6 +101,12 @@ J.R. Peterson.
   {E}quation.
 \newblock Master's thesis, Texas A\&M, 2014.
 
+\bibitem{holo_rh}
+Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
+\newblock Radiation hydrodynamics with a high-order, low-order method.
+\newblock In {\em ANS Topical Meeting, International Topical Meeting on
+  Mathematics and Computation}, Nashville Tennessee, 2015.
+
 \bibitem{wla}
 T.A. Wareing, E.W. Larsen, and M.L. Adams.
 \newblock {Asymptotic Diffusion Accelerated Discontinuous Finite Element

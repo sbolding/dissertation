@@ -1,7 +1,7 @@
-\beamer@endinputifotherversion {3.36pt}
+\beamer@endinputifotherversion {3.24pt}
 \select@language {english}
 \beamer@sectionintoc {1}{Overview of algorithm}{7}{0}{1}
-\beamer@sectionintoc {2}{Derivation of the LO equations}{11}{0}{2}
-\beamer@sectionintoc {3}{Exponentially Convergent MC High-Order Solver}{16}{0}{3}
-\beamer@sectionintoc {4}{Computational Results}{21}{0}{4}
-\beamer@sectionintoc {5}{Remaining Research}{28}{0}{5}
+\beamer@sectionintoc {2}{Derivation of the LO equations}{10}{0}{2}
+\beamer@sectionintoc {3}{Exponentially Convergent MC High-Order Solver}{14}{0}{3}
+\beamer@sectionintoc {4}{Computational Results}{19}{0}{4}
+\beamer@sectionintoc {5}{Remaining Research}{26}{0}{5}
