@@ -67,6 +67,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\iso}[2]{${}^{{#2}}${#1} }
 \newcommand{\nubar}[0]{$\overline{\nu}$ }
 \newcommand{\keff}[0]{\ensuremath{{k}_{\textsf{eff}}} }
+\newcommand{\ds}[0]{\displaystyle}
 \newcommand{\expect}[1]{E[#1] }
 \newcommand{\colg}[1]{{\color{ForestGreen} #1}}
 \newcommand{\coly}[1]{{\color{yellow} #1}}
@@ -456,13 +457,13 @@ subsectionstyle=hide
     \frametitle{The LO equations are formed as \emph{consistently} as possible with spatial and
     angular moments of TRT equations}
     \begin{itemize} \vspace{0.15in}
-        \item The time discretization is backward Euler\\ \colG{for both the HO and LO equations}
-\item FE basis functions are used for spatial moments   \end{itemize}
+        \item[] The time discretization is backward Euler\\ \colG{for both the HO and LO equations}
+        \item[] FE basis functions weight spatial moments:   \end{itemize}
     \begin{columns}
         \begin{column}{0.5\textwidth}
     \begin{centering}
         \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
-            \fill[fill=blue!20!white!30] (11.0,0.5) rectangle (15.90,4.0);
+            \fill[fill=blue!20!white!20] (11.0,0.5) rectangle (15.90,4.0);
             \node at (10.4,4.0) {$\colb{1}$ \hspace{0.8em} };
             \draw [Blue,->] (10.4,4.0) -- (10.8,4.0);
             \draw (11.0,0.4) -- (11.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
@@ -478,17 +479,17 @@ subsectionstyle=hide
         \end{column}
         \begin{column}{0.5\textwidth}
         \begin{equation*}
-          {\displaystyle \mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_\il}^{x_\ir}
+        \boxed{\displaystyle \mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_\il}^{x_\ir}
         b_{L,i}(x)(\cdot) \d x \quad }  
         \end{equation*}
     \end{column}
 \end{columns}
 \begin{itemize}
         \vspace{0.2in}
-    \item Half-range integrals reduce angular dimensionality
+    \item[] Half-range integrals reduce angular dimensionality
     \begin{equation*}
-        {\displaystyle \phi^+(x) =
-        2\pi\int_0^1 I(x,\mu) \d \mu}
+        \boxed{{\displaystyle \phi^+(x) =
+        2\pi\int_0^1 I(x,\mu) \d \mu}}
     \end{equation*}
 \end{itemize}
 \end{frame}
@@ -496,38 +497,34 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Four moments of the transport equation \\ are manipulated to form angular \colb{consistency
+    \frametitle{Apply moments to the TRT equations \\ and manipulate to form
+        \colb{angular consistency
     terms}}
-    \vspace{-0.15in}\pause
-\begin{multline*}\label{lo_tran}
-    -2\highlight{{\mu}_{i-1/2}^{n+1,+}} \phi_{i-1/2}^{n+1,+} + \highlight{\cur
-        {\mu}_{L,i}^{n+1,+}}
-  \mom{\phi}_{L,i}^{n+1,+}
-  +  \highlight{ \cur\mu_{R,i}^{n+1,+}}
-  \mom{\phi}_{R,i}^{n+1,+} +  \\ \left(\sigma_t^{n+1}+\frac{1}{c \Delta t} \right) h_i 
-  \mom{\phi}_{L,i}^{n+1,+} -  \frac{\sigma_s h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
-  \mom\phi_{L,i}^{n+1,-}\right) \\ = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
-  \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+}
-\end{multline*}
     {\addtolength{\leftmargini}{-1.2cm}
     \begin{itemize}
-        \item[] At this point, these equations are \textbf{exact}. \\ \colG{ We performed
-                algebra to form \colb{consistency terms:}}
-        \end{itemize}
-    }\vspace{-0.1in}
-    \begin{equation*}
-\{{\mu}\}_{L,i}^{n+1,+} := \frac{\displaystyle 
-    \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x) 
-I^{n+1}(x,\mu) \;\d x \d \mu } 
-{\displaystyle \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
-I^{n+1}(x,\mu)\; \d x \d \mu} 
-    \end{equation*}
-    \vspace{-0.1in}
+        \item[] Ultimately, we get 4 radiation and 2 material equations \\
+            \colG{for each spatial element $i$}
+        \item[] The streaming terms are algebraically manipulated \\ 
+            \colG{to form consistency terms (\colb{no approximation here})}
+            \vspace{0.3cm}
+        \item[]  {For example, apply $\mom{\cdot}_{L,i}^+$ to a streaming term:}
+    \end{itemize}$
+    \fontsize{9.2}{13.0}\selectfont
+    \begin{array}{lll}
+        {\displaystyle \left \langle \mu \pderiv{I}{x} \right \rangle_L^+ } & = & -\frac{\ds2}{\ds h_i} \{ \mu I \}_{i-1/2}^+ +
+        \mom{\mu I}_{L,i}^+ + \mom{\mu I}_{R,i}^+ \\
+        & = & -\frac{\ds2}{\ds h_i} \highlight{\frac{\ds\{ \mu I
+        \}^+_{i-1/2} }{\ds\phi^+_{i-1/2}}}
+        \phi^+_{i-1/2} +  \highlight{\frac{\ds\mom{\mu
+        I}_{L,i}^+}{\ds\mom{\phi}_{L,i}^+}}\mom{\phi}_{L,i}^+  +
+        \highlight{\frac{\ds\mom{\mu I}_{R,i}^+}{\ds\mom{\phi}_{R,i}^+}}\mom{\phi}_{R,i}^+  
+            \end{array}$
+}
 \end{frame}
 
 
 \begin{frame}
-    \frametitle{We close the system with HO angular information \\ and a 
+    \frametitle{We can close equations with HO angular information \\ and a 
         linear-discontinuous (LD) spatial
     discretization}
     \begin{columns}
@@ -569,28 +566,45 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \addtolength{\wideitemsep}{0.11in}
     \begin{enumerate}
         \item Assume $T(x)$ and $T^4(x)$ are LD 
-        \item \colb{ $\tilde{I}_{\text{HO}}^{n+1}$} is used to evaluate
-            consistency terms with high accuracy
+        \item A lagged \colb{ $\tilde{I}_{\text{HO}}^{n+1}$} is used \\ to evaluate
+        consistency terms 
         \item Eliminate $\phi_{i+1/2}^\pm$ with LD closure
-            \colG{ensuring preservation of the EDL}
+            \colG{preserving equi. diff. limit}
             \begin{center}{\textcolor{Gray}{%
                     \fbox{ {\color{black} $\displaystyle  
       \phi_{i+1/2}^+ = 2\mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+$}}}}
             \end{center}
-       \item Global system is solved with Newton's method and \textbf{implicit
-           opacities}
-           lagged\\ \colG{Energy is always conserved}
+       \item Global system solved with Newton's method and lagged \textbf{implicit
+           opacities}\\ \colG{Energy is always conserved}
        \end{enumerate}
     \end{column}
 \end{columns}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Use source-iteration with diffusion-synthetic acceleration (DSA) to
+    solve LO equations}
+    \begin{itemize}
+        \item[] In higher dimensions, the scattering terms \\ cannot be directly
+            inverted easily
+        \item[] Use source iteration with WLA-DSA \\ \colG{for (effective) scattering source
+            of each Newton step}
+            \begin{enumerate}
+                \item Sweep for a new $\phi^{\pm}$ \\ \colG{with a lagged scattering
+                    source}
+                \item Solve approximate \colb{spatially continuous} diffusion equation for error in
+                    scattering iterations
+                \item Update with local balance equations over elements
+            \end{enumerate}
+            \pause
+        \item[] Recast iterations as DSA-preconditioned Krylov method \\
+            \colG{to resolve convergence difficulties with inconsistencies}
+    \end{itemize}
 
+\end{frame}
 
 \section{Exponentially Convergent MC High-Order Solver}
 \subsection{}
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\addtolength\leftmargini{-0.165in}
@@ -606,12 +620,14 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \end{itemize}
 
         \item[] Can reduce solution error \colb{globally} $\propto e^{-\alpha N}$ \\
-            \colG{Adaptive $h$-refinement is required to represent error}
+            \colG{Adaptive $h$-refinement can help represent error}
         \item[] $I^{n}(x,\mu)$ often provides an \emph{excellent} estimate of
             $I^{n+1}(x,\mu)$\\  \colG{No MC sampling for equilibrium regions}
      \end{itemize}
  \end{frame}
  }
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \begin{frame}
@@ -735,10 +751,10 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The HOLO method produces significantly less noise \\ than IMC for a Marshak Wave Test Problem}
+    \frametitle{The HOLO method produces significantly less noise \\ than IMC in a Marshak Wave test problem}
     \centering
         \begin{itemize}
-            \item \colb{$\sigma_a\propto T^{-3}$}. 
+            \item \colb{$\sigma_a\propto T^{-3}$} 
             \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and 4~$\mu$
                 cells (for ECMC)}
         \end{itemize}
@@ -781,9 +797,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 \begin{frame}
     \frametitle{The LDFE discretization for the LO equations \\ preserves the equilibrium diffusion limit}
         \begin{itemize}
-            \item \colb{$\sigma_a\propto T^{-3}$}. 
-            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and 4~$\mu$
-                cells (for ECMC)}
+            \item[] \colG{Large constant $\sigma_a$ and small $c_v$}
         \end{itemize}
 \begin{figure}
     \centering
@@ -793,7 +807,49 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
 
 
 \begin{frame}
-    \frametitle{Maximum Principle Violations}
+    \frametitle{Our HOLO method preserves 
+                the maximum principle\\}
+                {
+    \addtolength{\leftmargini}{-1.2cm}
+                    \begin{itemize}
+                        \item[]Comparison of material temperatures for different $\Delta
+                            t$
+    \fontsize{10.2}{12.0}\selectfont
+    \vspace{0.1in}
+                \begin{itemize}
+                    \item \colG{$\sigma_a \propto T^{-3}$, $c_v$ is small} 
+                        \vspace{-0.1in}
+            \item HOLO Newton Iterations required damping
+        \end{itemize}
+        \end{itemize}
+            }
+    \vspace{0.2in}
+                
+
+    {\setlength\unitlength{1mm}
+    \begin{picture}(150mm,80mm)(0,0)
+    \put(25,74){\underline{{IMC}}}
+    \put(0,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
+    0.30in,clip,width=0.485\textwidth]{mpv_mats_imc_nolegend.pdf}}
+    \put(60,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
+    0.24in,clip,width=0.485\textwidth]{mpv_mats_holo_nolegend.pdf}}
+    \put(85,74){\underline{{HOLO}}}
+    \put(25,25){\tikz{\draw[->,line width=0.02mm,Gray!90] (0,0) -- (-4mm,0);}}
+    \put(69,70.1){\tikz{\draw[fill=white,white] (0,0) rectangle (0.4\textwidth,2mm);}}
+\end{picture}}
+
+    \begin{columns}
+    \begin{column}{0.5\textwidth}
+        \vspace{0pt}
+  \centering
+    \includegraphics[width=\linewidth]{mpv_mats_imc_nolegend.pdf}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \vspace{0pt}
+        \centering
+    \includegraphics[width=\linewidth]{mpv_mats_holo_nolegend.pdf}
+    \end{column}
+\end{columns}
 
 \end{frame}
 
@@ -832,7 +888,7 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \colG{Mesh refinement is of minimal use}
         \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
             \colG{to produce a physical, stable LO solution}
-         \item[] Independent fix up for LO solution may be necessary
+         \item[] Independent fix up for LO solution
              \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
     \end{itemize}
 }
@@ -866,6 +922,49 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
             \\ \colG{$I_{\text{pos}}$ must be recomputing based on balance}
     \end{itemize}
 }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{A doubly-discontinuous trial space in time \\ allows for a HO
+        temporal closure}
+    \begin{columns}
+        \begin{column}[t]{0.2\textwidth}
+            \vspace{0pt}
+    \begin{center}
+        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
+            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
+            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
+            \node at (3.6,3.06) {$\phi_{LO}^+(x)$};
+            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
+            \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
+            \draw (1.0,3.125) -- (5.90,2.120);
+            \filldraw[color=cyan, fill=white] (5.9,2.120) circle (2.1pt);
+            \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
+        \end{tikzpicture}
+    \end{center}
+    \end{column}
+    \begin{column}[t]{0.8\textwidth}
+    \vspace{0pt}
+    \begin{itemize}
+        \item Include $\frac{1}{c}\pderiv{ }{t}$ in $\B L$
+        \item Must tally $\tilde I(x,\mu)$ at $t^{n+1}$ \\ \colG{similar to IMC census}
+        \vspace{0.1in}
+    \item In LO equations eliminate $\phi^{n+1}$ \\ using time-averaged quantities
+             \colG{The linear interior preserves the EDL}
+        \vspace{0.1in}
+        \item Parameterize LO spatial closure to eliminate outflow:
+            \begin{equation*}
+                \phi^{+}_{i+1/2} = \frac{3+\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
+                \frac{\highlight{\gamma^+_{i,HO}} - 3}{2}
+                \mom{\phi}_{L,i}^+
+            \end{equation*}
+    \end{itemize}
+    \end{column}      
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -908,25 +1007,6 @@ I^{n+1}(x,\mu)\; \d x \d \mu}
     \end{itemize}
     \end{column}      
     \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{We will use source-iteration with diffusion-synthetic acceleration (DSA) to solve LO system}
-    \begin{itemize}
-        \item[] In higher dimensions, the scattering terms in LO system cannot be directly inverted efficiently
-        \item[] Use source iteration with WLA-DSA \\ \colG{for (effective) scattering source
-            of each Newton step}
-            \begin{enumerate}
-                \item Sweep for a new $\phi^{\pm}$ \\ \colG{with a lagged scattering
-                    source}
-                \item Solve approximate \colb{spatially continuous} diffusion equation for error in
-                    scattering iterations
-                \item Update with local balance equations over elements
-            \end{enumerate}
-        \item[] Inconsistencies may cause difficulties in convergence \\
-            \colG{Will resolve with DSA-preconditioned Krylov methods}
-    \end{itemize}
-
 \end{frame}
 
 

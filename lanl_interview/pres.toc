@@ -2,6 +2,6 @@
 \select@language {english}
 \beamer@sectionintoc {1}{Overview of algorithm}{7}{0}{1}
 \beamer@sectionintoc {2}{Derivation of the LO equations}{10}{0}{2}
-\beamer@sectionintoc {3}{Exponentially Convergent MC High-Order Solver}{14}{0}{3}
-\beamer@sectionintoc {4}{Computational Results}{19}{0}{4}
-\beamer@sectionintoc {5}{Remaining Research}{26}{0}{5}
+\beamer@sectionintoc {3}{Exponentially Convergent MC High-Order Solver}{15}{0}{3}
+\beamer@sectionintoc {4}{Computational Results}{20}{0}{4}
+\beamer@sectionintoc {5}{Ongoing Research}{29}{0}{5}
