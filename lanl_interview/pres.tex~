@@ -926,7 +926,7 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{A doubly-discontinuous trial space in time \\ allows for a HO
+    \frametitle{A doubly-discontinuous trial space in time \\ allows for a MC
         temporal closure}
     \begin{columns}
         \begin{column}[t]{0.2\textwidth}
@@ -935,30 +935,28 @@ subsectionstyle=hide
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
             \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
             size=4.2pt] {};
-            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
-            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
-            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
-            \node at (3.6,3.06) {$\phi_{LO}^+(x)$};
+            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$t$};
+            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$t^{n}$};
+            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$t^{n+1}$};
+            \node at (3.6,3.06) {$\overline{I}^{HO}$};
             \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
-            \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
-            \draw (1.0,3.125) -- (5.90,2.120);
-            \filldraw[color=cyan, fill=white] (5.9,2.120) circle (2.1pt);
-            \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
+            \filldraw[color=black, fill=white] (1,2.450) circle (2.1pt);
+            \draw (1.0,2.45) -- (5.90,2.45);
+            \filldraw[color=cyan, fill=white] (5.9,2.450) circle (2.1pt);
+            \draw (5.9,1.6) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
         \end{tikzpicture}
     \end{center}
     \end{column}
     \begin{column}[t]{0.8\textwidth}
     \vspace{0pt}
     \begin{itemize}
-        \item Include $\frac{1}{c}\pderiv{ }{t}$ in $\B L$
-        \item Must tally $\tilde I(x,\mu)$ at $t^{n+1}$ \\ \colG{similar to IMC census}
+        \item[] Include $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in $\B L$ \\
+            \colG{with $T(x)$ still implicit}
+        \item[] Sample and track in time \\ \colG{Tally $\tilde\epsilon(x,\mu)$ at $t^{n+1}$}
         \vspace{0.1in}
-    \item In LO equations eliminate $\phi^{n+1}$ \\ using time-averaged quantities
-             \colG{The linear interior preserves the EDL}
-        \vspace{0.1in}
-        \item Parameterize LO spatial closure to eliminate outflow:
+    \item[] In LO equations parameterize $\phi_{LO}^{n+1}$ \\ using time-averaged quantities
             \begin{equation*}
-                \phi^{+}_{i+1/2} = \frac{3+\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
+                \phi^{+,n+1}_R = 2\frac{\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
                 \frac{\highlight{\gamma^+_{i,HO}} - 3}{2}
                 \mom{\phi}_{L,i}^+
             \end{equation*}
