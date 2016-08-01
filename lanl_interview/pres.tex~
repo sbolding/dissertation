@@ -815,51 +815,42 @@ subsectionstyle=hide
                     \vspace{0.01in}
     \addtolength{\leftmargini}{-1.2cm}
                     \begin{itemize}
-                        \item[]Comparison of material temperatures for different $\Delta t$ \\ 
-                            \colG{(different axis scales)}
-    \fontsize{10.2}{12.0}\selectfont
+    \fontsize{9.62}{12.0}\selectfont
     \vspace{0.1in}
-                \begin{itemize}
-                \item All simulations end at $t=0.1$ sh \\
-                 \colG{$\sigma_a \propto T^{-3}$, $c_v$ is small}  
+\item \textbf{Material temperatures} plotted; all simulations end at $t=0.1$ sh \\
+    \colG{$\sigma_a \propto T^{-3}$, $c_v$ is small, $T_{r,inc}=1$ keV}  
                         \vspace{-0.1in}
             \item LO Newton iterations required damping 
         \end{itemize}
-        \end{itemize}
             }
-    \vspace{0.2in}
+    \vspace{0.0in}
                 
-
+    \hspace{0.62in}
     {\setlength\unitlength{1mm}
-    \begin{picture}(150mm,80mm)(0,0)
-    \put(25,74){\underline{{IMC}}}
-    \put(0,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
-    0.30in,clip,width=0.485\textwidth]{mpv_mats_imc_nolegend.pdf}}
-    \put(60,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
+    \begin{picture}(130mm,80mm)(0,0)
+    \put(21,74){\underline{{IMC $T_m$}} }
+    \put(00,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
+    0.30in,clip,width=0.485\textwidth]{mpv_mats_imc_zoom.pdf}}
+    \put(64.2,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
     0.24in,clip,width=0.485\textwidth]{mpv_mats_holo_nolegend.pdf}}
-    \put(85,74){\underline{{HOLO}}}
-    \put(30,45){\tikz{\draw[->,line width=0.3mm,black] (0,0) -- (-8mm,0);}}
-    \put(28,48){\tiny $\Delta t$ increasing}
+    \put(85,74){\underline{{HOLO $T_m$}}}
+    \put(30,40){\tikz{\draw[->,line width=0.3mm,black] (0,0) -- (-8mm,0);}}
+    \put(28,42){\tiny $\Delta t$ increasing}
     \put(69,70.1){\tikz{\draw[fill=white,white] (0,0) rectangle (0.4\textwidth,2mm);}}
+    \put(-7.8,36.0){\scriptsize {\color{Blue}$T_{r,\text{inc}}$}}
+    \put(-0.7,36.5){\tikz{\draw[,->,line width=0.4mm,Blue] (20mm,0) -- (24mm,0);}}
+    \put(56.5,69.3){\scriptsize {\color{Blue}$T_{r,\text{inc}}$}}
+    \put(63.0,69.8){\tikz{\draw[,->,line width=0.4mm,Blue] (20mm,0) -- (23.5mm,0mm);}}
 \end{picture}}
-
-    \begin{columns}
-    \begin{column}{0.5\textwidth}
-        \vspace{0pt}
-  \centering
-    \includegraphics[width=\linewidth]{mpv_mats_imc_nolegend.pdf}
-    \end{column}
-    \begin{column}{0.5\textwidth}
-        \vspace{0pt}
-        \centering
-    \includegraphics[width=\linewidth]{mpv_mats_holo_nolegend.pdf}
-    \end{column}
-\end{columns}
 
 \end{frame}
 
 \begin{frame}
-    \frametitle{DSA calculations}
+    \frametitle{DSA improves convergence of source iteration solution to LO
+    equations}
+    \begin{itemize}
+        \item[] 
+    \end{itemize}
 
 \end{frame}
 
@@ -922,9 +913,8 @@ subsectionstyle=hide
              q &\rightarrow q + \delta^{(m+1)}
             \end{aligned}$};
             \end{tikzpicture}
-        \item[] Could add source to LO equation \\ \colG{but it would affect energy conservation}
-        \item[]\pause \textbf{Alternatively}, add $\delta = -r^{(m)}_{\text{pos}}(x,\mu)$ to negative cells
-            \\ \colG{$I_{\text{pos}}$ must be recomputing based on balance}
+        \item[] We can delay error stagnation
+            \\ \colG{Investigating alternative positive projection of $I$}
     \end{itemize}
 }
 \end{frame}
@@ -961,11 +951,12 @@ subsectionstyle=hide
         \item[] Sample and track in time \\ \colG{Tally $\tilde\epsilon(x,\mu)$ at $t^{n+1}$}
         \vspace{0.08in}
         \pause
-    \item[] In \colb{LO equations} parameterize $\phi_{LO}^{n+1}$ \\ in terms of time-averaged
+    \item[] In \colb{LO equations} parameterize $\phi_{LO}^{n+1}$ \\ in terms of
+        \textbf{time-averaged}
         unknowns, e.g.,
             \begin{equation*}
-                \phi_{LO}^{n+1} = 2\highlight{\gamma_{HO}} \overline{\phi}_{i,LO} -
-                \phi^{n}_{LO}
+                \mom{\phi}_{L}^{n+1} = 2\highlight{\gamma^{HO}_L} \overline{\mom{\phi}}_{L,i} -
+                \mom{\phi}^{n}_{L,i}
             \end{equation*}
     \end{itemize}
     \end{column}      
