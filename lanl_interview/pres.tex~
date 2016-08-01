@@ -507,6 +507,7 @@ subsectionstyle=hide
         \item[] The streaming terms are algebraically manipulated \\ 
             \colG{to form consistency terms (\colb{no approximation here})}
             \vspace{0.3cm}
+            \pause
         \item[]  {For example, apply $\mom{\cdot}_{L,i}^+$ to a streaming term:}
     \end{itemize}$
     \fontsize{9.2}{13.0}\selectfont
@@ -765,11 +766,12 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{The LDFE representation has higher spatial accuracy than IMC linear reconstruction for
-    two material problem}
+    \frametitle{The LDFE representation has higher spatial accuracy \\ than IMC source tilting for two-material problem}
+        \fontsize{10.2pt}{10.2pt}\selectfont
+        \vspace{0.2in}
         \begin{itemize}
-            \item[] Problem features an optically thin (left) and
-                optically thick (right) region. \colG{ECMC uses 8 $\mu$ cells}
+            \item[] Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$) and
+                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{ECMC uses 8 $\mu$ cells}
         \end{itemize}
 \begin{figure}
     \centering
@@ -808,18 +810,20 @@ subsectionstyle=hide
 
 \begin{frame}
     \frametitle{Our HOLO method preserves 
-                the maximum principle\\}
+                the maximum principle\\ with sufficient nonlinear convergence}
                 {
+                    \vspace{0.01in}
     \addtolength{\leftmargini}{-1.2cm}
                     \begin{itemize}
-                        \item[]Comparison of material temperatures for different $\Delta
-                            t$
+                        \item[]Comparison of material temperatures for different $\Delta t$ \\ 
+                            \colG{(different axis scales)}
     \fontsize{10.2}{12.0}\selectfont
     \vspace{0.1in}
                 \begin{itemize}
-                    \item \colG{$\sigma_a \propto T^{-3}$, $c_v$ is small} 
+                \item All simulations end at $t=0.1$ sh \\
+                 \colG{$\sigma_a \propto T^{-3}$, $c_v$ is small}  
                         \vspace{-0.1in}
-            \item HOLO Newton Iterations required damping
+            \item LO Newton iterations required damping 
         \end{itemize}
         \end{itemize}
             }
@@ -834,7 +838,8 @@ subsectionstyle=hide
     \put(60,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
     0.24in,clip,width=0.485\textwidth]{mpv_mats_holo_nolegend.pdf}}
     \put(85,74){\underline{{HOLO}}}
-    \put(25,25){\tikz{\draw[->,line width=0.02mm,Gray!90] (0,0) -- (-4mm,0);}}
+    \put(30,45){\tikz{\draw[->,line width=0.3mm,black] (0,0) -- (-8mm,0);}}
+    \put(28,48){\tiny $\Delta t$ increasing}
     \put(69,70.1){\tikz{\draw[fill=white,white] (0,0) rectangle (0.4\textwidth,2mm);}}
 \end{picture}}
 
