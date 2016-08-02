@@ -65,8 +65,11 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \renewcommand{\u}[1]{\underline{#1}}
 
 \newcommand{\iso}[2]{${}^{{#2}}${#1} }
-\newcommand{\nubar}[0]{$\overline{\nu}$ }
+\newcommand{\nubar}[0]{\ensuremath{\overline{\nu}} }
 \newcommand{\keff}[0]{\ensuremath{{k}_{\textsf{eff}}} }
+\newcommand{\sa}[0]{\ensuremath{\sigma_c} }
+\newcommand{\sfiss}[0]{\ensuremath{\sigma_f} }
+\newcommand{\st}[0]{\ensuremath{\sigma_t} }
 \newcommand{\ds}[0]{\displaystyle}
 \newcommand{\expect}[1]{E[#1] }
 \newcommand{\colg}[1]{{\color{ForestGreen} #1}}
@@ -730,15 +733,16 @@ subsectionstyle=hide
 
 \begin{frame}
     \frametitle{Several specifics for most results shown:}               
+    {\addtolength\wideitemsep{11pt}
     \begin{itemize}
-    \item[] Initial $\Delta t$ of $0.001$ sh (0.01 ns), linearly increased to 0.01 sh by 15\% per step
-    \item[] One HO solve per time step (predictor-corrector)
+    \item Initial $\Delta t$ of $0.001$ sh (0.01 ns), linearly increased to 0.01 sh by 15\% per step
+    \item One HO solve per time step (predictor-corrector)
         \begin{itemize}
             \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no mesh refinement}
         \end{itemize}
-    \item[] FOM$=\frac{\displaystyle 1}{\displaystyle \|s\|^2 N_{\text{total}}}$ \\
-        \colG{normalized to IMC result}
+    \item FOM$=\frac{\displaystyle 1}{\displaystyle \|s\|^2 N_{\text{total}}}$, \colG{normalized to IMC result}
     \end{itemize}
+    }
 \end{frame}
 
 
@@ -918,7 +922,7 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{\textbf{Conclusions}}
+    \frametitle{\shorttitle}
     \begin{itemize}
         \item[] ECMC is very efficient for TRT simulations\\
             \colG{and fits well in HOLO context}
@@ -929,16 +933,17 @@ subsectionstyle=hide
     \end{itemize}
 \end{frame}
 
+\titlegraphic{\centering\begin{tabular}{lr}\hspace{-2em}\includegraphics[trim=0.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
+ \hspace{+2em}\includegraphics[trim=0.0in 0.4in 0.0in 0.0in,clip,height=0.18\textheight]{lanl-logo-footer.png} 
+\end{tabular}}
 \title{Simulations of Neutron Multiplicity Experiments with Perturbations to Nuclear Data}
-    \author{S.R. Bolding and C.J. Solomon}
+    \author{Simon Bolding and C.J. Solomon}
 \begin{frame}
     \maketitle
-
 \end{frame}
 
 
-
-
+\include{slides_defense_mult}
 
 
 \date{}
@@ -1139,6 +1144,20 @@ subsectionstyle=hide
     \end{itemize}
 
 \end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Energy-\colb{Integrated} \nubar Shift -- {3.0 cm HDPE reflector}}
+\begin{center}
+$\begin{array}{cc} \textbf{Original \nubar Data} & \hspace{0.13in}\textbf{-1.14\% \nubar} Data\\
+   \hspace{-0.25in}
+\includegraphics[trim= 1.0in 0.75in 1.0in 0.75in, clip, width=0.5\textwidth]{nubarFigures/trial_1_0_berp_3_0_2000.pdf} &
+\hspace{-0.2in}\includegraphics[trim=1.0in 0.75in  1.0in  0.75in, clip, width=0.5\textwidth]{capFigures/trial_0_986_berp_3_0_2000.pdf} \\
+\end{array}$
+\end{center}
+\end{frame}
+
 
 
 \setcounter{framenumber}{\value{finalframe}}
