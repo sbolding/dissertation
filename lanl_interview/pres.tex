@@ -269,7 +269,7 @@ transfer equations}
     \item[] \begin{align*}\label{ho_cont}
 \hspace{-0.134in}
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
-    &= \frac{1}{4\pi} \left( \sigma_a a c T^4 + \sigma_s \phi\right),
+    &= \frac{1}{4\pi} \sigma_a a c T^4,
   \\
   C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
@@ -582,27 +582,6 @@ subsectionstyle=hide
 \end{columns}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Use source-iteration with diffusion-synthetic acceleration (DSA) to
-    solve LO equations}
-    \begin{itemize}
-        \item[] In higher dimensions, the scattering terms \\ cannot be directly
-            inverted easily
-        \item[] Use source iteration with WLA-DSA \\ \colG{for (effective) scattering source
-            of each Newton step}
-            \begin{enumerate}
-                \item Sweep for a new $\phi^{\pm}$ \\ \colG{with a lagged scattering
-                    source}
-                \item Solve approximate \colb{spatially continuous} diffusion equation for error in
-                    scattering iterations
-                \item Update with local balance equations over elements
-            \end{enumerate}
-            \pause
-        \item[] Recast iterations as DSA-preconditioned Krylov method \\
-            \colG{to resolve convergence difficulties with inconsistencies}
-    \end{itemize}
-
-\end{frame}
 
 \section{Exponentially Convergent MC High-Order Solver}
 \subsection{}
@@ -622,8 +601,8 @@ subsectionstyle=hide
 
         \item[] Can reduce solution error \colb{globally} $\propto e^{-\alpha N}$ \\
             \colG{Adaptive $h$-refinement can help represent error}
-        \item[] $I^{n}(x,\mu)$ often provides an \emph{excellent} estimate of
-            $I^{n+1}(x,\mu)$\\  \colG{No MC sampling for equilibrium regions}
+        \item[] $I^{n}(x,\mu)$ often provides an \colb{\textbf{excellent}} estimate of
+            $I^{n+1}(x,\mu)$\\  \colG{No MC sampling from thermal equilibrium regions}
      \end{itemize}
  \end{frame}
  }
@@ -694,12 +673,11 @@ subsectionstyle=hide
         \begin{block}{For each batch $m$:}
          \begin{itemize}
         \item Evaluate residual source: $r^{(m)} = q - \B L \tilde I^{n+1,(m)}$
-        \item Estimate ${\epsilon}^{(m)} = \B L^{-1} {r}^{(m)}\;\;$ via \colb{Monte Carlo
-            simulation}    
-        \item Update solution:\vspace{-0.08in} \begin{align*}\tilde I^{n+1,(m+1)} &= \tilde I^{n+1,(m)} + \tilde \epsilon^{(m)} \\ 
-                                                  &= \colG{\tilde I^{n+1,(m)} + \B L^{-1} q - \B L^{-1} \B L \tilde
-    I^{n+1,(m)}}\end{align*}
-
+        \item Estimate ${\epsilon}^{(m)} = \B L^{-1} {r}^{(m)}\;\;$ via \colb{MC simulation}    
+ %       \item Update solution:\vspace{-0.08in} \begin{align*}\tilde I^{n+1,(m+1)} &= \tilde I^{n+1,(m)} + \tilde \epsilon^{(m)} \\ 
+ %                                                 &= \colG{\tilde I^{n+1,(m)} + \B L^{-1} q - \B L^{-1} \B L \tilde
+ %   I^{n+1,(m)}}\end{align*}
+        \item Update solution: $\tilde I^{n+1,(m+1)} = \tilde I^{n+1,(m)} + \tilde \epsilon^{(m)}$
     \end{itemize}
 \end{block}
 \end{frame}
@@ -750,6 +728,20 @@ subsectionstyle=hide
 \end{picture}}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Several specifics for most results shown:}               
+    \begin{itemize}
+    \item[] Initial $\Delta t$ of $0.001$ sh (0.01 ns), linearly increased to 0.01 sh by 15\% per step
+    \item[] One HO solve per time step (predictor-corrector)
+        \begin{itemize}
+            \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no mesh refinement}
+        \end{itemize}
+    \item[] FOM$=\frac{\displaystyle 1}{\displaystyle \|s\|^2 N_{\text{total}}}$ \\
+        \colG{normalized to IMC result}
+    \end{itemize}
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \frametitle{The HOLO method produces significantly less noise \\ than IMC in a Marshak Wave test problem}
@@ -765,41 +757,47 @@ subsectionstyle=hide
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-    \frametitle{The LDFE representation has higher spatial accuracy \\ than IMC source tilting for two-material problem}
-        \fontsize{10.2pt}{10.2pt}\selectfont
-        \vspace{0.2in}
-        \begin{itemize}
-            \item[] Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$) and
-                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{ECMC uses 8 $\mu$ cells}
-        \end{itemize}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6755799\textwidth]{two_mat_conv.pdf}
-\end{figure}
-
-\end{frame}
+%\begin{frame}
+%    \frametitle{The LDFE representation has higher spatial accuracy \\ than IMC source tilting for two-material problem}
+%        \fontsize{10.2pt}{10.2pt}\selectfont
+%        \vspace{0.2in}
+%        \begin{itemize}
+%            \item[] Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$) and
+%                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{ECMC uses 8 $\mu$ cells}
+%        \end{itemize}
+%\begin{figure}
+%    \centering
+%    \includegraphics[width=0.6755799\textwidth]{two_mat_conv.pdf}
+%\end{figure}
+%
+%\end{frame}
 
 \begin{frame}
     \frametitle{ECMC is more efficient than\\
  standard MC (SMC) as a HO solver }
+{\addtolength\leftmargini{-0.345in}
     \centering
+        \fontsize{10.0pt}{10.2pt}\selectfont
+        \vspace{0.2in}
+        \begin{itemize}
+            \item Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$),
+                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{8 $\mu$ cells}
+        \item Different HO solvers: \colb{ECMC} with 3 batches, standard MC
+            (\colr{SMC}), and an \colg{ S$_2$}
+            solution
+        \end{itemize}
     \begin{figure}
-    \includegraphics[width=0.6699\textwidth]{two_mat_ho_compare.pdf}
+        \vspace{-0.1in}
+    \includegraphics[width=0.6099\textwidth]{two_mat_ho_compare.pdf}
     \centering
     \end{figure}
-        {\small
-    \begin{itemize}
-        \item[] Different HO solvers: \colb{ECMC} with 3 batches, \\ standard MC (\colr{SMC}), and an S$_2$
-            solution
-    \end{itemize}
 }
 \end{frame}
 
 \begin{frame}
     \frametitle{The LDFE discretization for the LO equations \\ preserves the equilibrium diffusion limit}
         \begin{itemize}
-            \item[] \colG{Large constant $\sigma_a$ and small $c_v$}
+            \item \colG{Large, constant $\sigma_a$ and small $c_v$}
         \end{itemize}
 \begin{figure}
     \centering
@@ -818,7 +816,7 @@ subsectionstyle=hide
     \fontsize{9.62}{12.0}\selectfont
     \vspace{0.1in}
 \item \textbf{Material temperatures} plotted; all simulations end at $t=0.1$ sh \\
-    \colG{$\sigma_a \propto T^{-3}$, $c_v$ is small, $T_{r,inc}=1$ keV}  
+    \colG{$\sigma_a \propto T^{-3}$, $c_v$ small, $\Delta t \in [10^{-4},10^{-2}]$ sh}  
                         \vspace{-0.1in}
             \item LO Newton iterations required damping 
         \end{itemize}
@@ -845,15 +843,118 @@ subsectionstyle=hide
 
 \end{frame}
 
+\section{Ongoing Research}
+
+
 \begin{frame}
-    \frametitle{DSA improves convergence of source iteration solution to LO
-    equations}
+    \frametitle{A doubly-discontinuous trial space in time \\ allows for a MC
+        temporal closure}
+    \begin{columns}
+        \begin{column}[t]{0.2\textwidth}
+            \vspace{-20pt}
+    \begin{center}
+        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
+            size=4.2pt] {};
+            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$t$};
+            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$t^{n}$};
+            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$t^{n+1}$};
+            \node at (3.6,3.06) {$\overline{I}_{HO}(x,\mu)$};
+            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
+            \filldraw[color=black, fill=white] (1,2.450) circle (2.1pt);
+            \draw (1.0,2.45) -- (5.90,2.45);
+            \filldraw[color=blue, fill=white] (5.9,2.450) circle (2.1pt);
+            \draw (5.9,1.6) node[blue,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
+            \node[anchor=west] at (5.9,1.6) {${\color{blue}\tilde{I}_{HO}^{n+1}}$};
+        \end{tikzpicture}
+    \end{center}
+    \end{column}
+    \begin{column}[t]{0.8\textwidth}
+    \vspace{0pt}
     \begin{itemize}
-        \item[] 
+        \item[] Include $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in transport operator $\B L$ \\
+            \colG{with $T(x)$ still implicit}
+        \item[] Sample and track in time \\ \colG{Tally error projection at $t^{n+1}$}
+        \vspace{0.08in}
+        \pause
+    \item[] In \colb{LO equations} parameterize $\phi_{LO}^{n+1}$ \\ in terms of
+        \textbf{time-averaged}
+        unknowns, e.g.,
+            \begin{equation*}
+                \mom{\phi}_{L,i}^{n+1} = 2\highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} -
+                \mom{\phi}^{n}_{L,i}
+            \end{equation*}
     \end{itemize}
+    \end{column}      
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The time-closure parameters preserve \\ the accuracy of MC time integration}
+    \fontsize{10.0pt}{10.0pt}\selectfont
+    \vspace{0.1in}
+    \begin{itemize}
+        \item Material is near-void, so temperature uncouples  \\ \colG{take 3 large time
+                steps and compare $T_{R}^{n+1}$}
+    \end{itemize}
+    \vspace{0.1in}
+    \begin{figure}
+        \includegraphics[width=0.71\textwidth]{void_census_3steps.pdf}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{A few other topics are under investigation}
+    {\addtolength\wideitemsep{5pt}
+        \begin{itemize}
+            \item[] Negative intensities can occur in optically thick cells \\
+            \colG{Investigating artificial source with alternate trial space}
+        \item[] Using HO solution to estimate spatial closure \\
+                \colG{by including face tallies}
+            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{for the
+                LO equations}
+        \end{itemize}}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{\textbf{Conclusions}}
+    \begin{itemize}
+        \item[] ECMC is very efficient for TRT simulations\\
+            \colG{and fits well in HOLO context}
+        \item[] The LO system can resolve nonlinearities \\
+            \colG{with bounded angular consistency terms}
+        \item[] The next step is to extend to higher dimensions \\
+            \colG{main hurdle to overcome is infrastructure}
+    \end{itemize}
+\end{frame}
+
+\title{Simulations of Neutron Multiplicity Experiments with Perturbations to Nuclear Data}
+    \author{S.R. Bolding and C.J. Solomon}
+\begin{frame}
+    \maketitle
 
 \end{frame}
 
+
+
+
+
+
+\date{}
+\title{Backup Slides}
+\begin{frame}
+    \vspace{-0.21in}
+    \titlepage \vspace{-0.2113in}
+\end{frame}
+
+\appendix
+\newcounter{finalframe}
+\setcounter{finalframe}{\value{framenumber}}
+
+\title{Backup Slides}
+\author{}
+\date{}
 
 \begin{frame}
     \frametitle{Exponential convergence can be maintained if the LDFE mesh resolves the solution reasonably}
@@ -871,10 +972,6 @@ subsectionstyle=hide
 \end{columns}
 \end{frame}
 
-
-
-\section{Ongoing Research}
-
 \begin{frame}
     \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
         negative}
@@ -890,6 +987,9 @@ subsectionstyle=hide
 }
 
 \end{frame}
+
+
+
 
 \begin{frame}
     \frametitle{Can add source $\delta$ to produce a positive projection $\tilde I_{pos}$ 
@@ -919,125 +1019,6 @@ subsectionstyle=hide
 }
 \end{frame}
 
-
-\begin{frame}
-    \frametitle{A doubly-discontinuous trial space in time \\ allows for a MC
-        temporal closure}
-    \begin{columns}
-        \begin{column}[t]{0.2\textwidth}
-            \vspace{-20pt}
-    \begin{center}
-        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
-            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
-            size=4.2pt] {};
-            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$t$};
-            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$t^{n}$};
-            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$t^{n+1}$};
-            \node at (3.6,3.06) {$\overline{I}^{HO}(x,\mu)$};
-            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
-            \filldraw[color=black, fill=white] (1,2.450) circle (2.1pt);
-            \draw (1.0,2.45) -- (5.90,2.45);
-            \filldraw[color=cyan, fill=white] (5.9,2.450) circle (2.1pt);
-            \draw (5.9,1.6) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
-            \node[anchor=west] at (5.9,1.6) {${\color{cyan}\tilde{I}^{n+1}}$};
-        \end{tikzpicture}
-    \end{center}
-    \end{column}
-    \begin{column}[t]{0.8\textwidth}
-    \vspace{0pt}
-    \begin{itemize}
-        \item[] Include $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in transport operator $\B L$ \\
-            \colG{with $T(x)$ still implicit}
-        \item[] Sample and track in time \\ \colG{Tally $\tilde\epsilon(x,\mu)$ at $t^{n+1}$}
-        \vspace{0.08in}
-        \pause
-    \item[] In \colb{LO equations} parameterize $\phi_{LO}^{n+1}$ \\ in terms of
-        \textbf{time-averaged}
-        unknowns, e.g.,
-            \begin{equation*}
-                \mom{\phi}_{L,i}^{n+1} = 2\highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} -
-                \mom{\phi}^{n}_{L,i}
-            \end{equation*}
-    \end{itemize}
-    \end{column}      
-    \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Discuss briefly resolving issues with negativities, probably in smooth
-    slide}
-    TRY TO GET PARTICLE HISTORY COUNTS FOR SMOOTH PROBLEM
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{The time-closure parameters preserve the accuracy of MC time-treatment}
-    \begin{itemize}
-        \item Problem is near void, so temperature uncouples
-        \item 3 large time steps
-    \end{itemize}
-    \begin{figure}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Backup slide with timing results}
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{\colb{There are short term and long term goals left to investigate}}
-        \begin{enumerate}
-            \item Resolving issues with negative intensities\colG{
-                \begin{itemize}
-                    \item Accuracy of added source method
-                    \item Consistency with LO solution
-                \end{itemize}}
-            \item Using HO solution to estimate spatial closure
-            \item Source iterations with DSA for LO system
-            \item Implement damped Newton method to demonstrate maximum principle preservation in
-                extreme problems
-            \item \colG{ (Stretch goal) MC integration in time \\ with consistent LO equations}
-        \end{enumerate}
-    \end{frame}
-
-\date{}
-\title{Backup Slides}
-\begin{frame}
-    \vspace{-0.21in}
-    \titlepage \vspace{-0.2113in}
-\end{frame}
-
-\appendix
-\newcounter{finalframe}
-\setcounter{finalframe}{\value{framenumber}}
-
-\title{Backup Slides}
-\author{}
-\date{}
-\begin{frame}
-    \frametitle{Implementation specifics for results in  \\ the computational
-                results section }
-    \begin{itemize}
-    \item The LD representation of $I(x,\mu)$ is negative near the wave-front
-        \begin{itemize}
-            \item Here, no correction is applied to the HO solution, and the LO
-                solution uses lumped LD and S$_2$ equivalent terms in negative elements
-        \end{itemize}
-     
- \item \u{For all results}
-        \begin{enumerate}
-    \item Initial $\Delta t$ of $0.001$ sh (0.01 ns), linearly increased to 0.01 sh by 15\% per step
-    \item One HO solve per time step (predictor-corrector)
-        \begin{itemize}
-            \item \emph{each HO} solve has 3 ECMC batches
-        \end{itemize}
-    \item $\sigma_s=0$
-    \item No mesh refinement in ECMC
-    \end{enumerate} 
-    \end{itemize}
-\end{frame}
-
 \begin{frame}
     \frametitle{Solving LO System with Newton's Method}
     \begin{block}{}
@@ -1064,47 +1045,47 @@ subsectionstyle=hide
 \end{frame}
 
 
-\begin{frame}
-    \frametitle{We will use a linear doubly-discontinuous (LDD) trial space  to allow for a HO
-        spatial closure}
-    \begin{columns}
-        \begin{column}[t]{0.2\textwidth}
-            \vspace{0pt}
-    \begin{center}
-        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
-            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
-            size=4.2pt] {};
-            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
-            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
-            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
-            \node at (3.6,3.06) {$\phi_{LO}^+(x)$};
-            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
-            \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
-            \draw (1.0,3.125) -- (5.90,2.120);
-            \filldraw[color=cyan, fill=white] (5.9,2.120) circle (2.1pt);
-            \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
-        \end{tikzpicture}
-    \end{center}
-    \end{column}
-    \begin{column}[t]{0.8\textwidth}
-    \vspace{0pt}
-    \begin{itemize}
-        \item $\tilde I_{HO}(x,\mu)$ will be linear in $\mu$ along face \\
-    \colG{Error estimated with MC face tallies}
-        \vspace{0.1in}
-        \item In LO equations use LDD for $\phi^{\pm}$\\
-             \colG{The linear interior preserves the EDL}
-        \vspace{0.1in}
-        \item Parameterize LO spatial closure to eliminate outflow:
-            \begin{equation*}
-                \phi^{+}_{i+1/2} = \frac{3+\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
-                \frac{\highlight{\gamma^+_{i,HO}} - 3}{2}
-                \mom{\phi}_{L,i}^+
-            \end{equation*}
-    \end{itemize}
-    \end{column}      
-    \end{columns}
-\end{frame}
+%\begin{frame}
+%    \frametitle{We will use a linear doubly-discontinuous (LDD) trial space  to allow for a HO
+%        spatial closure}
+%    \begin{columns}
+%        \begin{column}[t]{0.2\textwidth}
+%            \vspace{0pt}
+%    \begin{center}
+%        \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+%            \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
+%            size=4.2pt] {};
+%            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
+%            \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
+%            \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
+%            \node at (3.6,3.06) {$\phi_{LO}^+(x)$};
+%            \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
+%            \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
+%            \draw (1.0,3.125) -- (5.90,2.120);
+%            \filldraw[color=cyan, fill=white] (5.9,2.120) circle (2.1pt);
+%            \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
+%        \end{tikzpicture}
+%    \end{center}
+%    \end{column}
+%    \begin{column}[t]{0.8\textwidth}
+%    \vspace{0pt}
+%    \begin{itemize}
+%        \item $\tilde I_{HO}(x,\mu)$ will be linear in $\mu$ along face \\
+%    \colG{Error estimated with MC face tallies}
+%        \vspace{0.1in}
+%        \item In LO equations use LDD for $\phi^{\pm}$\\
+%             \colG{The linear interior preserves the EDL}
+%        \vspace{0.1in}
+%        \item Parameterize LO spatial closure to eliminate outflow:
+%            \begin{equation*}
+%                \phi^{+}_{i+1/2} = \frac{3+\highlight{\gamma_{i,HO}^+}}{2} \mom{\phi}_{R,i}^+ +
+%                \frac{\highlight{\gamma^+_{i,HO}} - 3}{2}
+%                \mom{\phi}_{L,i}^+
+%            \end{equation*}
+%    \end{itemize}
+%    \end{column}      
+%    \end{columns}
+%\end{frame}
 
 \begin{frame}   
     \frametitle{The angular flux for the two material problem is difficult to resolve near
@@ -1129,6 +1110,11 @@ subsectionstyle=hide
 
 \end{frame}
 
+
+\begin{frame}
+    \frametitle{Backup slide with timing results}
+
+\end{frame}
 
 
 
