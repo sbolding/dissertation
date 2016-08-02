@@ -955,7 +955,7 @@ subsectionstyle=hide
         \textbf{time-averaged}
         unknowns, e.g.,
             \begin{equation*}
-                \mom{\phi}_{L}^{n+1} = 2\highlight{\gamma^{HO}_L} \overline{\mom{\phi}}_{L,i} -
+                \mom{\phi}_{L,i}^{n+1} = 2\highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} -
                 \mom{\phi}^{n}_{L,i}
             \end{equation*}
     \end{itemize}
