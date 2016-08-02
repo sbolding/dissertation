@@ -1,0 +1,150 @@
+\documentclass[mathserif,xcolor=dvipsnames]{beamer}
+\usepackage{handoutWithNotes}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{default}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{rotating}
+\usepackage{latexsym}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{multimedia}
+\usepackage{biblatex}
+\usepackage{amsmath}
+\usepackage{changepage}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{wrapfig}
+\usepackage{multirow}
+%\usepackage{mathptmx}
+%\usepackage[scaled=0.9]{helvet}
+%\usepackage{courier}
+%\usepackage[labelformat=empty]{caption}
+%\usetheme{PaloAlto}
+%\usetheme{Antibes}
+\usetheme{Darmstadt}
+%\usepackage{alltt}
+%\renewcommand{\ttdefault}{txtt}
+\definecolor{PPurple}{cmyk}{0.86, 1.0, 0.0, 0.12}
+\usecolortheme{sidebartab}
+%\usecolortheme[named=PPurple]{sidebartab}
+%\setbeamercolor*{palette primary}{fg=white,bg=PPurple}
+%\setbeamercolor{palette sidebar primary}{use=structure,fg=white,bg=PPurple}
+\setbeamercolor{sidebar}{bg=PPurple}
+\setbeamercolor{itemize item}{bg=PPurple,fg=white}
+\setbeamercolor{section number projected}{bg=blue,fg=black}
+\setbeamertemplate{sections/subsections in toc}[circle]
+%\setbeamertemplate{itemize items}[ball]
+%\setbeamertemplate{navigation symbols}{}
+%\setoutertheme{infolines}
+\setbeamertemplate{itemize items}[ball] % if you want a ball
+\setbeamertemplate{itemize subitem}[circle] % if you wnat a circle
+\setbeamertemplate{itemize subsubitem}[triangle] % if you want a triangle
+\graphicspath{{figures/},{nubarFigures/},{capFigures/}}
+%\logo{\includegraphics[scale=0.22]{./figures/ksu.jpg}}
+%\DeclareMathOperator{\p}{\partial}
+%\DeclareGraphicsRule{*}{mps}{*}{}
+%\setbeamertemplate{section in toc}{\hspace*{1em}\inserttocsection}
+\setbeamertemplate{sections/subsections in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}{\hspace*{2em}\inserttocsubsection}
+\beamertemplatenavigationsymbolsempty
+\usepackage[font=small]{caption}
+\usepackage[makeroom]{cancel}
+
+
+\AtBeginSection[]
+{
+\begin{frame}
+\frametitle{Outline}
+\begin{minipage}{0.061\linewidth}
+\hfill                      
+\end{minipage}
+\begin{minipage}{0.8\linewidth}
+\tableofcontents[currentsection,subsectionstyle=hide]
+\end{minipage}
+\end{frame}
+}
+
+%footer
+\usefoottemplate{\insertshortauthor[center] \hfill \insertframenumber{} / \inserttotalframenumber}
+
+%backupslides
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+\usepackage{tabls}
+
+%size of margins
+\setbeamersize{text margin left=2mm} 
+\setbeamersize{text margin right=2mm} 
+
+%remove figure labels
+
+
+%COMMANDS
+%-----------------------------------------------------------------------------------------
+\newcommand{\iso}[2]{\ensuremath{{}^{{#2}}\text{{#1}} }}
+\newcommand{\chisq}[0]{$\chi^2$}
+\newcommand{\FOM}{\ensuremath{FOM} }
+\newcommand{\Na}{$N_a$ }
+\newcommand{\fluxunitst}[0]{n cm${}^{-2}\,\text{s}^{-1}$ }
+\newcommand{\fluxunits}[0]{n cm${}^{-2}$ }
+\newcommand{\lbar}[1]{\multicolumn{1}{|c}{#1}}
+\newcommand{\ar}[0]{\ensuremath{A_r} }
+\newcommand{\chirm}[0]{\ensuremath{\chi^2_{\,red} } }
+\newcommand{\nubar}[0]{\ensuremath{\overline{\nu}} }
+\newcommand{\keff}[0]{\ensuremath{k_{\,\mathsf{eff}}} }
+\newcommand{\sa}[0]{$\sigma_c$ }
+\newcommand{\sfiss}[0]{$\sigma_f$ }
+\newcommand{\st}[0]{$\sigma_t$ }
+\newcommand{\cfdo}[0]{${}^{252}$Cf - D$_2$O }
+\newcommand{\bnubar}{$\boldsymbol{\overline{\nu}}$ }
+\newcommand{\colb}[1]{{\color{blue} #1}}
+\newcommand{\colg}[1]{{\color{ForestGreen} #1}}
+\newcommand{\colr}[1]{{\color{Red} #1}}
+\newcommand{\coly}[1]{{\color{yellow} #1}}
+%-----------------------------------------------------------------------------------------
+%indent command
+\newcommand{\ident}[1]{\setlength{\itemindent}{#1}}
+
+%Set up the stuff for which slide you are on
+\usepackage{remreset}% tiny package containing just the \@removefromreset command
+\makeatletter
+\@removefromreset{subsection}{section}
+\makeatother
+\setcounter{subsection}{1}
+
+%Set column seperation globally%
+\newlength{\wideitemsep}
+\setlength{\wideitemsep}{8pt}
+%\addtolength{\wideitemsep}{5pt}
+\let\olditem\item
+\renewcommand{\item}{\setlength{\itemsep}{\wideitemsep}\olditem}
+
+%Stuff for greying out
+%\setbeamercolor{normal text}{fg=gray,bg=white}
+%\setbeamercolor{alerted text}{fg=black,bg=white}
+
+%Enum items setting
+\setbeamertemplate{enumerate items}[default]
+
+
+%FOR NOTES
+%\pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=0.5in]
+
+
+\includeonly{slides_defense_mult,mult_backup}
+\begin{document}
+
+\include{slides_defense_mult}
+
+\include{mult_backup}
+
+\end{document}

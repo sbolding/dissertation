@@ -757,6 +757,7 @@ subsectionstyle=hide
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<<<<<<< HEAD
 %\begin{frame}
 %    \frametitle{The LDFE representation has higher spatial accuracy \\ than IMC source tilting for two-material problem}
 %        \fontsize{10.2pt}{10.2pt}\selectfont
@@ -771,6 +772,22 @@ subsectionstyle=hide
 %\end{figure}
 %
 %\end{frame}
+=======
+\begin{frame}
+    \frametitle{The LDFE representation has higher spatial accuracy \\ than IMC source tilting for two-material problem}
+        \fontsize{10.2pt}{10.2pt}\selectfont
+        \vspace{0.2in} 
+        \begin{itemize}
+            \item[] Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$) and
+                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{ECMC uses 8 $\mu$ cells}
+        \end{itemize}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6755799\textwidth]{two_mat_conv.pdf}
+\end{figure}
+
+\end{frame}
+>>>>>>> 6115ba9719014aabb83dad280d2fbaee86ec9fa1
 
 \begin{frame}
     \frametitle{ECMC is more efficient than\\
@@ -935,6 +952,10 @@ subsectionstyle=hide
     \maketitle
 
 \end{frame}
+
+
+
+
 
 
 \date{}
