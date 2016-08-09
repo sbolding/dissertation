@@ -22,11 +22,11 @@ similar to those in~\cite{wollaber2013discrete}.  We modify the Marshak wave pro
 Sec.~\ref{sec:marshak???}, by decreasing $c_v$ and increasing $\sigma_a$, to produce a
 problem which results in MP violations for IMC at various fixed time step sizes. 
 The spatial and temporal discretization determine the occurence of MP violations for
-IMC. In particular, if time steps are too large or spatial
-mesh cells are too small, IMC will demonstrate MP violations~\cite{wollaber2013discrete}.  Here, we have kept the
+IMC~\cite{wollaber2013discrete}. In particular, if time steps are too large or spatial
+mesh cells are too small, IMC will demonstrate MP violations.  Here, we have kept the
 spatial mesh size fixed and increased time step to make MP violations occur.
 The material
-specifications for the problem are given in Table~\ref{tab:mpv_prob}. The domain width is 2.0 cm with
+specifications for the problem are given in Table~\ref{tab:mpv_prob}. The domain width is 1.0 cm with
 $N_c=150$ uniform spatial mesh cells.  The radiation and material energies are initially in
 equilibrium at $0.01$ keV, before an isotropic boundary source of $1$ keV is applied at
 the left boundary at $t=0$. The simulation is ran unitl $t=0.1$ sh. 
