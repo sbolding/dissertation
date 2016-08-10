@@ -51,7 +51,11 @@ Figure~\ref{fig:holo_mpv}, the TRT solution does not violate the maximum princip
 For these simulaitons, it was
 necessary to use a damped Newton's method to converge the solutions.  A damping factor of
 0.5 was used for all these simulations, and found to stably converge.
-Table~\ref{tab:blah} demonstrates the LO Newton iteration counts for the HOLO metthod.
+
+Table~\ref{tab:mpv_iters} demonstrates the LO Newton iteration counts for the HOLO method.
+For reference, the solution at $\Delta t = 0.00001$ sh requires no damping.  Clearly
+damping increases the number of iteration counts per step as the Newton solve is taking
+more conservative steps, but the overall increase is not dramatic. 
 
 
 
@@ -88,6 +92,19 @@ NO FIXUP APPLIED, NEWTON CONVERGENCE OF 10e-06.  MODIFIED MARSHAK WAVE PROBLEM.
 \centering
         \begin{tabular}{|c|c|} \hline
             $\sigma_{a,0}$ (cm$^{-1}$ keV$^3$)  & 4.0  \\ 
+            $\sigma_s$ (cm$^{-1}$) & 0.0 \\
+            $\rho$ (g cm$^{-3}$) & 1.0  \\
+            $c_v$ (jks/keV-g) & 0.0081181  \\ \hline
+        \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \caption{\label{tab:mpv_iters}Comparison of LO Newton iterations for different time
+step sizes and MP problem. For $\Delta t=0.1$, damping has $\zeta = 1$.  For all other
+cases $\zeta = 0.5$.}  
+    \centering
+        \begin{tabular}{|cc|} \hline
+            $\Delta t$ & Avg. Iters / Time Step \\
             $\sigma_s$ (cm$^{-1}$) & 0.0 \\
             $\rho$ (g cm$^{-3}$) & 1.0  \\
             $c_v$ (jks/keV-g) & 0.0081181  \\ \hline

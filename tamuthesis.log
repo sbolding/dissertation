@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  10 AUG 2016 12:20
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  10 AUG 2016 16:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **tamuthesis.tex
 (./tamuthesis.tex
-LaTeX2e <2015/01/01>
-Babel <3.9l> and hyphenation patterns for 79 languages loaded.
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/report.cls
-Document Class: report 2014/09/29 v1.4h Standard LaTeX document class
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/size12.clo
-File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@chapter=\count80
@@ -24,22 +24,22 @@ File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/geometry/geometry.sty
+(/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
 )
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifvtex.sty
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-(/usr/local/texlive/2015/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+(/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count88
@@ -55,10 +55,10 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen110
 \Gm@dimlist=\toks15
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/setspace/setspace.sty
+(/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tocloft/tocloft.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
 Package: tocloft 2013/05/02 v2.3f parameterised ToC, etc., typesetting
 Package tocloft Info: The document has chapter divisions on input line 44.
 \cftparskip=\skip43
@@ -98,7 +98,7 @@ Package tocloft Info: The document has chapter divisions on input line 44.
 \cfttabindent=\skip75
 \cfttabnumwidth=\skip76
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/titlesec/titlesec.sty
+(/usr/share/texlive/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
 \ttl@box=\box26
 \beforetitleunit=\skip77
@@ -110,95 +110,100 @@ Package: titlesec 2011/12/15 v2.10.0 Sectioning titles
 \titlewidthlast=\dimen114
 \titlewidthfirst=\dimen115
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/indentfirst.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 1995/11/23 v1.03 Indent first paragraph (DPC)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2015/05/04 v2.2 e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count93
-)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tocvsec2/tocvsec2.sty
-Package: tocvsec2 2014/03/10 v1.3a variable ToC section entries
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/ifthen.sty
-Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count93
 )
-\c@max@tocdepth=\count94
-\c@max@secnumdepth=\count95
+\etb@tempcnta=\count94
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/appendix/appendix.sty
+(/usr/share/texlive/texmf-dist/tex/latex/tocvsec2/tocvsec2.sty
+Package: tocvsec2 2011/08/07 v1.3 variable ToC section entries
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@max@tocdepth=\count95
+\c@max@secnumdepth=\count96
+)
+(/usr/share/texlive/texmf-dist/tex/latex/appendix/appendix.sty
 Package: appendix 2009/09/02 v1.2b extra appendix facilities
-\c@@pps=\count96
-\c@@ppsavesec=\count97
-\c@@ppsaveapp=\count98
+\c@@pps=\count97
+\c@@ppsavesec=\count98
+\c@@ppsaveapp=\count99
 )
 (./tamuconfig.sty
 Package: tamuconfig 
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/rotating/rotating.sty
+(/usr/share/texlive/texmf-dist/tex/latex/rotating/rotating.sty
 Package: rotating 2009/03/28 v2.16a rotated objects in LaTeX
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/trig.sty
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/graphics.cfg
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 94.
+Package graphics Info: Driver file: pdftex.def on input line 91.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/pdftex-def/pdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
-\Gread@gobject=\count99
+\Gread@gobject=\count100
 ))
 \Gin@req@height=\dimen116
 \Gin@req@width=\dimen117
 )
-\c@r@tfl@t=\count100
+\c@r@tfl@t=\count101
 \rotFPtop=\skip79
 \rotFPbot=\skip80
 \rot@float@box=\box27
 \rot@mess@toks=\toks17
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsmath.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip81
 
 For additional information on amsmath, use the `?' option.
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amstext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsgen.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks18
 \ex@=\dimen118
 ))
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsbsy.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen119
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsmath/amsopn.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
-\inf@bad=\count101
+\inf@bad=\count102
 LaTeX Info: Redefining \frac on input line 210.
-\uproot@=\count102
-\leftroot@=\count103
+\uproot@=\count103
+\leftroot@=\count104
 LaTeX Info: Redefining \overline on input line 306.
-\classnum@=\count104
-\DOTSCASE@=\count105
+\classnum@=\count105
+\DOTSCASE@=\count106
 LaTeX Info: Redefining \ldots on input line 378.
 LaTeX Info: Redefining \dots on input line 381.
 LaTeX Info: Redefining \cdots on input line 466.
@@ -207,15 +212,15 @@ LaTeX Info: Redefining \cdots on input line 466.
 \big@size=\dimen120
 LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
-\macc@depth=\count106
-\c@MaxMatrixCols=\count107
+\macc@depth=\count107
+\c@MaxMatrixCols=\count108
 \dotsspace@=\muskip10
-\c@parentequation=\count108
-\dspbrk@lvl=\count109
+\c@parentequation=\count109
+\dspbrk@lvl=\count110
 \tag@help=\toks19
-\row@=\count110
-\column@=\count111
-\maxfields@=\count112
+\row@=\count111
+\column@=\count112
+\maxfields@=\count113
 \andhelp@=\toks20
 \eqnshift@=\dimen121
 \alignsep@=\dimen122
@@ -230,13 +235,13 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/subcaption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
 Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
 Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/caption/caption3.sty
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 57.
 \captionmargin=\dimen127
@@ -247,17 +252,17 @@ Package caption3 Info: TeX engine: e-TeX on input line 57.
 \caption@parindent=\dimen132
 \caption@hangindent=\dimen133
 )
-\c@ContinuedFloat=\count113
+\c@ContinuedFloat=\count114
 Package caption Info: rotating package is loaded.
 )
-\c@subfigure=\count114
-\c@subtable=\count115
+\c@subfigure=\count115
+\c@subtable=\count116
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/tabularx.sty
-Package: tabularx 2014/10/28 v2.10 `tabularx' package (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 1999/01/07 v2.07 `tabularx' package (DPC)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/array.sty
-Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/array.sty
+Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \col@sep=\dimen134
 \extrarowheight=\dimen135
 \NC@list=\toks23
@@ -269,17 +274,17 @@ Package: array 2014/10/28 v2.4c Tabular extension package (FMi)
 \TX@old@col=\dimen138
 \TX@target=\dimen139
 \TX@delta=\dimen140
-\TX@cols=\count116
+\TX@cols=\count117
 \TX@ftn=\toks24
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+(/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
 Package: algorithm2e 2013/01/06 v5.00 algorithms environments
-\c@AlgoLine=\count117
+\c@AlgoLine=\count118
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/tools/xspace.sty
-Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2009/10/20 v1.13 Space after command names (DPC,MH)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/relsize/relsize.sty
+(/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
 Package: relsize 2013/03/29 ver 4.1
 )
 ********************************************************
@@ -317,77 +322,76 @@ subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
 \algoheightrule=\skip99
 \algotitleheightruledefault=\skip100
 \algotitleheightrule=\skip101
-\c@algocfline=\count118
-\c@algocfproc=\count119
-\c@algocf=\count120
+\c@algocfline=\count119
+\c@algocfproc=\count120
+\c@algocf=\count121
 \algocf@algoframe=\box36
 \algocf@algobox=\box37
-) (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amssymb.sty
+) (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-(/usr/local/texlive/2015/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2014/10/28 v1.1a Standard LaTeX Color (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/color.cfg
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 142.
+Package color Info: Driver file: pdftex.def on input line 130.
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count121
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count122
 \lst@gtempboxa=\box38
 \lst@token=\toks25
-\lst@length=\count122
+\lst@length=\count123
 \lst@currlwidth=\dimen147
-\lst@column=\count123
-\lst@pos=\count124
+\lst@column=\count124
+\lst@pos=\count125
 \lst@lostspace=\dimen148
 \lst@width=\dimen149
-\lst@newlines=\count125
-\lst@lineno=\count126
+\lst@newlines=\count126
+\lst@lineno=\count127
 \lst@maxwidth=\dimen150
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2014/09/06 1.5e (Carsten Heinz)
-\c@lstnumber=\count127
-\lst@skipnumbers=\count128
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
+\c@lstnumber=\count128
+\lst@skipnumbers=\count129
 \lst@framebox=\box39
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2014/09/06 1.5e listings configuration
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2013/08/26 1.5b listings configuration
 ))
-Package: listings 2014/09/06 1.5e (Carsten Heinz)
+Package: listings 2013/08/26 1.5b (Carsten Heinz)
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/float/float.sty
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count129
+\c@float@type=\count130
 \float@exts=\toks26
 \float@box=\box40
 \@float@everytoks=\toks27
 \@floatcapt=\box41
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/cancel/cancel.sty
+(/usr/share/texlive/texmf-dist/tex/latex/cancel/cancel.sty
 Package: cancel 2013/04/12 v2.2 Cancel math terms
+) (./mycommands.tex)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2013/08/26 1.5b listings language file
 )
-(./mycommands.tex)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2014/09/06 1.5e listings language file
-)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2012/11/06 v6.83m Hypertext links for LaTeX
 
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
 Package: hobsub-hyperref 2012/05/28 v1.13 Bundle oberdiek, subset hyperref (HO)
 
 
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
 Package: hobsub-generic 2012/05/28 v1.13 Bundle oberdiek, subset generic (HO)
 Package: hobsub 2012/05/28 v1.13 Construct package bundles (HO)
 Package hobsub Info: Skipping package `infwarerr' (already loaded).
@@ -425,22 +429,22 @@ Package: atbegshi 2011/10/05 v1.16 At begin shipout hook (HO)
 Package: refcount 2011/10/16 v3.4 Data extraction from label references (HO)
 Package: hycolor 2011/01/30 v1.7 Color options for hyperref/bookmark (HO)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/auxhook.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/auxhook.sty
 Package: auxhook 2011/03/04 v1.3 Hooks for auxiliary files (HO)
 )
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 )
 \@linkdim=\dimen151
-\Hy@linkcounter=\count130
-\Hy@pagecounter=\count131
+\Hy@linkcounter=\count131
+\Hy@pagecounter=\count132
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/pd1enc.def
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2012/11/06 v6.83m Hyperref: PDFDocEncoding definition (HO)
 )
-\Hy@SavedSpaceFactor=\count132
+\Hy@SavedSpaceFactor=\count133
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
 )
 Package hyperref Info: Hyper figures OFF on input line 4443.
@@ -450,15 +454,15 @@ Package hyperref Info: Plain pages OFF on input line 4458.
 Package hyperref Info: Backreferencing OFF on input line 4463.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4688.
-\c@Hy@tempcnt=\count133
+\c@Hy@tempcnt=\count134
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/url/url.sty
+(/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5041.
 \XeTeXLinkMargin=\dimen152
-\Fld@menulength=\count134
+\Fld@menulength=\count135
 \Field@Width=\dimen153
 \Fld@charsize=\dimen154
 Package hyperref Info: Hyper figures OFF on input line 6295.
@@ -470,19 +474,19 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6320.
 Package hyperref Info: PDF/A mode OFF on input line 6325.
 LaTeX Info: Redefining \ref on input line 6365.
 LaTeX Info: Redefining \pageref on input line 6369.
-\Hy@abspage=\count135
-\c@Item=\count136
-\c@Hfootnote=\count137
+\Hy@abspage=\count136
+\c@Item=\count137
+\c@Hfootnote=\count138
 )
 
 Package hyperref Message: Driver (autodetected): hpdftex.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/hpdftex.def
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2012/11/06 v6.83m Hyperref driver for pdfTeX
-\Fld@listcount=\count138
-\c@bookmark@seq@number=\count139
+\Fld@listcount=\count139
+\c@bookmark@seq@number=\count140
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
 Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
@@ -490,66 +494,8 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip102
 )
 (./tamuthesis.aux (./titlepage.aux) (./abstract.aux) (./dedication.aux)
-(./acknowledgements.aux) (./nomenclature.aux) (./lists.aux)
-
-LaTeX Warning: Label `ho_cont' multiply defined.
-
-
-LaTeX Warning: Label `t_cont' multiply defined.
-
-
-LaTeX Warning: Label `ho_trans' multiply defined.
-
-
-LaTeX Warning: Label `lo_mat' multiply defined.
-
-
-LaTeX Warning: Label `x_mom' multiply defined.
-
-
-LaTeX Warning: Label `lo_tran' multiply defined.
-
-
-LaTeX Warning: Label `const' multiply defined.
-
-
-LaTeX Warning: Label `lo_mat_dis' multiply defined.
-
-
-LaTeX Warning: Label `eq:ho_base' multiply defined.
-
-
-LaTeX Warning: Label `te_oper' multiply defined.
-
-
-LaTeX Warning: Label `marshak_mesh_conv' multiply defined.
-
-
-LaTeX Warning: Label `sub@marshak_mesh_conv' multiply defined.
-
-
-LaTeX Warning: Label `marshak_200_compare' multiply defined.
-
-
-LaTeX Warning: Label `sub@marshak_200_compare' multiply defined.
-
-
-LaTeX Warning: Label `twomat_full' multiply defined.
-
-
-LaTeX Warning: Label `sub@twomat_full' multiply defined.
-
-
-LaTeX Warning: Label `compare_ho' multiply defined.
-
-
-LaTeX Warning: Label `sub@compare_ho' multiply defined.
-
-
-LaTeX Warning: Label `twomat' multiply defined.
-
-(./section1.aux) (./section2.aux) (./section3.aux) (./bibliography.aux)
-(./appendices.aux))
+(./acknowledgements.aux) (./nomenclature.aux) (./lists.aux) (./bibliography.aux
+) (./appendices.aux))
 \openout1 = `tamuthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 100.
@@ -601,23 +547,23 @@ LaTeX Font Info:    ... okay on input line 100.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count140
+\scratchcounter=\count141
 \scratchdimen=\dimen155
 \scratchbox=\box42
-\nofMPsegments=\count141
-\nofMParguments=\count142
+\nofMPsegments=\count142
+\nofMParguments=\count143
 \everyMPshowfont=\toks28
-\MPscratchCnt=\count143
+\MPscratchCnt=\count144
 \MPscratchDim=\dimen156
-\MPnumerator=\count144
-\makeMPintoPDFobject=\count145
+\MPnumerator=\count145
+\makeMPintoPDFobject=\count146
 \everyMPtoPDFconversion=\toks29
-) (/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/oberdiek/grfext.sty
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
 )
 Package grfext Info: Graphics extension search list:
@@ -625,7 +571,7 @@ Package grfext Info: Graphics extension search list:
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 452.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
@@ -634,17 +580,17 @@ Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count146
+\c@lstlisting=\count147
 \AtBeginShipoutBox=\box43
 Package hyperref Info: Link coloring OFF on input line 100.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/hyperref/nameref.sty
+(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
-(/usr/local/texlive/2015/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count147
+\c@section@level=\count148
 )
 LaTeX Info: Redefining \ref on input line 100.
 LaTeX Info: Redefining \pageref on input line 100.
@@ -659,28 +605,28 @@ LaTeX Info: Redefining \nameref on input line 100.
  (./titlepage.tex
 LaTeX Font Info:    Try loading font information for U+msa on input line 47.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 47.
 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsb.fd
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}])
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
 \openout2 = `abstract.aux'.
 
- (./abstract.tex
-[2
+ (./abstract.tex [2
 
 
 
 ])
 \openout2 = `dedication.aux'.
 
- (./dedication.tex [3
+ (./dedication.tex
+[3
 
 
 
@@ -694,709 +640,95 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ])
 \openout2 = `nomenclature.aux'.
 
- (./nomenclature.tex
-[5
+ (./nomenclature.tex [5
 
 
 
 ])
 \openout2 = `lists.aux'.
 
- (./lists.tex (./tamuthesis.toc [6
-
-
-] [7])
+ (./lists.tex
+(./tamuthesis.toc)
 \tf@toc=\write4
 \openout4 = `tamuthesis.toc'.
 
- [8] (./tamuthesis.lof
-Overfull \hbox (6.80865pt too wide) in paragraph at lines 2--2
- [][] [][]\OT1/cmr/bx/n/12 Comparison of ra-di-a-tion tem-per-a-tures for Mar-s
-hak wave prob- 
- []
-
-
-Overfull \hbox (6.80865pt too wide) in paragraph at lines 4--4
- [][] [][]\OT1/cmr/bx/n/12 Comparison of ra-di-a-tion tem-per-a-tures for Mar-s
-hak wave prob- 
- []
-
-
-Overfull \hbox (6.27528pt too wide) in paragraph at lines 6--6
- [][] [][]\OT1/cmr/bx/n/12 Comparison of ra-di-a-tion tem-per-a-tures for the p
-re-heated Mar- 
- []
-
-)
-\tf@lof=\write5
-\openout5 = `tamuthesis.lof'.
-
- [9] (./tamuthesis.lot)
-\tf@lot=\write6
-\openout6 = `tamuthesis.lot'.
-
- [10]) (./sections/introduction.tex [1
-
-]
-
-LaTeX Warning: Citation `fnc' on page i undefined on input line 53.
-
-
-LaTeX Warning: Citation `imd' on page i undefined on input line 64.
-
-
-LaTeX Warning: Citation `ddmc' on page i undefined on input line 64.
-
-
-LaTeX Warning: Citation `wollaber2013discrete' on page i undefined on input lin
-e 69.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.70 
-      [1]
-
-LaTeX Warning: Citation `teleportation' on page ii undefined on input line 74.
-
-
-LaTeX Warning: Citation `willert' on page ii undefined on input line 82.
-
-
-LaTeX Warning: Citation `park' on page ii undefined on input line 82.
-
-
-LaTeX Warning: Citation `rmc' on page ii undefined on input line 82.
-
-
-LaTeX Warning: Citation `ans_2014' on page ii undefined on input line 82.
-
-
-LaTeX Warning: Citation `willert' on page ii undefined on input line 87.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.93 
-      [2]
-
-LaTeX Warning: Citation `jake' on page iii undefined on input line 96.
-
-
-LaTeX Warning: Citation `ans_2014' on page iii undefined on input line 96.
-
-
-LaTeX Warning: Citation `rmc' on page iii undefined on input line 102.
-
-
-LaTeX Warning: Citation `rmc' on page iii undefined on input line 109.
-
-
-LaTeX Warning: Citation `rmc' on page iii undefined on input line 112.
-
-
-LaTeX Warning: Citation `rmc' on page iii undefined on input line 122.
-
-
-LaTeX Warning: Citation `rmc' on page iii undefined on input line 135.
-
-
-LaTeX Warning: Citation `willert' on page iii undefined on input line 135.
-
-
-LaTeX Warning: Citation `park' on page iii undefined on input line 135.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.iii}) ha
-s been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.136 
-       [3]
-
-LaTeX Warning: Citation `wolters' on page iv undefined on input line 137.
-
-
-LaTeX Warning: Citation `jake' on page iv undefined on input line 138.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.iv}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.146 \section{Overview of the HOLO Algorithm}
-                                               [4]
-
-LaTeX Warning: Citation `wolters' on page v undefined on input line 171.
-
-
-LaTeX Warning: Citation `larsen_edl' on page v undefined on input line 179.
-
-
-LaTeX Warning: Citation `morel_newton' on page v undefined on input line 179.
-
-
-LaTeX Warning: Citation `larsen_mpv' on page v undefined on input line 180.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.v}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.181 
-       [5]
-
-LaTeX Warning: Citation `larsen_error' on page vi undefined on input line 189.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.vi}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.200 \begin{enumerate}
-                        [6]pdfTeX warning (ext4): destination with the same ide
-ntifier (name{page.vii}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.230 
-       [7]
-Overfull \hbox (0.3285pt too wide) in paragraph at lines 247--250
-[]\OT1/cmr/m/n/12 This re-search will fo-cus on a sim-pli-fied 1D slab-geometry
- and frequency-integrated
- []
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.viii}) h
-as been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.276 
-       [8]
-
-LaTeX Warning: Citation `shultis_mc' on page ix undefined on input line 279.
-
-
-LaTeX Warning: Citation `fnc' on page ix undefined on input line 281.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.ix}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.299 
-       [9]
-
-LaTeX Warning: Citation `imd' on page x undefined on input line 306.
-
-
-LaTeX Warning: Citation `ddmc' on page x undefined on input line 306.
-
-
-LaTeX Warning: Citation `wollaber2013discrete' on page x undefined on input lin
-e 312.
-
-
-LaTeX Warning: Citation `iimc_gentile' on page x undefined on input line 316.
-
-
-LaTeX Warning: Citation `teleportation' on page x undefined on input line 330.
-
-
-LaTeX Warning: Citation `diff_limit_imc' on page x undefined on input line 335.
-
-
-
-LaTeX Warning: Citation `morel_newton' on page x undefined on input line 340.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.x}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.341 
-       [10]
-
-LaTeX Warning: Citation `willert' on page xi undefined on input line 346.
-
-
-LaTeX Warning: Citation `park' on page xi undefined on input line 346.
-
-
-LaTeX Warning: Citation `rmc' on page xi undefined on input line 346.
-
-
-LaTeX Warning: Citation `ans_2014' on page xi undefined on input line 346.
-
-
-LaTeX Warning: Citation `willert' on page xi undefined on input line 353.
-
-
-LaTeX Warning: Citation `park' on page xi undefined on input line 353.
-
-[11]
-
-LaTeX Warning: Citation `rmc' on page xii undefined on input line 368.
-
-
-LaTeX Warning: Citation `rmc' on page xii undefined on input line 371.
-
-
-LaTeX Warning: Citation `simc_const' on page xii undefined on input line 377.
-
-
-LaTeX Warning: Citation `simc' on page xii undefined on input line 384.
-
-
-LaTeX Warning: Citation `simc_const' on page xii undefined on input line 385.
-
-
-LaTeX Warning: Citation `rmc' on page xii undefined on input line 385.
-
-
-LaTeX Warning: Citation `wolters' on page xii undefined on input line 392.
-
-
-LaTeX Warning: Citation `jake' on page xii undefined on input line 393.
-
-
-LaTeX Warning: Citation `rmc' on page xii undefined on input line 395.
-
-
-LaTeX Warning: Citation `willert' on page xii undefined on input line 395.
-
-
-LaTeX Warning: Citation `park' on page xii undefined on input line 395.
-
-
-LaTeX Warning: Citation `jake' on page xii undefined on input line 398.
-
-
-LaTeX Warning: Citation `ans_2014' on page xii undefined on input line 398.
-
-[12] [13]
-
-LaTeX Warning: Citation `wolters' on page xiv undefined on input line 440.
-
-
-LaTeX Warning: Citation `rmc' on page xiv undefined on input line 448.
-
-
-LaTeX Warning: Citation `park' on page xiv undefined on input line 448.
-
-
-LaTeX Warning: Citation `willert' on page xiv undefined on input line 448.
-
-[14]
-
-LaTeX Warning: Citation `jake' on page xv undefined on input line 459.
-
-[15]
-
-LaTeX Warning: Citation `wolters' on page xvi undefined on input line 514.
-
-[16] [17]
-
-LaTeX Warning: Citation `morel_newton' on page xviii undefined on input line 57
-8.
-
-[18] [19]
-
-LaTeX Warning: Citation `shultis_mc' on page xx undefined on input line 678.
-
-[20]
-
-LaTeX Warning: Citation `jake' on page xxi undefined on input line 686.
-
-
-LaTeX Warning: Citation `ans_2014' on page xxi undefined on input line 686.
-
-
-LaTeX Warning: Citation `shultis_mc' on page xxi undefined on input line 706.
-
-[21] <figures/marshak_mesh_conv.pdf, id=642, 517.71071pt x 409.79662pt>
-File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
-
-<use figures/marshak_mesh_conv.pdf>
-Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 739.
-(pdftex.def)             Requested size: 208.60007pt x 165.1163pt.
-
-<figures/marshak_200_compare.pdf, id=643, 508.9671pt x 409.79662pt>
-File: figures/marshak_200_compare.pdf Graphic file (type pdf)
-
-<use figures/marshak_200_compare.pdf>
-Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 745
-.
-(pdftex.def)             Requested size: 208.60007pt x 167.95517pt.
- [22]
-<figures/two_mat_conv.pdf, id=650, 501.29784pt x 409.79662pt>
-File: figures/two_mat_conv.pdf Graphic file (type pdf)
-
-<use figures/two_mat_conv.pdf>
-Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 772.
-(pdftex.def)             Requested size: 208.60007pt x 170.52515pt.
-
-<figures/two_mat_ho_compare.pdf, id=651, 501.29784pt x 409.79662pt>
-File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
-
-<use figures/two_mat_ho_compare.pdf>
-Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 778.
-
-(pdftex.def)             Requested size: 208.60007pt x 170.52515pt.
- [23 <./figures/marshak_mesh_conv.pdf> <./figures/marshak_200_compare.pdf
-
-pdfTeX warning: pdflatex (file ./figures/marshak_200_compare.pdf): PDF inclusio
-n: multiple pdfs with page group included in a single page
->] [24 <./figures/two_mat_conv.pdf> <./figures/two_mat_ho_compare.pdf
-
-pdfTeX warning: pdflatex (file ./figures/two_mat_ho_compare.pdf): PDF inclusion
-: multiple pdfs with page group included in a single page
->]
-
-LaTeX Warning: Citation `morel_newton' on page xxv undefined on input line 807.
-
-
-[25] [26] [27]
-
-LaTeX Warning: Citation `morel_newton' on page xxviii undefined on input line 8
-90.
-
-
-LaTeX Warning: Citation `wla' on page xxviii undefined on input line 892.
-
-
-LaTeX Warning: Citation `wla_thesis' on page xxviii undefined on input line 892
-.
-
-
-LaTeX Warning: Citation `lewis' on page xxviii undefined on input line 898.
-
-
-LaTeX Warning: Citation `morel_newton' on page xxviii undefined on input line 8
-98.
-
-
-LaTeX Warning: Citation `wla' on page xxviii undefined on input line 901.
-
-
-LaTeX Warning: Citation `wla' on page xxviii undefined on input line 912.
-
-[28]
-
-LaTeX Warning: Citation `larson_morel_sn' on page xxix undefined on input line 
-921.
-
-
-LaTeX Warning: Citation `larson_morel_sn' on page xxix undefined on input line 
-925.
-
-[29] [30] [31]) [32] (./sections/lo_solver.tex
-
-LaTeX Warning: Citation `wolters' on page xxxiii undefined on input line 27.
-
-[33] [34]
-
-LaTeX Warning: Citation `morel_newton' on page xxxv undefined on input line 101
-.
-
-
-LaTeX Warning: Citation `densmore_edl' on page xxxv undefined on input line 101
-.
-
-[35]
-
-LaTeX Warning: Citation `morel_newton' on page xxxvi undefined on input line 10
-9.
-
-
-LaTeX Warning: Citation `morel_newton' on page xxxvi undefined on input line 12
-3.
-
-) (./sections/ho_solver.tex [36]
-
-LaTeX Warning: Citation `jake' on page xxxvii undefined on input line 19.
-
-
-LaTeX Warning: Citation `spanier_mc' on page xxxvii undefined on input line 19.
-
-
-[37]
-Overfull \hbox (34.7923pt too wide) detected at line 41
-[]\OML/cmm/m/it/12 r[] \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/
-12 + [] [][] + [] \OMS/cmsy/m/n/12 ^^@ [][]
- []
-
-[38] [39]
-
-LaTeX Warning: Citation `rmc' on page xl undefined on input line 100.
-
-
-LaTeX Warning: Citation `shultis_mc' on page xl undefined on input line 108.
-
-
-LaTeX Warning: Citation `jake' on page xl undefined on input line 122.
-
-
-LaTeX Warning: Citation `ans_2014' on page xl undefined on input line 122.
-
-[40]
-
-LaTeX Warning: Citation `park' on page xli undefined on input line 145.
-
-[41]
-
-LaTeX Warning: Citation `shultis_mc' on page xlii undefined on input line 156.
-
-) (./sections/results.tex
-
-LaTeX Warning: Citation `jayenne' on page xlii undefined on input line 5.
-
-
-LaTeX Warning: Citation `imd' on page xlii undefined on input line 8.
-
-
-LaTeX Warning: Citation `ddmc' on page xlii undefined on input line 8.
-
-[42]
-
-LaTeX Warning: Command \ss invalid in math mode on input line 27.
-
-[43]
-
-LaTeX Warning: Command \ss invalid in math mode on input line 35.
-
-
-LaTeX Warning: Citation `shultis_mc' on page xliv undefined on input line 42.
-
-
-LaTeX Warning: Citation `ans_2014' on page xliv undefined on input line 65.
-
-[44]
-File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
- <use figures/marshak_mesh_conv.pdf>
-Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 71.
-(pdftex.def)             Requested size: 297.99547pt x 235.88759pt.
-File: figures/marshak_200_compare.pdf Graphic file (type pdf)
- <use figures/marshak_200_compare.pdf>
-Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 76.
-
-(pdftex.def)             Requested size: 297.99547pt x 239.93953pt.
-
-
-LaTeX Warning: Command \ss invalid in math mode on input line 107.
-
-[45] [46]
-
-LaTeX Warning: Command \ss invalid in math mode on input line 168.
-
-File: figures/two_mat_conv.pdf Graphic file (type pdf)
-<use figures/two_mat_conv.pdf>
-Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 184.
-(pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
-File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
- <use figures/two_mat_ho_compare.pdf>
-Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 188.
-
-(pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
- [47]
-[48]
-
-LaTeX Warning: Citation `park' on page xlix undefined on input line 237.
-
-
-Overfull \hbox (40.9509pt too wide) in paragraph at lines 247--254
- [][] 
- []
-
-[49]
-Overfull \hbox (42.84393pt too wide) in paragraph at lines 260--267
- [][] 
- []
-
-
-LaTeX Warning: Citation `rmc' on page l undefined on input line 275.
-
-[50] [51] <figures/heated_marshak.pdf, id=1042, 526.7194pt x 417.02364pt>
-File: figures/heated_marshak.pdf Graphic file (type pdf)
-
-<use figures/heated_marshak.pdf>
-Package pdftex.def Info: figures/heated_marshak.pdf used on input line 361.
-(pdftex.def)             Requested size: 279.50218pt x 221.30145pt.
- [52]
-Overfull \hbox (59.84676pt too wide) in paragraph at lines 373--382
- [][] 
- []
-
-[53]
-
-LaTeX Warning: Citation `rmc' on page liv undefined on input line 432.
-
-[54]) (./sections/dsa.tex [55]
-
-LaTeX Warning: Command \d invalid in math mode on input line 18.
-
-
-LaTeX Warning: Command \d invalid in math mode on input line 18.
-
-
-LaTeX Warning: Command \d invalid in math mode on input line 18.
-
-
-LaTeX Warning: Command \d invalid in math mode on input line 18.
-
-[56]
-Overfull \hbox (46.66628pt too wide) detected at line 71
- []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
- 
- []
-
-[57] [58]
-
-LaTeX Warning: Citation `stacy' on page lix undefined on input line 144.
-
-[59]
-Overfull \hbox (10.00034pt too wide) in paragraph at lines 176--176
-[] 
- []
-
-[60] [61]) (./sections/analytic_neutronics.tex [62]) (./sections/tallies.tex
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 6.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\mu' on input line 6.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `math shift' on input line 6.
-
-
-LaTeX Warning: Citation `shultis_mc' on page lxiii undefined on input line 11.
-
-
-LaTeX Warning: Citation `favorite_faces' on page lxiii undefined on input line 
-11.
-
-[63]
-
-LaTeX Warning: Citation `favorite_faces' on page lxiv undefined on input line 3
-1.
-
-
-LaTeX Warning: Citation `mcnp' on page lxiv undefined on input line 31.
-
-
-LaTeX Warning: Citation `favorite_faces' on page lxiv undefined on input line 3
-1.
-
-[64]
-
-LaTeX Warning: Reference `fig:ldd' on page lxv undefined on input line 59.
-
-[65]
-Overfull \hbox (30.63293pt too wide) detected at line 110
- []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
-mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
- []
-
-[66]
-Overfull \hbox (47.30101pt too wide) detected at line 142
-[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; ^^V\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 
-I[] \OT1/cmr/m/n/12 + []\OML/cmm/m/it/12 I[] [] \OT1/cmr/m/n/12 + []\OML/cmm/m/
-it/12 I[] [] ;  x[] < x < x[];  ^^V[] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V
- \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V[]
- []
-
-[67]
-
-LaTeX Warning: Citation `jake' on page lxviii undefined on input line 164.
-
-
-LaTeX Warning: Citation `shultis_mc' on page lxviii undefined on input line 165
-.
-
-[68]
-
-LaTeX Warning: Citation `jake' on page lxix undefined on input line 206.
-
-) (./sections/spatial_closure.tex [69]
-
-LaTeX Warning: Reference `??????' on page lxx undefined on input line 6.
-
-
-LaTeX Warning: Reference `??' on page lxx undefined on input line 6.
-
-[70] [71]
-
-LaTeX Warning: Citation `shultis_mc' on page lxxii undefined on input line 75.
-
-
-LaTeX Warning: Reference `???' on page lxxii undefined on input line 81.
-
-) [72] [73] [74] [75 <./figures/heated_marshak.pdf>]
-\openout2 = `section1.aux'.
-
- (./section1.tex
-Chapter 1.
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 23.
-
-<figures/Penguins.jpg, id=1276, 770.88pt x 578.16pt>
-File: figures/Penguins.jpg Graphic file (type jpg)
-
-<use figures/Penguins.jpg>
-Package pdftex.def Info: figures/Penguins.jpg used on input line 34.
-(pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.49 
-      [1
-
-
-]) [2]
-\openout2 = `section2.aux'.
-
- (./section2.tex
-Chapter 2.
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 17.
-
-File: figures/Penguins.jpg Graphic file (type jpg)
-<use figures/Penguins.jpg>
-Package pdftex.def Info: figures/Penguins.jpg used on input line 25.
-(pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [3
-
-
-
- <./figures/Penguins.jpg>]
-<figures/Sunset.jpg, id=1288, 602.25pt x 451.6875pt>
-File: figures/Sunset.jpg Graphic file (type jpg)
- <use figures/Sunset.jpg>
-Package pdftex.def Info: figures/Sunset.jpg used on input line 54.
-(pdftex.def)             Requested size: 301.12425pt x 225.84319pt.
-
-[4 <./figures/Sunset.jpg>]) [5]
-\openout2 = `section3.aux'.
-
- (./section3.tex
-Chapter 3.
-
-Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 18.
-
-
-LaTeX Warning: Citation `Agrawal1986' on page 6 undefined on input line 20.
-
-File: figures/Penguins.jpg Graphic file (type jpg)
-<use figures/Penguins.jpg>
-Package pdftex.def Info: figures/Penguins.jpg used on input line 27.
-(pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
  [6
 
 
+] (./tamuthesis.lof)
+\tf@lof=\write5
+\openout5 = `tamuthesis.lof'.
 
-]) [7]
+ [7] (./tamuthesis.lot)
+\tf@lot=\write6
+\openout6 = `tamuthesis.lot'.
+
+ [8])
+(./sections/mpv.tex
+
+LaTeX Warning: Citation `wollaber2013discrete' on page ix undefined on input li
+ne 7.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page ix undefined on input line 7.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page ix undefined on input line 8.
+
+
+LaTeX Warning: Reference `sec:intro' on page ix undefined on input line 14.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page ix undefined on input line 18.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page ix undefined on input li
+ne 21.
+
+
+LaTeX Warning: Reference `sec:marshak???' on page ix undefined on input line 22
+.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page ix undefined on input li
+ne 26.
+
+[9
+
+]
+
+LaTeX Warning: Citation `wollaber2013discrete' on page x undefined on input lin
+e 42.
+
+<figures/mpv_rad_imc.pdf, id=135, 507.24976pt x 411.71002pt>
+File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
+
+<use figures/mpv_rad_imc.pdf>
+Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 69.
+(pdftex.def)             Requested size: 258.00706pt x 209.42278pt.
+ [10]
+<figures/mpv_mats_imc.pdf, id=140, 507.56343pt x 411.71002pt>
+File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_imc.pdf>
+Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 75.
+(pdftex.def)             Requested size: 258.00706pt x 209.29085pt.
+
+<figures/mpv_mats_holo.pdf, id=141, 511.59412pt x 411.71002pt>
+File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_holo.pdf>
+Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 82.
+(pdftex.def)             Requested size: 258.00706pt x 207.64493pt.
+ [11 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
+
+pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>] [12 <./figures/mpv_mats_holo.pdf>]
+
+LaTeX Warning: Citation `ans_2014' on page xiii undefined on input line 128.
+
+) [13]
 \openout2 = `bibliography.aux'.
 
  (./bibliography.tex
@@ -1410,17 +742,17 @@ APPENDIX A.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
+<figures/Penguins.jpg, id=314, 770.88pt x 578.16pt>
 File: figures/Penguins.jpg Graphic file (type jpg)
-<use figures/Penguins.jpg>
+ <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 25.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
-) (./appendix2.tex [8
+) (./appendix2.tex [14
 
 
 
 
-
-]
+ <./figures/Penguins.jpg>]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1430,52 +762,46 @@ File: figures/Penguins.jpg Graphic file (type jpg)
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 23.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [9
+ [15
 
 ]))
+
+Package caption Warning: Unused \captionsetup[sub] on input line 38.
+See the caption package documentation for explanation.
+
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 150.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 150.
- (./tamuthesis.aux (./titlepage.aux)
-(./abstract.aux) (./dedication.aux) (./acknowledgements.aux)
-(./nomenclature.aux) (./lists.aux) (./section1.aux) (./section2.aux)
-(./section3.aux) (./bibliography.aux) (./appendices.aux))
+(./tamuthesis.aux (./titlepage.aux) (./abstract.aux) (./dedication.aux)
+(./acknowledgements.aux) (./nomenclature.aux) (./lists.aux) (./bibliography.aux
+) (./appendices.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 150.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 150.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: A580704FBDCC8418A3EFC8520D9F2867;5709.
+(rerunfilecheck)             Checksum: DF3D949C0E8C44FD72E505DD17D6F51F;719.
 
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: There were multiply-defined labels.
-
  ) 
 Here is how much of TeX's memory you used:
- 11990 strings out of 493089
- 175871 string characters out of 6134842
- 315848 words of memory out of 5000000
- 14898 multiletter control sequences out of 15000+600000
- 10466 words of font info for 39 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 42i,13n,40p,1002b,524s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
-sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/l
-ocal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/loc
-al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
-ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tamuthesis.pdf (95 pages, 1311399 bytes).
+ 11540 strings out of 493304
+ 168797 string characters out of 6139871
+ 299956 words of memory out of 5000000
+ 14734 multiletter control sequences out of 15000+600000
+ 9198 words of font info for 35 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 42i,10n,40p,1002b,415s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texli
+ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmsy8.pfb>
+Output written on tamuthesis.pdf (15 pages, 916356 bytes).
 PDF statistics:
- 1430 PDF objects out of 1440 (max. 8388607)
- 1103 compressed objects within 12 object streams
- 304 named destinations out of 1000 (max. 500000)
- 620 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 212 compressed objects within 3 object streams
+ 36 named destinations out of 1000 (max. 500000)
+ 117 words of extra memory for PDF output out of 10000 (max. 10000000)
 

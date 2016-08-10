@@ -22,11 +22,11 @@ similar to those in~\cite{wollaber2013discrete}.  We modify the Marshak wave pro
 Sec.~\ref{sec:marshak???}, by decreasing $c_v$ and increasing $\sigma_a$, to produce a
 problem which results in MP violations for IMC at various fixed time step sizes. 
 The spatial and temporal discretization determine the occurence of MP violations for
-IMC~\cite{wollaber2013discrete}. In particular, if time steps are too large or spatial
-mesh cells are too small, IMC will demonstrate MP violations.  Here, we have kept the
+IMC. In particular, if time steps are too large or spatial
+mesh cells are too small, IMC will demonstrate MP violations~\cite{wollaber2013discrete}.  Here, we have kept the
 spatial mesh size fixed and increased time step to make MP violations occur.
 The material
-specifications for the problem are given in Table~\ref{tab:mpv_prob}. The domain width is 1.0 cm with
+specifications for the problem are given in Table~\ref{tab:mpv_prob}. The domain width is 2.0 cm with
 $N_c=150$ uniform spatial mesh cells.  The radiation and material energies are initially in
 equilibrium at $0.01$ keV, before an isotropic boundary source of $1$ keV is applied at
 the left boundary at $t=0$. The simulation is ran unitl $t=0.1$ sh. 
@@ -51,7 +51,11 @@ Figure~\ref{fig:holo_mpv}, the TRT solution does not violate the maximum princip
 For these simulaitons, it was
 necessary to use a damped Newton's method to converge the solutions.  A damping factor of
 0.5 was used for all these simulations, and found to stably converge.
-Table~\ref{tab:blah} demonstrates the LO Newton iteration counts for the HOLO metthod.
+
+Table~\ref{tab:mpv_iters} demonstrates the LO Newton iteration counts for the HOLO method.
+For reference, the solution at $\Delta t = 0.00001$ sh requires no damping.  Clearly
+damping increases the number of iteration counts per step as the Newton solve is taking
+more conservative steps, but the overall increase is not dramatic. 
 
 
 
@@ -88,6 +92,19 @@ NO FIXUP APPLIED, NEWTON CONVERGENCE OF 10e-06.  MODIFIED MARSHAK WAVE PROBLEM.
 \centering
         \begin{tabular}{|c|c|} \hline
             $\sigma_{a,0}$ (cm$^{-1}$ keV$^3$)  & 4.0  \\ 
+            $\sigma_s$ (cm$^{-1}$) & 0.0 \\
+            $\rho$ (g cm$^{-3}$) & 1.0  \\
+            $c_v$ (jks/keV-g) & 0.0081181  \\ \hline
+        \end{tabular}
+\end{table}
+
+\begin{table}[H]
+    \caption{\label{tab:mpv_iters}Comparison of LO Newton iterations for different time
+step sizes and MP problem. For $\Delta t=0.1$, damping has $\zeta = 1$.  For all other
+cases $\zeta = 0.5$.}  
+    \centering
+        \begin{tabular}{|cc|} \hline
+            $\Delta t$ & Avg. Iters / Time Step \\
             $\sigma_s$ (cm$^{-1}$) & 0.0 \\
             $\rho$ (g cm$^{-3}$) & 1.0  \\
             $c_v$ (jks/keV-g) & 0.0081181  \\ \hline

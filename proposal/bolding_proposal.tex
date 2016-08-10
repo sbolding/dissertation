@@ -640,8 +640,9 @@ HO solvers.  The IMC and HOLO solutions agree as the mesh is converged.
 Fig.~\ref{marshak_200_compare} compares solutions
 for the case of 200 cells.  The HOLO method demonstrates significantly less
 statistical noise, even though it used fewer histories per time step. To prevent
-negativities in the LO equations, a modified spatial closure was used that is equivalent to the
-standard FE lumping procedure.  This lumping-equivalent closure and S$_2$ equivalent consistency
+negativities in the LO equations, a modified spatial closure with a different relation between the
+moments and edge values was used that is equivalent to the
+standard FE lumping procedure.  This lumping-equivalent representation and S$_2$ equivalent consistency
 terms are applied in cells where negative values occur to ensure positivity.  An alternative approach to resolving negativities is proposed in Sec.~\ref{sec:negs}.
 \begin{figure}[H]
     \centering
@@ -711,7 +712,7 @@ such cells, and mesh refinement is of minimal use.  We will explore several meth
 for resolving negativities.  Ideally the solutions in
 such cells should be as consistent as possible for the HO and LO equations.  However,
 the differences between the solution methods of the two equations, as well as the
-fact that some terms are lagged, have lead to the development of independent
+fact that some terms are lagged, have led to the development of independent
 approaches for the LO and HO systems thus far.
 
 Typically, for a standard LDFE method,
@@ -802,8 +803,8 @@ Euler discretization will result in artificially fast propagation of energy.  We
 the efficiency of MC calculations in thin regions with the ECMC method while still preserving the
 accuracy of a MC treatment in the time variable.  The time variable will be included in
 the trial space for ECMC and the LO equations will be closed in time consistently.  We
-will not be performing adaptive refinement in time, so maintained exponential convergence
-is not possible.  However, we still expect the residual MC formulation of the ECMC method
+will not be performing adaptive refinement in time, so maintaining exponential convergence
+may not be not possible.  However, we still expect the residual MC formulation of the ECMC method
 to show improvement over standard MC.
 
 Inclusion of time $t$ in the MC trial space allows for no discretization of the

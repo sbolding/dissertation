@@ -48,8 +48,6 @@
 %--------------------------------------
 \input{mycommands}
 
-\renewcommand{\d}{\ensuremath{\!\mathrm{d}}}
-
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \lstset{language=python,
@@ -103,7 +101,7 @@
 
 \renewcommand{\tamumanuscripttitle}{A High-Order Low-Order Algorithm with Exponentially-Convergent Monte Carlo for Thermal Radiative Transfer Problems}
 \renewcommand{\tamupapertype}{Dissertation}
-\renewcommand{\tamufullname}{Simon R Bolding}
+\renewcommand{\tamufullname}{Simon Ray Bolding}
 \renewcommand{\tamudegree}{Doctor of Philosophy}
 \renewcommand{\tamuchairone}{Jim Morel}
 % Uncomment out the next line if you have co-chairs.  You will also need to edit the titlepage.tex file.
@@ -113,8 +111,8 @@
 \newcommand{\tamumemberthree}{Jean-Luc Guermond}
 \renewcommand{\tamudepthead}{Yassin Hassan}
 \renewcommand{\tamugradmonth}{December}
-\renewcommand{\tamugradyear}{2013}
-\renewcommand{\tamudepartment}{Nuclear Engineering Department}
+\renewcommand{\tamugradyear}{2016}
+\renewcommand{\tamudepartment}{Nuclear Engineering}
 
 
 \include{titlepage} % This is simply a file that formats and adds your titlepage, please do not edit this unless you have a specific need. .
@@ -122,21 +120,21 @@
 \include{dedication}
 \include{acknowledgements}
 \include{nomenclature}
-
 \include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. .
 
-\input{sections/introduction.tex}
-\input{sections/lo_solver.tex}
-\input{sections/ho_solver.tex}
-\input{sections/results.tex}
-\input{sections/dsa.tex}
-\input{sections/analytic_neutronics.tex}
-\input{sections/tallies.tex}
-\input{sections/spatial_closure.tex}
+%\input{sections/introduction.tex}
+%\input{sections/lo_solver.tex}
+%\input{sections/ho_solver.tex}
+%\input{sections/results.tex}
+%\input{sections/dsa.tex}
+%\input{sections/analytic_neutronics.tex}
+%\input{sections/tallies.tex}
+%\input{sections/spatial_closure.tex}
+\input{sections/mpv.tex}
 
-\include{section1}
-\include{section2}
-\include{section3}
+%\include{section1}
+%\include{section2}
+%\include{section3}
 
 
 

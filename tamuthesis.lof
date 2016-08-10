@@ -1,20 +1,10 @@
 \vskip -10pt
-\contentsline {figure}{\numberline {1}{\ignorespaces \bf Comparison of radiation temperatures for Marshak wave problem at $\mathbf {t=5}$ sh.\relax }}{xxiii}{figure.caption.8}
-\contentsline {figure}{\numberline {2}{\ignorespaces \bf Comparison of radiation temperatures for two material problem. \relax }}{xxiv}{figure.caption.9}
-\contentsline {figure}{\numberline {3}{\ignorespaces \bf Comparison of radiation temperatures for Marshak wave problem at $\mathbf {t=5}$ sh.\relax }}{lxxiii}{figure.caption.10}
-\contentsline {figure}{\numberline {4}{\ignorespaces \bf Comparison of radiation temperatures for two material problem. \relax }}{lxxiv}{figure.caption.13}
-\contentsline {figure}{\numberline {5}{\ignorespaces \bf Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100 $x$ cells at $\mathbf {t=0.5}$ sh.\relax }}{lxxv}{figure.caption.19}
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1}{\ignorespaces Simulation of MP violation problem with IMC method and $\Delta t = 0.001$ sh.\relax }}{xi}{figure.caption.8}
+\contentsline {figure}{\numberline {2}{\ignorespaces Simulation of MP violation problem with IMC method for various time step sizes.\relax }}{xi}{figure.caption.9}
+\contentsline {figure}{\numberline {3}{\ignorespaces Simulation of MP violation problem with HOLO-ECMC method for various time step sizes.\relax }}{xii}{figure.caption.10}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {figure}{\numberline {2.1}{\ignorespaces TAMU figure - This is an example of a long figure title. Figure titles need to be single-spaced within and double spaced between in the list of figures.\relax }}{3}{figure.caption.22}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Sunset figure\relax }}{4}{figure.caption.24}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces TAMU figure\relax }}{xiv}{figure.caption.15}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {figure}{\numberline {3.1}{\ignorespaces TAMU figure\relax }}{6}{figure.caption.26}
-\addvspace {10\p@ }
-\vskip -10pt
-\contentsline {figure}{\numberline {A.1}{\ignorespaces TAMU figure\relax }}{8}{figure.caption.30}
-\addvspace {10\p@ }
-\vskip -10pt
-\contentsline {figure}{\numberline {B.1}{\ignorespaces TAMU figure\relax }}{9}{figure.caption.31}
+\contentsline {figure}{\numberline {B.1}{\ignorespaces TAMU figure\relax }}{xv}{figure.caption.16}
