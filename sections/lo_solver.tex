@@ -5,7 +5,7 @@ To form the LO system of equations, spatial moments are taken over each spatial 
 $x\in[x_{i-1/2},x_{i+1/2}]$, weighted with the standard linear finite element (FE)
 interpolatory basis functions.  For example, the $L$  moment operator is defined by
 \begin{equation}\label{x_mom}
-\mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{L,i}(x) (\cdot) \d x,
+\mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{L,i}(x) (\cdot) \dd x,
 \end{equation}
 where $h_i=x_{i+1/2}-x_{i-1/2}$ is the width of the spatial element and
 $b_{L,i}(x)=(x_{i+1/2}-x)/h_i$ is the FE basis function, for cell $i$, corresponding to position
@@ -15,7 +15,7 @@ $\mom{\phi}_{R,i}$ represent spatial moments of the intensity over cell $i$, opp
 to $\phi_{L,i}$ and $\phi_{R,i}$, which represent the interior value of the linear
 representation of $\phi(x)$ at $x_\il$ and $x_\ir$ within the cell. To reduce the angular dimensionality, positive and
 negative half-range integrals of the angular intensity are taken.  The half-range
-averages of $I$ are defined as $ \phi^+(x) = \int_0^{1} I(x,\mu) \d \mu$ and $ \phi^-(x) = \int_{-1}^{0} I(x,\mu) \d
+averages of $I$ are defined as $ \phi^+(x) = \int_0^{1} I(x,\mu) \dd \mu$ and $ \phi^-(x) = \int_{-1}^{0} I(x,\mu) \dd
 \mu$, respectively.  Thus, in terms of half-range quantities, $\phi(x) = \phi^-(x) +
 \phi ^+(x)$.  
 
@@ -42,9 +42,9 @@ derived analogously.  The element-averaged angular consistency terms are defined
 \begin{equation}\label{const}
     \cur{{\mu}}_{L,i}^{n+1,+} \equiv \frac{\mom{\mu I^{n+1}}_{L,i}^+}{\mom{I^{n+1}}_{L,i}^+} =  \frac{
 {\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
-I^{n+1}(x,\mu) \d x \d \mu } 
+I^{n+1}(x,\mu) \dd x \dd \mu } 
 {{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
-I^{n+1}(x,\mu) \d x \d \mu } .
+I^{n+1}(x,\mu) \dd x \dd \mu } .
 \end{equation}
 The $\mu_{i-1/2}^{n+1,+}$ term is defined analogously and represents an angular average on the face at $x_{\il}$.
 

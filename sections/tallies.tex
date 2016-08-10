@@ -35,8 +35,8 @@ approximate, isotropic particle density. Thus, scores in this range have no vari
 an isotropic particle density $I_0$, the average of
 $1/\mu$, for positive $\mu$, is
 \begin{equation}
-    \overline{1/\mu} = \frac{\displaystyle \int_0^{\mu_{cut}}\frac{1}{\mu} I_0 \,\d
-\mu}{\displaystyle \int_0^{\mu_{cut}} I_0\, \d \mu} =
+    \overline{1/\mu} = \frac{\displaystyle \int_0^{\mu_{cut}}\frac{1}{\mu} I_0 \,\dd
+\mu}{\displaystyle \int_0^{\mu_{cut}} I_0\, \dd \mu} =
     \frac{2}{\mu_{cut}}.
 \end{equation}
 For negative $\mu$, $\overline{1/\mu}=-2/\mu_{cut}$.
@@ -99,14 +99,14 @@ section $\hat \sigma_t$, is
 This equation is integrated from $x_{i+1/2}-\alpha$ to $x_{i+1/2}$ to produce
 \begin{multline}
     \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
-    \hat \sigma_t \dep \d x  \\ =  \rface(x_{i+1/2}^-) +
-        \int\limits_{x_{i+1/2}-\alpha}^0\rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) \d x.
+    \hat \sigma_t \dep \dd x  \\ =  \rface(x_{i+1/2}^-) +
+        \int\limits_{x_{i+1/2}-\alpha}^0\rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) \dd x.
 \end{multline}
 The integral on the right side of the equation is zero because $\delta^+(x-x_{i+1/2})$ is
 zero for $(-\infty,x_{i+1/2}]$.  The limit of the above equation is taken as $\alpha\to0$, i.e.,
 \begin{multline}
     \lim_{\alpha\to0}\left( \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
-    \hat \sigma_t \dep \d x \right)  = \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
+    \hat \sigma_t \dep \dd x \right)  = \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
 \end{multline}
 The integral goes to zero because $\dep$ is smooth on the interior of the cell, and
 $\mu\dep(x_{i+1/2}-\alpha,\mu)$ goes to zero because there is no source upstream of
@@ -143,12 +143,12 @@ interior of the cell with the $i$-th spatial index and $j$-th angular index, the
 The spatial cell width is $h_x$, the angular width is
 $h_\mu$, the center of the cell is $(x_i,\mu_j)$, and
 \begin{align}\label{app1}
-    I_{a,ij} &= \frac{1}{h_x h_\mu} \iint\limits_{\mathcal{D}} I(x,\mu)\, \d x \d \mu \\
+    I_{a,ij} &= \frac{1}{h_x h_\mu} \iint\limits_{\mathcal{D}} I(x,\mu)\, \dd x \dd \mu \\
     I_{x,ij} &= \frac{6}{h_xh_\mu}\iint\limits_{\mathcal{D}} \left(\frac{x - x_i}{h_{x}}\right)
-    I(x,\mu)\, \d x \d \mu \\ \label{app2}
+    I(x,\mu)\, \dd x \dd \mu \\ \label{app2}
     I_{\mu,ij} &= \frac{6}{h_xh_\mu}\iint\limits_{\mathcal{D}}
      \left(\frac{\mu - \mu_j}{h_{\mu}}\right)
-    I(x,\mu)\, \d x \d \mu,
+    I(x,\mu)\, \dd x \dd \mu,
 \end{align}
 where $\mathcal{D}: x_\il \leq  x \leq  x_\ir \times \mu_\jl \leq \mu \leq \mu_\jr$.
 %$I_a$ is the cell average intensity, and $I_\mu$ and $I_x$ define the
@@ -172,7 +172,7 @@ The tallies are evaluated by weighting the particle density with the appropriate
 basis function and integrating along the history path through the cell.  For the cell average, the $n$-th
 particle makes the contribution
 \begin{equation}
-    \epsilon^n_{a,ij} = \frac{1}{h_xh_\mu} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \d s,
+   \epsilon^n_{a,ij} = \frac{1}{h_xh_\mu} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \dd s,
 \end{equation}
 where $s_o^n$ and $s_f^n$ are the beginning and end of the $n$-th particle track in the cell and $w(x,\mu)$ is
 the weight of the error particle in the MC simulation.  Weight is attenuated exponentially, i.e., $w(x,\mu)\propto

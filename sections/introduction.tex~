@@ -41,7 +41,7 @@ $c_v$ are the radiation constant, speed of light, mass density, and specific hea
 $\sigma_t$ are the absorption, scattering, and total
 cross sections (cm$^{-1}$), respectively. The desired unknowns are the material
 temperature $T(x,t)$ and the scalar radiation intensity $\phi(x,t)=\int_{-1}^1
-I(x,\mu,t) \d \mu$.  The scalar intensity is related to the radiation energy density
+I(x,\mu,t) \dd \mu$.  The scalar intensity is related to the radiation energy density
 $E$ by the relation $E = \phi/c$.  The equations are
 strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
 is a nonlinear function of temperature, and the absorption

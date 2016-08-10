@@ -11,15 +11,15 @@
 \documentclass[12pt]{report}
 \usepackage[letterpaper]{geometry}
 \geometry{verbose,tmargin=1.25in,bmargin=1.25in,lmargin=1.4in,rmargin=1.15in}
- \usepackage[doublespacing]{setspace}
- \usepackage{tocloft}
- \usepackage[rm, tiny,center, compact]{titlesec}
- \usepackage{indentfirst}
- \usepackage{etoolbox}
+\usepackage[doublespacing]{setspace}
+\usepackage{tocloft}
+\usepackage[rm, tiny,center, compact]{titlesec}
+\usepackage{indentfirst}
+\usepackage{etoolbox}
 \usepackage{tocvsec2}
- \usepackage[titletoc]{appendix}
- \usepackage{appendix}
- \usepackage{tamuconfig}
+\usepackage[titletoc]{appendix}
+\usepackage{appendix}
+\usepackage{tamuconfig}
 \usepackage{rotating}
 \usepackage{amsmath}
 \usepackage{graphicx}
@@ -28,6 +28,43 @@
 %\usepackage{breqn}
 \usepackage[linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
 \allowdisplaybreaks
+
+%======================================
+% MY PACKAGES
+%======================================
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{color}
+\usepackage{listings} % for listing code
+\usepackage{etoolbox} % for toggles
+%\usepackage[colorlinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{cancel}
+
+%--------------------------------------
+% Simon's commands
+%--------------------------------------
+\input{mycommands}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\lstset{language=python,
+   basicstyle=\ttfamily,
+   keywordstyle=\color{blue},
+   commentstyle=\color{dkgreen},
+   stringstyle=\color{red},
+   numbers=left,
+   numberstyle=\tiny\color{gray},
+   stepnumber=1,
+   numbersep=10pt,
+   backgroundcolor=\color{white},
+   tabsize=4,
+   showspaces=false,
+   showstringspaces=false}
+\graphicspath{{figures/}}
+
 
 \makeatletter
 \renewcommand{\@biblabel}[1]{[#1]\hfill}
@@ -62,20 +99,20 @@
 
 \begin{document}
 
-\renewcommand{\tamumanuscripttitle}{Type in your default title here: You may need to change the spacing if the title is too long and pushes the copyright off of the titlepage }
+\renewcommand{\tamumanuscripttitle}{A High-Order Low-Order Algorithm with Exponentially-Convergent Monte Carlo for Thermal Radiative Transfer Problems}
 \renewcommand{\tamupapertype}{Dissertation}
-\renewcommand{\tamufullname}{First Middle Lastname}
+\renewcommand{\tamufullname}{Simon R Bolding}
 \renewcommand{\tamudegree}{Doctor of Philosophy}
-\renewcommand{\tamuchairone}{Chair Name}
+\renewcommand{\tamuchairone}{Jim Morel}
 % Uncomment out the next line if you have co-chairs.  You will also need to edit the titlepage.tex file.
 %\newcommand{\tamuchairtwo}{Additional Chair Name}
-\renewcommand{\tamumemberone}{Committee Member1}
-\newcommand{\tamumembertwo}{Committee Member2}
-\newcommand{\tamumemberthree}{Committee Member3}
-\renewcommand{\tamudepthead}{Head of Department}
+\renewcommand{\tamumemberone}{Ryan McClarren}
+\newcommand{\tamumembertwo}{Jean Ragusa}
+\newcommand{\tamumemberthree}{Jean-Luc Guermond}
+\renewcommand{\tamudepthead}{Yassin Hassan}
 \renewcommand{\tamugradmonth}{December}
-\renewcommand{\tamugradyear}{2012}
-\renewcommand{\tamudepartment}{Department Name}
+\renewcommand{\tamugradyear}{2013}
+\renewcommand{\tamudepartment}{Nuclear Engineering Department}
 
 
 \include{titlepage} % This is simply a file that formats and adds your titlepage, please do not edit this unless you have a specific need. .
@@ -86,11 +123,22 @@
 
 \include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. .
 
+\input{sections/introduction.tex}
+\input{sections/lo_solver.tex}
+\input{sections/ho_solver.tex}
+\input{sections/results.tex}
+\input{sections/dsa.tex}
+\input{sections/analytic_neutronics.tex}
+\input{sections/tallies.tex}
+\input{sections/spatial_closure.tex}
+
 \include{section1}
 \include{section2}
 \include{section3}
 
-fix spacing in bibliography, if any...
+
+
+%fix spacing in bibliography, if any...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \let\oldbibitem\bibitem
 \renewcommand{\bibitem}{\setlength{\itemsep}{0pt}\oldbibitem}

@@ -1,10 +1,19 @@
+\vskip -10pt
+\contentsline {table}{\numberline {1}{\ignorespaces \textbf {Comparison of sample statistics for the Marshak Wave problem. Simulation end time is $\mathbf {t=5}$ sh.}\relax }}{xlvi}{table.caption.11}
+\contentsline {table}{\numberline {2}{\ignorespaces Material properties for two material problem\relax }}{xlvii}{table.caption.12}
+\contentsline {table}{\numberline {3}{\ignorespaces \textbf {Comparison of sample statistics for the two material problem for 200 $x$ cells. Simulation end time is $\mathbf {t=2}$ sh.}\relax }}{xlviii}{table.caption.14}
+\contentsline {table}{\numberline {4}{\ignorespaces \textbf {Comparison of average CPU times per history and LO iteration counts for the Marshak Wave problem. }\relax }}{l}{table.caption.15}
+\contentsline {table}{\numberline {5}{\ignorespaces \textbf {Average CPU times per history and LO iteration counts required for the two material problem.}\relax }}{l}{table.caption.16}
+\contentsline {table}{\numberline {6}{\ignorespaces \textbf {Comparison of sample statistics for the Marshak Wave problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{li}{table.caption.17}
+\contentsline {table}{\numberline {7}{\ignorespaces \textbf {Comparison of sample standard deviations for the two material problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{li}{table.caption.18}
+\contentsline {table}{\numberline {8}{\ignorespaces \textbf {Comparison of sample statistics for the pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is indicated in parenthesis.}\relax }}{liii}{table.caption.20}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {table}{\numberline {2.1}{\ignorespaces This is a table template - This is an example of a long table title. Table titles need to be single-spaced within and double spaced between in the list of tables.\relax }}{5}{table.caption.10}
-\contentsline {table}{\numberline {2.2}{\ignorespaces This is a table template - This is an example of a long table title. Table titles need to be single-spaced within and double spaced between in the list of tables.\relax }}{5}{table.caption.12}
+\contentsline {table}{\numberline {2.1}{\ignorespaces This is a table template - This is an example of a long table title. Table titles need to be single-spaced within and double spaced between in the list of tables.\relax }}{4}{table.caption.23}
+\contentsline {table}{\numberline {2.2}{\ignorespaces This is a table template - This is an example of a long table title. Table titles need to be single-spaced within and double spaced between in the list of tables.\relax }}{5}{table.caption.25}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {table}{\numberline {3.1}{\ignorespaces This is a table template\relax }}{8}{table.caption.14}
+\contentsline {table}{\numberline {3.1}{\ignorespaces This is a table template\relax }}{7}{table.caption.27}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
