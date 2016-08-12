@@ -8,10 +8,10 @@
 \contentsline {chapter}{LIST OF FIGURES}{vii}{section*.6}
 \contentsline {chapter}{LIST OF TABLES}{viii}{section*.7}
 \vskip +10pt
-\contentsline {section}{\numberline {0.1}Preservation of the Discrete Maximum Principle}{ix}{section.0.1}
-\contentsline {chapter}{REFERENCES}{xiv}{section*.13}
+\contentsline {section}{\numberline {0.1}MC Estimation of the Spatial Closure}{ix}{section.0.1}
+\contentsline {chapter}{REFERENCES}{xii}{section*.8}
 \renewcommand {\cftchapaftersnum }{}
-\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {First Appendix}}{xiv}{APPENDIX.a.A}
-\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Second Appendix with a longer title - much longer in fact}}{xv}{APPENDIX.a.B}
+\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {First Appendix}}{xiii}{APPENDIX.a.A}
+\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Second Appendix with a longer title - much longer in fact}}{xiv}{APPENDIX.a.B}
 \vskip +10pt
-\contentsline {section}{\numberline {B.1}Appendix Section}{xv}{section.a.B.1}
+\contentsline {section}{\numberline {B.1}Appendix Section}{xiv}{section.a.B.1}

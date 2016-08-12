@@ -248,7 +248,14 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
     year = {2015}
 }
 
-
+@article{damped_newton,
+  title={Iterative methods for linear and nonlinear equations},
+  author={Kelley, CT},
+  journal={SIAM},
+  address={Philadelphia, PA}
+  volume={65002},
+  year = {1995}
+}
 
 
 

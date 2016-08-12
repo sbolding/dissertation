@@ -1,5 +1,2 @@
-\vskip -10pt
-\contentsline {table}{\numberline {1}{\ignorespaces Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }}{xii}{table.caption.11}
-\contentsline {table}{\numberline {2}{\ignorespaces Comparison of LO Newton iterations for different time step sizes and MP problem. For $\Delta t=0.1$, damping has $\zeta = 1$. For all other cases $\zeta = 0.5$.\relax }}{xiii}{table.caption.12}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

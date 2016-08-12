@@ -26,6 +26,7 @@
 \usepackage{subcaption}
 \usepackage{tabularx}
 %\usepackage{breqn}
+\usepackage{booktabs}
 \usepackage[linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
 \allowdisplaybreaks
 
