@@ -1,12 +1,7 @@
-\BOOKMARK [0][-]{chapter*.1}{ABSTRACT}{}% 1
-\BOOKMARK [0][-]{chapter*.2}{DEDICATION}{}% 2
-\BOOKMARK [0][-]{chapter*.3}{ACKNOWLEDGEMENTS}{}% 3
-\BOOKMARK [0][-]{chapter*.4}{NOMENCLATURE}{}% 4
-\BOOKMARK [0][-]{section*.5}{TABLE OF CONTENTS}{}% 5
-\BOOKMARK [0][-]{section*.6}{LIST OF FIGURES}{}% 6
-\BOOKMARK [0][-]{section*.7}{LIST OF TABLES}{}% 7
-\BOOKMARK [1][-]{section.0.1}{MC Estimation of the Spatial Closure}{section*.7}% 8
-\BOOKMARK [0][-]{section*.8}{REFERENCES}{}% 9
-\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX First Appendix}{}% 10
-\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Second Appendix with a longer title - much longer in fact}{}% 11
-\BOOKMARK [1][-]{section.a.B.1}{Appendix Section}{APPENDIX.a.B}% 12
+\BOOKMARK [1][-]{section.0.1}{Estimating the Spatial Closure from the HO Solution}{}% 1
+\BOOKMARK [1][-]{section.0.2}{MC Estimation of the Spatial Closure}{}% 2
+\BOOKMARK [2][-]{subsection.0.2.1}{LO Equations Trial Space}{section.0.2}% 3
+\BOOKMARK [0][-]{section*.1}{REFERENCES}{}% 4
+\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX First Appendix}{}% 5
+\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Second Appendix with a longer title - much longer in fact}{}% 6
+\BOOKMARK [1][-]{section.a.B.1}{Appendix Section}{APPENDIX.a.B}% 7

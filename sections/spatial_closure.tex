@@ -1,14 +1,20 @@
+
+\section{Estimating the Spatial Closure from the HO Solution}
+
+
+
 \section{MC Estimation of the Spatial Closure}
 
-The goal of this section is to use the HO solution to estimate the spatial closure for the
-LO system. After algebraically manipulating the moment equations to form angular
+This sections describes an alternative spatial closure to the LO equations based on 
+a parametric estimate from the HO solution. 
+After algebraically manipulating the time-discretized moment equations to form angular
 consistency parameters, there is still more unknowns than equations, for each cell, due to
 the .  A half-range balance equation for $\mu>0$ is formed by adding the
 exact $L$ and
 $R$ moment equations given by Eq.~\eqref{??????}~and~\eqref{??}, i.e.,
 \begin{equation}
-    \overline\mu^+_{i+1/2}\phi_{i+1/2}^+ - \overline\mu^+_{i-1/2}\phi_{i+1/2}^+ +
-    \frac{\sigma_{a,i}h_i}{2} \phi_i^+ = \frac{h_i}{2} q_i,
+    \overline\mu^+_{i+1/2}\phi_{i+1/2}^+ - \overline\mu^+_{i-1/2}\phi_{i-1/2}^+ +
+    {\sigma_{a,i}h_i} \phi_i^+ = \frac{h_i}{2} q_i,
 \end{equation}
 where $q$ is a general, isotropic source.  The angular consistency terms can be estimated
 with the HO solution and the inflow term $\phi_{i-1/2}^+$ is upwinded from the previous
@@ -62,7 +68,27 @@ face values.
 
 Our solution is in terms of the $L$ and $R$ moments, however.
 
+\subsection{LO Equations Trial Space}
 
+The
+linear shape on the interior of the cell is still used to represent the temperature
+unknowns, scattering source, and emission source.  The choice of this 
+trial space should allow for higher consistency between the HO and LO
+equations by using MC to compute outflows from space-angle cells, rather than an LD
+extrapolation of the solution.    For the HO solution, a discontinuous outflow for a space-angle cell should produce greater
+angular accuracy on faces.  In optically thick cells, this will mitigate observed issues with the spatial slope being
+artificially high to account for the discrepancy in angular shape between the
+internal and face solutions. The outflow will be estimated using a
+face-based tally of the MC solution.  The error equation can be modified to estimate the outflow for a given batch. 
+For the LO equations, a parametric relation between the outflow and internal moments, as
+estimated by the latest HO solution,
+will be used to eliminate the extra  unknowns.  This will produce a consistent spatial closure between the HO and LO
+solutions upon convergence. The closure relation will be averaged
+over each half-range, similar to the angular consistency parameters.   Poor statistics for the face tallies may result in this trial space producing less
+accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
+can accurately represent the solution.  Although the closure will be applied everywhere,
+we expect the greatest improvement in accuracy for cells where the LDFE trial space
+produces a negative solution.
 
 By introducing a LDD trial space into the LO equations, we introduce an additional
 unknown in each half-range equation.  This extra unknown is eliminated as a function

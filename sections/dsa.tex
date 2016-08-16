@@ -1,3 +1,63 @@
+
+\chapter{\uppercase {Accelerated Iterative Solution to the LO Equations}}
+
+\section{Diffusion Synthetic Acceleration of the LO Equations}
+
+As described in Sec.~\ref{sec:lo_sol}, the fully-discretized LO equations can include
+the scattering term in the system matrix.  This allows for the system to be directly
+inverted.
+However, the S$_2$ like system cannot be efficiently inverted
+directly in higher spatial dimensions.  To demonstrate a possible path forward in
+higher dimensions, we will investigate the use of a standard
+source iteration scheme to solve the LO equations.  As
+material properties become more diffusive (e.g., $c_v$ is small and $\sigma_a$ is
+large), the effective scattering source becomes large.  This results in a spectral radius of the source iterations that approaches
+unity~\cite{morel_newton}.  These regimes are typical in TRT simulations, so an
+acceleration method is critical.  We will accelerate the source iterations with a nearly-consistent diffusion synthetic acceleration
+(DSA) method~\cite{wla,wla_thesis}.
+
+We can perform standard source iterations by lagging the scattering source in the LO
+equations, which
+uncouples unknowns between the two half-ranges.  This produces a lower-triangular
+system where the spatial unknowns can be determined sequentially along the two directions of flow via a
+standard sweeping procedure~\cite{lewis,morel_newton}.  The newly computed half-range
+intensities can be used to compute the scattering source for the next iteration.  This
+process is repeated until convergence.  
+A form of DSA referred to as the WLA method is used to accelerate the source iterations~\cite{wla}. 
+Between each source iteration, a residual equation is formed that provides 
+the error in the current scattering iteration. The DSA method uses an approximate,
+lower-order operator to estimate the error in the zeroth angular moment of the
+intensity.  The DSA equations can be more efficiently
+solved than the S$_2$-like sweeps that are being accelerated, but will accurately resolve the
+slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
+equations to be closely related to the discretization of the LO equations for the
+acceleration to be effective.  The WLA method first solves a spatially-continuous
+discretization of the diffusion equation
+for the iterative error on faces.  The error on the faces is then mapped onto the
+volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
+The LD mapping resolves issues that would occur in optically-thick cells, while the
+continuous diffusion equation is accurate in the EDL where acceleration is important.
+
+We have implemented the DSA algorithm and initial results indicate that the
+acceleration is effective.  However, we have only considered the case when
+the LO equations and DSA equations are lumped.  We will investigate the effect of acceleration when alternative negativity fix-ups are
+implemented that result in DSA and LO equations that are not spatially consistent.
+We will recast the DSA method as a preconditioner to an iterative
+Krylov solution~\cite{larson_morel_sn} of the LO equations if acceleration degrades.  Generally, Krylov
+methods mitigate acceleration losses due to inconsistencies in the acceleration
+method.  In higher dimensions, the use of a Krylov method is necessary for effective
+acceleration for nearly-consistent acceleration methods such as WLA in problems with
+mixed optical thicknesses~\cite{larson_morel_sn}, e.g., typical radiative transfer
+problems.
+  We would apply the preconditioned-Krylov approach to allow for the use of lumped DSA
+  equations as a preconditioner, with the LO equations using one of the other fixup
+approaches detailed
+in the previous section.  It is noted we are not interested in measuring the reduction of
+computational time because in 1D the LO equations can be directly solved efficiently.
+We are just interested in ensuring that DSA or a preconditioned-Krylov methods can reduce the
+number of scattering iterations sufficiently, including cases where inconsistencies
+in the LO equations are present.  %because DSA
+
 \section{Diffusion Synthetic Acceleration}
 
 To accelerate source iteration in the LO system, a version of WLA DSA is used.  The

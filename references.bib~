@@ -252,9 +252,16 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
   title={Iterative methods for linear and nonlinear equations},
   author={Kelley, CT},
   journal={SIAM},
-  address={Philadelphia, PA}
+  address={Philadelphia, PA},
   volume={65002},
   year = {1995}
+}
+
+@book{chandrasekhar,
+  title={Radiative transfer},
+  author={Chandrasekhar, Subrahmanyan},
+  year={2013},
+  publisher={Courier Corporation}
 }
 
 

@@ -1,4 +1,61 @@
 
+\subsection{Inclusion of the Time Variable in ECMC Trial Space}
+
+\label{sec:time}
+Another area of investigation for closing the LO equations is in the time discretization
+of the system.  The goal of
+an alternative time discretization is to produce a more accurate solution in optically
+thin regions where particles transport a long distance.  A potential application is in 
+stellar atmosphere calculations.  In optically thin regions, the MC
+integration of the time-variable by IMC can produce greater accuracy, whereas an implicit
+Euler discretization will result in artificially fast propagation of energy.  We hope to improve
+the efficiency of MC calculations in thin regions with the ECMC method while still preserving the
+accuracy of a MC treatment in the time variable.  The time variable will be included in
+the trial space for ECMC and the LO equations will be closed in time consistently.  We
+will not be performing adaptive refinement in time, so maintaining exponential convergence
+may not be not possible.  However, we still expect the residual MC formulation of the ECMC method
+to show improvement over standard MC.
+
+Inclusion of time $t$ in the MC trial space allows for no discretization of the
+transport operator $L$.  The transport operator becomes
+\begin{equation}
+    LI = \frac{1}{c}\pderiv{I}{t} + \sigma_t I + \mu \pderiv{I}{x}
+\end{equation}
+The emission source
+is still treated as fully implicit, similar to IMC.
+  In inverting the $\B L$ operator, particles are born with some specific
+time, and their time is tracked until they reach the end of the time step.  Tallies are adjusted
+to account for the averaging over the time step, and to compute the intensity at the end
+of time step as necessary, depending on the chosen trial space.
+
+The choice of trial space in time for the intensity will also be investigated.  A doubly-discontinuous
+trial space that is constant over the interior of the time step allows for much of the
+residual machinery from the discrete case to be reused.  However, this trial space may produce problems in estimating the end of
+time-step intensity if few particles reach the end of time step time.  We will explore the
+option of using importance sampling in the time variable to ensure some fraction of
+histories reach the end of the time step.  If there is too much statistical noise in the
+end of time step values, a
+linear-discontinuous (LD) treatment in time could be implemented, which would make all
+particle tracks contribute to the estimation of the slope in $t$.  The LD time
+representation has a couple downsides.  This approach has a projection error for computing
+the end of time step intensity.  Additionally, the third linear variable would
+substantially complicate computation and sampling of the residual.  This would require
+implementation of an alternative sampling method.
+
+The LO equations must now have a closure in time to be consistent with the HO equations. 
+Previous work has attempted to simply subtract the continuous HO solution
+from a BE discretziation of the discretized time-derivatives to add an artificial
+term, with the addition of extra terms from hydrodynamics~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
+time-averaged unknowns.  We will alternatively use a parameteric closure in the time
+variable similar to the spatial closures discussed in the previous section.  All
+consistency terms will exist as before, but now as time-averaged quantities.  All that
+remains is to eliminate the end of time step unknowns in terms of time-averaged
+unknowns and previous time step solution, as estimated by the previous HO solution.  We
+will investigate different parameteric forms of the closure for robustness.  The closure
+produces LO equations that have the same numerical difficulty to solve as the fully-discrete LO equations, but
+have the potential to preserve the accuracy of the MC integration in time.   Once the time-averaged unknowns have been calculated,
+the time closures can be used to advance to the end of time step values for the next
+time step.
 %\subsection{Alternative time discretization}
 %\label{sec:time}
 %

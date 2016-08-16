@@ -1,0 +1,66 @@
+
+\subsection{Resolving Issues in Optically Thick Cells}
+\label{sec:negs}
+
+The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
+optically thick cells with a steep intensity gradient, the intensity becomes
+negative. In typical TRT problems (e.g., the Marshak wave problems above), this negativity occurs at the wave-front of the
+radiation intensity in optically thick materials.
+These negativities are not physical and can propagate to adjacent cells. In thick regions of
+TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
+free paths; negativities with an LD representation are unavoidable in practice for
+such cells, and mesh refinement is of minimal use.  We will explore several methods
+for resolving negativities.  Ideally the solutions in
+such cells should be as consistent as possible for the HO and LO equations.  However,
+the differences between the solution methods of the two equations, as well as the
+fact that some terms are lagged, have lead to the development of independent
+approaches for the LO and HO systems thus far.
+
+Typically, for a standard LDFE method,
+the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
+procedures would introduce difficulties in computing the consistency terms from the
+HO solution.    The results in Sec.~\ref{results} used a lumping-equivalent closure for the LO equations and $S_2$ equivalent angular terms..
+This approach will not produce
+accurate results for general problems in higher spatial dimensions. Also, a lumping equivalent closure in $x$ does not guarantee positivity for the space-angle LDFE
+representation of the HO intensity.
+Alternatively, the equations within a cell can be modified to ensure the outflow is not
+below the floor value (the initial temperature of the problem), and energy balance is
+conserved.  The LD shape is reconstructed by extrapolating from the outflow back
+through the average.  This closure has been implemented and is more promising for extendability into higher
+dimensions.
+
+For the HO solver, after an ECMC batch, we detect cells that produced a negative
+intensity. In these cells, we scale the linear representation of the intensity (in
+$x$ and $\mu$) to be greater than the floor
+value.  This scaling process of the two moments is underdefined, so there is not a unique way to enforce
+positivity.  The scaling procedure is not an emphasis of the research, so we apply the simple
+approach of scaling the slopes such that the ratio of the slope in $x$ and $\mu$ is
+unchanged.  The scaled intensity will not satisfy the original residual equation accurately because we have
+modified the first moments.   Thus, the ECMC error estimates will rapidly stagnate,
+and produce relatively inaccurate solutions.  This scaling can also lead to
+negativities in down-stream cells that is unphysical in later batches.  To mitigate
+stagnation and improve accuracy, we will add an artifical source $\tilde\delta^{m+1}(x,\mu)$ to the HO equation.
+This source is estimated iteratively as
+\begin{equation*}
+    \tilde\delta(x,\mu)^{(m+1)} = \mathbf{L}(\tilde{I}^{n+1,(m)} -
+    \tilde{I}^{n+1,(m)}_{\text{pos}}),
+\end{equation*}
+where $\tilde{I}_{pos}^{n+1}$ is the modified positive solution.
+Essentially, this source is modifying the first moments of the transport equation to
+ensure a positive solution within the negative cells.   If necessary, we can estimate a
+new source again in the next batch.  The source
+$\tilde\delta$ lies in the same functional space as the residual, and thus can use
+the existing code for computing the residual and will be straight forward to extend
+to higher dimensions.  
+
+We have implemented this artificial source and found it to reduce the
+magnitude of the MC estimated error, producing a positive solution. We still need to
+investigate the accuracy and robustness of the
+added source method, and whether it should be recomputed every batch, once it has been
+triggered, or only when the
+solution becomes negative again.   We will also
+investigate adding the source to the LO equations for greater consistency and accuracy in
+the LO equations.  This will not
+necessarily guarantee positivity in the LO equations due to the lagged estimate of the emission source in
+used in the previous HO solution.  We will investigate altering the  method for computing the added source computation to ensure the zeroth moment
+of the equations is not changed, ensuring energy conservation.

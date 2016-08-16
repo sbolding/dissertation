@@ -1,0 +1,40 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  New template code for TAMU Theses and Dissertations starting Fall 2012.  
+%  For more info about this template or the 
+%  TAMU LaTeX User's Group, see http://www.howdy.me/.
+%
+%  Author: Wendy Lynn Turner 
+%	 Version 1.0 
+%  Last updated 8/5/2012
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                           ABSTRACT 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{ABSTRACT} % Needs to be set to part, so the TOC doesnt add 'CHAPTER ' prefix in the TOC.
+
+\pagestyle{plain} % No headers, just page numbers
+\pagenumbering{roman} % Roman numerals
+\setcounter{page}{2}
+
+\indent 
+We have implemented a new high-order low-order (HOLO) algorithm for solving
+thermal radiative transfer problems.  The low-order (LO) system is based on spatial
+and angular moments of the transport equation and a linear-discontinuous
+finite-element spatial representation, producing equations similar to the standard
+S$_2$ equations.  
+The LO solver is fully implicit in time and efficiently resolves the non-linear
+temperature dependence at each time step.   The HO solver
+utilizes exponentially-convergent Monte Carlo (ECMC) to give a globally accurate solution
+for the angular intensity to a fixed-source, pure absorber transport problem.  This
+global solution is used to compute consistency terms, which require the HO and LO solutions to converge towards the same solution.  The use of ECMC
+allows for the efficient reduction of statistical noise in the MC solution, reducing
+inaccuracies introduced through the LO consistency
+terms.  We compare results with an
+implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
+demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
+
+\pagebreak{}
