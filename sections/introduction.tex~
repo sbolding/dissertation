@@ -1,3 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%  New template code for TAMU Theses and Dissertations starting Fall 2012.  
+%  For more info about this template or the 
+%  TAMU LaTeX User's Group, see http://www.howdy.me/.
+%
+%  Author: Wendy Lynn Turner 
+%	 Version 1.0 
+%  Last updated 8/5/2012
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                           SECTION I
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\pagestyle{plain} % No headers, just page numbers
+\pagenumbering{arabic} % Arabic numerals
+\setcounter{page}{1}
 
 \chapter{\uppercase {Introduction}}
 
@@ -7,7 +27,7 @@ material energy balance equations, i.e.,\vspace{-0.05in}
     \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
     I(x,\mu,t)
 &= \frac{\sigma_s}{2} \phi(x,t) +\frac{1}{2} \sigma_a a c T^4(x,t)
-    \\ \label{t_cont}
+    \\ \label{eq:mat_cont}
   \rho c_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4(x,t).
 \end{align}
 In the above equations $x$ is the position, $t$ is the time, $\mu$ is
@@ -46,7 +66,7 @@ high-dimensional space results in a difficult, nonlinear transport problem.
     \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
     I(x,\mu,t)
 &= \frac{\sigma_s}{2} \phi(x,t) +\frac{1}{2} \sigma_a a c T^4(x,t)
-    \\ \label{t_cont}
+    \\ \label{eq:mat_cont}
   \rho c_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4(x,t).
 \end{align}
 In the above equations the fundamental unknowns are the material temperature $T(x,t)$ and
@@ -67,7 +87,7 @@ streaming and optically-thick, diffusive regions.  Although in most physical
 applications material motion is present, it is not the focus of this research and will not
 be considered.  The purpose of the proposed research is to demonstrate the ability 
 of a new algorithm to provide highly-accurate and efficient solutions to
-Eq.~\eqref{ho_cont} and Eq.~\eqref{t_cont}.
+Eq.~\eqref{ho_cont} and Eq.~\eqref{eq:mat_cont}.
 
 \subsection{Derivation of 1D Grey Model}
 
@@ -79,7 +99,7 @@ This sections describes previous related work.
 
 Monte Carlo (MC) solution to the TRT equations is typically achieved by the 
 implicit Monte Carlo (IMC) method~\cite{fnc}. This
-method partially linearizes Eq.~\eqref{ho_cont} \& Eq.~\eqref{t_cont} over a discrete time
+method partially linearizes Eq.~\eqref{ho_cont} \& Eq.~\eqref{eq:mat_cont} over a discrete time
 step, with material properties evaluated at the previous temperature.  Linearization of the system produces a transport equation that contains an approximate emission source and an effective scattering cross section representing
 absorption and reemission of photons over a time step. This transport equation is
 advanced over a time step via MC. The MC simulation tallies energy absorption
@@ -100,7 +120,7 @@ The Monte Carlo (MC) method~\cite{shultis_mc} is a standard computational method
 the field of radiation transport.
  The implicit Monte Carlo (IMC) method~\cite{fnc}
 is the most common approach for applying the MC method to TRT problems. The IMC
-method partially linearizes Eq.~\eqref{ho_cont} and Eq.~\eqref{t_cont} over a discrete time
+method partially linearizes Eq.~\eqref{ho_cont} and Eq.~\eqref{eq:mat_cont} over a discrete time
 step and lags material properties to produce a linear transport equation, which can be solved with MC
 simulation.  The linear transport equation contains an approximate emission source
 and effective scattering cross section that represent

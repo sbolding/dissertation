@@ -133,7 +133,7 @@
 %\input{sections/dsa.tex}
 %\input{sections/analytic_neutronics.tex}
 %\input{sections/tallies.tex}
-\input{sections/spatial_closure.tex}
+\input{sections/spatial_closure}
 %\input{sections/mpv.tex}
 
 
