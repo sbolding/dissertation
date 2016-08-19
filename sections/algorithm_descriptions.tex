@@ -6,9 +6,9 @@ well as constant specific heats and cell-wise constant cross sections. The time-
 equations are
 \begin{align}
     \mu \pderiv{I^{n+1}}{x} + \left(\sigma_t^{n+1} + \frac{1}{c \Delta t }\right) I^{n+1}
-&= \frac{\sigma_s}{2} \phi^{n+1} +\frac{1}{2} \left(\sigma_a a c T^4 \right)^{n+1} + \frac{I^n}{c \Delta t} \label{ho_trans} \\
+&= \frac{\sigma_s}{2} \phi^{n+1} +\frac{1}{2} \left(\sigma_a a c T^4 \right)^{n+1} + \frac{I^n}{c \Delta t} \label{eq:trans_td} \\
 \rho c_v \frac{T^{n+1} - T^n}{\Delta t} &= \sigma_a^{n+1} \phi^{n+1}
-- \sigma_a a c (T^4)^{n+1} \label{lo_mat},
+- \sigma_a a c (T^4)^{n+1} \label{eq:mat_td},
 \end{align}
 where $\Delta t$ is the uniform time step size, the superscript $n$ is used to indicate
 the $n$-th time step. Cross sections are evaluated at the end of time step
@@ -22,7 +22,7 @@ energy due to the implicit time differencing in optically thin regions.
 In the HOLO context, the LO solver models isotropic scattering and
 resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
 angular and spatial moments of
-Eq.~\eqref{ho_trans} and Eq.~\eqref{lo_mat}. The spatial moments are formed over a
+Eq.~\eqref{eq:trans_td} and Eq.~\eqref{eq:mat_td}. The spatial moments are formed over a
 finite-element mesh and linear-discontinuous representation of the temperature is used to
 close the system.  The angular treatment in the LO equations has the same form as those
 used in the hybrid-S$_2$ method in~\cite{wolters},  with consistency parameters that
@@ -56,7 +56,7 @@ stability in optically-thick regions where NDA methods demonstrate stability iss
 
 The solution to the LO system is used to construct a LDFE spatial representation of
 the isotropic scattering and emission sources on the right hand side of
-Eq.~\eqref{ho_trans}.   The LDFE representation of the emission source mitigates teleportation error.
+Eq.~\eqref{eq:trans_td}.   The LDFE representation of the emission source mitigates teleportation error.
  This defines a fixed-source, pure absorber
 transport problem for the HO operator. This HO transport problem represents a characteristic method that uses MC to
 invert the continuous streaming plus removal operator with an LDFE representation of

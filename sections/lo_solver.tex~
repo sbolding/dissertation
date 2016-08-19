@@ -1,16 +1,137 @@
 
 \chapter{\uppercase{The Moment-Based Low-Order Equations}}
 
+Our low-order equations are similar to those in~\cite{wolters,anistrotiv}. The approach is
+similar to standard FE methods where a weak-form of the solution is formed by weighting
+with functions that have local support.  The primary difference is we leave weighted
+averages of the solution as unknowns, directly evaluate the integrals, and then apply a
+spatial closure.  Leaving the solution in this form allows for use of the HO solution to
+closure the system.  However, because we are in thermal radiative transfer problems, it is
+necessary to have a linear shape on the interior of a cell to preserve the EDL.  
+The equations
+have a similar form to a linear-discontinuous FE method, however we will explore the
+possibility of using the MC solution to modify the discretization of the LO solution in
+Sec.~\ref{sec:spat_clos}.  
+
+The remainder of this chaper is structured as follows: the equations will be
+derived.
+
 \section{Forming the Low-Order System}
 
-To form the LO system of equations, spatial moments are taken over each spatial cell $i$:
-$x\in[x_{i-1/2},x_{i+1/2}]$, weighted with the standard linear finite element (FE)
-interpolatory basis functions.  For example, the $L$  moment operator is defined by
+\subsection{LO Spatial mesh and Finite-Element Spatial Moments}
+
+The LO equations are formulated over a FE mesh.  The domain for the $i$-th spatial
+element of this mesh has support $x\in[x_{i-1/2},x_{i+1/2}]$ with width $h_i=x_{i+1/2} -
+x_\il$ and cell center 
+$x_i = x_\il + h_i/2$.  There is a total of $N_c$ elements, spanning the
+complete spatial domain $0\leq x\leq X$.  For simplicity, this spatial mesh is fixed throughout the
+simulation.  Mesh adaptation is only applied in the HO solver.
+
+\begin{figure}[H]
+    \centering
+    \begin{centering}
+        \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
+            \fill[fill=blue!20!white!20] (11.0,0.5) rectangle (15.90,4.0);
+            \node at (10.4,4.0) {${1}$ \hspace{0.8em} };
+            \draw [->] (10.4,4.0) -- (10.8,4.0);
+            \draw (11.0,0.4) -- (11.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
+            \draw (15.90,0.4) -- (15.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
+            \node at (14.92,4.02) {$b_{R,i}(x)$};
+            \node at (12.0,4.02) {$b_{L,i}(x)$};
+            \draw [thick,->] (9.5,0.5) -- (17.0,0.5) node[anchor=north west] {$x$};
+            \draw [dashed,->] (11.0,0.5) -- (11.0,4.5);
+            \draw (11.0,0.5) -- (15.90,4.0);
+            \draw (15.90,0.5) -- (11.0,4.0);
+        \end{tikzpicture}
+    \end{centering}
+    \caption{Illustration of linear finite element basis functions $b_{L,i}(x)$ and
+    $b_{R,i}(x)$ for spatial element $i$.\label{fig:lin_fe}}
+\end{figure}
+
+The spatial moments are defined by integrals weighted with the standard linear finite element (FE)
+interpolatory basis functions.  An illustration of the two linear FE basis functions for the $i$-th element is
+given in Fig.~\ref{fig:lin_fe}.  The left basis function is defined as
+\begin{equation}
+    b_{L,i}(x)= \left\{\begin{matrix} \frac{x_\ir - x}{h_i} & x_\il \leq x \leq x_\ir
+        \\ 0 &  \text{elsewhere}
+    \end{matrix}\right.,
+\end{equation}
+corresponding to the node $x_\il$.
+The right basis function is 
+\begin{equation}
+    b_{R,i}(x)= \left\{\begin{matrix} \frac{x - x_\il}{h_i} & x_\il \leq x \leq x_\ir
+        \\ 0 & \text{elsewhere}
+    \end{matrix}\right. ,
+\end{equation}
+corresponding to the node $x_\ir$. With these definitions, a local linear approximation to a
+function $f$ can be formulated as $f(x)\simeq f_{L,i} b_{L,i}(x) + f_{R,i}
+b_{R,i}(x),\quad x\in[x_{\il},x_{\ir}]$.\footnote{In literature the FE functions are
+formally defined with support over two adjacent elements.  However, in our notation our 
+functions only have non-zero support in element $i$. This accommodates our later
+definition of moments and discontinuous unknowns.}
+
+The spatial moments are defined as follows:
+\begin{equation}\label{eq:x_moml}
+\mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{L,i}(x) (\cdot) \dd x
+\end{equation}
+and
+\begin{equation}\label{eq:x_momr}
+\mom{\cdot}_{R,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{R,i}(x) (\cdot) \dd x.
+\end{equation}
+where the factor of $2/h_i$ is a normalization constant.
+
+\subsection{Definition of Angular Moments}
+
+To reduce the angular dimensionality, positive and
+negative half-range integrals of the angular intensity are taken.  The half-range
+integrals of $I$ are defined as $ \phi^+(x) = 2 \pi \int_0^{1} I(x,\mu)\, \dd \mu$ and $
+\phi^-(x) = 2 \pi \int_{-1}^{0} I(x,\mu) \,\dd
+\mu$, respectively.  Thus, in terms of half-range quantities, the mean intensity is $\phi(x) = \phi^-(x) +
+\phi ^+(x)$.   
+
+\subsection{Space-Angle Moments of the TRT equations}
+
+To form the LO equations, we apply the space-angle moments to the TRT equations.  The $L$ and $R$ moments with the $+$ and $-$ half range
+integrals over $\mu$ are applied in a pair-wise fashion.  The $L$ moment operator is
+applied to the time-discretized transport equation, i.e., Eq.~\eqref{eq:trans_td}. This
+yields
+\begin{multline}\label{eq:lo_tran}
+    -2{\mu}_{i-1/2}^{n+1,+} \phi_{i-1/2}^{n+1,+} + \cur {\mu}_{L,i}^{n+1,+}
+  \mom{\phi}_{L,i}^{n+1,+}
+  +  \cur\mu_{R,i}^{n+1,+}
+  \mom{\phi}_{R,i}^{n+1,+} +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
+  \mom{\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
+  \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
+  \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+},
+\end{multline}
+
+
+
+
+
+
+
+
+
+
+
+It is noted in this notation $\mom{\phi}_{L,i}$ and
+$\mom{\phi}_{R,i}$ represent spatial moments of the intensity over cell $i$, opposed
+to $\phi_{L,i}$ and $\phi_{R,i}$, which represent the interior value of the linear
+representation of $\phi(x)$ at $x_\il$ and $x_\ir$ within the cell. 
+
+To form the LO system of equations, we first consider application of the spatial moments. 
+The spatial moments are defined by integrals weighted with the standard linear finite element (FE)
+interpolatory basis functions.  The integrals of the TRT equations are
+taken over each element; the spatial domain for the $i$-th element has
+the support $x\in[x_{i-1/2},x_{i+1/2}]$. There is a total of $N_c$ elements, spanning the
+spatial domain $0\leq x\leq X$.  An illustration of the finite element basis functions is
+given in Fig.~\ref{fig:lin_fe}.  For example, the $L$  moment operator is defined by
 \begin{equation}\label{x_mom}
 \mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{L,i}(x) (\cdot) \dd x,
 \end{equation}
 where $h_i=x_{i+1/2}-x_{i-1/2}$ is the width of the spatial element and
-$b_{L,i}(x)=(x_{i+1/2}-x)/h_i$ is the FE basis function, for cell $i$, corresponding to position
+$b_{L,i}(x)=(x_{i+1/2}-x)/h_i$ is the linear FE basis function, for cell $i$, corresponding to position
 $x_{i-1/2}$.  The right moment $\mom{\cdot}_{R,i}$ is defined with weight function $b_{R,i}(x)=(x -
 x_{i-1/2})/h_i$. It is noted in this notation $\mom{\phi}_{L,i}$ and
 $\mom{\phi}_{R,i}$ represent spatial moments of the intensity over cell $i$, opposed
@@ -20,6 +141,8 @@ negative half-range integrals of the angular intensity are taken.  The half-rang
 averages of $I$ are defined as $ \phi^+(x) = \int_0^{1} I(x,\mu) \dd \mu$ and $ \phi^-(x) = \int_{-1}^{0} I(x,\mu) \dd
 \mu$, respectively.  Thus, in terms of half-range quantities, $\phi(x) = \phi^-(x) +
 \phi ^+(x)$.  
+
+
 
 \subsection{Radiation Energy Equations}
 
