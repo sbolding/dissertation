@@ -16,7 +16,7 @@
 
 \addtocontents{toc}{\protect\renewcommand{\protect\cftchapaftersnum}{}}
 
-\input{appendix1}
+\input{sections/appendix1}
 \input{appendix2}
 
 \end{appendices}
