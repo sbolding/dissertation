@@ -258,7 +258,7 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
 }
 
 @book{chandrasekhar,
-  title={Radiative transfer},
+  title={Radiative Transfer},
   author={Chandrasekhar, Subrahmanyan},
   year={2013},
   publisher={Courier Corporation}
