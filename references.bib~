@@ -183,7 +183,6 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
 }
 
 
-%NEED to find a report or article that states there is some percentage of boron in the 
 @book{stacy,
     title = {"Nuclear Reactor Physics"},
     author = {"Weston M. Stacey"},
@@ -192,6 +191,15 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
 }
 
 
+@BOOK{toro,
+  title = {Riemann {S}olvers and {N}umerical {M}ethods for {F}luid {D}ynamics: A {P}ractical
+	{I}ntroduction},
+  publisher = {Springer},
+  year = {1999},
+  author = {E.F. Toro},
+  owner = {jedwards},
+  timestamp = {2012.08.30}
+}
 
 @BOOK{lewis,
   title={Computational methods of neutron transport},
@@ -372,7 +380,7 @@ author = "Jeffery D. Densmore"
     date = "May 5-9",
     year = 2013
 }
-@article{morel_newton,
+@article{morel_ldtrt,
     author = "J.E. Morel and T.A. Wareing and K. Smith",
     title = "{Linear-Discontinuous Spatial Differencing Scheme for $S_n$
     Radiative Transfer Calculations}",

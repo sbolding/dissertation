@@ -361,7 +361,7 @@ The choice of a LD spatial closure preserves the equilibrium diffusion limit.  I
 associated with an isotropic intensity, based on a spatially LD emission source.  The isotropic-intensity consistency terms will produce
 LO equations that are equivalent to $S_2$ equations, with quadrature points of $\pm 1/2$.  Because the spatial
 closure produces equations that are equivalent to an LDFE solution to these equations, we expect the equations to preserve the
-equilibrium diffusion limit~\cite{morel_newton,densmore_edl}.
+equilibrium diffusion limit~\cite{morel_ldtrt,densmore_edl}.
 
 \subsubsection{Fixups to LD Solution}
 
@@ -371,7 +371,7 @@ These negative values of intensity can propagate to adjacent cells. In thick reg
 TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
 free paths; negative values with an LD representation are unavoidable in practice for
 such cells and mesh refinement is of minimal use.  Typically, for a standard LDFE method,
-the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
+the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_ldtrt}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
 HO solution.  Thus, an alternative spatial closure is used that is equivalent to the
 standard FE lumping procedure.  The $L$ and $R$ moments are defined the same as before,
@@ -387,7 +387,7 @@ Adding the equations for each cell together forms a global system of coupled equ
 The equations are nonlinear due to the Planckian emission source.  
 We have used Newton's method to solve the nonlinear system, based on a typical linearization of the Planckian source with cross
 sections evaluated at temperatures from the previous iteration, as described
-in~\cite{morel_newton}.  A derivation of the LO Newton equations is given
+in~\cite{morel_ldtrt}.  A derivation of the LO Newton equations is given
 in~\ref{app:lo_newton}.
 
 The equations for each half-range are coupled together via scattering.  

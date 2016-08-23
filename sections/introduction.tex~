@@ -21,29 +21,6 @@
 
 \chapter{\uppercase {Introduction}}
 
-We have implemented a high-order low-order (HOLO) algorithm for the case of 1D gray thermal radiative transfer (TRT) problems. The governing equations are the radiation and
-material energy balance equations, i.e.,\vspace{-0.05in}
-\begin{align}\label{eq:rad_cont}
-    \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
-    I(x,\mu,t)
-&= \frac{\sigma_s}{2} \phi(x,t) +\frac{1}{2} \sigma_a a c T^4(x,t)
-    \\ \label{eq:mat_cont}
-  \rho c_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4(x,t).
-\end{align}
-In the above equations $x$ is the position, $t$ is the time, $\mu$ is
-the $x$-direction cosine of the angular intensity $I(x,\mu,t)$, and $a$, $c$, $\rho$,
-and
-$c_v$ are the radiation constant, speed of light, mass density, and specific heat; $\sigma_a$, $\sigma_s$, and
-$\sigma_t$ are the absorption, scattering, and total
-cross sections (cm$^{-1}$), respectively. The desired unknowns are the material
-temperature $T(x,t)$ and the scalar radiation intensity $\phi(x,t)=\int_{-1}^1
-I(x,\mu,t) \dd \mu$.  The scalar intensity is related to the radiation energy density
-$E$ by the relation $E = \phi/c$.  The equations are
-strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
-is a nonlinear function of temperature, and the absorption
-term $\sigma_a \phi$.   In general, the material properties are a function of $T$.  The temperature dependent material properties and
-absorption and reemission physics lead to systems that require solution in a mix of
-streaming and optically thick, diffusive regions. 
 
 \section{Thermal Radiative Transfer Background}
 
@@ -51,15 +28,40 @@ Thermal radiative transfer (TRT) physics describe the time-dependent energy dist
 radiation field and a high-temperature material.  The material and radiation exchange
 energy through absorption and emission of photons by the material.  
 Accurate modeling of TRT physics becomes relevant in the high-energy,
-high-density physics regime. Typical computational applications of TRT include simulation of inertial confinement fusion and
-astrophysics phenomena. 
- The transport of
-photons through a material is characterized by particle position, direction, and
-frequency.  The material energy distribution is described by the material internal
-energy (often described by material temperature) as a function of position.  The
-high-dimensional space results in a difficult, nonlinear transport problem.
+high-density physics regime.   Radiative transfer is the dominant form of heat transfer in
+very high-temperature systems, where the material temperature $T$ is $O(10^6)$ K or
+higher. Typical computational applications of TRT include simulation of inertial confinement fusion and
+astrophysics phenomena.  
 
- This research will focus on a simplified 1D slab-geometry and
+ The transport of photons through a material is characterized by particle position, direction, and
+frequency.  The material energy distribution is described by the material internal
+energy as a function of position.  The high-dimensional space results in a difficult, nonlinear transport problem.
+The internal energy $e$ is related to the material
+temperature through an equation of state.  In this work a perfect gas equation of state is
+used~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the
+material mass density and $c_v$ is the specific heat.  Thus, we will now discribe the
+equations in terms of temperature.
+
+    The equations are
+strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
+is a nonlinear function of temperature, and the radiation absorption
+term $\sigma_a \phi$.  In general, the material properties are a function of $T$.  The
+temperature-dependent material properties and
+absorption and reemission physics lead to systems that require accurate modeling of
+photon transport through a  mix of
+streaming and optically-thick, diffusive regions.  Although in most physical
+applications material motion is present, it is not the focus of this research and will not
+be considered.  The purpose of the proposed research is to demonstrate the ability 
+of a new algorithm to provide highly-accurate and efficient solutions to
+Eq.~\eqref{eq:rad_cont} and Eq.~\eqref{eq:mat_cont}.
+
+\subsection{Derivation of 1D Grey Model}
+
+The transport of photons through a material is governed by the Boltzmann linear transport
+equation~\cite{shultis_mc,lewis}.  We will make an assumption of isotropic scattering to
+simplify the equations.  The radiative 
+
+This research will focus on a simplified 1D slab-geometry and
  frequency-integrated (grey) TRT model.  The governing equations for this simplified model are the radiation and material
  energy balance equations
 \begin{align}\label{eq:rad_cont}
@@ -77,44 +79,40 @@ $c_v$ are the radiation constant, speed of light, material mass density, and mat
 $\sigma_t$ are the absorption, scattering, and total
 cross sections (cm$^{-1}$), respectively.  The scalar radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
-$E$ (with typical units Jks cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.   The equations are
-strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
-is a nonlinear function of temperature, and the radiation absorption
-term $\sigma_a \phi$.  In general, the material properties are a function of $T$.  The temperature dependent material properties and
-absorption and reemission physics lead to systems that require accurate modeling of
-photon transport through a  mix of
-streaming and optically-thick, diffusive regions.  Although in most physical
-applications material motion is present, it is not the focus of this research and will not
-be considered.  The purpose of the proposed research is to demonstrate the ability 
-of a new algorithm to provide highly-accurate and efficient solutions to
-Eq.~\eqref{eq:rad_cont} and Eq.~\eqref{eq:mat_cont}.
+$E$ (with typical units Jks cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.
 
-\subsection{Derivation of 1D Grey Model}
 
 \section{Previous Work}
 
-This sections describes previous related work.
+This sections describes related work on Monte Carlo solution to the TRT equations.  The
+Monte Carlo (MC) method samples the underlying physics distributions to estimate the
+average behavior of a field of photon.  This can provide a highly-accurate results, in
+particular for treatement of the angular and temporal variable in the transport equation.  The
+temperature equation is almost always solved deterministically in such particle transport
+methods. Monte carlo solution to the transport equation can introduce larege statistical
+noise into the material temperature distribution, which is undesirable when coupling to
+other physics.  To improve the efficiency of MC solutions, hybrid MC methods utilize a
+deterministic solution to accelerate the MC solution.  
 
 \subsection{The Implicit Monte Carlo Method}
 
 Monte Carlo (MC) solution to the TRT equations is typically achieved by the 
 implicit Monte Carlo (IMC) method~\cite{fnc}. This
 method partially linearizes Eq.~\eqref{eq:rad_cont} \& Eq.~\eqref{eq:mat_cont} over a discrete time
-step, with material properties evaluated at the previous temperature.  Linearization of the system produces a transport equation that contains an approximate emission source and an effective scattering cross section representing
-absorption and reemission of photons over a time step. This transport equation is
-advanced over a time step via MC. The MC simulation tallies energy absorption
-over a discretized spatial mesh.  The energy absorption in each mesh cell is used to directly estimate
-a new end of time step temperature in that cell.  In optically thick regions, or for
-large time steps, the
-effective scattering dominates interactions.  In these diffusive regions IMC
-becomes computationally expensive. Acceleration methods typically attempt to improve
-efficiency by allowing particles to take discrete steps through optically thick
-regions based on a discretized diffusion approximation~\cite{imd,ddmc}. 
-In IMC the
-approximate linearization of the emission source is not iterated on within a time
-step due to the large computational cost of the MC transport each time step; this
-imposes a limit on the time step size to produce physically accurate
-results~\cite{wollaber2013discrete}. 
+step, with material properties evaluated at the previous temperature.  Linearization of
+the system produces a transport equation that contains an approximate emission source and
+an effective scattering cross section representing absorption and reemission of photons
+over a time step. This transport equation is advanced over a time step via MC. The MC
+simulation tallies energy absorption over a discretized spatial mesh.  The energy
+absorption in each mesh cell is used to directly estimate a new end of time step
+temperature in that cell.  In optically thick regions, or for large time steps, the
+effective scattering dominates interactions.  In these diffusive regions IMC becomes
+computationally expensive. Acceleration methods typically attempt to improve efficiency by
+allowing particles to take discrete steps through optically thick regions based on a
+discretized diffusion approximation~\cite{imd,ddmc}.  In IMC the approximate linearization
+of the emission source is not iterated on within a time step due to the large
+computational cost of the MC transport each time step; this imposes a limit on the time
+step size to produce physically accurate results~\cite{wollaber2013discrete}. 
 
 The Monte Carlo (MC) method~\cite{shultis_mc} is a standard computational method in
 the field of radiation transport.
@@ -169,10 +167,8 @@ results referred to as ``teleportation error"~\cite{teleportation}.  The IMC met
 to mitigate this problem.  Source tilting reconstructs a more accurate
 linear-discontinuous representation of the
 emission source within a cell based on the cell-averaged material temperatures in adjacent
-cells. 
-
-CITE WOLLAGERS WORK ON LDFE
-
+cells.  Recent work in IMC has incorporated a linear-discontinuous finite-element representation directly into 
+the discretization of the material temperature equation~\cite{wollaeger_ld}.
 
 %PICTURE OF STANDARD MC SOLUTION AND MAXIMUM PRINCIPLE VIOLATION?
 
@@ -190,7 +186,7 @@ important aspect of a numerical method for TRT problems.
 In this limit, cells are optically thick and diffusive, and the material
 and radiation energy fields approach equilibrium.
 Spatial discretizations which do not preserve the EDL can produce inaccurate
-solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_newton}.
+solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_ldtrt}.
 
 \subsection{Previous work on moment-based acceleration methods}
 
