@@ -49,11 +49,12 @@ The scattering must be inverted within each Newton iteration.
 
 \section{Linear Diffusion Synthetic Acceleration}
 
-A form of DSA referred to as the WLA method is used to accelerate the source iterations~\cite{wla}. 
+A form of DSA referred to as the WLA method is used to accelerate the source
+iterations~\cite{wla,wla_thesis}. 
 Between each source iteration, a residual equation is formed that provides 
 the error in the current scattering iteration. The DSA method uses an approximate,
 lower-order operator to estimate the error in the zeroth angular moment of the
-intensity.  The DSA equations can be more efficiently
+intensity, i.e., the mean intensity $\phi$.  The DSA equations can be more efficiently
 solved than the S$_2$-like sweeps that are being accelerated, but will accurately resolve the
 slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
 equations to be closely related to the discretization of the LO equations for the
@@ -62,15 +63,20 @@ discretization of the diffusion equation
 for the iterative error on faces.  The error on the faces is then mapped onto the
 volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
 The LD mapping resolves issues that would occur in optically-thick cells, while the
-continuous diffusion equation is accurate in the EDL where acceleration is important.
+continuous diffusion equation is accurate in the EDL where acceleration is important~\cite{adams_dsa}.
 
-To accelerate source iteration in the LO system, a version of WLA DSA is used.  The
-following derivations are to solve a diffusion equation which can be used to compute
-the source iteration error in the LO sweeps.
+In the following section we will derived the WLA method.  To simplify notation, we
+derive the general continuous diffusion equation necessary for the acceleration
+method.  We then state the final equations for the acceleration method.  Within a
+Newton iteration, the source iteration to be solved is simply a steady state
+transport equation with an isotropic source and scattering, i.e.,
+\begin{equation}
+    \mu \pderiv{I}{x} + \sigma_t I = \frac{\sigma_s}{2} \phi(x) + q(x,\mu).
+\end{equation}
 
 \subsection{Forming a Continuous Diffusion Equation}
 
-Beginning with the P$_1$ equations for a steady-state problem
+Beginning with the P$_1$ equations for a steady-state problem~\cite{lewis,wla_thesis}
 \begin{align}\label{eq:dsa_bal}
     \pderiv{J}{x} + \sigma_a \phi &= Q \\ \label{eq:p1}
     \sigma_t J + \frac{1}{3} \pderiv{\phi}{x} &= 0 \\
@@ -81,8 +87,8 @@ spatial finite element moments are taken. The spatial moments are defined as
     \mom{\cdot}_R &= \frac{2}{h_i} \int_{\xl}^{\xr} \! \dd x \,b_{R,i}(x) \left( \cdot \right).
 \end{align}
 where $b_{L,i}(x) = (\xr - x)/h_i$ and $b_{R,i}(x) = (x - \xl)/h_i$.
-The scalar flux $\phi$ will ultimately be assumed continuous at faces. The scalar
-flux is assumed linear on the interior of the cell, i.e.,
+The scalar flux $\phi$ will ultimately be assumed continuous at faces to produce a
+diffusion-like discretization. The mean intensity is assumed linear on the interior of the cell, i.e.,
 $\phi(x)=\phi_Lb_L(x) + \phi_Rb_R(x)$, for $x\in(\xl,\xr)$.   Taking the left moment,
 evaluating integrals, and rearranging yields
 \begin{equation}

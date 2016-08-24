@@ -1,0 +1,50 @@
+\begin{thebibliography}{1}
+
+\bibitem{adams_dsa}
+Marvin Adams and William Martin.
+\newblock Diffusion synthetic acceleration of discontinuous finite element
+  transport iterations.
+\newblock {\em Nuclear Science and Engineering}, 111(2):145--167, 1992.
+
+\bibitem{larson_morel_sn}
+{Edward W. Larsen and Jim E. Morel}.
+\newblock Advances in discrete-ordinates methodology.
+\newblock {\em Nuclear Computational Science. Springer Netherlands}, pages
+  1--–84, 2010.
+
+\bibitem{fnc}
+J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
+\newblock An implicit monte carlo scheme for calculating time and frequency
+  dependent nonlinear radiation transport.
+\newblock {\em J. Comput. Phys.}, 8(3):313--342, December 1971.
+
+\bibitem{lewis}
+Elmer~Eugene Lewis and Warren~F Miller.
+\newblock {\em Computational methods of neutron transport}.
+\newblock John Wiley and Sons, Inc., New York, NY, 1984.
+
+\bibitem{morel_ldtrt}
+J.E. Morel, T.A. Wareing, and K.~Smith.
+\newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
+  Transfer Calculations}.
+\newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
+
+\bibitem{stacy}
+"Weston~M. Stacey".
+\newblock {\em "Nuclear Reactor Physics"}.
+\newblock Wiley, 2007.
+
+\bibitem{wla_thesis}
+T.A. Wareing.
+\newblock {\em {Asymptotic diffusion accelerated discontinuous finite element
+  methods for transport problems}}.
+\newblock PhD thesis, Michigan, 1991.
+
+\bibitem{wla}
+T.A. Wareing, E.W. Larsen, and M.L. Adams.
+\newblock {Asymptotic Diffusion Accelerated Discontinuous Finite Element
+  Schemes for the S$_N$ Equations in Slab and X-Y Geometries}.
+\newblock In {\em {International Topical Meeting on Advances in Mathematics,
+  Computations, Reactor Physics}}, volume~3, Pittsburgh, PA, 1991.
+
+\end{thebibliography}
