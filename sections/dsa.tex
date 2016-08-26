@@ -1,8 +1,8 @@
 
 \chapter{\uppercase {Accelerated Iterative Solution to the LO Equations}}
 
-As described in Sec.~\ref{sec:lo_sol}, the fully-discretized, S$_2$-like LO equations
-cannot be efficiently directly inverted in higher spatial dimensions.  
+As described in Sec.~\ref{sec:lo_sol}, the fully-discrete, S$_2$-like LO equations
+are not easy to directly inverted efficiently in higher spatial dimensions.  
 To demonstrate a possible path forward in
 higher dimensions, we have investigated the use of a standard
 source iteration scheme to solve the LO equations.  As
@@ -10,42 +10,74 @@ material properties become more diffusive (e.g., $c_v$ is small and $\sigma_a$ i
 large), the effective scattering cross sections becomes large.  This results in a spectral radius of the source iterations that approaches
 unity~\cite{morel_ldtrt}.  These regimes are typical in TRT simulations, so an
 acceleration method for an iterative solution is critical. 
-e will accelerate the source iterations with a nearly-consistent diffusion synthetic acceleration
-(DSA) method~\cite{wla,wla_thesis}.
+We have accelerated the source iterations with a nearly-consistent diffusion synthetic acceleration
+(DSA) method known as WLA~\cite{wla,wla_thesis}.
 
 We have also recast the DSA method as a preconditioner to an iterative
-Krylov solution~\cite{larson_morel_sn} of the LO equations if acceleration degrades.  Generally, Krylov
+Krylov solution~\cite{larson_morel_sn} of the LO equations.  Generally, Krylov
 methods mitigate acceleration losses due to inconsistencies in the acceleration
 method.  In higher dimensions, the use of a Krylov method is necessary for effective
-acceleration for nearly-consistent acceleration methods such as WLA in problems with
+acceleration for nearly-consistent acceleration methods, e.g., WLA, in problems with
 mixed optical thicknesses~\cite{larson_morel_sn}, e.g., typical radiative transfer
-problems.
-  We would apply the preconditioned-Krylov approach to allow for the use of lumped DSA
-  equations as a preconditioner, with the LO equations using one of the other fixup
-approaches detailed
-in the previous section.  It is noted we are not interested in measuring the reduction of
-computational time because in 1D the LO equations can be directly solved efficiently.
-We are just interested in ensuring that DSA or a preconditioned-Krylov methods can reduce the
-number of scattering iterations sufficiently, including cases where inconsistencies
-in the LO equations are present.  %because DSA
+problems.  Also, applying the preconditioned-Krylov approach allows for the use of
+spatially lumped DSA  equations as a preconditioner, with the LO equations using
+alternative fix-up methods.  We expect better acceleration performance (DID WE GET IT?) when the
+LDD discretization is introduced into the LO equations. 
 
+In the remainder of this chapter the source iteration process is as follows.  The source
+iteration solution to the LO equations is detailed.  Then, the equations for the WLA DSA
+method are derived and the acceleration method is detailed.  The DSA method is then recast
+as a preconditoner to a GMRES solution to the source iteration equations.  Finally,
+results are given for a modified test problem which requires the use of acceleration.
 
-\section{Source Iteration Solution to the LO Equations}.
+\section{Source Iteration Solution to the LO Equations}
 
-The linearized LO equations can be solved with source iteration.  In the source iteration
-process the scattering source $\sigma_{s,\text{eff}}\phi(x)$ is lagged, which
+The linearized LO equations can be solved with a source iteration
+method~\cite{lewis,morel_notes,mcclarren_notes}.  In the source iteration
+process the scattering source is lagged, which
 uncouples unknowns between the two half-ranges.  This produces a lower-triangular
-system where the spatial unknowns can be determined sequentially along the two directions of flow via a
-standard sweeping procedure~\cite{lewis,morel_ldtrt}.  The newly computed half-range
-intensities can be used to compute the scattering source for the next iteration.  This
+system where the spatial unknowns can be solve for sequentially along the two directions of flow via a
+standard sweeping procedure~\cite{lewis,morel_ldtrt}.  Beginning at the left boundary, the
+positive unknowns can be determined for each cell from $i=1,\ldots,N_c$.  Because the
+inflow to the cell is defined, a local system of equations can be solved for the moment
+unknowns over a cell.  The negative direction unknowns are then determined similarly from the
+right boundary towards the left.  The newly computed half-range
+intensities can then be used to estimate the scattering source for the next iteration.  This
 process is repeated until convergence.  
 
-In operator notation, we denote the source iteration process as
+The source iteration process can be written as
 \begin{equation}
-    M 
+    \B M \psi^{l+1} = S\psi^{l} + Q,
 \end{equation}
+where $M$ is the discretized LO streaming plus removal operator (i.e., scattering is not
+included), $\psi$ is a vector of the half-range, FE moment unknowns.  The vector $Q$
+contains the source terms resulting from the linearized emission source and previous
+time-step moments, for each equation; the term for the $i$-th element and the $L$ equation
+is
+\begin{equation}
+    (\B Q)_{i,L}^\pm = \frac{\mom{\phi}_L^\pm}{c\Delta t} + \frac{1}{2}f_i \sigma_{a,i} a c \mom{
+        (T^{n})^4}_{L,i}
+\end{equation}
+The scattering
+operator for the $i$-th element and the $L$ equation is
+\begin{equation}
+    (\B S \psi^l)^{\pm}_{i,L} = \frac{1}{2}\left(\sigma_{a,i} (1-f_i) + \sigma_{s,i}\right)
+    \left(\mom{ \phi^l}_{i,L}^+ + \mom{ \phi^l}_{i,L}^-\right).
+\end{equation}
+Equivalent expressions are defined for the $R$ moment equations and boundary conditions,
+forming a fully defined set of equations.
 
-The scattering must be inverted within each Newton iteration.
+The scattering inversion must be
+performed within each Newton iteration.  Thus, for the $m$-th Newton step, the source
+iteration process is defined as
+\begin{enumerate}
+    \item Evaluate effective scattering and absorption cross sections based on
+        $\{T_i\}^m$.
+    \item\label{en:si_beg} Compute new scattering source $\B S \psi^l$.
+    \item Perform sweeps to calculate $\psi^{l+1} = \B M^{-1} \B S\psi^{l} + \B M^{-1} Q$
+    \item\label{en:si_end} If $\|\psi^{l+1} - \psi^{l} \| < $ tolerance, exit
+    \item Else: repeat steps~\ref{en:si_beg}--\ref{en:si_end}.
+\end{enumerate}
 
 \section{Linear Diffusion Synthetic Acceleration}
 
@@ -58,64 +90,66 @@ intensity, i.e., the mean intensity $\phi$.  The DSA equations can be more effic
 solved than the S$_2$-like sweeps that are being accelerated, but will accurately resolve the
 slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
 equations to be closely related to the discretization of the LO equations for the
-acceleration to be effective.  The WLA method first solves a spatially-continuous
+acceleration to be effective and stable~\cite{adams_dsa}.  The WLA method first solves a spatially-continuous
 discretization of the diffusion equation
 for the iterative error on faces.  The error on the faces is then mapped onto the
 volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
 The LD mapping resolves issues that would occur in optically-thick cells, while the
 continuous diffusion equation is accurate in the EDL where acceleration is important~\cite{adams_dsa}.
 
-In the following section we will derived the WLA method.  To simplify notation, we
-derive the general continuous diffusion equation necessary for the acceleration
-method.  We then state the final equations for the acceleration method.  Within a
+In the remained of this section we derive the WLA method.  To simplify notation, we
+derive the equations in terms of a generic diffusion equation, before stating the final
+algorithm. Within a
 Newton iteration, the source iteration to be solved is simply a steady state
-transport equation with an isotropic source and scattering, i.e.,
-\begin{equation}
+transport equation with isotropic scattering and a general source $q$, i.e.,
+\begin{equation}\label{eq:ss_trans}
     \mu \pderiv{I}{x} + \sigma_t I = \frac{\sigma_s}{2} \phi(x) + q(x,\mu).
 \end{equation}
 
 \subsection{Forming a Continuous Diffusion Equation}
 
-Beginning with the P$_1$ equations for a steady-state problem~\cite{lewis,wla_thesis}
+In this section, we derive a continuous spatial discretization of a diffusion equation.  
+The mean intensity $\phi$ will ultimately be assumed continuous at faces to produce a
+standard three-point finite-difference diffusion discretization. 
+The zeroth and first $\mu$ moment of Eq.~\eqref{eq:ss_trans} produce the $P_1$
+equations~\cite{lewis,wla_thesis}, i.e., 
 \begin{align}\label{eq:dsa_bal}
-    \pderiv{J}{x} + \sigma_a \phi &= Q \\ \label{eq:p1}
-    \sigma_t J + \frac{1}{3} \pderiv{\phi}{x} &= 0 \\
+    \pderiv{J}{x} + \sigma_a \phi &= q_0 \\ \label{eq:p1}
+    \sigma_t J + \frac{1}{3} \pderiv{\phi}{x} &= 0, \\
 \end{align}
-spatial finite element moments are taken. The spatial moments are defined as
-\begin{align}
-    \mom{\cdot}_L &= \frac{2}{h_i} \int_{\xl}^{\xr} \! \dd x \,b_{L,i}(x)    \left( \cdot \right) \\
-    \mom{\cdot}_R &= \frac{2}{h_i} \int_{\xl}^{\xr} \! \dd x \,b_{R,i}(x) \left( \cdot \right).
-\end{align}
-where $b_{L,i}(x) = (\xr - x)/h_i$ and $b_{R,i}(x) = (x - \xl)/h_i$.
-The scalar flux $\phi$ will ultimately be assumed continuous at faces to produce a
-diffusion-like discretization. The mean intensity is assumed linear on the interior of the cell, i.e.,
+where $q_0=\int_{-1}^1 q(x,\mu) \dd \mu $.
+The spatial finite element moments (defined by Eq.~\eqref{eq:x_moml} and~\eqref{x_momr})
+are taken of the above equations. 
+The mean intensity is assumed linear on the interior of the cell, i.e.,
 $\phi(x)=\phi_Lb_L(x) + \phi_Rb_R(x)$, for $x\in(\xl,\xr)$.   Taking the left moment,
 evaluating integrals, and rearranging yields
 \begin{equation}
     J_{i} - J_{\il}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{2}{3} \phi_{L,i} + \frac{1}{3}
     \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{L,i}\,\,,
 \end{equation}
-where $J_i$ is the average of the current over the cell. The moments of $q$ are
+where $J_i$ is the average of the flux $J$ over the cell. The moments of $q$ are
 not simplified to be compatible with the LO moment equations. For the $R$ moment
 \begin{equation}
     J_{i+1/2} - J_{i}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{2}{3} \phi_{L,i} + \frac{1}{3}
     \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{R,i}\,\,.
 \end{equation}
 The equation for the $L$ moment is evaluated for cell $i+1$ and added to the $R$ moment
-equation evaluated at $i$.  The current is assumed continuous at $\ir$ to eliminate
-the face current from the system.  The sum of the two equations becomes
-\begin{multline}
+equation evaluated at $i$.  The flux $J$ is assumed continuous at $\ir$ to eliminate
+the face fluxes from the equations.  The sum of the two equations becomes
+\begin{multline}\label{eq:diff_noclose}
     J_{i+1} - J_{i} + \frac{\sigma_{a,i+1} h_{i+1}}{2}\left(\frac{2}{3} \phi_{L,i+1} +
     \frac{1}{3}\phi_{R,i+1}\right) + \frac{\sigma_{a,i} h_i}{2} \left( \frac{1}{3} \phi_{L,i} +
     \frac{2}{3}\phi_{R,i}\right) =\\ \frac{h}{2} \left(\mom{q}_{L,i+1} + \mom{q}_{R,i}
     \right).
 \end{multline}
-The scalar flux is assumed continuous at each face, i.e., $\phi_{L,i+1} = \phi_{R,i}
-\equiv \phi_{i+1/2}$.  We then approximate the cell-averaged currents with Fick's law
+The mean intensity is approximated as continuous at each face, i.e., $\phi_{L,i+1} = \phi_{R,i}
+\equiv \phi_{i+1/2}$.  We then approximate the cell-averaged fluxes with a discrete Fick's
+law~\cite{stacy}
 as \begin{equation}\label{eq:ficks}
-    J_{i} = -D_i \frac{\phi_{i+1/2} - \phi_{i-1/2}}{h_i}.
+    J_{i} = -D_i \frac{\phi_{i+1/2} - \phi_{i-1/2}}{h_i},
 \end{equation}
-Combining the definition and rearranging yields the following discrete diffusion
+where $D_i = 1/(3\sigma_{t,i})$.
+Substitution of Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:diff_noclose} and rearranging yields the following discrete diffusion
 equation:
 \begin{multline}
         \left(\frac{\sigma_{a,i+1} h_{i+1}}{6} -
@@ -125,7 +159,7 @@ equation:
         \frac{D_{i}}{h_{i}}\right)\phi_{i-1/2} = \frac{h_{i+1}}{2} \mom{q}_{L,i+1} +
         \frac{h_{i}}{2}\mom{q}_{R,i}\;\,. 
 \end{multline}
-This system can be solved to get $\phi$ at each face.  To allow for the use of lumped
+To allow for the use of lumped
 or standard LD in these equations, we introduce the factor $\theta$, with
 $\theta=1/3$ for standard
 LD, and $\theta=1$ for lumped LD.  The diffusion equation becomes
@@ -139,11 +173,12 @@ LD, and $\theta=1$ for lumped LD.  The diffusion equation becomes
         \frac{h_{i}}{2}\mom{q}_{R,i}
         \;\,. 
 \end{multline}
+Summation over all cells forms a system of equations for $\phi$ at each face.  
 
-\subsubsection{Boundary Conditions}
+\subsubsection{Diffusion Boundary Conditions}
 
-The LO system exactly satisfies the inflow boundary conditions, therefore we choose a
-vacuum boundary condition for the left-most cell.  The equation for the left moment
+The upwinding in the LO system exactly satisfies the inflow boundary conditions, therefore we choose
+vacuum boundary conditions for the error equations.  The equation for the left moment
 at the first cell is given by
 \begin{equation}\label{eq:dsa_bc}
     J_{1} - J_{1/2}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{1+\theta}{2} \phi_{L,i}
@@ -161,8 +196,7 @@ Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:dsa_bc} gives
     \left( {\sigma_{a,1}{h_1}}\frac{1-\theta}{4} - \frac{D_1}{h_1}  \right)\phi_{3/2} =
     \frac{h_i}{2} \mom{q}_{L,1}
 \end{equation}
-a similar expression can be derived for the last cell.
-
+A similar expression can be derived for the right-most cell.
 
 \subsection{Mapping Solution onto LD Unknowns}
 
@@ -189,12 +223,12 @@ The moment equations for Eq.~\eqref{eq:p1} are
     &= 0 
 \end{align}
 
-Using similar equation for all the inflow currents, the balance equations for $\phi$
+Using similar equation for all the inflow fluxes, the balance equations for $\phi$
 become
 The face terms $J_{i\pm 1/2}$ and $\phi_{i\pm 1/2}$ need to be eliminated from the
 system. The scalar flux is assumed to be the value provided by the continuous
 diffusion solution at each face, i.e., $\phi_{i\pm1/2} = \phi_{i\pm1/2}^C$.
-The currents are decomposed into half-range values to decouple the equations
+The fluxes are decomposed into half-range values to decouple the equations
 between cells.  At $x_{\ir}$, the current is composed as $J_{i+1/2} = J_{\ir}^+ - J_{\ir}^-$,
 where $+$ and $-$ denote the positive and negative
 half ranges of $\mu$, respectively.  Typically, the incoming current $J_{\ir}^-$ is
@@ -211,7 +245,7 @@ total current becomes, with $\phi_{i+1/2}=\phi_{i+1/2}^C$,
 In the positive direction, at the right face, the
 values of $\phi$ and $J$ are based on the LD representation within the cell at that
 face, i.e., $\phi_{R,i}$ and $J_{R,i}$.  The standard P$_1$ approximation for the
-half-range currents and fluxes are used\cite{stacy}, i.e.,
+half-range fluxes and fluxes are used\cite{stacy}, i.e.,
 \begin{align}
     J^{\pm} &= \frac{\gamma \phi}{2} \pm \frac{J}{2},
 \end{align}
@@ -220,7 +254,7 @@ P$_1$ approximation. Thus, for the right face and positive half-range,
 \begin{align}
     J_{\ir}^+ &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} 
 \end{align}
-A similar expression can be derived for $\xl$.  The total currents at each face are
+A similar expression can be derived for $\xl$.  The total fluxes at each face are
 thus
 \begin{align}
     J_{i+1/2} &= \gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \\
@@ -244,9 +278,10 @@ lumping notation yields the final equations
     \frac{\sigma_{t,i} h_i}{2} \left( \frac{(1+\theta)}{2} J_{L,i} +
     \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 .
 \end{align}
-The above equations are completely local to each cell and fully defined.  The system can be
-solved for the the desired unknowns
-$\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$.
+The above equations are completely local to each cell and fully defined, including for
+boundary cells.  The system can be
+solved for the desired unknowns
+$\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$, which can be mapped onto the 
 
 %\subsection{Wareing version of mapping solution onto LD Unknowns using P$_1$ incident currents}
 %
@@ -398,6 +433,27 @@ where Eq.~\eqref{eq:p1psi} can be used to get in terms of $\delta \phi_{L/R}$ an
 It is noted that for consistency, the updates to the moments depend on the lumping
 notation, even though the sources are defined the same in both cases.
 
+
+\section{Computational Results}
+
+It is noted we are not interested in measuring the reduction of
+computational time in this section because in 1D the LO equations can be directly solved efficiently.
+We are just interested in ensuring that the acceleration methods can reduce the
+number of scattering iterations sufficiently, including cases where inconsistencies
+in the LO equations are present.
+
+We test our acceleration methods with one simple test
+problem.  This problem is a modification of the two material problem described in
+Sec.~\ref{sec:two_mat}. The problem specifications are the same as before, except for
+modifications to the material properties for $x>0.5$ cm.  
+
+\subsection{Results for LD Spatial Discretization}
+
+We first test this problem with the source iteration using DSA to accelerate and compare
+to an unaccelerated SI solution.  3 batches of 10,000 particles are ran for each HO
+solve, one HO solver per time step.  We tally the total number of source iterations per
+time step, over the two solves.  We initialize the solution for the scattering iterations to zero at the beginning of
+each LO solve. 
 
 
 

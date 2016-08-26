@@ -5,9 +5,11 @@
 \BOOKMARK [2][-]{subsection.1.2.2}{Mapping Solution onto LD Unknowns}{section.1.2}% 5
 \BOOKMARK [2][-]{subsection.1.2.3}{DSA Source Definition}{section.1.2}% 6
 \BOOKMARK [2][-]{subsection.1.2.4}{Updating the LO Unkowns}{section.1.2}% 7
-\BOOKMARK [0][-]{section*.1}{REFERENCES}{}% 8
-\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX First Appendix}{}% 9
-\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 10
-\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 11
-\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Second Appendix with a longer title - much longer in fact}{}% 12
-\BOOKMARK [1][-]{section.a.B.1}{Appendix Section}{APPENDIX.a.B}% 13
+\BOOKMARK [1][-]{section.1.3}{Computational Results}{chapter.1}% 8
+\BOOKMARK [2][-]{subsection.1.3.1}{Results for LD Spatial Discretization}{section.1.3}% 9
+\BOOKMARK [0][-]{section*.1}{REFERENCES}{}% 10
+\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX First Appendix}{}% 11
+\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 12
+\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 13
+\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Second Appendix with a longer title - much longer in fact}{}% 14
+\BOOKMARK [1][-]{section.a.B.1}{Appendix Section}{APPENDIX.a.B}% 15

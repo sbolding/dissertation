@@ -6,6 +6,17 @@
 	address = "6000 Broken Sound Parkway NW, Suit 300, Boca raton, FL 33487"
 }
 
+@article{adams_dsa,
+	Author = {Adams, Marvin and Martin, William},
+	ISSN = {00295639},
+	Journal = {Nuclear Science and Engineering},
+	Number = {2},
+	Pages = {145-167},
+	Title = {Diffusion synthetic acceleration of discontinuous finite element transport iterations.},
+	Volume = {111},
+	Year = {1992},
+}
+
 @BOOK{shultis_mc,
     author = "J.K. Shultis and W.L. Dunn",
     title = "{E}xploring {M}onte {C}arlo {M}ethods",
@@ -20,6 +31,22 @@
         Nonlinear Functionals",
     school = "Michigan",
     year = "2011"
+}
+
+@misc{morel_notes,
+    author = "Jim Morel",
+    institution = "Texas A\&M University",
+    howpublished = "Class Lecture Notes",
+    year = "2014",
+    title = "Neutron Transport Theory"
+}
+
+@misc{mcclarren_notes,
+    author = "Ryan McClarren",
+    institution = "Texas A\&M University",
+    howpublished = "Class Lecture Notes",
+    year = "2015",
+    title = "Numerical Methods in Reactor Analysis"
 }
 
 @article{spanier_mc,

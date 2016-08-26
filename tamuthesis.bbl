@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{adams_dsa}
 Marvin Adams and William Martin.
@@ -23,11 +23,21 @@ Elmer~Eugene Lewis and Warren~F Miller.
 \newblock {\em Computational methods of neutron transport}.
 \newblock John Wiley and Sons, Inc., New York, NY, 1984.
 
+\bibitem{mcclarren_notes}
+Ryan McClarren.
+\newblock Numerical methods in reactor analysis.
+\newblock Class Lecture Notes, 2015.
+
 \bibitem{morel_ldtrt}
 J.E. Morel, T.A. Wareing, and K.~Smith.
 \newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
   Transfer Calculations}.
 \newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
+
+\bibitem{morel_notes}
+Jim Morel.
+\newblock Neutron transport theory.
+\newblock Class Lecture Notes, 2014.
 
 \bibitem{stacy}
 "Weston~M. Stacey".
