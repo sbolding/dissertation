@@ -18,6 +18,11 @@ J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
   dependent nonlinear radiation transport.
 \newblock {\em J. Comput. Phys.}, 8(3):313--342, December 1971.
 
+\bibitem{morel_dsa}
+Edward~W Larsen and Jim~E Morel.
+\newblock Advances in discrete-ordinates methodology.
+\newblock In {\em Nuclear Computational Science}, pages 1--84. Springer, 2010.
+
 \bibitem{lewis}
 Elmer~Eugene Lewis and Warren~F Miller.
 \newblock {\em Computational methods of neutron transport}.
@@ -33,11 +38,6 @@ J.E. Morel, T.A. Wareing, and K.~Smith.
 \newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
   Transfer Calculations}.
 \newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
-
-\bibitem{morel_notes}
-Jim Morel.
-\newblock Neutron transport theory.
-\newblock Class Lecture Notes, 2014.
 
 \bibitem{stacy}
 "Weston~M. Stacey".

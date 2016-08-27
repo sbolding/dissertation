@@ -33,6 +33,16 @@
     year = "2011"
 }
 
+@incollection{morel_dsa,
+      title={Advances in discrete-ordinates methodology},
+      author={Larsen, Edward W and Morel, Jim E},
+      booktitle={Nuclear Computational Science},
+      pages={1--84},
+      year={2010},
+      publisher={Springer}
+}
+
+
 @misc{morel_notes,
     author = "Jim Morel",
     institution = "Texas A\&M University",

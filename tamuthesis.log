@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  26 AUG 2016 17:00
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  27 AUG 2016 16:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -786,7 +786,14 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip102
 )
-(./tamuthesis.aux (./sections/dsa.aux) (./bibliography.aux) (./appendices.aux))
+(./tamuthesis.aux (./sections/dsa.aux
+
+LaTeX Warning: Label `en:dsa_beg' multiply defined.
+
+
+LaTeX Warning: Label `en:dsa_end' multiply defined.
+
+) (./bibliography.aux) (./appendices.aux))
 \openout1 = `tamuthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
@@ -803,6 +810,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 106.
 LaTeX Font Info:    ... okay on input line 106.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 106.
 LaTeX Font Info:    ... okay on input line 106.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -915,40 +923,75 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 76--78
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
 
-LaTeX Warning: Reference `eq:x_moml' on page 4 undefined on input line 121.
+[3]
+
+LaTeX Warning: Reference `eq:x_moml' on page 4 undefined on input line 123.
 
 
-LaTeX Warning: Reference `x_momr' on page 4 undefined on input line 121.
+LaTeX Warning: Reference `x_momr' on page 4 undefined on input line 123.
 
 [4] [5]
-Overfull \hbox (46.66628pt too wide) detected at line 175
+Overfull \hbox (46.66628pt too wide) detected at line 177
  []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
  
  []
 
 [6] [7]
-Overfull \hbox (10.00034pt too wide) in paragraph at lines 280--280
+Overfull \hbox (10.00034pt too wide) in paragraph at lines 279--279
 [] 
  []
 
 [8] [9] [10]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 440--442
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
 
-LaTeX Warning: Reference `sec:two_mat' on page 11 undefined on input line 447.
 
-) [11]
+Overfull \hbox (1.4859pt too wide) in paragraph at lines 445--446
+[]\OT1/cmr/m/n/12 Solve con-tin-u-ous DSA equa-tions (i.e., Eq. []) for $[]$ 
+ []
+
+
+LaTeX Warning: Citation `saad' on page 11 undefined on input line 455.
+
+[11]
+
+LaTeX Warning: Citation `saad' on page 12 undefined on input line 470.
+
+
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 482--484
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+
+Overfull \hbox (1.4859pt too wide) in paragraph at lines 487--488
+[]\OT1/cmr/m/n/12 Solve con-tin-u-ous DSA equa-tions (i.e., Eq. []) for $[]$ 
+ []
+
+[12]
+
+LaTeX Warning: Reference `sec:two_mat' on page 13 undefined on input line 505.
+
+) [13]
 \openout2 = `bibliography.aux'.
 
  (./bibliography.tex (./tamuthesis.bbl
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
- [12
+ [14
 
 
 
-])) [13]
+])) [15]
 \openout2 = `appendices.aux'.
 
  (./appendices.tex
@@ -958,38 +1001,38 @@ APPENDIX A.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
-[14
+[16
 
 
 
 ]
 
-LaTeX Warning: Reference `' on page 15 undefined on input line 61.
+LaTeX Warning: Reference `' on page 17 undefined on input line 61.
 
-[15]
+[17]
 
-LaTeX Warning: Reference `??' on page 16 undefined on input line 86.
-
-
-LaTeX Warning: Reference `???' on page 16 undefined on input line 87.
+LaTeX Warning: Reference `??' on page 18 undefined on input line 86.
 
 
-LaTeX Warning: Reference `eq:mat_cont' on page 16 undefined on input line 94.
-
-[16]
-
-LaTeX Warning: Reference `eq:lo_tran' on page 17 undefined on input line 141.
+LaTeX Warning: Reference `???' on page 18 undefined on input line 87.
 
 
-LaTeX Warning: Reference `???' on page 17 undefined on input line 141.
+LaTeX Warning: Reference `eq:mat_cont' on page 18 undefined on input line 94.
 
-[17] <figures/Penguins.jpg, id=251, 770.88pt x 578.16pt>
+[18]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 19 undefined on input line 141.
+
+
+LaTeX Warning: Reference `???' on page 19 undefined on input line 141.
+
+[19] <figures/Penguins.jpg, id=297, 770.88pt x 578.16pt>
 File: figures/Penguins.jpg Graphic file (type jpg)
 
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 174.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
-) (./appendix2.tex [18] [19 <./figures/Penguins.jpg>]
+) (./appendix2.tex [20] [21 <./figures/Penguins.jpg>]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -999,7 +1042,7 @@ File: figures/Penguins.jpg Graphic file (type jpg)
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 23.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [20
+ [22
 
 ]))
 
@@ -1012,17 +1055,20 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 156.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 156.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 156.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: D76C60787D99140B20C2229661E7DD5E;1207.
+(rerunfilecheck)             Checksum: 5A9BEF498D3EAD75BF28A31F90809001;1403.
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 20808 strings out of 493304
- 358955 string characters out of 6139871
- 494575 words of memory out of 5000000
- 23749 multiletter control sequences out of 15000+600000
- 9560 words of font info for 36 fonts, out of 8000000 for 9000
+ 20837 strings out of 493304
+ 359216 string characters out of 6139871
+ 494818 words of memory out of 5000000
+ 23756 multiletter control sequences out of 15000+600000
+ 9729 words of font info for 37 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,11n,55p,796b,435s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
@@ -1036,11 +1082,11 @@ blic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
 fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
 cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-
-Output written on tamuthesis.pdf (20 pages, 953529 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on tamuthesis.pdf (22 pages, 963422 bytes).
 PDF statistics:
- 340 PDF objects out of 1000 (max. 8388607)
- 301 compressed objects within 4 object streams
- 110 named destinations out of 1000 (max. 500000)
- 138 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 390 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 131 named destinations out of 1000 (max. 500000)
+ 154 words of extra memory for PDF output out of 10000 (max. 10000000)
 
