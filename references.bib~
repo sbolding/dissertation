@@ -42,6 +42,13 @@
       publisher={Springer}
 }
 
+@book{saad,
+      title={Iterative methods for sparse linear systems},
+      author={Saad, Yousef},
+      year={2003},
+      publisher={Siam}
+}
+
 
 @misc{morel_notes,
     author = "Jim Morel",
