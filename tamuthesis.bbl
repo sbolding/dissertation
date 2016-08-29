@@ -39,6 +39,11 @@ J.E. Morel, T.A. Wareing, and K.~Smith.
   Transfer Calculations}.
 \newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
 
+\bibitem{saad}
+Yousef Saad.
+\newblock {\em Iterative methods for sparse linear systems}.
+\newblock Siam, 2003.
+
 \bibitem{stacy}
 "Weston~M. Stacey".
 \newblock {\em "Nuclear Reactor Physics"}.

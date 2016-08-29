@@ -32,14 +32,15 @@ as a preconditoner to a GMRES solution to the scattering iteration equations.  F
 results are given for a modified test problem which requires the use of acceleration.
 
 \section{Source Iteration Solution to the Linearized LO Equations}
+\label{sec:si}
 
 The linearized LO equations can be solved with a source iteration
 method~\cite{lewis,morel_dsa,mcclarren_notes}.  In the source iteration
 process the scattering source is lagged, which
 uncouples unknowns between the two half-ranges.  This produces a lower-triangular
-system where the spatial unknowns can be solve for sequentially along the two directions of flow via a
+system where the spatial unknowns can be solved for sequentially along the two directions of flow via a
 standard sweeping procedure~\cite{lewis,morel_ldtrt}.  Beginning at the left boundary, the
-positive unknowns can be determined for each cell from $i=1,\ldots,N_c$.  Because the
+positive unknowns can be determined for each cell from $i=1,\ldots,N_c$; because the
 inflow to the $i$-th cell is defined from the previous cell or boundary condition, a local system
 of equations can be solved for the $\mom{\phi}_{L,i}^+$ and $\mom{\phi}_{R,i}^+$ unknowns.
 The negative direction unknowns are
@@ -50,24 +51,25 @@ process is repeated until convergence.
 
 The source iteration process can be written in operator notation as
 \begin{equation}
-    \B M \psi^{l+1} = S\psi^{l} + Q,
+    \B M \psi^{l+1} = \B S\psi^{l} + Q,
 \end{equation}
 where $M$ is the discretized LO streaming plus removal operator (i.e., scattering is not
 included) and $\psi$ is a vector of the half-range, FE moment unknowns.  The vector $Q$
 contains the fixed source terms resulting from the linearized emission source and previous
-time step moments, for each equation; the terms for the $i$-th element and the $L$ equation
+time step moments, for each equation.  The source terms for the $i$-th element and the $L$ equation
 are
 \begin{equation}
     (\B Q)_{i,L}^\pm = \frac{\mom{\phi}_L^\pm}{c\Delta t} + \frac{1}{2}f_i \sigma_{a,i} a c \mom{
         (T^{n})^4}_{L,i}
 \end{equation}
-The scattering operator terms for the $i$-th element and the $L$ equations is
+The scattering operator terms for the $i$-th element and the $L$ equations are
 \begin{equation}
     (\B S \psi^l)^{\pm}_{i,L} = \frac{1}{2}\left(\sigma_{a,i} (1-f_i) + \sigma_{s,i}\right)
     \left(\mom{ \phi^l}_{i,L}^+ + \mom{ \phi^l}_{i,L}^-\right).
 \end{equation}
 Equivalent expressions are defined for the $R$ moment equations and boundary conditions,
-forming a fully defined set of equations.
+forming a fully defined set of equations.  The process of sweeping is denoted as $\B
+M^{-1}$.
 
 The scattering inversion must be
 performed within each Newton iteration.  Thus, for the $m$-th Newton step, the source
@@ -90,17 +92,17 @@ the error in the current scattering iteration. The DSA method uses an approximat
 lower-order operator to solve the error equation for a correction to the zeroth angular moment of the
 intensity, i.e., the mean intensity $\phi(x)$.  The DSA equations contain a standard
 finite-difference diffusion discretization that can be more efficiently
-solved than the S$_2$-like equations that are being accelerated, but will accurately resolve the
+inverted than the S$_2$-like equations that are being accelerated, but will accurately resolve the
 slowly converging diffusive error modes.  It is important for the spatial discretization of the DSA
 equations to be closely related to the discretization of the LO equations for the
 acceleration to be effective and stable~\cite{adams_dsa}.  The WLA method first solves a spatially-continuous
 discretization of the diffusion equation
 for the iterative error on faces.  The error on the faces is then mapped onto the
-volumetric moment unknowns via a LD discretization of diffusion equation~\cite{wla}.
+volumetric moment unknowns via a LD discretization of the P$_1$ equations~\cite{wla}.
 The LD mapping resolves issues that would occur in optically-thick cells, while the
 continuous diffusion equation is accurate in the EDL where acceleration is important~\cite{adams_dsa}.
 
-In the remained of this section we derive the discretized diffusion and update equations.  To simplify notation, we
+In the remainer of this section we derive the discretized diffusion and update equations.  To simplify notation, we
 derive the diffusion equations from a generic transport equation with isotropic scattering
 and source $q_0$, i.e.,
 \begin{equation}\label{eq:ss_trans}
@@ -225,7 +227,7 @@ The moment equations for Eq.~\eqref{eq:p1} are
     &= 0 
 \end{align}
 The face terms $J_{i\pm 1/2}$ and $\phi_{i\pm 1/2}$ need to be eliminated from the
-system. The scalar flux is assumed to be the value provided by the continuous
+system. The scalar intensity is assumed to be the value provided by the continuous
 diffusion solution at each face, i.e., $\phi_{i\pm1/2} = \phi_{i\pm1/2}^C$.
 The fluxes are decomposed into half-range values to decouple the equations
 between cells.  At $x_{\ir}$, the current is composed as $J_{i+1/2} = J_{\ir}^+ - J_{\ir}^-$,
@@ -261,7 +263,7 @@ thus
 \end{align}
 Substitution of these results back into the LD balance equations and introduction of the
 lumping notation yields the final equations 
-\begin{align}
+\begin{align}\label{eq:update1}
     \left(\gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(
     \frac{(1-\theta)}{2} \phi_{L,i} +
     \frac{(1+\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
@@ -275,7 +277,7 @@ lumping notation yields the final equations
     \frac{(1+\theta)}{2}J_{R,i}\right)    &= 0 \\
     \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \phi^C_{i-1/2} \right) +
     \frac{\sigma_{t,i} h_i}{2} \left( \frac{(1+\theta)}{2} J_{L,i} +
-    \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 .
+    \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 . \label{eq:update2}
 \end{align}
 The above equations are completely local to each cell and fully defined, including for
 boundary cells.  The system can be solved for the desired unknowns
@@ -285,19 +287,19 @@ $\phi_{i+1/2}^C$ onto the LD representation for $\phi(x)$.
 
 \subsection{DSA Source Definition}
 
-The above discretization procedure is used to determine the error in the scalar flux.
+The above discretization procedure is used to determine the error in the scalar intensity.
 The sources $\mom{q}_{L/R}$ for the error equations remain to be defined.  In operator
 notation, the following
 iteration equations can be defined
 \begin{align}
     \B L \psi^{l+1/2} &= \B S \psi^{l+1} + Q \\
-    \B D \delta \phi^{l+1/2} &= \B S (\phi^{l+1/2} - \phi^{l}) \label{eq:dsa_oper} \\
+    \B D \delta \phi^{l+1/2} &= \sigma_s (\phi^{l+1/2} - \phi^{l}) \label{eq:dsa_oper} \\
      \psi^{l+1/2} &= \B \psi^{l+1/2} + \delta \B \phi^{l+1/2}
 \end{align}
 It is noted that unlike fully consistent DSA equations, the WLA-DSA algorithm does not
 preserve particle balance to round off.  This is because the mapping procedure uses an
-approximate inflow to each cell, that is inconsistent with the partial outflow into the
-next cell.
+approximate inflow to each cell, which is inconsistent with the partial outflows from
+adjacent cells.
 
 The source in Eq.~\eqref{eq:dsa_oper}, i.e., $q$ in
 Eqs.~\eqref{eq:dsa_lumped}~and~\eqref{eq:bc_dsa}, is the residual for a given scattering iteration,
@@ -306,53 +308,52 @@ given by~\cite{morel_dsa,lewis}
     q = \sigma_s\left(\phi^{l+1/2} - \phi^{l}\right).
 \end{equation}
 The spatial moments are straight forward:
-\begin{equation}
+\begin{equation}\label{eq:dsa_src}
     \mom{q}_{L,i} = \sigma_{s,i}\left(\mom{\phi^{l+1/2}}_{L,i} -
     \mom{\phi^{l}}_{L,i}\right)
 \end{equation}
 The above equation is valid for lumping or standard LD.  This is because the LO
 moments are defined differently for LLD or LD, resulting in equations that are
 consistent.  For instance, for lumped LD, we desire the right equation to have $\mom{q}_{R,i} =
-\sigma_s(\phi^{l+1/2}_{R,i} - \phi^{l}_{R,i})$.   Th LO system uses a spatial closure and
-linear relation where the edge values are defined as the moments, i.e., $\mom{\phi}_{R,i} \equiv \phi_{R,i}$.
-Substituting the lumped closure into
-the right hand side of this equation gives back the original equation, i.e., $\mom{q}_{R,i} = \sigma_{s,i}\left(\mom{\phi^{l+1/2}}_{R,i} -
-    \mom{\phi^{l}}_{R,i}\right) $.  The same is true for standard LD.
+\sigma_s(\phi^{l+1/2}_{R,i} - \phi^{l}_{R,i})$.   The lumped LO system uses a spatial closure and
+linear relation where the edge values are defined as the moments, e.g.,
+$\mom{\phi}^+_{R,i} \equiv \phi^+_{R,i}$.
+Substituting the closure into the right side of Eq.~\eqref{eq:dsa_src} gives the desired
+source $\mom{q}_{R,i} = \sigma_{s,i}\left({\phi^{l+1/2}}_{R,i} -
+    \phi^{l}_{R,i}\right) $. 
 
-Solution of the diffusion equation provides a correction to $J$ and $\phi$ for the volumetric finite element
+Solution of the diffusion equation provides a correction to $\phi$ for the volumetric FE
 unknowns. Because we are interested in the time-dependent solution, we need to accelerate the solution for the
-half-range fluxes, rather than just the scalar flux. We only accelerate the zeroth
+half-range intensities, rather than just the zeroth moment. We only accelerate the zeroth
 moment of the angular intensity, as the solution for $J$ is inaccurate due to the
-approximations introduced.  The error in the scalar intensities are defined as, for the
-P$-1$ approximation,
-\begin{equation}\label{eq:p1psi}
-    \delta \phi^{\pm} = \frac{\delta \phi}{2} \pm \frac{3 \delta J}{4}
-\end{equation}
-Spatial moments are taken of $\delta \phi^{\pm}$, using the lumping notation of LD on the interior
+approximations introduced.  Thus, the error in the mean intensities is updated as, using
+the lumping notation,
 \begin{align}
-    \mom{\delta \phi^{\pm}}_L =&  \frac{1+\theta}{2}\delta \phi^{\pm}_{L} +
-    \frac{1-\theta}{2}\delta \phi^{\pm}_{R}  \\
-    \mom{\delta \phi^{\pm}}_R =&  \frac{1-\theta}{2}\delta \phi^{\pm}_{L} +
-    \frac{1+\theta}{2}\delta \phi^{\pm}_{R}      ,
+    \mom{\delta \phi^{\pm}}_L =&  \frac{1+\theta}{4}\delta \phi^{\pm}_{L} +
+    \frac{1-\theta}{4}\delta \phi^{\pm}_{R}  \\
+    \mom{\delta \phi^{\pm}}_R =&  \frac{1-\theta}{4}\delta \phi^{\pm}_{L} +
+    \frac{1+\theta}{4}\delta \phi^{\pm}_{R}      ,
 \end{align}
-where Eq.~\eqref{eq:p1psi} can be used to get in terms of $\delta \phi_{L/R}$, noting that
-we do not add on the first moment correction.
 
 \subsection{The WLA-DSA Accelerated Source Iteration Algorithm}
 
 We define the process of solving the diffusion like equations and mapping the error
-uknowns back onto the moment equations as the operator $D^{-1}$.
-
-The source iteration with linear DSA procedure, for the $m$-th Newton iteration, is defined as
+unknowns back onto the moment equations as the operator $\B D^{-1}$.
+The source iteration with linear DSA procedure, for the $m$-th Newton iteration, is then defined as
 \begin{enumerate}
     \item Evaluate effective scattering and absorption cross sections with
         ${\{T^m_i:\;\, i=1,2,\ldots,N_c\}}$.
     \item\label{en:dsa_beg} Compute new scattering source $\B S \psi^l$.
     \item Perform sweeps to calculate $\psi^{l+1/2} = \B M^{-1} \B S\psi^{l} + \B M^{-1} Q$
-    \item Compute DSA residual source $\sigma_s(\phi^{l+1/2}-\phi^l)$
-    \item Solve continuous DSA equations (i.e., Eq.~\eqref{eq:dsa_lumped}) for ${\{\delta \phi^{l+1/2}_{i+1/2}:\;i=0,1,\ldots,N_c\}}$
-    \item Map the continuous error onto the moment unknowns.
-    \item Add correction to the moment uknowns, $\phi^{\pm,l+1} = \phi^{\pm,l+1/2} +
+    \item Perform DSA iteration to solve $\phi^{l+1} = \B D^{-1} \sigma_s(\phi^{l+1/2}-\phi^l)$
+        \begin{itemize}
+    \item Solve continuous DSA equations, i.e., Eq.~\eqref{eq:dsa_lumped} and
+        Eq.~\eqref{eq:dsa_bc}, for \\${\{\delta
+            \phi^{l+1/2}_{i+1/2}:\;i=0,1,\ldots,N_c\}}$.
+        \item Map the continuous error onto the moment unknowns, via
+            Eq.~\eqref{eq:update1}--\eqref{eq:update2}.
+    \end{itemize}
+    \item Add correction to the moment unknowns, e.g., $\phi_L^{\pm,l+1} = \phi_L^{\pm,l+1/2} +
         \delta \phi^{l+1/2}/2$.
     \item\label{en:dsa_end} If $\|\psi^{l+1} - \psi^{l} \| < $ tolerance, exit
     \item Else: repeat steps~\ref{en:dsa_beg}--\ref{en:dsa_end}.
@@ -360,19 +361,18 @@ The source iteration with linear DSA procedure, for the $m$-th Newton iteration,
 
 \section{GMRES Solution to the LO Equations}
 
-The source iteration procedure can be recast as an iterative solution to a linear maxtrix
-system.  GMRES is an effective iterative solution method for asymmetric, sparse matrix
-equations~\cite{saad}.  Using operator notation, we manipulate
+The source iteration procedure can be recast as an iterative solution to a matrix
+equation. Using operator notation, we manipulate
 the moment equations to form a matrix equation:
 \begin{equation}
     \left(\B I  - \B M^{-1}\B S\right) \psi = \B M^{-1} Q,
 \end{equation}
 where $I$ is an identity matrix.  The GMRES method is used to iteratively solve the above
-linear system.  Krylov solutions to a linear system repeatedly apply the
+linear system. The GMRES is an iterative Krylov solution method for asymmetric, sparse matrix
+equations~\cite{saad}.   Krylov solutions to a linear system repeatedly apply the
 matrix operator to vectors, projecting the system onto a Krylov
-subspace~\cite{saad}.  Rather than forming the full matrix system, we can apply the
-operation of $\B S$ and $\B M^{-1}$ operators as defined in the
-previous sections to apply $\left(\B I  - \B M^{-1}\B S\right)$ to the Krylov vectors. 
+subspace~\cite{saad}.  Rather than forming the full matrix system, we apply the
+operation of $\B S$ and $\B M^{-1}$ as detailed in Sec.~\eqref{sec:si} to apply $\left(\B I  - \B M^{-1}\B S\right)$ to the Krylov vectors. 
 
 The GMRES method will generally converge faster than the source iteration
 procedure~\cite{morel_dsa}.  However, as the system becomes scattering dominated,
@@ -385,19 +385,20 @@ preconditioning~\cite{saad} was applied to the above system.  In matrix form, we
     D^{-1}\B S\right) \B L^{-1} Q.
 \end{equation}
 The operation of $\left(\B I + \B D^{-1} \B S\right)^{-1}$ is equivalent to the DSA
-procedure, adding the correction to a Krylov vector rather than applying to the scattering
-residual.
+procedure, adding the correction to a Krylov vector.
 
 The opensource library \verb{mgmres{ was modified to implement the matrix-free version of
     the GMRES procedure. The
     infrastructure from the source iteration with DSA procedure is reused to provide
-    the operation of $\left(\B I + \B D^{-1} \B S \right)\left(\B I  - \B M^{-1}\B S\right)$ applied to the Krylov vectors returned from the GMRES solve.
-
-Some modifications need to be made to solve these equations explicilty.  Thus, the total
-algorithm for the GMRES solution is
+    the operation of $\left(\B I + \B D^{-1} \B S \right)\left(\B I  - \B M^{-1}\B
+    S\right)$ applied to the Krylov vectors returned from the GMRES solver.
+ The preconditioned-GMRES algorithm is
 \begin{enumerate}
     \item Evaluate effective scattering and absorption cross sections with
         ${\{T^m_i:\;\, i=1,2,\ldots,N_c\}}$.
+    \item Form initial source vector $b$ by solving $b = \B M^{-1} Q$
+    \item Apply left-preconditioner operator to $b$, so $b \leftarrow \left( \B I + \B
+        D^{-1}\B S\right) \B M^{-1} Q$
     \item\label{en:dsa_beg} Compute new scattering source $\B S \psi^l$.
     \item Perform sweeps to calculate $\psi^{l+1/2} = \B M^{-1} \B S\psi^{l} + \B M^{-1} Q$
     \item Compute DSA residual source $\sigma_s(\phi^{l+1/2}-\phi^l)$
@@ -406,6 +407,7 @@ algorithm for the GMRES solution is
     \item\label{en:dsa_end} If $\|\psi^{l+1} - \psi^{l} \| < $ tolerance, exit
     \item Else: repeat steps~\ref{en:dsa_beg}--\ref{en:dsa_end}.
 \end{enumerate}
+The convergence tolerance is based on the residual$.
 Without preconditioning, the diffusion solve is simply removed.
 
 
@@ -433,21 +435,43 @@ solve, one HO solver per time step.  We tally the total number of source iterati
 time step, over the two solves.  We initialize the solution for the scattering iterations to zero at the beginning of
 each LO solve.  We reduce the solve time for each to 1.0 sh.  The time step begins at
 0.001 sh and linearly increases by 15 \% each time step to a maximum time step size of
-0.01 sh.  The larger time step size increases the amount of diffusive behavior.
+0.01 sh.  The larger time step size increases the amount of diffusive behavior.  The
+scattering iterations have a relative convergence between scattering iterations of 1.E-10.
+
+For the DSA we have used a lumped spatial representation in all cases.  This should cause
+some inconsistency issues.
 
 
 \begin{table}
+    \caption{\label{tab:twomat_dsa_iters} Scattering source iterations for the two
+material problem.  Simulation end time is 1 sh.}
     \begin{tabular}{ccc} \hline
-        Method & Iters./Time Step & Iters./Newton Step \\ \hline
-        SI     &      &                 \\
-        SI-DSA &      &       \\
-        GMRES  &      &       \\
-        GMRES-DSA &   &    \\ \hline
+        Method & Sweeps/Newton Step & Newton Steps/LO Solve \\ \hline
+        SI     & 247.0 & 19.4                \\
+        SI-DSA & 10.1   & 19.3      \\
+        GMRES  & 13.1    &  19.4     \\
+        GMRES-DSA & 7.7  &  19.3  \\ \hline
     \end{tabular}
-    \end{table}
+\end{table}
 
 
 
+\begin{table}
+    \caption{\label{tab:twomat_dsa_iters} Scattering source iterations for the equilibrium
+    diffusion limit problem.  Simulation end time is 3 sh.}
+    \begin{tabular}{ccc} \hline
+        Method    &  Sweeps/Newton Step & Newton Steps/LO Solve \\ \hline
+        SI        & 357.4  &  4.2                  \\
+        SI-DSA    & 21.9   &  4.2     \\
+        GMRES     & 36.5   &  4.2    \\
+        GMRES-DSA & 13.3   &  4.2   \\ \hline 
+         \multicolumn{3}{|c|}{Lumped LO Equations} \\ \hline
+        SI        & 359.8         & 4.1      \\ 
+        SI-DSA    & 14.6          & 4.1     \\ 
+        GMRES     & 37.3          &  4.1   \\
+        GMRES-DSA & 9.8           &  4.1   \\ \hline 
+    \end{tabular}
+\end{table}
 
 
 
