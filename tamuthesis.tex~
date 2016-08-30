@@ -127,7 +127,7 @@
 %\include{acknowledgements}
 %\include{nomenclature}
 %\include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. 
-\include{sections/introduction}
+%\include{sections/introduction}
 %\include{sections/algorithm_descriptions}
 %\include{sections/lo_solver}
 %\include{sections/ho_solver}
@@ -139,7 +139,8 @@
 %\input{sections/analytic_neutronics.tex}
 %\input{sections/tallies.tex}
 %\input{sections/spatial_closure}
-%\input{sections/mpv.tex}
+%\input{sections/mpv.tex}A
+\include{sections/time_closure}
 
 
 

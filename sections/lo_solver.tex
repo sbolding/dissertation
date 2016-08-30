@@ -238,7 +238,7 @@ equations per cell.  The equation for the $R$ and $+$ moment is
 \end{multline}
 The equations for the negative half-range moment are identical to the above with the
 negative half-range superscripts replacing the positive.  Explicitly,
-\begin{multline}\label{eq:exact_lmomp}
+\begin{multline}\label{eq:exact_lmomm}
     -2{\mu}_{i-1/2}^{n+1,-} \phi_{i-1/2}^{n+1,-} + \cur {\mu}_{L,i}^{n+1,-}
   \mom{\phi}_{L,i}^{n+1,-}
   +  \cur\mu_{R,i}^{n+1,-}
@@ -248,7 +248,7 @@ negative half-range superscripts replacing the positive.  Explicitly,
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,-}
 \end{multline}
 and
-\begin{multline}\label{eq:exact_rmomp}
+\begin{multline}\label{eq:exact_rmomm}
     2{\mu}_{i+1/2}^{n+1,-} \phi_{i+1/2}^{n+1,-} - \cur {\mu}_{L,i}^{n+1,-}
   \mom{\phi}_{L,i}^{n+1,-}
   -  \cur\mu_{R,i}^{n+1,-}
@@ -357,11 +357,6 @@ Alternatively, the spatial closure could be introduced before performing the alg
 manipulation to form consistency terms (e.g., into Eq.~\eqref{eq:line1}).  This would produce only volume-weighted consistency
 terms for the LD spatial closure.
 
-The choice of a LD spatial closure preserves the equilibrium diffusion limit.  In this limit, the MC HO solution will estimate angular consistency terms 
-associated with an isotropic intensity, based on a spatially LD emission source.  The isotropic-intensity consistency terms will produce
-LO equations that are equivalent to $S_2$ equations, with quadrature points of $\pm 1/2$.  Because the spatial
-closure produces equations that are equivalent to an LDFE solution to these equations, we expect the equations to preserve the
-equilibrium diffusion limit~\cite{morel_ldtrt,densmore_edl}.
 
 \subsubsection{Fixups to LD Solution}
 

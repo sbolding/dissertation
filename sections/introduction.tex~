@@ -35,7 +35,8 @@ astrophysics phenomena.
 
  The transport of photons through a material is characterized by particle position, direction, and
 frequency.  The material energy distribution is described by the material internal
-energy as a function of position.  The high-dimensional space results in a difficult, nonlinear transport problem.
+energy as a function of position.  The high-dimensional space results in a nonlinear
+transport problem that is difficult to solve.
 The internal energy $e$ is related to the material
 temperature through an equation of state.  In this work a perfect gas equation of state is
 used~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the

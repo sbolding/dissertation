@@ -1,5 +1,6 @@
 
 \section{Estimating the Spatial Closure from the HO Solution}
+\label{sec:spat_clos}
 
 This sections describes an alternative spatial closure to the LO equations based on 
 a parametric relation from the HO solution. 
@@ -52,6 +53,7 @@ values of $\gamma^{HO}_i$.  Future studies will investigate the stablity of
 this method more rigorously.
 
 \subsection{Choice of Spatial Closure}
+\label{sec:spat_clos_options}
 
 We will
 explore two different closure relations: a scaled slope, i.e.,
@@ -119,7 +121,7 @@ intensities are determined, the temperatures are updated using the moments.  The
 need to ever store the 
 
 
-\begin{figure}[<+htpb+>]
+\begin{figure}[H]
     \centering
     \begin{center}
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
@@ -136,9 +138,9 @@ need to ever store the
             \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
         \end{tikzpicture}
     \end{center}
-    \caption{Linear doubly-discontinous representation for mean intensity in LO equations}
+    \caption{Step doubly-discontinous representation in time for the HO solution}
     \label{fig:ldd_space}
-\end{figure}<++>
+\end{figure}
 
 
     Poor statistics for the face tallies may result in this trial space producing less

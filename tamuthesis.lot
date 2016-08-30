@@ -4,19 +4,25 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\vskip -10pt
+\contentsline {table}{\numberline {6.1}{\ignorespaces Scattering source iterations for the two material problem. Simulation end time is 1 sh.\relax }}{57}{table.caption.10}
+\contentsline {table}{\numberline {6.2}{\ignorespaces Scattering source iterations for the equilibrium diffusion limit problem. Simulation end time is 3 sh.\relax }}{57}{table.caption.11}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {table}{\numberline {7.1}{\ignorespaces \textbf {Comparison of sample statistics for the Marshak Wave problem. Simulation end time is $\mathbf {t=5}$ sh.}\relax }}{61}{table.caption.11}
-\contentsline {table}{\numberline {7.2}{\ignorespaces Material properties for two material problem\relax }}{62}{table.caption.12}
-\contentsline {table}{\numberline {7.3}{\ignorespaces \textbf {Comparison of sample statistics for the two material problem for 200 $x$ cells. Simulation end time is $\mathbf {t=2}$ sh.}\relax }}{63}{table.caption.14}
-\contentsline {table}{\numberline {7.4}{\ignorespaces \textbf {Comparison of average CPU times per history and LO iteration counts for the Marshak Wave problem. }\relax }}{65}{table.caption.15}
-\contentsline {table}{\numberline {7.5}{\ignorespaces \textbf {Average CPU times per history and LO iteration counts required for the two material problem.}\relax }}{65}{table.caption.16}
-\contentsline {table}{\numberline {7.6}{\ignorespaces \textbf {Comparison of sample statistics for the Marshak Wave problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{66}{table.caption.17}
-\contentsline {table}{\numberline {7.7}{\ignorespaces \textbf {Comparison of sample standard deviations for the two material problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{66}{table.caption.18}
-\contentsline {table}{\numberline {7.8}{\ignorespaces \textbf {Comparison of sample statistics for the pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is indicated in parenthesis.}\relax }}{68}{table.caption.20}
+\contentsline {table}{\numberline {7.1}{\ignorespaces \textbf {Comparison of sample statistics for the Marshak Wave problem. Simulation end time is $\mathbf {t=5}$ sh.}\relax }}{72}{table.caption.13}
+\contentsline {table}{\numberline {7.2}{\ignorespaces Material properties for two material problem\relax }}{73}{table.caption.14}
+\contentsline {table}{\numberline {7.3}{\ignorespaces \textbf {Comparison of sample statistics for the two material problem for 200 $x$ cells. Simulation end time is $\mathbf {t=2}$ sh.}\relax }}{74}{table.caption.16}
+\contentsline {table}{\numberline {7.4}{\ignorespaces \textbf {Comparison of average CPU times per history and LO iteration counts for the Marshak Wave problem. }\relax }}{76}{table.caption.17}
+\contentsline {table}{\numberline {7.5}{\ignorespaces \textbf {Average CPU times per history and LO iteration counts required for the two material problem.}\relax }}{76}{table.caption.18}
+\contentsline {table}{\numberline {7.6}{\ignorespaces \textbf {Comparison of sample statistics for the Marshak Wave problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{77}{table.caption.19}
+\contentsline {table}{\numberline {7.7}{\ignorespaces \textbf {Comparison of sample standard deviations for the two material problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{77}{table.caption.20}
+\contentsline {table}{\numberline {7.8}{\ignorespaces {Comparison of sample statistics for the pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is indicated in parenthesis.}\relax }}{79}{table.caption.22}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {table}{\numberline {8.1}{\ignorespaces Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }}{97}{table.caption.22}
-\contentsline {table}{\numberline {8.2}{\ignorespaces Comparison of LO Newton iterations for HOLO solution to MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for all other cases a damping factor of $0.5$ was used.\relax }}{99}{table.caption.26}
+\contentsline {table}{\numberline {8.1}{\ignorespaces Scattering source iterations for the two material problem. Simulation end time is 1 sh.\relax }}{95}{table.caption.24}
+\contentsline {table}{\numberline {8.2}{\ignorespaces Scattering source iterations for the equilibrium diffusion limit problem. Simulation end time is 3 sh.\relax }}{95}{table.caption.25}
+\contentsline {table}{\numberline {8.3}{\ignorespaces Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }}{105}{table.caption.27}
+\contentsline {table}{\numberline {8.4}{\ignorespaces Comparison of LO Newton iterations for HOLO solution to MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for all other cases a damping factor of $0.5$ was used.\relax }}{107}{table.caption.31}
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

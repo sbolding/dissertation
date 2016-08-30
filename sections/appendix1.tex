@@ -16,7 +16,7 @@
 
 \phantomsection
 
-\chapter{\uppercase{First Appendix}}
+\chapter{\uppercase{Derivations and Equations for the LO System}}
 
 \section{Useful Moment Relations for LO Equations}
 \label{app:lo_mom_relations}
@@ -175,3 +175,189 @@ $l$, is defined as
 \caption{TAMU figure}
 \label{fig:tamu-fig5}
 \end{figure}
+
+\section{Derivation of the WLA-DSA Equations}
+\label{sec:wla_derivation}
+
+In this section, we derive the discretized diffusion equation and LD mapping equations
+that are used in the WLA-DSA equations.  To simplify notation, we
+derive the equations from a generic transport equation (rather than the error equations) with isotropic scattering
+and source $q_0$, i.e.,
+\begin{equation}\label{eq:ss_trans}
+    \mu \pderiv{I}{x} + \sigma_t I = \frac{\sigma_s}{2}\left( \phi(x) + q_0\right).
+\end{equation}
+
+\subsection{Forming a Continuous Diffusion Equation}
+
+First, a continuous spatial discretization of a diffusion equation is derived.  
+The mean intensity $\phi$ will ultimately be assumed continuous at faces to produce a
+standard three-point finite-difference diffusion discretization. 
+The zeroth and first $\mu$ moment of Eq.~\eqref{eq:ss_trans} produce the $P_1$
+equations~\cite{lewis,wla_thesis}, i.e., 
+\begin{align}\label{eq:dsa_bal}
+    \pderiv{J}{x} + \sigma_a \phi &= q_0 \\ \label{eq:p1}
+    \sigma_t J + \frac{1}{3} \pderiv{\phi}{x} &= 0.
+\end{align}
+The spatial finite element moments (defined by Eq.~\eqref{eq:x_moml} and~\eqref{x_momr})
+are taken of the above equations. 
+The mean intensity is assumed linear on the interior of the cell, i.e.,
+$\phi(x)=\phi_Lb_L(x) + \phi_Rb_R(x)$, for $x\in(\xl,\xr)$.   Taking the left moment,
+evaluating integrals, and rearranging yields
+\begin{equation}
+    J_{i} - J_{\il}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{2}{3} \phi_{L,i} + \frac{1}{3}
+    \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{L,i}\,\,,
+\end{equation}
+where $J_i$ is the average of the flux $J$ over the cell. The moments of $q$ are
+not simplified to be compatible with the error equations which are in terms of moments. For the $R$ moment
+\begin{equation}
+    J_{i+1/2} - J_{i}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{2}{3} \phi_{L,i} + \frac{1}{3}
+    \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{R,i}\,\,.
+\end{equation}
+The equation for the $L$ moment is evaluated for cell $i+1$ and added to the $R$ moment
+equation evaluated at $i$.  The flux $J$ is assumed continuous at $\ir$ to eliminate
+the face fluxes from the equations.  The sum of the two equations becomes
+\begin{multline}\label{eq:diff_noclose}
+    J_{i+1} - J_{i} + \frac{\sigma_{a,i+1} h_{i+1}}{2}\left(\frac{2}{3} \phi_{L,i+1} +
+    \frac{1}{3}\phi_{R,i+1}\right) + \frac{\sigma_{a,i} h_i}{2} \left( \frac{1}{3} \phi_{L,i} +
+    \frac{2}{3}\phi_{R,i}\right) =\\ \frac{h}{2} \left(\mom{q}_{L,i+1} + \mom{q}_{R,i}
+    \right).
+\end{multline}
+The mean intensity is approximated as continuous at each face, i.e., $\phi_{L,i+1} = \phi_{R,i}
+\equiv \phi_{i+1/2}$.  Adding the $L$ and $R$ moments of Eq.~\eqref{eq:p1} together, with
+the continuous approximation for $\phi_{i+1/2}$, produces a discrete Fick's law equation~\cite{stacy}
+\begin{equation}\label{eq:ficks}
+    J_{i} = -D_i \frac{\phi_{i+1/2} - \phi_{i-1/2}}{h_i},
+\end{equation}
+where $D_i = 1/(3\sigma_{t,i})$.
+Substitution of Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:diff_noclose} and rearranging yields the following discrete diffusion
+equation:
+\begin{multline}
+        \left(\frac{\sigma_{a,i+1} h_{i+1}}{6} -
+        \frac{D_{i+1}}{h_{i+1}}\right)\phi_{i+3/2} + \left(\frac{D_{i+1}}{h_{i+1}} +
+        \frac{D_{i}}{h_i} + \frac{\sigma_{a,i+1} h_{i+1}}{3} + \frac{\sigma_{a,i}
+        h_{i}}{3}\right)\phi_{i+1/2} \\ + \left(\frac{\sigma_{a,i} h_{i}}{6} -
+        \frac{D_{i}}{h_{i}}\right)\phi_{i-1/2} = \frac{h_{i+1}}{2} \mom{q}_{L,i+1} +
+        \frac{h_{i}}{2}\mom{q}_{R,i}\;\,. 
+\end{multline}
+To allow for the use of lumped
+or standard LD in these equations, we introduce the factor $\theta$, with
+$\theta=1/3$ for standard
+LD, and $\theta=1$ for lumped LD.  The diffusion equation becomes
+\begin{multline}\label{eq:dsa_lumped}
+    \left(\frac{\sigma_{a,i+1} h_{i+1}}{4}\left(1 - \theta\right)  -
+        \frac{D_{i+1}}{h_{i+1}}\right)\phi_{i+3/2} + \left(\frac{D_{i+1}}{h_{i+1}} +
+        \frac{D_{i}}{h_i} + \left(\frac{1+\theta}{2} \right)\left[\frac{\sigma_{a,i+1} h_{i+1}}{2} + \frac{\sigma_{a,i}
+        h_{i}}{2}\right]\right)\phi_{i+1/2} \\ + \left(\frac{\sigma_{a,i}
+        h_{i}}{4}\left(1 - \theta\right) -
+        \frac{D_{i}}{h_{i}}\right)\phi_{i-1/2} = \frac{h_{i+1}}{2} \mom{q}_{L,i+1} +
+        \frac{h_{i}}{2}\mom{q}_{R,i}
+        \;\,. 
+\end{multline}
+Summation over all cells forms a system of equations for $\phi$ at each face.  
+
+\subsubsection{Diffusion Boundary Conditions}
+
+The upwinding in the LO system exactly satisfies the inflow boundary conditions, therefore
+a vacuum boundary condition is applied to the diffusion error equations.  The equation for the left moment
+at the first cell is given by
+\begin{equation}\label{eq:dsa_bc_app}
+    J_{1} - J_{1/2}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{1+\theta}{2} \phi_{L,i}
+    + \frac{1-\theta}{2}
+    \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{L,i}\,\,,
+\end{equation}
+The Marshak boundary condition for the vacuum inflow at face $x_{1/2}$ is given as
+\begin{equation}
+    J^+_{1/2} = 0 = \frac{\phi_{1/2}}{4} + \frac{J_{1/2}}{2},
+\end{equation}
+which can be solved for $J_{1/2}$.  Substitution of the above equation and
+Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:dsa_bc_app} gives 
+\begin{equation}\label{eq:bc_dsa}
+    \left(\frac{1}{2}+ \sigma_{a,1}h_1\frac{1+\theta}{4} - \frac{D_1}{h_1}\right)\phi_{1/2} +
+    \left( {\sigma_{a,1}{h_1}}\frac{1-\theta}{4} - \frac{D_1}{h_1}  \right)\phi_{3/2} =
+    \frac{h_i}{2} \mom{q}_{L,1}
+\end{equation}
+A similar expression can be derived for the right-most cell.
+
+\subsection{Mapping Solution onto LD Unknowns}
+
+Solution of the continuous diffusion equation will provide an approximation to $\phi$ on
+faces, denoted as $\phi_{i+1/2}^C$. We now need to map the face solution onto 
+the LD representation of $\phi$. To do this, first we take the $L$ and $R$ finite element moments of the P$_1$
+equations.  A LDFE dependence is assumed on the interior of the cell for $J$ and
+$\phi$.  Taking moments of Eq.~\eqref{eq:dsa_bal} and simplifying yields
+\begin{align}
+    J_{\ir} - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(\frac{1}{3} \phi_{L,i} +
+    \frac{2}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
+    \frac{J_{L,i} + J_{R,i}}{2} - J_{i-1/2} + \frac{\sigma_{a,i} h_i}{2}
+    \left(\frac{2}{3} \phi_{L,i} +
+    \frac{1}{3}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i}
+\end{align}
+The moment equations for Eq.~\eqref{eq:p1} are
+\begin{align}
+    \frac{1}{3}\left(\phi_{\ir} - \frac{\phi_{i,L} + \phi_{i,R}}{2}\right) +
+    \frac{\sigma_{t,i} h_i}{2} \left(\frac{1}{3} J_{L,i} + \frac{2}{3}J_{R,i}\right)
+    &= 0 \\
+    \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \phi_{i-1/2} \right) +
+    \frac{\sigma_{t,i} h_i}{2} \left(\frac{2}{3} J_{L,i} + \frac{1}{3}J_{R,i}\right)
+    &= 0 
+\end{align}
+
+The face terms $J_{i\pm 1/2}$ and $\phi_{i\pm 1/2}$ need to be eliminated from the
+system. First, the scalar intensity is assumed to be the value provided by the continuous
+diffusion solution at each face, i.e., $\phi_{i\pm1/2} = \phi_{i\pm1/2}^C$.
+Then, the fluxes are decomposed into half-range values to decouple the equations
+between cells.  At $x_{\ir}$, the flux is composed as $J_{i+1/2} = J_{\ir}^+ + J_{\ir}^-$,
+noting that in this notation the half-range fluxes are $J_{\ir}^{\pm}=\pm \int_{0}^\pm
+\mu I(x_{i+1/2},\mu) \dd \mu$\footnote{Typically, the half-range fluxes are defined with
+    integrals weighted with $| \mu |$, but this notation would not be consistent with our
+definition of the half-range consistency terms}.  We approximate the incoming fluxes, e.g.,
+$J_{i+1/2}^-$, based on $\phi_{i+1/2}^C$ and a P$_1$ approximation.   
+The P$_1$ approximation provides the following relation~\cite{wla_thesis}
+\begin{equation}
+    \phi = 2(J^+ - J^-).
+\end{equation}
+At $\xr$, the above expression is solved for the incoming current $J_{i+1/2}^-$.  The
+total current becomes
+\begin{equation}\label{eq:jelim}
+    J_{\ir} = J_{\ir}^+ - J_{\ir}^- = 2J_{\ir}^+ - \frac{\phi_{i+1/2}^C}{2},
+\end{equation}
+In the positive direction, at the right face, the
+values of $\phi$ and $J$ are based on the LD representation within the cell at that
+face, i.e., $\phi_{R,i}$ and $J_{R,i}$.  The standard P$_1$ approximation for the
+half-range fluxes is used\cite{stacy}, i.e.,
+\begin{align}
+    J^{\pm} &= \frac{\gamma \phi}{2} \pm \frac{J}{2},
+\end{align}
+where $\gamma$ accounts for the difference between the LO parameters and the true
+P$_1$ approximation. Thus, for the right face and positive half-range,
+\begin{align}
+    J_{\ir}^+ &= \frac{\gamma}{2}\phi_{i,R} + \frac{J_{i,R}}{2} 
+\end{align}
+A similar expression can be derived for $\xl$.  The total fluxes at each face are
+thus
+\begin{align}
+    J_{i+1/2} &= \gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \\
+    J_{i-1/2} &= \frac{\phi_{i-1/2}^C}{2} - \gamma \phi_{i,L} + J_{i,L}
+\end{align}
+Substitution of these results back into the LD balance equations and introduction of the
+lumping notation yields the final equations 
+\begin{align}\label{eq:update1}
+    \left(\gamma\phi_{i,R} + J_{i,R} - \frac{\phi_{\ir}^C}{2} \right) - \frac{J_{L,i} + J_{R,i}}{2} + \frac{\sigma_{a,i} h_i}{2} \left(
+    \frac{(1-\theta)}{2} \phi_{L,i} +
+    \frac{(1+\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{R,i} \\
+    \frac{J_{L,i} + J_{R,i}}{2} -\left(\frac{\phi_{i-1/2}^C}{2} - \gamma \phi_{i,L} +
+    J_{i,L}\right) + \frac{\sigma_{a,i} h_i}{2} \left(
+    \frac{(1+\theta)}{2} \phi_{L,i} +
+    \frac{(1-\theta)}{2}\phi_{R,i}\right) &= \frac{h_i}{2} \mom{q}_{L,i} 
+    \\
+    \frac{1}{3}\left(\phi_{i+1/2}^C - \frac{\phi_{i,L} + \phi_{i,R}}{2}\right) +
+    \frac{\sigma_{t,i} h_i}{2}\left( \frac{(1-\theta)}{2} J_{L,i} +
+    \frac{(1+\theta)}{2}J_{R,i}\right)    &= 0 \\
+    \frac{1}{3}\left(\frac{\phi_{i,L} + \phi_{i,R}}{2} - \phi^C_{i-1/2} \right) +
+    \frac{\sigma_{t,i} h_i}{2} \left( \frac{(1+\theta)}{2} J_{L,i} +
+    \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 . \label{eq:update2}
+\end{align}
+The above equations are completely local to each cell and fully defined, including for
+boundary cells. For simplicity, we just take $\gamma=1/2$.  The system can be solved for the desired unknowns
+$\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$, which represent the mapping of
+$\phi_{i+1/2}^C$ onto the LD representation for $\phi^{\pm}(x)$.

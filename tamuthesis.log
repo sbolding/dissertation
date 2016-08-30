@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  29 AUG 2016 15:46
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  30 AUG 2016 18:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -786,7 +786,60 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip102
 )
-(./tamuthesis.aux (./sections/dsa.aux
+(./tamuthesis.aux (./titlepage.aux) (./abstract.aux) (./dedication.aux)
+(./acknowledgements.aux) (./nomenclature.aux) (./lists.aux)
+(./sections/introduction.aux) (./sections/algorithm_descriptions.aux)
+(./sections/lo_solver.aux
+
+LaTeX Warning: Label `lo_mat_dis' multiply defined.
+
+) (./sections/ho_solver.aux)
+
+LaTeX Warning: Label `fig:lin_fe' multiply defined.
+
+
+LaTeX Warning: Label `eq:x_moml' multiply defined.
+
+
+LaTeX Warning: Label `eq:x_momr' multiply defined.
+
+
+LaTeX Warning: Label `eq:spat_mom' multiply defined.
+
+
+LaTeX Warning: Label `eq:line1' multiply defined.
+
+
+LaTeX Warning: Label `eq:ang_cons_vol' multiply defined.
+
+
+LaTeX Warning: Label `eq:ang_cons_face' multiply defined.
+
+
+LaTeX Warning: Label `eq:stream_mom' multiply defined.
+
+
+LaTeX Warning: Label `eq:exact_lmomp' multiply defined.
+
+
+LaTeX Warning: Label `eq:exact_rmomp' multiply defined.
+
+
+LaTeX Warning: Label `eq:exact_lmomm' multiply defined.
+
+
+LaTeX Warning: Label `eq:exact_rmomm' multiply defined.
+
+
+LaTeX Warning: Label `lo_mat_dis' multiply defined.
+
+
+LaTeX Warning: Label `lo_mat_dis' multiply defined.
+
+
+LaTeX Warning: Label `sec:closure' multiply defined.
+
+(./sections/dsa.aux
 
 LaTeX Warning: Label `en:dsa_beg' multiply defined.
 
@@ -796,7 +849,93 @@ LaTeX Warning: Label `en:dsa_end' multiply defined.
 
 LaTeX Warning: Label `tab:twomat_dsa_iters' multiply defined.
 
-) (./bibliography.aux) (./appendices.aux))
+)
+
+LaTeX Warning: Label `eq:ho_base' multiply defined.
+
+
+LaTeX Warning: Label `te_oper' multiply defined.
+
+
+LaTeX Warning: Label `eq:resid' multiply defined.
+
+
+LaTeX Warning: Label `eq:err_eq' multiply defined.
+
+
+LaTeX Warning: Label `eq:mc_err' multiply defined.
+
+
+LaTeX Warning: Label `sec:ldd_mc' multiply defined.
+
+
+LaTeX Warning: Label `eq:res_face' multiply defined.
+
+
+LaTeX Warning: Label `eq:ho_face' multiply defined.
+
+
+LaTeX Warning: Label `app:tallies' multiply defined.
+
+
+LaTeX Warning: Label `app1' multiply defined.
+
+
+LaTeX Warning: Label `app2' multiply defined.
+
+
+LaTeX Warning: Label `app:refinement' multiply defined.
+
+
+LaTeX Warning: Label `sec:si' multiply defined.
+
+
+LaTeX Warning: Label `en:si_beg' multiply defined.
+
+
+LaTeX Warning: Label `en:si_end' multiply defined.
+
+
+LaTeX Warning: Label `eq:dsa_oper' multiply defined.
+
+
+LaTeX Warning: Label `eq:dsa_lumped' multiply defined.
+
+
+LaTeX Warning: Label `eq:dsa_src' multiply defined.
+
+
+LaTeX Warning: Label `eq:bc_dsa' multiply defined.
+
+
+LaTeX Warning: Label `eq:bc_dsar' multiply defined.
+
+
+LaTeX Warning: Label `en:dsa_beg' multiply defined.
+
+
+LaTeX Warning: Label `en:dsa_end' multiply defined.
+
+
+LaTeX Warning: Label `en:dsa_beg' multiply defined.
+
+
+LaTeX Warning: Label `en:dsa_end' multiply defined.
+
+
+LaTeX Warning: Label `tab:twomat_dsa_iters' multiply defined.
+
+
+LaTeX Warning: Label `tab:twomat_dsa_iters' multiply defined.
+
+(./sections/time_closure.aux) (./bibliography.aux) (./appendices.aux
+
+LaTeX Warning: Label `eq:dsa_lumped' multiply defined.
+
+
+LaTeX Warning: Label `eq:bc_dsa' multiply defined.
+
+))
 \openout1 = `tamuthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 106.
@@ -903,17 +1042,1063 @@ LaTeX Info: Redefining \nameref on input line 106.
 \@outlinefile=\write4
 \openout4 = `tamuthesis.out'.
 
-\openout2 = `sections/dsa.aux'.
+\openout2 = `titlepage.aux'.
 
- (./sections/dsa.tex
+ (./titlepage.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 47.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 47.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [1
+
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
+\openout2 = `abstract.aux'.
+
+ (./abstract.tex [2
+
+
+
+])
+\openout2 = `dedication.aux'.
+
+ (./dedication.tex
+[3
+
+
+
+])
+\openout2 = `acknowledgements.aux'.
+
+ (./acknowledgements.tex [4
+
+
+
+])
+\openout2 = `nomenclature.aux'.
+
+ (./nomenclature.tex [5
+
+
+
+])
+\openout2 = `lists.aux'.
+
+ (./lists.tex
+(./tamuthesis.toc [6
+
+
+]
+Overfull \hbox (12.88857pt too wide) in paragraph at lines 35--35
+ [][] [][]\OT1/cmr/m/n/12 THE HIGH-ORDER EXPONENTIALLY-CONVERGENT MONTE CARLO 
+ []
+
+
+Overfull \hbox (12.88857pt too wide) in paragraph at lines 64--64
+ [][] [][]\OT1/cmr/m/n/12 THE HIGH-ORDER EXPONENTIALLY-CONVERGENT MONTE CARLO 
+ []
+
+[7] [8])
+\tf@toc=\write5
+\openout5 = `tamuthesis.toc'.
+
+ [9] (./tamuthesis.lof)
+\tf@lof=\write6
+\openout6 = `tamuthesis.lof'.
+
+ [10] (./tamuthesis.lot [11])
+\tf@lot=\write7
+\openout7 = `tamuthesis.lot'.
+
+ [12])
+\openout2 = `sections/introduction.aux'.
+
+
+(./sections/introduction.tex
 Chapter 1.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 22.
+
+
+LaTeX Warning: Citation `toro' on page 1 undefined on input line 42.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.58 
+      [1
+
+
+
+]
+
+LaTeX Warning: Citation `shultis_mc' on page 2 undefined on input line 62.
+
+
+Overfull \hbox (0.3285pt too wide) in paragraph at lines 65--68
+[]\OT1/cmr/m/n/12 This re-search will fo-cus on a sim-pli-fied 1D slab-geometry
+ and frequency-integrated
+ []
+
+[2]
+
+LaTeX Warning: Citation `imd' on page 3 undefined on input line 113.
+
+
+LaTeX Warning: Citation `ddmc' on page 3 undefined on input line 113.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 3 undefined on input lin
+e 116.
+
+
+LaTeX Warning: Citation `shultis_mc' on page 3 undefined on input line 118.
+
+[3]
+
+LaTeX Warning: Citation `imd' on page 4 undefined on input line 145.
+
+
+LaTeX Warning: Citation `ddmc' on page 4 undefined on input line 145.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 4 undefined on input lin
+e 151.
+
+
+LaTeX Warning: Citation `iimc_gentile' on page 4 undefined on input line 155.
+
+[4]
+
+LaTeX Warning: Citation `teleportation' on page 5 undefined on input line 167.
+
+
+LaTeX Warning: Citation `wollaeger_ld' on page 5 undefined on input line 172.
+
+
+LaTeX Warning: Citation `teleportation' on page 5 undefined on input line 180.
+
+
+LaTeX Warning: Citation `diff_limit_imc' on page 5 undefined on input line 185.
+
+
+[5]
+
+LaTeX Warning: Citation `willert' on page 6 undefined on input line 196.
+
+
+LaTeX Warning: Citation `park' on page 6 undefined on input line 196.
+
+
+LaTeX Warning: Citation `rmc' on page 6 undefined on input line 196.
+
+
+LaTeX Warning: Citation `ans_2014' on page 6 undefined on input line 196.
+
+
+LaTeX Warning: Citation `willert' on page 6 undefined on input line 203.
+
+
+LaTeX Warning: Citation `park' on page 6 undefined on input line 203.
+
+
+LaTeX Warning: Citation `rmc' on page 6 undefined on input line 218.
+
+
+LaTeX Warning: Citation `rmc' on page 6 undefined on input line 221.
+
+
+LaTeX Warning: Citation `simc_const' on page 6 undefined on input line 227.
+
+
+LaTeX Warning: Citation `simc' on page 6 undefined on input line 234.
+
+
+LaTeX Warning: Citation `simc_const' on page 6 undefined on input line 235.
+
+
+LaTeX Warning: Citation `rmc' on page 6 undefined on input line 235.
+
+[6]
+
+LaTeX Warning: Citation `wolters' on page 7 undefined on input line 242.
+
+
+LaTeX Warning: Citation `jake' on page 7 undefined on input line 243.
+
+
+LaTeX Warning: Citation `rmc' on page 7 undefined on input line 245.
+
+
+LaTeX Warning: Citation `willert' on page 7 undefined on input line 245.
+
+
+LaTeX Warning: Citation `park' on page 7 undefined on input line 245.
+
+
+LaTeX Warning: Citation `jake' on page 7 undefined on input line 248.
+
+
+LaTeX Warning: Citation `ans_2014' on page 7 undefined on input line 248.
+
+[7]
+
+LaTeX Warning: Citation `jake' on page 8 undefined on input line 263.
+
+
+LaTeX Warning: Citation `ans_2014' on page 8 undefined on input line 263.
+
+
+LaTeX Warning: Citation `rmc' on page 8 undefined on input line 269.
+
+
+LaTeX Warning: Citation `rmc' on page 8 undefined on input line 278.
+
+
+LaTeX Warning: Citation `rmc' on page 8 undefined on input line 281.
+
+
+LaTeX Warning: Citation `rmc' on page 8 undefined on input line 291.
+
+
+LaTeX Warning: Citation `rmc' on page 8 undefined on input line 304.
+
+
+LaTeX Warning: Citation `willert' on page 8 undefined on input line 304.
+
+
+LaTeX Warning: Citation `park' on page 8 undefined on input line 304.
+
+[8] [9]
+
+LaTeX Warning: Citation `wolters' on page 10 undefined on input line 306.
+
+
+LaTeX Warning: Citation `jake' on page 10 undefined on input line 307.
+
+
+LaTeX Warning: Reference `sec:perf' on page 10 undefined on input line 322.
+
+
+LaTeX Warning: Reference `sec:prop' on page 10 undefined on input line 323.
+
+
+LaTeX Warning: Reference `sec:summary' on page 10 undefined on input line 323.
+
+) [10]
+\openout2 = `sections/algorithm_descriptions.aux'.
+
+ (./sections/algorithm_descriptions.tex
+Chapter 2.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
 
-LaTeX Warning: Reference `sec:lo_sol' on page 1 undefined on input line 4.
+LaTeX Warning: Reference `ho_cont' on page 11 undefined on input line 16.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 4.
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: ums
+
+LaTeX Warning: Citation `wolters' on page 11 undefined on input line 28.
+
+
+LaTeX Warning: Citation `chandrasekhar' on page 11 undefined on input line 30.
+
+
+LaTeX Warning: Citation `larsen_edl' on page 11 undefined on input line 38.
+
+
+LaTeX Warning: Citation `morel_newton' on page 11 undefined on input line 38.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page 11 undefined on input line 41.
+
+[11
+
+
+
+]
+
+LaTeX Warning: Citation `rmc' on page 12 undefined on input line 49.
+
+
+LaTeX Warning: Citation `park' on page 12 undefined on input line 49.
+
+
+LaTeX Warning: Citation `willert' on page 12 undefined on input line 49.
+
+
+LaTeX Warning: Citation `larsen_error' on page 12 undefined on input line 64.
+
+[12] [13]) [14]
+\openout2 = `sections/lo_solver.aux'.
+
+ (./sections/lo_solver.tex
+Chapter 3.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Citation `fe_book' on page 15 undefined on input line 9.
+
+
+LaTeX Warning: Citation `ray_effects' on page 15 undefined on input line 12.
+
+
+LaTeX Warning: Reference `sec:time_cont' on page 15 undefined on input line 22.
+
+
+[15
+
+
+
+] [16] [17] [18] [19]
+
+LaTeX Warning: Reference `ho_trans' on page 20 undefined on input line 227.
+
+[20] [21]
+
+LaTeX Warning: Reference `lo_mat' on page 22 undefined on input line 300.
+
+[22]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 23 undefined on input line 334.
+
+
+Overfull \hbox (350.44246pt too wide) detected at line 349
+[] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ^^V[] [] \OT1/cmr/m/n
+/12 + [][] \OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/
+m/n/12 + [][] \OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/c
+mr/m/n/12 + [] \OML/cmm/m/it/12 h[]\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/c
+msy/m/n/12 i[][]  ^^@ [] [] \OT1/cmr/m/n/12 = []\OMS/cmsy/m/n/12 h\OML/cmm/m/it
+/12 ^^[[]acT[]\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + []\OMS/cmsy/m/n/12 h\OML/c
+mm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[]\OML/cmm/m/it/12 :
+ []
+
+[23]
+
+LaTeX Warning: Reference `sec:spat_close' on page 24 undefined on input line 35
+5.
+
+[24]
+
+LaTeX Warning: Reference `sec:dsa' on page 25 undefined on input line 391.
+
+) [25]
+\openout2 = `sections/ho_solver.aux'.
+
+ (./sections/ho_solver.tex
+Chapter 4.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Citation `jake' on page 26 undefined on input line 20.
+
+
+LaTeX Warning: Citation `spanier_mc' on page 26 undefined on input line 20.
+
+
+LaTeX Warning: Reference `ho_trans' on page 26 undefined on input line 30.
+
+[26
+
+
+
+]
+Overfull \hbox (34.7923pt too wide) detected at line 42
+[]\OML/cmm/m/it/12 r[] \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/
+12 + [] [][] + [] \OMS/cmsy/m/n/12 ^^@ [][]
+ []
+
+[27]
+
+LaTeX Warning: Citation `rmc' on page 28 undefined on input line 101.
+
+[28]
+
+LaTeX Warning: Citation `shultis_mc' on page 29 undefined on input line 109.
+
+
+LaTeX Warning: Citation `jake' on page 29 undefined on input line 123.
+
+
+LaTeX Warning: Citation `ans_2014' on page 29 undefined on input line 123.
+
+[29]
+
+LaTeX Warning: Reference `fig:ldd' on page 30 undefined on input line 152.
+
+[30] [31]
+Overfull \hbox (32.6329pt too wide) detected at line 203
+ []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
+mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
+ []
+
+[32]
+Overfull \hbox (47.30101pt too wide) detected at line 235
+[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; ^^V\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 
+I[] \OT1/cmr/m/n/12 + []\OML/cmm/m/it/12 I[] [] \OT1/cmr/m/n/12 + []\OML/cmm/m/
+it/12 I[] [] ;  x[] < x < x[];  ^^V[] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V
+ \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V[]
+ []
+
+
+LaTeX Warning: Citation `jake' on page 33 undefined on input line 257.
+
+
+LaTeX Warning: Citation `shultis_mc' on page 33 undefined on input line 258.
+
+[33] [34]
+
+LaTeX Warning: Citation `jake' on page 35 undefined on input line 299.
+
+
+LaTeX Warning: Citation `park' on page 35 undefined on input line 319.
+
+[35]
+
+LaTeX Warning: Citation `shultis_mc' on page 36 undefined on input line 330.
+
+) [36] (./sections/lo_solver.tex
+Chapter 5.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Citation `fe_book' on page 37 undefined on input line 9.
+
+
+LaTeX Warning: Citation `ray_effects' on page 37 undefined on input line 12.
+
+
+LaTeX Warning: Reference `sec:time_cont' on page 37 undefined on input line 22.
+
+
+[37
+
+
+] [38] [39] [40] [41]
+
+LaTeX Warning: Reference `ho_trans' on page 42 undefined on input line 227.
+
+[42] [43]
+
+LaTeX Warning: Reference `lo_mat' on page 44 undefined on input line 300.
+
+[44]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 45 undefined on input line 334.
+
+
+Overfull \hbox (350.44246pt too wide) detected at line 349
+[] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ^^V[] [] \OT1/cmr/m/n
+/12 + [][] \OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/
+m/n/12 + [][] \OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/c
+mr/m/n/12 + [] \OML/cmm/m/it/12 h[]\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/c
+msy/m/n/12 i[][]  ^^@ [] [] \OT1/cmr/m/n/12 = []\OMS/cmsy/m/n/12 h\OML/cmm/m/it
+/12 ^^[[]acT[]\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + []\OMS/cmsy/m/n/12 h\OML/c
+mm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[]\OML/cmm/m/it/12 :
+ []
+
+[45]
+
+LaTeX Warning: Reference `sec:spat_close' on page 46 undefined on input line 35
+5.
+
+[46]
+
+LaTeX Warning: Reference `sec:dsa' on page 47 undefined on input line 391.
+
+) [47]
+\openout2 = `sections/dsa.aux'.
+
+ (./sections/dsa.tex
+Chapter 6.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Reference `sec:lo_sol' on page 48 undefined on input line 4.
+
+[48
+
+
+] [49]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 79--81
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+[50]
+Overfull \hbox (57.97441pt too wide) detected at line 131
+ []$[]   [] \OML/cmm/m/it/12 ^^N^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^N
+^^^[]$ 
+ []
+
+[51] [52]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 190--192
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 196.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 196.
+
+
+LaTeX Warning: Reference `eq:dsa_bc' on page 53 undefined on input line 197.
+
+[53] [54]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 243--245
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+
+Overfull \hbox (4.4192pt too wide) in paragraph at lines 251--252
+[]\OT1/cmr/m/n/12 Solve con-tin-u-ous DSA equa-tions (i.e., Eq. []) for $[]$ 
+ []
+
+
+LaTeX Warning: Reference `sec:two_mat' on page 55 undefined on input line 269.
+
+
+LaTeX Warning: Reference `sec:two_mat' on page 55 undefined on input line 270.
+
+
+LaTeX Warning: Reference `sec:diff_limit' on page 55 undefined on input line 27
+4.
+
+[55]) [56] [57] (./sections/ho_solver.tex
+Chapter 7.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Citation `jake' on page 58 undefined on input line 20.
+
+
+LaTeX Warning: Citation `spanier_mc' on page 58 undefined on input line 20.
+
+
+LaTeX Warning: Reference `ho_trans' on page 58 undefined on input line 30.
+
+[58
+
+
+]
+Overfull \hbox (34.7923pt too wide) detected at line 42
+[]\OML/cmm/m/it/12 r[] \OT1/cmr/m/n/12 = []\OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/
+12 + [] [][] + [] \OMS/cmsy/m/n/12 ^^@ [][]
+ []
+
+[59]
+
+LaTeX Warning: Citation `rmc' on page 60 undefined on input line 101.
+
+[60]
+
+LaTeX Warning: Citation `shultis_mc' on page 61 undefined on input line 109.
+
+
+LaTeX Warning: Citation `jake' on page 61 undefined on input line 123.
+
+
+LaTeX Warning: Citation `ans_2014' on page 61 undefined on input line 123.
+
+[61]
+
+LaTeX Warning: Reference `fig:ldd' on page 62 undefined on input line 152.
+
+[62] [63]
+Overfull \hbox (32.6329pt too wide) detected at line 203
+ []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
+mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
+ []
+
+[64]
+Overfull \hbox (47.30101pt too wide) detected at line 235
+[]\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; ^^V\OT1/cmr/m/n/12 ) = \OML/cmm/m/it/12 
+I[] \OT1/cmr/m/n/12 + []\OML/cmm/m/it/12 I[] [] \OT1/cmr/m/n/12 + []\OML/cmm/m/
+it/12 I[] [] ;  x[] < x < x[];  ^^V[] \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V
+ \OMS/cmsy/m/n/12 ^^T \OML/cmm/m/it/12 ^^V[]
+ []
+
+
+LaTeX Warning: Citation `jake' on page 65 undefined on input line 257.
+
+
+LaTeX Warning: Citation `shultis_mc' on page 65 undefined on input line 258.
+
+[65] [66]
+
+LaTeX Warning: Citation `jake' on page 67 undefined on input line 299.
+
+
+LaTeX Warning: Citation `park' on page 67 undefined on input line 319.
+
+[67]
+
+LaTeX Warning: Citation `shultis_mc' on page 68 undefined on input line 330.
+
+) (./sections/results.tex
+
+LaTeX Warning: Citation `jayenne' on page 68 undefined on input line 5.
+
+
+LaTeX Warning: Citation `imd' on page 68 undefined on input line 8.
+
+
+LaTeX Warning: Citation `ddmc' on page 68 undefined on input line 8.
+
+[68]
+
+LaTeX Warning: Command \ss invalid in math mode on input line 27.
+
+[69]
+
+LaTeX Warning: Command \ss invalid in math mode on input line 35.
+
+
+LaTeX Warning: Citation `shultis_mc' on page 70 undefined on input line 42.
+
+
+LaTeX Warning: Citation `ans_2014' on page 70 undefined on input line 65.
+
+[70] <figures/marshak_mesh_conv.pdf, id=1226, 517.71071pt x 409.79662pt>
+File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
+
+<use figures/marshak_mesh_conv.pdf>
+Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 71.
+(pdftex.def)             Requested size: 297.99547pt x 235.88759pt.
+
+<figures/marshak_200_compare.pdf, id=1227, 508.9671pt x 409.79662pt>
+File: figures/marshak_200_compare.pdf Graphic file (type pdf)
+
+<use figures/marshak_200_compare.pdf>
+Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 76.
+
+(pdftex.def)             Requested size: 297.99547pt x 239.93953pt.
+
+
+LaTeX Warning: Command \ss invalid in math mode on input line 107.
+
+[71] [72]
+
+LaTeX Warning: Command \ss invalid in math mode on input line 168.
+
+<figures/two_mat_conv.pdf, id=1243, 501.29784pt x 409.79662pt>
+File: figures/two_mat_conv.pdf Graphic file (type pdf)
+
+<use figures/two_mat_conv.pdf>
+Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 184.
+(pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
+
+<figures/two_mat_ho_compare.pdf, id=1244, 501.29784pt x 409.79662pt>
+File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
+
+<use figures/two_mat_ho_compare.pdf>
+Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 188.
+
+(pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
+ [73] [74]
+
+LaTeX Warning: Citation `park' on page 75 undefined on input line 237.
+
+
+Overfull \hbox (40.9509pt too wide) in paragraph at lines 247--254
+ [][] 
+ []
+
+[75]
+Overfull \hbox (42.84393pt too wide) in paragraph at lines 260--267
+ [][] 
+ []
+
+
+LaTeX Warning: Citation `rmc' on page 76 undefined on input line 275.
+
+[76] [77] <figures/heated_marshak.pdf, id=1276, 526.7194pt x 417.02364pt>
+File: figures/heated_marshak.pdf Graphic file (type pdf)
+
+<use figures/heated_marshak.pdf>
+Package pdftex.def Info: figures/heated_marshak.pdf used on input line 361.
+(pdftex.def)             Requested size: 279.50218pt x 221.30145pt.
+ [78]
+Overfull \hbox (59.84676pt too wide) in paragraph at lines 373--382
+ [][] 
+ []
+
+
+LaTeX Warning: Citation `densmore_edl' on page 79 undefined on input line 392.
+
+[79] <figures/diff_limit_compare.pdf, id=1289, 523.38817pt x 409.79662pt>
+File: figures/diff_limit_compare.pdf Graphic file (type pdf)
+
+<use figures/diff_limit_compare.pdf>
+Package pdftex.def Info: figures/diff_limit_compare.pdf used on input line 417.
+
+(pdftex.def)             Requested size: 290.50563pt x 227.45857pt.
+ [80] [81]
+
+LaTeX Warning: Citation `rmc' on page 82 undefined on input line 471.
+
+) (./sections/dsa.tex [82] [83 <./figures/marshak_mesh_conv.pdf> <./figures/mar
+shak_200_compare.pdf
+
+pdfTeX warning: pdflatex (file ./figures/marshak_200_compare.pdf): PDF inclusio
+n: multiple pdfs with page group included in a single page
+>] [84 <./figures/two_mat_conv.pdf> <./figures/two_mat_ho_compare.pdf
+
+pdfTeX warning: pdflatex (file ./figures/two_mat_ho_compare.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+>] [85 <./figures/heated_marshak.pdf> <./figures/diff_limit_compare.pdf
+
+pdfTeX warning: pdflatex (file ./figures/diff_limit_compare.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+>]
+Chapter 8.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Reference `sec:lo_sol' on page 86 undefined on input line 4.
+
+[86
+
+] [87]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 79--81
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+[88]
+Overfull \hbox (57.97441pt too wide) detected at line 131
+ []$[]   [] \OML/cmm/m/it/12 ^^N^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^N
+^^^[]$ 
+ []
+
+[89] [90]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 190--192
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+
+LaTeX Warning: Reference `eq:dsa_bc' on page 91 undefined on input line 197.
+
+[91] [92]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 243--245
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+
+Overfull \hbox (4.4192pt too wide) in paragraph at lines 251--252
+[]\OT1/cmr/m/n/12 Solve con-tin-u-ous DSA equa-tions (i.e., Eq. []) for $[]$ 
+ []
+
+
+LaTeX Warning: Reference `sec:two_mat' on page 93 undefined on input line 269.
+
+
+LaTeX Warning: Reference `sec:two_mat' on page 93 undefined on input line 270.
+
+
+LaTeX Warning: Reference `sec:diff_limit' on page 93 undefined on input line 27
+4.
+
+[93]) (./sections/analytic_neutronics.tex [94] [95]) (./sections/tallies.tex
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 2.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mu' on input line 2.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 2.
+
+
+LaTeX Warning: Citation `shultis_mc' on page 96 undefined on input line 7.
+
+
+LaTeX Warning: Citation `favorite_faces' on page 96 undefined on input line 7.
+
+[96]
+
+LaTeX Warning: Citation `favorite_faces' on page 97 undefined on input line 27.
+
+
+
+LaTeX Warning: Citation `mcnp' on page 97 undefined on input line 27.
+
+
+LaTeX Warning: Citation `favorite_faces' on page 97 undefined on input line 27.
+
+
+) (./sections/spatial_closure.tex [97]
+
+LaTeX Warning: Reference `??????' on page 98 undefined on input line 22.
+
+
+LaTeX Warning: Reference `??' on page 98 undefined on input line 22.
+
+[98] [99] [100] [101]
+
+LaTeX Warning: Citation `shultis_mc' on page 102 undefined on input line 162.
+
+
+LaTeX Warning: Reference `???' on page 102 undefined on input line 168.
+
+) (./sections/mpv.tex [102]
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 103 undefined on input l
+ine 7.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page 103 undefined on input line 7.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page 103 undefined on input line 8.
+
+
+LaTeX Warning: Reference `sec:intro' on page 103 undefined on input line 13.
+
+
+LaTeX Warning: Citation `larsen_mpv' on page 103 undefined on input line 17.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 103 undefined on input l
+ine 20.
+
+
+LaTeX Warning: Reference `sec:marshak???' on page 103 undefined on input line 2
+1.
+
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 103 undefined on input l
+ine 25.
+
+[103]
+
+LaTeX Warning: Citation `wollaber2013discrete' on page 104 undefined on input l
+ine 41.
+
+
+LaTeX Warning: Reference `sec:damped_newton' on page 104 undefined on input lin
+e 56.
+
+
+LaTeX Warning: Citation `damped_newton' on page 104 undefined on input line 56.
+
+
+[104] <figures/mpv_rad_imc.pdf, id=1808, 507.24976pt x 411.71002pt>
+File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
+
+<use figures/mpv_rad_imc.pdf>
+Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 79.
+(pdftex.def)             Requested size: 258.00706pt x 209.42278pt.
+ [105]
+<figures/mpv_mats_imc.pdf, id=1813, 507.56343pt x 411.71002pt>
+File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_imc.pdf>
+Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 85.
+(pdftex.def)             Requested size: 258.00706pt x 209.29085pt.
+
+<figures/mpv_mats_holo.pdf, id=1814, 511.59412pt x 411.71002pt>
+File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_holo.pdf>
+Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 92.
+(pdftex.def)             Requested size: 258.00706pt x 207.64493pt.
+ [106 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
+
+pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>]) [107 <./figures/mpv_mats_holo.pdf>]
+\openout2 = `sections/time_closure.aux'.
+
+ (./sections/time_closure.tex
+Chapter 9.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Reference `sec:???' on page 108 undefined on input line 30.
+
+
+LaTeX Warning: Citation `wollaber_review' on page 108 undefined on input line 3
+4.
+
+
+LaTeX Warning: Citation `wollaber_thesis' on page 108 undefined on input line 3
+4.
+
+
+LaTeX Warning: Citation `cj_thesis' on page 108 undefined on input line 34.
+
+[108
+
+
+]
+
+LaTeX Warning: Reference `sec:lo_closure_LDDTRIAL???' on page 109 undefined on 
+input line 41.
+
+[109] [110]
+
+LaTeX Warning: Citation `holo_rh' on page 111 undefined on input line 128.
+
+[111]
+
+LaTeX Warning: Citation `holo_rh' on page 112 undefined on input line 148.
+
+) [112] [113]
+\openout2 = `bibliography.aux'.
+
+ (./bibliography.tex (./tamuthesis.bbl
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [114
+
+
+
+])) [115]
+\openout2 = `appendices.aux'.
+
+
+(./appendices.tex (./sections/appendix1.tex
+APPENDIX A.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 19.
+
+[116
+
+
+
+]
+
+LaTeX Warning: Reference `' on page 117 undefined on input line 61.
+
+[117]
+
+LaTeX Warning: Reference `??' on page 118 undefined on input line 86.
+
+
+LaTeX Warning: Reference `???' on page 118 undefined on input line 87.
+
+[118]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 119 undefined on input line 141.
+
+
+LaTeX Warning: Reference `???' on page 119 undefined on input line 141.
+
+[119] <figures/Penguins.jpg, id=2058, 770.88pt x 578.16pt>
+File: figures/Penguins.jpg Graphic file (type jpg)
+
+<use figures/Penguins.jpg>
+Package pdftex.def Info: figures/Penguins.jpg used on input line 174.
+(pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
+ [120] [121 <./figures/Penguins.jpg>]
+
+LaTeX Warning: Reference `x_momr' on page 122 undefined on input line 201.
+
+[122]
+Overfull \hbox (46.66628pt too wide) detected at line 255
+ []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
+ 
+ []
+
+[123] [124] [125]
+Overfull \hbox (10.00034pt too wide) in paragraph at lines 359--359
+[] 
+ []
+
+) (./appendix2.tex [126] [127]
+APPENDIX B.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 17.
+
+File: figures/Penguins.jpg Graphic file (type jpg)
+<use figures/Penguins.jpg>
+Package pdftex.def Info: figures/Penguins.jpg used on input line 23.
+(pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
+ [128
+
+]))
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 157.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
+ (./tamuthesis.aux (./titlepage.aux)
+(./abstract.aux) (./dedication.aux) (./acknowledgements.aux)
+(./nomenclature.aux) (./lists.aux) (./sections/introduction.aux)
+(./sections/algorithm_descriptions.aux) (./sections/lo_solver.aux)
+(./sections/ho_solver.aux) (./sections/dsa.aux) (./sections/time_closure.aux)
+(./bibliography.aux) (./appendices.aux))
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 157.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
+Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
+(rerunfilecheck)             Checksum: 025A43FE8930159B9C793DB918BC9388;7982.
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 21736 strings out of 493304
+ 372776 string characters out of 6139871
+ 510523 words of memory out of 5000000
+ 24132 multiletter control sequences out of 15000+600000
+ 13261 words of font info for 51 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 56i,13n,55p,1002b,713s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8
+.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on tamuthesis.pdf (140 pages, 1444682 bytes).
+PDF statistics:
+ 2309 PDF objects out of 2487 (max. 8388607)
+ 1776 compressed objects within 18 object streams
+ 531 named destinations out of 1000 (max. 500000)
+ 839 words of extra memory for PDF output out of 10000 (max. 10000000)
+
