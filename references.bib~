@@ -269,6 +269,24 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
     year = "2014"
 }
 
+@article{wollaber_review,
+  title={Four decades of implicit Monte Carlo},
+  author={Wollaber, Allan B},
+  journal={Journal of Computational and Theoretical Transport},
+  volume={45},
+  number={1-2},
+  pages={1--70},
+  year={2016},
+  publisher={Taylor \& Francis}
+}
+
+@phdthesis{wollaber008advanced,
+  title={Advanced Monte Carlo methods for thermal radiation transport},
+  author={Wollaber, Allan B},
+  year={2008},
+  school={The University of Michigan}
+}
+
 
 @INPROCEEDINGS{wla,
     author = "T.A. Wareing and E.W. Larsen and M.L. Adams",

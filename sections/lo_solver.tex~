@@ -1,7 +1,7 @@
 
 \chapter{\uppercase{The Moment-Based Low-Order Equations}}
 
-The formation of the LO equations is similar to a discontinuous FE method.  Weighted
+The formulation of the LO equations is similar to a discontinuous FE method.  Weighted
 integrals of the the equations are taken with functions that have local support as weight
 functions.  The equations are written with element-wise moments of $I$ and $T$ as
 unknowns.  Leaving the solution in this form allows for use of information form a
@@ -238,7 +238,7 @@ equations per cell.  The equation for the $R$ and $+$ moment is
 \end{multline}
 The equations for the negative half-range moment are identical to the above with the
 negative half-range superscripts replacing the positive.  Explicitly,
-\begin{multline}\label{eq:exact_lmomp}
+\begin{multline}\label{eq:exact_lmomm}
     -2{\mu}_{i-1/2}^{n+1,-} \phi_{i-1/2}^{n+1,-} + \cur {\mu}_{L,i}^{n+1,-}
   \mom{\phi}_{L,i}^{n+1,-}
   +  \cur\mu_{R,i}^{n+1,-}
@@ -248,7 +248,7 @@ negative half-range superscripts replacing the positive.  Explicitly,
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,-}
 \end{multline}
 and
-\begin{multline}\label{eq:exact_rmomp}
+\begin{multline}\label{eq:exact_rmomm}
     2{\mu}_{i+1/2}^{n+1,-} \phi_{i+1/2}^{n+1,-} - \cur {\mu}_{L,i}^{n+1,-}
   \mom{\phi}_{L,i}^{n+1,-}
   -  \cur\mu_{R,i}^{n+1,-}

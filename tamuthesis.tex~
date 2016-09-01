@@ -139,7 +139,7 @@
 %\input{sections/analytic_neutronics.tex}
 %\input{sections/tallies.tex}
 %\input{sections/spatial_closure}
-%\input{sections/mpv.tex}A
+%\input{sections/mpv.tex}
 \include{sections/time_closure}
 
 

@@ -138,7 +138,7 @@ need to ever store the
             \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
         \end{tikzpicture}
     \end{center}
-    \caption{Step doubly-discontinous representation in time for the HO solution}
+    \caption{Linear doubly-discontinous representation for mean intensity in LO equations}
     \label{fig:ldd_space}
 \end{figure}
 

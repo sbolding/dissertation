@@ -1,49 +1,54 @@
 This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: tamuthesis.aux
-A level-1 auxiliary file: sections/dsa.aux
+A level-1 auxiliary file: sections/time_closure.aux
 A level-1 auxiliary file: bibliography.aux
 The style file: plain.bst
 A level-1 auxiliary file: appendices.aux
 Database file #1: references.bib
-You've used 11 entries,
+Warning--I didn't find a database entry for "wollaber_review"
+Warning--I didn't find a database entry for "wollaber_thesis"
+Warning--I didn't find a database entry for "cj_thesis"
+Warning--I didn't find a database entry for "shultis_paper_cj_cites???"
+You've used 7 entries,
             2118 wiz_defined-function locations,
-            563 strings with 5590 characters,
-and the built_in function-call counts, 3181 in all, are:
-= -- 312
-> -- 123
-< -- 3
-+ -- 50
-- -- 38
-* -- 188
-:= -- 542
-add.period$ -- 34
-call.type$ -- 11
-change.case$ -- 48
+            543 strings with 5088 characters,
+and the built_in function-call counts, 1837 in all, are:
+= -- 173
+> -- 88
+< -- 0
++ -- 36
+- -- 28
+* -- 106
+:= -- 336
+add.period$ -- 21
+call.type$ -- 7
+change.case$ -- 31
 chr.to.int$ -- 0
-cite$ -- 11
-duplicate$ -- 135
-empty$ -- 275
-format.name$ -- 38
-if$ -- 676
+cite$ -- 7
+duplicate$ -- 78
+empty$ -- 148
+format.name$ -- 28
+if$ -- 373
 int.to.chr$ -- 0
-int.to.str$ -- 11
-missing$ -- 12
-newline$ -- 58
-num.names$ -- 22
-pop$ -- 67
+int.to.str$ -- 7
+missing$ -- 8
+newline$ -- 38
+num.names$ -- 14
+pop$ -- 46
 preamble$ -- 1
-purify$ -- 41
+purify$ -- 28
 quote$ -- 0
-skip$ -- 86
+skip$ -- 45
 stack$ -- 0
-substring$ -- 170
-swap$ -- 22
-text.length$ -- 3
+substring$ -- 61
+swap$ -- 6
+text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 38
+type$ -- 22
 warning$ -- 0
-while$ -- 32
-width$ -- 13
-write$ -- 121
+while$ -- 16
+width$ -- 8
+write$ -- 77
+(There were 4 warnings)

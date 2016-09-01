@@ -1,16 +1,4 @@
-\begin{thebibliography}{10}
-
-\bibitem{adams_dsa}
-Marvin Adams and William Martin.
-\newblock Diffusion synthetic acceleration of discontinuous finite element
-  transport iterations.
-\newblock {\em Nuclear Science and Engineering}, 111(2):145--167, 1992.
-
-\bibitem{larson_morel_sn}
-{Edward W. Larsen and Jim E. Morel}.
-\newblock Advances in discrete-ordinates methodology.
-\newblock {\em Nuclear Computational Science. Springer Netherlands}, pages
-  1--–84, 2010.
+\begin{thebibliography}{1}
 
 \bibitem{fnc}
 J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
@@ -18,31 +6,21 @@ J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
   dependent nonlinear radiation transport.
 \newblock {\em J. Comput. Phys.}, 8(3):313--342, December 1971.
 
-\bibitem{morel_dsa}
-Edward~W Larsen and Jim~E Morel.
-\newblock Advances in discrete-ordinates methodology.
-\newblock In {\em Nuclear Computational Science}, pages 1--84. Springer, 2010.
-
 \bibitem{lewis}
 Elmer~Eugene Lewis and Warren~F Miller.
 \newblock {\em Computational methods of neutron transport}.
 \newblock John Wiley and Sons, Inc., New York, NY, 1984.
 
-\bibitem{mcclarren_notes}
-Ryan McClarren.
-\newblock Numerical methods in reactor analysis.
-\newblock Class Lecture Notes, 2015.
+\bibitem{jake}
+J.R. Peterson.
+\newblock {E}xponentially {C}onvergent {M}onte {C}arlo for the 1-d {T}ransport
+  {E}quation.
+\newblock Master's thesis, Texas A\&M, 2014.
 
-\bibitem{morel_ldtrt}
-J.E. Morel, T.A. Wareing, and K.~Smith.
-\newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
-  Transfer Calculations}.
-\newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
-
-\bibitem{saad}
-Yousef Saad.
-\newblock {\em Iterative methods for sparse linear systems}.
-\newblock Siam, 2003.
+\bibitem{shultis_mc}
+J.K. Shultis and W.L. Dunn.
+\newblock {\em {E}xploring {M}onte {C}arlo {M}ethods}.
+\newblock Academic Press, Burlington, MA 01803, 2012.
 
 \bibitem{stacy}
 "Weston~M. Stacey".
@@ -55,11 +33,10 @@ T.A. Wareing.
   methods for transport problems}}.
 \newblock PhD thesis, Michigan, 1991.
 
-\bibitem{wla}
-T.A. Wareing, E.W. Larsen, and M.L. Adams.
-\newblock {Asymptotic Diffusion Accelerated Discontinuous Finite Element
-  Schemes for the S$_N$ Equations in Slab and X-Y Geometries}.
-\newblock In {\em {International Topical Meeting on Advances in Mathematics,
-  Computations, Reactor Physics}}, volume~3, Pittsburgh, PA, 1991.
+\bibitem{holo_rh}
+Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
+\newblock Radiation hydrodynamics with a high-order, low-order method.
+\newblock In {\em ANS Topical Meeting, International Topical Meeting on
+  Mathematics and Computation}, Nashville Tennessee, 2015.
 
 \end{thebibliography}
