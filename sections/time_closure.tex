@@ -2,7 +2,7 @@
 \chapter{ \uppercase {Residual Monte Carlo Treatment of the Time Variable}}
 \label{sec:time}
 Another area of potential improvement for the HOLO method is in the time discretization
-of the system.  We have investiaged using MC integration of the time derivative in the HO
+of the system.  We have investigated using MC integration of the time derivative in the HO
 solver and introducing extra consistency terms into the LO equations.  The goal is to produce a more accurate solution in optically
 thin regions where particles transport a long distance.  A potential application is in 
 stellar atmosphere calculations.  In optically thin regions, the MC
@@ -179,7 +179,7 @@ section.  However, when the interior source $\overline r(x,\mu)$ is sampled, we 
 importance sampling for the conditional sampling of the uniform time step.  The goal is to ensure that some
 histories reach the end of the time step.  In order to do this, we sample from a modified
 PDF such that a fraction $p_{end}$ of particles sampled from $\overline r(x,\mu)$ are born
-with $t\in(t^{end},t^{n+1})$.  We define $t^{end}=M/(c\sigma_t)$, where $M$ is the desired
+with $t\in(t^{end},t^{n+1})$.  We define $t^{end}=t^{n+1}-M/(c\sigma_t)$, where $M$ is the desired
 number of MFP of travel the particle will undergo from the end of
 the time step (e.g., 2 or 3).  The weights of particles sampled from this
 distribution must be modified to prevent source biasing.
@@ -187,14 +187,14 @@ distribution must be modified to prevent source biasing.
 The new PDF to be sampled from is
 \begin{equation}
     f^*(t) = \left\{ \begin{array}{cl}
-        (1 - p_{end}) &\quad 0 < t < t^{end} \\ 
-        p_{end} & \quad t^{end} \leq t < t^{n+1}  \\
+        \frac{\ds 1 - p_{end}}{\ds t^{end} - t^n} &\quad 0 < t < t^{end} \\ 
+        \frac{\ds p_{end}}{\ds t^{n+1} - t^{end}} & \quad t^{end} \leq t < t^{n+1}  \\
         0 & \quad \text{elsewhere}\end{array}  \right.
 \end{equation}
 The original PDF is $f(t)= 1/\Delta t$, for $t\in(t^{n},t^{n+1})$.  Thus, using the
 standard procedure for importance sampling\cite{shultis_mc}, the starting time $t_{\text{start}}$ is sampled from
 $f^*(t)$, and then weights are multiplied by the factor
-$f(t_{\text{start}})/f*(t_{\text{start}})$.  This procedure is not perfect in that if a
+$f(t_{\text{start}})/f^*(t_{\text{start}})$.  This procedure is not perfect in that if a
 particle is moving from an optically thin to an optically thick
 region, it is not guaranteed to reach census. However, this case does not introduce bias.
 
@@ -235,7 +235,7 @@ the estimators are
     \frac{s_n}{h_{i}h_{j}} w_j \left(x_c - x_i\right)
 \end{equation}
 where $\sum\limits_{n=1}^{N} w_n = \| r(x,\mu,t) \|_1$, $x_c$ is the center of the $n$-th
-pathlength, and $s_{n}$ is the path length for the $n$-th path length in the $x-\mu$ cell.
+path length, and $s_{n}$ is the path length for the $n$-th path length in the $x-\mu$ cell.
 
 Moments of $I^{n+1}(x,\mu)$ must be estimated to represent the end of time step intensity.
 For example, the moment of the error at the end of time step is
@@ -266,13 +266,13 @@ time-dependent unknowns, rather than just using closure.   Previous work has enf
 from a BE discretization of the discretized time-derivatives to add an artificial
 term~\cite{holo_rh}.  This has the added benefit that the LO solver exclusively deals in
 time-averaged unknowns for radiation terms in the equations.  We will alternatively use a
-parameteric closure in the time variable, similar to the spatial closures discussed in the
+parametric closure in the time variable, similar to the spatial closures discussed in the
 Sec.~\ref{???}.  The time-integrated equations will have primarily time-averaged
 values, which is desired. Additionally, the closure
 produces LO equations that have the same numerical difficulty to solve as the fully-discrete LO equations, but
 have the potential to preserve the accuracy of the MC integration in time, upon non-linear
 convergence of the system.   A closure relation is used to eliminate
-the end of time step moments present from the time derivative term.   We will investigate different parameteric forms of the closure for robustness.   Once the time-averaged unknowns have been calculated,
+the end of time step moments present from the time derivative term.   We will investigate different parametric forms of the closure for robustness.   Once the time-averaged unknowns have been calculated,
 the time closures can be used to advance to the end of time step values for the next
 time step.
 
@@ -289,9 +289,46 @@ This equation is then integrated over the time step, and the emission source is 
 implicit.  The same manipulations can be
 performed on the streaming term to form angular consistency terms, but the weighting fluxes are now
 time-averaged values.  Thus, the angular consistency terms are computed with $\overline I(x,\mu)$.  
-The resulting equations are
+The equations with time-averaged consistency terms are
 \begin{multline}
-    \frac{\mom{\phi}_L^{+,n+1} - \mom{\phi}_L^{+,n}}{c \Delta t}
+    \frac{\mom{\phi}_{L,i}^{+,n+1} - \mom{\phi}_{L,i}^{+,n}}{c \Delta t}
+    -2\overline {\mu}_{i-1/2}^{\,+} \overline \phi_{i-1/2}^{\,+} + \overline{\cur {\mu}}_{L,i}^{+}
+  \mom{\phibar}_{L,i}^{+}
+  +  \overline{\cur\mu}_{R,i}^{+}
+  \mom{\phibar}_{R,i}^{+} +  \sigma_{t,i}^{n+1} h_i 
+  \mom{\overline\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phibar}_{L,i}^{+} +
+  \mom{\phibar}_{L,i}^{-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i},
+\end{multline}
+These equations are exact at this point.
+
+\subsection{Closure}
+%\subsection{Alternative time discretization}
+%\label{sec:time}
+%
+The closure relations in time are different than the closure relations for the spatial
+variable because we do not have a time slope.  The following closure is a modified diamond
+relation:
+\begin{equation}\label{eq:tc_diam}
+    I^{n+1} = 2\gamma \overline{I} - I^{n}
+\end{equation}
+where $\gamma$ is the closure factor and $\overline{I}$ is the time-averaged
+intensity.  A modified implicit discretization can also be used
+\begin{equation}\label{eq:tc_avg}
+    I^{n+1} = \gamma \overline{I}
+\end{equation}
+
+A closure relation must be used to eliminate the unknowns at $t^{n+1}$ from each of the
+equations, with the values from the previous time step taken as a known quantity.  Thus, it is necessary to have a closure relation for each moment and half
+range, producing four closure parameters per spatial cell.  The closure relations for the
+$L$ moment and the modified diamond relation are
+\begin{equation}
+    \mom{\phi}_{L,i}^{\pm,n+1} = 2 \gamma_{L,i}^{\pm}\mom{\overline\phi}_{L,i}^{\pm} -
+    \mom{\phi}_{L,i}^{\pm,n}
+\end{equation}
+with equivalent definitions for the $R$ moment.  Substitution of the above equation into
+Eq.~\eqref{}
+\begin{multline}
+    \frac{2}{c\Delta t}\left[ \gamma_{L,i}^{+} \mom{\phi}_L^{+,n+1} - \mom{\phi}_L^{+,n} \right]
     -2\overline {\mu}_{i-1/2}^{\,+} \overline \phi_{i-1/2}^{\,+} + \cur {\mu}_{L,i}^{n+1,+}
   \mom{\phi}_{L,i}^{n+1,+}
   +  \cur\mu_{R,i}^{n+1,+}
@@ -300,24 +337,13 @@ The resulting equations are
   \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+},
 \end{multline}
-These equations are exact at this point, written in terms of primarily time-averaged unknowns
 
-\subsection{Closure}
-%\subsection{Alternative time discretization}
-%\label{sec:time}
-%
-
-The closure relations in time are different than the closure relations for the spatial
-variable because we do not have a time slope.  The following closure is a modified diamond
-relation:
-\begin{equation}
-    I^{n+1} = 2\gamma_t \overline{I} - I^{n}
-\end{equation}
-where $\gamma_t$ is the closure factor and $\overline{I}$ is the time-averaged
-intensity.  A spatial and angle discretized version of the above equation can be used to
-eliminate the extra unknowns from the LO system.  The value of $\gamma_t$ is
-estimated by solving the above equation based on the latest HO solution for all
-parameters. 
-
-At the end of a time step, we need to advance the LO solver 
+The value of $\gamma_{L,i}^+$, $\gamma_{R,i}^+$, $\gamma_{L,i}^-$, and $\gamma_{R,i}^-$
+are computed with the trial-space representation of $I^{HO}(x,\mu,t)$ substituted into
+Eq.~\eqref{eq:tc_diam} and Eq.~\eqref{eq:tc_avg}.
+One potential benefit of the time closure parameters is that $\overline I^{HO}$ will be
+most different from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
+$\sigma_a$ is small, leading to an optically thin problem.  However, there may be
+difficulties in the MPV problems where the problems are tightly coupled and nonlinear, but
+can lead to a large change over a time step.
 

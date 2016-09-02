@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  1 SEP 2016 15:08
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  2 SEP 2016 15:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -983,18 +983,22 @@ LaTeX Warning: Citation `mcnp' on page 8 undefined on input line 249.
 
 LaTeX Warning: Reference `???' on page 9 undefined on input line 270.
 
-[9]
-Overfull \hbox (79.78589pt too wide) detected at line 302
- []$[]  [] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2[][][][] + [][] \OMS/cmsy/m/n/
-12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + [][] \OMS/cmsy/m
-/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + [] \OML/cmm/m
-/it/12 h[]\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[]$ 
+[9] [10]
+
+LaTeX Warning: Reference `' on page 11 undefined on input line 329.
+
+
+Overfull \hbox (128.50774pt too wide) detected at line 339
+ []$[]  [] [] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2[][][][] + [][] \OMS/cmsy/m
+/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + [][] \OMS/cms
+y/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + [] \OML/cm
+m/m/it/12 h[]\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[]$ 
  []
 
-) [10]
+) [11]
 \openout2 = `bibliography.aux'.
 
- (./bibliography.tex (./tamuthesis.bbl)) [11
+ (./bibliography.tex (./tamuthesis.bbl)) [12
 
 
 
@@ -1008,56 +1012,56 @@ APPENDIX A.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
-[12
+[13
 
 
 
 ]
 
-LaTeX Warning: Reference `' on page 13 undefined on input line 61.
-
-[13]
-
-LaTeX Warning: Reference `??' on page 14 undefined on input line 86.
-
-
-LaTeX Warning: Reference `???' on page 14 undefined on input line 87.
-
-
-LaTeX Warning: Reference `eq:mat_cont' on page 14 undefined on input line 94.
+LaTeX Warning: Reference `' on page 14 undefined on input line 61.
 
 [14]
 
-LaTeX Warning: Reference `eq:lo_tran' on page 15 undefined on input line 141.
+LaTeX Warning: Reference `??' on page 15 undefined on input line 86.
 
 
-LaTeX Warning: Reference `???' on page 15 undefined on input line 141.
+LaTeX Warning: Reference `???' on page 15 undefined on input line 87.
 
-[15] <figures/Penguins.jpg, id=210, 770.88pt x 578.16pt>
+
+LaTeX Warning: Reference `eq:mat_cont' on page 15 undefined on input line 94.
+
+[15]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 16 undefined on input line 141.
+
+
+LaTeX Warning: Reference `???' on page 16 undefined on input line 141.
+
+[16] <figures/Penguins.jpg, id=219, 770.88pt x 578.16pt>
 File: figures/Penguins.jpg Graphic file (type jpg)
 
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 174.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [16] [17 <./figures/Penguins.jpg>]
+ [17] [18 <./figures/Penguins.jpg>]
 
-LaTeX Warning: Reference `eq:x_moml' on page 18 undefined on input line 201.
+LaTeX Warning: Reference `eq:x_moml' on page 19 undefined on input line 201.
 
 
-LaTeX Warning: Reference `x_momr' on page 18 undefined on input line 201.
+LaTeX Warning: Reference `x_momr' on page 19 undefined on input line 201.
 
-[18]
+[19]
 Overfull \hbox (46.66628pt too wide) detected at line 255
  []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
  
  []
 
-[19] [20] [21]
+[20] [21] [22]
 Overfull \hbox (10.00034pt too wide) in paragraph at lines 359--359
 [] 
  []
 
-) (./appendix2.tex [22] [23]
+) (./appendix2.tex [23] [24]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1067,7 +1071,7 @@ File: figures/Penguins.jpg Graphic file (type jpg)
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 23.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [24
+ [25
 
 ]))
 
@@ -1088,10 +1092,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 20933 strings out of 493304
- 361446 string characters out of 6139871
- 493971 words of memory out of 5000000
- 23855 multiletter control sequences out of 15000+600000
+ 20940 strings out of 493304
+ 361527 string characters out of 6139871
+ 494060 words of memory out of 5000000
+ 23858 multiletter control sequences out of 15000+600000
  12186 words of font info for 47 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,11n,55p,796b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1109,10 +1113,10 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tamuthesis.pdf (24 pages, 1001308 bytes).
+Output written on tamuthesis.pdf (25 pages, 1003812 bytes).
 PDF statistics:
- 379 PDF objects out of 1000 (max. 8388607)
- 333 compressed objects within 4 object streams
- 121 named destinations out of 1000 (max. 500000)
+ 389 PDF objects out of 1000 (max. 8388607)
+ 342 compressed objects within 4 object streams
+ 125 named destinations out of 1000 (max. 500000)
  162 words of extra memory for PDF output out of 10000 (max. 10000000)
 
