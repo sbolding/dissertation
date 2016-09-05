@@ -1,0 +1,79 @@
+diff --git a/prelims/pres.tex b/prelims/pres.tex
+index c2f1071..33cc374 100755
+--- a/prelims/pres.tex
++++ b/prelims/pres.tex
+@@ -3,13 +3,15 @@
+ \usepackage{tabls}
+ \usepackage{graphicx}
+ \usepackage{subcaption}
++\captionsetup{compatibility=false}
+ %\usepackage{animate}
+ 
++%To add a grid to the slides for aligning stuff
++%\usepackage[texcoord,grid,gridunit=mm,gridcolor=gray,subgridcolor=gray!10,gridBG=true]{eso-pic}
+ 
+ 
+ 
+ %Load the myriad packages
+-\usepackage{xcolor}
+ \usepackage{tikz}
+ \usetikzlibrary{shapes.geometric, arrows}
+ \tikzstyle{startstop} = [rectangle, rounded corners, minimum width=2cm, text
+@@ -123,8 +125,8 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
+ \pgfdeclareimage[height=0.1in]{TAMUlogo}{tamu_engineering.png}
+ %\logo{\raisebox{-8pt}{\pgfuseimage{TAMUlogo}}}
+ \setlength\tabcolsep{0.2310in}
+-\titlegraphic{\centering\begin{tabular}{lcr}\hspace{-2em}\includegraphics[trip=4.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
+- \hspace{-1em}\includegraphics[height=0.18\textheight]{tamu_seal.png} &
++\titlegraphic{\centering\begin{tabular}{lcr}\hspace{0em}\includegraphics[trim=2.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
++ \hspace{0em}\includegraphics[height=0.18\textheight]{tamu_seal.png} &
+ \includegraphics[height=0.18\textheight]{cert_logo_maroon.png}\end{tabular}}
+ %Michigan-themed
+ %\pgfdeclareimage[height=0.1in]{UMlogo}{michigan_engineering.png}
+@@ -147,7 +149,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
+ \usetheme{boxes}
+ 
+ %Make it Aggie Maroon
+-%\usecolortheme[RGB={80,0,0}]{structure}  
++\usecolortheme[RGB={80,0,0}]{structure}  
+ %Or Michigan Blue
+ %\usecolortheme[RGB={0,0,153}]{structure}  
+ %Or Michigan Maize
+@@ -195,24 +197,17 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{frame}
+-\frametitle{We are interested in modeling thermal radiation transport in the high-energy,
+-    high-density physics regime}
+-\begin{itemize}
+-\item Temperatures on order of $10^6$ K or more
+-\item Significant energy and momentum may be exchanged with material
+-\item Radiative transfer simulations important in modeling
+-\item Material under extreme conditions
+-\item Inertial confinement fusion
+-\item Supernovae and other astrophysical phenomena
+-\end{itemize}
++\frametitle{We are interested in modeling thermal radiation transport in the high energy,
++    density physics regime}
++%    \begin{picture}(130mm,85mm)
++%\end{picture}
+ \end{frame}
+ 
+ 
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \begin{frame}
+ \frametitle{The Grey TRT Equations}
+-\setlength{\unitlength}{
+-\begin{picture}
++\setlength{\unitlength}{\textwidth}
+ \begin{itemize}
+ \item The 1D, grey equations
+ \begin{align*}\label{ho_cont}
+@@ -227,7 +222,6 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
+         \item Absorption cross section ($\sigma_a$) can be a strong function of $T$
+         \item Equations are nonlinear and may be tightly coupled 
+ \end{itemize}
+-}
+ 
+ \end{frame}
+ 

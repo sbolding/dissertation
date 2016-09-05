@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  2 SEP 2016 15:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  5 SEP 2016 12:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -902,103 +902,103 @@ Chapter 1.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 21.
+
+LaTeX Warning: Reference `' on page 1 undefined on input line 4.
+
+
+LaTeX Warning: Citation `wollaber_review' on page 1 undefined on input line 20.
+
+
+
+LaTeX Warning: Citation `wollaber_thesis' on page 1 undefined on input line 20.
+
+
+
+LaTeX Warning: Citation `cj_thesis' on page 1 undefined on input line 20.
+
+LaTeX Font Info:    Try loading font information for U+msa on input line 28.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 21.
+LaTeX Font Info:    Try loading font information for U+msb on input line 28.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-LaTeX Warning: Reference `sec:???' on page 1 undefined on input line 28.
-
-
-LaTeX Warning: Citation `wollaber_review' on page 1 undefined on input line 32.
-
-
-
-LaTeX Warning: Citation `wollaber_thesis' on page 1 undefined on input line 32.
-
-
-
-LaTeX Warning: Citation `cj_thesis' on page 1 undefined on input line 32.
-
-[1
+) [1
 
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
+LaTeX Warning: Reference `sec:???' on page 2 undefined on input line 36.
+
+
 LaTeX Warning: Reference `sec:lo_closure_LDDTRIAL???' on page 2 undefined on in
-put line 40.
+put line 45.
 
 [2] [3]
 
-LaTeX Warning: Reference `eq:???' on page 4 undefined on input line 125.
+LaTeX Warning: Reference `eq:???' on page 4 undefined on input line 134.
 
 [4]
 
-LaTeX Warning: Reference `sec:???' on page 5 undefined on input line 145.
+LaTeX Warning: Reference `sec:???' on page 5 undefined on input line 154.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 158.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 168.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 158.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 168.
  [5]
 
-LaTeX Warning: Reference `sec:???' on page 6 undefined on input line 168.
+LaTeX Warning: Reference `sec:???' on page 6 undefined on input line 178.
 
 [6]
 
-LaTeX Warning: Reference `sec:???' on page 7 undefined on input line 208.
+LaTeX Warning: Reference `sec:???' on page 7 undefined on input line 219.
 
 
-LaTeX Warning: Citation `cj_thesis' on page 7 undefined on input line 217.
+LaTeX Warning: Citation `cj_thesis' on page 7 undefined on input line 228.
 
 
 LaTeX Warning: Citation `shultis_paper_cj_cites???' on page 7 undefined on inpu
-t line 217.
+t line 228.
 
 [7]
 
-LaTeX Warning: Citation `wollaber_review' on page 8 undefined on input line 247
+LaTeX Warning: Citation `wollaber_review' on page 8 undefined on input line 265
 .
 
 
-LaTeX Warning: Citation `wollaber_thesis' on page 8 undefined on input line 247
+LaTeX Warning: Citation `wollaber_thesis' on page 8 undefined on input line 265
 .
 
 
-LaTeX Warning: Reference `???' on page 8 undefined on input line 249.
+LaTeX Warning: Reference `???' on page 8 undefined on input line 267.
 
 
-LaTeX Warning: Citation `mcnp' on page 8 undefined on input line 249.
+LaTeX Warning: Citation `mcnp' on page 8 undefined on input line 267.
 
 [8]
 
-LaTeX Warning: Reference `???' on page 9 undefined on input line 270.
+LaTeX Warning: Reference `???' on page 9 undefined on input line 291.
 
 [9] [10]
-
-LaTeX Warning: Reference `' on page 11 undefined on input line 329.
-
-
-Overfull \hbox (128.50774pt too wide) detected at line 339
- []$[]  [] [] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2[][][][] + [][] \OMS/cmsy/m
-/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + [][] \OMS/cms
-y/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + [] \OML/cm
-m/m/it/12 h[]\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[]$ 
+Overfull \hbox (14.39783pt too wide) detected at line 372
+ []$[]  [] [] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2[][][][] + [][]\OMS/cmsy/m/
+n/12 h[]i[] \OT1/cmr/m/n/12 + [][]\OMS/cmsy/m/n/12 h[]i[] \OT1/cmr/m/n/12 + \OM
+L/cmm/m/it/12 ^^[[]h[]\OMS/cmsy/m/n/12 h[]i[]$ 
  []
 
-) [11]
+
+LaTeX Warning: Reference `sec:???' on page 11 undefined on input line 385.
+
+[11]) [12]
 \openout2 = `bibliography.aux'.
 
- (./bibliography.tex (./tamuthesis.bbl)) [12
+ (./bibliography.tex (./tamuthesis.bbl)) [13
 
 
 
@@ -1012,56 +1012,56 @@ APPENDIX A.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
-[13
+[14
 
 
 
 ]
 
-LaTeX Warning: Reference `' on page 14 undefined on input line 61.
-
-[14]
-
-LaTeX Warning: Reference `??' on page 15 undefined on input line 86.
-
-
-LaTeX Warning: Reference `???' on page 15 undefined on input line 87.
-
-
-LaTeX Warning: Reference `eq:mat_cont' on page 15 undefined on input line 94.
+LaTeX Warning: Reference `' on page 15 undefined on input line 61.
 
 [15]
 
-LaTeX Warning: Reference `eq:lo_tran' on page 16 undefined on input line 141.
+LaTeX Warning: Reference `??' on page 16 undefined on input line 86.
 
 
-LaTeX Warning: Reference `???' on page 16 undefined on input line 141.
+LaTeX Warning: Reference `???' on page 16 undefined on input line 87.
 
-[16] <figures/Penguins.jpg, id=219, 770.88pt x 578.16pt>
+
+LaTeX Warning: Reference `eq:mat_cont' on page 16 undefined on input line 94.
+
+[16]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 17 undefined on input line 141.
+
+
+LaTeX Warning: Reference `???' on page 17 undefined on input line 141.
+
+[17] <figures/Penguins.jpg, id=228, 770.88pt x 578.16pt>
 File: figures/Penguins.jpg Graphic file (type jpg)
 
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 174.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [17] [18 <./figures/Penguins.jpg>]
+ [18] [19 <./figures/Penguins.jpg>]
 
-LaTeX Warning: Reference `eq:x_moml' on page 19 undefined on input line 201.
+LaTeX Warning: Reference `eq:x_moml' on page 20 undefined on input line 201.
 
 
-LaTeX Warning: Reference `x_momr' on page 19 undefined on input line 201.
+LaTeX Warning: Reference `x_momr' on page 20 undefined on input line 201.
 
-[19]
+[20]
 Overfull \hbox (46.66628pt too wide) detected at line 255
  []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
  
  []
 
-[20] [21] [22]
+[21] [22] [23]
 Overfull \hbox (10.00034pt too wide) in paragraph at lines 359--359
 [] 
  []
 
-) (./appendix2.tex [23] [24]
+) (./appendix2.tex [24] [25]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1071,7 +1071,7 @@ File: figures/Penguins.jpg Graphic file (type jpg)
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 23.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [25
+ [26
 
 ]))
 
@@ -1085,17 +1085,17 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 157.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: 8D5625C476A0BA9FEBB60A8F8ED52690;1504.
+(rerunfilecheck)             Checksum: 39E0EC1C4AEB1DFC52F1C58DB047A0B4;1618.
 
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 20940 strings out of 493304
- 361527 string characters out of 6139871
- 494060 words of memory out of 5000000
- 23858 multiletter control sequences out of 15000+600000
+ 20946 strings out of 493304
+ 361601 string characters out of 6139871
+ 494234 words of memory out of 5000000
+ 23861 multiletter control sequences out of 15000+600000
  12186 words of font info for 47 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,11n,55p,796b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1113,10 +1113,10 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tamuthesis.pdf (25 pages, 1003812 bytes).
+Output written on tamuthesis.pdf (26 pages, 1005808 bytes).
 PDF statistics:
- 389 PDF objects out of 1000 (max. 8388607)
- 342 compressed objects within 4 object streams
- 125 named destinations out of 1000 (max. 500000)
- 162 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 399 PDF objects out of 1000 (max. 8388607)
+ 351 compressed objects within 4 object streams
+ 128 named destinations out of 1000 (max. 500000)
+ 170 words of extra memory for PDF output out of 10000 (max. 10000000)
 
