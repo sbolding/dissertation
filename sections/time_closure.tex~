@@ -388,7 +388,19 @@ visually for accuracy to determine that we are converging towards the correct so
 For the near void case the IMC solution is accurate because the material energy equation
 is uncoupled.
 
-When negative averages occur, they are set to the floor value.
+In the void problem since it is so optically thin there is no need to bias.
+
+When negative averages occur, they are set to the floor value. Causality is not strictly
+preserved because you are sampling the error, so it is possible to have particles out
+front of the wave front.
+
+
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=0.65\textwidth]{void_imc_compare.pdf}
+    \caption{\label{fig:void_imc_compare} Comparison of radiation temperatures for IMC and
+    HOLO method, for time-averaged and census unknowns.}
+\end{figure}
 
 
 
