@@ -388,7 +388,6 @@ visually for accuracy to determine that we are converging towards the correct so
 For the near void case the IMC solution is accurate because the material energy equation
 is uncoupled.
 
-In the void problem since it is so optically thin there is no need to bias.
 
 When negative averages occur, they are set to the floor value. Causality is not strictly
 preserved because you are sampling the error, so it is possible to have particles out
@@ -402,5 +401,46 @@ front of the wave front.
     HOLO method, for time-averaged and census unknowns.}
 \end{figure}
 
+
+\subsection{Near-Void Problem}
+
+The problem specifics for this problem are a constant. We use the systematic sampling
+algorithm and no biasing in time as the problem is optically thin. The material properties
+are uniform throughout the 2.0 cm domain with $\rho c_v = 0.01374$ Jks cm$^{-3}$ keV$^{-1}$, $\sigma_a=10^{-6}$ cm$^{-1}$, and $\sigma_s=0$ \invcm.
+The material and radiation are initially in equilibrium at a temperature of $0.01$ keV.  An isotropic incident intensity of 0.150 keV is applied
+at $x=0$; the incident intensity on the right boundary is $0.01$ keV.  The simulation end
+time is 0.003 sh.  
+
+A comparison of the cell-averaged mean instensities for IMC and the HOLO method are given
+in Fig.~\ref{blah}, showing a case for HOLO with a time closure and for the time-discrete
+case.  A comparsion for radiation temperatures with 1 and 3 batches is given in Fig.~\ref{blah}, which
+reveals that there is substantial noise past the wave front for the 3 batches case.  This
+noise is small relative to the scale of the solution in the wave-front, which is why it is not visible in the
+mean intensity plots. This demonstrates one deficiency in this methdo that particles
+sampled near the wave-front can potentially ahve a time near the beginning of the time
+step and travel into the equilibrium region.  The solution is not biased however, if
+sufficient samplign was performed there woudl be negative particles that canceled out this
+error.  The residual MC case does not display this error as drastically because the guessed solution
+takes on the form of the old solution, particles can not transport past what physics
+allows, with the exception of some smearing due to the projection error incurred between
+time steps.
+
+We have computed FOM statistics using Eq.~\eqref{eq:fom} with 20 independent runs for each
+configuration.  In general more particle histories are needed to produce an accurate
+result.
+\begin{table}[H]
+\centering
+\caption{\label{marshak_var} \textbf{Comparison of sample statistics for the Near-Void
+    problem.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} &
+    \multicolumn{2}{|c|}{\FOM} \\ \hline
+hists./step   & IMC & HOLO-ECMC &  IMC & HOLO-ECMC   \\ \hline
+   300,000
+   1,000,000  & 3.40\%  & 0.28\% &  1    &  145      \\
+  2,000,000    & 1.22\%  & 0.057\% & 0.93    &   422     \\ \hline
+\end{tabular}
+\end{table}
 
 
