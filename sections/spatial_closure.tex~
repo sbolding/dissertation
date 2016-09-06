@@ -9,11 +9,10 @@ there is still more unknowns than equations, for each spatial
 cell and half range; an extra equation relating the spatial moments and face values is
 needed.  The HO solution can be used to estimate the relation so that, upon nonlinear
 convergence, the LO moments will exactly preserve the HO moments.  The only discretization
-error is then what errors were introduced into the HO equations.
+error is then what errors were introduced into the HO equations and temperature representation.
 In the remainder of this section, we will motivate the HO spatial closure by forming half
 range balance equations to form a single unknown for each cell.  We will then discuss
 possible closure relations, based on modifications to standard spatial closures.
-
 
 \subsection{Motivation}
 
@@ -95,7 +94,7 @@ Our LO system is formulated in terms of $L$ and $R$ moments, rather than the ave
 slope.  Thus, the parameteric functions are expressed in terms of the $L$ and $R$
 unknowns.  There is a spatial closure parameter for each half-range, for each cell.
 
-NOT SURE WHAT TO DO WITH THE NEXT STUFF, IT TALKS ABOUT HOW LDFE MC DOESNT ACTUALLY
+REWRITE: NOT SURE WHAT TO DO WITH THE NEXT STUFF, IT TALKS ABOUT HOW LDFE MC DOESNT ACTUALLY
 CONSISTENTLY MATCH LDFE LO EQUATIONS
 It is noted that the LD projection of the HO solution produces the same moments, because
 MC was used to obtain this projection, the outflow will not agree with the LO equations.
@@ -104,21 +103,32 @@ that flowed through that surface due to MC noise.
 
 \subsection{The Doubly-Discontinuous Trial Space}
 
-Because of the temperature unknowns, it is still necessary to define a representation for
-the intensity and temperature over the interior of the cell.  Thus, we use a linear doubly
-discontinuous trial space for the half-range intensities, which is depicted in Fig.~\ref{fig:ldd_space}.
+Because of the temperature unknowns and the HO scattering source reperesentation, it is necessary to define a representation for
+the intensity and temperature over the interior of the cell.  Thus, we introduce a linear doubly
+discontinuous (LDD) trial space for the half-range intensities, which is depicted in Fig.~\ref{fig:ldd_space}.
 The linear relation on the interior of the cell preserves the $L$ and $R$ moments of the
 solution.  The temperature is still represented with a linear interpolant of $T^4$ and
-$T$.  
+$T$.  In the case of strong gradients, it is necessary to modify the interior representation.  In this case, 
+we use the standarded lumped expression where the moments take on the edge values.
 
 This trial space has an extra unknown outflow, which is eliminated using the HO spatial
 closure.  For the initial LO solve, the outflow is assumed continuous, using the standard
-upwinding and LD representation.  With the outflow term eliminated, the equations take on
-the standard form of the 
+upwinding and LD representation.  With the outflow term eliminated, the equations
+have the same numerical complexity as the LD equations.  Also, the equations can be
+closed exactly in terms of moments, if an assumption is made about the relation
+beteween spatial moments of $T^4$ and $T$.  Ultimately, we have to reconstruct the
+temperature anyways, so we use the LDFE representation for $T$ and $T^4$.  As long as
+the outflows that are produced are positive, then the interior moments will be
+positive.  Thus, the lumping represetnation should ensure a positive representatin
+for the temperature.
 
 During the Newton solve, once new half-range
-intensities are determined, the temperatures are updated using the moments.  There is no
-need to ever store the 
+intensities are determined, the temperatures are updated using the moment same moment
+equations given by Eq.~\eqref{}. This can be confusing because the slope moment,
+e.g., $\psi_x^\pm$, does not stricly correspond to the slope in the typical since.
+We have modified it.  This is the same as the lumped closure relation in the previous
+section, where we are preserving the average and modifying the outflow, then the
+slope must be modified.e 
 
 
 \begin{figure}[H]
@@ -149,23 +159,19 @@ can accurately represent the solution.  Although the closure will be applied eve
 we expect the greatest improvement in accuracy for cells where the LDFE trial space
 produces a negative solution.
 
-By introducing a LDD trial space into the LO equations, we introduce an additional
-unknown in each half-range equation.  This extra unknown is eliminated as a function
-of the interior moments.  
-However, in the HOLO context, the HO solution used a lagged source $q_i$.
-
 In theory, if the problem were linear, or the nonlinear problem was fully converged,
 then the HO and LO solutions would produce exactly the same moments.  There are
 several issues with ECMC that cause this to not be true, even for a linear problem.
-With ECMC, global energy balance is not preserved, but local energy balance is also
-not preserved.  There are source biasing techniques for standard MC (systematic
-sampling) that would exactly preserve the zeroth moment of the source~\cite{shultis_mc}). 
+With ECMC, global and, particularly, local energy balance are not preserved.  There
+are source biasing techniques for standard MC (e.g., systematic
+sampling) that exactly preserve the zeroth moment of the source~\cite{shultis_mc}). 
 It is a requirement that the HO solution satisfies the zeroth moment equation. If the
 closure relation also uses the first moment, then it must also satisfy the first
 spatial moment equation.  However, because we have to reconstruct the bilnear moment
 of $x$ and $\mu$, the consistency terms do not exactly preserve the first moment
 equation.  One final reason is that the analog treatment of absorption (at low
-weights as discussed in Sec.~\ref{???}) results in the fact that the product of
-$\phi_i$ (as estimated via path-length estimators) and the removal cross section 
-flux does not exactly equal the absorption density of weight within that cell, due to
-statistical noise.  
+weights as discussed in Sec.~\ref{???}) results in $\sigma_a \phi^{HO}_i$ and the amount
+of energy removed from a cell not being equal, due to statistical noise in the
+path-length estimators used to estimate $\phi^{HO}_i$.  However, ECMC will preserve
+balance to the order of the magnitude of the error, so the closure parameters will
+reproduce the HO moments to the accuracy of the LO solution.
