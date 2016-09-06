@@ -246,21 +246,23 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \begin{frame}
 \frametitle{We are interested in modeling thermal radiation transport \\ in the high energy
     density physics regime}
+{\addtolength{\leftmargini}{-0.2in}
     \addtolength{\wideitemsep}{0.08in}
 \begin{itemize}
-    \item[] Materials under extreme conditions \\ \colG{Temperatures $\mathcal{O}(10^6)$ K or more}
+    \item[] Modeling materials under extreme conditions \\ \colG{Temperatures $\mathcal{O}(10^6)$ K or more}
     \item[] Photon radiation transports through a material \\ 
         \colG{Significant \colb{energy}  may be exchanged}
- \item[] We want to improve efficiency of MC calculations \\
+ \item[] We want to improve efficiency of Monte Carlo calculations \\
      \colG{e.g., inertial confinement fusion, supernovae, et. al.}
-    \end{itemize}
+    \end{itemize}}
 \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 {\addtolength{\leftmargini}{-0.2in}
 \begin{frame}
-\frametitle{Our method has been applied to a simplified model:\\ the 1D grey radiative
+\frametitle{Our method has been applied to a simplified model:\\ the 1D
+    frequency-integrated radiative
 transfer equations}
 \setlength{\unitlength}{\textwidth}
 \vspace{0.152in}
@@ -381,7 +383,7 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{Iterations between the HO and LO systems \\ are performed each time step}
+    \frametitle{Iterations between the HO and LO systems \\ can be performed each time step}
     %\fontsize{9}{5.0}\selectfont
         \hspace{-0.1in}
         \resizebox{1.04\linewidth}{!}{
@@ -689,10 +691,10 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{Several specifics for most results shown are given below:}               
+    \frametitle{Implementation specifics for results are given below:}               
     {\addtolength\wideitemsep{11pt}
     \begin{itemize}
-    \item Initial $\Delta t$ of $0.001$ sh (0.01 ns), \\ increased 15\% per step to 0.01 sh
+    \item Written as stand-alone C++ code
     \item One HO solve per time step (two LO solves)
         \begin{itemize}
             \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no mesh refinement}
@@ -808,16 +810,17 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{A doubly-discontinuous trial space in time \\ allows for a MC
-        temporal closure}
+    \frametitle{The time variable can be included in the ECMC trial space \\ with a
+    consistent LO closure}
     \begin{columns}
         \begin{column}[t]{0.2\textwidth}
             \vspace{-20pt}
     \begin{center}
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
+            \node[anchor=south] at (1,4.0) {$\tilde{I}_{HO}^{n}$};
             \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
             size=4.2pt] {};
-            \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$t$};
+            \draw [->] (2.0,4.25) -- (3.0,4.25) node[anchor=west] {$t$};
             \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$t^{n}$};
             \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$t^{n+1}$};
             \node at (3.6,3.06) {$\overline{I}_{HO}(x,\mu)$};
@@ -864,7 +867,7 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{A few other topics are under investigation}
+    \frametitle{A few other topics I didn't have time to discuss}
     {\addtolength\wideitemsep{5pt}
         \begin{itemize}
             \item[] Negative intensities can occur in optically thick cells \\

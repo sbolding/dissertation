@@ -60,17 +60,9 @@ Laboratory, Los Alamos, NM }}
 \end{frame} 
 \end{comment}
 
-\begin{frame}
-\frametitle{Neutron multiplicity distributions provide passive \\ multiplication
-information about a fissionable system}
- \centering
- \includegraphics[trim=0.7in 6.075in 0.6in 2.0in,clip,width=1.0\textwidth]{neutron_hist.pdf}
-
-\end{frame}
-
 
 \begin{frame}
-\frametitle{Multiplicity experiments were performed at LANL \\ for validating subcritical
+\frametitle{Multiplicity experiments were performed at Sandia \\ for validating subcritical
 simulations}
 \begin{minipage}{0.4\linewidth}
     \hspace{-0.3in}
@@ -92,6 +84,7 @@ simulations}
       \item 5 Different HDPE shells \\ \colG{From none to 3.0 cm HDPE}
   \end{itemize}
   \item[] Experiments repeated w/ \colb{\iso{Cf}{252}}
+  \item[] Solomon modeled experiments with MCNP
 \end{itemize} 
 }
 \end{minipage}
@@ -100,12 +93,12 @@ simulations}
 
 
 \begin{frame}
-    \frametitle{MCNP5 multiplicity simulations showed  \\discrepancy for
+    \frametitle{MCNP5 multiplicity simulations showed discrepancy \\ with experiments for
         Pu but not for \iso{Cf}{252}}
 \begin{minipage}{0.41\textwidth}
 \begin{figure}[ht!]
 \begin{center}
-	\onslide<2->{
+	{
 	\includegraphics[trim= 2.00in 0.75in 1.450in 0.85in, clip, width=1.00\textwidth]{nubarFigures/trial_1_0_berp_3_0_2000.pdf} \\
 	{\footnotesize Pu with 3.0-cm HDPE reflector} }
 \end{center}
@@ -127,9 +120,9 @@ simulations}
   \begin{itemize}
       \item Caused by \textbf{\iso{Pu}{239}} \colb{nuclear data} 
 	\vspace{-0.1505in}
-	\item  Adjusted \colb{energy-integrated \nubar}	
+\item  Adjusted \colb{energy-integrated \nubar} \\ \colG{mean \# of neutrons/fission}
 	\end{itemize}
-\item[]  \textbf{ENDF} adjusted \nubar for \iso{Pu}{239} \\ \colG{to match \keff
+\item[]  \textbf{ENDF-VII} raised \nubar for \iso{Pu}{239} \\ \colG{to match \keff
     benchmarks}
     \vspace{0.1in}
   \begin{itemize}
@@ -148,7 +141,7 @@ altering \keff?}
         \iso{Pu}{239} \\ \colG{Random samples drawn from ENDF-VII.1 covariance data}
     \item[] Compare experimental and simulated multiplicity dist. 
             \\ \colG{and a $\keff$ benchmark (Jezebel)}
-        \item[] Compare $\overline{\nu}(E)$ results to energy-\emph{independent} shifts of
+        \item[] Compare $\overline{\nu}(E)$ results to uniform shifts of
 		microscopic cross sections 
 	\end{itemize}	
 }
@@ -169,16 +162,16 @@ altering \keff?}
 
 
 \begin{frame}
-\frametitle{We used LANL NDVV Python tools \\ to generate energy-dependent \nubar samples}
+\frametitle{LANL Python verification library was modified heavily \\ to generate energy-dependent \nubar  samples}
 {\addtolength\wideitemsep{0.2in}
 \begin{enumerate}
-	\item Generate correlated samples of $\nubar(E)$ 
+	\item Generate a correlated sample of $\nubar(E)$ 
         \begin{itemize}\vspace{0.1in}
             \item {Assumed multivariate
                     Gaussian \\ \colG{ with group-averaged covariances}}
     \end{itemize}
-  \item Modify $\nubar(E)$ data in \textbf{ACE} file 
-    \item Perform all MCNP simulations with modified ACE data
+  \item Modify continuous $\nubar(E)$ data in \textbf{ACE} file 
+  \item Perform all MCNP simulations \\ \colG{with modified ACE data}
 \end{enumerate} 
 }
 \end{frame} 
@@ -198,8 +191,8 @@ altering \keff?}
 		\end{array}
 	\end{equation*} 
     \vspace{0.0in}
-\item[] Equally weight $\chi^2$ values in a \colb{cost} function \\ \colG{the lower the
-    score the higher the accuracy}
+\item[] Equally weight $\chi^2$ values in a \colb{cost} function \\ \colG{A lower score indicatese
+    higher accuracy}
 	\begin{equation*}
         \boxed{\text{Cost} = \sum_{m=1}^5 \chi^2_{\text{red,mult,}m} + \chi^2_{\text{red,}\keff}}
 	\end{equation*} 
@@ -243,7 +236,7 @@ Original	&	426.86	&	0.27	\\	\hline
 \end{center}
 \begin{itemize}
     \item[]{MCNP criticality test suite performed for best data}
-        \\ \colG{includes 39 criticality benchmarks w/ \iso{Pu}{239}}
+        \\ \colG{which includes 39 criticality benchmarks w/ \iso{Pu}{239}}:
 \end{itemize}
 	\begin{center}
 \vspace{0.01in}
@@ -277,22 +270,6 @@ $\begin{array}{cc} \textbf{Original \nubar Data} & \hspace{0.13in}\textbf{Trial 
 \end{center}
 \end{frame}
 
-\begin{frame}
-\frametitle{The best \nubar data (trial 303) }
-\begin{minipage}{0.49\textwidth}
-\begin{figure}[h!]
-\centering
-\includegraphics[trim = 0.75in 0.5in 0.25in 0.5in, clip, width=0.99\textwidth]{nubarFigures/nubar_shift.pdf}
-\end{figure}
-\end{minipage}
-\begin{minipage}{0.49\textwidth}
-\begin{figure}[h!]
-\centering
-\includegraphics[trim= 1.75in 0.75in 0.75in 0.75in, clip, width=0.99\textwidth]{nubarFigures/nubar.pdf}
-\end{figure}
-\end{minipage}
-\end{frame} 
-
 
 \logo{}
 
@@ -316,25 +293,9 @@ $\begin{array}{cc} \textbf{Original \nubar Data} & \hspace{0.13in}\textbf{Trial 
 %\end{center}
 %\end{frame}
 
-\begin{frame}
-    \frametitle{Fractional shifts to cross sections \\ were made for comparison }
-\begin{itemize}
-    \item[] Adjusted single cross sections uniformly at all energies 
-        \\ \colG{compensated with $\sigma_{tot}$ or $\sigma_{el}$}
-    \item[] Scaling capture cross section was not effective \\
-        \colG{relative to variance in data}
-    \item[] Scaling fission cross section 1.5\% ($<1 \sigma$) 
-        \\ improved multiplicity distributions
-        \begin{itemize} \vspace{0.1in}
-            \item Adjust \colb{elastic scattering} ($\sigma_{el}$) to compensate change in $\sigma_f$, for $\colb{E > 1 \text { keV}}$
-            \item Better improvement that uniform scaling of $\nubar$
-        \end{itemize}
-\end{itemize} 
-\end{frame} 
-
 
 \begin{frame}
-\frametitle{Adjusting the fission cross section \\ showed good correction to multiplicity
+    \frametitle{Adjusting the fission cross section \textbf{uniformly} \\ showed good correction to multiplicity
 simulations}
 \begin{center}
 $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss decreased
@@ -347,7 +308,7 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
 \begin{itemize} \vspace{-0.1in} 
   \item High accuracy for all simulations: $\displaystyle \sum_{i=1}^5 \chi^2_{red,mult,m} = \colb{14.6}$
       \vspace{-0.2in}
-  \item \keff is not preserved: $\chi^2_{\keff} = 22.6$
+  \item \keff is \textbf{not preserved:} $\chi^2_{\keff} = 22.6$
 \end{itemize} 
 \end{frame}
 
@@ -367,9 +328,10 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
 		\item Majority of cross-correlation terms $\mathcal{O}(10^{-4})$ or less
             \vspace{-0.1in}
         \item $\sigma_f$ may need more investigation
+            \\ \colG{not sensitive to capture cross section}
 	  \end{itemize}
       \item[] Subcritical simulations should be considered \\ in validation of nuclear data
-      \item[] Covariance sampling methodology was developed and demonstrated
+      \item[] Covariance sampling methodology for nuclear data was developed and demonstrated
 	\begin{itemize}
 	 	\item Ideally sample all cross sections and \nubar simultaneously 
 
@@ -379,11 +341,11 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
 
 
 \author{S.R. Bolding\inst{1}, \and C.J. Solomon\inst{2}}
-\date{ANS National Meeting, 14 November 2013}%BLARG
+\date{4 August 2016}
 \begin{frame}
 \vspace{-0.2in}
 \centering
-
+\maketitle
 
 \end{frame} 
 
