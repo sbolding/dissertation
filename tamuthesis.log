@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  6 SEP 2016 13:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  7 SEP 2016 16:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -995,23 +995,28 @@ L/cmm/m/it/12 ^^[[]h[]\OMS/cmsy/m/n/12 h[]i[]$
 
 LaTeX Warning: Reference `sec:???' on page 11 undefined on input line 385.
 
-[11] <figures/void_imc_compare.pdf, id=184, 527.26202pt x 408.27531pt>
+[11] <figures/void_imc_compare.pdf, id=184, 553.45363pt x 408.27531pt>
 File: figures/void_imc_compare.pdf Graphic file (type pdf)
 
 <use figures/void_imc_compare.pdf>
-Package pdftex.def Info: figures/void_imc_compare.pdf used on input line 399.
-(pdftex.def)             Requested size: 279.50218pt x 216.42848pt.
- [12 <./figures/void_imc_compare.pdf>]
+Package pdftex.def Info: figures/void_imc_compare.pdf used on input line 408.
+(pdftex.def)             Requested size: 279.50218pt x 206.18674pt.
+ [12]
 
-LaTeX Warning: Reference `blah' on page 13 undefined on input line 415.
+LaTeX Warning: Reference `fig:void_compare' on page 13 undefined on input line 
+415.
 
 
-LaTeX Warning: Reference `blah' on page 13 undefined on input line 416.
+LaTeX Warning: Reference `blah' on page 13 undefined on input line 419.
 
-) [13]
+[13 <./figures/void_imc_compare.pdf>]
+
+LaTeX Warning: Reference `eq:fom' on page 14 undefined on input line 431.
+
+) [14]
 \openout2 = `bibliography.aux'.
 
- (./bibliography.tex (./tamuthesis.bbl)) [14
+ (./bibliography.tex (./tamuthesis.bbl)) [15
 
 
 
@@ -1025,56 +1030,56 @@ APPENDIX A.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
-[15
+[16
 
 
 
 ]
 
-LaTeX Warning: Reference `' on page 16 undefined on input line 61.
-
-[16]
-
-LaTeX Warning: Reference `??' on page 17 undefined on input line 86.
-
-
-LaTeX Warning: Reference `???' on page 17 undefined on input line 87.
-
-
-LaTeX Warning: Reference `eq:mat_cont' on page 17 undefined on input line 94.
+LaTeX Warning: Reference `' on page 17 undefined on input line 61.
 
 [17]
 
-LaTeX Warning: Reference `eq:lo_tran' on page 18 undefined on input line 141.
+LaTeX Warning: Reference `??' on page 18 undefined on input line 86.
 
 
-LaTeX Warning: Reference `???' on page 18 undefined on input line 141.
+LaTeX Warning: Reference `???' on page 18 undefined on input line 87.
 
-[18] <figures/Penguins.jpg, id=293, 770.88pt x 578.16pt>
+
+LaTeX Warning: Reference `eq:mat_cont' on page 18 undefined on input line 94.
+
+[18]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 19 undefined on input line 141.
+
+
+LaTeX Warning: Reference `???' on page 19 undefined on input line 141.
+
+[19] <figures/Penguins.jpg, id=316, 770.88pt x 578.16pt>
 File: figures/Penguins.jpg Graphic file (type jpg)
 
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 174.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [19] [20 <./figures/Penguins.jpg>]
+ [20] [21 <./figures/Penguins.jpg>]
 
-LaTeX Warning: Reference `eq:x_moml' on page 21 undefined on input line 201.
+LaTeX Warning: Reference `eq:x_moml' on page 22 undefined on input line 201.
 
 
-LaTeX Warning: Reference `x_momr' on page 21 undefined on input line 201.
+LaTeX Warning: Reference `x_momr' on page 22 undefined on input line 201.
 
-[21]
+[22]
 Overfull \hbox (46.66628pt too wide) detected at line 255
  []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
  
  []
 
-[22] [23] [24]
+[23] [24] [25]
 Overfull \hbox (10.00034pt too wide) in paragraph at lines 359--359
 [] 
  []
 
-) (./appendix2.tex [25] [26]
+) (./appendix2.tex [26] [27]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -1084,7 +1089,7 @@ File: figures/Penguins.jpg Graphic file (type jpg)
 <use figures/Penguins.jpg>
 Package pdftex.def Info: figures/Penguins.jpg used on input line 23.
 (pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [27
+ [28
 
 ]))
 
@@ -1098,20 +1103,23 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 157.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 157.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 157.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: C1964CE3FE48C40EACCFF9022324032C;1689.
+(rerunfilecheck)             Checksum: 9BD531715A9F5B521C2D6EF038DBC8C4;1689.
 
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 20957 strings out of 493304
- 361837 string characters out of 6139871
- 494368 words of memory out of 5000000
- 23868 multiletter control sequences out of 15000+600000
+ 20964 strings out of 493304
+ 361924 string characters out of 6139871
+ 494502 words of memory out of 5000000
+ 23873 multiletter control sequences out of 15000+600000
  12186 words of font info for 47 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,11n,55p,796b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,13n,55p,796b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -1126,10 +1134,10 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tamuthesis.pdf (27 pages, 1027313 bytes).
+Output written on tamuthesis.pdf (28 pages, 1039960 bytes).
 PDF statistics:
- 464 PDF objects out of 1000 (max. 8388607)
- 373 compressed objects within 4 object streams
- 131 named destinations out of 1000 (max. 500000)
+ 487 PDF objects out of 1000 (max. 8388607)
+ 382 compressed objects within 4 object streams
+ 133 named destinations out of 1000 (max. 500000)
  183 words of extra memory for PDF output out of 10000 (max. 10000000)
 

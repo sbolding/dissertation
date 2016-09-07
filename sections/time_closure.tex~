@@ -383,24 +383,10 @@ We will test the time-closure in several characteristic cases.  The first case i
 near-void where the time-closure parameters will provide the most correction compared to a
 Backward Euler discretization.  The second problem is the Marshak wave problem from
 Sec.~\ref{sec:???}.  This problem is optically thick, so minimal time-correction is
-needed, but there will likely be higher variance in the tallies. We will compare to IMC
+needed, but there will likely be higher variance in the census tallies. We will compare to IMC
 visually for accuracy to determine that we are converging towards the correct solution.
 For the near void case the IMC solution is accurate because the material energy equation
 is uncoupled.
-
-
-When negative averages occur, they are set to the floor value. Causality is not strictly
-preserved because you are sampling the error, so it is possible to have particles out
-front of the wave front.
-
-
-\begin{figure}[htb]
-  \centering
-    \includegraphics[width=0.65\textwidth]{void_imc_compare.pdf}
-    \caption{\label{fig:void_imc_compare} Comparison of radiation temperatures for IMC and
-    HOLO method, for time-averaged and census unknowns.}
-\end{figure}
-
 
 \subsection{Near-Void Problem}
 
@@ -410,10 +396,45 @@ are uniform throughout the 2.0 cm domain with $\rho c_v = 0.01374$ Jks cm$^{-3}$
 The material and radiation are initially in equilibrium at a temperature of $0.01$ keV.  An isotropic incident intensity of 0.150 keV is applied
 at $x=0$; the incident intensity on the right boundary is $0.01$ keV.  The simulation end
 time is 0.003 sh.  
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.65\textwidth]{void_imc_compare.pdf}
+    \caption{\label{fig:void_imc_compare} Comparison of radiation energy densities of IMC
+    and HOLO method for the HO time closure and a BE discretization.}
+\end{figure}
 
-A comparison of the cell-averaged mean instensities for IMC and the HOLO method are given
-in Fig.~\ref{blah}, showing a case for HOLO with a time closure and for the time-discrete
-case.  A comparsion for radiation temperatures with 1 and 3 batches is given in Fig.~\ref{blah}, which
+A comparison of the cell-averaged radiation energy densities $E_r$ for IMC and the HOLO
+method with the diamond-like HO time closure are depicted in Fig.~\ref{fig:void_compare},
+both for the time-averaged solutions and end-of time step values in the final time step.
+The end of time step values for the HOLO method with a BE discretization is also depicted.
+For the HOLO results, three ECMC batches were performed with
+a total of $3\times10^6$ histories per time step and the IMC results were generated with
+$12\times10^6$ histories per time step.  The spatial mesh had 100 spatial cells and the
+ECMC results used 20 $\mu$ cells.  
+
+The MC treatment of the time
+variable and the closure of the LO equations allow the results to correctly reconstrcutr
+the wave-front of IMC.
+time-continuous solutions are 
+
+There is some visible mesh imprinting, in the form of
+minor bumps, in the HOLO results
+due to the projection of the solution between time steps. 
+
+The census radiation temperatures are plotted in Fig.~\ref{fig:void_ecmc_temps} for two different
+time step sizes.  By plotting
+proportional to the fourth-root of the radiation energy density, there is more visible
+noise.  This noise is small in comparison to the overall scale of the radiation energy
+density, but it results from particles being born near the wave-front with a time sampled
+near the beginning of the time step.  Negativities can occur out front of the wave.  In
+the algorithm the average is set to the floor value and slopes to zero in such cells.  At
+the smaller time steps, the noise is less visible because there is less inaccuracy in the
+step approximation over the interior of the time step.  These inaccuracies should be
+reduced by the linear time trial space. Causality is not strictly
+preserved because you are sampling the error, so it is possible to have particles reach
+the front of the wave front. This is not a bias, just insufficient sampling.
+
+A comparsion for radiation temperatures with 1 and 3 batches is given in Fig.~\ref{blah}, which
 reveals that there is substantial noise past the wave front for the 3 batches case.  This
 noise is small relative to the scale of the solution in the wave-front, which is why it is not visible in the
 mean intensity plots. This demonstrates one deficiency in this methdo that particles
