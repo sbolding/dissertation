@@ -492,7 +492,7 @@ subsectionstyle=hide
         \vspace{0.2in}
     \item[] Half-range integrals reduce angular dimensionality
     \begin{equation*}
-        \boxed{{\displaystyle \phi^+(x) =
+        \boxed{{\displaystyle I^+(x) =
         2\pi\int_0^1 I(x,\mu) \d \mu}}
     \end{equation*}
 \end{itemize}
@@ -517,12 +517,13 @@ subsectionstyle=hide
     \fontsize{9.2}{13.0}\selectfont
     \begin{array}{lll}
         {\displaystyle \left \langle \mu \pderiv{I}{x} \right \rangle_L^+ } & = & -\frac{\ds2}{\ds h_i} \{ \mu I \}_{i-1/2}^+ +
-        \mom{\mu I}_{L,i}^+ + \mom{\mu I}_{R,i}^+ \\
+        \frac{\ds 1}{\ds h_i}\left[\mom{\mu I}_{L,i}^+ + \mom{\mu I}_{R,i}^+\right] \\
         & = & -\frac{\ds2}{\ds h_i} \highlight{\frac{\ds\{ \mu I
-        \}^+_{i-1/2} }{\ds\phi^+_{i-1/2}}}
-        \phi^+_{i-1/2} +  \highlight{\frac{\ds\mom{\mu
-        I}_{L,i}^+}{\ds\mom{\phi}_{L,i}^+}}\mom{\phi}_{L,i}^+  +
-        \highlight{\frac{\ds\mom{\mu I}_{R,i}^+}{\ds\mom{\phi}_{R,i}^+}}\mom{\phi}_{R,i}^+  
+        \}^+_{i-1/2} }{\ds I^+_{i-1/2}}}
+        I^+_{i-1/2} + \frac{\ds 1}{\ds h_i} \highlight{\frac{\ds\mom{\mu
+        I}_{L,i}^+}{\ds\mom{I}_{L,i}^+}}\mom{I}_{L,i}^+  +
+        \frac{\ds 1}{\ds h_i}\highlight{\frac{\ds\mom{\mu
+        I}_{R,i}^+}{\ds\mom{I}_{R,i}^+}}\mom{I}_{R,i}^+  
             \end{array}$
     \pause
     \begin{itemize}

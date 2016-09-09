@@ -16,16 +16,16 @@
 \contentsline {figure}{\numberline {7.4}{\ignorespaces Comparison of $T_r$ for step and LDFE discretizations of the LO equations in the equilibrium diffusion limit.\relax }}{85}{figure.caption.23}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Linear doubly-discontinous representation for mean intensity in LO equations\relax }}{102}{figure.caption.26}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Linear doubly-discontinous representation for mean intensity in LO equations\relax }}{101}{figure.caption.26}
 \contentsline {figure}{\numberline {8.2}{\ignorespaces $T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.\relax }}{106}{figure.caption.28}
-\contentsline {figure}{\numberline {8.3}{\ignorespaces $T_m$ for MP violation problem with IMC for various time step sizes.\relax }}{106}{figure.caption.29}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces $T_m$ for MP violation problem with IMC for various time step sizes.\relax }}{107}{figure.caption.29}
 \contentsline {figure}{\numberline {8.4}{\ignorespaces $T_m$ for MP violation problem with HOLO method for various time step sizes.\relax }}{107}{figure.caption.30}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {figure}{\numberline {9.1}{\ignorespaces Step doubly-discontinuous representation of $t$ for the HO solution.\relax }}{110}{figure.caption.32}
+\contentsline {figure}{\numberline {9.1}{\ignorespaces Step doubly-discontinuous representation of $t$ for the HO solution.\relax }}{111}{figure.caption.32}
+\contentsline {figure}{\numberline {9.2}{\ignorespaces Comparison of radiation energy densities of IMC and HOLO method for the HO time closure and a BE discretization.\relax }}{121}{figure.caption.33}
+\contentsline {figure}{\numberline {9.3}{\ignorespaces Comparison of radiation temperatures for the HOLO method for different time step and batch sizes.\relax }}{122}{figure.caption.34}
+\contentsline {figure}{\numberline {9.4}{\ignorespaces Comparison of radiation energy densities for the HOLO method with different numbers of $\mu $ cells. $\Delta t=0.001$ sh\relax }}{123}{figure.caption.35}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {figure}{\numberline {A.1}{\ignorespaces TAMU figure\relax }}{123}{figure.caption.36}
-\addvspace {10\p@ }
-\vskip -10pt
-\contentsline {figure}{\numberline {B.1}{\ignorespaces TAMU figure\relax }}{130}{figure.caption.37}
+\contentsline {figure}{\numberline {A.1}{\ignorespaces TAMU figure\relax }}{131}{figure.caption.40}

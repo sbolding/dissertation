@@ -6,7 +6,7 @@
 \contentsline {chapter}{NOMENCLATURE}{v}{chapter*.4}
 \contentsline {chapter}{TABLE OF CONTENTS}{vi}{section*.5}
 \contentsline {chapter}{LIST OF FIGURES}{x}{section*.6}
-\contentsline {chapter}{LIST OF TABLES}{xi}{section*.7}
+\contentsline {chapter}{LIST OF TABLES}{xii}{section*.7}
 \contentsline {chapter}{\numberline {1}\uppercase {Introduction}}{1}{chapter.1}
 \vskip +10pt
 \contentsline {section}{\numberline {1.1}Thermal Radiative Transfer Background}{1}{section.1.1}
@@ -85,28 +85,31 @@
 \contentsline {section}{\numberline {8.4}Computational Results}{93}{section.8.4}
 \contentsline {subsection}{\numberline {8.4.1}Results for LD Spatial Discretization}{94}{subsection.8.4.1}
 \contentsline {section}{\numberline {8.5}Analytic Neutronics answer for Source fixup}{94}{section.8.5}
-\contentsline {section}{\numberline {8.6}Face Tallies and correction near $\mu =0$}{97}{section.8.6}
-\contentsline {section}{\numberline {8.7}Estimating the Spatial Closure from the HO Solution}{98}{section.8.7}
-\contentsline {subsection}{\numberline {8.7.1}Motivation}{98}{subsection.8.7.1}
-\contentsline {subsection}{\numberline {8.7.2}Choice of Spatial Closure}{100}{subsection.8.7.2}
-\contentsline {subsection}{\numberline {8.7.3}The Doubly-Discontinuous Trial Space}{101}{subsection.8.7.3}
+\contentsline {section}{\numberline {8.6}Estimating the Spatial Closure from the HO Solution}{97}{section.8.6}
+\contentsline {subsection}{\numberline {8.6.1}Motivation}{97}{subsection.8.6.1}
+\contentsline {subsection}{\numberline {8.6.2}Choice of Spatial Closure}{98}{subsection.8.6.2}
+\contentsline {subsection}{\numberline {8.6.3}The Doubly-Discontinuous Trial Space}{100}{subsection.8.6.3}
+\contentsline {section}{\numberline {8.7}Face Tallies and correction near $\mu =0$}{102}{section.8.7}
 \contentsline {section}{\numberline {8.8}Preservation of the Discrete Maximum Principle}{103}{section.8.8}
-\contentsline {chapter}{\numberline {9} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{108}{chapter.9}
+\contentsline {chapter}{\numberline {9} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{109}{chapter.9}
 \vskip +10pt
-\contentsline {section}{\numberline {9.1}Modifications to the HO equations}{108}{section.9.1}
-\contentsline {subsection}{\numberline {9.1.1}The Doubly-Discontinuous Trial Space}{109}{subsection.9.1.1}
-\contentsline {subsection}{\numberline {9.1.2}Residual Source Definition and Sampling}{111}{subsection.9.1.2}
-\contentsline {subsection}{\numberline {9.1.3}Tracking and Tallying in Time}{112}{subsection.9.1.3}
-\contentsline {chapter}{REFERENCES}{116}{section*.33}
+\contentsline {section}{\numberline {9.1}Modifications to the HO equations}{109}{section.9.1}
+\contentsline {subsection}{\numberline {9.1.1}The Doubly-Discontinuous Trial Space in Time}{110}{subsection.9.1.1}
+\contentsline {subsection}{\numberline {9.1.2}Residual Source Definition and Sampling}{112}{subsection.9.1.2}
+\contentsline {subsection}{\numberline {9.1.3}Importance Sampling on Interior of Time Step}{114}{subsection.9.1.3}
+\contentsline {subsection}{\numberline {9.1.4}Tracking and Tallying in Time}{115}{subsection.9.1.4}
+\contentsline {section}{\numberline {9.2}Closing the LO Equations in Time}{117}{section.9.2}
+\contentsline {subsection}{\numberline {9.2.1}Derivation of Time-Averaged Moment Equations}{118}{subsection.9.2.1}
+\contentsline {subsection}{\numberline {9.2.2}Parametric Time Closure}{119}{subsection.9.2.2}
+\contentsline {section}{\numberline {9.3}Computational Results}{120}{section.9.3}
+\contentsline {subsection}{\numberline {9.3.1}Near-Void Problem}{120}{subsection.9.3.1}
+\contentsline {chapter}{REFERENCES}{125}{section*.37}
 \renewcommand {\cftchapaftersnum }{}
-\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{118}{APPENDIX.a.A}
+\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{126}{APPENDIX.a.A}
 \vskip +10pt
-\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{118}{section.a.A.1}
-\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{120}{section.a.A.2}
-\contentsline {section}{\numberline {A.3}Derivation of the WLA-DSA Equations}{123}{section.a.A.3}
-\contentsline {subsection}{\numberline {A.3.1}Forming a Continuous Diffusion Equation}{124}{subsection.a.A.3.1}
-\contentsline {subsubsection}{\numberline {A.3.1.1}Diffusion Boundary Conditions}{125}{subsubsection.a.A.3.1.1}
-\contentsline {subsection}{\numberline {A.3.2}Mapping Solution onto LD Unknowns}{126}{subsection.a.A.3.2}
-\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Second Appendix with a longer title - much longer in fact}}{130}{APPENDIX.a.B}
-\vskip +10pt
-\contentsline {section}{\numberline {B.1}Appendix Section}{130}{section.a.B.1}
+\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{126}{section.a.A.1}
+\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{128}{section.a.A.2}
+\contentsline {section}{\numberline {A.3}Derivation of the WLA-DSA Equations}{131}{section.a.A.3}
+\contentsline {subsection}{\numberline {A.3.1}Forming a Continuous Diffusion Equation}{132}{subsection.a.A.3.1}
+\contentsline {subsubsection}{\numberline {A.3.1.1}Diffusion Boundary Conditions}{133}{subsubsection.a.A.3.1.1}
+\contentsline {subsection}{\numberline {A.3.2}Mapping Solution onto LD Unknowns}{134}{subsection.a.A.3.2}

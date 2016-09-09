@@ -379,23 +379,26 @@ Eq.~\eqref{eq:tc_diam_l} and its analogs.
 
 \section{Computational Results}
 
-We will test the time-closure in several characteristic cases.  The first case is a
+We will test the time-closure in several characteristic cases.  Throughout this section
+the Backward Euler discretized results are indicated with HOLO-BE and the MC-based time
+closure are indicated with HOLO-TC, where applicable.  The first case is a
 near-void where the time-closure parameters will provide the most correction compared to a
 Backward Euler discretization.  The second problem is the Marshak wave problem from
 Sec.~\ref{sec:???}.  This problem is optically thick, so minimal time-correction is
 needed, but there will likely be higher variance in the census tallies. We will compare to IMC
 visually for accuracy to determine that we are converging towards the correct solution.
 For the near void case the IMC solution is accurate because the material energy equation
-is uncoupled.
+is uncoupled.  The systematic sampling algorithm detailed in Sec.~\ref{sec:???} was used for all HOLO results in this
+section.
 
 \subsection{Near-Void Problem}
 
-The problem specifics for this problem are a constant. We use the systematic sampling
-algorithm and no biasing in time as the problem is optically thin. The material properties
+ The material properties
 are uniform throughout the 2.0 cm domain with $\rho c_v = 0.01374$ Jks cm$^{-3}$ keV$^{-1}$, $\sigma_a=10^{-6}$ cm$^{-1}$, and $\sigma_s=0$ \invcm.
 The material and radiation are initially in equilibrium at a temperature of $0.01$ keV.  An isotropic incident intensity of 0.150 keV is applied
 at $x=0$; the incident intensity on the right boundary is $0.01$ keV.  The simulation end
-time is 0.003 sh.  
+time is 0.003 sh.  Because the problem is optically thin, no importance sampling on the
+interior of the time step is used.  
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.65\textwidth]{void_imc_compare.pdf}
@@ -410,21 +413,40 @@ The end of time step values for the HOLO method with a BE discretization is also
 For the HOLO results, three ECMC batches were performed with
 a total of $3\times10^6$ histories per time step and the IMC results were generated with
 $12\times10^6$ histories per time step.  The spatial mesh had 100 spatial cells and the
-ECMC results used 20 $\mu$ cells.  
-
+ECMC results used 40 $\mu$ cells.  
 The MC treatment of the time
-variable and the closure of the LO equations allow the results to correctly reconstrcutr
-the wave-front of IMC.
-time-continuous solutions are 
+variable and the closure of the LO equations allow the results to correctly reconstruct
+the wave-front of IMC.  There is some dispersion at the wave front presented in the 1
+batch case that results from projection onto the spatial mesh at the foot of the wave.
 
-There is some visible mesh imprinting, in the form of
-minor bumps, in the HOLO results
-due to the projection of the solution between time steps. 
+Figure.~\ref{fig:bumps} compares radiation energy densities for various numbers of $\mu$
+cells.  At coarser mesh sizes, the imprinting of the mesh is visible in the location of
+the wave-front.  This is a result of the projection onto the space-angle mesh between time
+steps.  As the mesh is refined, the solution coverges towards the IMC solution.  It is
+noted that the results are equivalent for either the diamond-like or implicit-like
+closures in this problem.  This is because the problem is nearly linear as the material is
+uncoupled from the radiation.  
 
-The census radiation temperatures are plotted in Fig.~\ref{fig:void_ecmc_temps} for two different
-time step sizes.  By plotting
-proportional to the fourth-root of the radiation energy density, there is more visible
-noise.  This noise is small in comparison to the overall scale of the radiation energy
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.65\textwidth]{void_temp_batch_compare.pdf}
+    \caption{\label{fig:void_temp_compare} Comparison of radiation temperatures for the
+    HOLO method for different time step and batch sizes.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.65\textwidth]{void_ang_compare.pdf}
+    \caption{\label{fig:bumps} Comparison of radiation energy densities for
+    the HOLO method with different numbers of $\mu$ cells. $\Delta t=0.001$ sh}
+\end{figure}
+
+
+The census radiation temperatures determined with the HOLO method are plotted in
+Fig.~\ref{fig:void_temp_compare} for two different
+time step sizes and a case with .  By plotting
+proportional to the fourth-root of the radiation energy density, the noise at low
+magnitudes past the wave-front are more apparent.  This noise is small in comparison to the overall scale of the radiation energy
 density, but it results from particles being born near the wave-front with a time sampled
 near the beginning of the time step.  Negativities can occur out front of the wave.  In
 the algorithm the average is set to the floor value and slopes to zero in such cells.  At
@@ -447,8 +469,8 @@ allows, with the exception of some smearing due to the projection error incurred
 time steps.
 
 We have computed FOM statistics using Eq.~\eqref{eq:fom} with 20 independent runs for each
-configuration.  In general more particle histories are needed to produce an accurate
-result.
+problem set up and parameters.  The different number of batches for the HOLO methods are
+indicated in parenthesis next to the algorithm.
 \begin{table}[H]
 \centering
 \caption{\label{marshak_var} \textbf{Comparison of sample statistics for the Near-Void

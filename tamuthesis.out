@@ -1,20 +1,32 @@
-\BOOKMARK [0][-]{chapter.1}{ Residual Monte Carlo Treatment of the Time Variable}{}% 1
-\BOOKMARK [1][-]{section.1.1}{Modifications to the HO equations}{chapter.1}% 2
-\BOOKMARK [2][-]{subsection.1.1.1}{The Doubly-Discontinuous Trial Space in Time}{section.1.1}% 3
-\BOOKMARK [2][-]{subsection.1.1.2}{Residual Source Definition and Sampling}{section.1.1}% 4
-\BOOKMARK [2][-]{subsection.1.1.3}{Importance Sampling on Interior of Time Step}{section.1.1}% 5
-\BOOKMARK [2][-]{subsection.1.1.4}{Tracking and Tallying in Time}{section.1.1}% 6
-\BOOKMARK [1][-]{section.1.2}{Closing the LO Equations in Time}{chapter.1}% 7
-\BOOKMARK [2][-]{subsection.1.2.1}{Derivation of Time-Averaged Moment Equations}{section.1.2}% 8
-\BOOKMARK [2][-]{subsection.1.2.2}{Parametric Time Closure}{section.1.2}% 9
-\BOOKMARK [1][-]{section.1.3}{Computational Results}{chapter.1}% 10
-\BOOKMARK [2][-]{subsection.1.3.1}{Near-Void Problem}{section.1.3}% 11
-\BOOKMARK [0][-]{section*.4}{REFERENCES}{}% 12
-\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Equations for the LO System}{}% 13
-\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 14
-\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 15
-\BOOKMARK [1][-]{section.a.A.3}{Derivation of the WLA-DSA Equations}{APPENDIX.a.A}% 16
-\BOOKMARK [2][-]{subsection.a.A.3.1}{Forming a Continuous Diffusion Equation}{section.a.A.3}% 17
-\BOOKMARK [2][-]{subsection.a.A.3.2}{Mapping Solution onto LD Unknowns}{section.a.A.3}% 18
-\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Second Appendix with a longer title - much longer in fact}{}% 19
-\BOOKMARK [1][-]{section.a.B.1}{Appendix Section}{APPENDIX.a.B}% 20
+\BOOKMARK [0][-]{chapter.1}{The Moment-Based Low-Order Equations}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Forming the Space-Angle Moment Equations}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{LO Spatial mesh and Finite-Element Spatial Moments}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{Definition of Angular Moments}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{Space-Angle Moments of the Radiation Transport Equation}{section.1.1}% 5
+\BOOKMARK [2][-]{subsection.1.1.4}{The Angular Consistency Terms}{section.1.1}% 6
+\BOOKMARK [2][-]{subsection.1.1.5}{The Exact Radiation Moment Equations}{section.1.1}% 7
+\BOOKMARK [2][-]{subsection.1.1.6}{Material Energy Equations}{section.1.1}% 8
+\BOOKMARK [1][-]{section.1.2}{Closing the LO System with Information from the HO Solution}{chapter.1}% 9
+\BOOKMARK [2][-]{subsection.1.2.1}{Angular Closure}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.2}{Spatial Closure}{section.1.2}% 11
+\BOOKMARK [2][-]{subsection.1.2.3}{Newton's Method for LO Equations}{section.1.2}% 12
+\BOOKMARK [1][-]{section.1.3}{COMPUTATIONAL RESULTS}{chapter.1}% 13
+\BOOKMARK [2][-]{subsection.1.3.1}{Marshak Wave}{section.1.3}% 14
+\BOOKMARK [2][-]{subsection.1.3.2}{Two Material Problem}{section.1.3}% 15
+\BOOKMARK [2][-]{subsection.1.3.3}{Performance comparison of IMC and HOLO-ECMC}{section.1.3}% 16
+\BOOKMARK [2][-]{subsection.1.3.4}{Comparison of different HO Solvers}{section.1.3}% 17
+\BOOKMARK [2][-]{subsection.1.3.5}{Pre-heated Marshak wave problem and adaptive mesh refinement}{section.1.3}% 18
+\BOOKMARK [1][-]{section.1.4}{Accuracy in the Equilibrium Diffusion Limit}{chapter.1}% 19
+\BOOKMARK [1][-]{section.1.5}{CONCLUSIONS}{chapter.1}% 20
+\BOOKMARK [0][-]{chapter.2}{ Residual Monte Carlo Treatment of the Time Variable}{}% 21
+\BOOKMARK [1][-]{section.2.1}{Modifications to the HO equations}{chapter.2}% 22
+\BOOKMARK [2][-]{subsection.2.1.1}{The Doubly-Discontinuous Trial Space in Time}{section.2.1}% 23
+\BOOKMARK [2][-]{subsection.2.1.2}{Residual Source Definition and Sampling}{section.2.1}% 24
+\BOOKMARK [2][-]{subsection.2.1.3}{Importance Sampling on Interior of Time Step}{section.2.1}% 25
+\BOOKMARK [2][-]{subsection.2.1.4}{Tracking and Tallying in Time}{section.2.1}% 26
+\BOOKMARK [1][-]{section.2.2}{Closing the LO Equations in Time}{chapter.2}% 27
+\BOOKMARK [2][-]{subsection.2.2.1}{Derivation of Time-Averaged Moment Equations}{section.2.2}% 28
+\BOOKMARK [2][-]{subsection.2.2.2}{Parametric Time Closure}{section.2.2}% 29
+\BOOKMARK [1][-]{section.2.3}{Computational Results}{chapter.2}% 30
+\BOOKMARK [2][-]{subsection.2.3.1}{Near-Void Problem}{section.2.3}% 31
+\BOOKMARK [0][-]{section*.19}{REFERENCES}{}% 32

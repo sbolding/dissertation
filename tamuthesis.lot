@@ -21,8 +21,9 @@
 \vskip -10pt
 \contentsline {table}{\numberline {8.1}{\ignorespaces Scattering source iterations for the two material problem. Simulation end time is 1 sh.\relax }}{95}{table.caption.24}
 \contentsline {table}{\numberline {8.2}{\ignorespaces Scattering source iterations for the equilibrium diffusion limit problem. Simulation end time is 3 sh.\relax }}{95}{table.caption.25}
-\contentsline {table}{\numberline {8.3}{\ignorespaces Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }}{105}{table.caption.27}
-\contentsline {table}{\numberline {8.4}{\ignorespaces Comparison of LO Newton iterations for HOLO solution to MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for all other cases a damping factor of $0.5$ was used.\relax }}{107}{table.caption.31}
+\contentsline {table}{\numberline {8.3}{\ignorespaces Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }}{106}{table.caption.27}
+\contentsline {table}{\numberline {8.4}{\ignorespaces Comparison of LO Newton iterations for HOLO solution to MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for all other cases a damping factor of $0.5$ was used.\relax }}{108}{table.caption.31}
 \addvspace {10\p@ }
-\addvspace {10\p@ }
+\vskip -10pt
+\contentsline {table}{\numberline {9.1}{\ignorespaces \textbf {Comparison of sample statistics for the Near-Void problem. Simulation end time is $\mathbf {t=0.003}$ sh.}\relax }}{124}{table.caption.36}
 \addvspace {10\p@ }
