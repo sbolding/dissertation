@@ -807,7 +807,51 @@ subsectionstyle=hide
 
 \end{frame}
 
-\section{Extensions and Ongoing Research}
+\section{Extensions and Improvements on Algorithm}
+
+\begin{frame}
+    \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
+        negative}
+    {\addtolength\wideitemsep{5pt}
+    \begin{itemize}
+        \item[] Negative intensities can occur in optically thick cells \\
+            \colG{Mesh refinement is of minimal use}
+        \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
+            \colG{to produce a physical, stable LO solution}
+         \item[] Independent fix up for LO solution
+             \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
+    \end{itemize}
+}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Can add source $\delta$ to produce a positive projection $\tilde I_{pos}$ 
+        such that $\tilde I_{pos}$ satisfies the
+    latest residual equation}
+    {\addtolength\wideitemsep{0.1in}
+    \begin{itemize} 
+        \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
+            \\ \colG{to estimate source for the next iteration\vspace{0.1in}}
+            \begin{tikzpicture}
+                \hspace{-0.20771in}
+            \node at (0,0) {$\!\begin{aligned}
+                \B L \tilde I^{(m)}  &= q - r^{(m)} \\
+                    \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \colb{\delta^{(m+1)}}
+            \end{aligned}$};
+             \node at (2.73,0.1) [fill=Gray!50,shape=single arrow,text width=0.7cm,text
+             height=0.00001cm,line width=0.01cm] {};
+             \node at (5.62,0){$\!\begin{aligned}
+                     \delta^{(m+1)} &= \B L \left(\tilde I^{(m)} - \tilde
+             I_{\text{pos}}^{(m)}\right)  \\
+             q &\rightarrow q + \delta^{(m+1)}
+            \end{aligned}$};
+            \end{tikzpicture}
+        \item[] We can delay error stagnation
+            \\ \colG{Investigating alternative positive projection of $I$}
+    \end{itemize}
+}
+\end{frame}
 
 
 \begin{frame}
@@ -839,7 +883,7 @@ subsectionstyle=hide
     \begin{itemize}
         \item[] Include $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in transport operator $\B L$ \\
             \colG{with $T(x)$ still implicit}
-        \item[] Sample and track in time \\ \colG{Tally error projection at $t^{n+1}$}
+        \item[] Sample and track in time \\ \colG{Tally time-average error projection and at $t^{n+1}$}
         \vspace{0.08in}
     \item[] In \colb{LO equations}, parameterize $\phi_{LO}^{n+1}$ \\ in terms of
         \textbf{time-averaged}
@@ -854,7 +898,7 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{The time-closure parameters preserve \\ the accuracy of MC time integration}
+    \frametitle{The time-closure parameters preserve MC time integration \\ in the LO solution}
     \fontsize{10.0pt}{10.0pt}\selectfont
     \vspace{0.1in}
     \begin{itemize}
@@ -868,15 +912,13 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{A few other topics I didn't have time to discuss}
+    \frametitle{A couple other improvements I didn't have time to discuss}
     {\addtolength\wideitemsep{5pt}
         \begin{itemize}
-            \item[] Negative intensities can occur in optically thick cells \\
-            \colG{Investigating artificial source with alternate trial space}
-        \item[] Using HO solution to estimate spatial closure \\
-                \colG{by including face tallies}
-            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{for the
-                LO equations}
+        \item[] The HO solution can be used to estimate the spatial closure \\
+                \colG{by including face tallies in ECMC}
+            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{as a
+                    solution to the LO equations}
         \end{itemize}}
 \end{frame}
 
@@ -885,13 +927,29 @@ subsectionstyle=hide
     \frametitle{\shorttitle}
     \begin{itemize}
         \item[] ECMC is very efficient for TRT simulations\\
-            \colG{and fits well in HOLO context}
+            \colG{and fits well in global HOLO context}
         \item[] The LO system can resolve nonlinearities \\
             \colG{with bounded angular consistency terms}
-        \item[] The next step is to extend to higher dimensions \\
+        \item[] Next step is to extend to higher spatial dimensions \\
             \colG{main hurdle to overcome is infrastructure}
     \end{itemize}
+    \begin{block}{}
+    More details in: S.R. Bolding, M. Cleveland, and J.E. Morel.\\ A HOLO Algorithm
+    with ECMC for Radiative Transfer. NS\&E: M\&C 2015 Special Issue, 2016. Accepted.
+\end{block}
 \end{frame}
+
+\begin{frame}
+    \frametitle{\shorttitle}
+    \begin{itemize}
+        \item[]
+        For more details see: \\ 
+S.R. Bolding, M. Cleveland, and J.E. Morel. A High-Order Low-Order Algorithm with
+Exponentially-Convergent Monte Carlo for Thermal Radiative Transfer. Nuclear Science \&
+Engineering: M\&C 2015 Special Issue, 2016. Accepted.
+    \end{itemize}
+\end{frame}
+
 
 \titlegraphic{\centering\begin{tabular}{lr}\hspace{-2em}\includegraphics[trim=0.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
  \hspace{+2em}\includegraphics[trim=0.0in 0.4in 0.0in 0.0in,clip,height=0.18\textheight]{lanl-logo-footer.png} 

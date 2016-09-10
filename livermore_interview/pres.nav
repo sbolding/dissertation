@@ -58,7 +58,7 @@
 \headcommand {\beamer@framepages {22}{22}}
 \headcommand {\slideentry {4}{1}{6}{23/23}{}{0}}
 \headcommand {\beamer@framepages {23}{23}}
-\headcommand {\sectionentry {5}{Extensions and Ongoing Research}{24}{Extensions and Ongoing Research}{0}}
+\headcommand {\sectionentry {5}{Extensions and Improvements on Algorithm}{24}{Extensions and Improvements on Algorithm}{0}}
 \headcommand {\beamer@sectionpages {17}{23}}
 \headcommand {\beamer@subsectionpages {18}{23}}
 \headcommand {\slideentry {5}{0}{7}{24/24}{}{0}}
@@ -95,17 +95,17 @@
 \headcommand {\beamer@framepages {39}{39}}
 \headcommand {\slideentry {5}{0}{23}{40/40}{}{0}}
 \headcommand {\beamer@framepages {40}{40}}
-\headcommand {\partentry {Appendix}{1}}
-\headcommand {\beamer@partpages {1}{40}}
-\headcommand {\beamer@sectionpages {24}{40}}
-\headcommand {\beamer@subsectionpages {24}{40}}
-\headcommand {\beamer@appendixpages {41}}
-\headcommand {\slideentry {5}{0}{24}{41/41}{}{1}}
+\headcommand {\slideentry {5}{0}{24}{41/41}{}{0}}
 \headcommand {\beamer@framepages {41}{41}}
-\headcommand {\slideentry {5}{0}{25}{42/42}{}{1}}
+\headcommand {\slideentry {5}{0}{25}{42/42}{}{0}}
 \headcommand {\beamer@framepages {42}{42}}
-\headcommand {\slideentry {5}{0}{26}{43/43}{}{1}}
+\headcommand {\slideentry {5}{0}{26}{43/43}{}{0}}
 \headcommand {\beamer@framepages {43}{43}}
+\headcommand {\partentry {Appendix}{1}}
+\headcommand {\beamer@partpages {1}{43}}
+\headcommand {\beamer@sectionpages {24}{43}}
+\headcommand {\beamer@subsectionpages {24}{43}}
+\headcommand {\beamer@appendixpages {44}}
 \headcommand {\slideentry {5}{0}{27}{44/44}{}{1}}
 \headcommand {\beamer@framepages {44}{44}}
 \headcommand {\slideentry {5}{0}{28}{45/45}{}{1}}
@@ -126,8 +126,14 @@
 \headcommand {\beamer@framepages {52}{52}}
 \headcommand {\slideentry {5}{0}{36}{53/53}{}{1}}
 \headcommand {\beamer@framepages {53}{53}}
-\headcommand {\beamer@partpages {41}{53}}
-\headcommand {\beamer@subsectionpages {41}{53}}
-\headcommand {\beamer@sectionpages {41}{53}}
-\headcommand {\beamer@documentpages {53}}
-\headcommand {\def \inserttotalframenumber {39}}
+\headcommand {\slideentry {5}{0}{37}{54/54}{}{1}}
+\headcommand {\beamer@framepages {54}{54}}
+\headcommand {\slideentry {5}{0}{38}{55/55}{}{1}}
+\headcommand {\beamer@framepages {55}{55}}
+\headcommand {\slideentry {5}{0}{39}{56/56}{}{1}}
+\headcommand {\beamer@framepages {56}{56}}
+\headcommand {\beamer@partpages {44}{56}}
+\headcommand {\beamer@subsectionpages {44}{56}}
+\headcommand {\beamer@sectionpages {44}{56}}
+\headcommand {\beamer@documentpages {56}}
+\headcommand {\def \inserttotalframenumber {42}}
