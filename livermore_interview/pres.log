@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  10 SEP 2016 12:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  11 SEP 2016 12:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -678,33 +678,9 @@ Package: beamerouterthemedefault 2012/10/02  (rcs-revision 5ed0f4010e8a)
 Package: picture 2009/10/11 v1.3 Dimens for picture macros (HO)
 Package picture Info: Calculation method: etex.
 )
-(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
-Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+(/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+Package: tcolorbox 2014/02/06 version 2.70 text color boxes
 
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
-Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
-
-(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
-Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
-Package caption3 Info: TeX engine: e-TeX on input line 57.
-\captionmargin=\dimen191
-\captionmargin@=\dimen192
-\captionwidth=\dimen193
-\caption@tempdima=\dimen194
-\caption@indent=\dimen195
-\caption@parindent=\dimen196
-\caption@hangindent=\dimen197
-)
-\c@ContinuedFloat=\count152
-Package caption Info: beamer document class.
-Package caption Info: hyperref package is loaded.
-Package caption Info: Hyperref support is turned off
-(caption)             because hyperref has stopped early.
-)
-\c@subfigure=\count153
-\c@subtable=\count154
-)
-(/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texmf/tex/latex/pgf/basiclayer/pgf.sty
 Package: pgf 2008/01/15 v2.10 (rcs-revision 1.12)
 
@@ -717,12 +693,72 @@ File: pgfmoduleplot.code.tex 2010/10/22  (rcs-revision 1.8)
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-0-65.sty
 Package: pgfcomp-version-0-65 2007/07/03 v2.10 (rcs-revision 1.7)
-\pgf@nodesepstart=\dimen198
-\pgf@nodesepend=\dimen199
+\pgf@nodesepstart=\dimen191
+\pgf@nodesepend=\dimen192
 )
 (/usr/share/texmf/tex/latex/pgf/compatibility/pgfcomp-version-1-18.sty
 Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
 ))
+(/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks40
+\verbatim@line=\toks41
+\verbatim@in@stream=\read2
+)
+(/usr/share/texlive/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2013/04/01 v0.3 A new environment syntax
+
+(/usr/share/texlive/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count152
+)
+\etb@tempcnta=\count153
+)
+\tcb@titlebox=\box54
+\tcb@upperbox=\box55
+\tcb@lowerbox=\box56
+\tcb@phantombox=\box57
+\c@tcbbreakpart=\count154
+\c@tcblayer=\count155
+\tcb@temp=\box58
+\tcb@temp=\box59
+\tcb@temp=\box60
+\tcb@temp=\box61
+\tcb@out=\write5
+)
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2013/02/03 v1.1-62 Sub-captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2013/05/02 v3.3-89 Customizing captions (AR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2013/05/02 v1.6-88 caption3 kernel (AR)
+Package caption3 Info: TeX engine: e-TeX on input line 57.
+\captionmargin=\dimen193
+\captionmargin@=\dimen194
+\captionwidth=\dimen195
+\caption@tempdima=\dimen196
+\caption@indent=\dimen197
+\caption@parindent=\dimen198
+\caption@hangindent=\dimen199
+)
+\c@ContinuedFloat=\count156
+Package caption Info: beamer document class.
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+)
+\c@subfigure=\count157
+\c@subtable=\count158
+)
+(/usr/share/texmf/tex/latex/pgf/frontendlayer/tikz.sty
 (/usr/share/texmf/tex/latex/pgf/utilities/pgffor.sty
 (/usr/share/texmf/tex/latex/pgf/utilities/pgfkeys.sty
 (/usr/share/texmf/tex/generic/pgf/utilities/pgfkeys.code.tex))
@@ -730,15 +766,15 @@ Package: pgfcomp-version-1-18 2007/07/23 v2.10 (rcs-revision 1.1)
 Package: pgffor 2010/03/23 v2.10 (rcs-revision 1.18)
 \pgffor@iter=\dimen200
 \pgffor@skip=\dimen201
-\pgffor@stack=\toks40
-\pgffor@toks=\toks41
+\pgffor@stack=\toks42
+\pgffor@toks=\toks43
 ))
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/tikz.code.tex
 Package: tikz 2010/10/13 v2.10 (rcs-revision 1.76)
 
 (/usr/share/texmf/tex/generic/pgf/libraries/pgflibraryplothandlers.code.tex
 File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
-\pgf@plot@mark@count=\count155
+\pgf@plot@mark@count=\count159
 \pgfplotmarksize=\dimen202
 )
 \tikz@lastx=\dimen203
@@ -747,20 +783,20 @@ File: pgflibraryplothandlers.code.tex 2010/05/31 v2.10 (rcs-revision 1.15)
 \tikz@lastysaved=\dimen206
 \tikzleveldistance=\dimen207
 \tikzsiblingdistance=\dimen208
-\tikz@figbox=\box54
-\tikz@tempbox=\box55
-\tikztreelevel=\count156
-\tikznumberofchildren=\count157
-\tikznumberofcurrentchild=\count158
-\tikz@fig@count=\count159
+\tikz@figbox=\box62
+\tikz@tempbox=\box63
+\tikztreelevel=\count160
+\tikznumberofchildren=\count161
+\tikznumberofcurrentchild=\count162
+\tikz@fig@count=\count163
 
 (/usr/share/texmf/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2010/08/24  (rcs-revision 1.4)
-\pgfmatrixcurrentrow=\count160
-\pgfmatrixcurrentcolumn=\count161
-\pgf@matrix@numberofcolumns=\count162
+\pgfmatrixcurrentrow=\count164
+\pgfmatrixcurrentcolumn=\count165
+\pgf@matrix@numberofcolumns=\count166
 )
-\tikz@expandcount=\count163
+\tikz@expandcount=\count167
 
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibrarytopat
 hs.code.tex
@@ -801,8 +837,8 @@ File: tikzlibrarypositioning.code.tex 2008/10/06 v2.10 (rcs-revision 1.7)
 Package: textpos 2014/01/03 v1.7j
 
 Package: textpos 2014/01/03 1.7j, absolute positioning of text on the page
-\TP@textbox=\box56
-\TP@holdbox=\box57
+\TP@textbox=\box64
+\TP@holdbox=\box65
 \TPHorizModule=\dimen210
 \TPVertModule=\dimen211
 \TP@margin=\dimen212
@@ -811,35 +847,20 @@ Grid set 16 x 16 = 22.7622pt x 17.07166pt
 \TPboxrulesize=\dimen214
 \TP@ox=\dimen215
 \TP@oy=\dimen216
-\TP@tbargs=\toks42
+\TP@tbargs=\toks44
 \TP@prevdepth=\dimen217
 TextBlockOrigin set to 0pt x 0pt
 )
 \pc=\dimen218
 \wideitemsep=\skip57
 \tabsep=\skip58
- (/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim.sty
-Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks43
-\verbatim@line=\toks44
-\verbatim@in@stream=\read2
-)
-(/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
-\CommentStream=\write5
+ (/usr/share/texlive/texmf-dist/tex/latex/comment/comment.sty
+\CommentStream=\write6
 
 Excluding comment 'comment')
 (/usr/share/texlive/texmf-dist/tex/latex/datetime/datetime.sty
 Package: datetime 2013/09/10 v2.59 Date Time Package
 
-(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
-
-(/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
-Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
-\et@xins=\count164
-)
-\etb@tempcnta=\count165
-)
 (/usr/share/texlive/texmf-dist/tex/latex/fmtcount/fmtcount.sty
 Package: fmtcount 2013/08/17 v2.03
 
@@ -851,17 +872,17 @@ Package: fcprefix 2012/09/28
 
 (/usr/share/texlive/texmf-dist/tex/latex/fmtcount/fcnumparser.sty
 Package: fcnumparser 2012/09/28
-\fc@digit@counter=\count166
+\fc@digit@counter=\count168
 ))
-\c@padzeroesN=\count167
-\fc@tmpcatcode=\count168
-\@DT@modctr=\count169
-\@ordinalctr=\count170
-\@orgargctr=\count171
-\@strctr=\count172
-\@tmpstrctr=\count173
-\@DT@loopN=\count174
-\@DT@X=\count175
+\c@padzeroesN=\count169
+\fc@tmpcatcode=\count170
+\@DT@modctr=\count171
+\@ordinalctr=\count172
+\@orgargctr=\count173
+\@strctr=\count174
+\@tmpstrctr=\count175
+\@DT@loopN=\count176
+\@DT@X=\count177
 
 (/usr/share/texlive/texmf-dist/tex/latex/fmtcount/fc-english.def
 File: fc-english.def 2013/08/17
@@ -869,23 +890,23 @@ File: fc-english.def 2013/08/17
 (/usr/share/texlive/texmf-dist/tex/latex/datetime/datetime-defaults.sty
 Package: datetime-defaults 2013/09/10
 )
-\@day=\count176
-\@month=\count177
-\@year=\count178
-\c@HOUR=\count179
-\c@HOURXII=\count180
-\c@MINUTE=\count181
-\c@TOHOUR=\count182
-\c@TOMINUTE=\count183
-\c@SECOND=\count184
-\currenthour=\count185
-\currentminute=\count186
-\currentsecond=\count187
+\@day=\count178
+\@month=\count179
+\@year=\count180
+\c@HOUR=\count181
+\c@HOURXII=\count182
+\c@MINUTE=\count183
+\c@TOHOUR=\count184
+\c@TOMINUTE=\count185
+\c@SECOND=\count186
+\currenthour=\count187
+\currentminute=\count188
+\currentsecond=\count189
 Package datetime Info: No datetime.cfg file found, using default settings on in
 put line 308.
-\@dtctr=\count188
-\dayofyear=\count189
-\dayofweek=\count190
+\@dtctr=\count190
+\dayofyear=\count191
+\dayofweek=\count192
 LaTeX Info: Redefining \today on input line 736.
 \dt@a=\toks45
 \dt@b=\toks46
@@ -904,7 +925,7 @@ Language: english 2012/08/20 v3.3p English support from the babel system
 (/usr/share/texlive/texmf-dist/tex/generic/babel/babel.def
 File: babel.def 2013/12/03 3.9h Babel common definitions
 LaTeX Info: Redefining \textlatin on input line 137.
-\babel@savecnt=\count191
+\babel@savecnt=\count193
 \U@D=\dimen220
 )
 \l@canadian = a dialect from \language\l@american 
@@ -915,10 +936,10 @@ LaTeX Info: Redefining \textlatin on input line 137.
 Package: beamerthemeboxes 2010/06/17  (rcs-revision d02a7cf4d8ae)
 \beamer@boxheadheight=\dimen221
 \beamer@boxfootheight=\dimen222
-\beamer@headboxes=\count192
+\beamer@headboxes=\count194
 \beamer@headboxsizes=\dimen223
-\beamer@currentbox=\count193
-\beamer@footboxes=\count194
+\beamer@currentbox=\count195
+\beamer@footboxes=\count196
 \beamer@footboxsizes=\dimen224
 )
 (/usr/share/texmf/tex/latex/beamer/base/themes/color/beamercolorthemestructure.
@@ -927,20 +948,20 @@ Package: beamercolorthemestructure 2010/06/17  (rcs-revision d02a7cf4d8ae)
 ) (./pres.aux (./slides_defense_mult.aux))
 \openout1 = `pres.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 226.
-LaTeX Font Info:    ... okay on input line 226.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 227.
+LaTeX Font Info:    ... okay on input line 227.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -978,16 +999,16 @@ LaTeX Font Info:    ... okay on input line 226.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count195
+\scratchcounter=\count197
 \scratchdimen=\dimen225
-\scratchbox=\box58
-\nofMPsegments=\count196
-\nofMParguments=\count197
+\scratchbox=\box66
+\nofMPsegments=\count198
+\nofMParguments=\count199
 \everyMPshowfont=\toks47
-\MPscratchCnt=\count198
+\MPscratchCnt=\count200
 \MPscratchDim=\dimen226
-\MPnumerator=\count199
-\makeMPintoPDFobject=\count200
+\MPnumerator=\count201
+\makeMPintoPDFobject=\count202
 \everyMPtoPDFconversion=\toks48
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
@@ -1005,8 +1026,8 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box59
-Package hyperref Info: Link coloring OFF on input line 226.
+\AtBeginShipoutBox=\box67
+Package hyperref Info: Link coloring OFF on input line 227.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -1014,58 +1035,58 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count201
+\c@section@level=\count203
 )
-LaTeX Info: Redefining \ref on input line 226.
-LaTeX Info: Redefining \pageref on input line 226.
-LaTeX Info: Redefining \nameref on input line 226.
+LaTeX Info: Redefining \ref on input line 227.
+LaTeX Info: Redefining \pageref on input line 227.
+LaTeX Info: Redefining \nameref on input line 227.
 
 (./pres.out) (./pres.out)
-\@outlinefile=\write6
-\openout6 = `pres.out'.
+\@outlinefile=\write7
+\openout7 = `pres.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 226.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 227.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 226.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 227.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 226.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 226.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 227.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 226.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 226.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 226.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/bx/n on input line 227.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 226.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 226.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 226.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 227.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 226.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 226.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 226.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 227.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 226.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 226.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 227.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 226.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 227.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 226.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 226.
+(Font)                  OT1/cmss/bx/n --> OT1/cmr/bx/n on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 226.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/bx/n on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 226.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/bx/n on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 226.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/bx/it on input line 227.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 226.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/bx/n on input line 227.
 
 (/usr/share/texmf/tex/latex/beamer/base/translator/dicts/translator-basic-dicti
 onary/translator-basic-dictionary-English.dict
@@ -1091,16 +1112,16 @@ Dictionary: translator-numbers-dictionary, Language: English
 tionary/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \includegraphics on input line 226.
+LaTeX Info: Redefining \includegraphics on input line 227.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (./pres.nav)
-LaTeX Font Info:    Try loading font information for U+msa on input line 238.
+LaTeX Font Info:    Try loading font information for U+msa on input line 239.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 238.
+LaTeX Font Info:    Try loading font information for U+msb on input line 239.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1108,29 +1129,29 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <NEUP.jpg, id=41, 764.8575pt x 313.17pt>
 File: NEUP.jpg Graphic file (type jpg)
  <use NEUP.jpg>
-Package pdftex.def Info: NEUP.jpg used on input line 238.
+Package pdftex.def Info: NEUP.jpg used on input line 239.
 (pdftex.def)             Requested size: 114.79369pt x 47.00447pt.
 
 <tamu_seal.png, id=43, 222.8325pt x 222.8325pt>
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 238.
+Package pdftex.def Info: tamu_seal.png used on input line 239.
 (pdftex.def)             Requested size: 47.0036pt x 47.00447pt.
 
 <cert_logo_maroon.png, id=44, 1003.75pt x 493.845pt>
 File: cert_logo_maroon.png Graphic file (type png)
 
 <use cert_logo_maroon.png>
-Package pdftex.def Info: cert_logo_maroon.png used on input line 238.
+Package pdftex.def Info: cert_logo_maroon.png used on input line 239.
 (pdftex.def)             Requested size: 95.52571pt x 47.00447pt.
 
-Overfull \hbox (14.8364pt too wide) in paragraph at lines 238--238
+Overfull \hbox (14.8364pt too wide) in paragraph at lines 239--239
  [][] 
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
-(Font)              size <5> substituted on input line 238.
+(Font)              size <5> substituted on input line 239.
 
 [1
 
@@ -1138,14 +1159,14 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 ng> <./cert_logo_maroon.png>]
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <13.7> not available
-(Font)              size <14.4> substituted on input line 258.
+(Font)              size <14.4> substituted on input line 259.
 
 [2
 
 ] [3
 
 ]
-Overfull \hbox (23.99998pt too wide) in paragraph at lines 327--327
+Overfull \hbox (23.99998pt too wide) in paragraph at lines 328--328
  [] 
  []
 
@@ -1154,31 +1175,31 @@ Overfull \hbox (23.99998pt too wide) in paragraph at lines 327--327
 ]
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 344.
+Package pdftex.def Info: tamu_seal.png used on input line 345.
 (pdftex.def)             Requested size: 61.95982pt x 61.96085pt.
  (./pres.toc) [5
 
 ]
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 346.
+Package pdftex.def Info: tamu_seal.png used on input line 347.
 (pdftex.def)             Requested size: 61.95982pt x 61.96085pt.
  (./pres.toc)
 [6
 
 ]
-Overfull \hbox (31.62737pt too wide) in paragraph at lines 382--382
+Overfull \hbox (31.62737pt too wide) in paragraph at lines 383--383
 [][]  
  []
 
 
-Overfull \vbox (5.03865pt too high) detected at line 382
+Overfull \vbox (5.03865pt too high) detected at line 383
  []
 
 [7
 
 ]
-Overfull \hbox (12.39381pt too wide) in paragraph at lines 416--416
+Overfull \hbox (12.39381pt too wide) in paragraph at lines 417--417
 []  
  []
 
@@ -1187,55 +1208,55 @@ Overfull \hbox (12.39381pt too wide) in paragraph at lines 416--416
 ]
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 455.
+Package pdftex.def Info: tamu_seal.png used on input line 456.
 (pdftex.def)             Requested size: 61.95982pt x 61.96085pt.
  (./pres.toc) [9
 
 ]
-Overfull \hbox (1.28397pt too wide) detected at line 499
+Overfull \hbox (1.28397pt too wide) detected at line 500
 [][]
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <13.7> not available
-(Font)              size <14.4> substituted on input line 499.
+(Font)              size <14.4> substituted on input line 500.
 
 [10
 
 ]
-LaTeX Font Info:    Calculating math sizes for size <9.2> on input line 542.
+LaTeX Font Info:    Calculating math sizes for size <9.2> on input line 543.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <6.43996> not available
-(Font)              size <6> substituted on input line 542.
+(Font)              size <6> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4.59999> not available
-(Font)              size <5> substituted on input line 542.
+(Font)              size <5> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <6.43996> not available
-(Font)              size <6> substituted on input line 542.
+(Font)              size <6> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <4.59999> not available
-(Font)              size <5> substituted on input line 542.
+(Font)              size <5> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <6.43996> not available
-(Font)              size <6> substituted on input line 542.
+(Font)              size <6> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <4.59999> not available
-(Font)              size <5> substituted on input line 542.
+(Font)              size <5> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <6.43996> not available
-(Font)              size <6> substituted on input line 542.
+(Font)              size <6> substituted on input line 543.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <4.59999> not available
-(Font)              size <5> substituted on input line 542.
+(Font)              size <5> substituted on input line 543.
 
 [11
 
@@ -1244,7 +1265,7 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <4.59999> not available
 ]
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 547.
+Package pdftex.def Info: tamu_seal.png used on input line 548.
 (pdftex.def)             Requested size: 61.95982pt x 61.96085pt.
  (./pres.toc) [13
 
@@ -1253,37 +1274,37 @@ Package pdftex.def Info: tamu_seal.png used on input line 547.
 File: figures/zoom_angflux.pdf Graphic file (type pdf)
 
 <use figures/zoom_angflux.pdf>
-Package pdftex.def Info: figures/zoom_angflux.pdf used on input line 620.
+Package pdftex.def Info: figures/zoom_angflux.pdf used on input line 621.
 (pdftex.def)             Requested size: 170.39308pt x 119.80663pt.
 
-Overfull \hbox (60.08191pt too wide) in paragraph at lines 620--620
+Overfull \hbox (60.08191pt too wide) in paragraph at lines 621--621
 []  
  []
 
-LaTeX Font Info:    Calculating math sizes for size <13.7> on input line 620.
+LaTeX Font Info:    Calculating math sizes for size <13.7> on input line 621.
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <9.58995> not available
-(Font)              size <10> substituted on input line 620.
+(Font)              size <10> substituted on input line 621.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <13.7> not available
-(Font)              size <14.4> substituted on input line 620.
+(Font)              size <14.4> substituted on input line 621.
 
 
 LaTeX Font Warning: Font shape `OML/cmm/m/it' in size <9.58995> not available
-(Font)              size <10> substituted on input line 620.
+(Font)              size <10> substituted on input line 621.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <13.7> not available
-(Font)              size <14.4> substituted on input line 620.
+(Font)              size <14.4> substituted on input line 621.
 
 
 LaTeX Font Warning: Font shape `OMS/cmsy/m/n' in size <9.58995> not available
-(Font)              size <10> substituted on input line 620.
+(Font)              size <10> substituted on input line 621.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <9.58995> not available
-(Font)              size <10> substituted on input line 620.
+(Font)              size <10> substituted on input line 621.
 
 [14
 
@@ -1294,7 +1315,7 @@ LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <9.58995> not available
 ]
 File: tamu_seal.png Graphic file (type png)
  <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 669.
+Package pdftex.def Info: tamu_seal.png used on input line 670.
 (pdftex.def)             Requested size: 61.95982pt x 61.96085pt.
  (./pres.toc)
 [17
@@ -1307,7 +1328,7 @@ pdfTeX warning: pdflatex (file ./figures/start_time_labeled.pdf): PDF inclusion
 File: figures/start_time_labeled.pdf Graphic file (type pdf)
 
 <use figures/start_time_labeled.pdf>
-Package pdftex.def Info: figures/start_time_labeled.pdf used on input line 692.
+Package pdftex.def Info: figures/start_time_labeled.pdf used on input line 693.
 
 (pdftex.def)             Requested size: 150.25508pt x 115.3131pt.
 
@@ -1315,19 +1336,19 @@ Package pdftex.def Info: figures/start_time_labeled.pdf used on input line 692.
 File: figures/end_time.pdf Graphic file (type pdf)
 
 <use figures/end_time.pdf>
-Package pdftex.def Info: figures/end_time.pdf used on input line 692.
+Package pdftex.def Info: figures/end_time.pdf used on input line 693.
 (pdftex.def)             Requested size: 123.91966pt x 102.94553pt.
 
-Overfull \hbox (116.98743pt too wide) in paragraph at lines 692--692
+Overfull \hbox (116.98743pt too wide) in paragraph at lines 693--693
 [][]  
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <13.7> not available
-(Font)              size <14.4> substituted on input line 692.
+(Font)              size <14.4> substituted on input line 693.
 
 
-Overfull \vbox (5.03984pt too high) detected at line 692
+Overfull \vbox (5.03984pt too high) detected at line 693
  []
 
 [18
@@ -1339,11 +1360,11 @@ Overfull \vbox (5.03984pt too high) detected at line 692
 File: figures/marshak_200_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_200_compare.pdf>
-Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 721
+Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 722
 .
 (pdftex.def)             Requested size: 190.77692pt x 153.60457pt.
 
-Overfull \vbox (4.55988pt too high) detected at line 721
+Overfull \vbox (4.55988pt too high) detected at line 722
  []
 
 [20
@@ -1353,11 +1374,11 @@ Overfull \vbox (4.55988pt too high) detected at line 721
 File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
 
 <use figures/two_mat_ho_compare.pdf>
-Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 759.
+Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 760.
 
 (pdftex.def)             Requested size: 188.94748pt x 154.46123pt.
 
-Overfull \vbox (13.92802pt too high) detected at line 759
+Overfull \vbox (13.92802pt too high) detected at line 760
  []
 
 [21
@@ -1367,19 +1388,19 @@ Overfull \vbox (13.92802pt too high) detected at line 759
 File: figures/diff_limit_compare.pdf Graphic file (type pdf)
 
 <use figures/diff_limit_compare.pdf>
-Package pdftex.def Info: figures/diff_limit_compare.pdf used on input line 770.
+Package pdftex.def Info: figures/diff_limit_compare.pdf used on input line 771.
 
 (pdftex.def)             Requested size: 209.29822pt x 163.87196pt.
  [22
 
  <./figures/diff_limit_compare.pdf>]
-LaTeX Font Info:    Calculating math sizes for size <9.62> on input line 808.
+LaTeX Font Info:    Calculating math sizes for size <9.62> on input line 809.
 
 <figures/mpv_mats_imc_zoom.pdf, id=536, 507.24976pt x 411.71002pt>
 File: figures/mpv_mats_imc_zoom.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_imc_zoom.pdf>
-Package pdftex.def Info: figures/mpv_mats_imc_zoom.pdf used on input line 808.
+Package pdftex.def Info: figures/mpv_mats_imc_zoom.pdf used on input line 809.
 (pdftex.def)             Requested size: 150.25508pt x 115.5336pt.
 
 <figures/mpv_mats_holo_nolegend.pdf, id=538, 511.59412pt x 411.71002pt>
@@ -1387,15 +1408,15 @@ File: figures/mpv_mats_holo_nolegend.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_holo_nolegend.pdf>
 Package pdftex.def Info: figures/mpv_mats_holo_nolegend.pdf used on input line 
-808.
+809.
 (pdftex.def)             Requested size: 150.25508pt x 115.82512pt.
 
-Overfull \hbox (60.08191pt too wide) in paragraph at lines 808--808
+Overfull \hbox (60.08191pt too wide) in paragraph at lines 809--809
 []  
  []
 
 
-Overfull \vbox (73.36214pt too high) detected at line 808
+Overfull \vbox (73.36214pt too high) detected at line 809
  []
 
 [23
@@ -1404,25 +1425,25 @@ Overfull \vbox (73.36214pt too high) detected at line 808
 File: tamu_seal.png Graphic file (type png)
 
 <use tamu_seal.png>
-Package pdftex.def Info: tamu_seal.png used on input line 810.
+Package pdftex.def Info: tamu_seal.png used on input line 811.
 (pdftex.def)             Requested size: 61.95982pt x 61.96085pt.
  (./pres.toc) [24
 
 ] [25
 
 ]
-Overfull \hbox (28.52815pt too wide) in paragraph at lines 854--854
+Overfull \hbox (28.52815pt too wide) in paragraph at lines 855--855
 []  
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/bx/n' in size <9.58995> not available
-(Font)              size <10> substituted on input line 854.
+(Font)              size <10> substituted on input line 855.
 
 [26
 
 ]
-Overfull \hbox (49.11946pt too wide) in paragraph at lines 898--898
+Overfull \hbox (49.11946pt too wide) in paragraph at lines 899--899
  [] 
  []
 
@@ -1432,11 +1453,11 @@ Overfull \hbox (49.11946pt too wide) in paragraph at lines 898--898
 File: figures/void_census_3steps.pdf Graphic file (type pdf)
 
 <use figures/void_census_3steps.pdf>
-Package pdftex.def Info: figures/void_census_3steps.pdf used on input line 912.
+Package pdftex.def Info: figures/void_census_3steps.pdf used on input line 913.
 
 (pdftex.def)             Requested size: 219.96284pt x 171.10709pt.
 
-Overfull \vbox (21.48073pt too high) detected at line 912
+Overfull \vbox (21.48073pt too high) detected at line 913
  []
 
 [28
@@ -1450,17 +1471,17 @@ Overfull \vbox (21.48073pt too high) detected at line 912
 ]
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 958.
+(hyperref)                setting the option has no effect on input line 959.
 
 File: NEUP.jpg Graphic file (type jpg)
 <use NEUP.jpg>
-Package pdftex.def Info: NEUP.jpg used on input line 961.
+Package pdftex.def Info: NEUP.jpg used on input line 962.
 (pdftex.def)             Requested size: 114.79369pt x 47.00447pt.
  <lanl-logo-footer.png, id=745, 282.05376pt x 168.63pt>
 File: lanl-logo-footer.png Graphic file (type png)
 
 <use lanl-logo-footer.png>
-Package pdftex.def Info: lanl-logo-footer.png used on input line 961.
+Package pdftex.def Info: lanl-logo-footer.png used on input line 962.
 (pdftex.def)             Requested size: 94.8856pt x 47.00447pt.
  [32
 
@@ -1609,28 +1630,28 @@ Package pdftex.def Info: lanl-logo-footer.png used on input line 350.
 ])
 File: NEUP.jpg Graphic file (type jpg)
  <use NEUP.jpg>
-Package pdftex.def Info: NEUP.jpg used on input line 972.
+Package pdftex.def Info: NEUP.jpg used on input line 973.
 (pdftex.def)             Requested size: 114.79369pt x 47.00447pt.
 File: lanl-logo-footer.png Graphic file (type png)
 
 <use lanl-logo-footer.png>
-Package pdftex.def Info: lanl-logo-footer.png used on input line 972.
+Package pdftex.def Info: lanl-logo-footer.png used on input line 973.
 (pdftex.def)             Requested size: 94.8856pt x 47.00447pt.
  [43
 
 
 ]
-\c@finalframe=\count202
+\c@finalframe=\count204
 
 
 Package hyperref Warning: Option `pdfauthor' has already been used,
-(hyperref)                setting the option has no effect on input line 979.
+(hyperref)                setting the option has no effect on input line 980.
 
 <figures/heated_marshak_new.pdf, id=876, 535.19792pt x 424.80582pt>
 File: figures/heated_marshak_new.pdf Graphic file (type pdf)
 
 <use figures/heated_marshak_new.pdf>
-Package pdftex.def Info: figures/heated_marshak_new.pdf used on input line 996.
+Package pdftex.def Info: figures/heated_marshak_new.pdf used on input line 997.
 
 (pdftex.def)             Requested size: 154.90195pt x 122.95068pt.
 
@@ -1638,7 +1659,7 @@ Package pdftex.def Info: figures/heated_marshak_new.pdf used on input line 996.
 File: figures/errors.pdf Graphic file (type pdf)
 
 <use figures/errors.pdf>
-Package pdftex.def Info: figures/errors.pdf used on input line 996.
+Package pdftex.def Info: figures/errors.pdf used on input line 997.
 (pdftex.def)             Requested size: 154.90195pt x 125.362pt.
  [44
 
@@ -1647,17 +1668,17 @@ Package pdftex.def Info: figures/errors.pdf used on input line 996.
 pdfTeX warning: pdflatex (file ./figures/errors.pdf): PDF inclusion: multiple p
 dfs with page group included in a single page
 >]
-Overfull \hbox (46.19592pt too wide) in paragraph at lines 1054--1054
+Overfull \hbox (46.19592pt too wide) in paragraph at lines 1055--1055
 [] 
  []
 
 
-Overfull \hbox (61.78479pt too wide) in paragraph at lines 1054--1054
+Overfull \hbox (61.78479pt too wide) in paragraph at lines 1055--1055
 [] 
  []
 
 
-Overfull \hbox (46.19592pt too wide) in paragraph at lines 1054--1054
+Overfull \hbox (46.19592pt too wide) in paragraph at lines 1055--1055
 [] 
  []
 
@@ -1666,14 +1687,14 @@ Overfull \hbox (46.19592pt too wide) in paragraph at lines 1054--1054
 ] [46
 
 ]
-Overfull \hbox (28.52815pt too wide) in paragraph at lines 1101--1101
+Overfull \hbox (28.52815pt too wide) in paragraph at lines 1102--1102
 []  
  []
 
 [47
 
 ]
-Overfull \vbox (17.29135pt too high) detected at line 1126
+Overfull \vbox (17.29135pt too high) detected at line 1127
  []
 
 [48
@@ -1682,7 +1703,7 @@ Overfull \vbox (17.29135pt too high) detected at line 1126
 File: figures/ang_flux.png Graphic file (type png)
 
 <use figures/ang_flux.png>
-Package pdftex.def Info: figures/ang_flux.png used on input line 1177.
+Package pdftex.def Info: figures/ang_flux.png used on input line 1178.
 (pdftex.def)             Requested size: 176.59048pt x 137.95953pt.
  [49
 
@@ -1691,14 +1712,14 @@ Package pdftex.def Info: figures/ang_flux.png used on input line 1177.
 File: figures/quick_compare.pdf Graphic file (type pdf)
 
 <use figures/quick_compare.pdf>
-Package pdftex.def Info: figures/quick_compare.pdf used on input line 1192.
+Package pdftex.def Info: figures/quick_compare.pdf used on input line 1193.
 (pdftex.def)             Requested size: 179.65373pt x 146.27606pt.
  [50
 
  <./figures/quick_compare.pdf>] [51
 
 ]
-Overfull \hbox (23.06201pt too wide) detected at line 1222
+Overfull \hbox (23.06201pt too wide) detected at line 1223
  []$[]   \OMS/cmsy/m/n/10.95 ^^@ \OT1/cmss/m/n/10.95 2\OML/cmm/m/it/10.95 ^^V[]
 ^^^[] \OT1/cmss/m/n/10.95 + [][] \OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/10.95 ^^^\O
 MS/cmsy/m/n/10.95 i[] \OT1/cmss/m/n/10.95 + [][] \OMS/cmsy/m/n/10.95 h\OML/cmm/
@@ -1706,7 +1727,7 @@ m/it/10.95 ^^^\OMS/cmsy/m/n/10.95 i[]\OT1/cmss/m/n/10.95 +$
  []
 
 
-Overfull \hbox (7.64749pt too wide) detected at line 1222
+Overfull \hbox (7.64749pt too wide) detected at line 1223
  []$[] [] \OT1/cmss/m/it/10.95 h[]\OMS/cmsy/m/n/10.95 h\OML/cmm/m/it/10.95 ^^^\
 OMS/cmsy/m/n/10.95 i[] ^^@ [] []$ 
  []
@@ -1720,7 +1741,7 @@ rsion <1.5>, but at most version <1.4> allowed
 <neutron_hist.pdf, id=1079, 524.71031pt x 759.58781pt>
 File: neutron_hist.pdf Graphic file (type pdf)
  <use neutron_hist.pdf>
-Package pdftex.def Info: neutron_hist.pdf used on input line 1230.
+Package pdftex.def Info: neutron_hist.pdf used on input line 1231.
 (pdftex.def)             Requested size: 309.80391pt x 126.58586pt.
 
 [53
@@ -1730,7 +1751,7 @@ File: figures/nubarFigures/trial_1_0_berp_3_0_2000.pdf Graphic file (type pdf)
 
 <use figures/nubarFigures/trial_1_0_berp_3_0_2000.pdf>
 Package pdftex.def Info: figures/nubarFigures/trial_1_0_berp_3_0_2000.pdf used 
-on input line 1244.
+on input line 1245.
 (pdftex.def)             Requested size: 154.90195pt x 120.47432pt.
 
 <figures/capFigures/trial_0_986_berp_3_0_2000.pdf, id=1137, 794.97pt x 614.295p
@@ -1738,7 +1759,7 @@ t>
 File: figures/capFigures/trial_0_986_berp_3_0_2000.pdf Graphic file (type pdf)
  <use figures/capFigures/trial_0_986_berp_3_0_2000.pdf>
 Package pdftex.def Info: figures/capFigures/trial_0_986_berp_3_0_2000.pdf used 
-on input line 1244.
+on input line 1245.
 (pdftex.def)             Requested size: 154.90195pt x 120.47432pt.
  [54
 
@@ -1749,14 +1770,14 @@ File: figures/nubarFigures/nubar_shift.pdf Graphic file (type pdf)
 
 <use figures/nubarFigures/nubar_shift.pdf>
 Package pdftex.def Info: figures/nubarFigures/nubar_shift.pdf used on input lin
-e 1260.
+e 1261.
 (pdftex.def)             Requested size: 150.28838pt x 112.71208pt.
 
 <figures/nubarFigures/nubar.pdf, id=1157, 794.97pt x 614.295pt>
 File: figures/nubarFigures/nubar.pdf Graphic file (type pdf)
 
 <use figures/nubarFigures/nubar.pdf>
-Package pdftex.def Info: figures/nubarFigures/nubar.pdf used on input line 1260
+Package pdftex.def Info: figures/nubarFigures/nubar.pdf used on input line 1261
 .
 (pdftex.def)             Requested size: 150.28838pt x 123.76273pt.
  [55
@@ -1765,20 +1786,20 @@ Package pdftex.def Info: figures/nubarFigures/nubar.pdf used on input line 1260
 s/nubarFigures/nubar.pdf, page is rotated 90 degrees>] [56
 
 ]
-\tf@nav=\write7
-\openout7 = `pres.nav'.
+\tf@nav=\write8
+\openout8 = `pres.nav'.
 
-\tf@toc=\write8
-\openout8 = `pres.toc'.
+\tf@toc=\write9
+\openout9 = `pres.toc'.
 
-\tf@snm=\write9
-\openout9 = `pres.snm'.
+\tf@snm=\write10
+\openout10 = `pres.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1281.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1281.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1282.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1282.
  (./pres.aux (./slides_defense_mult.aux))
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1281.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1281.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1282.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1282.
 
 Package rerunfilecheck Info: File `pres.out' has not changed.
 (rerunfilecheck)             Checksum: 622969033F02B5B521D3C812F11071C3;373.
@@ -1787,16 +1808,16 @@ Package rerunfilecheck Info: File `pres.out' has not changed.
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 1.0pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1281.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1282.
  ) 
 Here is how much of TeX's memory you used:
- 22240 strings out of 493304
- 418005 string characters out of 6139871
- 530505 words of memory out of 5000000
- 24985 multiletter control sequences out of 15000+600000
+ 22962 strings out of 493304
+ 433297 string characters out of 6139871
+ 543565 words of memory out of 5000000
+ 25695 multiletter control sequences out of 15000+600000
  29636 words of font info for 116 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 49i,17n,60p,1007b,934s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,17n,63p,1007b,934s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/
@@ -1822,7 +1843,7 @@ nts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
 am10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msa
 m7.pfb>
-Output written on pres.pdf (56 pages, 1923985 bytes).
+Output written on pres.pdf (56 pages, 1924263 bytes).
 PDF statistics:
  1298 PDF objects out of 1440 (max. 8388607)
  123 named destinations out of 1000 (max. 500000)
