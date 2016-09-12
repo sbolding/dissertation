@@ -295,10 +295,12 @@ transfer equations}
         \colG{Opacities are evaluated with $T(t^n)$}\vspace{0.21in}
 \setlength\wideitemsep{0.2in}
     \begin{itemize}
-        \item Produces a linear MC transport problem 
+        \item Produces a linear transport equation
                \\ \colG{with effective emission and scattering terms}
-        \item Emission source is \textbf{not} fully implicit.\\
-            \colG{Monte Carlo integration over $\Delta t$ for intensity}
+        \item MC particle histories are simulated 
+            \\ \colG{tallying radiation energy deposition}
+        \item Emission source is \textbf{not} fully time-implicit.\\
+            \colG{Uses MC integration over $\Delta t$ for intensity}
     \end{itemize}
 \end{itemize}
 \end{frame}
@@ -679,7 +681,7 @@ subsectionstyle=hide
     \begin{minipage}[t]{\linewidth}
         \vspace{0pt}
         \begin{itemize}
-            \item[] Results show \colb{radiation temperature} $T_r = \sqrt[4]{\phi/ac}$
+            \item[] Figures depict \colb{radiation temperature} $T_r = \sqrt[4]{\phi/ac}$
         \end{itemize}
     \end{minipage}} 
     \put(0,30){\centering\includegraphics[trim=0.0in 0.0in 0.0in
@@ -701,7 +703,8 @@ subsectionstyle=hide
         \begin{itemize}
             \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no adaptive mesh refinement}
         \end{itemize}
-    \item Figure of Merit: \boxed{\text{FOM}=\frac{\displaystyle 1}{\displaystyle \|\sigma^2\| N_{\text{total}}}}\\ \colG{are normalized to IMC results}
+    \item Figure of Merit: \boxed{\text{FOM}=\frac{\displaystyle 1}{\displaystyle
+            \|\sigma_{\text{rel}}\|^2 N_{\text{total}}}}\\ \colG{are normalized to IMC results}
     \end{itemize}
     }
 \end{frame}
@@ -857,7 +860,7 @@ subsectionstyle=hide
 
 \begin{frame}
     \frametitle{The time variable can be included in the ECMC trial space \\ with a
-    consistent LO closure}
+    consistent LO time closure }
     \begin{columns}
         \begin{column}[t]{0.2\textwidth}
             \vspace{-20pt}
@@ -879,49 +882,54 @@ subsectionstyle=hide
         \end{tikzpicture}
     \end{center}
     \end{column}
-    \begin{column}[t]{0.8\textwidth}
+    \begin{column}[t]{0.85\textwidth}
     \vspace{0pt}
+{\addtolength{\leftmargini}{-0.1in}
+\fontsize{10.0pt}{9.0pt}\selectfont
     \begin{itemize}
-        \item[] Include $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in transport operator $\B L$ \\
-            \colG{with $T(x)$ still implicit}
-        \item[] Sample and track in time \\ \colG{Tally time-average error projection and at $t^{n+1}$}
+        \item[] Include continuous $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in $\B L$ for residual
+            source\\
+            \colG{leaving $T(x)$ still implicit}
+        \item[] Sample and track particle histories in time. \\ \colG{Tally the time-averaged and
+                $t^{n+1}$ error}
         \vspace{0.08in}
     \item[] In \colb{LO equations}, parameterize $\phi_{LO}^{n+1}$ \\ in terms of
         \textbf{time-averaged}
-        unknowns
+        unknowns, e.g.,
             \begin{equation*}
                 \mom{\phi}_{L,i}^{n+1} = 2\highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} -
                 \mom{\phi}^{n}_{L,i}
             \end{equation*}
     \end{itemize}
+}
     \end{column}      
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The time-closure parameters preserve MC time integration \\ in the LO solution}
+    \frametitle{The time-closure parameters preserve accuracy \\ of MC time integration  in the LO solution}
     \fontsize{10.0pt}{10.0pt}\selectfont
     \vspace{0.1in}
     \begin{itemize}
         \item Material is near-void, so temperature uncouples  \\ \colG{take 3 large time
-                steps and compare $T_{R}^{n+1}$}
-            \item 300,000 histories/step
+                steps and compare $E_{R}^{n+1}=\phi^{n+1}/c$}
+            \item 300,000 histories/step, 100 spatial cells
     \end{itemize}
     \begin{figure}
-        \includegraphics[width=0.71\textwidth]{void_census_3steps.pdf}
+        \includegraphics[width=0.71\textwidth]{void_compare_300k.pdf}
     \end{figure}
 \end{frame}
 
 \begin{frame}
-    \frametitle{A few other topics are under investigation:}
+    \frametitle{A few other potential improvements were investigated:}
     {\addtolength\wideitemsep{5pt}
         \begin{itemize}
             \item[] Resolving negative intensities in optically thick cells \\
-            \colG{using an artificial source with alternate trial space}
+            \colG{using an artificial source and alternate trial space}
         \item[] Using HO solution to estimate spatial closure \\
                 \colG{by including face tallies in ECMC}
-            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{to solve the
-                LO equation}
+            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{to
+                    iteratively solve the LO equations}
         \end{itemize}}
 \end{frame}
 
@@ -935,22 +943,11 @@ subsectionstyle=hide
             \colG{with bounded angular consistency terms}
         \item[] Next step is to extend to higher spatial dimensions \\
             \colG{main hurdle to overcome is infrastructure}
-    \end{itemize}
+    \end{itemize} \pause
     \begin{tcolorbox}
     More details in: S.R. Bolding, M. Cleveland, and J.E. Morel. A HOLO Algorithm
 with ECMC for Radiative Transfer. NS\&E: M\&C 2015 Special Issue, 2016. Accepted.
 \end{tcolorbox}
-\end{frame}
-
-\begin{frame}
-    \frametitle{\shorttitle}
-    \begin{itemize}
-        \item[]
-        For more details see: \\ 
-S.R. Bolding, M. Cleveland, and J.E. Morel. A High-Order Low-Order Algorithm with
-Exponentially-Convergent Monte Carlo for Thermal Radiative Transfer. Nuclear Science \&
-Engineering: M\&C 2015 Special Issue, 2016. Accepted.
-    \end{itemize}
 \end{frame}
 
 
