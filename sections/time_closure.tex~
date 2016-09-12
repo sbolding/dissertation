@@ -442,6 +442,10 @@ uncoupled from the radiation.
 \end{figure}
 
 
+Any negativities that occur from undoing the census are just set to zero.  The minimum
+number of histories sampled from any space-angle cell, $N_cut$ in Eq.~\eqref{???} is 20,
+for all HOLO simulations.
+
 The census radiation temperatures determined with the HOLO method are plotted in
 Fig.~\ref{fig:void_temp_compare} for two different
 time step sizes and a case with .  By plotting
