@@ -62,7 +62,7 @@ Laboratory, Los Alamos, NM }}
 
 
 \begin{frame}
-\frametitle{Multiplicity experiments were performed at Sandia \\ for validating subcritical
+\frametitle{Multiplicity experiments were performed  \\ for validating subcritical
 simulations}
 \begin{minipage}{0.4\linewidth}
     \hspace{-0.3in}
@@ -74,17 +74,18 @@ simulations}
 \end{figure}
 \end{minipage}
 \begin{minipage}{0.54\linewidth}
-    {\addtolength\leftmargini{-0.5in}
+    {\fontsize{10pt}{6pt}\selectfont
+        \addtolength\leftmargini{-0.5in}
      \addtolength\leftmarginii{-0.2in}
      \addtolength\wideitemsep{0.1in}
 \begin{itemize}
     \item[] Experimental Parameters
   \begin{itemize}
       \item 94\% \colb{\iso{Pu}{239}} sphere \vspace{-0.2in}
-      \item 5 Different HDPE shells \\ \colG{From none to 3.0 cm HDPE}
+      \item 5 reflector configurations \\ \colG{None to 3.0 cm HDPE shells}
   \end{itemize}
   \item[] Experiments repeated w/ \colb{\iso{Cf}{252}}
-  \item[] Solomon modeled experiments with MCNP
+  \item[] C.J. Solomon modeled experiments with modified MCNP5
 \end{itemize} 
 }
 \end{minipage}
@@ -93,8 +94,8 @@ simulations}
 
 
 \begin{frame}
-    \frametitle{MCNP5 multiplicity simulations showed discrepancy \\ with experiments for
-        Pu but not for \iso{Cf}{252}}
+    \frametitle{MCNP5 simulated multiplicity distributions showed discrepancy  with experiments for
+        Pu, but not for \iso{Cf}{252}}
 \begin{minipage}{0.41\textwidth}
 \begin{figure}[ht!]
 \begin{center}
@@ -120,7 +121,7 @@ simulations}
   \begin{itemize}
       \item Caused by \textbf{\iso{Pu}{239}} \colb{nuclear data} 
 	\vspace{-0.1505in}
-\item  Adjusted \colb{energy-integrated \nubar} \\ \colG{mean \# of neutrons/fission}
+\item  Decreased \colb{energy-integrated \nubar}, \\ \colG{$\nubar:$ mean \# of neutrons/fission}
 	\end{itemize}
 \item[]  \textbf{ENDF-VII} raised \nubar for \iso{Pu}{239} \\ \colG{to match \keff
     benchmarks}
@@ -191,7 +192,7 @@ altering \keff?}
 		\end{array}
 	\end{equation*} 
     \vspace{0.0in}
-\item[] Equally weight $\chi^2$ values in a \colb{cost} function \\ \colG{A lower score indicatese
+\item[] Equally weight $\chi^2$ values in a \colb{cost} function \\ \colG{A lower score indicates
     higher accuracy}
 	\begin{equation*}
         \boxed{\text{Cost} = \sum_{m=1}^5 \chi^2_{\text{red,mult,}m} + \chi^2_{\text{red,}\keff}}
@@ -332,12 +333,17 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
 	  \end{itemize}
       \item[] Subcritical simulations should be considered \\ in validation of nuclear data
       \item[] Covariance sampling methodology for nuclear data was developed and demonstrated
-	\begin{itemize}
-	 	\item Ideally sample all cross sections and \nubar simultaneously 
-
-\end{itemize} 
 \end{itemize}
 \end{frame} 
+
+\begin{frame}
+    \begin{tcolorbox}
+    More details in: S.R. Bolding, M. Cleveland, and J.E. Morel. A HOLO Algorithm
+with ECMC for Radiative Transfer. NS\&E: M\&C 2015 Special Issue, 2016. Accepted.
+\end{tcolorbox}
+    
+
+\end{frame}
 
 
 \author{S.R. Bolding\inst{1}, \and C.J. Solomon\inst{2}}

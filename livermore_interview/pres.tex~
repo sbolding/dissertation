@@ -282,38 +282,36 @@ transfer equations}
         \item[] Equations are \colb{nonlinear} and may be tightly coupled \\  
             \colG{Absorption opacity ($\sigma_a$) can be a strong function of $T$}
 %        \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
-        \item[] Typically solved with implicit Monte Carlo (IMC) \\
-            \colG{which linearizes the system over a time step}
 \end{itemize}
 \end{frame}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{frame}
-%    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems}
-%        \vspace{-0.2in}
-%\begin{itemize}
-%    \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
-%        \colG{Opacities are evaluated with $T(t^n)$}\vspace{0.21in}
-%\setlength\wideitemsep{0.2in}
-%    \begin{itemize}
-%        \item Produces a linear MC transport problem 
-%               \\ \colG{with effective emission and scattering terms}
-%        \item Emission source is \textbf{not} fully implicit.\\
-%            \colG{Monte Carlo integration over $\Delta t$ for intensity}
-%    \end{itemize}
-%\end{itemize}
-%\end{frame}
+\begin{frame}
+    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems}
+        \vspace{-0.2in}
+\begin{itemize}
+    \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
+        \colG{Opacities are evaluated with $T(t^n)$}\vspace{0.21in}
+\setlength\wideitemsep{0.2in}
+    \begin{itemize}
+        \item Produces a linear MC transport problem 
+               \\ \colG{with effective emission and scattering terms}
+        \item Emission source is \textbf{not} fully implicit.\\
+            \colG{Monte Carlo integration over $\Delta t$ for intensity}
+    \end{itemize}
+\end{itemize}
+\end{frame}
 
 \begin{frame}
-\frametitle{Our \colb{high-order low-order (HOLO) method} \\improves on several drawbacks of IMC}
+\frametitle{We developed a \colb{high-order low-order (HOLO) method} \\ that improves on several drawbacks of IMC}
     \begin{center}
 {\footnotesize
 \begin{tabular}{p{0.5\textwidth} p{0.5\textwidth}} 
     \multicolumn{1}{l}{\textbf{\normalsize Standard  IMC}} & \multicolumn{1}{l}{\textbf{\normalsize
     HOLO Method}} \\ \hline [2pt]
     \parbox{0.4\textwidth}{Large \colr{statistical noise} possible} & 
-    \parbox{0.4\textwidth}{ECMC is \colb{very efficient} \\for TRT problems} \\ [\tabsep]
+    \parbox{0.5\textwidth}{ECMC is \colb{very statistically efficient} \\for TRT problems} \\ [\tabsep]
  \parbox{0.4\textwidth}{{\color{red}Effective scattering} can make \\ MC  very expensive}
  & \parbox{0.4\textwidth}{MC solution has \colb{no
  scattering}} \\[\tabsep] 
@@ -348,7 +346,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Solve a non-linear low-order system with high-order angular correction from efficient MC simulations}
+    \frametitle{Basic idea is a nonlinear low-order system with high-order angular correction from Monte Carlo transport solves}
     \setlength{\unitlength}{1mm}
     \begin{picture}(120,80)(0,-84)
     \put(-5,-15){
@@ -647,7 +645,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{Our HO system allows for \\ straight-forward variance reduction}
+    \frametitle{I implemented straight-forward variance reduction \\ straight-forward variance reduction}
     \addtolength{\wideitemsep}{0.15in}
     \begin{itemize}
         \item[] $I^{n}(x,\mu)$ is often an \colb{\textbf{excellent}} estimate of
@@ -696,12 +694,14 @@ subsectionstyle=hide
     \frametitle{Implementation specifics for results are given below:}               
     {\addtolength\wideitemsep{11pt}
     \begin{itemize}
-    \item Written as stand-alone C++ code
-    \item One HO solve per time step (two LO solves)
+    \item HOLO method implemented as stand-alone C++ code \\
+        \colG{IMC results from Jayenne (LANL code)}
+    \item $\Delta t$ increases from $0.01$ ns to $0.1$ ns
+    \item One HO solve per time step, with two LO solves
         \begin{itemize}
-            \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no mesh refinement}
+            \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no adaptive mesh refinement}
         \end{itemize}
-    \item FOM$=\frac{\displaystyle 1}{\displaystyle \|s^2\| N_{\text{total}}}$, \colG{normalized to IMC result}
+    \item Figure of Merit: \boxed{\text{FOM}=\frac{\displaystyle 1}{\displaystyle \|\sigma^2\| N_{\text{total}}}}\\ \colG{are normalized to IMC results}
     \end{itemize}
     }
 \end{frame}
@@ -713,8 +713,8 @@ subsectionstyle=hide
     \centering
         \begin{itemize}
             \item \colb{$\sigma_a\propto T^{-3}$} 
-            \item Transient solution after 5 shakes \\ \colG{200~$x$ cells and 4~$\mu$
-                cells (for ECMC)}
+            \item Transient solution after 5 shakes ($\sim 520$ steps) \\ \colG{200~$x$ cells (and 4~$\mu$
+                cells for ECMC)}
         \end{itemize}
     \begin{figure}
     \includegraphics[width=0.615799\textwidth]{marshak_200_compare.pdf}
@@ -747,7 +747,7 @@ subsectionstyle=hide
         \begin{itemize}
             \item Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$),
                 right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{8 $\mu$ cells}
-            \item Different HO solvers: \colb{ECMC} (FOM=10,000), \\ \hspace{0.2in} \colr{ standard MC}
+            \item Results for HOLO with different HO solvers:\\ \colb{ECMC} (FOM=10,000),  \colr{ standard MC}
             (FOM=0.46), and an \colg{ S$_2$}
             solution
         \end{itemize}
@@ -808,51 +808,51 @@ subsectionstyle=hide
 
 \end{frame}
 
-\section{Extensions and Improvements on Algorithm}
+\section{Extensions and Improvements on HOLO algorithm}
 
-\begin{frame}
-    \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
-        negative}
-    {\addtolength\wideitemsep{5pt}
-    \begin{itemize}
-        \item[] Negative intensities can occur in optically thick cells \\
-            \colG{Mesh refinement is of minimal use}
-        \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
-            \colG{to produce a physical, stable LO solution}
-         \item[] Independent fix up for LO solution
-             \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
-    \end{itemize}
-}
-
-\end{frame}
-
-\begin{frame}
-    \frametitle{Can add source $\delta$ to produce a positive projection $\tilde I_{pos}$ 
-        such that $\tilde I_{pos}$ satisfies the
-    latest residual equation}
-    {\addtolength\wideitemsep{0.1in}
-    \begin{itemize} 
-        \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
-            \\ \colG{to estimate source for the next iteration\vspace{0.1in}}
-            \begin{tikzpicture}
-                \hspace{-0.20771in}
-            \node at (0,0) {$\!\begin{aligned}
-                \B L \tilde I^{(m)}  &= q - r^{(m)} \\
-                    \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \colb{\delta^{(m+1)}}
-            \end{aligned}$};
-             \node at (2.73,0.1) [fill=Gray!50,shape=single arrow,text width=0.7cm,text
-             height=0.00001cm,line width=0.01cm] {};
-             \node at (5.62,0){$\!\begin{aligned}
-                     \delta^{(m+1)} &= \B L \left(\tilde I^{(m)} - \tilde
-             I_{\text{pos}}^{(m)}\right)  \\
-             q &\rightarrow q + \delta^{(m+1)}
-            \end{aligned}$};
-            \end{tikzpicture}
-        \item[] We can delay error stagnation
-            \\ \colG{Investigating alternative positive projection of $I$}
-    \end{itemize}
-}
-\end{frame}
+%\begin{frame}
+%    \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
+%        negative}
+%    {\addtolength\wideitemsep{5pt}
+%    \begin{itemize}
+%        \item[] Negative intensities can occur in optically thick cells \\
+%            \colG{Mesh refinement is of minimal use}
+%        \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
+%            \colG{to produce a physical, stable LO solution}
+%         \item[] Independent fix up for LO solution
+%             \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
+%    \end{itemize}
+%}
+%
+%\end{frame}
+%
+%\begin{frame}
+%    \frametitle{Can add source $\delta$ to produce a positive projection $\tilde I_{pos}$ 
+%        such that $\tilde I_{pos}$ satisfies the
+%    latest residual equation}
+%    {\addtolength\wideitemsep{0.1in}
+%    \begin{itemize} 
+%        \item[] Produce $\tilde I_{\text{pos}}$ by scaling $x-\mu$ moments equally,
+%            \\ \colG{to estimate source for the next iteration\vspace{0.1in}}
+%            \begin{tikzpicture}
+%                \hspace{-0.20771in}
+%            \node at (0,0) {$\!\begin{aligned}
+%                \B L \tilde I^{(m)}  &= q - r^{(m)} \\
+%                    \B L \tilde I_{\text{pos}}^{(m)} &= q - r^{(m)} + \colb{\delta^{(m+1)}}
+%            \end{aligned}$};
+%             \node at (2.73,0.1) [fill=Gray!50,shape=single arrow,text width=0.7cm,text
+%             height=0.00001cm,line width=0.01cm] {};
+%             \node at (5.62,0){$\!\begin{aligned}
+%                     \delta^{(m+1)} &= \B L \left(\tilde I^{(m)} - \tilde
+%             I_{\text{pos}}^{(m)}\right)  \\
+%             q &\rightarrow q + \delta^{(m+1)}
+%            \end{aligned}$};
+%            \end{tikzpicture}
+%        \item[] We can delay error stagnation
+%            \\ \colG{Investigating alternative positive projection of $I$}
+%    \end{itemize}
+%}
+%\end{frame}
 
 
 \begin{frame}
@@ -913,13 +913,15 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{A couple other improvements I didn't have time to discuss}
+    \frametitle{A few other topics are under investigation:}
     {\addtolength\wideitemsep{5pt}
         \begin{itemize}
-        \item[] The HO solution can be used to estimate the spatial closure \\
+            \item[] Resolving negative intensities in optically thick cells \\
+            \colG{using an artificial source with alternate trial space}
+        \item[] Using HO solution to estimate spatial closure \\
                 \colG{by including face tallies in ECMC}
-            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{as a
-                    solution to the LO equations}
+            \item[] Source iteration with diffusion synthetic acceleration \\ \colG{to solve the
+                LO equations}
         \end{itemize}}
 \end{frame}
 
