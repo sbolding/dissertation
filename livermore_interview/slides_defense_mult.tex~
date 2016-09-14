@@ -309,7 +309,7 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
 \begin{itemize} \vspace{-0.1in} 
   \item High accuracy for all simulations: $\displaystyle \sum_{i=1}^5 \chi^2_{red,mult,m} = \colb{14.6}$
       \vspace{-0.2in}
-  \item \keff is \textbf{not preserved:} $\chi^2_{\keff} = 22.6$
+  \item \textbf{\keff is not preserved:} $\mathbf{\chi^2_{\keff} = 22.6}$
 \end{itemize} 
 \end{frame}
 
@@ -332,8 +332,8 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
             \\ \colG{not sensitive to capture cross section}
 	  \end{itemize}
       \item[] Subcritical simulations should be considered \\ in validation of nuclear data
-      \item[] Covariance sampling methodology for nuclear data was developed and demonstrated
-\end{itemize}
+      \item[] Next step is to extend methodology \\ for evaluating nuclear data
+  \end{itemize}
 \end{frame} 
 
 \begin{frame}
@@ -344,7 +344,7 @@ $\begin{array}{cc} \textbf{Original \sfiss Data} & \hspace{0.13in}\textbf{\sfiss
     Nuclear Data.\\ Proceedings, ANS Winter Meeting, 2013.
     \end{tcolorbox}
     \vspace{0.3in}
-    A radiation-hydrodynamics method I did not discuss today  \\ was recently submitted
+    A radiation-hydrodynamics project I did not discuss today  \\ was recently submitted
     to JCP:
     \begin{tcolorbox}
     S.R. Bolding, J. Hansel, R.B. Lowrie, J.D. Edwards, and J.E. Morel. Second-Order

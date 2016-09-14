@@ -4,4 +4,4 @@
 \beamer@sectionintoc {2}{Derivation of the LO equations}{10}{0}{2}
 \beamer@sectionintoc {3}{Exponentially Convergent MC High-Order Solver}{14}{0}{3}
 \beamer@sectionintoc {4}{Computational Results}{18}{0}{4}
-\beamer@sectionintoc {5}{Extensions and Improvements on HOLO algorithm}{25}{0}{5}
+\beamer@sectionintoc {5}{Extensions and Ongoing Research}{25}{0}{5}

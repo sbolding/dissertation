@@ -811,7 +811,7 @@ subsectionstyle=hide
 
 \end{frame}
 
-\section{Extensions and Improvements on HOLO algorithm}
+\section{Extensions and Ongoing Research}
 
 %\begin{frame}
 %    \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
@@ -913,11 +913,33 @@ subsectionstyle=hide
     \begin{itemize}
         \item Material has $\sigma_a = 10^{-6}$ cm$^{-1}$, so temperature uncouples  \\ \colG{take 3 large time
                 steps and compare $E_{R}^{n+1}=\phi^{n+1}/c$}
-            \item 300,000 histories/step, 100 spatial cells
+            \item 300,000 histories/step, 100 spatial cells, \textbf{FOM=0.53}
     \end{itemize}
     \begin{figure}
         \includegraphics[width=0.71\textwidth]{void_compare_300k.pdf}
     \end{figure}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{With sufficient histories in a mix of optical thicknesses \\ HOLO is more efficient than IMC}
+    \fontsize{8.0pt}{10.0pt}\selectfont
+    \vspace{0.1in}
+    \begin{itemize}
+        \item 3 Material regions: $\sigma_a=100$ cm$^{-1}$, $\sigma_a=0.01$ cm$^{-1}$,
+        $\sigma_a = 100$ cm$^{-1}$. 
+    \item \vspace{-0.1in} $10^6$ histories per time step, 200 cells
+            \pause
+    \end{itemize}
+    \begin{figure}
+        \includegraphics[width=0.65\textwidth]{thick_thin_compare.pdf}
+    \end{figure}
+    \begin{itemize}
+            \pause
+            \vspace{-0.1in}
+        \item  HOLO with Backward Euler has same temporal accuracy, \\ but better statistics for this
+            problem
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -938,10 +960,10 @@ subsectionstyle=hide
     \frametitle{\shorttitle}
     \begin{itemize}
         \item[] ECMC is very efficient for TRT simulations\\
-            \colG{and fits well in global HOLO context}
+            \colG{and fits well in global HOLO method}
         \item[] The LO system can resolve nonlinearities \\
             \colG{with bounded angular consistency terms}
-        \item[] Next step is to extend to higher spatial dimensions \\
+        \item[] Next step is to extend to higher dimensions \\
             \colG{main hurdle to overcome is infrastructure}
     \end{itemize} \pause
     \begin{tcolorbox}
