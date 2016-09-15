@@ -49,11 +49,6 @@
 \usepackage{tikz}
 \usetikzlibrary{shapes.geometric, arrows,shapes.arrows,calc,positioning}
 
-%--------------------------------------
-% Simon's commands
-%--------------------------------------
-\input{mycommands}
-
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \lstset{language=python,
@@ -102,6 +97,11 @@
 % \ifnum\value{subsection}>0\addtocontents{toc}{\vskip-6pt}\fi
 % } 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--------------------------------------
+% Simon's commands
+%--------------------------------------
+\input{mycommands}
+
 
 \begin{document}
 

@@ -312,7 +312,7 @@ $\tilde{I}^{n}$ for the next time step.
 
 
 
-\subsection{Variance Reduction and Source Sampling}
+\subsection{Continuous Weight Deposition Tallies}
 
 
 As in~\cite{park}, because we are solving a pure absorber problem with Monte Carlo, we will allow
@@ -324,6 +324,9 @@ for the continuously changing weight, as given in Appendix~\ref{app:tallies}. Hi
 before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 mfp allows particles to 
 continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of mfp, so there is no need to resample at material
 interfaces.
+
+\subsection{Modified Systematic Sampling Algorithm}
+\label{sec:systematic_sampling}
 
 As another way to improve efficiency, a modified systematic sampling
 method~\cite{shultis_mc} was used for determining source particle locations.  The goal is
@@ -362,3 +365,4 @@ the simulation for comparison to IMC.
 %\end{equation}
 %where $N_{\min}$ is the minimum number of histories in significant cells, $N_c$  is the number of cells, and $p_{cut}$ is the chosen relative probability cutoff.
  %This is done by first filling the cells with $N_{min}$ histories and distributing the remaining number of histories proportional to $p_j$.
+
