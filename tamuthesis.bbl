@@ -1,42 +1,9 @@
 \begin{thebibliography}{1}
 
-\bibitem{fnc}
-J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
-\newblock An implicit monte carlo scheme for calculating time and frequency
-  dependent nonlinear radiation transport.
-\newblock {\em J. Comput. Phys.}, 8(3):313--342, December 1971.
-
-\bibitem{lewis}
-Elmer~Eugene Lewis and Warren~F Miller.
-\newblock {\em Computational methods of neutron transport}.
-\newblock John Wiley and Sons, Inc., New York, NY, 1984.
-
-\bibitem{jake}
-J.R. Peterson.
-\newblock {E}xponentially {C}onvergent {M}onte {C}arlo for the 1-d {T}ransport
-  {E}quation.
-\newblock Master's thesis, Texas A\&M, 2014.
-
-\bibitem{shultis_mc}
-J.K. Shultis and W.L. Dunn.
-\newblock {\em {E}xploring {M}onte {C}arlo {M}ethods}.
-\newblock Academic Press, Burlington, MA 01803, 2012.
-
-\bibitem{stacy}
-"Weston~M. Stacey".
-\newblock {\em "Nuclear Reactor Physics"}.
-\newblock Wiley, 2007.
-
-\bibitem{wla_thesis}
-T.A. Wareing.
-\newblock {\em {Asymptotic diffusion accelerated discontinuous finite element
-  methods for transport problems}}.
-\newblock PhD thesis, Michigan, 1991.
-
-\bibitem{holo_rh}
-Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
-\newblock Radiation hydrodynamics with a high-order, low-order method.
-\newblock In {\em ANS Topical Meeting, International Topical Meeting on
-  Mathematics and Computation}, Nashville Tennessee, 2015.
+\bibitem{morel_ldtrt}
+J.E. Morel, T.A. Wareing, and K.~Smith.
+\newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
+  Transfer Calculations}.
+\newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
 
 \end{thebibliography}

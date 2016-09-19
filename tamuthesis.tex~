@@ -122,26 +122,28 @@
 \renewcommand{\tamudepartment}{Nuclear Engineering}
 
 
-\include{titlepage} % This is simply a file that formats and adds your titlepage, please do not edit this unless you have a specific need. 
-\include{abstract}
-\include{dedication}
-\include{acknowledgements}
-\include{nomenclature}
-\include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. 
-\include{sections/introduction}
-\include{sections/algorithm_descriptions}
-\include{sections/lo_solver}
-\include{sections/ho_solver}
-\input{sections/lo_solver.tex}
-\include{sections/dsa}
-\input{sections/ho_solver.tex}
-\input{sections/results.tex}
-\input{sections/dsa.tex}
-\input{sections/analytic_neutronics.tex}
-\input{sections/spatial_closure}
-\input{sections/face_tallies.tex}
-\input{sections/mpv.tex}
-%\include{sections/time_closure}
+%\include{titlepage} % This is simply a file that formats and adds your titlepage, please do not edit this unless you have a specific need. 
+%\include{abstract}
+%\include{dedication}
+%\include{acknowledgements}
+%%\include{nomenclature}
+%\include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. 
+%\include{sections/introduction}
+%\include{sections/algorithm_descriptions}
+%\include{sections/lo_solver}
+%\include{sections/ho_solver}
+%\input{sections/lo_solver.tex}
+%\include{sections/dsa}
+%\input{sections/ho_solver.tex}
+%\input{sections/results.tex}
+%\input{sections/dsa.tex}
+%\input{sections/analytic_neutronics.tex}
+%\input{sections/spatial_closure}
+%\input{sections/face_tallies.tex}
+%\input{sections/mpv.tex}
+%\include{sections/negativities}
+\include{sections/time_closure}
+
 
 
 

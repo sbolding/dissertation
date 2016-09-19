@@ -48,11 +48,16 @@ derived.  The standard linear interpolatory expansion, for the positive half-ran
 Using this expansion, one can derive a relation between the outflow from a cell and the
 hat function moments that is equivalent to the standard LDFE Galerkin method:
 \begin{equation}
-    \phi_{i,R}^+ = 2 \mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+
+    \phi_{i,R}^+ = 2 \mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+,
 \end{equation}
-this linear relation also defines the value for $\phi_{i,L}^+$.
+where for standard LD $\phi_{i+1/2}^+\equiv\phi_{i,R}$.  The assumption of a linear relation on the interior
+of the cell defines the value for $\phi_{i,L}^+$:
+\begin{equation}
+    \phi_{i,L}^+ = 2 \mom{\phi}_{L,i}^+ - \mom{\phi}_{R,i}^+,
+\end{equation}
 
-To eliminate the LO unknowns in a manner that is equivalent to lumping the discrete system, the
+To eliminate the LO unknowns in a manner that produces the same moments as the LDFE
+Galerkin method, the
 following expression can be used for the outflow from a cell
 \begin{equation}
     \phi_{i+1/2}^+ = \phi_i^+ + \frac{\phi_x^+}{3},

@@ -1,100 +1,174 @@
 
 
-\section{Resolving Negative Intensities in Optically Thick Cells}
+\chapter{Resolving Negative Intensities in Optically Thick Cells}
 
-A difficult issue faced by our algorithm is resolving the radiation intensity
-in optically thick regions. to overcome in thermal radiative transfer
-problems is in the optically thick regions of the problem.  
-The linear-discontinuous (LD) spatial finite element method with upwinding is not
+The linear-discontinuous (LD) spatial closure with upwinding is not
 strictly positive.  In particular, for optically thick cells with a steep intensity
-gradient, the intensity becomes negative. A common example is for the Marshak Wave
+gradient, the linear representation of the intensity can become negative at the edge of the cells.
+A common example in 1D is for the Marshak Wave
 problem where negative
-intensities in the representation occurs at the foot of the radiation wave front, as
-it moves through the optically thick material.   The HO and LO solvers have different
-issues because the HO solver has the linear projection in angle.
-The LDFE
-representation in the HO solver becomes negative, and in the LO equations the
-spatial representation produces negative values at the.  The HO and LO solvers
-have different methods of solving, so relatively indepedent fixups for each have been
-developed, which should be more robust overall.
-In the remainder of this chapter, we discuss the fixup methods for each the HO and LO
-solver.  The methods are then tested for statistical efficiency and accuracy against
-simplified methods for several test problems.
-  The floor temperature is the initial
-temperature of the material and radiation in a problem where boundary sources are
-applied at the boundaries.  The material temeprature should physically not fall below
-these values.  These negativities are not physical and typically propagate to
+intensities in the representation occurs at the foot of the radiation wave front. These negativities are not physical and typically propagate to
 adjacent cells. In thick regions of
 TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
 free paths; negativities with an LD representation are unavoidable in practice for
-such cells, and mesh refinement is of minimal use.  We will explore several methods
+such cells, and mesh refinement is of minimal use.
+The HO solver is prone to additional negativities near $\mu=0$ where the intensity
+cannot be accurately represented by a linear projection in angle.  These negativities near
+$\mu=0$ can occur for modest optical thicknesses and in multiple adjacent cells.
+Because of the different solution methods for the HO and LO solvers, indepedent fixups
+have been developed for each. 
+In the remainder of this chapter, we discuss the fixup methods for each the HO and LO
+solver.  Methods are then compared for statistical efficiency and accuracy for several test problems.
+      We will explore several methods
 for resolving negativities.  Ideally the solutions in
 such cells should be as consistent as possible for the HO and LO equations.  However,
 the differences between the solution methods of the two equations, as well as the
-fact that some terms are lagged, have lead to the development of independent
-approaches for the LO and HO systems thus far.
+fact that the modifications made to one solver would be lagged in the next nonlinear LO solve, there
+is no guarantee of positivity.  
 
-
-
-\subsection{Resolving the LO solution in Optically Thick Cells}
+\section{Resolving the LO solution in Optically Thick Cells}
 \label{sec:negs}
 
-In LO equations, the linear representation on the interior of the cell can be
-below the floor temperature or negative.
-Typically, for a standard LDFE method,
-the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
+In LO equations, the linear representation for $\phi(x)$ can go below the floor
+temperature or negative on the interior of the cell.
+The floor temperature is defined as the initial
+temperature of the material and radiation in problems where boundary sources are
+applied at each of the boundaries.  In such problems the radiation and material should
+continue to heat on the interior of the domain, and should physically not fall below
+the initial temperature. 
+
+Typically, for a standard LDFE Galerkin spatial discretization,
+the equations are lumped to produce a discretization that is strongly resistant to
+negative values (for 1D)~\cite{morel_ldtrt}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
-HO solution.    The results in Sec.~\ref{results} used a lumping-equivalent closure for the LO equations and $S_2$ equivalent angular terms..
-This approach will not produce
-accurate results for general problems in higher spatial dimensions. Also, a lumping equivalent closure in $x$ does not guarantee positivity for the space-angle LDFE
-representation of the HO intensity.
-Alternatively, the equations within a cell can be modified to ensure the outflow is not
-below the floor value (the initial temperature of the problem), and energy balance is
-conserved.  The LD shape is reconstructed by extrapolating from the outflow back
-through the average.  This closure has been implemented and is more promising for extendability into higher
-dimensions.
-
-\subsection{Resolving Negativities in the HO Solver}
-
-For the HO solver, after an ECMC batch, we detect cells where the linear
-representation produces a value below the floor.  We can produce a positive
-representation, which we denote $\tilde I_{\text{\pos}}$, by scaling the first moment
-in $x$ and $\mu$ uniformly.  The modified representation for the $ij$-th cell is
+HO solution.  Alternatively, we have derived a modified spatial closure that produces
+unknowns equivalent to those from a lumped LD method in 1D.  The modified spatial closure, for positive
+outflow, is
 \begin{equation}
-    \tilde I_{\pos} = I_{a} +       (x,\mu) \in \mathcal{D}_{ij}
+    \phi
 \end{equation}
+where a linear shape is still assumed.  This modified closure produces a linear
+representation that preserves the zeroth moment of the solution, but has modified the
+first spatial moment, i.e., the slope of the line.
+
+We also investigated an alternative closure of the equations based on energy conservation.  
+The equations within cells that produce a negativity are modified to ensure the edge
+intensities are not below the floor temperature, and energy balance is
+conserved.  This fixup is only applied in cells where a intensity has occured during
+inversion of the LO streaming plus removal operator.  In the modified equation, the $L$
+and $R$ moment equations are summed to produce a
+balance equation.  The auxillary equation is then defined by defining the closure
+relation such that the appropriate edge
+value is the floor intensity.  Because our solution method directly inverts the LO system,
+negative edge intensities must be detected, the fixup applied, and then that Newton solve
+repeated.
+
+In practice, this approach was observed to produce a positive answer, but was not as robust as performing
+lumping in all cells.  In general, as the time step size is increased, this fixup led to the Newton
+solve diverging (i.e., damping is required to converge the iterations), more rapidly than if lumping is
+just used in all cells.  A similar effect was observed when attempting to only lump the
+equations in cells where negativities were observed and restarting that Newton solve.
+
+\subsection{Fixup for the Linear Doubly-Discontinuous Trial Space}
+
+The doubly discontinuous trial space presents an additional difficulty in that the outflow
+is now unhinged from the linear relationship.  For this case, we use the lumped
+representation on the interior of the solution for all cells. The outflow can still be driven negative
+due to non-linearities, which leads to negative values in down-stream cells. 
+This is a result of the HO estimation of the spatial closure using
+and the moments was based on lagged source terms.  When negativities occur, we force the
+outflow to be continous, using the lumping-equivalent LD closure in those cells.  The
+Newton solve must then be resolved.
 
 
-to be greater than the floor
-value.  This scaling process of the two moments is underdefined, so there is not a unique way to enforce
-positivity.  The scaling procedure is not an emphasis of the research, so we apply the simple
-approach of scaling the slopes such that the ratio of the slope in $x$ and $\mu$ is
-unchanged.  The scaled intensity will not satisfy the original residual equation accurately because we have
-modified the first moments.   Thus, the ECMC error estimates will rapidly stagnate,
-and produce relatively inaccurate solutions.  This scaling can also lead to
-negativities in down-stream cells that is unphysical in later batches.  To mitigate
-stagnation and improve accuracy, we will add an artifical source $\tilde\delta^{m+1}(x,\mu)$ to the HO equation.
+\section{Artificial Source Method for Negativities in the HO Intensity}
+
+The HO solver requires a different fixup approach for negative values of the intensity.
+At the end of any particular batch, a LDFE projection of the intensity $\tilde I(x,\mu)$
+has been determined.  This projection is based on a statistical estimate of moments of the
+exact intensity, based on the truncated representation of sources.  However, when these moments are
+projected onto a linear space, the representation becomes negative.  The first
+moments can easily be modified to produce a positive representation $\tilde I_{\pos}$.
+However, this modified solution will
+not satisfy the residual equation as accurately as the original solution, which leads to
+rapid error stagnation.  Additionally, the next MC batch based on the residual source from
+$\tilde I_{\pos}$ will tend to produce negative cell averages in down stream cells.
+
+Thus, we have devised
+a method to modify the transport equation such that $\tilde I_{\pos}$ will satisify the
+residual equation more accurately.  We do this in such a manner that the
+modified source will lead to the solution converging towards a solution with the same
+zeroth moment, but with a first moment in $x$ and $\mu$ that are modified.  This does not
+guarantee exponential convergence in this cell, because convergence is still limited by
+the overall accuracy of the trial space.  However, now the error will not stagnate as rapidly
+and the solution will converge towards the positive representation $\tilde I_{\pos}$.
+
+\subsection{Calculating a Positive LDFE Representation}
+
+First, we define the procedure for obtaining $\tilde I_{\pos}$. We produce a positive
+representation $\tilde I_{\text{\pos}}$ over a cell by scaling the first moment
+in $x$ and $\mu$ uniformly.  The process of modifying
+the first moments to produce a positive solution is under defined, so there is not a unique way to enforce
+positivity.  This choice is not an emphasis of this research, so we apply the
+simple and efficient approach of scaling the slopes such that the ratio $I_x/I_\mu$, for
+each modified cell, is unchanged. 
+After an ECMC batch, we detect cells where the linear
+representation produces a value below the floor.    The modified representation for the
+$ij$-th cell in such cells is
+\begin{equation}
+    \tilde I_{\pos} = I_{a} + C\left[\frac{2}{h_x}I_x(x-x_i) +
+    \frac{2}{h_\mu}I_\mu(\mu-\mu_j)\right],\quad     (x,\mu) \in \mathcal{D}_{ij},
+\end{equation}
+noting that the average has not been modified.
+The constant $C$ is calculated as
+\begin{equation}
+    C =  \frac{I_{a} - I_{\min}}{\lvert I_x \rvert + \lvert I_\mu \rvert}
+\end{equation}
+for values where $I_{a} > I_{\min}$, where $I_{\min}$ is the isotropic intensity
+corresponding to equilibrium with the floor temperature.  When $I_a$ is below the floor, it is set to
+the floor value and $I_x$ and $I_\mu$ set to zero.  It is been noted that in application
+the difference between $I_{a}$ and $I_{\min}$ can be on the order of numerical roundoff for
+double precision variables.
+
+\subsection{Adding an Artificial Source}
+
+To mitigate stagnation and improve accuracy, we must now add an artificial source
+$\tilde\delta^{m+1}(x,\mu)$ to the HO transport equation to 
 This source is estimated iteratively as
 \begin{equation*}
     \tilde\delta(x,\mu)^{(m+1)} = \mathbf{L}(\tilde{I}^{n+1,(m)} -
     \tilde{I}^{n+1,(m)}_{\text{pos}}),
 \end{equation*}
-where $\tilde{I}_{pos}^{n+1}$ is the modified positive solution.
-Essentially, this source is modifying the first moments of the transport equation to
-ensure a positive solution within the negative cells.   If necessary, we can estimate a
-new source again in the next batch.  The source
-$\tilde\delta$ lies in the same functional space as the residual, and thus can use
-the existing code for computing the residual and will be straight forward to extend
-to higher dimensions.  
+where $\tilde{I}_{pos}^{n+1}$ is the modified positive solution. The source $\tilde
+\delta$ is added to all later batches.  If necessary, we can estimate a
+new source again in later batches where negative values occur once more. The residual for the
+modified transport problem will have the same residual magnitude as the original $\tilde
+I$, which will have lower magnitude than the modified solution which does not have the MC
+estimated first moments (this is only true for the first application of the modified
+source).  Care must be
+taken to modify the source on the interior and exterior of the solution, particularly when
+the solutions in adjacent cells has been modified.  The source
+$\tilde\delta$ lies in the same functional space as the residual and can thus use
+the existing code infrastructure to compute the source.  This will also make this approach
+straight forward to extend to higher dimensions.  
 
-We have implemented this artificial source and found it to reduce the
-magnitude of the MC estimated error, producing a positive solution. We still need to
-investigate the accuracy and robustness of the
-added source method, and whether it should be recomputed every batch, once it has been
-triggered, or only when the
-solution becomes negative again.   We will also
-investigate adding the source to the LO equations for greater consistency and accuracy in
-the LO equations.  This will not
-necessarily guarantee positivity in the LO equations due to the lagged estimate of the emission source in
-used in the previous HO solution.  We will investigate altering the  method for computing the added source computation to ensure the zeroth moment
-of the equations is not changed, ensuring energy conservation.
+To provide insight into this choice of source, consider the modified transport problem
+that will be solved with ECMC, where the fixup has been applied at batch $m$:
+\begin{equation}
+   \B L I^{n+1} = q + \mathbf{L}(\tilde{I}^{n+1,(m)} -
+    \tilde{I}^{n+1,(m)}_{\text{pos}})
+\end{equation}
+Application of $\B L^{-1}$ to both sides of the equation produces
+\begin{equation}
+    I^{n+1} = \B L^{-1} q + (\tilde{I}^{n+1,(m)} -
+    \tilde{I}^{n+1,(m)}_{\text{pos}}).
+\end{equation}
+Because $\tilde I$ and $\tilde I_\pos$ have the same zeroth moment, we have not modified
+the zeroth moment of the solution overall.  Monte Carlo transport is used to estimate $L^{-1}$, thus 
+we are estimating the solution to a transport problem that has a positive LDFE projection but preserves the
+zeroth moment of the original solution.  The estimate of the modification to the first
+moments of the solution has statistical noise, and thus may under- or over-predict the
+necessary change in the solution.  We make the conservative choice of preserving $\delta$
+across batches, and modifying the source only when negative values occur again. 
+
+
