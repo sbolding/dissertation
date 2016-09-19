@@ -647,7 +647,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{I implemented straight-forward variance reduction \\ straight-forward variance reduction}
+    \frametitle{Our HO system allows for straight-forward \\ variance reduction and source biasing}
     \addtolength{\wideitemsep}{0.15in}
     \begin{itemize}
         \item[] $I^{n}(x,\mu)$ is often an \colb{\textbf{excellent}} estimate of
@@ -928,7 +928,7 @@ subsectionstyle=hide
     \begin{itemize}
         \item 3 Material regions: $\sigma_a=100$ cm$^{-1}$, $\sigma_a=0.01$ cm$^{-1}$,
         $\sigma_a = 100$ cm$^{-1}$. 
-    \item \vspace{-0.1in} $10^6$ histories per time step, 200 cells
+    \item \vspace{-0.1in} $10^6$ histories per time step, 200 cells, $t=2$ sh
             \pause
     \end{itemize}
     \begin{figure}
