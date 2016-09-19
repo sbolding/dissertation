@@ -1,19 +1,30 @@
 
+
 \section{Resolving Negative Intensities in Optically Thick Cells}
 
-On difficult issue to overcome in thermal radiative transfer problems is 
-in the optically thick regions of the problem.  The LDFE representation in the HO solver
-becomes negative, and in the LO equations the values can also be negative.
-
-
-\subsection{Resolving Issues in Optically Thick Cells}
-\label{sec:negs}
-
-The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
-optically thick cells with a steep intensity gradient, the intensity becomes
-negative. In typical TRT problems (e.g., the Marshak wave problems above), this negativity occurs at the wave-front of the
-radiation intensity in optically thick materials.
-These negativities are not physical and can propagate to adjacent cells. In thick regions of
+A difficult issue faced by our algorithm is resolving the radiation intensity
+in optically thick regions. to overcome in thermal radiative transfer
+problems is in the optically thick regions of the problem.  
+The linear-discontinuous (LD) spatial finite element method with upwinding is not
+strictly positive.  In particular, for optically thick cells with a steep intensity
+gradient, the intensity becomes negative. A common example is for the Marshak Wave
+problem where negative
+intensities in the representation occurs at the foot of the radiation wave front, as
+it moves through the optically thick material.   The HO and LO solvers have different
+issues because the HO solver has the linear projection in angle.
+The LDFE
+representation in the HO solver becomes negative, and in the LO equations the
+spatial representation produces negative values at the.  The HO and LO solvers
+have different methods of solving, so relatively indepedent fixups for each have been
+developed, which should be more robust overall.
+In the remainder of this chapter, we discuss the fixup methods for each the HO and LO
+solver.  The methods are then tested for statistical efficiency and accuracy against
+simplified methods for several test problems.
+  The floor temperature is the initial
+temperature of the material and radiation in a problem where boundary sources are
+applied at the boundaries.  The material temeprature should physically not fall below
+these values.  These negativities are not physical and typically propagate to
+adjacent cells. In thick regions of
 TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
 free paths; negativities with an LD representation are unavoidable in practice for
 such cells, and mesh refinement is of minimal use.  We will explore several methods
@@ -23,6 +34,13 @@ the differences between the solution methods of the two equations, as well as th
 fact that some terms are lagged, have lead to the development of independent
 approaches for the LO and HO systems thus far.
 
+
+
+\subsection{Resolving the LO solution in Optically Thick Cells}
+\label{sec:negs}
+
+In LO equations, the linear representation on the interior of the cell can be
+below the floor temperature or negative.
 Typically, for a standard LDFE method,
 the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_newton}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
@@ -36,9 +54,18 @@ conserved.  The LD shape is reconstructed by extrapolating from the outflow back
 through the average.  This closure has been implemented and is more promising for extendability into higher
 dimensions.
 
-For the HO solver, after an ECMC batch, we detect cells that produced a negative
-intensity. In these cells, we scale the linear representation of the intensity (in
-$x$ and $\mu$) to be greater than the floor
+\subsection{Resolving Negativities in the HO Solver}
+
+For the HO solver, after an ECMC batch, we detect cells where the linear
+representation produces a value below the floor.  We can produce a positive
+representation, which we denote $\tilde I_{\text{\pos}}$, by scaling the first moment
+in $x$ and $\mu$ uniformly.  The modified representation for the $ij$-th cell is
+\begin{equation}
+    \tilde I_{\pos} = I_{a} +       (x,\mu) \in \mathcal{D}_{ij}
+\end{equation}
+
+
+to be greater than the floor
 value.  This scaling process of the two moments is underdefined, so there is not a unique way to enforce
 positivity.  The scaling procedure is not an emphasis of the research, so we apply the simple
 approach of scaling the slopes such that the ratio of the slope in $x$ and $\mu$ is
