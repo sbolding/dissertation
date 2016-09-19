@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  14 SEP 2016 16:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  18 SEP 2016 17:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1208,21 +1208,21 @@ LaTeX Warning: Reference `???' on page 41 undefined on input line 417.
 [41 <./figures/void_imc_compare.pdf>]
 
 LaTeX Warning: Reference `void_temp_compare' on page 42 undefined on input line
- 430.
+ 429.
 
 [42] <figures/void_temp_batch_compare.pdf, id=842, 552.44987pt x 408.27531pt>
 File: figures/void_temp_batch_compare.pdf Graphic file (type pdf)
 
 <use figures/void_temp_batch_compare.pdf>
 Package pdftex.def Info: figures/void_temp_batch_compare.pdf used on input line
- 467.
+ 466.
 (pdftex.def)             Requested size: 322.50554pt x 238.34482pt.
 
 <figures/void_ang_compare.pdf, id=843, 553.45363pt x 408.27531pt>
 File: figures/void_ang_compare.pdf Graphic file (type pdf)
 
 <use figures/void_ang_compare.pdf>
-Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 474.
+Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 473.
 (pdftex.def)             Requested size: 322.50554pt x 237.90874pt.
  [43 <./figures/void_temp_batch_compare.pdf>] [44 <./figures/void_ang_compare.p
 df>]) [45]
@@ -1253,7 +1253,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  21087 strings out of 493304
  364430 string characters out of 6139871
- 497832 words of memory out of 5000000
+ 497833 words of memory out of 5000000
  23970 multiletter control sequences out of 15000+600000
  11559 words of font info for 45 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1272,7 +1272,7 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tamuthesis.pdf (46 pages, 460200 bytes).
+Output written on tamuthesis.pdf (46 pages, 460215 bytes).
 PDF statistics:
  1095 PDF objects out of 1200 (max. 8388607)
  625 compressed objects within 7 object streams
