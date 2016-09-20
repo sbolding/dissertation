@@ -21,25 +21,37 @@
 
 \chapter{\uppercase {Introduction}}
 
-REWRITE
 We have developed and implemented a new high-order low-order (HOLO) algorithm for solving
 thermal radiative transfer (TRT) problems. This algorithm attempts to improve on
 several aspects of current computational methods for solving TRT
 problems.  In particular, our HOLO method utilizes an exponentially-convergent Monte
-Carlo (ECMC) algorithm to solve the associated radiation transport equation.  This
-algorithm significantly decreases The low-order (LO) system is formed with spatial
-and angular moments of the transport equation and a linear-discontinuous
-finite-element spatial representation.  The equations are simlar to S$_2$ equations,
-but contains terms producing equations similar to the standard
-S$_2$ equations.  
+Carlo (ECMC) algorithm to solve the associated radiation transport equation.  The ECMC
+method can significantly decreases the statistical noise associated with MC calculations to
+TRT problems.  In addition, a nonlinear low-order (LO) system is solved that can
+efficiently resolve nonlinear behavior of the system, while preserving accuracy of the ECMC
+treatment of particle transport, upon convergence of the system.  The HOLO algorithm has
+been developed and implemented for a simplified 1D, frequency-integrated model.
+
+
+The LO equations are formed with finite-element (FE) based spatial
+moments and angular moments over each half-range.  A linear-discontinuous representation
+is used to discretized the temperature field.  The LO equations are similar to S$_2$ equations,
+but contain intensity-weighted angular averages that are estimated via the HO solver.    
 The LO solver is fully implicit in time and efficiently resolves the non-linear
-temperature dependence at each time step.   The HO solver
-utilizes exponentially-convergent Monte Carlo (ECMC) to give a globally accurate solution
-for the angular intensity to a fixed-source, pure absorber transport problem.  This
+temperature dependence at each time step.  The HO transport problem is a fixed-source,
+pure absorber transport problem, with sources defined by the previous LO solve.  This
+transport equation is solved with ECMC simulation to produce a globally accurate solution. 
+This
 global solution is used to compute consistency terms, which require the HO and LO solutions to converge towards the same solution.  The use of ECMC
 allows for the efficient reduction of statistical noise in the MC solution, reducing
 inaccuracies introduced through the LO consistency
-terms.  We compare results with an
+terms. 
+
+We have also investigated several extensions of this method.  In particular, we have 
+investigated higher time accuracy by including the time variable in the ECMC transport
+algorithm.
+
+We compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
 
@@ -106,6 +118,8 @@ $\sigma_t$ are the absorption, scattering, and total
 cross sections (cm$^{-1}$), respectively.  The scalar radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
 $E$ (with typical units Jks cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.
+
+\subsection{The Monte Carlo method for Particle Transport}
 
 
 \section{Previous Work}

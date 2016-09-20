@@ -454,14 +454,16 @@ $\phi^{n+1}(x)$, which are set to the floor value for the next calculation.
   \centering
     \includegraphics[width=0.75\textwidth]{void_temp_batch_compare.pdf}
     \caption{\label{fig:void_temp_compare} Comparison of radiation temperatures of IMC and
-    the HOLO method for different time step sizes and numbers of batches.}
+    the HOLO method for different time step sizes and numbers of batches, for the
+near-void problem.}
 \end{figure}
 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{void_ang_compare.pdf}
     \caption{\label{fig:bumps} Comparison of radiation energy densities for
-    the HOLO method with different numbers of $\mu$ cells. $\Delta t=0.001$ sh}
+    the HOLO method with different numbers of $\mu$ cells. $\Delta t=0.001$ sh, for
+near-void problem.}
 \end{figure}
 
 Figure.~\ref{fig:bumps} compares radiation energy densities for various numbers of $\mu$
@@ -552,15 +554,78 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 \section{Optically Thin Problem}
 
 We modify the problem in the previous problem by increasing the absorption cross section to 0.2
-\invcm; all other problem parameters are the same.
+\invcm; all other problem parameters are the same.  Radiation temperatures at the end of
+the last time step are compared for IMC, HOLO-TC, and HOLO-BE in
+Fig.~\ref{fig:thin_temp_compare}.  The HOLO-TC and HOLO-BE results were generated with 30
+$\mu$ cells, and all spatial meshes used 200 cells.  At smaller time step sizes, the
+effects of mesh imprinting are slightly apparent in the HOLO-TC results, leading to more
+dispersion near the wave-front.  For $\Delta t=0.005$ sh, there is good agreement between
+the HOLO-TC results and IMC.  As in the previous problem, the HOLO-BE results do not accurately capture
+the wavefront location. IMC demonstrates substantial statistical noise in the equilibrium region.
 
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{thin_temp_compare.pdf}
+    \caption{\label{fig:thin_temp_compare} Comparison of radiation temperatures of IMC and
+    the HOLO method for different time step sizes and numbers of batches, for optically
+thin problem. Time step size is $\Delta t =0.002$ sh}
+\end{figure}
+
+Table.~\ref{tab:fom_thin} compares computed FOM values for the census
+radiation energy densities, for the case of $\Delta t =
+0.0005$~sh.  HOLO results were generated for the case of 1 and 2 batches, with the same
+total number of histories per time step.  At low particle counts for the larger time step
+size, the HOLO-TC method
+demonstrates substantial noise.  This is due to the trial space representation of the
+census particles at the end of the time step being poorly estimated.  For the 2 batch
+case, the estimate from the first batch leads to less error in the census estimate as the
+ECMC solves are simply solving for the deviation from the time-averaged quantity.  The
+results for the case of 30,000 histories are plotted in Fig.~\ref{} for the HO and LO
+solution.  As demonstrated, there seems to have been some instabilities introduced into
+the LO equations through noise; sufficient sampling of the census must occur.
+At smaller time-steps there is an increase in statistical efficiency, however there has
+been a loss in accuracy due to an increase in projection error.  In general, this is a
+balance that much be considered.
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
+    end of time step radiation energy densities, of the last time step, for the optically
+    thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
+   30,000     & 3.01\%  & 18.29\% & 5.38\%      &  1.00  & 0.03  &  0.31      \\
+  300,000     & 0.99\%  & 0.81\%  & 0.74\%      &  0.93  & 1.38  &  1.65     \\ 
+  1,000,000   & 0.50\%  & 0.30\%  & 0.37\%      &  1.10  & 3.42  &  2.0      \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
+    end of time step radiation energy densities, of the last time step, for the optically
+    thin problem and $\Delta t = 1\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
+   30,000     & 3.00\%  & 0.55\% & 1.28\%       &  1.00  &  29.81    & 5.51    \\
+  300,000     & 0.96\%  & 0.11\% & 0.30\%       &  0.98  &  71.82    & 9.88    \\ 
+  1,000,000   & 0.49\%  & 0.06\% & 0.17\%       &  1.11  &  71.02    & 9.71    \\ \hline
+\end{tabular}
+\end{table}
 
 
 \section{Mixed Optical Thickness Problem}
 
-It is important to demonstrate that the time-continuous case is still efficient in a mix
+It is important to demonstrate that the HOLO-TC method is still efficient in a mix
 of optically thick and optically thin regions.  Simulations are performed for a three
-region problem detailed in Fig.~\ref{???}.
+region problem detailed in Fig.~\ref{???}.  The opacities and material properties are
+provided in Table~\ref{???}
 
 
 

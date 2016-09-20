@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  19 SEP 2016 16:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  20 SEP 2016 17:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -784,8 +784,11 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip102
 )
-(./mycommands.tex) (./tamuthesis.aux (./sections/time_closure.aux)
-(./bibliography.aux))
+(./mycommands.tex) (./tamuthesis.aux (./sections/time_closure.aux
+
+LaTeX Warning: Label `tab:void_short' multiply defined.
+
+) (./bibliography.aux))
 \openout1 = `tamuthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
@@ -1040,30 +1043,56 @@ Package pdftex.def Info: figures/void_temp_batch_compare.pdf used on input line
 File: figures/void_ang_compare.pdf Graphic file (type pdf)
 
 <use figures/void_ang_compare.pdf>
-Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 462.
+Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 463.
 (pdftex.def)             Requested size: 322.50554pt x 237.90874pt.
  [15 <./figures/void_temp_batch_compare.pdf>]
 
-LaTeX Warning: Reference `eq:fom' on page 16 undefined on input line 476.
+LaTeX Warning: Reference `eq:fom' on page 16 undefined on input line 478.
 
 [16 <./figures/void_ang_compare.pdf>]
-Overfull \hbox (52.63988pt too wide) in paragraph at lines 526--533
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 528--535
  [][] 
  []
 
 
-Overfull \hbox (52.63988pt too wide) in paragraph at lines 541--548
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 543--550
  [][] 
  []
 
-[17]
+[17] <figures/thin_temp_compare.pdf, id=402, 552.44987pt x 414.17235pt>
+File: figures/thin_temp_compare.pdf Graphic file (type pdf)
 
-LaTeX Warning: Reference `???' on page 18 undefined on input line 563.
+<use figures/thin_temp_compare.pdf>
+Package pdftex.def Info: figures/thin_temp_compare.pdf used on input line 568.
+(pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
+ [18]
 
-) [18]
+LaTeX Warning: Reference `tab:fom_thin' on page 19 undefined on input line 574.
+
+
+
+LaTeX Warning: Reference `' on page 19 undefined on input line 583.
+
+[19 <./figures/thin_temp_compare.pdf>]
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 596--604
+ [][] 
+ []
+
+
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 612--620
+ [][] 
+ []
+
+
+LaTeX Warning: Reference `???' on page 20 undefined on input line 627.
+
+
+LaTeX Warning: Reference `???' on page 20 undefined on input line 628.
+
+[20]) [21]
 \openout2 = `bibliography.aux'.
 
- (./bibliography.tex (./tamuthesis.bbl)) [19
+ (./bibliography.tex (./tamuthesis.bbl)) [22
 
 
 
@@ -1077,37 +1106,48 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 159.
 (./tamuthesis.aux (./sections/time_closure.aux) (./bibliography.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 159.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 159.
-Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: D8B3D93576D254BA7C8B362D6ADCD334;1118.
 
+
+Package rerunfilecheck Warning: File `tamuthesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `tamuthesis.out':
+(rerunfilecheck)             Before: 30A5782A1F3EFF9C23DB5686FC05485F;1118
+(rerunfilecheck)             After:  E81CC8380A2EE8D3DCE5A4C914650B8E;1119.
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 20837 strings out of 493304
- 360409 string characters out of 6139871
- 491006 words of memory out of 5000000
- 23831 multiletter control sequences out of 15000+600000
+ 20851 strings out of 493304
+ 360681 string characters out of 6139871
+ 491318 words of memory out of 5000000
+ 23837 multiletter control sequences out of 15000+600000
  9560 words of font info for 36 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,12n,55p,796b,711s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
-8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+pdfTeX warning (dest): name{section*.9} has been referenced but does not exis
+t, replaced by a fixed one
 
-Output written on tamuthesis.pdf (19 pages, 245244 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.
+pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on tamuthesis.pdf (22 pages, 273028 bytes).
 PDF statistics:
- 468 PDF objects out of 1000 (max. 8388607)
- 270 compressed objects within 3 object streams
- 65 named destinations out of 1000 (max. 500000)
- 140 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 561 PDF objects out of 1000 (max. 8388607)
+ 303 compressed objects within 4 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 145 words of extra memory for PDF output out of 10000 (max. 10000000)
 
