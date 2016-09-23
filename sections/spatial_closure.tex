@@ -4,12 +4,12 @@
 
 This sections describes an alternative spatial closure to the LO equations based on 
 a parametric relation from the HO solution. 
-After approximating the angular consistency terms in the time-discretized moment equations, 
-there is still more unknowns than equations, for each spatial
-cell and half range; an extra equation relating the spatial moments and face values is
-needed.  The HO solution can be used to estimate the relation so that, upon nonlinear
-convergence, the LO moments will exactly preserve the HO moments.  The only discretization
-error is then what errors were introduced into the HO equations and temperature representation.
+  The HO solution is used to estimate the angular consistency terms and to eliminate the
+  remaining auxillary spatial unknowns in terms of the desired moment unknowns such that,
+  upon convergence, the LO moments will exactly preserve the HO moments to the level of
+  statistical noise.  The only spatial discretization
+error is from those the representation of the sources in the HO equation and the
+temperature.
 In the remainder of this section, we will motivate the HO spatial closure by forming half
 range balance equations to form a single unknown for each cell.  We will then discuss
 possible closure relations, based on modifications to standard spatial closures.
@@ -23,33 +23,41 @@ $R$ moment equations given by Eq.~\eqref{??????}~and~\eqref{??}, i.e.,
     \overline\mu^+_{i+1/2}\phi_{i+1/2}^+ - \overline\mu^+_{i-1/2}\phi_{i-1/2}^+ +
     {\sigma_{a,i}h_i} \phi_i^+ = \frac{h_i}{2} q_i,
 \end{equation}
-where $q$ is a general, isotropic source.  To reduce the number of unknowns, the angular consistency terms can be estimated
-with the HO solution and the inflow term $\phi_{i-1/2}^+$ is known via upwinding from the previous
+where $q$ represents the isotropic source terms.  To reduce the number of unknowns, the
+angular consistency terms are estimated
+with the previous HO solution and the inflow term $\phi_{i-1/2}^+$ is eliminated via upwinding from the previous
 cell or a boundary condition.  An additional equation is needed to eliminate the outflow $\phi_{i+1/2}^+$ to produce an
 equation for a single unknown $\phi_{i}^+$.  Standard spatial discretizations techniques
-use a uniform approximation to eliminate the outflow in terms of other quantities.  Alternatively, the outflow can be eliminated as a parametric
-combination of other variables based on the previous HO solution, i.e.,
+use a fixed approximation for all cells to eliminate the outflow in terms of other
+unknowns.  Alternatively, the outflow can be eliminated as a parametric
+combination of other unknowns based on the previous HO solution, i.e.,
 \begin{equation}
-    \phi_{i+1/2}^+ = f(\gamma^{HO}_i, \phi_i^+, \phi_x^+, \phi_{i-1/2}^+),
+    \phi_{i+1/2}^+ = f(\gamma^{HO}_i, \phi_i^+, \phi_x^+, \phi_{i-1/2}^+).
 \end{equation}
-where $\gamma^{HO}_i$ is some constant estimated with the HO solution and $f$ is some
+Here, $\gamma^{HO}_i$ is a constant estimated with the HO solution and $f$ is some
 function of some number of the input
-variables.  If the problem is linear, i.e., $q$ is not a function of $\phi$, then application of this
+variables.  The ECMC solution can provide all of the unknowns in the above equation, so
+the value of $\gamma^{HO}_i$ can be determined.
+
+If the problem is linear, i.e., $q$ does not depend on $\phi$, then application of this
 closure can ensure that the HO and LO equations produce the same moments.  To produce the
 same moments, the HO solution must also satisfy the local balance equation, e.g.,
 Eq.~\eqref{eq:hr_bal}, and any other moment equations that are introduced indirectly
 through the spatial closure.  For example, both the LO and HO equation must satisfy the
-first moment equation in space.  
-
+first moment equation in space if the closure is a function of the first moment.  
 As TRT problems are non-linear (i.e., scattering or thermal emission are included in
 $q$), the moments will only be preserved upon non-linear convergence of the source.  The
 nonlinearity introduces the possibility for stability
 issues.  However, we have already consistently formed angular consistency terms, so the
 the spatial closure should be more stable than introducing other terms, such as
-in NDA methods.  Additionally, because these closure
-parameters are modifications to standard spatial closures, it should be possible to filter bad
-values of $\gamma^{HO}_i$.  Future studies will investigate the stablity of
-this method more rigorously.
+in NDA methods. 
+
+
+%THIS SENTENCE WAS REDUNDANT I THINK, BUT GOOD
+%After approximating the angular consistency terms in the time-discretized LO moment equations, 
+%there is still more unknowns than equations, for each spatial
+%cell and half range; an extra equation relating the spatial moments and outflow face values is
+%needed, i.e., a spatial closure.
 
 \subsection{Choice of Spatial Closure}
 \label{sec:spat_clos_options}

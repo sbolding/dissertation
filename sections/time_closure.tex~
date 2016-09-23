@@ -383,7 +383,8 @@ Eq.~\eqref{eq:tc_diam_l} and its analogs.
 We will test the HO time closure for several problems that characterize potential physics
 regime.  Throughout this
 section, for the HOLO method, results that use the backward Euler discretization are indicated with HOLO-BE and the MC-based time
-closure are indicated with HOLO-TC, where applicable.  We will compare sample statistics
+closure are indicated with HOLO-TC, where applicable.  For simplicity, all HOLO results
+have used the lumped-relation in the LO radiation moment equations to preserve positivity. We will compare sample statistics
 and accuracy against IMC simulations.
 The systematic sampling algorithms detailed in Sec.~\ref{sec:systematic_sampling} and
 Sec.~\ref{sec:time_sampling} were used for all HOLO results in this
@@ -587,6 +588,27 @@ At smaller time-steps there is an increase in statistical efficiency, however th
 been a loss in accuracy due to an increase in projection error.  In general, this is a
 balance that much be considered.
 
+The accuracy of the HOLO-ECMC method was compared to a reference solution from IMC. This
+problem is thin enough that we expect IMC to be accuracy with sufficient particle
+histories.  The
+reference solution is the average of 20 IMC simulations of $20\times10^6$
+histories, each with $\delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
+reference solution is 0.025\%.  The L$_2$ norm of the error in cell-averaged mean
+intensities is computed 
+at the end of the last time step, was computed.  The average over 20 simulations is then
+computed to provide the metric
+\begin{equation}
+    \|e\|^l = \left({\frac{\sum\limits_{i=1}^{N_c}
+    \left(\phi_i^{n+1,l} - \phi_i^{n+1,ref}
+\right)^2}{\sum\limits_{i=1}^{N_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+\end{equation}
+where $\phi_i^{n+1,l}$ is the cell-averaged scalar intensity at the end of the last time
+step from the $l$-th independent simulation.  The sample mean of $\|e\|$ from 20
+independent simulations provides a metric for the accuracy of a particular simulation:
+\begin{equation}
+    \overline{\|e\|} = \frac{1}{20}\sum_{l=1}^{20} \|e\|^l
+\end{equation}
+
 \begin{table}[H]
 \centering
 \caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
@@ -620,12 +642,12 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 \end{table}
 
 
-\section{Mixed Optical Thickness Problem}
+\section{Two Material Problem}
 
-It is important to demonstrate that the HOLO-TC method is still efficient in a mix
-of optically thick and optically thin regions.  Simulations are performed for a three
-region problem detailed in Fig.~\ref{???}.  The opacities and material properties are
-provided in Table~\ref{???}
+It is important to demonstrate that the time closures are stable in a mix of optically
+thick and optically thin regions, and that the ECMC method is still efficient in such
+problems.  Simulations are performed for the two material problem defined in
+Sec.~\ref{sec:two_mat}.  We use   
 
 
 

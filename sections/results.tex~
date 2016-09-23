@@ -1,0 +1,483 @@
+
+\section{COMPUTATIONAL RESULTS}
+
+We will compare results of the HOLO method to IMC with
+a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
+briefly compare performance in Section~\ref{timing}.  For all IMC results, no
+local, discrete diffusion acceleration methods for effective scattering
+(e.g., those in~\cite{imd,ddmc}) are applied.  Finally,  we will demonstrate
+the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
+to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
+Monte Carlo (SMC) simulation.  Results are also given for the case of a single
+ECMC batch, which is similar to a RMC method.
+
+A measure of variance in cell-averaged scalar intensities was
+calculated to provide a quantitative measure of the statistical accuracy of different solution
+methods.  To form sample standard deviations, twenty independent simulations for each
+particular result were performed using unique random number generator seeds.
+The variance of a particular cell-averaged $\phi(x)$ is 
+\begin{equation} 
+    S_i^2 =  \frac{20}{20-1} \sum_{l=1}^{20} \left(\overline{\phi_{i}} -
+    \phi_{i}^l\right)^2,
+\end{equation}
+where $\phi_{i}^l$ is the cell-averaged scalar intensity for cell $i$ from the $l$-th of 20 independent simulations and
+$\overline{\phi_{i}}$ is the corresponding sample mean from the 20 simulations. To
+provide a normalized, spatially-integrated result, we form a norm over cells as 
+\begin{equation}
+    \ss = \left({\frac{\sum\limits_{i=1}^{N_c}
+S_i^2}{\sum\limits_{i=1}^{N_c}\overline{\phi_{i}}^2}}\right)^{1/2},
+\end{equation}
+where $N_c$ is the number of spatial cells. 
+
+We will also form a figure of merit (FOM) to demonstrate how statistical accuracy
+scales with the number of histories performed.  Our FOM is defined as
+\begin{equation}
+    \FOM = \frac{1}{N_{\text{tot}}\ss^2}
+\end{equation}
+where $N_{\text{tot}}$ is the total number of histories performed over the simulation.
+A larger value of the FOM indicates that the method produced less variance in the
+solution per history performed, for a given problem.  This form of the FOM
+is typically chosen because the variance is expected to reduce inversely proportional
+to $N_{\text{tot}}$, so for standard MC simulations the FOM becomes, on average, independent of
+$N_{tot}$~\cite{shultis_mc}.  The FOM is not necessarily expected to be independent
+of $N_{\text{tot}}$ for IMC or
+our HOLO method due to correlation of the solution between time steps; additionally, ECMC
+has correlations between batches.
+
+\subsection{Marshak Wave}
+\label{sec:marsh}
+
+For the first problem, the radiation and material energies are initially in
+equilibrium at $2.5\times 10^{-5}$ keV.   An isotropic incident intensity of 0.150 keV is applied
+at $x=0$; the incident intensity on the right boundary is $2.5\times10^{-5}$ keV.
+The material properties are $\rho = 1$ g cm$^{-3}$ and $c_v = 0.013784$ jks/keV-g. The
+absorption cross section varies as $\sigma(T) = 0.001\;\rho\; T^{-3}$ (cm$^{-1}$).
+The simulation was advanced until $t=5$~sh~(1~sh~$\equiv$~10$^{-8}$~s) with a fixed time step size of 0.001 sh. For comparison purposes, we
+have not used adaptive mesh
+refinement, only performed one HOLO iteration per time
+step, and use a fixed 3 HO batches with equal number of histories per batch. A
+relative tolerance of $10^{-6}$ for the change in $\phi(x)$ and $T(x)$ was used for
+the LO newton solver for all results. Radiation energy
+distributions are plotted as an equivalent temperature given by
+$T_r=(\phi/(ac))^{0.25}$.  Cell-averaged quantities are plotted.
+Although isotropic scattering is handled by the LO solver in the algorithm described above, we have only
+considered problems with $\sigma_s = 0$ here.  Results for neutronics with isotropic
+scattering included are given in~\cite{ans_2014}.
+
+\begin{figure}[htb]
+    \centering
+\begin{subfigure}{0.7\textwidth}
+  \centering
+    \includegraphics[width=0.99\linewidth]{marshak_mesh_conv.pdf}
+    \caption{\label{marshak_mesh_conv} Convergence of IMC and HOLO-ECMC solutions.}
+\end{subfigure}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+  \includegraphics[width=0.99\linewidth]{marshak_200_compare.pdf}
+  \caption{\label{marshak_200_compare}  Comparison of solutions for 200 spatial cells. }
+\end{subfigure}
+\caption{Comparison of radiation temperatures for Marshak wave problem at ${t=5}$ sh.}
+\end{figure}
+
+Fig.~\ref{marshak_mesh_conv} compares the cell-averaged radiation temperatures  for the
+IMC and HOLO method with ECMC, for various number of spatial mesh cells $N_c$; we
+have used HOLO-ECMC to denote our algorithm because later results will use different HO solvers.   For
+all IMC calculations, $n=10^5$ histories per time step were used.  For the HOLO method, we have used
+4 equal-sized cells in $\mu$ for the finite-element angular mesh used by the ECMC
+solver.  The spatial grid is the same for the HO and LO solvers. For the cases
+of $N_c=25$ and $N_c=200$, $4,000$ histories per batch ($n=12,000$ per time step)
+were used.  For $N_c=500$, 16,000 histories per time step were used due to increased
+number of space-angle cells that
+need to be sampled. The IMC and HOLO solutions agree as the mesh is converged.  There is
+similar agreement in the location of the wavefront due to the linear shape of the emission source over a cell.  The cells
+nearest the wavefront required use of the lumping-equivalent discretization and
+$S_2$ equivalent terms during the LO
+solve, resulting in strictly positive solutions.
+ 
+Fig.~\ref{marshak_200_compare} compares solutions
+for the case of 200 cells.  For the IMC solution $10^5$ histories per time step were
+simulated; for the HOLO method only $4,000$ histories per batch
+(12,000 per time step) were simulated. There is significant statistical noise in the IMC solution
+compared to the HOLO solution.  The HOLO solution visually demonstrates no
+statistical noise.  Because the ECMC solve is only determining the change over the
+time step, the statistical noise in the result is small relative to the magnitude of
+$I^{n+1}$.  Also, the source sampling only places particles in cells where the residual is
+large.  No particles are sampled in the equilibrium region out front of the wave. 
+
+Table~\ref{marshak_var} compares $\ss$ and the FOM for IMC and the HOLO method, for different
+numbers of histories per time step. The FOM results are normalized to the value for IMC with
+$n=12,000$.  The HOLO method demonstrates less variance
+for the same numbers of histories, producing FOM values that are two orders of magnitude greater than for IMC.  Where as the FOM remains relatively constant for
+IMC, as $n$ is increased the FOM improves for the HOLO method.  This is a result of
+each batch producing more statistically accurate estimates of the error $\epsilon$,
+which results in an increased convergence rate of $\epsilon$ overall.  
+\begin{table}[H]
+\centering
+\caption{\label{marshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.   Simulation end time is $\mathbf{t=5}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} &
+    \multicolumn{2}{|c|}{\FOM} \\ \hline
+hists./step   & IMC & HOLO-ECMC &  IMC & HOLO-ECMC   \\ \hline
+   12,000	 & 3.40\%  & 0.28\% &  1    &  145      \\
+  100,000    & 1.22\%  & 0.057\% & 0.93    &   422     \\ \hline
+\end{tabular}
+\end{table}
+
+
+
+\subsection{Two Material Problem}
+\label{sec:two}
+
+This problem consists of an optically thin (left) and an optically thick (right) material region,
+with temperature-independent cross sections.  The material properties are given in
+Table~\ref{two_mat_props}.  Initially the radiation and material energies are in
+equilibrium at a temperature of 0.05 keV.  An isotropic incident intensity of 0.500 keV
+is applied at $x=0$ at $t=0$; the isotropic incident intensity on the right boundary is 0.05
+keV.  The simulation end time is 5 sh. For all HOLO simulations, we have used 8
+equal-sized mesh cells in $\mu$. As for the Marshak problem, the cells nearest the wavefront required use of the lumping-equivalent discretization and
+$S_2$ equivalent terms during the LO solve.
+\begin{table}[H]
+        \caption{Material properties for two material problem\label{two_mat_props}}
+\centering
+        \begin{tabular}{|c|cc|}  \cline{2-3}
+            \multicolumn{1}{c|}{}   & $x \in [0,0.5)$ cm & $x \in [0.5,1.0]$ cm   \\ \hline
+            $\sigma_a$ (cm$^-1$)  & 0.2 & 2000 \\
+            $\rho$ (g cm$^-3$) & 0.01 & 10.0 \\
+            $c_v$ (jks/keV-g) & $0.1$ & $0.1$ \\ \hline
+        \end{tabular}
+\end{table}
+Fig.~\ref{twomat_full} compares the HOLO and IMC radiation 
+temperatures at the end of the simulation. The
+IMC and HOLO results show good agreement
+over the finer mesh.
+On the coarse mesh ($N_c=20$), the LDFE representation of $T^4$ in the HOLO method predicts the location of the
+wavefront more accurately than the IMC method with source tilting.
+
+Fig.~\ref{compare_ho} demonstrates the benefit of ECMC as a HO solver compared to
+standard MC.  The HOLO algorithm
+with the ECMC HO solver (HOLO-ECMC) results
+are for running 3 batches of 10,000 histories, per time step. The solution for the HOLO method with a standard MC solver as the HO solver
+(HOLO-SMC) with standard source sampling uses 10$^5$ histories per time step. The HOLO-SMC solution demonstrates significant
+statistical noise.  This noise is introduced into the LO solver by bad statistics in
+computing the consistency terms. Also
+plotted is an S$_2$ solution obtained with consistency terms that are equivalent
+to S$_2$ and no HO correction.  The S$_2$ solution results in an artificially fast
+wavefront, as expected, demonstrating the necessity of HO correction in this problem.
+
+Table~\ref{twomat_var} compares the FOM and $\ss$ for IMC and the HOLO-ECMC method.  The FOM
+values are normalized to the value for IMC with $n=30,000$.  The end time was reduced
+to $2$ sh for these results to reduce computational times. The reduction in variance by
+the HOLO method over IMC is substantial. The improvement of the FOM for the HOLO
+method compared to IMC is greater than for the
+Marshak wave problem.  This improvement is because the wave moves much slower in
+right region of this problem, due to
+the large, constant cross section.  Also, in the optically thin
+region of the problem the solution quickly comes to equilibrium.  Thus, the ECMC
+algorithm has to estimate a very small change in the intensity over a time step.  Additionally, difficulties in resolving
+the solution at the wavefront are not as severe compared to the Marshak wave
+problem, where the cold cells have a much larger cross section.
+\begin{figure}
+    \centering
+\begin{subfigure}{0.65\textwidth}
+    \centering
+    \includegraphics[width=0.99\textwidth]{two_mat_conv.pdf}
+    \caption{Comparison of IMC and HOLO-ECMC.\label{twomat_full}}
+\end{subfigure}    \begin{subfigure}{0.65\textwidth}
+\centering
+    \includegraphics[width=0.99\textwidth]{two_mat_ho_compare.pdf}
+    \caption{Comparison of SMC and ECMC HO solvers. \label{compare_ho}}
+\end{subfigure}
+    \caption{\bf Comparison of radiation temperatures for two material problem. \label{twomat}}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\caption{\label{twomat_var} \textbf{Comparison of sample statistics for the
+    two material problem for 200 $x$ cells.   Simulation end time is $\mathbf{t=2}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} & \multicolumn{2}{|c|}{$s_{\max}$} \\ \hline
+hists./step     & IMC & HOLO-ECMC  &  IMC & HOLO-ECMC   \\ \hline
+   30,000	    & 3.63\%  & 0.01\% &  1      &   104,000      \\
+  100,000       & 1.96\%  & 0.003\% & 1.03   &   360,000      \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Performance comparison of IMC and HOLO-ECMC}
+\label{timing}
+
+We have measured the total CPU time for simulations to provide a simplified measure of the
+computational cost.  These results compare how computational times change the two
+different problems and how the methods scale with time step size and particle histories.  Absolute comparisons in the computational cost of the two
+methods cannot be made because the methods are implemented
+in different code infrastructures. Additionally, the HOLO method fully resolves
+non-linearities at each time step, whereas IMC is using a single linearized step with
+lagged cross sections. Simulations were performed on the same processor, using a single CPU
+core.  Reported times are the average of 10 runs and all results used 200 $x$ cells,
+$\Delta t = 0.001$ sh, and an end time of $t=2$ sh.
+
+Table~\ref{marshak_table} compares the average
+simulation time per history performed for the Marshak wave problem.  The average time per history is computed by dividing the total simulation time by
+the total number of histories performed (e.g., the time of the LO solves is included for
+the HOLO method).  Results are given for different numbers of histories per time step, as
+well as a case with an increased time step size.  The table also includes the number of LO
+iterations performed per LO solve for the HOLO method, averaged over all time steps;
+there are two LO solves per time step.  The same results are reported for the two
+material problem in Table~\ref{twomat_table}.
+
+The HOLO method does not scale with the number of
+histories due to the fixed cost of the LO solver.  The cost of the LO solver is more
+significant at the lower history counts compared to the case of $10^5$
+histories, for both problems. 
+There is a slight increase in the number of
+newton iterations as the time step is increased, but the average cost per history is
+not significantly increased.   Similar to the results
+in~\cite{park}, as the time step size is increased to to 0.005 sh, the IMC method
+increases in cost per time step, due to an increase in effective scattering events, particularly for the two material problem. Because
+the cross sections in the the two material problem do not have a $T^{-3}$
+behavior,the cost of the effective scattering cross section in IMC is more apparent,
+resulting in longer simulation times. 
+\begin{table}[H]
+\centering
+\caption{\label{marshak_table} \textbf{Comparison of average CPU times per history
+    and LO iteration counts for the Marshak Wave problem. }}
+\vspace{-0.1in}
+	\begin{tabular}{|cc|c|cc|}\hline
+hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist) & Newton
+iters./LO solve \\ \hline
+100,000                    &   0.001	& 10  &  5.3   & 3.8               \\
+12,000           &   0.001	& 9.7 &	 8.1   & 4.1               \\
+12,000          &   0.005	& 19  &  9.4   & 6.2                \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htb!]
+\centering
+\caption{\label{twomat_table} \textbf{Average CPU times per history and LO iteration
+counts required for the two material problem.}}
+	\begin{tabular}{|cc|c|cc|} \hline
+hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist)  &
+Newton iters./LO Solve\\ \hline
+100,000          &   0.001	& 17  &	3.5   & 4.9 \\
+30,000   &    0.001	& 18  &	6.9   &    5.0 \\
+30,000    &   0.005	& 59  & 7.4   &    7.6 \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Comparison of different HO Solvers}
+\label{ho_solvers}
+
+In this section we compare the results of our HOLO algorithm with different HO
+solvers for the test problems in Section~\ref{sec:marsh} and~\ref{sec:two}.  We compare standard MC (SMC) as a HO solver to the HOLO algorithm with ECMC using
+both three batches and a single batch, per time step.  The use of a single batch is
+similar to the approach in~\cite{rmc}.  Results are tabulated for 200 $x$ cells, using the same total
+number of histories per time step, divided evenly among the batches.
+
+Tables~\ref{homarshak_var} and~\ref{hotwomat_var} compare the results for the Marshak
+wave and two material problems. The number of batches for each ECMC case is indicated
+in parenthesis.  The FOM values are normalized to the reference IMC result for the
+corresponding problem.  For HOLO-SMC there is
+minimal reduction in variance compared to IMC in the Marshak wave problem, and the two
+material problem actually demonstrates worse variance.  Sufficient histories are not
+performed to accurately estimate consistency terms throughout the problem.  For ECMC,
+a single batch produces less variance than the case of three equal batches.  This
+indicates that if the solution cannot be resolved with the trial space (i.e., the
+intensity is driven negative), a single large batch may be more accurate. It is noted
+that these results only account for statistical variance, and do not account for
+accuracy, which will depend on the estimates of $\epsilon$ computed each iteration.   
+
+\begin{table}[H]
+\centering
+\caption{\label{homarshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.  Number of ECMC batches is
+indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &     \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
+   12,000	   & 2.77\%  & 0.10\% &  0.28\% &   1.50    & 1280  & 145     \\
+  100,000      & 0.98\%  & 0.03\% &  0.06\% &   1.43    & 1270  & 422     \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{\label{hotwomat_var} \textbf{Comparison of sample standard deviations for the
+    two material problem. Number of ECMC batches is indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC
+(3)   \\ \hline
+   30,000	  & 5.35\%   & 0.002953\% & 0.011\%  & 0.46     & 1.51$\times10^6$   & $1.04\times10^4$          \\
+  100,000     & 2.85\%   & 0.001474\% & 0.0033\% & 0.49     & 1.80$\times10^6$   & $3.59\times10^4$          \\ \hline
+\end{tabular}
+\end{table}
+
+\subsection{Pre-heated Marshak wave problem and adaptive mesh refinement}
+
+Finally, to demonstrate the potential of ECMC with adaptive space-angle mesh refinement, we perform
+results for a modified Marshak wave problem. The problem is modified so that the LDFE
+trial space can accurately represent the solution (i.e., the intensity is strictly
+positive).  Mesh refinement is of minimal use in the previous problems due to most of
+the error existing at the wavefronts, caused by the large cross sections.   The modified problem has the same material
+properties and left boundary source as the Marshak wave problem in
+Section~\ref{sec:marsh}.  However, the initial equilibrium
+temperature and right boundary condition are raised to $0.03$ keV.   The higher initial temperature reduces the
+initial cross section and increases the strength of the emission source within cells.  
+The LDFE mesh can now sufficiently resolve the solution and lumping is
+not required by the LO solution.  The simulation end time is 0.5 sh with a constant
+time step of $\Dt=0.001$ sh.  
+
+Fig.~\ref{hot_plot} compares the result from HOLO-ECMC with three batches and IMC.
+It was found that 100 $x$ cells was sufficient to resolve the solution spatially. There is slightly more noise in IMC past the wavefront due to the increased emission
+source.  Additionally, the opacity is thin enough that some photon energy is able to
+reach the right boundary, in front of the wavefront. 
+
+Table~\ref{preheat_var} compares the variances for this problem for the various HO
+solvers. The FOM values are normalized to the case of HOLO-SMC with 12,000
+histories per time step. The final row of the table is for an ECMC simulation with adaptive mesh
+refinement (AMR).  The strategy for refinement is described in
+Appendix~\ref{app:refinement}.  The adaptive
+mesh refinement case used a total of nine batches, with a refinement occurring at the end
+of the third and sixth batches, for every time step. The initial number of histories was adjusted so that
+the average number of histories per time step is near 100,000; on average 99,881
+histories per time step were used.  All ECMC meshes used 4 equally-spaced $\mu$ cells
+initially. 
+   The improvement in variance by ECMC compared to SMC is not as significant
+as for the other problems.  This is a
+result of the reduced opacity leading to intensity changing throughout the spatial
+and angular domains.  The
+FOM is highest for the case of ECMC with adaptive refinement. When the solution can
+be resolved, the adaptive algorithm allows for a higher convergence rate of
+statistical variance.  It is noted that the consistency terms and LO solution are still computed over
+the fixed, coarser mesh.  However, in general, the refined mesh can produce higher accuracy in consistency terms that is
+not being measured by the FOM.
+\begin{figure}[htb]
+  \centering
+    \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
+    \caption{\label{hot_plot} Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
+    $x$ cells at $\mathbf{t=0.5}$ sh.}
+\end{figure}
+
+
+\begin{table}[H]
+\centering
+\caption{\label{preheat_var} {Comparison of sample statistics for the 
+    pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is
+indicated in parenthesis.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
+   12,000	  & 0.86\%   & 0.13\% & 0.24\% & 1      & 41  & 13      \\
+  100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\ 
+  99,881 (AMR, 9 batches) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
+  \multicolumn{2}{c|}{61}               \\ \hline
+\end{tabular}
+\end{table}
+
+\section{Accuracy in the Equilibrium Diffusion Limit}
+
+A critical aspect for any numerical solution to the thermal radiative transfer equations
+is preservation of the equilibrium diffusion limit (EDL). We expect the LD representation in the
+LO equations to preserve the equilibrium diffusion limit.  In this limit, the MC HO
+solution will estimate angular consistency terms associated with an isotropic intensity,
+based on a spatially LD emission source.   Because the spatial closure produces equations that are equivalent to an LDFE
+solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
+limit~\cite{morel_ldtrt,densmore_edl}.
+
+We test a problem in the EDL by adjusting material properties to produce a strongly
+diffusive region. The EDL problem has constant cross sections with $\sigma_a=1000$
+cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ Jk keV$^{-1}$
+cm$^{-3}$.  The domain width is 0.1 cm and 4 $\mu$ cells and 3 batches of 4,000 histories
+are used for the single HO solve in all calculations. The simulation end time is 5 $sh$
+and a linear increase of 15\% from $\Delta t = 0.001$ sh to a maximum $\Delta t = 0.01$ sh is used.
+We compare the LDFE LO solution to a LO solution using a step discretization,
+which is known to not preserve the EDL for S$_N$ equations.  The step discretization is implemented by using the scaled slope spatial
+closure in Sec.~\ref{sec:spat_clos_options} with closure parameters $\gamma_i^\pm=0$ for all
+cells.  
+
+The accuracy in the equilibrium diffusion limit is compared for thefthe two spatial
+discretizations, for different mesh sizes, in Fig.~\ref{fig:diff_limit}.  As demonstrated,
+the LDFE spatial discretization has converged spatially, where both 20 and 200 cells
+produce the same location of the wave front.  However, the step
+discretization artificially propagates the energy forward; the inaccuracy is greater than
+what would be expected from simply truncation error.  The step discretization will
+only be accurate if the mesh cells are on the order of a mean free path, which is very large for this
+problem.  Although not plotted, the material temperature overlays the radiation
+temperature for the LDFE solution, in equilibrium with the radiation.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
+    \caption{\label{fig:diff_limit}Comparison of $T_r$ for step and LDFE discretizations of the LO
+equations in the equilibrium diffusion limit.}
+\end{figure}
+
+
+
+\section{CONCLUSIONS}
+
+We have been able to produce solutions for Marshak wave test problems using
+a new HOLO method that are in agreement with IMC.  Unlike IMC, our method requires no effective scattering
+events to be included in the MC simulation, which limits the run time of particle
+tracking, while adding the cost of a LO newton solver. Average LO iteration counts
+did not significantly increase as the time step size was increased. The LDFE spatial representation
+mitigates issues with teleportation error, producing results with spatial accuracy
+comparable to IMC with source tilting.  The ECMC approach, with initial guesses based on the
+previous radiation intensity, results in efficient reduction of statistical error and
+allows for particles to be distributed to largely varying regions of the problem.
+The LO solver resolves the non-linearities in the equations resulting in a fully
+implicit time discretization.
+The LO solver
+can accurately and efficiently resolve the solution in diffusive regions, while the HO
+transport solver provides the accuracy of a full transport treatment where necessary. 
+
+The primary difficulty to overcome in the ECMC algorithm is when the solution cannot
+be accurately represented by the trial space, e.g., in optically thick cells where
+the solution is driven negative.   We are currently developing an approach to allow
+the ECMC iterations to continue converging globally when there are such regions
+present.  It is necessary to ensure the
+ closure in the LO system is consistent with the HO
+representation for the solution in such regions.  The ability to represent the solution accurately in
+rapidly varying regions of the problem will be key for generalization of this method
+to higher dimensions.  A formulization of the ECMC method
+that allows for time-continuous MC transport (similar to IMC) is also currently being
+investigated.  This may reduce some of the loss of accuracy in optically thin regions
+due to the time discretization of the transport equation in the HO solver.
+However, greater time accuracy is not of primary concern as this method is intended
+for use in problems dominated by large absorption opacities, where the LO
+acceleration is critical. Inclusion of Compton scattering in this algorithm, which would introduce
+additional non-linear dependence through energy exchange with the
+material, is a topic for future research.
+
+
+Future work will also explore the accuracy of the HOLO method, in particular,
+analyzing the optimal number of batches and the benefit of adaptive refinement.  This will likely
+require the use of manufactured solutions.  The sensitivity of the method to mesh sizes and time step sizes will be
+investigated more thoroughly.  
+Ultimately, we plan to extend this method to multiple spatial dimensions for the 
+case of multigroup TRT equations.  For TRT problems, it is important that
+the LO spatial discretization satisfies the equilibirium diffusion limit.  To extend
+to higher dimensions, our LDFE representation may require the use of a higher-degree
+spatial representation for the LO system to achieve the diffusion
+limit. Further asymptotic
+analysis on the method will be applied before implementation. It may be necessary to use a different LO system (e.g., the non-linear diffusion
+acceleration approach in~\cite{rmc}), if the S$_2$-like equations become too
+inefficient or difficult to implement in higher dimensions.  Alternatively, a
+variable Eddington Tensor approach may provide more stability in rapidly variable
+regions of the problem while still allowing for a consistent, LDFE solution that is efficiently solvable.
+
+\section*{ACKNOWLEDGEMENTS}
+
+This research was supported with funding received from the DOE Office of Nuclear
+Energy's Nuclear Energy University Programs, the DOE National
+Nuclear Security Administration, under Award Number(s) DE-NA0002376, and under Los Alamos National Security,
+LLC, for the National Nuclear Security Administration of the U.S. Department of
+Energy under contract DE-AC52-06NA25396. 
+
