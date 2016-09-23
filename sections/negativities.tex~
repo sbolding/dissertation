@@ -26,7 +26,7 @@ the differences between the solution methods of the two equations, as well as th
 fact that the modifications made to one solver would be lagged in the next nonlinear LO solve, there
 is no guarantee of positivity.  
 
-\section{Resolving the LO solution in Optically Thick Cells}
+\section{Fixup for Negative Intensities in the LO Equations}
 \label{sec:negs}
 
 In LO equations, the linear representation for $\phi(x)$ can go below the floor
@@ -42,14 +42,16 @@ the equations are lumped to produce a discretization that is strongly resistant 
 negative values (for 1D)~\cite{morel_ldtrt}. However, standard FE lumping
 procedures would introduce difficulties in computing the consistency terms from the
 HO solution.  Alternatively, we have derived a modified spatial closure that produces
-unknowns equivalent to those from a lumped LD method in 1D.  The modified spatial closure, for positive
-outflow, is
-\begin{equation}
-    \phi
-\end{equation}
-where a linear shape is still assumed.  This modified closure produces a linear
+unknowns equivalent to those from a lumped LD method in 1D.  The modified spatial closure
+is
+\begin{align}
+    \phi_{i+1/2}^+ &= \mom{\phi}_{i,R}^+ \\
+    \phi_{i-1/2}^- &= \mom{\phi}_{i,L}^- 
+\end{align}
+The system is fully defined with upwinding and the assunmption of a linear relationship on
+interior of the element.  This modified closure produces a linear
 representation that preserves the zeroth moment of the solution, but has modified the
-first spatial moment, i.e., the slope of the line.
+first spatial moment.
 
 We also investigated an alternative closure of the equations based on energy conservation.  
 The equations within cells that produce a negativity are modified to ensure the edge
@@ -76,7 +78,9 @@ is now unhinged from the linear relationship.  For this case, we use the lumped
 representation on the interior of the solution for all cells. The outflow can still be driven negative
 due to non-linearities, which leads to negative values in down-stream cells. 
 This is a result of the HO estimation of the spatial closure using
-and the moments was based on lagged source terms.  When negativities occur, we
+and the moments was based on lagged source terms.  When negativities occur, we force the
+outflow to be continous, using the lumping-equivalent LD closure in those cells.  The
+Newton solve must then be resolved.
 
 
 \section{Artificial Source Method for Negativities in the HO Intensity}

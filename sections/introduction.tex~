@@ -48,7 +48,8 @@ inaccuracies introduced through the LO consistency
 terms. 
 
 We have also investigated several extensions of this method.  In particular, we have 
-
+investigated higher time accuracy by including the time variable in the ECMC transport
+algorithm.
 
 We compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
@@ -117,6 +118,8 @@ $\sigma_t$ are the absorption, scattering, and total
 cross sections (cm$^{-1}$), respectively.  The scalar radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
 $E$ (with typical units Jks cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.
+
+\subsection{The Monte Carlo method for Particle Transport}
 
 
 \section{Previous Work}

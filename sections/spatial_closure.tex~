@@ -52,10 +52,6 @@ issues.  However, we have already consistently formed angular consistency terms,
 the spatial closure should be more stable than introducing other terms, such as
 in NDA methods. 
 
-Additionally, because these closure
-parameters are modifications to standard spatial closures, it should be possible to filter bad
-values of $\gamma^{HO}_i$.  Future studies will investigate the stablity of
-this method more rigorously.
 
 %THIS SENTENCE WAS REDUNDANT I THINK, BUT GOOD
 %After approximating the angular consistency terms in the time-discretized LO moment equations, 
@@ -187,3 +183,6 @@ of energy removed from a cell not being equal, due to statistical noise in the
 path-length estimators used to estimate $\phi^{HO}_i$.  However, ECMC will preserve
 balance to the order of the magnitude of the error, so the closure parameters will
 reproduce the HO moments to the accuracy of the LO solution.
+
+\subsection{
+
