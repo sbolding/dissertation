@@ -62,7 +62,10 @@ previous and related work, and then
 
 Thermal radiative transfer (TRT) physics describe the time-dependent energy distributions of a photon
 radiation field and a high-temperature material.  The material and radiation exchange
-energy through absorption and emission of photons by the material.  
+energy through absorption and emission of photons as the radiation traverses the material.  In this work, we neglect
+motion of the material, which would require solution methods appropriate for
+radiation hydrodynamics~\cite{radhydro}, although our solution method would be applicable for resolving the radiation
+and internal energy distribution in a operator-split solution to such systems~\cite{radhydro}.
 Accurate modeling of TRT physics becomes relevant in the high-energy,
 high-density physics regime.   Radiative transfer is the dominant form of heat transfer in
 very high-temperature systems, where the material temperature $T$ is $O(10^6)$ K or
@@ -71,10 +74,10 @@ astrophysics phenomena.
 
  The transport of photons through a material is characterized by particle position, direction, and
 frequency.  The material energy distribution is described by the material internal
-energy as a function of position.  The high-dimensional space results in a nonlinear
-transport problem that is difficult to solve.
+energy as a function of position.  The nonlinear
+transport problem has high dimensionality and is computationally difficult to solve.
 The internal energy $e$ is related to the material
-temperature through an equation of state.  In this work a perfect gas equation of state is
+temperature $T$ through an equation of state.  In this work a perfect gas equation of state is
 used~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the
 material mass density and $c_v$ is the specific heat.  Thus, we will now discribe the
 equations in terms of temperature.
