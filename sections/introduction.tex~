@@ -61,36 +61,53 @@ previous and related work, and then
 \section{Thermal Radiative Transfer Background}
 
 Thermal radiative transfer (TRT) physics describe the time-dependent energy distributions of a photon
-radiation field and a high-temperature material.  The material and radiation exchange
-energy through absorption and emission of photons as the radiation traverses the material.  In this work, we neglect
-motion of the material, which would require solution methods appropriate for
-radiation hydrodynamics~\cite{radhydro}, although our solution method would be applicable for resolving the radiation
-and internal energy distribution in a operator-split solution to such systems~\cite{radhydro}.
-Accurate modeling of TRT physics becomes relevant in the high-energy,
+radiation field and a high-temperature material.  The physics of TRT couples together the
+transport of radiation through a material, with the absorption and emission of radiation
+energy by a material.  Accurate modeling of TRT physics becomes relevant in the high-energy,
 high-density physics regime.   Radiative transfer is the dominant form of heat transfer in
 very high-temperature systems, where the material temperature $T$ is $O(10^6)$ K or
 higher. Typical computational applications of TRT include simulation of inertial confinement fusion and
-astrophysics phenomena.  
+astrophysics phenomena.  In this work, we neglect
+motion of the material, which would require solution methods appropriate for
+radiation hydrodynamics~\cite{radhydro}, although our solution method is well suited to
+couplling to material motion via typical operator-splitting methods for
+radiation-hydrodynamic systems~\cite{radhydro}.
+
 
  The transport of photons through a material is characterized by particle position, direction, and
 frequency.  The material energy distribution is described by the material internal
 energy as a function of position.  The nonlinear
 transport problem has high dimensionality and is computationally difficult to solve.
 The internal energy $e$ is related to the material
-temperature through an equation of state.  In this work a perfect gas equation of state is
+temperature $T$ through an equation of state.  In this work a perfect gas equation of state is
 used~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the
 material mass density and $c_v$ is the specific heat.  Thus, we will now discribe the
 equations in terms of temperature.
 
 The governing equations for thermal radiative transfer problems are the radiation and material
- energy balance equations:
- \begin{align}
+ energy balance equations. The radiation transport equation is
+ \begin{multline}
      \frac{1}{c} \pderiv{I\phsp}{t} + \mathbf{\Omega}\cdot \Del I \phsp + \sigma_t
-     (\mathbf{r},\nu) I \phsp 
- \end{align}
+     (\mathbf{r},\nu) I \phsp = \\ \int \limits_0^\infty \int \limits_{4\pi}
+     \sigma_s(\mathbf{\Omega'} \ra \mathbf{\Omega},\nu'\ra\nu)
+     \phi(\mathbf{r},\nu,t) \dd \Omega' \dd \nu' + \sigma_a(\nu,T)B_\nu(\mathbf{r},\nu,T).
+ \end{multline}
+ The material energy balance equation is
+ \begin{multline}
+     \rho c_v \pderiv{T(\mathbf{r},t)}{t} = \sigma_a(T) B(T)
+ \end{multline}
+Here, $B_\nu(\mathbf{r},\nu,T)$ is the black-body Planckian emission source~\cite{mihalis}, $\mathbf{r}$ is the position, $\mathbf{\Omega}$ is the direction
+of particle travel; the macroscopic scattering, absoprtion, and total cross sections are $\sigma_s$,
+$\sigma_s$, and $\sigma_t$, respectively. The integral of $B(\mathbf{r},\nu,T)$ over angle produces the 
+grey Planckian emission source $\sigma_a(T) a c T^4$.
 
-The following additional assumptions were made in the derivation of the above equations: photons are treated as point
-particles, the ion states are in local thermodynamic equilibrium~\cite{mihalis}
+The absorption cross section $\sigma_a$ is typically a strong function of temperature,
+i.e., $\sigma_a\equiv \sigma_a(T)$.
+
+In derivation of the above equations, the emission source assumed to be described by the
+Planck function at a point and the material is
+well described by the local temperature, i.e., the conditions of local thermodynamic
+equilibrium were assumed~\cite{mihalis}.
 
     The equations are
 strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
@@ -101,10 +118,7 @@ absorption and reemission physics lead to systems that require accurate modeling
 photon transport through a  mix of
 streaming and optically-thick, diffusive regions.  Although in most physical
 applications material motion is present, it is not the focus of this research and will not
-be considered.  The purpose of the proposed research is to demonstrate the ability 
-of a new algorithm to provide highly-accurate and efficient solutions to
-Eq.~\eqref{eq:rad_cont} and Eq.~\eqref{eq:mat_cont}.
-
+be considered.  
 \subsection{Derivation of 1D Grey Model}
 
 The transport of photons through a material is governed by the Boltzmann linear transport
@@ -131,6 +145,9 @@ $\sigma_t$ are the absorption, scattering, and total
 cross sections (cm$^{-1}$), respectively.  The scalar radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
 $E$ (with typical units Jks cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.
+The purpose of the proposed research is to demonstrate the ability 
+of a new algorithm to provide highly-accurate and efficient solutions to
+Eq.~\eqref{eq:rad_cont} and Eq.~\eqref{eq:mat_cont}.
 
 \subsection{The Monte Carlo method for Particle Transport}
 
