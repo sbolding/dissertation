@@ -25,6 +25,34 @@
     year = "2012"
 }
 
+@article{radhydro_code,
+  title={ZEUS-2D: A radiation magnetohydrodynamics code for astrophysical flows in two space dimensions. I-The hydrodynamic algorithms and tests.},
+  author={Stone, James M and Norman, Michael L},
+  journal={The Astrophysical Journal Supplement Series},
+  volume={80},
+  pages={753--790},
+  year={1992}
+}
+
+@article{os_rh,
+  title={A second order self-consistent IMEX method for radiation hydrodynamics},
+  author={Kadioglu, Samet Y and Knoll, Dana A and Lowrie, Robert B and Rauenzahn, Rick M},
+  journal={Journal of Computational Physics},
+  volume={229},
+  number={22},
+  pages={8313--8332},
+  year={2010},
+  publisher={Elsevier}
+}
+
+
+@book{mihalas,
+  title={Foundations of radiation hydrodynamics},
+  author={Mihalas, Dimitri and Weibel-Mihalas, Barbara},
+  year={1999},
+  publisher={Courier Corporation}
+}
+
 @PHDTHESIS{wolters,
     author = "E.R. Wolters",
     title = "Hybrid Monte Carlo - Deterministic Neutron Transport Methods Using
@@ -280,7 +308,7 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
   publisher={Taylor \& Francis}
 }
 
-@phdthesis{wollaber008advanced,
+@phdthesis{wollaber_thesis,
   title={Advanced Monte Carlo methods for thermal radiation transport},
   author={Wollaber, Allan B},
   year={2008},

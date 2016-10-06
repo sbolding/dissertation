@@ -28,7 +28,7 @@ problems.  In particular, our HOLO method utilizes an exponentially-convergent M
 Carlo (ECMC) algorithm to solve the associated radiation transport equation.  The ECMC
 method significantly decreases the statistical noise associated with MC calculations to
 TRT problems.  In addition, we use a nonlinear low-order (LO) system to efficiently 
-resolve nonlinear dependencies in system, while preserving accuracy of the ECMC
+resolve nonlinear dependencies in the system, while preserving the accuracy of the ECMC
 treatment of particle transport.  The HOLO algorithm has
 been developed and implemented for a simplified model with one spatial dimension and 
 frequency-integrated equations.
@@ -47,88 +47,112 @@ allows for the efficient reduction of statistical noise in the MC solution, redu
 inaccuracies introduced through the LO consistency
 terms. 
 
-We have also investigated several extensions of this method.  In particular, we have 
-investigated higher time accuracy by including the time variable in the ECMC transport
-algorithm.
+We have also investigated several extensions of this method.  Higher accuracy in the time
+variable is investigated by including the time variable in the ECMC transport
+algorithm.  This can produce more accuracy in the transport of particles across optically
+thin regions, although a projection error in the intensity is still incurred between time
+steps.
 
 We compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
 
-In the remainder of this chapter, we provide a background on TRT problems, discuss
-previous and related work, and then
+In the remainder of this chapter, a brief background on TRT problems is given, before the
+simplified model that will be used for the remainder of the work is derived.  Then,
+related work on MC and HOLO solution methods for TRT are discussed.
 
 \section{Thermal Radiative Transfer Background}
 
-Thermal radiative transfer (TRT) physics describe the time-dependent energy distributions of a photon
-radiation field and a high-temperature material.  The physics of TRT couples together the
-transport of radiation through a material, with the absorption and emission of radiation
-energy by a material.  Accurate modeling of TRT physics becomes relevant in the high-energy,
-high-density physics regime.   Radiative transfer is the dominant form of heat transfer in
-very high-temperature systems, where the material temperature $T$ is $O(10^6)$ K or
+Thermal radiative transfer (TRT) physics are used to model the time-dependent coupling between a photon
+radiation field and a high-temperature material, which is typically a plasma.  The desired unknowns are the spatial
+energy-density distributions of the radiation and material, as a function of time.  As photons transport through
+the medium, they interact through scattering and absorption by the material, depositing
+momentum and energy.  The
+material is heated through absorption of photons and is cooled by emission of thermal
+x-ray photons
+into the radiation field.  The emission process is a strongly nonlinear
+function of temperature~\cite{mihalas}.  Additionally, the  material properties are
+typically a function of temperature, in particular the absorption cross section.  The
+temperature-dependent material properties and
+absorption and reemission physics lead to systems that require accurate modeling of
+photon transport through a mix of
+streaming and optically-thick, diffusive regions. 
+
+Accurate modeling of TRT physics becomes relevant in the high-energy,
+high-density physics regime.   Radiative transfer is a dominant form of heat transfer in
+high-temperature systems, where the material temperature is $O(10^6)$ K or
 higher. Typical computational applications of TRT include simulation of inertial confinement fusion and
-astrophysics phenomena.  In this work, we neglect
-motion of the material, which would require solution methods appropriate for
-radiation hydrodynamics~\cite{radhydro}, although our solution method is well suited to
-couplling to material motion via typical operator-splitting methods for
-radiation-hydrodynamic systems~\cite{radhydro}.
+astrophysics phenomena.  In most applications where TRT is important, the fluid
+material is typically in motion and exchanges momentum with the radiation field. In this work, we neglect
+motion of the material, which would require inclusion of hydrodynamics in our
+model~\cite{mihalas}.  However, our LO equations are well-suited for
+coupling to material motion via typical operator-splitting methods for
+radiation-hydrodynamic systems~\cite{radhydro_code,os_rh}.
 
+\subsection{The Equations of Thermal Radiative Transfer}
 
- The transport of photons through a material is characterized by particle position, direction, and
-frequency.  The material energy distribution is described by the material internal
-energy as a function of position.  The nonlinear
-transport problem has high dimensionality and is computationally difficult to solve.
-The internal energy $e$ is related to the material
-temperature $T$ through an equation of state.  In this work a perfect gas equation of state is
-used~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the
-material mass density and $c_v$ is the specific heat.  Thus, we will now discribe the
-equations in terms of temperature.
+First, the photon radiation field, with the appropriate units used throughout this work, is
+characterized.  Photons transporting through a material are described by the particle position vector
+$\mathbf{r}$ (cm), direction vector $\mathbf\Omega$ (str, i.e., steradians),
+time $t$ (sh, where $1\text{ sh}\equiv10^{-8}$ s), and frequency $\nu$ (Hz).  The primary
+radiation unknown is the angular intensity $I \phsp$ (Jk cm$^{-2}$ s$^{-1}$
+Hz$^{-1}$ str$^{-1}$), which represents a distribution
+function of energy
+contained in the radiation field, per unit of
+phase space.  We use the energy unit Jerks, where 1 $\text{Jk}= 10^9$ J. The intensity can be related to the volumetric density of photons
+$N \phsp$ (photons cm$^{-3}$ Hz$^{-1}$ str$^{-1}$) via the relation  $I\phsp =
+c h \nu N \phsp$, where $c$ is the speed of light (cm sh$^{-1}$) and $h$ is Planck's constant. The
+angular intensity is a useful quantity because it is directly related to reaction rates.
 
-The governing equations for thermal radiative transfer problems are the radiation and material
- energy balance equations. The radiation transport equation is
+The governing conservation equation for the radiation field is a transport equation given
+by~\cite{mihalas,lewis,wollaber_thesis}
  \begin{multline}
      \frac{1}{c} \pderiv{I\phsp}{t} + \mathbf{\Omega}\cdot \Del I \phsp + \sigma_t
      (\mathbf{r},\nu) I \phsp = \\ \int \limits_0^\infty \int \limits_{4\pi}
      \sigma_s(\mathbf{\Omega'} \ra \mathbf{\Omega},\nu'\ra\nu)
-     \phi(\mathbf{r},\nu,t) \dd \Omega' \dd \nu' + \sigma_a(\nu,T)B_\nu(\mathbf{r},\nu,T).
+     \phi(\mathbf{r}',\nu',t) \dd \Omega' \dd \nu' +
+     \sigma_a(\mathbf{r},\nu)B_\nu(\mathbf{r},\nu,T).
  \end{multline}
- The material energy balance equation is
- \begin{multline}
-     \rho c_v \pderiv{T(\mathbf{r},t)}{t} = \sigma_a(T) B(T)
- \end{multline}
-Here, $B_\nu(\mathbf{r},\nu,T)$ is the black-body Planckian emission source~\cite{mihalis}, $\mathbf{r}$ is the position, $\mathbf{\Omega}$ is the direction
-of particle travel; the macroscopic scattering, absoprtion, and total cross sections are $\sigma_s$,
-$\sigma_s$, and $\sigma_t$, respectively. The integral of $B(\mathbf{r},\nu,T)$ over angle produces the 
-grey Planckian emission source $\sigma_a(T) a c T^4$.
+Here, $B_\nu(\mathbf{r},\nu,T)$ is the black-body Planckian emission
+spectrum~\cite{mihalas} at temperature $T$ (keV); the macroscopic scattering, absorption, and total cross sections are $\sigma_s$,
+$\sigma_a$, and $\sigma_t$, respectively. 
+ The scattering source includes
+integration over all possible incoming angles $\mathbf\Omega'$ in differential
+solid angle $\dd \Omega'$.  The absorption cross section $\sigma_a$ is typically
+a strong function of temperature, i.e., $\sigma_a\equiv \sigma_a(T)$.  Following standard notation, we
+report temperatures in units of keV as an effective energy, obtained by multiplying by the Boltzmann
+constant $k_B$~\cite{wollaber}.  Thus, all material temperatures are $T \equiv T_{K}
+k_B$, where $k_B$ is the Boltzmann constant (keV K$^{-1}$) and $T_{K}$ is the temperature
+in kelvin.
 
-The absorption cross section $\sigma_a$ is typically a strong function of temperature,
-i.e., $\sigma_a\equiv \sigma_a(T)$.
-
-In derivation of the above equations, the emission source assumed to be described by the
-Planck function at a point and the material is
-well described by the local temperature, i.e., the conditions of local thermodynamic
-equilibrium were assumed~\cite{mihalis}.
-
-    The equations are
-strongly coupled through the gray Planckian emission source $\sigma_a a c T^4$, which
-is a nonlinear function of temperature, and the radiation absorption
-term $\sigma_a \phi$.  In general, the material properties are a function of $T$.  The
-temperature-dependent material properties and
-absorption and reemission physics lead to systems that require accurate modeling of
-photon transport through a  mix of
-streaming and optically-thick, diffusive regions.  Although in most physical
-applications material motion is present, it is not the focus of this research and will not
-be considered.  
+The material is characterized by the material internal
+energy as a function of position.  The internal energy $e$ is related to the material
+temperature $T$ through an equation of state.   In this work, a perfect gas equation of state is
+assumed~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the
+material mass density and $c_v$ is the specific heat.  Thus, we will use $T(\mathbf{r},t)$ as the
+primary unknown to describe the material energy distribution.  The material energy conservation equation is
+\begin{equation}
+    \rho(\mathbf{r}) c_v(\mathbf{r}) \pderiv{T(\mathbf{r},t)}{t} = \int\limits_0^\infty
+    \left( \int\limits_{4\pi} \sigma_a I \phsp \dd \Omega - \sigma_a B_\nu(\mathbf{r},\nu,T) \right) \dd \nu
+ \end{equation}
+ In derivation of the above equations, the conditions of local thermodynamic equilibrium
+were assumed, i.e., the emission source is described point-wise by the
+Planck function at the temperature at that position, and the material is well-described by
+the local temperature~\cite{mihalas,wollaber_thesis}. The emission source is a non-linear function of temperature and is
+proportional to $T^4$ after integration over frequency.  
 \subsection{Derivation of 1D Grey Model}
 
-The transport of photons through a material is governed by the Boltzmann linear transport
-equation~\cite{shultis_mc,lewis}.  We have demonstrated our method by applying it to a
-simplified model.  make an assumption of isotropic scattering to
-simplify the equations.  The radiative 
-
-This research will focus on a simplified 1D slab-geometry and
- frequency-integrated (grey) TRT model.  The governing equations for this simplified model are the radiation and material
- energy balance equations
+At this point, we introduce the simplified equations that will be used in the remainder of
+this work.  First, the solutions are assumed to only vary in one spatial dimension using
+Cartesian coordinates, which is referred to as the 1D slab geometry.   The
+position is described by a single coordinate $x$ and the direction of particle travel
+is described by $\mu$, the cosine of the angle between the particle direction and the
+positive $x$ axis. The angular
+intensity is assumed symmetric in angle azimuthally about the $x$ axis.  
+We also assume that the material properties are independent of photon frequency. To
+simplify the equations, the equations are integrated over all frequencies.    Finally, we assume physical scattering
+is isotropic in angle. With these assumptions, integration over the azimuthal angle and
+all frequencies ultimately yields the 1D grey equations~\cite{wollaber_thesis,mihalas}
 \begin{align}\label{eq:rad_cont}
     \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
     I(x,\mu,t)
@@ -137,26 +161,23 @@ This research will focus on a simplified 1D slab-geometry and
   \rho c_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4(x,t).
 \end{align}
 In the above equations the fundamental unknowns are the material temperature $T(x,t)$ and
-the angular intensity $I(x,\mu,t)$ of radiation, where $x$ is the position, $t$ is the time, $\mu$ is
-the $x$-direction cosine of the photon direction of travel, and $a$, $c$, $\rho$,
-and
-$c_v$ are the radiation constant, speed of light, material mass density, and material specific heat; $\sigma_a$, $\sigma_s$, and
-$\sigma_t$ are the absorption, scattering, and total
-cross sections (cm$^{-1}$), respectively.  The scalar radiation intensity $\phi(x,t)=\int_{-1}^1
+the angular intensity $I(x,\mu,t)=\int\limits_0^\infty I(x,\mu,\nu,t) \dd \nu$. The mean radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
-$E$ (with typical units Jks cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.
-The purpose of the proposed research is to demonstrate the ability 
-of a new algorithm to provide highly-accurate and efficient solutions to
-Eq.~\eqref{eq:rad_cont} and Eq.~\eqref{eq:mat_cont}.
+$E$ (Jk cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.  The integral of
+$B_\nu(\mathbf{r},\nu,T)$ over all frequencies and angles produced the 
+grey Planckian emission source $\sigma_a a c T^4$~\cite{mihalas}, where $a=0.01372$ Jk cm$^{-3}$
+keV$^{4}$ is the radiation constant, which is proportional to the Stefan-Boltzmann
+constant.  The term $\sigma_a \phi$ is the rate of energy absorption by the material.
+   We have demonstrated our method by applying it to a
+simplified model.  
 
 \subsection{The Monte Carlo method for Particle Transport}
-
 
 \section{Previous Work}
 
 This sections describes related work on Monte Carlo solution to the TRT equations.  The
 Monte Carlo (MC) method samples the underlying physics distributions to estimate the
-average behavior of a field of photon.  This can provide a highly-accurate results, in
+average behavior of a field of photons.  This can provide a highly-accurate results, in
 particular for treatement of the angular and temporal variable in the transport equation.  The
 temperature equation is almost always solved deterministically in such particle transport
 methods. Monte carlo solution to the transport equation can introduce larege statistical
