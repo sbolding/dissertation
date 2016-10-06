@@ -133,13 +133,14 @@ material mass density and $c_v$ is the specific heat.  Thus, we will use $T(\mat
 primary unknown to describe the material energy distribution.  The material energy conservation equation is
 \begin{equation}
     \rho(\mathbf{r}) c_v(\mathbf{r}) \pderiv{T(\mathbf{r},t)}{t} = \int\limits_0^\infty
-    \left( \int\limits_{4\pi} \sigma_a I \phsp \dd \Omega - \sigma_a B_\nu(\mathbf{r},\nu,T) \right) \dd \nu
+    \left( \int\limits_{4\pi} \sigma_a I \phsp \dd \Omega - \sigma_a 4\pi B_\nu(\mathbf{r},\nu,T) \right) \dd \nu
  \end{equation}
  In derivation of the above equations, the conditions of local thermodynamic equilibrium
 were assumed, i.e., the emission source is described point-wise by the
 Planck function at the temperature at that position, and the material is well-described by
 the local temperature~\cite{mihalas,wollaber_thesis}. The emission source is a non-linear function of temperature and is
 proportional to $T^4$ after integration over frequency.  
+
 \subsection{Derivation of 1D Grey Model}
 
 At this point, we introduce the simplified equations that will be used in the remainder of
@@ -165,25 +166,36 @@ the angular intensity $I(x,\mu,t)=\int\limits_0^\infty I(x,\mu,\nu,t) \dd \nu$. 
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
 $E$ (Jk cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.  The integral of
 $B_\nu(\mathbf{r},\nu,T)$ over all frequencies and angles produced the 
-grey Planckian emission source $\sigma_a a c T^4$~\cite{mihalas}, where $a=0.01372$ Jk cm$^{-3}$
+grey Planckian emission source $\sigma_a a c T^4$~\cite{mihalas} in
+Eq.~\eqref{eq:mat_cont}, where $a=0.01372$ Jk cm$^{-3}$
 keV$^{4}$ is the radiation constant, which is proportional to the Stefan-Boltzmann
-constant.  The term $\sigma_a \phi$ is the rate of energy absorption by the material.
-   We have demonstrated our method by applying it to a
-simplified model.  
-
-\subsection{The Monte Carlo method for Particle Transport}
+constant.  The term $\sigma_a \phi$ is the rate of energy absorption by the material,
+whereas the emission term represents losses to the material energy.  We have developed
+and tested our algorithm for efficient solution to Eq.~\eqref{eq:rad_cont}
+and~\eqref{eq:mat_cont}.
 
 \section{Previous Work}
 
 This sections describes related work on Monte Carlo solution to the TRT equations.  The
-Monte Carlo (MC) method samples the underlying physics distributions to estimate the
-average behavior of a field of photons.  This can provide a highly-accurate results, in
-particular for treatement of the angular and temporal variable in the transport equation.  The
-temperature equation is almost always solved deterministically in such particle transport
-methods. Monte carlo solution to the transport equation can introduce larege statistical
+Monte Carlo (MC) method has been used to great success for providing high-accuracy
+solutions to linear particle
+transport problems for many decades~\cite{mcnp,wollaber_review}.  The Monte Carlo method samples the underlying physics distributions to estimate the
+average behavior of a field of particles.  This can provide a highly-accurate results, in
+particular for treatement of the angular variable associated with particle transport
+problems.  The readier is directed towards
+literature~\cite{mcnp,wollaber_thesis,shultis_mc} for detailed descriptions of Monte Carlo simulation of
+particle tracking and sampling of interactions, etc.
+In terms of TRT problems, the temperature equation is almost always solved
+deterministically to produce a linear particle transport equation. Monte carlo solution to
+this transport equation can introduce large statistical
 noise into the material temperature distribution, which is undesirable when coupling to
-other physics.  To improve the efficiency of MC solutions, hybrid MC methods utilize a
+other physics, e.g., in radiation hydrodynamics.  To improve the efficiency of MC solutions, hybrid MC methods utilize a
 deterministic solution to accelerate the MC solution.  
+
+In the remainder of this section, we detail the workhorse method for MC solution to TRT
+equations, the IMC method, and then discuss related moment-based acceleration and other
+alternative solution methods.  We also discuss the residual Monte Carlo method, which is
+similar to our method.
 
 \subsection{The Implicit Monte Carlo Method}
 

@@ -190,17 +190,17 @@ which source is sampled, based on the appropriate probabilities described in the
 section.  However, when the interior source $\overline r(x,\mu)$ is sampled, we use
 importance sampling for the conditional sampling of the uniform time step.  The goal is to ensure that some
 histories reach the end of the time step.  In order to do this, we sample from a modified
-PDF such that a fraction $p_{end}$ of particles sampled from $\overline r(x,\mu)$ are born
-with $t\in(t^{end},t^{n+1})$.  We define $t^{end}=t^{n+1}-M/(c\sigma_t)$, where $M$ is the desired
+PDF such that a fraction $p_{surv}$ of particles sampled from $\overline r(x,\mu)$ are born
+with $t\in(t^{surv},t^{n+1})$.  We define $t^{surv}=t^{n+1}-M/(c\sigma_t)$, where $M$ is the desired
 number of MFP of travel the particle will undergo from the end of
 the time step (e.g., 2 or 3).  The weights of particles sampled from this
-distribution must be modified to prevent source biasing.
+distribution must be modified to prevent biasing of the solution.
 
 The new PDF to be sampled from is
 \begin{equation}
     f^*(t) = \left\{ \begin{array}{cl}
-        \frac{\ds 1 - p_{end}}{\ds t^{end} - t^n} &\quad 0 < t < t^{end} \\ 
-        \frac{\ds p_{end}}{\ds t^{n+1} - t^{end}} & \quad t^{end} \leq t < t^{n+1}  \\
+        \frac{\ds 1 - p_{surv}}{\ds t^{surv} - t^n} &\quad 0 < t < t^{surv} \\ 
+        \frac{\ds p_{surv}}{\ds t^{n+1} - t^{surv}} & \quad t^{surv} \leq t < t^{n+1}  \\
         0 & \quad \text{elsewhere}\end{array}  \right.
 \end{equation}
 The original PDF is $f(t)= 1/\Delta t$, for $t\in(t^{n},t^{n+1})$.  Thus, using the
