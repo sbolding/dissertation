@@ -184,5 +184,17 @@ path-length estimators used to estimate $\phi^{HO}_i$.  However, ECMC will prese
 balance to the order of the magnitude of the error, so the closure parameters will
 reproduce the HO moments to the accuracy of the LO solution.
 
-\subsection{
+\section{Test Problems}
+
+To investigate the accuracy and utility of the face closures we compare to the LD spatial
+closure for two simple test problems.  We are interested in the order of convergence on the interior linear solution.
+We also want to demonstrate a better consistency between the two solvers, particularly at
+coarser mesh sizes.  We also want to compare to the efficiency of LD, noting that the
+extra noise of the face tallies may make the solution approach not worth it over all.
+
+\subsection{Order of Convergence}
+
+We compute the order of convergence of the linear solution, using a lumped relation for
+the interior moments.  We use the diffusion limit test problem which has a solution that
+can be resolved relatively easily with the linear representation.  The linear
 

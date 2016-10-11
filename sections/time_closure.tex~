@@ -182,6 +182,7 @@ then the choice of $r^{n}$ or $\overline r$ is sampled.
 REWRITE: Only discuss sampling of systematic case.
 
 \subsection{Importance Sampling on Interior of Time Step}
+\label{sec:imp_sampling}
 
 As an attempt to reduce variance in the estimate of $\tilde \epsilon^{n+1}(x,\mu)$, we use
 important sampling in the time variable.  Systematic sampling is still used for
@@ -569,7 +570,7 @@ the wavefront location. IMC demonstrates substantial statistical noise in the eq
     \includegraphics[width=0.75\textwidth]{thin_temp_compare.pdf}
     \caption{\label{fig:thin_temp_compare} Comparison of radiation temperatures of IMC and
     the HOLO method for different time step sizes and numbers of batches, for optically
-thin problem. Time step size is $\Delta t =0.002$ sh}
+thin problem. }
 \end{figure}
 
 Table.~\ref{tab:fom_thin} compares computed FOM values for the census
@@ -613,7 +614,7 @@ The accuracy results for
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
+\caption{\label{tab:void_short} {Comparison of sample statistics for the
     end of time step radiation energy densities, of the last time step, for the optically
     thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
 \vspace{-0.1in}
@@ -629,7 +630,7 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
+\caption{\label{tab:void_short} {Comparison of sample statistics for the
     end of time step radiation energy densities, of the last time step, for the optically
     thin problem and $\Delta t = 1\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
 \vspace{-0.1in}
@@ -644,14 +645,83 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 \end{table}
 
 
-\section{Two Material Problem}
+\section{Marshak Wave Problem}
 
 It is important to demonstrate that the time closures are stable in a mix of optically
 thick and optically thin regions, and that the ECMC method is still efficient in such
-problems.  Simulations are performed for the two material problem defined in
-Sec.~\ref{sec:two_mat}.  We use   
+problems.  Simulations were performed for the Marshak wave problem defined in
+Sec.~\ref{sec:marshak}.  The time step size is linearly increased from $0.001$ sh to a
+maximum step of 0.01 sh over the first 10 time steps; the last time step is adjusted to
+reach the desired simulation end time.  It was found for this problem that it was
+necessary to use more than one batch for the HOLO-TC algorithm to stably converge.
+This is because in the case of a single batch particles must reach
+census to accurately estimate the next time step value.  These results were generated using the implicit-like time
+closure.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{marshak_time_cont_compare.pdf}
+    \caption{\label{fig:marshak_tc} Comparison of HOLO-TC, HOLO-BE, and IMC methods for
+the Marshak Wave problem, with $10^6$ histories per time step.}
+\end{figure}
+
+Figure~\ref{fig:marshak_tc} compares the accuracy of IMC, HOLO-TC, and HOLO-BE.  The
+solutions are plotted at $t=3$ sh, with $10^6$ histories per time step for all
+simulations. As demonstrated, there is good agreement among the results.  It is noted that
+this problem can be accurately modeled with the Backward Euler time discretization, but
+the MC time closure appears to be stable even in the mix of optically thick and thin
+regions. Table~\ref{tab:marshak_cont} compares sample statistics for IMC and
+the HOLO method with continuous time treatment and with a BE discretization.
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:marshak_cont} {Comparison of sample statistics for the
+    end of time step radiation energy densities, of the last time step, for the marshak
+    wave problem and maximum time step of $0.01$ sh.  Simulation end time is $\mathbf{t=3.0}$ sh.}}
+\vspace{-0.1in}
+\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{3}{|c|}{\FOM} \\ \hline
+hists./step   & IMC & HOLO-TC (2) & HOLO-BE (2) &  IMC   & HOLO-TC (2) & HOLO-BE (2) \\ \hline
+  300,000     & 2.25\%  & 0.11\% & 0.30\%       &  1.00  &   0.43    & 2050          \\  
+  1,000,000   & 1.27\%  & 0.06\% & 0.17\%       &  0.94  &  15.95    & 1806          \\ \hline
+\end{tabular}
+\end{table}
 
 
+The importance sampling algorithm
+detailed in Sec.~\ref{sec:imp_sampling} was investigated for this problem set up.  In
+particular, various values of $p_{surv}$ with a fixed value of 2 mfp of survival distance
+were investigated.  Sample statistics were measured for the HOLO-TC algorithm and the case of two batches of
+100,000 histories per time step, with a max time step of 0.01 sh.    The importance
+sampling algorithm was found to generally increase the variance, for this problem.  This
+is likely caused by the fact that when no importance sampling is used, in the very thick
+cells essentially no particles reach the census.  In such cells, because the ECMC
+algorithm is estimating the difference between the first batch's estimate of
+$\overline{I}(x,\mu)$ and $\tilde I^{n+1}(x,\mu)$, it just accepts $\overline I(x,\mu)$ as
+$I^{n+1}(x,\mu)$.  The initialization of the solution to the first batches estimate of
+$\overline{I}(x,\mu)$ is sufficient to produce visually accurate results because the waves
+are moving so slowly. When importance sampling is used, 
+There is likely a regime of problems where it is necessary to
+sample the census more thoroughly and the importance sampling may reduce variance.  
+
+
+
+\begin{table}[H]
+\centering
+\caption{\label{tab:void_short} {Comparison of sample statistics using importance
+    sampling on the interior of the time step, for the Marshak Wave problem.  Simulation
+    end time is $\mathbf{t=1.0}$ sh.} and max $\Delta t$ is 0.01 sh}
+\vspace{-0.1in}
+\begin{tabular}{|cc|} \hline
+        $p_{surv}$ & {\FOM} \\ \hline
+       No Bias & 1 \\ 
+       0.05    & 0.001 \\
+       0.1     & 0.005 \\
+       0.25    & 0.179  \\
+       0.5     & 0.003 \\ \hline
+\end{tabular}
+\end{table}
 
 
 
