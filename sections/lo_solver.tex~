@@ -206,6 +206,9 @@ term for the $L$ and $+$ operators becomes
         \cur{\mu}_{L,i}^+ \mom{\phi}^+_{L,i} + \cur{\mu}_{R,i}^+ \mom{\phi}_{R,i}^+
     \right]
 \end{equation}
+It is noted that this expression does not contain a cross section in the denomainator,
+such as in the variable Eddington factor approach~\cite{???}, thus this method will be
+stable in a void.
 
 
 \subsection{The Exact Radiation Moment Equations}

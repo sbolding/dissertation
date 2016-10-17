@@ -130,11 +130,13 @@ The first residual term is a constant in time with representation
     \overline r(x,\mu) = q  - \mu \pderiv{\overline I(x,\mu)}{x} - \sigma_t \overline
     I(x,\mu)
 \end{equation}
-Evaluation of the above function produces both face and volumetric sources, similar to in
-the discrete case.  To sample $x$ and $\mu$ from the face and volume distributions, the same rejection procedure
-can be used as for Eq.~\eqref{eq:???} and detailed in~\cite{jake}.    The
-time variable can then be sampled uniformly over the time step, i.e., $t=t^n + \eta \Delta
-t$, where $\eta$ is a uniform random variable with support $(0,1)$.
+Evaluation of the above function produces both face and interior volumetric components (as
+in the time discrete case), respectively labeled $\overline r_{\text{face}}$ and
+$\overline{r}_{\text{int}}$.  To sample $x$ and $\mu$ from the face and volume distributions, the
+same rejection procedure can be used as for Eq.~\eqref{eq:???} and detailed
+in~\cite{jake}.    The time variable can then be sampled uniformly over the time step,
+i.e., $t=t^n + \eta \Delta t$, where $\eta$ is a uniform random variable with support
+$(0,1)$.
 
 The second source has definition
 \begin{equation}
@@ -158,28 +160,36 @@ initialized to the value of $\overline I(x,\mu)$ before a batch of particles beg
 Then, error particles that reach the end of the time step, referred to as ``census''
 particles, contribute a standard score to the projection $\tilde I^{n+1}(x,\mu)$.
 
-With these definitions, it is thus only necessary to sample from two sources.  Using
-composite-rejection sampling~\cite{shultis_mc}, a discrete probability distribution is
-sampled to determine which source component to sample, followed by sampling of that
-component.  The algorithm is
+With these definitions, it is thus only necessary to sample from two sources.  We apply
+the systematic-sampling algorithm described in Sec.~\ref{sec:syst_sampling???}.  The
+number of histories sampled from each space-angle element is proportional to the magnitude
+of the residual within that cell, and a minimum number of histories is sampled from cells
+with a non-zero residual.  Then, composite-rejection sampling is used to sampled from the
+appropriate source.  The algorithm for each sample, from $x-\mu$ element $i$, is 
 \begin{enumerate}
-    \item Sample uniform random number $\eta$
-    \item If $\eta < \|r^{n}\|_1/(\|r^{n}\|_1 + \|r^{n+1}\|_1)$:
+    \item Sample two random numbers $\eta_1$, $\eta_2\sim U(0,1)$ 
+    \item If $\eta_1 < \|r_i^{n}\|_1/(\|r_i^{n}\|_1 + \|\overline{r_i}\|_1)$:
     \begin{itemize}
-        \item Sample from $r^{n}$ source using rejection sampling
-        \item Sample $t$ uniformly over $(t^{n},t^{n+1})$.
+        \item Sample $(x,\mu)$ from $r_i^{n}$ volumetric source using rejection sampling
+        \item Set $t=t^n$
     \end{itemize}
-\item Else:
-    \begin{itemize}
-        \item Sample from $\overline r$ source
-    \end{itemize}
+\item Else, sample from $\overline r$ source:
+    \begin{enumerate}
+        \item \label{itm:time_step}Sample $t$ uniformly over $(t^{n},t^{n+1})$.
+        \item If $\eta_2 < \|\overline{r}_{i,\text{face}}\|_1/\|\overline{r}_{i}\|_1$:
+            \begin{itemize}
+                \item Sample $(x,\mu)$ from $\overline r_{i,\text{face}}$ face source using rejection
+            \end{itemize}
+        \item Else:
+            \begin{itemize}
+                \item Sample $(x,\mu)$ from $\overline r_{i,\text{int}}$ volumetric source using rejection
+            \end{itemize}
+    \end{enumerate}
 \end{enumerate}
-All L$_1$ integrals can be analytically integrated using the same numerics as in the
-time-discrete case.  The systematic sampling algorithm, as described in
-Sec.~\ref{sec:systematic_smapling}, can be applied similarly.  However, the choice of source is only make
-locally over that space-angle element. In that case, the element is chosen systematically,
-then the choice of $r^{n}$ or $\overline r$ is sampled.
-REWRITE: Only discuss sampling of systematic case.
+where all L$_1$ norms are over element $i$.  All L$_1$ integrals can be analytically
+evaluated using the same numerics as in the
+time-discrete case because each residual component is either a volumetric or face
+component.  
 
 \subsection{Importance Sampling on Interior of Time Step}
 \label{sec:imp_sampling}
@@ -195,7 +205,8 @@ PDF such that a fraction $p_{surv}$ of particles sampled from $\overline r(x,\mu
 with $t\in(t^{surv},t^{n+1})$.  We define $t^{surv}=t^{n+1}-M/(c\sigma_t)$, where $M$ is the desired
 number of MFP of travel the particle will undergo from the end of
 the time step (e.g., 2 or 3).  The weights of particles sampled from this
-distribution must be modified to prevent biasing of the solution.
+distribution must be modified to prevent biasing of the solution.  This only affects
+Step~\ref{itm:time_step}.
 
 The new PDF to be sampled from is
 \begin{equation}
@@ -614,7 +625,7 @@ The accuracy results for
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} {Comparison of sample statistics for the
+\caption{\label{tab:fom_thin} {Comparison of sample statistics for the
     end of time step radiation energy densities, of the last time step, for the optically
     thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
 \vspace{-0.1in}
@@ -630,7 +641,7 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} {Comparison of sample statistics for the
+\caption{\label{tab:thin_short} {Comparison of sample statistics for the
     end of time step radiation energy densities, of the last time step, for the optically
     thin problem and $\Delta t = 1\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
 \vspace{-0.1in}
@@ -686,8 +697,11 @@ like time closure.
     \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
     \multicolumn{3}{|c|}{\FOM} \\ \hline
 hists./step   & IMC & HOLO-TC (2) & HOLO-BE (2) &  IMC   & HOLO-TC (2) & HOLO-BE (2) \\ \hline
-  300,000     & 2.25\%  & 0.11\% & 0.30\%       &  1.00  &   0.43    & 2050          \\  
-  1,000,000   & 1.27\%  & 0.06\% & 0.17\%       &  0.94  &  15.95    & 1806          \\ \hline
+  300,000     & 2.25\%  & 3.42\% & 0.30\%       &  1.00  &   0.43    & 2050          \\  
+  1,000,000   & 1.27\%  & 0.31\% & 0.17\%       &  0.94  &  15.95    & 1806          \\ \hline
+  \multicolumn{7}{|c|}{Diamond Like Closure} \\ \hline
+  300,000     & --  & 3.53\% & --   &  --  &   0.41   & --  \\  
+  1,000,000   & --  & 0.37\% & --   &  --  &  10.94   & --  \\ \hline
 \end{tabular}
 \end{table}
 

@@ -60,7 +60,7 @@ To eliminate the LO unknowns in a manner that produces the same moments as the L
 Galerkin method, the
 following expression can be used for the outflow from a cell
 \begin{equation}
-    \phi_{i+1/2}^+ = \phi_i^+ + \frac{\phi_x^+}{3},
+    \phi_{i+1/2}^+ = \phi_i^+ + \frac{\phi_{x,i}^+}{3},
 \end{equation}
 which in terms of the hat function moments is equivalent to $\phi_{i+1/2}^+ =
 \mom{\phi}_{R,i}^+$.  Inserting this expression into Eq.~\eqref{}, and using the same
@@ -72,7 +72,7 @@ relation preserves the average within a cell but modifies the first moment.
 
 A similar expression produces a lumped-equivalent representation on the interior of the cell:
 \begin{equation}
-    \phi_{i,R}^+ = \phi_i^+ + \frac{\phi_x^+}{3},
+    \phi_{i,R}^+ = \phi_i^+ + \frac{\phi_{x,i}^+}{3},
 \end{equation}
 The moment equations are not modified by using this expression, however the interpretation
 of the moments as a linear representation over the cell has been altered.  This allows for
