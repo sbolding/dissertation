@@ -181,7 +181,46 @@ $l$, is defined as
 \label{fig:tamu-fig5}
 \end{figure}
 
-\section{Derivation of the WLA-DSA Equations}
+
+\section{Analytic Neutronics answer for Source fixup}
+
+In this section we model a fixed-source, pure-absorber neutronics calculation where we know the
+analytic answer to test our fixup.  If we make the mesh thick enough, we can set the
+solution to be the equilibrium answer $\psi(x) = \frac{q(x)}{2\sigma_a}$. For a general
+isotropic source $Q(x)$, the 1D transport equation to be solved is
+\begin{equation}
+    \mu \pderiv{\psi}{x} + \sigma_a \psi(x,\mu) = \frac{q(x)}{2}
+\end{equation}
+with boundary condition $\psi(0,\mu)=\psi_{inc}$, $\mu>0$ and
+$\psi(x_R,\mu)=\frac{q(x_R)}{2\sigma_a}$ for
+$\mu<0$, where $x_R$ is the right boundary.  
+This first order differential equation is solved using an integration factor.
+The solution to this equation for $\mu>0$ is given by
+\begin{equation}
+    \psi(x,\mu) = \psi_{inc}e^{\frac{-\sigma_a x}{\mu}} + \int_0^x \frac{q(x')}{2\mu}
+    e^{\frac{-\sigma_a x'}{\mu}} \dd x',\quad \mu>0
+\end{equation}
+Integration of this result over the positive half range of $\mu$ gives
+\begin{equation}
+    \phi^+(x) = \psi_{inc}\E2(\sigma_a x) + \frac{1}{2}\int_0^x q(x')\E1(\sigma_a x')
+    \dd x'.
+\end{equation}
+In the simplification of a constant source, the integral reduces to
+\begin{equation}
+    \phi^+(x) = \psi_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
+    \E2(\sigma_ax)\right).
+\end{equation}
+Also, for a constant source the solution for the negative half range becomes a constant, i.e.,
+\begin{equation}
+    \phi^{-}(x) = \frac{q}{\sigma_a}
+\end{equation}
+Combination of the above two equations gives the solution for the scalar flux:
+\begin{equation}
+    \phi(x) = \psi_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
+    \E2(\sigma_ax)\right) + \frac{q}{\sigma_a}.
+\end{equation}
+
+\chapter{\uppercase{Derivation of the WLA-DSA Equations}}
 \label{sec:wla_derivation}
 
 In this section, we derive the discretized diffusion equation and LD mapping equations
@@ -192,7 +231,7 @@ and source $q_0$, i.e.,
     \mu \pderiv{I}{x} + \sigma_t I = \frac{\sigma_s}{2}\left( \phi(x) + q_0\right).
 \end{equation}
 
-\subsection{Forming a Continuous Diffusion Equation}
+\section{Forming a Continuous Diffusion Equation}
 
 First, a continuous spatial discretization of a diffusion equation is derived.  
 The mean intensity $\phi$ will ultimately be assumed continuous at faces to produce a
@@ -260,7 +299,7 @@ LD, and $\theta=1$ for lumped LD.  The diffusion equation becomes
 \end{multline}
 Summation over all cells forms a system of equations for $\phi$ at each face.  
 
-\subsubsection{Diffusion Boundary Conditions}
+\subsection{Diffusion Boundary Conditions}
 
 The upwinding in the LO system exactly satisfies the inflow boundary conditions, therefore
 a vacuum boundary condition is applied to the diffusion error equations.  The equation for the left moment
@@ -283,7 +322,7 @@ Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:dsa_bc_app} gives
 \end{equation}
 A similar expression can be derived for the right-most cell.
 
-\subsection{Mapping Solution onto LD Unknowns}
+\section{Mapping Solution onto LD Unknowns}
 
 Solution of the continuous diffusion equation will provide an approximation to $\phi$ on
 faces, denoted as $\phi_{i+1/2}^C$. We now need to map the face solution onto 
@@ -367,41 +406,4 @@ boundary cells. For simplicity, we just take $\gamma=1/2$.  The system can be so
 $\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$, which represent the mapping of
 $\phi_{i+1/2}^C$ onto the LD representation for $\phi^{\pm}(x)$.
 
-\section{Analytic Neutronics answer for Source fixup}
-
-In this section we model a fixed-source, pure-absorber neutronics calculation where we know the
-analytic answer to test our fixup.  If we make the mesh thick enough, we can set the
-solution to be the equilibrium answer $\psi(x) = \frac{q(x)}{2\sigma_a}$. For a general
-isotropic source $Q(x)$, the 1D transport equation to be solved is
-\begin{equation}
-    \mu \pderiv{\psi}{x} + \sigma_a \psi(x,\mu) = \frac{q(x)}{2}
-\end{equation}
-with boundary condition $\psi(0,\mu)=\psi_{inc}$, $\mu>0$ and
-$\psi(x_R,\mu)=\frac{q(x_R)}{2\sigma_a}$ for
-$\mu<0$, where $x_R$ is the right boundary.  
-This first order differential equation is solved using an integration factor.
-The solution to this equation for $\mu>0$ is given by
-\begin{equation}
-    \psi(x,\mu) = \psi_{inc}e^{\frac{-\sigma_a x}{\mu}} + \int_0^x \frac{q(x')}{2\mu}
-    e^{\frac{-\sigma_a x'}{\mu}} \dd x',\quad \mu>0
-\end{equation}
-Integration of this result over the positive half range of $\mu$ gives
-\begin{equation}
-    \phi^+(x) = \psi_{inc}\E2(\sigma_a x) + \frac{1}{2}\int_0^x q(x')\E1(\sigma_a x')
-    \dd x'.
-\end{equation}
-In the simplification of a constant source, the integral reduces to
-\begin{equation}
-    \phi^+(x) = \psi_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
-    \E2(\sigma_ax)\right).
-\end{equation}
-Also, for a constant source the solution for the negative half range becomes a constant, i.e.,
-\begin{equation}
-    \phi^{-}(x) = \frac{q}{\sigma_a}
-\end{equation}
-Combination of the above two equations gives the solution for the scalar flux:
-\begin{equation}
-    \phi(x) = \psi_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
-    \E2(\sigma_ax)\right) + \frac{q}{\sigma_a}.
-\end{equation}
 

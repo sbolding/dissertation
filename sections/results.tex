@@ -1,5 +1,5 @@
 
-\section{COMPUTATIONAL RESULTS}
+\chapter{\uppercase{Computational Results}}
 
 We will compare results of the HOLO method to IMC with
 a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
@@ -58,8 +58,9 @@ refinement, only performed one HOLO iteration per time
 step, and use a fixed 3 HO batches with equal number of histories per batch. A
 relative tolerance of $10^{-6}$ for the change in $\phi(x)$ and $T(x)$ was used for
 the LO newton solver for all results. Radiation energy
-distributions are plotted as an equivalent temperature given by
-$T_r=(\phi/(ac))^{0.25}$.  Cell-averaged quantities are plotted.
+distributions are plotted as an effective temperature given by
+$T_r=(\phi/(ac))^{0.25}$.  The effective temperature represents the temperature of the
+material, if the material and temperature were in equilibrium.  Cell-averaged quantities are plotted.
 Although isotropic scattering is handled by the LO solver in the algorithm described above, we have only
 considered problems with $\sigma_s = 0$ here.  Results for neutronics with isotropic
 scattering included are given in~\cite{ans_2014}.
@@ -188,7 +189,7 @@ problem, where the cold cells have a much larger cross section.
     \includegraphics[width=0.99\textwidth]{two_mat_ho_compare.pdf}
     \caption{Comparison of SMC and ECMC HO solvers. \label{compare_ho}}
 \end{subfigure}
-    \caption{\bf Comparison of radiation temperatures for two material problem. \label{twomat}}
+    \caption{ Comparison of radiation temperatures for two material problem. \label{twomat}}
 \end{figure}
 
 

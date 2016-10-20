@@ -380,7 +380,7 @@ Eq.~\eqref{eq:t_moml_ex}
   \mom{\phibar}_{L,i}^{+}
   +  \overline{\cur\mu}_{R,i}^{+}
   \mom{\phibar}_{R,i}^{+} +  \sigma_{t,i}^{n+1} h_i 
-  \mom{\overline\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phibar}_{L,i}^{+} +
+  \mom{\overline\phi}_{L,i}^{+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phibar}_{L,i}^{+} +
   \mom{\phibar}_{L,i}^{-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i},
 \end{multline}
 The other moment equations are analogously defined.  
@@ -625,7 +625,7 @@ The accuracy results for
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} {Comparison of sample statistics for the
+\caption{\label{tab:fom_thin} {Comparison of sample statistics for the
     end of time step radiation energy densities, of the last time step, for the optically
     thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
 \vspace{-0.1in}
@@ -641,7 +641,7 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} {Comparison of sample statistics for the
+\caption{\label{tab:thin_short} {Comparison of sample statistics for the
     end of time step radiation energy densities, of the last time step, for the optically
     thin problem and $\Delta t = 1\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
 \vspace{-0.1in}

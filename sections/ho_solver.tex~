@@ -19,9 +19,35 @@ this transport problem using the ECMC method.
 
 In the remainder of this chapter, an overview of
 the ECMC solution method applied in this work is given. A more detailed description of the
-algorithm for neutrnoics problems can be found in~\cite{jake}, but an overview of the algorithm, sampling, and
+algorithm for neutronics problems can be found in~\cite{jake}, but an overview of the algorithm, sampling, and
 trial space are given here.  Relevant details and modifications made to the
 algorithm for this work are given herein.
+
+\section{Implementation of LDFE $x-\mu$ Trial Space}
+
+Before defining the algorithm, the trial-space representation
+required by the algorithm is presented.  The ECMC solver uses a finite element representation in space and angle. On the
+interior of the cell with the $i$-th spatial index and $j$-th angular index, the linear representation is defined as
+\begin{equation}
+    \tilde I(x,\mu) = I_{a,ij} + \frac{2}{h_i}I_{x,ij}\left(x-x_i\right) +
+    \frac{2}{h_j}I_{\mu,ij}\left(\mu-\mu_j\right), \quad \quad (x,\mu) \in \mathcal{D}_{ij}
+\end{equation}
+The spatial cell width is $h_i$, the angular width is
+$h_j$, the center of the cell is $(x_i,\mu_j)$, and
+\begin{align}\label{app1}
+    I_{a,ij} &= \frac{1}{h_i h_j} \iint\limits_{\mathcal{D}} I(x,\mu)\, \dd x \dd \mu \\
+    I_{x,ij} &= \frac{6}{h_ih_j}\iint\limits_{\mathcal{D}} \left(\frac{x - x_i}{h_{x}}\right)
+    I(x,\mu)\, \dd x \dd \mu \\ \label{app2}
+    I_{\mu,ij} &= \frac{6}{h_ih_j}\iint\limits_{\mathcal{D}}
+     \left(\frac{\mu - \mu_j}{h_{\mu}}\right)
+    I(x,\mu)\, \dd x \dd \mu,
+\end{align}
+where $\mathcal{D}: x_\il \leq  x \leq  x_\ir \times \mu_\jl \leq \mu \leq \mu_\jr$;
+$I_a$ is the cell-averaged intensity, and $I_\mu$ and $I_x$ define the
+the first moment in $\mu$ and $x$ of the intensity, respectively. 
+Standard upwinding in space is used to
+define $I(\mu)$ on incoming faces, e.g., for a uniform mesh, $I_{ij}(x_{i-1/2},\mu) =
+I_{i-1,j}(x_{i-1/2},\mu)$, for $0 \leq \mu_{j-1/2} \leq \mu \leq  \mu_{j+1/2}$.
 
 \section{The ECMC Algorithm}
 
@@ -83,23 +109,10 @@ tallies produce an integral projection of the error onto a LDFE space-angle tria
 Volumetric flux tallies over each space-angle element are required to estimate
 $\tilde{\epsilon}^{(m)}$, as detailed in Sec.~\ref{sec:tallies}.  
 The
-space-angle moments of the error computed as $\tilde{\epsilon}^{(m)}$ can be added to the
+space-angle moments of the error, preserved with the representation $\tilde{\epsilon}^{(m)}$, can be added to the
 moments of $\tilde{I}^{n+1}(m)$ to produce a more accurate solution.  
 
-Here, we emphasize the solution $\tilde{I}^{n+1,(m)}$ represents the LDFE projection of the exact Monte Carlo
-solution to the transport problem defined by Eq.~\eqref{eq:ho_base}.  The discretization error is in $q$, i.e., the LD spatial
-representation of the emission and scattering source and the LDFE space-angle projection $\tilde I^{n}(x,\mu)$.
- The projection of the intensity is in
-general far more accurate than a standard finite element solution, e.g., a S$_N$ collocation method in angle.  In typical IMC calculations, the average
-energy deposition within a cell is computed using a standard path-length volumetric
-flux tally; the zeroth moment of the LDFE projection of ${\epsilon}$ is
-computed using an equivalent tally, preserving the zeroth moment of the true error.
-To see why the true error is being estimated, it is important to note that 
-$\B L$ in Eq.~\eqref{eq:err_eq} is the continuous operator.  The integral equation that
-the MC transport method is estimating a solution to in the $\B L^{-1}$ process can be
-shown to be the analytic inverse of the operator $\B L$~\cite{shultis_mc,cj_thesis}.  
-
-The ECMC algorithm is
+The ECMC algorithm iterates on this process as follows:
 \begin{enumerate}
     \item Initialize the guess for $\tilde{I}^{n+1,(0)}$ to $\tilde{I}^{n}$ or the
         projection of $\tilde{I}^{n+1}$ from the latest HO solve
@@ -109,36 +122,14 @@ The ECMC algorithm is
 + \tilde\epsilon^{(m)}$
 \item Repeat steps 2 -- 4 until desired convergence criteria is achieved. 
 \end{enumerate}
-The initial guess for the angular intensity $I^{n+1,(0)}$ is computed based on the previous solution
-for $\tilde{I}^{n}$. This is a critical step in the algorithm; it significantly reduces the required number of
-particles per time step because the intensity does not change drastically between time steps in
-optically-thick regions.  It is noted that the ECMC batch (steps 1-4 of the
-algorithm) results in essentially the same estimate of the solution as the residual
-formulation used in~\cite{rmc}.  The primary difference is that our method uses an LDFE trial
-space and iterates on the solution estimate by recomputing the residual.
-
 Exponential convergence is obtained if the error $\epsilon$ is reduced each batch.  With each batch, a
 better estimate of the solution is being used to compute the new residual, decreasing
 the magnitude of the MC residual source at each iteration $m$, relative to the solution
-$I^{n+1}$.  Each MC
-estimate of the moments of $\epsilon$ still has a statistical uncertainty that is
-governed by the standard $1/\sqrt{N}$ convergence rate~\cite{shultis_mc}, for a
-particular source $r^{(m)}$, where $N$ is the number of histories performed.  If the statistical estimate of the projection $\tilde\epsilon$ is not sufficiently
-accurate, then the iterations would diverge. It is noted that there is statistical correlation across batches because
-$I^{n+1,(m+1)}$ and $\epsilon^{(m)}$ are correlated through $I^{n+1,(m)}$ and the MC source $r^{(m)}$.  
-A general proof of exponential
-convergence for related adaptive MC transport methods is depicted in~\cite{spanier_mc}.  
-
-The statistical uncertainty in moments of $\epsilon^{(m)}$ can be estimated with the sample variance of
-histories.  This provides a statistical estimate of moments of the solution estimated in
-that batch, because the moments of the error are the error in whatever estimate
-$I^{n+1,(m)}$ is, which obey the central limit theorem~\cite{shultis_mc}.  However, care
-must be taken with these statistical estimates, as they do not have the usual MC
-interpretation of confidence intervals because of correlations.  Explicitly, if a
-particular simulation is repeated with different independent random number seeds, the
-sample means will not lie within the range the confidence interval that the sample
-variance estimated.  Additionally, the number of histories within each batch are likely
-too low for the central limit theorem to truly apply.  
+$I^{n+1}$.
+The initial guess for the angular intensity $I^{n+1,(0)}$ is computed based on the previous solution
+for $\tilde{I}^{n}$. This is a critical step in the algorithm; it significantly reduces the required number of
+particles per time step because the intensity does not change drastically between time steps in
+optically-thick regions.  
 
 \subsection{Adaptive Mesh Refinement}
 
@@ -157,85 +148,223 @@ converge statistically at a standard $1/\sqrt{N}$ convergence rate, the remainin
 error will be much smaller than for a standard MC simulation, producing a much more
 efficient solution method overall.
 
-
-\section{Implementation of ECMC Finite-Element Space and Tallies}
-\label{sec:tallies}
-
-The ECMC solver uses a finite element representation in space and angle. On the
-interior of the cell with the $i$-th spatial index and $j$-th angular index, the linear representation is defined as
-\begin{equation*}
-    \tilde I(x,\mu) = I_{a,ij} + \frac{2}{h_i}I_{x,ij}\left(x-x_i\right) +
-    \frac{2}{h_j}I_{\mu,ij}\left(\mu-\mu_j\right), \quad x_\il <  x < x_\ir,\quad
-     \mu_\jl \leq \mu \leq \mu_\jr
-\end{equation*}
-The spatial cell width is $h_i$, the angular width is
-$h_j$, the center of the cell is $(x_i,\mu_j)$, and
-\begin{align}\label{app1}
-    I_{a,ij} &= \frac{1}{h_i h_j} \iint\limits_{\mathcal{D}} I(x,\mu)\, \dd x \dd \mu \\
-    I_{x,ij} &= \frac{6}{h_ih_j}\iint\limits_{\mathcal{D}} \left(\frac{x - x_i}{h_{x}}\right)
-    I(x,\mu)\, \dd x \dd \mu \\ \label{app2}
-    I_{\mu,ij} &= \frac{6}{h_ih_j}\iint\limits_{\mathcal{D}}
-     \left(\frac{\mu - \mu_j}{h_{\mu}}\right)
-    I(x,\mu)\, \dd x \dd \mu,
-\end{align}
-where $\mathcal{D}: x_\il \leq  x \leq  x_\ir \times \mu_\jl \leq \mu \leq \mu_\jr$.
-%$I_a$ is the cell average intensity, and $I_\mu$ and $I_x$ define the
-%the first moment in $\mu$ and $x$ of the intensity, respectively. 
-Standard upwinding in space is used to
-define $I(\mu)$ on incoming faces. 
-
-During a MC batch, moments of the error are tallied.  The necessary moments of the error are
-defined analogously to Eq.'s~\eqref{app1}--\eqref{app2}.
-The tallies are evaluated by weighting the particle density with the appropriate
-basis function and integrating along the history path through the cell.  For the cell average, the $n$-th
-particle makes the contribution
-\begin{equation}
-   \epsilon^n_{a,ij} = \frac{1}{h_ih_j} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \dd s,
-\end{equation}
-where $s_o^n$ and $s_f^n$ are the beginning and end of the $n$-th particle track in the cell and $w(x,\mu)$ is
-the weight of the error particle in the MC simulation.  Weight is attenuated exponentially, i.e., $w(x,\mu)\propto
-\exp(-\sigma_t|x/\mu|)$.
-Substitution of the exponential attenuation of the weight produces the result
-\begin{equation}
-    \epsilon^n_{a,ij} = \frac{w(x_0,\mu)}{\sigma_t h_i h_j} \left(1 -
-    e^{-\sigma_ts^n}\right).
-\end{equation}
-Here, $w(x_0,\mu)$ is the particle weight at the start of the path and $s^n$ is the
-length of the track. The contribution of a
-particle track to $\epsilon_x$ is given by
-\begin{equation}
-    \epsilon^n_{x,ij} = \frac{w(x_0,\mu)}{h_i^2h_j \sigma_t} \left[x_0 - x_f e^{-\sigma_t s^n}
-        + \left(\frac{\mu}{\sigma_t} - x_i \right)\left(1-e^{-\sigma_t s^n}\right),
-    \right]
-\end{equation}
-where $x_0$ and $x_f$ are the beginning and ending $x$ coordinates of the $n$-th
-path.  The contribution to the first moment in $\mu$ is 
-\begin{equation}
-    \epsilon^n_{\mu,ij} = \frac{w(x_0,\mu)}{h_{j}^2h_i\sigma_t}\left(\mu -
-    \mu_j\right) \left(1 - e^{-\sigma_ts^n}\right),
-\end{equation}
-where the particle $x$-direction cosine $\mu$ does not change because it is a pure-absorber simulation.
-Finally, the moments of the error are simply the average contribution of all particles.
-
-\section{Adaptive Mesh Refinement}
-\label{app:refinement}
-This section describes the adaptive refinement strategy for the ECMC algorithm.
 Detailed equations for performing projections between meshes and computing the residual source on
 the refined meshes can be found in~\cite{jake}.  At the end of the ECMC batch,
 refinement is performed in space-angle cells based on a jump indicator.  The jump
 indicator is the magnitude of the different between $I(x,\mu)$ in adjacent cells,
 averaged over each edge.  The value of the largest jump, out of the four edges within a
 cell, is used as the
-indicator for that cell.  Based on this indicator, the 20\% of cells with the largest jump are
-refined.  Future work will explore simply using $\epsilon$ to indicate refinement,
-rather than the jump error.  The refinement of a cell is chosen to be symmetric, with each space-angle cell divided into four
-equal-sized cells.  The solution for $\tilde{I}^{n+1}(x,\mu)$ of the batch is projected onto
+indicator for that cell.  Based on this indicator, a preset fraction of cells are refined based on the indicator.
+The refinement of a cell is chosen to be symmetric, with each space-angle cell divided into four
+equal-sized cells and only one refinement level difference between adjacent cells is
+allowed, except for cells that share an edge across $\mu=0$.  The solution for $\tilde{I}^{n+1}(x,\mu)$ of the batch is projected onto
 the finer mesh for the next batch. Because the dimensionality of the sample space has
-increased, we increase the number of histories per batch s.t. the ratio of the number
+increased, we increase the number of histories per batch such that the ratio of the number
 of histories to total cells is approximately constant for all meshes.  At the end of the last HO solve in a time step,
 $\tilde{I}^{n+1}$ is projected back onto the original, coarsest mesh and stored as
 $\tilde{I}^{n}$ for the next time step.
 
+\section{Projection and Statistical Accuracy of ECMC}
+
+Here, we emphasize the solution $\tilde{I}^{n+1,(m)}$ represents the LDFE projection of the exact Monte Carlo
+solution to the transport problem defined by Eq.~\eqref{eq:ho_base}.  The discretization error is in $q$, i.e., the LD spatial
+representation of the emission and scattering source and the LDFE space-angle projection $\tilde I^{n}(x,\mu)$.
+ The projection of the intensity is in
+general far more accurate than a standard finite element solution, e.g., a S$_N$ collocation method in angle.  In typical IMC calculations, the average
+energy deposition within a cell is a projection that is computed with a standard path-length volumetric
+flux tally; the zeroth moment of the LDFE projection of ${\epsilon}$ is
+computed using an equivalent tally, preserving the zeroth moment of the true error.
+
+To see why the true error is being estimated, it is important to note that 
+$\B L$ in Eq.~\eqref{eq:err_eq} is the continuous operator.  The MC inverse $\B L^{-1}$ is
+a statistical solution method for an integral equation.  The solution to this integral
+equation can be shown to provide the analytic inverse of the operator $\B
+L$~\cite{shultis_mc,cj_thesis}.  Applying $L^{-1}$ to Eq~\eqref{eq:err_eq} and adding the
+result to the previous solution yields the desired moments of the exact solution:
+\begin{align}
+   \tilde I^{n+1,(m+1)} &= \tilde I^{n+1,(m)} + \tilde\epsilon^{(m)} \\
+                  &\simeq  \tilde I^{n+1,(m)} + \B L^{-1} \left(q - \B L \tilde I^{n+1,(m)} \right) \\
+                  &\simeq \B L^{-1} q
+\end{align}
+where the above expression is equal in the limit of an infinite number of histories,
+within a single batch.
+
+A MC batch provide a standard MC transport estimate of moments of the error.  Each batch
+estimate of the moments of $\epsilon$ has a statistical uncertainty that, with sufficient
+sampling, is governed by the standard $1/\sqrt{N}$ convergence rate~\cite{shultis_mc}, for a
+particular source $r^{(m)}$, where $N$ is the number of histories performed.  If the statistical estimate of the projection $\tilde\epsilon$ is not sufficiently
+accurate, then the iterations would diverge. It is noted that there is statistical correlation across batches because
+$I^{n+1,(m+1)}$ and $\epsilon^{(m)}$ are correlated through $I^{n+1,(m)}$ and the MC source $r^{(m)}$.  
+A general proof of exponential
+convergence for related adaptive MC transport methods is depicted in~\cite{spanier_mc}.  
+
+The statistical uncertainty in moments of $\epsilon^{(m)}$ can be estimated with the
+sample variance of histories, using the standard procedure for MC estimators~\cite{shultis_mc}.  This provides a statistical estimate of moments of the solution estimated in
+that batch that asymptotically obey the central limit theorem~\cite{shultis_mc},
+conditioned on the previous solution $I^{n+1,(m)}$.  However, care
+must be taken with these statistical estimates, as they do not have the usual MC
+interpretation of confidence intervals because of correlations.  Explicitly, if a
+particular simulation is repeated with independent sets of random numbers, the
+sample means will not (on average) correctly reproduce the confidence interval that the
+sample variance from the original simulation estimated.  Additionally, the number of histories within each batch are likely
+too low  for the central limit theorem to truly apply, as they  do not sample the full
+solution space sufficiently~\cite{mcnp}.
+
+
+\section{Continuous Weight Deposition Tallies}
+\label{sec:tallies}
+
+
+During a MC batch, moments of the error are tallied.  The necessary moments of the error are
+defined analogously to Eq.'s~\eqref{app1}--\eqref{app2}.  
+The tallies are evaluated by weighting the particle density with the appropriate
+basis function and integrating along the history path through the cell.  The LDFE
+representation results in local tallies where only particles entering a particular cell
+contribute to that cell's estimators.  For the cell average, the $n$-th
+particle that enters the cell $ij$ makes the contribution
+\begin{equation}\label{eq:avg_tal}
+   \epsilon^n_{a,ij} = \frac{1}{h_ih_j} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \dd s,
+\end{equation}
+where $s_o^n$ and $s_f^n$ are the beginning and end of the $n$-th particle track in the cell and $w(x,\mu)$ is
+the weight of the error particle in the MC simulation. 
+
+As in~\cite{park}, because we are solving a pure absorber problem with Monte Carlo, we will allow
+particles to stream without absorption to reduce statistical 
+variance in the tallies.  The weight of particles is reduced deterministically along
+the path as they stream, with no need to sample a path length. Histories are allowed to stream in this manner for 6 mean free paths (mfp)
+before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 mfp allows particles to 
+continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of mfp, so there is no need to resample at material
+interfaces.
+
+Weight is attenuated exponentially, i.e., $w(x,\mu)\propto
+\exp(-\sigma_{t}^{\text{eff}}|x/\mu|)$, where for the time-discretized equations
+$\sigma_{t}^{\text{eff}}=\sigma_t + 1/(c\Dt)$. Substitution of the weight representation into
+Eq.~\eqref{eq:avg_tal} produces the result
+\begin{equation}
+    \epsilon^n_{a,ij} = \frac{w(x_0,\mu)}{\sigma_{t}^{\text{eff}} h_i h_j} \left(1 -
+    e^{-\sigma_{t}^{\text{eff}}s^n}\right).
+\end{equation}
+Here, $w(x_0,\mu)$ is statistical weight of the particle at the start of the path and $s^n$ is the
+length of the track. The contribution of a
+particle track to $\epsilon_x$ is given by
+\begin{equation}
+    \epsilon^n_{x,ij} = \frac{w(x_0,\mu)}{h_i^2h_j \sigma_{t}^{\text{eff}}} \left[x_0 - x_f e^{-\sigma_{t}^{\text{eff}} s^n}
+        + \left(\frac{\mu}{\sigma_{t}^{\text{eff}}} - x_i \right)\left(1-e^{-\sigma_{t}^{\text{eff}} s^n}\right),
+    \right]
+\end{equation}
+where $x_0$ and $x_f$ are the beginning and ending $x$ coordinates of the $n$-th
+path.  The contribution to the first moment in $\mu$ is 
+\begin{equation}
+    \epsilon^n_{\mu,ij} = \frac{w(x_0,\mu)}{h_{j}^2h_i\sigma_{t}^{\text{eff}}}\left(\mu -
+    \mu_j\right) \left(1 - e^{-\sigma_{t}^{\text{eff}}s^n}\right),
+\end{equation}
+where the particle $x$-direction cosine $\mu$ does not change because it is a pure-absorber simulation.
+The unbiased estimators for the moments of the error, e.g., $\hat \epsilon_{a,ij}$, are simply the
+average score from all histories:
+\begin{equation}
+    \hat\epsilon_{a,ij}^{(m)}  = \frac{1}{N_b} \sum\limits_{n=1}^{N_b} \epsilon^n_{a,ij}
+\end{equation}
+where $N_b$ is the number of particle histories performed within that batch.
+
+\section{Systematic Sampling Algorithm for Residual Source}
+\label{sec:systematic_sampling}
+
+The LDFE representation given by Eq.~\eqref{}, with upwinding, is substituted into
+Eq.~\eqref{eq:resid} and evaluated to produce the residual source for each ECMC batch. 
+The MC source $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err}
+consists of both face and volumetric sources and can produce positive and
+negative weight particles.  The distribution for sampling particle coordinates, in space and angle, is based on the $L_1$
+norm over space and angle of the residual~\cite{jake}.  A particular cell volume or face 
+is sampled, and then rejection sampling~\cite{shultis_mc} is used to sample from
+the appropriate distribution on the face or interior of the space-angle cell.  If the
+residual is negative at the sampled coordinates, the weight of the particle history is negative.
+
+As another way to improve efficiency, a modified version of the systematic sampling
+method~\cite{shultis_mc} was used for determining source particle locations.  The goal is
+to effectively distribute particle histories to regions of importance, but to sample a
+sufficient number of histories in less probable regions to prevent large statistical
+noise.  However, there is no need to sample histories in regions in thermal equilibrium.
+The residual gives a good indication of where histories are most likely to contribute to
+the error, particularly in optically thick cells where particles do not transport long
+distances.   In
+the sampling algorithm the number of particle histories sampled in each space-angle cell
+is predetermined and proportional to the magnitude of the residual, including face and
+volumetric sources, within that cell.  Then, for the predetermined number of histories
+within a cell, the source location is randomly sampled according to the residual source
+distribution of that cell.  In cells where the relative magnitude of the residual is on the order of roundoff no particle histories are sampled. In these 
+regions the problem is remaining in equilibrium and the solution is known exactly.  For
+cells that are significant, but have a predetermined number of histories below some preset
+minimum $N_{min}$, the number of histories sampled in that cell is set to $N_{min}$. This
+is to limit bad statistics in low probability cells (this is more important for
+adaptively refined meshes).  In most of the simulations performed for this work
+$N_{min}=1$; this
+choice is made to keep the total number of histories per time step constant throughout
+the simulation for comparison to IMC. 
+
+The unmodified probability of a particle being born in cell $ij$ is 
+\begin{equation}
+    p_{ij} = \frac{||r^{(m)}_{ij}||}{||r^{(m)}||}
+\end{equation}
+Thus, the number of
+particles in cell $ij$ is 
+\begin{equation}
+    N_{ij} = 
+\left\{\begin{matrix}
+    \lfloor(Np_{ij})\rfloor, & Np_{ij} > N_{\min}
+    \\ 0, & \frac{p_{ij}}{1/N_c} < p_{cut}
+\\ N_{min}, & \text{else}
+\end{matrix}\right.
+\end{equation}
+where $N_{\min}$ is the minimum number of histories in significant cells, $N_c$  is the number of cells, and $p_{cut}$ is the chosen relative probability cutoff.
+To prevent biasing, this cutoff is on the order of round off.
+This is done by first filling the cells with $N_{min}$ histories and distributing the
+remaining number of histories proportional to $p_{ij}$.
+
+
+
+\section{Face Tallies and correction near $\mu=0$}
+\label{sec:face_tallies}
+
+Face-averaged estimators of the angular error are required to compute the outflow for
+estimating the spatial closure. The standard face-based
+tallies~\cite{shultis_mc,favorite_faces} are used.  Tallies are weighted by
+the appropriate basis functions to compute a linear FE projection in $\mu$ at each face.  The
+tally score, for the angular-averaged error $\epsilon_{a,i}$ is defined as
+\begin{equation}
+    \hat \epsilon_{a,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i\pm1/2,j}}
+    \frac{w_m(x_{i\pm1/2},\mu)}{h_{\mu} |\mu|},
+\end{equation}
+where $N$ is the number of histories performed and $N_{i\pm1/2,j}$ is the number of histories
+that crossed the surface $i\pm1/2$, in the $j$ angular element.   For the first
+moment, the tally is
+\begin{equation}\label{eq:face_mutally}
+    \hat \epsilon_{\mu,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}} 
+    6\left(\frac{\mu-\mu_j}{h_\mu}\right) \frac{w_m(x_{i\pm1/2},\mu)}{|\mu| h_{\mu}}.
+\end{equation}
+For positive and negative direction outflows are tallied
+on the $x_{i+1/2}$ and $x_{i-1/2}$ faces, respectively. Particles are only tallied after leaving
+a cell, and, as discussed in Section~\ref{sec:ldd_mc}, particles born on a surface do not contribute
+to the tally of that surface.
+
+Near $\mu=0$, particles can contribute large scores to the zeroth angular moment that lead to large and
+unbounded variances~\cite{favorite_faces}.  To avoid large variances, we have applied the standard fixup~\cite{mcnp,favorite_faces}.  
+For $|\mu|$ below some small value $\mu_{cut}$, 
+particles contribute the expected score over the range $(0,|\mu_{cut}|)$, based on an
+approximate, isotropic particle density. Thus, scores in this range have no variance.  Assuming
+an isotropic particle density $I_0$, the average of
+$1/\mu$, for positive $\mu$, is
+\begin{equation}
+    \overline{1/\mu} = \frac{\displaystyle \int_0^{\mu_{cut}}\frac{1}{\mu} I_0 \,\dd
+\mu}{\displaystyle \int_0^{\mu_{cut}} I_0\, \dd \mu} =
+    \frac{2}{\mu_{cut}}.
+\end{equation}
+For negative $\mu$, $\overline{1/\mu}=-2/\mu_{cut}$.
+All particles in the range $(0,|\mu_{cut}|)$ contribute the expected score by evaluating
+the tallies at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first angular moment tallies are
+well defined because there is no $\mu$ term in the tally. THIS ISNT REALLY TRUE NOW
+BECAUSE THE FINITE ELEMENT FIRST MOMENT IS FINE. Additionally, assuming an isotropic intensity over the range helps to limit
+the first moment near $\mu=0$, which the LD trial space
+generally cannot resolve anyways, as discussed in ???.
 
 \section{MC solution with LDD trial space}
 \label{sec:ldd_mc}
@@ -262,7 +391,7 @@ where
            \right).
 \end{align}
 Here, $I^{(m)}(x_{i+1/2}^+)$ and $I^{(m)}(x_{i+1/2}^-)$ are the LD solution extrapolated to $x_{i+1/2}$ from the
-$x$ cell $i$ and cell $i+1$, respectively.
+$x$ cell $i+1$ and cell $i$, respectively.
 Particles sampled from the two $\delta$-functions have the same starting location.  The
 only difference is, for positive $\mu$,  particles sampled from $\rface(x^-_{i+1/2})$ will
 contribute to the face tally at $x_{i+1/2}$; the opposite is true for negative $\mu$.
@@ -314,75 +443,6 @@ The update for $I(x_{i+1/2},\mu)$ is
 \end{align}
 This result has the peculiar effect that the estimation of the solution on a face depends only on
 the interior solution $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and not the previous face value 
-$\tilde I^{(m)}(x_{i+1/2},\mu)$. This could be used to only estimate
-face values in particular cells, at any chosen batch.
+$\tilde I^{(m)}(x_{i+1/2},\mu)$. This adds a benefit that the face values can be estimated in particular cells, at any chosen batch.
 
-
-
-
-
-
-\section{Continuous Weight Deposition Tallies}
-
-
-As in~\cite{park}, because we are solving a pure absorber problem with Monte Carlo, we will allow
-particles to stream without absorption to reduce statistical 
-variance in the tallies.  The weight of particles is reduced deterministically along
-the path as they stream, with no need to sample a path length.  Because particles are exponentially attenuated, the normalized weight is
-adjusted as $w(x,\mu) = w(x_0,\mu)\exp(-\sigma_t|(x-x_0)/\mu|)$, where $x_0$ is the starting location of the path.  The tallies account
-for the continuously changing weight, as given in Appendix~\ref{sec:tallies}. Histories are allowed to stream in this manner for 6 mean free paths (mfp))
-before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 mfp allows particles to 
-continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of mfp, so there is no need to resample at material
-interfaces.
-
-\section{Systematic Sampling Algorithm for Residual Source}
-\label{sec:systematic_sampling}
-
-This representation can directly be plugged into
-Eq.~\eqref{eq:resid} and evaluated to produce the residual source in the ECMC HO transport
-problem.  The MC source $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err}
-consists of both face and volumetric sources and can produce positive and
-negative weight particles.  The distribution for sampling particle coordinates, in space and angle, is based on the $L_1$
-norm over space and angle of the residual~\cite{jake}.  A particular cell volume or face 
-is sampled, and then rejection sampling~\cite{shultis_mc} is used to sample from
-the appropriate distribution on the face or interior of the space-angle cell.  If the
-residual is negative at the sampled coordinates, the weight of the particle history is negative.
-
-As another way to improve efficiency, a modified systematic sampling
-method~\cite{shultis_mc} was used for determining source particle locations.  The goal is
-to effectively distribute particle histories to regions of importance, but to sample a
-sufficient number of histories in less probable regions to prevent large statistical
-noise.  However, there is no need to sample histories in regions in thermal equilibrium.
-The residual gives a good indication of where histories are most likely to contribute to
-the error, particularly in optically thick cells where particles do not transport long
-distances.   In
-the sampling algorithm the number of particle histories sampled in each space-angle cell
-is predetermined and proportional to the magnitude of the residual, including face and
-volumetric sources, within that cell.  Then, for the predetermined number of histories
-within a cell, the source location is randomly sampled according to the residual source
-distribution of that cell.  In cells where the relative magnitude of the residual is on the order of roundoff no particle histories are sampled. In these 
-regions the problem is remaining in equilibrium and the solution is known exactly.  For
-cells that are significant, but have a predetermined number of histories below some preset
-minimum $N_{min}$, the number of histories sampled in that cell is set to $N_{min}$. This
-is to limit bad statistics in low probability cells (this would be important for
-adaptively refined meshes).  In the simulations performed for this work $N_{min}=1$.  This
-choice was made to keep the total number of histories per time step constant throughout
-the simulation for comparison to IMC. 
-
-%The unmodified probability of a particle being born in cell $j$ is 
-%\begin{equation}
-%p_j = \frac{||r^{(m)}_j||}{||r^{(m)}||}
-%\end{equation}
-%Thus, the number of
-%particles in cell $j$ is 
-%\begin{equation}
-%N_j = 
-%\left\{\begin{matrix}
-% \lfloor(Np_j)\rfloor, & Np_j > N_{\min}
-%\\ 0, & \frac{p_j}{1/N_c} < p_{cut}
-%\\ N_{min}, & \text{else}
-%\end{matrix}\right.
-%\end{equation}
-%where $N_{\min}$ is the minimum number of histories in significant cells, $N_c$  is the number of cells, and $p_{cut}$ is the chosen relative probability cutoff.
- %This is done by first filling the cells with $N_{min}$ histories and distributing the remaining number of histories proportional to $p_j$.
 

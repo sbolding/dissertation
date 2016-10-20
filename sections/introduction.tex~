@@ -385,9 +385,6 @@ of ECMC is non-trivial, requiring a finite-element representation of the solutio
 all phase-space variables that are being sampled with MC.  The fundamental transport of particles is the same
 as standard Monte Carlo transport codes, but the source will now contain positive and
 negative weight particles.
- A general proof of exponential convergence for related adaptive MC transport methods is
-depicted in~\cite{spanier_mc}.  
-
 
 \subsection{Similarities to Residual Monte Carlo}
 
