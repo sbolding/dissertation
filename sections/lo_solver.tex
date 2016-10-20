@@ -422,3 +422,27 @@ those cells and that Newton step is repeated.
 %$T^{n+1}$ can be determined using the same linearization (Eq.~\eqref{new_planck}) to
 %conserve the total energy.  This estimate of $T^{n+1}$ can now be used as $T^*$ to form a more
 %accurate linearization of the emission source. 
+
+\subsection{Accuracy in the Equilibrium Diffusion Limit}
+\label{sec:edl_overview}
+
+A critical aspect for any numerical solution to the thermal radiative transfer equations
+is preservation of the asymptotic, equilibrium diffusion limit (EDL)~\cite{morel_ldtrt,larsen_edl}.
+In the EDL,  $\sigma_a$ becomes increasingly large and $\rho c_v$ becomes increasingly
+small.  In EDL, the solution approaches $I(x,\mu)=\frac{1}{2}acT^4$, where the
+distribution of the solution is well described by the material temperature.  In this
+limit, spatial mesh cells that resolve the spatial variation of the solution are still many
+MFPs wide; the solution typically varies relatively smoothly in space.
+Discretization schemes that do not preserve the EDL will produce solutions
+that have inaccuracies that are much greater than expected from truncation error, unless
+the mesh size is on the order of a MFP~\cite{morel_ldtrt}.  As this regime is typical in
+applications of TRT, discretizations must preserve this limit to prevent unnecessesarily
+fine mesh resolutions.
+
+In out standard LO scheme, the
+LO equations use an LDFE representation for the temperature and the uld preserve the equilibrium diffusion limit.  In this limit, the MC HO
+solution will estimate angular consistency terms associated with an isotropic intensity,
+based on a spatially LD emission source.  This produces equations that are equivalent to
+the S$_2$ equations, but with quadrature points defined by $\pm 1/2$.  Because the spatial closure produces equations that are equivalent to an LDFE
+solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
+limit, which is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.

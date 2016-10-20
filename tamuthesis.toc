@@ -4,115 +4,94 @@
 \contentsline {chapter}{DEDICATION}{iii}{chapter*.2}
 \contentsline {chapter}{ACKNOWLEDGEMENTS}{iv}{chapter*.3}
 \contentsline {chapter}{TABLE OF CONTENTS}{v}{section*.4}
-\contentsline {chapter}{LIST OF FIGURES}{ix}{section*.5}
-\contentsline {chapter}{LIST OF TABLES}{xi}{section*.6}
+\contentsline {chapter}{LIST OF FIGURES}{viii}{section*.5}
+\contentsline {chapter}{LIST OF TABLES}{x}{section*.6}
 \contentsline {chapter}{\numberline {1}\uppercase {Introduction}}{1}{chapter.1}
 \vskip +10pt
 \contentsline {section}{\numberline {1.1}Thermal Radiative Transfer Background}{2}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Derivation of 1D Grey Model}{3}{subsection.1.1.1}
-\contentsline {section}{\numberline {1.2}Previous Work}{3}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}The Implicit Monte Carlo Method}{4}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Previous work on moment-based acceleration methods}{7}{subsection.1.2.2}
-\contentsline {section}{\numberline {1.3}Overview of the HOLO Algorithm}{8}{section.1.3}
-\contentsline {subsection}{\numberline {1.3.1}Similarities to Residual Monte Carlo}{10}{subsection.1.3.1}
-\contentsline {section}{\numberline {1.4}Dissertation Layout}{11}{section.1.4}
-\contentsline {chapter}{\numberline {2}\uppercase {Overview of the HOLO Algorithm}}{12}{chapter.2}
-\contentsline {chapter}{\numberline {3}\uppercase {The Moment-Based Low-Order Equations}}{16}{chapter.3}
+\contentsline {subsection}{\numberline {1.1.1}The Equations of Thermal Radiative Transfer}{3}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Derivation of 1D Grey Model}{5}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Previous Work}{6}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}The Implicit Monte Carlo Method}{6}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Previous work on moment-based acceleration methods}{9}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Overview of the HOLO Algorithm}{11}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Similarities to Residual Monte Carlo}{12}{subsection.1.3.1}
+\contentsline {chapter}{\numberline {2}\uppercase {Overview of the HOLO Algorithm}}{14}{chapter.2}
+\contentsline {chapter}{\numberline {3}\uppercase {The Moment-Based Low-Order Equations}}{18}{chapter.3}
 \vskip +10pt
-\contentsline {section}{\numberline {3.1}Forming the Space-Angle Moment Equations}{16}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}LO Spatial mesh and Finite-Element Spatial Moments}{16}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Definition of Angular Moments}{18}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Space-Angle Moments of the Radiation Transport Equation}{19}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}The Angular Consistency Terms}{20}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}The Exact Radiation Moment Equations}{21}{subsection.3.1.5}
-\contentsline {subsection}{\numberline {3.1.6}Material Energy Equations}{22}{subsection.3.1.6}
-\contentsline {section}{\numberline {3.2}Closing the LO System with Information from the HO Solution}{23}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Angular Closure}{24}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}Spatial Closure}{24}{subsection.3.2.2}
-\contentsline {subsubsection}{\numberline {3.2.2.1}Fixups to LD Solution}{25}{subsubsection.3.2.2.1}
-\contentsline {subsection}{\numberline {3.2.3}Newton's Method for LO Equations}{26}{subsection.3.2.3}
-\contentsline {chapter}{\numberline {4}\uppercase {The High-Order Exponentially-Convergent Monte Carlo Solver}}{27}{chapter.4}
+\contentsline {section}{\numberline {3.1}Forming the Space-Angle Moment Equations}{18}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}LO Spatial mesh and Finite-Element Spatial Moments}{18}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Definition of Angular Moments}{20}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Space-Angle Moments of the Radiation Transport Equation}{21}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}The Angular Consistency Terms}{22}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}The Exact Radiation Moment Equations}{23}{subsection.3.1.5}
+\contentsline {subsection}{\numberline {3.1.6}Material Energy Equations}{24}{subsection.3.1.6}
+\contentsline {section}{\numberline {3.2}Closing the LO System with Information from the HO Solution}{25}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Angular Closure}{26}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Spatial Closure}{26}{subsection.3.2.2}
+\contentsline {subsubsection}{\numberline {3.2.2.1}Fixups to LD Solution}{27}{subsubsection.3.2.2.1}
+\contentsline {subsection}{\numberline {3.2.3}Newton's Method for LO Equations}{28}{subsection.3.2.3}
+\contentsline {chapter}{\numberline {4}\uppercase {The High-Order Exponentially-Convergent Monte Carlo Solver}}{29}{chapter.4}
 \vskip +10pt
-\contentsline {section}{\numberline {4.1}The ECMC High Order Solver}{27}{section.4.1}
-\contentsline {section}{\numberline {4.2}MC solution with LDD trial space}{31}{section.4.2}
-\contentsline {section}{\numberline {4.3}Implementation of ECMC finite-element space, tallies, and residual sampling}{34}{section.4.3}
-\contentsline {section}{\numberline {4.4}Adaptive Mesh Refinement}{36}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Continuous Weight Deposition Tallies}{36}{subsection.4.4.1}
-\contentsline {subsection}{\numberline {4.4.2}Modified Systematic Sampling Algorithm}{37}{subsection.4.4.2}
-\contentsline {chapter}{\numberline {5}\uppercase {The Moment-Based Low-Order Equations}}{39}{chapter.5}
+\contentsline {section}{\numberline {4.1}The ECMC High Order Solver}{29}{section.4.1}
+\contentsline {section}{\numberline {4.2}MC solution with LDD trial space}{33}{section.4.2}
+\contentsline {section}{\numberline {4.3}Implementation of ECMC finite-element space, tallies, and residual sampling}{36}{section.4.3}
+\contentsline {section}{\numberline {4.4}Adaptive Mesh Refinement}{38}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Continuous Weight Deposition Tallies}{38}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.2}Modified Systematic Sampling Algorithm}{39}{subsection.4.4.2}
+\contentsline {section}{\numberline {4.5}COMPUTATIONAL RESULTS}{41}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}Marshak Wave}{42}{subsection.4.5.1}
+\contentsline {subsection}{\numberline {4.5.2}Two Material Problem}{44}{subsection.4.5.2}
+\contentsline {subsection}{\numberline {4.5.3}Performance comparison of IMC and HOLO-ECMC}{46}{subsection.4.5.3}
+\contentsline {subsection}{\numberline {4.5.4}Comparison of different HO Solvers}{48}{subsection.4.5.4}
+\contentsline {subsection}{\numberline {4.5.5}Pre-heated Marshak wave problem and adaptive mesh refinement}{50}{subsection.4.5.5}
+\contentsline {section}{\numberline {4.6}Accuracy in the Equilibrium Diffusion Limit}{51}{section.4.6}
+\contentsline {section}{\numberline {4.7}CONCLUSIONS}{52}{section.4.7}
+\contentsline {chapter}{\numberline {5}\uppercase {Accelerated Iterative Solution to the LO Equations}}{58}{chapter.5}
 \vskip +10pt
-\contentsline {section}{\numberline {5.1}Forming the Space-Angle Moment Equations}{39}{section.5.1}
-\contentsline {subsection}{\numberline {5.1.1}LO Spatial mesh and Finite-Element Spatial Moments}{39}{subsection.5.1.1}
-\contentsline {subsection}{\numberline {5.1.2}Definition of Angular Moments}{41}{subsection.5.1.2}
-\contentsline {subsection}{\numberline {5.1.3}Space-Angle Moments of the Radiation Transport Equation}{42}{subsection.5.1.3}
-\contentsline {subsection}{\numberline {5.1.4}The Angular Consistency Terms}{43}{subsection.5.1.4}
-\contentsline {subsection}{\numberline {5.1.5}The Exact Radiation Moment Equations}{44}{subsection.5.1.5}
-\contentsline {subsection}{\numberline {5.1.6}Material Energy Equations}{45}{subsection.5.1.6}
-\contentsline {section}{\numberline {5.2}Closing the LO System with Information from the HO Solution}{46}{section.5.2}
-\contentsline {subsection}{\numberline {5.2.1}Angular Closure}{47}{subsection.5.2.1}
-\contentsline {subsection}{\numberline {5.2.2}Spatial Closure}{47}{subsection.5.2.2}
-\contentsline {subsubsection}{\numberline {5.2.2.1}Fixups to LD Solution}{48}{subsubsection.5.2.2.1}
-\contentsline {subsection}{\numberline {5.2.3}Newton's Method for LO Equations}{49}{subsection.5.2.3}
-\contentsline {chapter}{\numberline {6}\uppercase {Accelerated Iterative Solution to the LO Equations}}{50}{chapter.6}
+\contentsline {section}{\numberline {5.1}Source Iteration Solution to the Linearized LO Equations}{59}{section.5.1}
+\contentsline {section}{\numberline {5.2}Linear Diffusion Synthetic Acceleration}{60}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}The WLA-DSA Accelerated Source Iteration Algorithm}{63}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}GMRES Solution to the LO Equations}{64}{section.5.3}
+\contentsline {section}{\numberline {5.4}Computational Results}{65}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}Results for LD Spatial Discretization}{66}{subsection.5.4.1}
+\contentsline {section}{\numberline {5.5}Analytic Neutronics answer for Source fixup}{68}{section.5.5}
+\contentsline {section}{\numberline {5.6}Estimating the Spatial Closure from the HO Solution}{69}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}Motivation}{69}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {5.6.2}Choice of Spatial Closure}{71}{subsection.5.6.2}
+\contentsline {subsection}{\numberline {5.6.3}The Doubly-Discontinuous Trial Space}{73}{subsection.5.6.3}
+\contentsline {section}{\numberline {5.7}Test Problems}{74}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Order of Convergence}{75}{subsection.5.7.1}
+\contentsline {section}{\numberline {5.8}Face Tallies and correction near $\mu =0$}{75}{section.5.8}
+\contentsline {section}{\numberline {5.9}Preservation of the Discrete Maximum Principle}{76}{section.5.9}
+\contentsline {chapter}{\numberline {6}Resolving Negative Intensities in Optically Thick Cells}{81}{chapter.6}
 \vskip +10pt
-\contentsline {section}{\numberline {6.1}Source Iteration Solution to the Linearized LO Equations}{51}{section.6.1}
-\contentsline {section}{\numberline {6.2}Linear Diffusion Synthetic Acceleration}{52}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}The WLA-DSA Accelerated Source Iteration Algorithm}{55}{subsection.6.2.1}
-\contentsline {section}{\numberline {6.3}GMRES Solution to the LO Equations}{56}{section.6.3}
-\contentsline {section}{\numberline {6.4}Computational Results}{57}{section.6.4}
-\contentsline {subsection}{\numberline {6.4.1}Results for LD Spatial Discretization}{58}{subsection.6.4.1}
-\contentsline {chapter}{\numberline {7}\uppercase {The High-Order Exponentially-Convergent Monte Carlo Solver}}{60}{chapter.7}
+\contentsline {section}{\numberline {6.1}Fixup for Negative Intensities in the LO Equations}{81}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Fixup for the Linear Doubly-Discontinuous Trial Space}{83}{subsection.6.1.1}
+\contentsline {section}{\numberline {6.2}Artificial Source Method for Negativities in the HO Intensity}{83}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Calculating a Positive LDFE Representation}{84}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Adding an Artificial Source}{85}{subsection.6.2.2}
+\contentsline {chapter}{\numberline {7} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{87}{chapter.7}
 \vskip +10pt
-\contentsline {section}{\numberline {7.1}The ECMC High Order Solver}{60}{section.7.1}
-\contentsline {section}{\numberline {7.2}MC solution with LDD trial space}{64}{section.7.2}
-\contentsline {section}{\numberline {7.3}Implementation of ECMC finite-element space, tallies, and residual sampling}{67}{section.7.3}
-\contentsline {section}{\numberline {7.4}Adaptive Mesh Refinement}{69}{section.7.4}
-\contentsline {subsection}{\numberline {7.4.1}Continuous Weight Deposition Tallies}{69}{subsection.7.4.1}
-\contentsline {subsection}{\numberline {7.4.2}Modified Systematic Sampling Algorithm}{70}{subsection.7.4.2}
-\contentsline {section}{\numberline {7.5}COMPUTATIONAL RESULTS}{71}{section.7.5}
-\contentsline {subsection}{\numberline {7.5.1}Marshak Wave}{72}{subsection.7.5.1}
-\contentsline {subsection}{\numberline {7.5.2}Two Material Problem}{74}{subsection.7.5.2}
-\contentsline {subsection}{\numberline {7.5.3}Performance comparison of IMC and HOLO-ECMC}{76}{subsection.7.5.3}
-\contentsline {subsection}{\numberline {7.5.4}Comparison of different HO Solvers}{78}{subsection.7.5.4}
-\contentsline {subsection}{\numberline {7.5.5}Pre-heated Marshak wave problem and adaptive mesh refinement}{80}{subsection.7.5.5}
-\contentsline {section}{\numberline {7.6}Accuracy in the Equilibrium Diffusion Limit}{81}{section.7.6}
-\contentsline {section}{\numberline {7.7}CONCLUSIONS}{82}{section.7.7}
-\contentsline {chapter}{\numberline {8}\uppercase {Accelerated Iterative Solution to the LO Equations}}{88}{chapter.8}
-\vskip +10pt
-\contentsline {section}{\numberline {8.1}Source Iteration Solution to the Linearized LO Equations}{89}{section.8.1}
-\contentsline {section}{\numberline {8.2}Linear Diffusion Synthetic Acceleration}{90}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}The WLA-DSA Accelerated Source Iteration Algorithm}{93}{subsection.8.2.1}
-\contentsline {section}{\numberline {8.3}GMRES Solution to the LO Equations}{94}{section.8.3}
-\contentsline {section}{\numberline {8.4}Computational Results}{95}{section.8.4}
-\contentsline {subsection}{\numberline {8.4.1}Results for LD Spatial Discretization}{96}{subsection.8.4.1}
-\contentsline {section}{\numberline {8.5}Analytic Neutronics answer for Source fixup}{96}{section.8.5}
-\contentsline {section}{\numberline {8.6}Estimating the Spatial Closure from the HO Solution}{99}{section.8.6}
-\contentsline {subsection}{\numberline {8.6.1}Motivation}{99}{subsection.8.6.1}
-\contentsline {subsection}{\numberline {8.6.2}Choice of Spatial Closure}{100}{subsection.8.6.2}
-\contentsline {subsection}{\numberline {8.6.3}The Doubly-Discontinuous Trial Space}{102}{subsection.8.6.3}
-\contentsline {section}{\numberline {8.7}Face Tallies and correction near $\mu =0$}{104}{section.8.7}
-\contentsline {section}{\numberline {8.8}Preservation of the Discrete Maximum Principle}{105}{section.8.8}
-\contentsline {chapter}{\numberline {9} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{111}{chapter.9}
-\vskip +10pt
-\contentsline {section}{\numberline {9.1}Modifications to the HO equations}{111}{section.9.1}
-\contentsline {subsection}{\numberline {9.1.1}The Doubly-Discontinuous Trial Space in Time}{112}{subsection.9.1.1}
-\contentsline {subsection}{\numberline {9.1.2}Residual Source Definition and Sampling}{114}{subsection.9.1.2}
-\contentsline {subsection}{\numberline {9.1.3}Importance Sampling on Interior of Time Step}{116}{subsection.9.1.3}
-\contentsline {subsection}{\numberline {9.1.4}Tracking and Tallying in Time}{117}{subsection.9.1.4}
-\contentsline {section}{\numberline {9.2}Closing the LO Equations in Time}{119}{section.9.2}
-\contentsline {subsection}{\numberline {9.2.1}Derivation of Time-Averaged Moment Equations}{120}{subsection.9.2.1}
-\contentsline {subsection}{\numberline {9.2.2}Parametric Time Closure}{121}{subsection.9.2.2}
-\contentsline {section}{\numberline {9.3}Computational Results}{122}{section.9.3}
-\contentsline {subsection}{\numberline {9.3.1}Near-Void Problem}{122}{subsection.9.3.1}
-\contentsline {section}{\numberline {9.4}Optically Thin Problem}{127}{section.9.4}
-\contentsline {section}{\numberline {9.5}Mixed Optical Thickness Problem}{127}{section.9.5}
-\contentsline {chapter}{REFERENCES}{128}{section*.36}
+\contentsline {section}{\numberline {7.1}Modifications to the HO equations}{87}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}The Doubly-Discontinuous Trial Space in Time}{88}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Residual Source Definition and Sampling}{90}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {7.1.3}Importance Sampling on Interior of Time Step}{92}{subsection.7.1.3}
+\contentsline {subsection}{\numberline {7.1.4}Tracking and Tallying in Time}{93}{subsection.7.1.4}
+\contentsline {section}{\numberline {7.2}Closing the LO Equations in Time}{95}{section.7.2}
+\contentsline {subsection}{\numberline {7.2.1}Derivation of Time-Averaged Moment Equations}{96}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Parametric Time Closure}{97}{subsection.7.2.2}
+\contentsline {section}{\numberline {7.3}Computational Results}{98}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Near-Void Problem}{98}{subsection.7.3.1}
+\contentsline {section}{\numberline {7.4}Optically Thin Problem}{104}{section.7.4}
+\contentsline {section}{\numberline {7.5}Marshak Wave Problem}{107}{section.7.5}
+\contentsline {chapter}{REFERENCES}{111}{section*.40}
 \renewcommand {\cftchapaftersnum }{}
-\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{133}{APPENDIX.a.A}
+\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{115}{APPENDIX.a.A}
 \vskip +10pt
-\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{133}{section.a.A.1}
-\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{135}{section.a.A.2}
-\contentsline {section}{\numberline {A.3}Derivation of the WLA-DSA Equations}{138}{section.a.A.3}
-\contentsline {subsection}{\numberline {A.3.1}Forming a Continuous Diffusion Equation}{139}{subsection.a.A.3.1}
-\contentsline {subsubsection}{\numberline {A.3.1.1}Diffusion Boundary Conditions}{140}{subsubsection.a.A.3.1.1}
-\contentsline {subsection}{\numberline {A.3.2}Mapping Solution onto LD Unknowns}{141}{subsection.a.A.3.2}
+\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{115}{section.a.A.1}
+\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{117}{section.a.A.2}
+\contentsline {section}{\numberline {A.3}Derivation of the WLA-DSA Equations}{120}{section.a.A.3}
+\contentsline {subsection}{\numberline {A.3.1}Forming a Continuous Diffusion Equation}{121}{subsection.a.A.3.1}
+\contentsline {subsubsection}{\numberline {A.3.1.1}Diffusion Boundary Conditions}{122}{subsubsection.a.A.3.1.1}
+\contentsline {subsection}{\numberline {A.3.2}Mapping Solution onto LD Unknowns}{123}{subsection.a.A.3.2}

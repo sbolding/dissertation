@@ -31,7 +31,7 @@ where $N_c$ is the number of spatial cells.
 
 We will also form a figure of merit (FOM) to demonstrate how statistical accuracy
 scales with the number of histories performed.  Our FOM is defined as
-\begin{equation}
+\begin{equation}\label{eq:fom}
     \FOM = \frac{1}{N_{\text{tot}}\ss^2}
 \end{equation}
 where $N_{\text{tot}}$ is the total number of histories performed over the simulation.
@@ -383,16 +383,9 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 
 \section{Accuracy in the Equilibrium Diffusion Limit}
 
-A critical aspect for any numerical solution to the thermal radiative transfer equations
-is preservation of the equilibrium diffusion limit (EDL). We expect the LD representation in the
-LO equations to preserve the equilibrium diffusion limit.  In this limit, the MC HO
-solution will estimate angular consistency terms associated with an isotropic intensity,
-based on a spatially LD emission source.   Because the spatial closure produces equations that are equivalent to an LDFE
-solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
-limit~\cite{morel_ldtrt,densmore_edl}.
-
+As discussed in Sec.~\ref{sec:edl_overview}, we must ensure our method preserves the EDL.
 We test a problem in the EDL by adjusting material properties to produce a strongly
-diffusive region. The EDL problem has constant cross sections with $\sigma_a=1000$
+diffusive domain. The EDL problem has constant cross sections with $\sigma_a=1000$
 cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ Jk keV$^{-1}$
 cm$^{-3}$.  The domain width is 0.1 cm and 4 $\mu$ cells and 3 batches of 4,000 histories
 are used for the single HO solve in all calculations. The simulation end time is 5 $sh$

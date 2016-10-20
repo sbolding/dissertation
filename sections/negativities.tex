@@ -84,6 +84,15 @@ Newton solve must then be resolved.
 
 \section{Artificial Source Method for Negativities in the HO Intensity}
 
+For the HO solver, in cells near the radiation wavefront, the LDFE trial space results in
+negative values in $\tilde{I}^{n+1}(x,\mu)$, similar to the LO solver.  Because the residual formulation in ECMC allows for negative weight
+particles to occur, currently we do not treat these cells specially.  We detect if
+the consistency terms lie in the appropriate half space at the end of the HO solve,
+an indication that the intensity was negative within that cell.  If the terms are non-physical, then
+they are replaced with the corresponding S$_2$-equivalent value. In general,
+in such cells where the trial space cannot accurately represent the solution, error stagnation will
+rapidly occur. 
+
 The HO solver requires a different fixup approach for negative values of the intensity.
 At the end of any particular batch, a LDFE projection of the intensity $\tilde I(x,\mu)$
 has been determined.  This projection is based on a statistical estimate of the moments of the
@@ -97,7 +106,7 @@ rapid error stagnation.  Additionally, the next MC batch based on the residual s
 $\tilde I_{\pos}$ will tend to produce negative cell averages in down stream cells.
 
 Thus, we have devised
-a method to modify the transport equation such that $\tilde I_{\pos}$ will satisify the
+a method to modify the transport equation such that $\tilde I_{\pos}$ will satisfy the
 residual equation more accurately.  We do this in such a manner that the
 modified source will lead to the solution converging towards a solution with the same
 zeroth moment, but with a first moment in $x$ and $\mu$ that are modified.  This does not

@@ -27,9 +27,10 @@ that improve on current computational methods for solving TRT
 problems.  In particular, our HOLO method utilizes an exponentially-convergent Monte
 Carlo (ECMC) algorithm to solve the associated radiation transport equation.  The ECMC
 method significantly decreases the statistical noise associated with MC calculations to
-TRT problems.  In addition, we use a nonlinear low-order (LO) system to efficiently 
-resolve nonlinear dependencies in the system, while preserving the accuracy of the ECMC
-treatment of particle transport.  The HOLO algorithm has
+TRT problems.  In addition, we use a nonlinear low-order (LO) system that allows for the
+nonlinear dependencies in the system to be efficiently resolves.  The LO system is formed
+such that it preserves the accuracy of the ECMC
+treatment of particle transport, upon convergence of the outer iterations.  The HOLO algorithm has
 been developed and implemented for a simplified model with one spatial dimension and 
 frequency-integrated equations.
 
@@ -67,8 +68,9 @@ solution method and other related research.
 \section{Thermal Radiative Transfer Background}
 
 Thermal radiative transfer (TRT) physics are used to model the time-dependent coupling between a photon
-radiation field and a high-temperature material, which is typically a plasma.  The desired unknowns are the spatial
-energy-density distributions of the radiation and material, as a function of time.  As photons transport through
+radiation field and a high-temperature material, which is typically a plasma.  The desired
+transient unknowns are the spatial
+energy-density distributions of the radiation and material.  As photons transport through
 the medium, they interact through scattering and absorption by the material, depositing
 momentum and energy.  The
 material is heated through absorption of photons and is cooled by emission of thermal
@@ -102,7 +104,7 @@ radiation unknown is the angular intensity $I \phsp$ (Jk cm$^{-2}$ s$^{-1}$
 Hz$^{-1}$ str$^{-1}$), which represents a distribution
 function of energy
 contained in the radiation field, per unit of
-phase space.  We use the energy unit Jerks, where 1 $\text{Jk}= 10^9$ J. The intensity can be related to the volumetric density of photons
+phase space.  We use the energy unit jerks (Jk), where 1 $\text{Jk}= 10^9$ J. The intensity can be related to the volumetric density of photons
 $N \phsp$ (photons cm$^{-3}$ Hz$^{-1}$ str$^{-1}$) via the relation  $I\phsp =
 c h \nu N \phsp$, where $c$ is the speed of light (cm sh$^{-1}$) and $h$ is Planck's constant. The
 angular intensity is a useful quantity because it is directly related to reaction rates.
@@ -114,10 +116,14 @@ by~\cite{mihalas,lewis,wollaber_thesis}
      (\mathbf{r},\nu) I \phsp = \\ \int \limits_0^\infty \int \limits_{4\pi}
      \sigma_s(\mathbf{\Omega'} \ra \mathbf{\Omega},\nu'\ra\nu)
      \phi(\mathbf{r}',\nu',t) \dd \Omega' \dd \nu' +
-     \sigma_a(\mathbf{r},\nu)B_\nu(\mathbf{r},\nu,T).
+     \sigma_a(\mathbf{r},\nu)B_\nu(\mathbf{r},\nu,T),
  \end{multline}
-Here, $B_\nu(\mathbf{r},\nu,T)$ is the black-body Planckian emission
-spectrum~\cite{mihalas} at temperature $T$ (keV); the macroscopic scattering, absorption, and total cross sections are $\sigma_s$,
+where
+\begin{equation}
+    B_\nu(\mathbf{r},\nu,T) = \frac{2 h \nu^3}{c^2} \frac{1}{e^{h\nu/T} - 1}
+\end{equation}
+is the black-body Planckian emission
+spectrum at temperature $T$ (keV)~\cite{mihalas}, and the macroscopic scattering, absorption, and total cross sections are $\sigma_s$,
 $\sigma_a$, and $\sigma_t$, respectively. 
  The scattering source includes
 integration over all possible incoming angles $\mathbf\Omega'$ in differential
@@ -148,15 +154,16 @@ proportional to $T^4$ after integration over frequency.
 
 At this point, we introduce the simplified equations that will be used in the remainder of
 this work.  First, the solutions are assumed to only vary in one spatial dimension using
-Cartesian coordinates, which is referred to as the 1D slab geometry.   The
+Cartesian coordinates, referred to as the 1D slab geometry~\cite{lewis}.   The
 position is described by a single coordinate $x$ and the direction of particle travel
-is described by $\mu$, the cosine of the angle between the particle direction and the
+is described by $\mu$, which is the cosine of the angle between the particle direction and the
 positive $x$ axis. The angular
 intensity is assumed symmetric in angle azimuthally about the $x$ axis.  
-We also assume that the material properties are independent of photon frequency. To
-simplify the equations, the equations are integrated over all frequencies.    Finally, we assume physical scattering
+To
+simplify the equations, the equations are integrated over all frequencies.  We also assume that the material properties are independent of photon frequency, or
+equivalently we know the weighting spectrum of the frequency integrated cross sections.   Finally, we assume physical scattering
 is isotropic in angle. With these assumptions, integration over the azimuthal angle and
-all frequencies ultimately yields the 1D grey equations~\cite{wollaber_thesis,mihalas}
+all frequencies, with algebraic manipulation, ultimately yields the 1D grey equations~\cite{wollaber_thesis,mihalas}
 \begin{align}\label{eq:rad_cont}
     \frac{1}{c}\pderiv{I(x,\mu,t)}{t} + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t
     I(x,\mu,t)
@@ -182,7 +189,9 @@ and~\eqref{eq:mat_cont}.
 This sections describes related work on Monte Carlo solution to the TRT equations.  The
 Monte Carlo (MC) method has been used to great success for providing high-accuracy
 solutions to linear particle
-transport problems for many decades~\cite{mcnp,wollaber_review}.  The Monte Carlo method samples the underlying physics distributions to estimate the
+transport problems described by the linear Boltzmann transport equation for many decades.  The application of MC to the linear Boltzmann
+equation is well documented in
+literature~\cite{mcnp,shultis_mc,lewis}.  The Monte Carlo method samples the underlying physics distributions to estimate the
 average behavior of a field of particles.  This can provide a highly-accurate results, in
 particular for treatement of the angular variable associated with particle transport
 problems.  The readier is directed towards
@@ -376,6 +385,9 @@ of ECMC is non-trivial, requiring a finite-element representation of the solutio
 all phase-space variables that are being sampled with MC.  The fundamental transport of particles is the same
 as standard Monte Carlo transport codes, but the source will now contain positive and
 negative weight particles.
+ A general proof of exponential convergence for related adaptive MC transport methods is
+depicted in~\cite{spanier_mc}.  
+
 
 \subsection{Similarities to Residual Monte Carlo}
 

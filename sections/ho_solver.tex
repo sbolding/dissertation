@@ -1,7 +1,5 @@
 
-\chapter{\uppercase {The High-Order Exponentially-Convergent Monte Carlo Solver}}
-
-\section{The ECMC High Order Solver}
+\chapter{\uppercase {The Exponentially-Convergent Monte Carlo High-Order Solver}}
 
 The transport equation to be solved by the HO solver is
 \begin{equation}\label{eq:ho_base}
@@ -10,62 +8,83 @@ I^{n+1,k+1/2}
 = \frac{\sigma_s}{2} \phi^{n+1,k} +\frac{1}{2} \left(\sigma_a^k a c T^4
 \right)^{n+1,k} + \frac{\tilde I^n}{c\Delta t} 
 \end{equation}
-where the superscript $k$ represents the outer HOLO iteration index.  Material property indices will be
-suppressed from now on.  Here, $k+1/2$ denotes the
-ECMC solution within outer HOLO iteration $k$, whereas $k$ and $k+1$ represent successive LO
-solves. The sources at $k$ in Eq.~\eqref{eq:ho_base} are estimated by the previous LO solution. Cross sections are
+where the superscript $k$ represents the outer HOLO iteration index.  Here, $k+1/2$ denotes the
+HO solve within outer HOLO iteration $k$, whereas $k$ and $k+1$ represent successive LO
+solves. The sources at $k$ in Eq.~\eqref{eq:ho_base} are estimated by the previous LO
+solution. Temperature-dependent cross sections are
 evaluated at $T^{n+1,k}$.  As all sources on the right side of the equation are known,
-this defines a fixed-source, pure absorber transport problem.  We will solve
-this equation using ECMC.  A more detailed description of the
-ECMC method can be found in~\cite{jake}, but a brief overview is given here.  A general proof of exponential convergence for related adaptive MC transport methods with a different formulation is depicted in~\cite{spanier_mc}.
+this defines a fixed-source, pure absorber transport problem.  The above transport equation has
+the same form as a steady-state neutronics problem.  We will solve
+this transport problem using the ECMC method. 
 
- In operator notation, Eq.~\eqref{eq:ho_base} can be written as
+In the remainder of this chapter, an overview of
+the ECMC solution method applied in this work is given. A more detailed description of the
+algorithm for neutrnoics problems can be found in~\cite{jake}, but an overview of the algorithm, sampling, and
+trial space are given here.  Relevant details and modifications made to the
+algorithm for this work are given herein.
+
+\section{The ECMC Algorithm}
+
+The ECMC method is an iterative residual MC method. 
+In operator notation, Eq.~\eqref{eq:ho_base} can be written as
 \begin{equation}\label{te_oper}
 \B L^k I^{n+1,k+1/2}  = q^{k}
 \end{equation}
 where $I^{n+1,k+1/2}$ is the transport solution of the angular intensity based on the
 $k$-th LO estimate of $q^k$.
-The linear operator $\B L^k$ is the continuous streaming plus
-removal operator defined by the left hand
-side of Eq.~\eqref{ho_trans}.
-The $m$-th approximate LDFE solution to Eq.~\eqref{te_oper} ($m$ is the index of inner HO
-batches) is represented as
-$\tilde{I}^{n+1,(m)}$.    
-The $m$-th residual is defined as $r^{(m)} = q - \B L^k\tilde{I}^{n+1,(m)}.$ 
-For reference, the residual at iteration $m$ in the HO solve
-is
-\begin{equation}\label{eq:resid}
-r^{(m),k+1/2} = \frac{\sigma_s}{2} \phi^{n+1,k} +\frac{1}{2} \left(\sigma_a a c T^4
-\right)^{n+1,k} + \frac{\tilde{I}^n}{c \Delta t } -
-\left(\mu \pderiv{\tilde{I}^{n+1,k+1/2}}{x} +
-\left(\sigma_t + \frac{1}{c \Delta t }\right) \tilde{I}^{n+1,k+1/2}\right)^{(m)}
+The linear operator $\B L^k$ is the \emph{continuous} streaming plus
+removal operator, given by the left-hand
+side of Eq.~\eqref{eq:ho_base}, i.e.,
+\begin{equation}
+    \B L^k(\cdot) = \left[\mu \pderiv{}{x} + \left(\sigma_t^k + \frac{1}{c \Delta t
+    }\right)\right] \left(\cdot\right)
 \end{equation}
-where the $k$ terms are LD in space on the coarsest mesh and are not recalculated at any point during
+We will use superscript $(m)$ to indicated the $m$-th inner HO iteration.  The LDFE
+representation of the $m$-th
+approximate solution to Eq.~\eqref{te_oper} is denoted
+$\tilde{I}^{n+1,(m)}(x,\mu)$.    
+The associated residual is defined as $r^{(m)} = q - \B L^k\tilde{I}^{n+1,(m)}.$ 
+Explicitly, the residual at iteration $m$ is
+\begin{multline}\label{eq:resid}
+r^{(m),k+1/2} = \frac{\sigma_s}{2} \phi^{n+1,k} +\frac{1}{2} \left(\sigma_a a c T^4
+\right)^{n+1,k} + \frac{\tilde{I}^n}{c \Delta t } \\ -
+\left(\mu \pderiv{\tilde{I}^{n+1,k+1/2}}{x} +
+\left(\sigma_t^k + \frac{1}{c \Delta t }\right) \tilde{I}^{n+1,k+1/2}\right)^{(m)}
+\end{multline}
+where the $k$ terms have a LDFE representation in space on the coarsest mesh and are not recalculated at any point during
 the HO solve. The functional form of $\tilde{I}^n$ is defined from the final HO
-solution of the previous time step.  
+solution of the previous time step.  The HOLO iteration indices are suppressed for the
+remainder of this chapter because the LO-estimated $q^{k}$ and $\B L^{k}$
+\emph{remain constant for the entire HO solve}.
 
-Addition of $\B L I^{n+1} - q=0$ to the residual equation 
+Addition of $\B L I^{n+1} - q=0$ to the Eq.~\eqref{eq:resid}, i.e., the residual equation,
 and manipulation of the result yields the error equation
 \begin{equation}\label{eq:err_eq}
     \B L (I^{n+1} - \tilde{I}^{n+1,(m)}) = \B L {\epsilon}^{(m)} = r^{(m)}
 \end{equation}
-where $I^{n+1}$ is the exact solution and ${\epsilon}^{(m)}$ is the true error in
-$\tilde{I}^{n+1,(m)}$. 
-We have suppressed the HOLO iteration indices because the LO estimated $q^{k}$ and $\B L^{k}$ remain constant over the entire HO solve.
-The $\B L$ operator in the above equation is inverted yielding
-the Monte Carlo LDFE projection of the error in $\tilde{I}^{n+1,(m)}$, i.e., 
+where $I^{n+1}$ is the exact solution\footnote{For clarity, in this chapter the exact solution is the
+    exact solution to the transport problem defined by Eq.~\eqref{eq:ho_base}, not to the
+continuous equations that are trying to be solved.}  to the problem defined by Eq.~\eqref{eq:ho_base} and
+${\epsilon}^{(m)}$ is the true error in the approximate solution $\tilde{I}^{n+1,(m)}$. 
+The $\B L$ operator in the above equation is inverted with the MC method, which
+statistically estimates an LDFE projection of the error in $\tilde{I}^{n+1,(m)}$, i.e., 
 \begin{equation}\label{eq:mc_err}
 \tilde{\epsilon}^{(m)} = \B L^{-1} r^{(m)}
 \end{equation}
 where $\B L^{-1}$ is the Monte Carlo inversion of the streaming and removal operator.  
-This inversion is strictly a standard Monte Carlo simulation.   It is noted that the exact
-error in $\tilde{I}^{n+1,(m)}$ (with respect to Eq.~\eqref{eq:ho_base}) is being estimated with MC;
-%in Because $\B L$ in Eq.~\eqref{eq:err_eq} is the continous operator and $\B
-%L^{-1}$ represents the analytic inverse of $\B L$~\cite{shultis_mc}, the exact error
-tallies produce a projection of the error onto a LDFE space-angle trial space. The space-angle
-moments of the error computed as $\tilde{\epsilon}^{(m)}$ can be added to the
+This inversion is strictly a standard Monte Carlo simulation; particle histories are
+tracked and the mean behavior estimated as in standard solutions to a Boltzmann transport
+equation~\cite{shultic_mc,mcnp}, although the source is
+complicated and produces both positive and negative statistical weights; sampling of the
+source is detailed in Sec.~\ref{sec:systematic_sampling}.  
+It is noted that the exact error in $\tilde{I}^{n+1,(m)}$ (with respect to
+Eq.~\eqref{eq:ho_base}) is being estimated with MC;
+tallies produce an integral projection of the error onto a LDFE space-angle trial space. 
+Volumetric flux tallies over each space-angle element are required to estimate
+$\tilde{\epsilon}^{(m)}$, as detailed in Sec.~\ref{sec:tallies}.  
+The
+space-angle moments of the error computed as $\tilde{\epsilon}^{(m)}$ can be added to the
 moments of $\tilde{I}^{n+1}(m)$ to produce a more accurate solution.  
-
 
 Here, we emphasize the solution $\tilde{I}^{n+1,(m)}$ represents the LDFE projection of the exact Monte Carlo
 solution to the transport problem defined by Eq.~\eqref{eq:ho_base}.  The discretization error is in $q$, i.e., the LD spatial
@@ -75,13 +94,10 @@ general far more accurate than a standard finite element solution, e.g., a S$_N$
 energy deposition within a cell is computed using a standard path-length volumetric
 flux tally; the zeroth moment of the LDFE projection of ${\epsilon}$ is
 computed using an equivalent tally, preserving the zeroth moment of the true error.
-
-Volumetric flux tallies over each space-angle element are required to estimate
-$\tilde{\epsilon}^{(m)}$.  The LD approximation in space is used to relate the
-outflow within a cell to the volumetric moments, eliminating the need for
-face-averaged tallies.  The procedure for representing the solution, sampling with negative and
-positive weight particles, and tally
-definitions are given in Appendix~\ref{app:tallies}.
+To see why the true error is being estimated, it is important to note that 
+$\B L$ in Eq.~\eqref{eq:err_eq} is the continuous operator.  The integral equation that
+the MC transport method is estimating a solution to in the $\B L^{-1}$ process can be
+shown to be the analytic inverse of the operator $\B L$~\cite{shultis_mc,cj_thesis}.  
 
 The ECMC algorithm is
 \begin{enumerate}
@@ -110,11 +126,21 @@ governed by the standard $1/\sqrt{N}$ convergence rate~\cite{shultis_mc}, for a
 particular source $r^{(m)}$, where $N$ is the number of histories performed.  If the statistical estimate of the projection $\tilde\epsilon$ is not sufficiently
 accurate, then the iterations would diverge. It is noted that there is statistical correlation across batches because
 $I^{n+1,(m+1)}$ and $\epsilon^{(m)}$ are correlated through $I^{n+1,(m)}$ and the MC source $r^{(m)}$.  
-%Although th
-%variance in tallies of $\epsilon^{(m)}$ can be estimated with the sample variance of
-%histories, the variance in the moments of $I^{n+1,(m+1)}$ cannot be easily
-%estimated due to the correlation between $I^{n+1,(m)}$ and the source
-%$r^{(m)}$.
+A general proof of exponential
+convergence for related adaptive MC transport methods is depicted in~\cite{spanier_mc}.  
+
+The statistical uncertainty in moments of $\epsilon^{(m)}$ can be estimated with the sample variance of
+histories.  This provides a statistical estimate of moments of the solution estimated in
+that batch, because the moments of the error are the error in whatever estimate
+$I^{n+1,(m)}$ is, which obey the central limit theorem~\cite{shultis_mc}.  However, care
+must be taken with these statistical estimates, as they do not have the usual MC
+interpretation of confidence intervals because of correlations.  Explicitly, if a
+particular simulation is repeated with different independent random number seeds, the
+sample means will not lie within the range the confidence interval that the sample
+variance estimated.  Additionally, the number of histories within each batch are likely
+too low for the central limit theorem to truly apply.  
+
+\subsection{Adaptive Mesh Refinement}
 
 Because the exact angular intensity does not in general lie within the LDFE trial space, the
 iterative estimate of the error will eventually stagnate once the error cannot be sufficiently
@@ -131,14 +157,85 @@ converge statistically at a standard $1/\sqrt{N}$ convergence rate, the remainin
 error will be much smaller than for a standard MC simulation, producing a much more
 efficient solution method overall.
 
-For the HO solver, in cells near the radiation wavefront, the LDFE trial space results in
-negative values in $\tilde{I}^{n+1}(x,\mu)$, similar to the LO solver.  Because the residual formulation in ECMC allows for negative weight
-particles to occur, currently we do not treat these cells specially.  We detect if
-the consistency terms lie in the appropriate half space at the end of the HO solve,
-an indication that the intensity was negative within that cell.  If the terms are non-physical, then
-they are replaced with the corresponding S$_2$-equivalent value. In general,
-in such cells where the trial space cannot accurately represent the solution, error stagnation will
-rapidly occur. 
+
+\section{Implementation of ECMC Finite-Element Space and Tallies}
+\label{sec:tallies}
+
+The ECMC solver uses a finite element representation in space and angle. On the
+interior of the cell with the $i$-th spatial index and $j$-th angular index, the linear representation is defined as
+\begin{equation*}
+    \tilde I(x,\mu) = I_{a,ij} + \frac{2}{h_i}I_{x,ij}\left(x-x_i\right) +
+    \frac{2}{h_j}I_{\mu,ij}\left(\mu-\mu_j\right), \quad x_\il <  x < x_\ir,\quad
+     \mu_\jl \leq \mu \leq \mu_\jr
+\end{equation*}
+The spatial cell width is $h_i$, the angular width is
+$h_j$, the center of the cell is $(x_i,\mu_j)$, and
+\begin{align}\label{app1}
+    I_{a,ij} &= \frac{1}{h_i h_j} \iint\limits_{\mathcal{D}} I(x,\mu)\, \dd x \dd \mu \\
+    I_{x,ij} &= \frac{6}{h_ih_j}\iint\limits_{\mathcal{D}} \left(\frac{x - x_i}{h_{x}}\right)
+    I(x,\mu)\, \dd x \dd \mu \\ \label{app2}
+    I_{\mu,ij} &= \frac{6}{h_ih_j}\iint\limits_{\mathcal{D}}
+     \left(\frac{\mu - \mu_j}{h_{\mu}}\right)
+    I(x,\mu)\, \dd x \dd \mu,
+\end{align}
+where $\mathcal{D}: x_\il \leq  x \leq  x_\ir \times \mu_\jl \leq \mu \leq \mu_\jr$.
+%$I_a$ is the cell average intensity, and $I_\mu$ and $I_x$ define the
+%the first moment in $\mu$ and $x$ of the intensity, respectively. 
+Standard upwinding in space is used to
+define $I(\mu)$ on incoming faces. 
+
+During a MC batch, moments of the error are tallied.  The necessary moments of the error are
+defined analogously to Eq.'s~\eqref{app1}--\eqref{app2}.
+The tallies are evaluated by weighting the particle density with the appropriate
+basis function and integrating along the history path through the cell.  For the cell average, the $n$-th
+particle makes the contribution
+\begin{equation}
+   \epsilon^n_{a,ij} = \frac{1}{h_ih_j} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \dd s,
+\end{equation}
+where $s_o^n$ and $s_f^n$ are the beginning and end of the $n$-th particle track in the cell and $w(x,\mu)$ is
+the weight of the error particle in the MC simulation.  Weight is attenuated exponentially, i.e., $w(x,\mu)\propto
+\exp(-\sigma_t|x/\mu|)$.
+Substitution of the exponential attenuation of the weight produces the result
+\begin{equation}
+    \epsilon^n_{a,ij} = \frac{w(x_0,\mu)}{\sigma_t h_i h_j} \left(1 -
+    e^{-\sigma_ts^n}\right).
+\end{equation}
+Here, $w(x_0,\mu)$ is the particle weight at the start of the path and $s^n$ is the
+length of the track. The contribution of a
+particle track to $\epsilon_x$ is given by
+\begin{equation}
+    \epsilon^n_{x,ij} = \frac{w(x_0,\mu)}{h_i^2h_j \sigma_t} \left[x_0 - x_f e^{-\sigma_t s^n}
+        + \left(\frac{\mu}{\sigma_t} - x_i \right)\left(1-e^{-\sigma_t s^n}\right),
+    \right]
+\end{equation}
+where $x_0$ and $x_f$ are the beginning and ending $x$ coordinates of the $n$-th
+path.  The contribution to the first moment in $\mu$ is 
+\begin{equation}
+    \epsilon^n_{\mu,ij} = \frac{w(x_0,\mu)}{h_{j}^2h_i\sigma_t}\left(\mu -
+    \mu_j\right) \left(1 - e^{-\sigma_ts^n}\right),
+\end{equation}
+where the particle $x$-direction cosine $\mu$ does not change because it is a pure-absorber simulation.
+Finally, the moments of the error are simply the average contribution of all particles.
+
+\section{Adaptive Mesh Refinement}
+\label{app:refinement}
+This section describes the adaptive refinement strategy for the ECMC algorithm.
+Detailed equations for performing projections between meshes and computing the residual source on
+the refined meshes can be found in~\cite{jake}.  At the end of the ECMC batch,
+refinement is performed in space-angle cells based on a jump indicator.  The jump
+indicator is the magnitude of the different between $I(x,\mu)$ in adjacent cells,
+averaged over each edge.  The value of the largest jump, out of the four edges within a
+cell, is used as the
+indicator for that cell.  Based on this indicator, the 20\% of cells with the largest jump are
+refined.  Future work will explore simply using $\epsilon$ to indicate refinement,
+rather than the jump error.  The refinement of a cell is chosen to be symmetric, with each space-angle cell divided into four
+equal-sized cells.  The solution for $\tilde{I}^{n+1}(x,\mu)$ of the batch is projected onto
+the finer mesh for the next batch. Because the dimensionality of the sample space has
+increased, we increase the number of histories per batch s.t. the ratio of the number
+of histories to total cells is approximately constant for all meshes.  At the end of the last HO solve in a time step,
+$\tilde{I}^{n+1}$ is projected back onto the original, coarsest mesh and stored as
+$\tilde{I}^{n}$ for the next time step.
+
 
 \section{MC solution with LDD trial space}
 \label{sec:ldd_mc}
@@ -222,31 +319,24 @@ face values in particular cells, at any chosen batch.
 
 
 
-\section{Implementation of ECMC finite-element space, tallies, and residual sampling}
-\label{app:tallies}
 
-The ECMC solver uses a finite element representation in space and angle. On the
-interior of the cell with the $i$-th spatial index and $j$-th angular index, the linear representation is defined as
-\begin{equation*}
-    \tilde I(x,\mu) = I_{a,ij} + \frac{2}{h_x}I_{x,ij}\left(x-x_i\right) +
-    \frac{2}{h_\mu}I_{\mu,ij}\left(\mu-\mu_j\right), \quad x_\il <  x < x_\ir,\quad
-     \mu_\jl \leq \mu \leq \mu_\jr
-\end{equation*}
-The spatial cell width is $h_x$, the angular width is
-$h_\mu$, the center of the cell is $(x_i,\mu_j)$, and
-\begin{align}\label{app1}
-    I_{a,ij} &= \frac{1}{h_x h_\mu} \iint\limits_{\mathcal{D}} I(x,\mu)\, \dd x \dd \mu \\
-    I_{x,ij} &= \frac{6}{h_xh_\mu}\iint\limits_{\mathcal{D}} \left(\frac{x - x_i}{h_{x}}\right)
-    I(x,\mu)\, \dd x \dd \mu \\ \label{app2}
-    I_{\mu,ij} &= \frac{6}{h_xh_\mu}\iint\limits_{\mathcal{D}}
-     \left(\frac{\mu - \mu_j}{h_{\mu}}\right)
-    I(x,\mu)\, \dd x \dd \mu,
-\end{align}
-where $\mathcal{D}: x_\il \leq  x \leq  x_\ir \times \mu_\jl \leq \mu \leq \mu_\jr$.
-%$I_a$ is the cell average intensity, and $I_\mu$ and $I_x$ define the
-%the first moment in $\mu$ and $x$ of the intensity, respectively. 
-Standard upwinding in space is used to
-define $I(\mu)$ on incoming faces. 
+
+
+\section{Continuous Weight Deposition Tallies}
+
+
+As in~\cite{park}, because we are solving a pure absorber problem with Monte Carlo, we will allow
+particles to stream without absorption to reduce statistical 
+variance in the tallies.  The weight of particles is reduced deterministically along
+the path as they stream, with no need to sample a path length.  Because particles are exponentially attenuated, the normalized weight is
+adjusted as $w(x,\mu) = w(x_0,\mu)\exp(-\sigma_t|(x-x_0)/\mu|)$, where $x_0$ is the starting location of the path.  The tallies account
+for the continuously changing weight, as given in Appendix~\ref{sec:tallies}. Histories are allowed to stream in this manner for 6 mean free paths (mfp))
+before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 mfp allows particles to 
+continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of mfp, so there is no need to resample at material
+interfaces.
+
+\section{Systematic Sampling Algorithm for Residual Source}
+\label{sec:systematic_sampling}
 
 This representation can directly be plugged into
 Eq.~\eqref{eq:resid} and evaluated to produce the residual source in the ECMC HO transport
@@ -257,76 +347,6 @@ norm over space and angle of the residual~\cite{jake}.  A particular cell volume
 is sampled, and then rejection sampling~\cite{shultis_mc} is used to sample from
 the appropriate distribution on the face or interior of the space-angle cell.  If the
 residual is negative at the sampled coordinates, the weight of the particle history is negative.
-
-During a MC batch, moments of the error are tallied.  The necessary moments of the error are
-defined analogously to Eq.'s~\eqref{app1}--\eqref{app2}.
-The tallies are evaluated by weighting the particle density with the appropriate
-basis function and integrating along the history path through the cell.  For the cell average, the $n$-th
-particle makes the contribution
-\begin{equation}
-   \epsilon^n_{a,ij} = \frac{1}{h_xh_\mu} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \dd s,
-\end{equation}
-where $s_o^n$ and $s_f^n$ are the beginning and end of the $n$-th particle track in the cell and $w(x,\mu)$ is
-the weight of the error particle in the MC simulation.  Weight is attenuated exponentially, i.e., $w(x,\mu)\propto
-\exp(-\sigma_t|x/\mu|)$.
-Substitution of the exponential attenuation of the weight produces the result
-\begin{equation}
-    \epsilon^n_{a,ij} = \frac{w(x_0,\mu)}{\sigma_t h_x h_\mu} \left(1 -
-    e^{-\sigma_ts^n}\right).
-\end{equation}
-Here, $w(x_0,\mu)$ is the particle weight at the start of the path and $s^n$ is the
-length of the track. The contribution of a
-particle track to $\epsilon_x$ is given by
-\begin{equation}
-    \epsilon^n_{x,ij} = \frac{w(x_0,\mu)}{h_x^2h_\mu \sigma_t} \left[x_0 - x_f e^{-\sigma_t s^n}
-        + \left(\frac{\mu}{\sigma_t} - x_i \right)\left(1-e^{-\sigma_t s^n}\right),
-    \right]
-\end{equation}
-where $x_0$ and $x_f$ are the beginning and ending $x$ coordinates of the $n$-th
-path.  The contribution to the first moment in $\mu$ is 
-\begin{equation}
-    \epsilon^n_{\mu,ij} = \frac{w(x_0,\mu)}{h_{\mu}^2h_x\sigma_t}\left(\mu -
-    \mu_j\right) \left(1 - e^{-\sigma_ts^n}\right),
-\end{equation}
-where the particle $x$-direction cosine $\mu$ does not change because it is a pure-absorber simulation.
-Finally, the moments of the error are simply the average contribution of all particles.
-
-\section{Adaptive Mesh Refinement}
-\label{app:refinement}
-This section describes the adaptive refinement strategy for the ECMC algorithm.
-Detailed equations for performing projections between meshes and computing the residual source on
-the refined meshes can be found in~\cite{jake}.  At the end of the ECMC batch,
-refinement is performed in space-angle cells based on a jump indicator.  The jump
-indicator is the magnitude of the different between $I(x,\mu)$ in adjacent cells,
-averaged over each edge.  The value of the largest jump, out of the four edges within a
-cell, is used as the
-indicator for that cell.  Based on this indicator, the 20\% of cells with the largest jump are
-refined.  Future work will explore simply using $\epsilon$ to indicate refinement,
-rather than the jump error.  The refinement of a cell is chosen to be symmetric, with each space-angle cell divided into four
-equal-sized cells.  The solution for $\tilde{I}^{n+1}(x,\mu)$ of the batch is projected onto
-the finer mesh for the next batch. Because the dimensionality of the sample space has
-increased, we increase the number of histories per batch s.t. the ratio of the number
-of histories to total cells is approximately constant for all meshes.  At the end of the last HO solve in a time step,
-$\tilde{I}^{n+1}$ is projected back onto the original, coarsest mesh and stored as
-$\tilde{I}^{n}$ for the next time step.
-
-
-
-\subsection{Continuous Weight Deposition Tallies}
-
-
-As in~\cite{park}, because we are solving a pure absorber problem with Monte Carlo, we will allow
-particles to stream without absorption to reduce statistical 
-variance in the tallies.  The weight of particles is reduced deterministically along
-the path as they stream, with no need to sample a path length.  Because particles are exponentially attenuated, the normalized weight is
-adjusted as $w(x,\mu) = w(x_0,\mu)\exp(-\sigma_t|(x-x_0)/\mu|)$, where $x_0$ is the starting location of the path.  The tallies account
-for the continuously changing weight, as given in Appendix~\ref{app:tallies}. Histories are allowed to stream in this manner for 6 mean free paths (mfp))
-before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 mfp allows particles to 
-continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of mfp, so there is no need to resample at material
-interfaces.
-
-\subsection{Modified Systematic Sampling Algorithm}
-\label{sec:systematic_sampling}
 
 As another way to improve efficiency, a modified systematic sampling
 method~\cite{shultis_mc} was used for determining source particle locations.  The goal is

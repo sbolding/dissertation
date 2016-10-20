@@ -16,22 +16,113 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\@input{sections/lo_solver.aux}
+\@input{titlepage.aux}
 \@writefile{toc}{}
 \@writefile{toc}{\renewcommand {\cftchapleader } {\cftdotfill {4.5}}}
-\@writefile{toc}{\contentsline {section}{\numberline {1.3}Estimating the Spatial Closure from the HO Solution}{12}{section.1.3}}
-\newlabel{sec:spat_clos}{{1.3}{12}{Estimating the Spatial Closure from the HO Solution}{section.1.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}Motivation}{12}{subsection.1.3.1}}
-\newlabel{eq:hr_bal}{{1.24}{12}{Motivation}{equation.1.3.24}{}}
+\@input{abstract.aux}
+\@input{sections/introduction.aux}
+\@input{sections/algorithm_descriptions.aux}
+\@input{sections/lo_solver.aux}
+\@input{sections/ho_solver.aux}
+\citation{jayenne}
+\citation{imd}
+\citation{ddmc}
+\@writefile{toc}{\contentsline {section}{\numberline {4.7}COMPUTATIONAL RESULTS}{43}{section.4.7}}
+\citation{shultis_mc}
+\citation{ans_2014}
+\newlabel{eq:fom}{{4.26}{44}{COMPUTATIONAL RESULTS}{equation.4.7.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.1}Marshak Wave}{44}{subsection.4.7.1}}
+\newlabel{sec:marsh}{{4.7.1}{44}{Marshak Wave}{subsection.4.7.1}{}}
+\@writefile{lof}{\vskip -10pt}
+\@writefile{lot}{\vskip -10pt}
+\@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces  \textbf  {Comparison of sample statistics for the Marshak Wave problem. Simulation end time is $\mathbf  {t=5}$ sh.}\relax }}{46}{table.caption.4}}
+\newlabel{marshak_var}{{4.1}{46}{\textbf {Comparison of sample statistics for the Marshak Wave problem. Simulation end time is $\mathbf {t=5}$ sh.}\relax }{table.caption.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.2}Two Material Problem}{46}{subsection.4.7.2}}
+\newlabel{sec:two}{{4.7.2}{46}{Two Material Problem}{subsection.4.7.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces Material properties for two material problem\relax }}{47}{table.caption.5}}
+\newlabel{two_mat_props}{{4.2}{47}{Material properties for two material problem\relax }{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.3}{\ignorespaces  \textbf  {Comparison of sample statistics for the two material problem for 200 $x$ cells. Simulation end time is $\mathbf  {t=2}$ sh.}\relax }}{48}{table.caption.7}}
+\newlabel{twomat_var}{{4.3}{48}{\textbf {Comparison of sample statistics for the two material problem for 200 $x$ cells. Simulation end time is $\mathbf {t=2}$ sh.}\relax }{table.caption.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.3}Performance comparison of IMC and HOLO-ECMC}{48}{subsection.4.7.3}}
+\newlabel{timing}{{4.7.3}{48}{Performance comparison of IMC and HOLO-ECMC}{subsection.4.7.3}{}}
+\citation{park}
+\citation{rmc}
+\@writefile{lot}{\contentsline {table}{\numberline {4.4}{\ignorespaces  \textbf  {Comparison of average CPU times per history and LO iteration counts for the Marshak Wave problem. }\relax }}{50}{table.caption.8}}
+\newlabel{marshak_table}{{4.4}{50}{\textbf {Comparison of average CPU times per history and LO iteration counts for the Marshak Wave problem. }\relax }{table.caption.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.5}{\ignorespaces  \textbf  {Average CPU times per history and LO iteration counts required for the two material problem.}\relax }}{50}{table.caption.9}}
+\newlabel{twomat_table}{{4.5}{50}{\textbf {Average CPU times per history and LO iteration counts required for the two material problem.}\relax }{table.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.4}Comparison of different HO Solvers}{50}{subsection.4.7.4}}
+\newlabel{ho_solvers}{{4.7.4}{50}{Comparison of different HO Solvers}{subsection.4.7.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.6}{\ignorespaces  \textbf  {Comparison of sample statistics for the Marshak Wave problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{51}{table.caption.10}}
+\newlabel{homarshak_var}{{4.6}{51}{\textbf {Comparison of sample statistics for the Marshak Wave problem. Number of ECMC batches is indicated in parenthesis.}\relax }{table.caption.10}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.7}{\ignorespaces  \textbf  {Comparison of sample standard deviations for the two material problem. Number of ECMC batches is indicated in parenthesis.}\relax }}{51}{table.caption.11}}
+\newlabel{hotwomat_var}{{4.7}{51}{\textbf {Comparison of sample standard deviations for the two material problem. Number of ECMC batches is indicated in parenthesis.}\relax }{table.caption.11}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.5}Pre-heated Marshak wave problem and adaptive mesh refinement}{52}{subsection.4.7.5}}
+\@writefile{lot}{\contentsline {table}{\numberline {4.8}{\ignorespaces  {Comparison of sample statistics for the pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is indicated in parenthesis.}\relax }}{53}{table.caption.13}}
+\newlabel{preheat_var}{{4.8}{53}{{Comparison of sample statistics for the pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is indicated in parenthesis.}\relax }{table.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.8}Accuracy in the Equilibrium Diffusion Limit}{53}{section.4.8}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.9}CONCLUSIONS}{54}{section.4.9}}
+\citation{rmc}
+\newlabel{marshak_mesh_conv}{{4.1a}{57}{Convergence of IMC and HOLO-ECMC solutions.\relax }{figure.caption.3}{}}
+\newlabel{sub@marshak_mesh_conv}{{a}{57}{Convergence of IMC and HOLO-ECMC solutions.\relax }{figure.caption.3}{}}
+\newlabel{marshak_200_compare}{{4.1b}{57}{Comparison of solutions for 200 spatial cells. \relax }{figure.caption.3}{}}
+\newlabel{sub@marshak_200_compare}{{b}{57}{Comparison of solutions for 200 spatial cells. \relax }{figure.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.1}{\ignorespaces Comparison of radiation temperatures for Marshak wave problem at ${t=5}$ sh.\relax }}{57}{figure.caption.3}}
+\newlabel{twomat_full}{{4.2a}{58}{Comparison of IMC and HOLO-ECMC.\relax }{figure.caption.6}{}}
+\newlabel{sub@twomat_full}{{a}{58}{Comparison of IMC and HOLO-ECMC.\relax }{figure.caption.6}{}}
+\newlabel{compare_ho}{{4.2b}{58}{Comparison of SMC and ECMC HO solvers. \relax }{figure.caption.6}{}}
+\newlabel{sub@compare_ho}{{b}{58}{Comparison of SMC and ECMC HO solvers. \relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces \bf  Comparison of radiation temperatures for two material problem. \relax }}{58}{figure.caption.6}}
+\newlabel{twomat}{{4.2}{58}{\bf Comparison of radiation temperatures for two material problem. \relax }{figure.caption.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces  Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100 $x$ cells at $\mathbf  {t=0.5}$ sh.\relax }}{59}{figure.caption.12}}
+\newlabel{hot_plot}{{4.3}{59}{Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100 $x$ cells at $\mathbf {t=0.5}$ sh.\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Comparison of $T_r$ for step and LDFE discretizations of the LO equations in the equilibrium diffusion limit.\relax }}{59}{figure.caption.14}}
+\newlabel{fig:diff_limit}{{4.4}{59}{Comparison of $T_r$ for step and LDFE discretizations of the LO equations in the equilibrium diffusion limit.\relax }{figure.caption.14}{}}
+\@input{sections/dsa.aux}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Estimating the Spatial Closure from the HO Solution}{70}{section.5.5}}
+\newlabel{sec:spat_clos}{{5.5}{70}{Estimating the Spatial Closure from the HO Solution}{section.5.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Motivation}{70}{subsection.5.5.1}}
+\newlabel{eq:hr_bal}{{5.15}{70}{Motivation}{equation.5.5.15}{}}
 \citation{shultis_mc}
 \citation{wollaber_review}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}Choice of Spatial Closure}{14}{subsection.1.3.2}}
-\newlabel{sec:spat_clos_options}{{1.3.2}{14}{Choice of Spatial Closure}{subsection.1.3.2}{}}
-\newlabel{eqn:clsd_posbal}{{1.29}{15}{Choice of Spatial Closure}{equation.1.3.29}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}The Doubly-Discontinuous Trial Space}{15}{subsection.1.3.3}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1.2}{\ignorespaces Linear doubly-discontinous representation for mean intensity in LO equations\relax }}{17}{figure.caption.2}}
-\newlabel{fig:ldd_space}{{1.2}{17}{Linear doubly-discontinous representation for mean intensity in LO equations\relax }{figure.caption.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {1.4}Test Problems}{17}{section.1.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.4.1}Order of Convergence}{17}{subsection.1.4.1}}
-\newlabel{sec:sec_order}{{1.4.1}{17}{Order of Convergence}{subsection.1.4.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Choice of Spatial Closure}{72}{subsection.5.5.2}}
+\newlabel{sec:spat_clos_options}{{5.5.2}{72}{Choice of Spatial Closure}{subsection.5.5.2}{}}
+\newlabel{eqn:clsd_posbal}{{5.20}{73}{Choice of Spatial Closure}{equation.5.5.20}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}The Doubly-Discontinuous Trial Space}{73}{subsection.5.5.3}}
+\@writefile{lof}{\vskip -10pt}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Linear doubly-discontinous representation for mean intensity in LO equations\relax }}{75}{figure.caption.17}}
+\newlabel{fig:ldd_space}{{5.1}{75}{Linear doubly-discontinous representation for mean intensity in LO equations\relax }{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Test Problems}{75}{section.5.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}Order of Convergence}{75}{subsection.5.6.1}}
+\newlabel{sec:sec_order}{{5.6.1}{75}{Order of Convergence}{subsection.5.6.1}{}}
+\citation{shultis_mc}
+\citation{favorite_faces}
+\citation{favorite_faces}
+\citation{mcnp}
+\citation{favorite_faces}
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Face Tallies and correction near $\mu =0$}{76}{section.5.7}}
+\newlabel{sec:face_tallies}{{5.7}{76}{Face Tallies and correction near $\mu =0$}{section.5.7}{}}
+\newlabel{eq:face_mutally}{{5.23}{76}{Face Tallies and correction near $\mu =0$}{equation.5.7.23}{}}
+\citation{wollaber2013discrete}
+\citation{larsen_mpv}
+\citation{larsen_mpv}
+\citation{larsen_mpv}
+\@writefile{toc}{\contentsline {section}{\numberline {5.8}Preservation of the Discrete Maximum Principle}{77}{section.5.8}}
+\citation{wollaber2013discrete}
+\citation{wollaber2013discrete}
+\citation{wollaber2013discrete}
+\citation{damped_newton}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }}{79}{table.caption.18}}
+\newlabel{tab:mpv_prob}{{5.3}{79}{Problem specifications for maximum principle violation. Absorption cross section has form $\sigma _a = \sigma _{a,0}/T^3$.\relax }{table.caption.18}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces $T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.\relax }}{80}{figure.caption.19}}
+\newlabel{fig:imc_mpvrad}{{5.2}{80}{$T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.\relax }{figure.caption.19}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces $T_m$ for MP violation problem with IMC for various time step sizes.\relax }}{80}{figure.caption.20}}
+\newlabel{fig:imc_mpv}{{5.3}{80}{$T_m$ for MP violation problem with IMC for various time step sizes.\relax }{figure.caption.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces $T_m$ for MP violation problem with HOLO method for various time step sizes.\relax }}{81}{figure.caption.21}}
+\newlabel{fig:holo_mpv}{{5.4}{81}{$T_m$ for MP violation problem with HOLO method for various time step sizes.\relax }{figure.caption.21}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Comparison of LO Newton iterations for HOLO solution to MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for all other cases a damping factor of $0.5$ was used.\relax }}{81}{table.caption.22}}
+\newlabel{tab:mpv_iters}{{5.4}{81}{Comparison of LO Newton iterations for HOLO solution to MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for all other cases a damping factor of $0.5$ was used.\relax }{table.caption.22}{}}
+\@input{sections/negativities.aux}
+\@input{sections/time_closure.aux}
 \@input{bibliography.aux}
+\@input{appendices.aux}
