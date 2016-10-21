@@ -53,8 +53,8 @@ sampling) that exactly preserve the zeroth moment of the
 source~\cite{shultis_mc,wollaber_review}). 
 However, because we have to reconstruct the bilnear moment
 of $x$ and $\mu$, the consistency terms do not exactly preserve the first moment
-equation.  One final reason is that the analog treatment of absorption (below the weight
-cutoff, as discussed in Sec.~\ref{???}) results in $\sigma_a \phi^{HO}_i$ and the amount
+equation.  One final reason is that the analog treatment of absorption for particles below
+the weight cutoff (e.g., see Sec.~\ref{}) results in $\sigma_a \phi^{HO}_i$ and the amount
 of energy removed from a cell during MC transport to not be equal, due to statistical noise in the
 path-length estimators for $\phi^{HO}_i$.  However, ECMC will preserve
 balance to the order of the error, so the closure parameters will

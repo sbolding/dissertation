@@ -154,14 +154,14 @@ The final source term is
 \end{equation}
 The source $r^{n+1}$ can be treated using the
 same analytic treatment as the outflow face source in the LDD
-trial space, detailed in Sec.~\ref{sec:???}; the source at the end of the time step is never sampled because its
+trial space, detailed in Sec.~\ref{sec:ldd_mc}; the source at the end of the time step is never sampled because its
 contribution to $I^{n+1}$ can be analytically computed.  To treat the sources this way, the solution for $\tilde I^{n+1}(x,\mu)$ is
 initialized to the value of $\overline I(x,\mu)$ before a batch of particles begins.
 Then, error particles that reach the end of the time step, referred to as ``census''
 particles, contribute a standard score to the projection $\tilde I^{n+1}(x,\mu)$.
 
 With these definitions, it is thus only necessary to sample from two sources.  We apply
-the systematic-sampling algorithm described in Sec.~\ref{sec:syst_sampling???}.  The
+the systematic-sampling algorithm described in Sec.~\ref{sec:systematic_sampling}.  The
 number of histories sampled from each space-angle element is proportional to the magnitude
 of the residual within that cell, and a minimum number of histories is sampled from cells
 with a non-zero residual.  Then, composite-rejection sampling is used to sampled from the

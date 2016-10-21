@@ -36,7 +36,7 @@ frequency-integrated equations.
 
 The LO equations are formed with finite-element (FE) based spatial
 moments and angular moments over each half-range.  A linear-discontinuous representation
-is used to discretized the temperature field.  The LO equations are similar to S$_2$ equations,
+is used to discretize the temperature field.  The LO equations are similar to S$_2$ equations,
 but contain intensity-weighted angular averages that are estimated via the HO solver.    
 The LO solver is fully implicit in time and efficiently resolves the non-linear
 temperature dependence at each time step.  The HO transport problem is a fixed-source,
@@ -48,7 +48,14 @@ allows for the efficient reduction of statistical noise in the MC solution, redu
 inaccuracies introduced through the LO consistency
 terms. 
 
-We have also investigated several extensions of this method.  Higher accuracy in the time
+We have also investigated several extensions and improvements of this method.  First, an alternative
+solution method to the LO equations is explored, using an iterative source iteration
+method with linear diffusion synthetic acceleration.  The goal is to present a solution
+method for the S$_2$-like equations that is more extendable to higher dimensions.
+Additionally, we have investaged solution methods to resolve issues when the optically
+thick mesh cells present intensity gradients that are too difficult to resolve with the
+LDFE interior mesh representation.   In the HO equations, we add artificial sources that
+make the solution more easily representable by the chosen mesh resolution.  Finally, higher accuracy in the time
 variable is investigated by including the time variable in the ECMC transport
 algorithm.  This can produce more accuracy in the transport of particles across optically
 thin regions, although a projection error in the intensity is still incurred between time

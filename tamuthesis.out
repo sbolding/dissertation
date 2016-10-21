@@ -27,8 +27,8 @@
 \BOOKMARK [1][-]{section.4.2}{The ECMC Algorithm}{chapter.4}% 27
 \BOOKMARK [2][-]{subsection.4.2.1}{Adaptive Mesh Refinement}{section.4.2}% 28
 \BOOKMARK [1][-]{section.4.3}{Projection and Statistical Accuracy of ECMC}{chapter.4}% 29
-\BOOKMARK [1][-]{section.4.4}{Continuous Weight Deposition Tallies}{chapter.4}% 30
-\BOOKMARK [1][-]{section.4.5}{Systematic Sampling Algorithm for Residual Source}{chapter.4}% 31
+\BOOKMARK [1][-]{section.4.4}{Systematic Sampling Algorithm for Residual Source}{chapter.4}% 30
+\BOOKMARK [1][-]{section.4.5}{Continuous Weight Deposition Tallies}{chapter.4}% 31
 \BOOKMARK [1][-]{section.4.6}{Face Tallies and correction near =0}{chapter.4}% 32
 \BOOKMARK [1][-]{section.4.7}{MC solution with LDD trial space}{chapter.4}% 33
 \BOOKMARK [0][-]{chapter.5}{Computational Results}{}% 34
