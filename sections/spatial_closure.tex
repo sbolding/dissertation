@@ -184,29 +184,25 @@ accurate in the slope.
     \label{fig:ldd_space}
 \end{figure}
 
-
-    Poor statistics for the face tallies may result in this trial space producing less
+Poor statistics for the face tallies may result in this trial space producing less
 accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
 can accurately represent the solution.  Although the closure will be applied everywhere,
 we expect the greatest improvement in accuracy for cells where the LDFE trial space
 produces a negative solution.
 
-
 \section{Test Problems}
 
-To investigate the accuracy and utility of the face closures we compare to the LD spatial
-closure for two simple test problems.  We are interested in the order of convergence on the interior linear solution.
+REWRITE: I THINK MOVE THIS TO THE INTRO SOME HOW
+To investigate the utility of the face closures we compare to the LD spatial
+closure for two simple test problems.  We are interested in the accuracy of the solution. 
 We also want to demonstrate a better consistency between the two solvers, particularly at
 coarser mesh sizes.  We also want to compare to the efficiency of LD, noting that the
 extra noise of the face tallies may make the solution approach not worth it over all.
 
-\subsection{Order of Convergence}
-\label{sec:sec_order}
+\subsection{Smooth Marshak Wave}
 
+The first problem is intended to have a relatively smooth solution, as well as cells that
+are not too optically thick so that the face-based solutions can be efficiently estimated.
+For this problem we use
 
-We compute the order of convergence of the linear solution, using a lumped relation for
-the interior moments.  We use the diffusion limit test problem which has a solution that
-can be resolved relatively easily with the linear representation and error due to the time
-discretizaiton will be minimized. fine mesh solution is
-taken as the reference answer with 800 cells.
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  20 OCT 2016 14:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  20 OCT 2016 16:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1276,7 +1276,7 @@ ETI
 
 LaTeX Warning: Reference `' on page 77 undefined on input line 159.
 
-[77] [78]) (./sections/face_tallies.tex) (./sections/mpv.tex
+[77]) (./sections/mpv.tex [78]
 
 LaTeX Warning: Reference `sec:intro' on page 79 undefined on input line 13.
 
@@ -1535,18 +1535,24 @@ Overfull \hbox (10.00034pt too wide) in paragraph at lines 403--403
  []
 
 [131])) [132]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 155.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 155.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 154.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 154.
  (./tamuthesis.aux (./titlepage.aux) (./abstract.aux)
 (./sections/introduction.aux) (./sections/algorithm_descriptions.aux)
 (./sections/lo_solver.aux) (./sections/ho_solver.aux) (./sections/dsa.aux)
 (./sections/negativities.aux) (./sections/time_closure.aux) (./bibliography.aux
 ) (./appendices.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 155.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 155.
-Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: D2847EF6B842E696F3016AA8000CEC83;6960.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 154.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 154.
 
+
+Package rerunfilecheck Warning: File `tamuthesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `tamuthesis.out':
+(rerunfilecheck)             Before: D2847EF6B842E696F3016AA8000CEC83;6960
+(rerunfilecheck)             After:  F2282F73F40BD10840F2A9C1BE17396C;6959.
 
 LaTeX Warning: There were undefined references.
 
@@ -1555,8 +1561,8 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 21711 strings out of 493304
- 373167 string characters out of 6139871
+ 21708 strings out of 493304
+ 373103 string characters out of 6139871
  510451 words of memory out of 5000000
  24169 multiletter control sequences out of 15000+600000
  12655 words of font info for 49 fonts, out of 8000000 for 9000
@@ -1577,7 +1583,7 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on tamuthesis.pdf (134 pages, 1547247 bytes).
+Output written on tamuthesis.pdf (134 pages, 1547115 bytes).
 PDF statistics:
  2502 PDF objects out of 2984 (max. 8388607)
  1707 compressed objects within 18 object streams

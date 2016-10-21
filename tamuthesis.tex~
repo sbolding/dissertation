@@ -127,7 +127,7 @@
 %\include{dedication}
 %\include{acknowledgements}
 %\include{nomenclature}
-\include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. 
+%\include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. 
 \include{sections/introduction}
 \include{sections/algorithm_descriptions}
 \include{sections/lo_solver}
