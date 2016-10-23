@@ -1,7 +1,7 @@
 
 \chapter{\uppercase {The Exponentially-Convergent Monte Carlo High-Order Solver}}
 
-The transport equation to be solved by the HO solver is
+The time-discretized transport equation to be solved by the HO solver is
 \begin{equation}\label{eq:ho_base}
 \mu \pderiv{I^{n+1,k+1/2}}{x} + \left(\sigma_t^k + \frac{1}{c \Delta t }\right)
 I^{n+1,k+1/2}
@@ -18,10 +18,9 @@ the same form as a steady-state neutronics problem.  We will solve
 this transport problem using the ECMC method. 
 
 In the remainder of this chapter, an overview of
-the ECMC solution method applied in this work is given. A more detailed description of the
-algorithm for neutronics problems can be found in~\cite{jake}, but an overview of the algorithm, sampling, and
-trial space are given here.  Relevant details and modifications made to the
-algorithm for this work are given herein.
+the ECMC solution method applied in this work is given.  First, the LDFE trial
+space used by the ECMC algorithm is detailed.  Then, the ECMC algorithm is
+developed, followed by more specific sampling and tracking details.  
 
 \section{Implementation of LDFE $x-\mu$ Trial Space}
 
@@ -116,7 +115,7 @@ statistically estimates an LDFE projection of the error in $\tilde{I}^{n+1,(m)}$
 where $\B L^{-1}$ is the Monte Carlo inversion of the streaming and removal operator.  
 This inversion is strictly a standard Monte Carlo simulation; particle histories are
 tracked and the mean behavior estimated as in standard solutions to a Boltzmann transport
-equation~\cite{shultic_mc,mcnp}, although the source is
+equation~\cite{shultis_mc,mcnp}, although the source is
 complicated and produces both positive and negative statistical weights; sampling of the
 source is detailed in Sec.~\ref{sec:systematic_sampling}.  
 It is noted that the exact error in $\tilde{I}^{n+1,(m)}$ (with respect to
@@ -147,40 +146,8 @@ for $\tilde{I}^{n}$. This is a critical step in the algorithm; it significantly 
 particles per time step because the intensity does not change drastically between time steps in
 optically-thick regions.  
 
-\subsection{Adaptive Mesh Refinement}
 
-Because the exact angular intensity does not in general lie within the LDFE trial space, the
-iterative estimate of the error will eventually stagnate once the error cannot be sufficiently
-represented by a given FE mesh.  An adaptive $h-$refinement algorithm has been
-implemented that can be used to allow the system to continue converging towards the
-exact solution~\cite{jake,ans_2014}. For TRT problems where absorption-reemission physics dominate, the diffusive and slowly varying
-regions of the problem require a less refined angular mesh to capture the solution than typical neutronics
-problems.  However, greater spatial resolution is needed due to steep spatial
-gradients.   
-Once error stagnation has occurred (and mesh refinement has reached a maximum level),
-additional histories can be performed with a
-fixed residual source to estimate the remaining error in the current solution.  Although the remaining error will
-converge statistically at a standard $1/\sqrt{N}$ convergence rate, the remaining
-error will be much smaller than for a standard MC simulation, producing a much more
-efficient solution method overall.
-
-Detailed equations for performing projections between meshes and computing the residual source on
-the refined meshes can be found in~\cite{jake}.  At the end of the ECMC batch,
-refinement is performed in space-angle cells based on a jump indicator.  The jump
-indicator is the magnitude of the different between $I(x,\mu)$ in adjacent cells,
-averaged over each edge.  The value of the largest jump, out of the four edges within a
-cell, is used as the
-indicator for that cell.  Based on this indicator, a preset fraction of cells are refined based on the indicator.
-The refinement of a cell is chosen to be symmetric, with each space-angle cell divided into four
-equal-sized cells and only one refinement level difference between adjacent cells is
-allowed, except for cells that share an edge across $\mu=0$.  The solution for $\tilde{I}^{n+1}(x,\mu)$ of the batch is projected onto
-the finer mesh for the next batch. Because the dimensionality of the sample space has
-increased, we increase the number of histories per batch such that the ratio of the number
-of histories to total cells is approximately constant for all meshes.  At the end of the last HO solve in a time step,
-$\tilde{I}^{n+1}$ is projected back onto the original, coarsest mesh and stored as
-$\tilde{I}^{n}$ for the next time step.
-
-\section{Projection and Statistical Accuracy of ECMC}
+\subsection{Projection and Statistical Accuracy of ECMC}
 
 Here, we emphasize the solution $\tilde{I}^{n+1,(m)}$ represents the LDFE projection of the exact Monte Carlo
 solution to the transport problem defined by Eq.~\eqref{eq:ho_base}.  The discretization error is in $q$, i.e., the LD spatial
@@ -214,17 +181,143 @@ $I^{n+1,(m+1)}$ and $\epsilon^{(m)}$ are correlated through $I^{n+1,(m)}$ and th
 A general proof of exponential
 convergence for related adaptive MC transport methods is depicted in~\cite{spanier_mc}.  
 
-The statistical uncertainty in moments of $\epsilon^{(m)}$ can be estimated with the
-sample variance of histories, using the standard procedure for MC estimators~\cite{shultis_mc}.  This provides a statistical estimate of moments of the solution estimated in
-that batch that asymptotically obey the central limit theorem~\cite{shultis_mc},
-conditioned on the previous solution $I^{n+1,(m)}$.  However, care
-must be taken with these statistical estimates, as they do not have the usual MC
-interpretation of confidence intervals because of correlations.  Explicitly, if a
-particular simulation is repeated with independent sets of random numbers, the
-sample means will not (on average) correctly reproduce the confidence interval that the
-sample variance from the original simulation estimated.  Additionally, the number of histories within each batch are likely
-too low  for the central limit theorem to truly apply, as they  do not sample the full
-solution space sufficiently~\cite{mcnp}.
+Because the intensity is saved between time steps, there is correlation that
+can not be easily measured.  However, within a batch, the statistical uncertainty in moments of $\epsilon^{(m)}$ can be estimated with the
+sample variance of histories, using the standard sample-variance of MC mean
+estimators~\cite{shultis_mc}.  This provides a statistical estimate of moments
+of the solution estimated in that batch that asymptotically obey the central
+limit theorem~\cite{shultis_mc}, conditioned on the previous solution
+$I^{n+1,(m)}$.  However, care must be taken with these statistical estimates,
+as they do not have the usual MC interpretation of confidence intervals because
+of correlations.  Explicitly, if a particular simulation is repeated with
+independent sets of random numbers, the sample means will not (on average)
+correctly reproduce the confidence interval that the sample variance from the
+original simulation estimated.  Additionally, the number of histories within
+each batch are likely too low  for the central limit theorem to truly apply, as
+they  do not sample the full solution space sufficiently~\cite{mcnp}.  
+
+\subsection{Adaptive Mesh Refinement}
+
+Because the exact angular intensity does not in general lie within the LDFE trial space, the
+iterative estimate of the error will eventually stagnate once the error cannot be sufficiently
+represented by a given FE mesh.  An adaptive $h-$refinement algorithm has been
+implemented that can be used to allow the system to continue converging towards the
+exact solution~\cite{jake,ans_2014}. For TRT problems where absorption-reemission physics dominate, the diffusive and slowly varying
+regions of the problem require a less refined angular mesh to capture the solution than typical neutronics
+problems.  However, greater spatial resolution is needed due to steep spatial
+gradients.   
+Once error stagnation has occurred (and mesh refinement has reached a maximum level),
+additional histories can be performed with a
+fixed residual source to estimate the remaining error in the current solution.  Although the remaining error will
+converge statistically at a standard $1/\sqrt{N}$ convergence rate, the remaining
+error will be much smaller than for a standard MC simulation, producing a much more
+efficient solution method overall.
+
+Detailed equations for performing projections between meshes and computing the
+residual source on the refined meshes can be found in~\cite{jake}.  At the end
+of the ECMC batch, refinement is performed in space-angle cells based on a jump
+indicator.  The jump indicator is the magnitude of the different between
+$I(x,\mu)$ in adjacent cells, averaged over each edge.  The value of the
+largest jump, out of the four edges within a cell, is used as the indicator for
+that cell.  Based on this indicator, a preset fraction of cells are refined
+based on the indicator.  The refinement of a cell is chosen to be symmetric,
+with each space-angle cell divided into four equal-sized cells and only one
+refinement level difference between adjacent cells is allowed, except for cells
+that share an edge across $\mu=0$.  The solution for $\tilde{I}^{n+1}(x,\mu)$
+of the batch is projected onto the finer mesh for the next batch. Because the
+dimensionality of the sample space has increased, we increase the number of
+histories per batch such that the ratio of the number of histories to total
+cells is approximately constant for all meshes.  At the end of the last HO
+solve in a time step, $\tilde{I}^{n+1}$ is projected back onto the original,
+coarsest mesh and stored as $\tilde{I}^{n}$ for the next time step.
+
+\section{Systematic Sampling Algorithm for Residual Source}
+\label{sec:systematic_sampling}
+
+The LDFE representation given by Eqs.~\eqref{eq:ld_intens},~\eqref{eq:left_uw},
+and~\eqref{eq:right_uw} is substituted into Eq.~\eqref{eq:resid} and evaluated
+to produce the residual source for each ECMC batch.  The MC source
+$r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err} consists of volumetric sources and
+face sources.  The face sources result from the spatial derivative applied to
+the discontinuities in the trial space.  The source can produce positive and
+negative weight particles.  The probability distribution function (PDF) for
+sampling particle coordinates is formed by dividing $r^{(m)}(x,\mu)$ by $\|r^{(m)}(x,\mu)\|_1$,
+i.e., the $L_1$ norm over space and angle of the residual.  Particle coordinates (in $x$ and $\mu$)
+are sampled from the strictly positive PDF; then, if the residual is negative at the sampled coordinates, the weight of the
+particle history is negative. With
+the statistical weights of each particles normalized to unity, then the tallies must be multiplied
+by $\|r^{(m)}\|_1$ to produce the correct magnitude of solution.
+  More details on specific equations for evaluating integrals of the
+reisdual for steady-state neutronics problems can be found in~\cite{jake}.  
+ 
+As a method to improve statistical efficiency within a batch, a modified version of the systematic
+sampling method~\cite{shultis_mc} was used for determining the number of
+particles sampled from each space-angle cell.   The goal is to
+effectively distribute particle histories to regions of importance, but to
+sample a sufficient number of histories in less probable regions to prevent
+large statistical noise.  However, there is no need to sample histories in
+regions in thermal equilibrium.  The residual gives a good indication of where
+histories are most likely to contribute to the error, particularly in optically
+thick cells where particles do not transport long distances. Systematic sampling is a stratified sampling
+procedure that reduces the variance of the source being sampled~\cite{shultis_mc}.  Thus, we expect
+variance to be reduced by more efficiently sampling the residual, at least in optically thick cells.  In thin
+cells, where transport is more prevalent, this sampling procedure does not guarantee less variance
+overall. 
+
+In the systematic sampling
+algorithm the number of particle histories sampled in each space-angle cell is
+predetermined and proportional to the L$_1$ magnitude of the residual, including face
+and volumetric sources. 
+ In cells where the relative
+magnitude of the residual is on the order of roundoff no particle histories are
+sampled. In these regions the problem is remaining in equilibrium and the
+solution is known exactly.  For cells that are significant, but would have a number of samples below some preset minimum $N_{min}$, the
+number of histories sampled in that cell is set to $N_{min}$. This is to limit
+bad statistics in low probability cells (this is primarily important for adaptively
+refined meshes).  In most of the simulations performed for this work
+$N_{min}=1$; this choice is made to keep the total number of histories per time
+step constant throughout the simulation for comparison to IMC.  
+Particle weights must be adjusted to account for
+the difference between the number sampled from a particular cell and the true probability
+of that element being sampled.  The unmodified probability of a particle being born in cell $ij$ is 
+\begin{equation}
+    p_{ij} = \frac{||r^{(m)}_{ij}||}{||r^{(m)}||}
+\end{equation}
+Thus, the number of
+particles in cell $ij$ is 
+\begin{equation}
+    N_{ij} = 
+\left\{\begin{matrix}
+    \lfloor(Np_{ij})\rfloor, & Np_{ij} > N_{\min}
+    \\ 0, & \frac{p_{ij}}{1/N_c} < p_{cut}
+\\ N_{min}, & \text{else}
+\end{matrix}\right.
+\end{equation}
+where $N_{\min}$ is the minimum number of histories in significant cells, $N_c$  is the number of cells, and $p_{cut}$ is the chosen relative probability cutoff.
+To prevent biasing, this cutoff is on the order of round off.
+
+The algorithm for each sample, from $x-\mu$ element $i$, is 
+\begin{enumerate}
+    \item Sample two random numbers $\eta_1$, $\eta_2\sim U(0,1)$ 
+    \item If $\eta_1 < \|r_i^{n}\|_1/(\|r_i^{n}\|_1 + \|\overline{r_i}\|_1)$:
+    \begin{itemize}
+        \item Sample $(x,\mu)$ from $r_i^{n}$ volumetric source using rejection sampling
+        \item Set $t=t^n$
+    \end{itemize}
+\item Else, sample from $\overline r$ source:
+    \begin{enumerate}
+        \item \label{itm:time_step}Sample $t$ uniformly over $(t^{n},t^{n+1})$.
+        \item If $\eta_2 < \|\overline{r}_{i,\text{face}}\|_1/\|\overline{r}_{i}\|_1$:
+            \begin{itemize}
+                \item Sample $(x,\mu)$ from $\overline r_{i,\text{face}}$ face source using rejection
+            \end{itemize}
+        \item Else:
+            \begin{itemize}
+                \item Sample $(x,\mu)$ from $\overline r_{i,\text{int}}$ volumetric source using rejection
+            \end{itemize}
+    \end{enumerate}
+\end{enumerate}
+
 
 
 \section{Continuous Weight Deposition Tallies}
@@ -236,7 +329,7 @@ The tallies are evaluated by weighting the particle density with the appropriate
 basis function and integrating along the history path through the cell.  The LDFE
 representation results in local tallies where only particles entering a particular cell
 contribute to that cell's estimators.  For the cell average, the $n$-th
-particle that enters the cell $ij$ makes the contribution
+particle that enters the cell $ij$ makes the contribution, or \emph{score},
 \begin{equation}\label{eq:avg_tal}
    \epsilon^n_{a,ij} = \frac{1}{h_ih_j} \int\limits_{s^n_o}^{s^n_f}  w^n(x,\mu) \dd s,
 \end{equation}
@@ -281,98 +374,12 @@ average score from all histories:
 \end{equation}
 where $N_b$ is the number of particle histories performed within that batch.
 
-\section{Systematic Sampling Algorithm for Residual Source}
-\label{sec:systematic_sampling}
 
-The LDFE representation given by Eqs.~\eqref{eq:ld_intens},~\eqref{eq:left_uw},
-and~\eqref{eq:right_uw} is substituted into
-Eq.~\eqref{eq:resid} and evaluated to produce the residual source for each ECMC batch. 
-The MC source $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err}
-consists of volumetric sources and face sources.  The face sources result from the spatial
-derivative applied to the discontinuities in the
-trial space.  The source can produce positive and
-negative weight particles.  The probability distribution function (PDF) for sampling particle coordinates is based on the $L_1$
-norm over space and angle of the residual~\cite{jake}.  
-
-As another way to improve efficiency, a modified version of the systematic sampling
-method~\cite{shultis_mc} was used for determining the number of particles that is sampled
-from each space-angle cell.    The goal is
-to effectively distribute particle histories to regions of importance, but to sample a
-sufficient number of histories in less probable regions to prevent large statistical
-noise.  However, there is no need to sample histories in regions in thermal equilibrium.
-The residual gives a good indication of where histories are most likely to contribute to
-the error, particularly in optically thick cells where particles do not transport long
-distances.   In
-the sampling algorithm the number of particle histories sampled in each space-angle cell
-is predetermined and proportional to the magnitude of the residual, including face and
-volumetric sources, within that cell. A particular cell volume or face 
-is sampled, and then rejection sampling~\cite{shultis_mc} is used to sample from
-the appropriate distribution on the face or interior of the space-angle cell.  If the
-residual is negative at the sampled coordinates, the weight of the particle history is negative.
- Then, for the predetermined number of histories
-within a cell, the source location is randomly sampled according to the residual source
-distribution of that cell.  In cells where the relative magnitude of the residual is on the order of roundoff no particle histories are sampled. In these 
-regions the problem is remaining in equilibrium and the solution is known exactly.  For
-cells that are significant, but have a predetermined number of histories below some preset
-minimum $N_{min}$, the number of histories sampled in that cell is set to $N_{min}$. This
-is to limit bad statistics in low probability cells (this is more important for
-adaptively refined meshes).  In most of the simulations performed for this work
-$N_{min}=1$; this
-choice is made to keep the total number of histories per time step constant throughout
-the simulation for comparison to IMC.  
-
-Particle weights must be adjusted to account for
-the difference between the number sampled from a particular cell and the true probability
-of that element being sampled.  The unmodified probability of a particle being born in cell $ij$ is 
-\begin{equation}
-    p_{ij} = \frac{||r^{(m)}_{ij}||}{||r^{(m)}||}
-\end{equation}
-Thus, the number of
-particles in cell $ij$ is 
-\begin{equation}
-    N_{ij} = 
-\left\{\begin{matrix}
-    \lfloor(Np_{ij})\rfloor, & Np_{ij} > N_{\min}
-    \\ 0, & \frac{p_{ij}}{1/N_c} < p_{cut}
-\\ N_{min}, & \text{else}
-\end{matrix}\right.
-\end{equation}
-where $N_{\min}$ is the minimum number of histories in significant cells, $N_c$  is the number of cells, and $p_{cut}$ is the chosen relative probability cutoff.
-To prevent biasing, this cutoff is on the order of round off.
-This is done by first filling the cells with $N_{min}$ histories and distributing the
-remaining number of histories proportional to $p_{ij}$.
-
-The algorithm for each sample, from $x-\mu$ element $i$, is 
-\begin{enumerate}
-    \item Sample two random numbers $\eta_1$, $\eta_2\sim U(0,1)$ 
-    \item If $\eta_1 < \|r_i^{n}\|_1/(\|r_i^{n}\|_1 + \|\overline{r_i}\|_1)$:
-    \begin{itemize}
-        \item Sample $(x,\mu)$ from $r_i^{n}$ volumetric source using rejection sampling
-        \item Set $t=t^n$
-    \end{itemize}
-\item Else, sample from $\overline r$ source:
-    \begin{enumerate}
-        \item \label{itm:time_step}Sample $t$ uniformly over $(t^{n},t^{n+1})$.
-        \item If $\eta_2 < \|\overline{r}_{i,\text{face}}\|_1/\|\overline{r}_{i}\|_1$:
-            \begin{itemize}
-                \item Sample $(x,\mu)$ from $\overline r_{i,\text{face}}$ face source using rejection
-            \end{itemize}
-        \item Else:
-            \begin{itemize}
-                \item Sample $(x,\mu)$ from $\overline r_{i,\text{int}}$ volumetric source using rejection
-            \end{itemize}
-    \end{enumerate}
-\end{enumerate}
-
-
-
-
-
-\section{Face Tallies and correction near $\mu=0$}
+\subsection{Face Tallies and correction near $\mu=0$}
 \label{sec:face_tallies}
 
-Face-averaged estimators of the angular error are required to compute the outflow for
-estimating the spatial closure. The standard face-based
+Face-averaged estimators of $\epsilon(x,\mu)$ are required to compute the outflow for
+estimating the spatial closure discussed in Sec.~\ref{sec:spat_clos}. The standard face-based
 tallies~\cite{shultis_mc,favorite_faces} are used.  Tallies are weighted by
 the appropriate basis functions to compute a linear FE projection in $\mu$ at each face.  The
 tally score, for the angular-averaged error $\epsilon_{a,i}$ is defined as
@@ -387,7 +394,7 @@ moment, the tally is
     \hat \epsilon_{\mu,i\pm1/2,j} = \frac{1}{N} \sum_{m=1}^{N_{i+1/2,j}} 
     6\left(\frac{\mu-\mu_j}{h_\mu}\right) \frac{w_m(x_{i\pm1/2},\mu)}{|\mu| h_{\mu}}.
 \end{equation}
-For positive and negative direction outflows are tallied
+For positive and negative directions, solutions are only tallied
 on the $x_{i+1/2}$ and $x_{i-1/2}$ faces, respectively. Particles are only tallied after leaving
 a cell, and, as discussed in Section~\ref{sec:ldd_mc}, particles born on a surface do not contribute
 to the tally of that surface.
@@ -395,8 +402,9 @@ to the tally of that surface.
 Near $\mu=0$, particles can contribute large scores to the zeroth angular moment that lead to large and
 unbounded variances~\cite{favorite_faces}.  To avoid large variances, we have applied the standard fixup~\cite{mcnp,favorite_faces}.  
 For $|\mu|$ below some small value $\mu_{cut}$, 
-particles contribute the expected score over the range $(0,|\mu_{cut}|)$, based on an
-approximate, isotropic particle density. Thus, scores in this range have no variance.  Assuming
+particles contribute the expected score over the range $(0,|\mu_{cut}|)$ for an
+approximate isotropic particle density. Thus, scores in this range have no variance, but are biased
+for non-isotropic intensities.  For all results in this work $\mu_{cut}=0.01$.  Assuming
 an isotropic particle density $I_0$, the average of
 $1/\mu$, for positive $\mu$, is
 \begin{equation}
@@ -406,13 +414,12 @@ $1/\mu$, for positive $\mu$, is
 \end{equation}
 For negative $\mu$, $\overline{1/\mu}=-2/\mu_{cut}$.
 All particles in the range $(0,|\mu_{cut}|)$ contribute the expected score by evaluating
-the tallies at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first angular moment tallies are
-well defined because there is no $\mu$ term in the tally. THIS ISNT REALLY TRUE NOW
-BECAUSE THE FINITE ELEMENT FIRST MOMENT IS FINE. Additionally, assuming an isotropic intensity over the range helps to limit
-the first moment near $\mu=0$, which the LD trial space
-generally cannot resolve anyways, as discussed in ???.
+the appropriate estimator at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first angular moment would be well behaved, but it is inconsistent to only modify the zeroth 
+moment in the $I_\mu$ estimators. Additionally, assuming an isotropic intensity near $\mu=0$ helps to limit
+the first $\mu$ moment, which the LD trial space
+often cannot resolve anyways.
 
-\section{MC solution with LDD trial space}
+\section{MC solution for Linear Doubly-Discontinuous trial space}
 \label{sec:ldd_mc}
 
 The inclusion of the outflow discontinuity has a minimal effect on the treatment of the
@@ -487,7 +494,7 @@ The update for $I(x_{i+1/2},\mu)$ is
     \dep(x_{i+1/2},\mu) \\ 
         &= \tilde I^{(m)}(x_{i+1/2}^-,\mu) + \epsilon^{(m)}(x_{i+1/2},\mu).
 \end{align}
-This result has the peculiar effect that the estimation of the solution on a face depends only on
+This result has the serendipitous effect that the estimation of the solution on a face depends only on
 the interior solution $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and not the previous face value 
 $\tilde I^{(m)}(x_{i+1/2},\mu)$. This adds a benefit that the face values can be estimated in particular cells, at any chosen batch.
 

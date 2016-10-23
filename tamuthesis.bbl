@@ -1,51 +1,16 @@
 \begin{thebibliography}{10}
 
-\bibitem{adams_dsa}
-Marvin Adams and William Martin.
-\newblock Diffusion synthetic acceleration of discontinuous finite element
-  transport iterations.
-\newblock {\em Nuclear Science and Engineering}, 111(2):145--167, 1992.
-
 \bibitem{ans_2014}
 S.R. Bolding and J.E. Morel.
 \newblock {A High-Order Low-Order Algorithm with Exponentially-Convergent Monte
   Carlo for $k$-Eigenvalue problems}.
 \newblock ANS Winter Meeting. Anaheim, CA, 2014.
 
-\bibitem{chandrasekhar}
-Subrahmanyan Chandrasekhar.
-\newblock {\em Radiative Transfer}.
-\newblock Courier Corporation, 2013.
-
-\bibitem{diff_limit_imc}
-Jeffery~D. Densmore.
-\newblock Asymptotic analysis of the spatial discretization of radiation
-  absorption and re-emission in implicit monte carlo.
-\newblock {\em Journal of Computational Physics}, 230(4):1116 -- 1133, 2011.
-
-\bibitem{densmore_edl}
-Jeffery~D. Densmore and Edward~W. Larsen.
-\newblock Asymptotic equilibrium diffusion analysis of time-dependent monte
-  carlo methods for grey radiative transfer.
-\newblock {\em Journal of Computational Physics}, 199(1):175 -- 204, 2004.
-
-\bibitem{ddmc}
-Jeffery~D Densmore, Kelly~G Thompson, and Todd~J Urbatsch.
-\newblock A hybrid transport-diffusion monte carlo method for
-  frequency-dependent radiative-transfer simulations.
-\newblock {\em Journal of Computational Physics}, 231(20):6924--6934, 2012.
-
-\bibitem{larsen_error}
-Paul~Nelson Edward W.~Larsen.
-\newblock Finite-difference approximations and superconvergence for the
-  discrete-ordinate equations in slab geometry.
-\newblock {\em SIAM Journal on Numerical Analysis}, 19(2):334--348, 1982.
-
-\bibitem{larson_morel_sn}
-{Edward W. Larsen and Jim E. Morel}.
-\newblock Advances in discrete-ordinates methodology.
-\newblock {\em Nuclear Computational Science. Springer Netherlands}, pages
-  1--–84, 2010.
+\bibitem{favorite_faces}
+Jeffrey~A Favorite, Ashley~D Thomas, and Thomas~E Booth.
+\newblock On the accuracy of a common monte carlo surface flux grazing
+  approximation.
+\newblock {\em Nuclear Science and Engineering}, 168(2):115--127, 2011.
 
 \bibitem{fnc}
 J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
@@ -53,91 +18,16 @@ J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
   dependent nonlinear radiation transport.
 \newblock {\em J. Comput. Phys.}, 8(3):313--342, December 1971.
 
-\bibitem{iimc_gentile}
-N.~A. Gentile and Ben~C. Yee.
-\newblock Iterative implicit monte carlo.
-\newblock {\em Journal of Computational and Theoretical Transport}, 0(0):1--31,
-  0.
-
-\bibitem{imd}
-N.A. Gentile.
-\newblock Implicit monte carlo diffusion: An acceleration method for monte
-  carlo time-dependent radiative transfer simulations.
-\newblock {\em Journal of Computational Physics}, 172(2):543--571, 2001.
-
-\bibitem{simc_const}
-Eugene D.~Brooks III, Michael~Scott McKinley, Frank Daffin, and Abraham Szöke.
-\newblock Symbolic implicit monte carlo radiation transport in the difference
-  formulation: a piecewise constant discretization.
-\newblock {\em Journal of Computational Physics}, 205(2):737 -- 754, 2005.
-
-\bibitem{simc}
-Eugene D.~Brooks III, Abraham Szőke, and Jayson~D.L. Peterson.
-\newblock ``piecewise linear discretization of symbolic implicit monte carlo
-  radiation transport in the difference formulation ''.
-\newblock {\em ``Journal of Computational Physics ''}, "220"(1):471 -- 497,
-  2006.
-
-\bibitem{os_rh}
-Samet~Y Kadioglu, Dana~A Knoll, Robert~B Lowrie, and Rick~M Rauenzahn.
-\newblock A second order self-consistent imex method for radiation
-  hydrodynamics.
-\newblock {\em Journal of Computational Physics}, 229(22):8313--8332, 2010.
-
-\bibitem{damped_newton}
-CT~Kelley.
-\newblock Iterative methods for linear and nonlinear equations.
-\newblock {\em SIAM}, 65002, 1995.
-
 \bibitem{spanier_mc}
 Rong Kong and Jerome Spanier.
 \newblock A new proof of geometric convergence for general transport problems
   based on sequential correlated sampling methods.
 \newblock {\em Journal of Computational Physics}, 227:9762 -- 9777, 2008.
 
-\bibitem{larsen_mpv}
-Edward~W. Larsen, Akansha Kumar, and Jim~E. Morel.
-\newblock Properties of the implicitly time-differenced equations of thermal
-  radiation transport.
-\newblock {\em J. Comput. Phys.}, 238:82--96, April 2013.
-
-\bibitem{morel_dsa}
-Edward~W Larsen and Jim~E Morel.
-\newblock Advances in discrete-ordinates methodology.
-\newblock In {\em Nuclear Computational Science}, pages 1--84. Springer, 2010.
-
-\bibitem{larsen_edl}
-E.W. Larsen, G.C. Pomraning, and V.C. Badham.
-\newblock Asymptotic analysis of radiative transfer problems.
-\newblock {\em Journal of Quantitative Spectroscopy and Radiative Transfer},
-  29(4):285 -- 310, 1983.
-
 \bibitem{lewis}
 Elmer~Eugene Lewis and Warren~F Miller.
 \newblock {\em Computational methods of neutron transport}.
 \newblock John Wiley and Sons, Inc., New York, NY, 1984.
-
-\bibitem{mcclarren_notes}
-Ryan McClarren.
-\newblock Numerical methods in reactor analysis.
-\newblock Class Lecture Notes, 2015.
-
-\bibitem{teleportation}
-Michael~Scott McKinley, Eugene~D Brooks~III, and Abraham Szoke.
-\newblock Comparison of implicit and symbolic implicit monte carlo line
-  transport with frequency weight vector extension.
-\newblock {\em Journal of Computational Physics}, 189(1):330--349, 2003.
-
-\bibitem{mihalas}
-Dimitri Mihalas and Barbara Weibel-Mihalas.
-\newblock {\em Foundations of radiation hydrodynamics}.
-\newblock Courier Corporation, 1999.
-
-\bibitem{morel_ldtrt}
-J.E. Morel, T.A. Wareing, and K.~Smith.
-\newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
-  Transfer Calculations}.
-\newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
 
 \bibitem{park}
 H.~Park, J.D. Densmore, A.B. Wollaber, D.A. Knoll, and R.M. Ramenzahn.
@@ -150,11 +40,6 @@ J.R. Peterson.
 \newblock {E}xponentially {C}onvergent {M}onte {C}arlo for the 1-d {T}ransport
   {E}quation.
 \newblock Master's thesis, Texas A\&M, 2014.
-
-\bibitem{saad}
-Yousef Saad.
-\newblock {\em Iterative methods for sparse linear systems}.
-\newblock Siam, 2003.
 
 \bibitem{shultis_mc}
 J.K. Shultis and W.L. Dunn.
@@ -172,88 +57,16 @@ Weston~M. Stacey.
 \newblock {\em Nuclear Reactor Physics}.
 \newblock Wiley, 2007.
 
-\bibitem{radhydro_code}
-James~M Stone and Michael~L Norman.
-\newblock Zeus-2d: A radiation magnetohydrodynamics code for astrophysical
-  flows in two space dimensions. i-the hydrodynamic algorithms and tests.
-\newblock {\em The Astrophysical Journal Supplement Series}, 80:753--790, 1992.
-
 \bibitem{mcnp}
 X-3 Monte~Carlo Team.
 \newblock {\em MCNP - A General N-Particle Transport Code, Version 6: Volume I,
   Overview and Theory}, 2005.
 \newblock LA-UR-03-1987.
 
-\bibitem{toro}
-E.F. Toro.
-\newblock {\em Riemann {S}olvers and {N}umerical {M}ethods for {F}luid
-  {D}ynamics: A {P}ractical {I}ntroduction}.
-\newblock Springer, 1999.
-
-\bibitem{jayenne}
-T.J. Urbatsch and T.M. Evans.
-\newblock {Milagro Version 2 An Implicit Monte Carlo Code for Thermal Radiative
-  Transfer: Capabilities, Development, and Usage}.
-\newblock Los Alamos National Laboratory Report LA-14195-MS, 2006.
-
 \bibitem{wla_thesis}
 T.A. Wareing.
 \newblock {\em {Asymptotic diffusion accelerated discontinuous finite element
   methods for transport problems}}.
 \newblock PhD thesis, Michigan, 1991.
-
-\bibitem{wla}
-T.A. Wareing, E.W. Larsen, and M.L. Adams.
-\newblock {Asymptotic Diffusion Accelerated Discontinuous Finite Element
-  Schemes for the S$_N$ Equations in Slab and X-Y Geometries}.
-\newblock In {\em {International Topical Meeting on Advances in Mathematics,
-  Computations, Reactor Physics}}, volume~3, Pittsburgh, PA, 1991.
-
-\bibitem{willert}
-J.~Willert, C.T. Kelly, D.A. Knoll, and H.~Park.
-\newblock {A Hybrid Approach to the Neutron Transport k-Eigenvalue Problem
-  using NDA-based Algorithms}.
-\newblock M\&C. Sun Valley, ID, 2013.
-
-\bibitem{rmc}
-Jeffrey Willert and H.~Park.
-\newblock Residual monte carlo high-order solver for moment-based accelerated
-  thermal radiative transfer equations.
-\newblock {\em Journal of Computational Physics}, 276:405 -- 421, 2014.
-
-\bibitem{wollaber_thesis}
-Allan~B Wollaber.
-\newblock {\em Advanced Monte Carlo methods for thermal radiation transport}.
-\newblock PhD thesis, The University of Michigan, 2008.
-
-\bibitem{wollaber_review}
-Allan~B Wollaber.
-\newblock Four decades of implicit monte carlo.
-\newblock {\em Journal of Computational and Theoretical Transport},
-  45(1-2):1--70, 2016.
-
-\bibitem{wollaber2013discrete}
-Allan~B Wollaber, Edward~W Larsen, and Jeffery~D Densmore.
-\newblock A discrete maximum principle for the implicit monte carlo equations.
-\newblock {\em Nuclear Science and Engineering}, 173(3):259--275, 2013.
-
-\bibitem{holo_rh}
-Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
-\newblock Radiation hydrodynamics with a high-order, low-order method.
-\newblock In {\em ANS Topical Meeting, International Topical Meeting on
-  Mathematics and Computation}, Nashville Tennessee, 2015.
-
-\bibitem{wollaeger_ld}
-Ryan~T Wollaeger, Allan~B Wollaber, Todd~J Urbatsch, and Jeffery~D Densmore.
-\newblock Implicit monte carlo with a linear discontinuous finite element
-  material solution and piecewise non-constant opacity.
-\newblock {\em Journal of Computational and Theoretical Transport}, pages
-  00--00, 2016.
-
-\bibitem{wolters}
-E.R. Wolters.
-\newblock {\em Hybrid Monte Carlo - Deterministic Neutron Transport Methods
-  Using Nonlinear Functionals}.
-\newblock PhD thesis, Michigan, 2011.
 
 \end{thebibliography}
