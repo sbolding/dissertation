@@ -219,7 +219,7 @@ of the ECMC batch, refinement is performed in space-angle cells based on a jump
 indicator.  The jump indicator is the magnitude of the different between
 $I(x,\mu)$ in adjacent cells, averaged over each edge.  The value of the
 largest jump, out of the four edges within a cell, is used as the indicator for
-that cell.  Based on this indicator, a preset fraction of cells are refined
+that cell; alternatively, the error could directly be used as an indicator. Based on this indicator, a preset fraction of cells are refined
 based on the indicator.  The refinement of a cell is chosen to be symmetric,
 with each space-angle cell divided into four equal-sized cells and only one
 refinement level difference between adjacent cells is allowed, except for cells
@@ -238,85 +238,84 @@ The LDFE representation given by Eqs.~\eqref{eq:ld_intens},~\eqref{eq:left_uw},
 and~\eqref{eq:right_uw} is substituted into Eq.~\eqref{eq:resid} and evaluated
 to produce the residual source for each ECMC batch.  The MC source
 $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err} consists of volumetric sources and
-face sources.  The face sources result from the spatial derivative applied to
-the discontinuities in the trial space.  The source can produce positive and
+face sources that are sampled.  The face sources result from the spatial derivative applied to
+the discontinuities in the trial space.  The source can also produce positive and
 negative weight particles.  The probability distribution function (PDF) for
 sampling particle coordinates is formed by dividing $r^{(m)}(x,\mu)$ by $\|r^{(m)}(x,\mu)\|_1$,
 i.e., the $L_1$ norm over space and angle of the residual.  Particle coordinates (in $x$ and $\mu$)
 are sampled from the strictly positive PDF; then, if the residual is negative at the sampled coordinates, the weight of the
 particle history is negative. With
 the statistical weights of each particles normalized to unity, then the tallies must be multiplied
-by $\|r^{(m)}\|_1$ to produce the correct magnitude of solution.
+by $\|r^{(m)}\|_1$ to produce the correct magnitude for moments of error.
   More details on specific equations for evaluating integrals of the
-reisdual for steady-state neutronics problems can be found in~\cite{jake}.  
+residual for steady-state neutronics problems can be found in~\cite{jake}.  
  
 As a method to improve statistical efficiency within a batch, a modified version of the systematic
-sampling method~\cite{shultis_mc} was used for determining the number of
-particles sampled from each space-angle cell.   The goal is to
-effectively distribute particle histories to regions of importance, but to
-sample a sufficient number of histories in less probable regions to prevent
-large statistical noise.  However, there is no need to sample histories in
-regions in thermal equilibrium.  The residual gives a good indication of where
-histories are most likely to contribute to the error, particularly in optically
-thick cells where particles do not transport long distances. Systematic sampling is a stratified sampling
-procedure that reduces the variance of the source being sampled~\cite{shultis_mc}.  Thus, we expect
-variance to be reduced by more efficiently sampling the residual, at least in optically thick cells.  In thin
-cells, where transport is more prevalent, this sampling procedure does not guarantee less variance
-overall. 
-
-In the systematic sampling
-algorithm the number of particle histories sampled in each space-angle cell is
-predetermined and proportional to the L$_1$ magnitude of the residual, including face
-and volumetric sources. 
- In cells where the relative
-magnitude of the residual is on the order of roundoff no particle histories are
-sampled. In these regions the problem is remaining in equilibrium and the
-solution is known exactly.  For cells that are significant, but would have a number of samples below some preset minimum $N_{min}$, the
-number of histories sampled in that cell is set to $N_{min}$. This is to limit
-bad statistics in low probability cells (this is primarily important for adaptively
-refined meshes).  In most of the simulations performed for this work
-$N_{min}=1$; this choice is made to keep the total number of histories per time
+sampling method~\cite{shultis_mc} (a form of stratified sampling) was implemented for determining the number of
+histories sampled from each space-angle cell.  In the systematic sampling algorithm, the
+number of particle histories sampled in each space-angle cell is predetermined and
+proportional to the integral of the
+PDF over that cell.  The goal is to effectively distribute particle histories to regions of
+importance, but to sample a preset, minimum number of histories $N_{\min}$ in less probable
+regions; this is to limit bad statistics in low probability cells (this is primarily important for adaptively
+refined meshes).  However, there is no need to sample histories
+from regions in thermal equilibrium, where the probability of a particle being born is on
+the order of roundoff.  In most of the simulations performed for this work
+$N_{\min}=1$; this choice is made to keep the total number of histories per time
 step constant throughout the simulation for comparison to IMC.  
-Particle weights must be adjusted to account for
-the difference between the number sampled from a particular cell and the true probability
-of that element being sampled.  The unmodified probability of a particle being born in cell $ij$ is 
+
+The unmodified probability of a particle being born in cell $ij$ is 
 \begin{equation}
-    p_{ij} = \frac{||r^{(m)}_{ij}||}{||r^{(m)}||}
+    p_{ij} = \frac{\|r^{(m)}\|_{1,{ij}}}{\|r^{(m)}\|_1}
 \end{equation}
+where $\|r\|_{1,ij}$ is the L$_1$ norm over cell $ij$, including the upwind face and interior
+volumetric source.
 Thus, the number of
 particles in cell $ij$ is 
 \begin{equation}
     N_{ij} = 
 \left\{\begin{matrix}
-    \lfloor(Np_{ij})\rfloor, & Np_{ij} > N_{\min}
-    \\ 0, & \frac{p_{ij}}{1/N_c} < p_{cut}
-\\ N_{min}, & \text{else}
+    \lfloor(N_bp_{ij})\rceil & N_bp_{ij} > N_{\min}
+    \\ 0 & p_{ij} < O(\epsilon_{prec})
+\\ N_{\min} & \text{else}
 \end{matrix}\right.
 \end{equation}
-where $N_{\min}$ is the minimum number of histories in significant cells, $N_c$  is the number of cells, and $p_{cut}$ is the chosen relative probability cutoff.
-To prevent biasing, this cutoff is on the order of round off.
+where $N_{\min}$ is the minimum number of histories in significant cells, $N_b$ is the
+total number of histories sampled that batch, and
+$\epsilon_{prec}$ is on the order of double precision.  
+Particle weights must be adjusted to account for
+the difference between the number sampled from a particular cell and the original probability
+of that element being sampled.  This rounding requires some additional histories
+needing to be sampled, or removed, to reach a specific number of histories.  These
+modifications are made to the most probable cell
 
-The algorithm for each sample, from $x-\mu$ element $i$, is 
+The algorithm for sampling each of the $N_{ij}$ starting histories, from each $ij$ element, is
 \begin{enumerate}
-    \item Sample two random numbers $\eta_1$, $\eta_2\sim U(0,1)$ 
-    \item If $\eta_1 < \|r_i^{n}\|_1/(\|r_i^{n}\|_1 + \|\overline{r_i}\|_1)$:
-    \begin{itemize}
-        \item Sample $(x,\mu)$ from $r_i^{n}$ volumetric source using rejection sampling
-        \item Set $t=t^n$
-    \end{itemize}
-\item Else, sample from $\overline r$ source:
+    \item Sample random number $\eta\sim U(0,1)$ 
     \begin{enumerate}
-        \item \label{itm:time_step}Sample $t$ uniformly over $(t^{n},t^{n+1})$.
-        \item If $\eta_2 < \|\overline{r}_{i,\text{face}}\|_1/\|\overline{r}_{i}\|_1$:
+        \item If $\eta < \|r^{(m)}_{\text{face}}\|_{1,ij}/\|r^{(m)}\|_{1,ij}$:
             \begin{itemize}
-                \item Sample $(x,\mu)$ from $\overline r_{i,\text{face}}$ face source using rejection
+                \item Sample $(x,\mu)$ from $\overline r_{ij,\text{face}}$ face source with
+                    rejection sampling
             \end{itemize}
         \item Else:
             \begin{itemize}
-                \item Sample $(x,\mu)$ from $\overline r_{i,\text{int}}$ volumetric source using rejection
+                \item Sample $(x,\mu)$ from $\overline r_{ij,\text{int}}$ volumetric source
+                    using rejection sampling
             \end{itemize}
     \end{enumerate}
+\item Set particle weight to $p_{ij}N_b/N_{ij}$
 \end{enumerate}
+where $\overline r_{i,\text{face}}$ and $\overline r_{i,\text{int}}$ are the upwind face and
+interior residual in cell $ij$.
+
+The residual gives a good indication of where
+histories are most likely to contribute to the error, particularly in optically
+thick cells where particles do not transport long distances. Systematic sampling is a
+variance reduction technique that reduces the variance of the function, i.e., the residual, being sampled~\cite{shultis_mc}.  Thus, we expect
+variance to be reduced by more efficiently sampling the residual in optically thick cells.  In thin
+cells, where particles transport farther, this sampling procedure does not guarantee less variance
+overall. 
 
 
 
@@ -416,8 +415,7 @@ For negative $\mu$, $\overline{1/\mu}=-2/\mu_{cut}$.
 All particles in the range $(0,|\mu_{cut}|)$ contribute the expected score by evaluating
 the appropriate estimator at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first angular moment would be well behaved, but it is inconsistent to only modify the zeroth 
 moment in the $I_\mu$ estimators. Additionally, assuming an isotropic intensity near $\mu=0$ helps to limit
-the first $\mu$ moment, which the LD trial space
-often cannot resolve anyways.
+the first $\mu$ moment, where the LD trial space often cannot resolve the solution anyways.
 
 \section{MC solution for Linear Doubly-Discontinuous trial space}
 \label{sec:ldd_mc}
