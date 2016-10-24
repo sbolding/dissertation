@@ -22,7 +22,7 @@ the ECMC solution method applied in this work is given.  First, the LDFE trial
 space used by the ECMC algorithm is detailed.  Then, the ECMC algorithm is
 developed, followed by more specific sampling and tracking details.  
 
-\section{Implementation of LDFE $x-\mu$ Trial Space}
+\section{Implementation of LDFE $x$-$\mu$ Trial Space}
 
 To form the algorithm, a trial-space representation for the intensity is necessary.  The ECMC solver uses a finite element representation in space and angle. On the
 interior of the cell with the $i$-th spatial index and $j$-th angular index, the linear representation is defined as
@@ -420,14 +420,17 @@ the first $\mu$ moment, where the LD trial space often cannot resolve the soluti
 \section{MC solution for Linear Doubly-Discontinuous trial space}
 \label{sec:ldd_mc}
 
-The inclusion of the outflow discontinuity has a minimal effect on the treatment of the
+In this section, modifications made to the ECMC algorithm for computing a spatial closure
+are given.  The inclusion of the outflow discontinuity in space has a minimal effect on the treatment of the
 residual source. The residual source and process of estimating moments of
 the error on the interior of a space-angle cell is unchanged.  The process of estimating
 the solution on the outgoing face requires tallying the solution when particles leave a
-cell. The tallying process is discussed later in Section~\ref{sec:face_tallies}.  
+cell, using the face-averaged tallies discussed in Section~\ref{sec:face_tallies}.  
 
-Applying $L$ to the LDD trial space, as shown in Fig.~\ref{fig:ldd}, results in two $\delta$ functions at each interior face.
-For positive flow, at a face $x_{i+1/2}$, the face portion of the residual is defined as
+The LDD trial space is the same as the LDFE space-angle trial space, except for an extra discontinuity in space, with a linear solution
+in angle.  Applying $L$ to the LDD trial space (demonstrated in 1D in
+Fig.~\ref{fig:ldd_space}), results in two $\delta$ functions at each interior face.
+For \emph{positive flow}, at a face $x_{i+1/2}$, the face portion of the residual is defined as
 \begin{align}
     \label{eq:res_face}
     \rface(x_{i+1/2}) &= -\mu \pderiv{\tilde I^{(m)}}{x}\big|_{x_{i+1/2}}\\
@@ -441,59 +444,34 @@ where
            \tilde I^{(m)}(x_{i+1/2},\mu)
            \right).
 \end{align}
-Here, $I^{(m)}(x_{i+1/2}^+)$ and $I^{(m)}(x_{i+1/2}^-)$ are the LD solution extrapolated to $x_{i+1/2}$ from the
-$x$ cell $i+1$ and cell $i$, respectively.
-Particles sampled from the two $\delta$-functions have the same starting location.  The
-only difference is, for positive $\mu$,  particles sampled from $\rface(x^-_{i+1/2})$ will
-contribute to the face tally at $x_{i+1/2}$; the opposite is true for negative $\mu$.
+Here, $I^{(m)}(x_{i+1/2},\mu)$ is the face-estimated solution at $x_{i+1/2}$ and
+$I^{(m)}(x_{i+1/2}^+)$ and $I^{(m)}(x_{i+1/2}^-)$ are the LDFE solution extrapolated to
+$x_{i+1/2}$ from the $x$ cell $i+1$ and cell $i$, respectively; all three are linear in
+$\mu$ over each space-angle cell.  Particles sampled from the
+two $\delta$-functions have the same starting location.  The only difference is, for
+positive $\mu$, only the particles sampled from $\rface(x^-_{i+1/2})$ will contribute to the face
+tally at $x_{i+1/2}$; the opposite is true for negative $\mu$.  
 
 To reduce variance, we do not sample the two $\delta$ functions independently.
 %or score contributions to the outflow face from the interior face source. 
-Instead, we combine the
-two $\delta$-functions into a single face source,
-do not score particles at the face from which they are sampled.  To account for the
+Instead, the
+two $\delta$-functions are combined into a single face source in each element\footnote{The combination of the two $\delta$-functions produces the same residual source as the
+original LD trial-space residual.},
+and particles do \emph{not} score at the face from which they are sampled.  To account for the
 untallied error, we add the analytic
-contribution to the error from the face source to the corresponding face at the end of a batch.
-It is noted the combination of the two $\delta$-functions produces the same residual source as the
-original LD residual.
-
-Define the additional error contribution 
-from the face sources at $x_{i+1/2}$ as $\dep$.  This additional error is tallied
-everywhere by MC, except for at $x_{i+1/2}$.  The transport equation satisfied by $\dep$, for positive
-$\mu$, with effective total cross 
-section $\hat \sigma_t$, is
-\begin{equation}
-    \label{eq:ho_face}
-    \mu \pderiv{\dep}{x} + \hat\sigma_t \dep = \rface(x_{i+1/2}^-)\delta^-(x - x_{i+1/2}) + \rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) 
-\end{equation}
-This equation is integrated from $x_{i+1/2}-\alpha$ to $x_{i+1/2}$ to produce
-\begin{multline}
-    \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
-    \hat \sigma_t \dep \dd x  \\ =  \rface(x_{i+1/2}^-) +
-        \int\limits_{x_{i+1/2}-\alpha}^0\rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) \dd x.
-\end{multline}
-The integral on the right side of the equation is zero because $\delta^+(x-x_{i+1/2})$ is
-zero for $(-\infty,x_{i+1/2}]$.  The limit of the above equation is taken as $\alpha\to0$, i.e.,
-\begin{multline}
-    \lim_{\alpha\to0}\left( \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
-    \hat \sigma_t \dep \dd x \right)  = \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
-\end{multline}
-The integral goes to zero because $\dep$ is smooth on the interior of the cell, and
-$\mu\dep(x_{i+1/2}-\alpha,\mu)$ goes to zero because there is no source upstream of
-$x_{i+1/2}^-$. Thus, the final solution is
-\begin{equation}
-    \dep(x_{i+1/2},\mu) = \frac{\rface(x_{i+1/2}^-)}{\mu} = 
-     \tilde I^{(m)}(x_{i+1/2}^-,\mu) - \tilde I^{(m)}(x_{i+1/2},\mu)
-.
-\end{equation}
-The update for $I(x_{i+1/2},\mu)$ is 
+contribution to the error from particles born on the upwind side of the face at the end of
+each batch.  The analytic contribution to the error at faces is derived in Sec.~\ref{sec:face_err_deriv}. 
+The update for $I(x_{i+1/2},\mu)$ becomes
 \begin{align}
-   \tilde I^{(m+1)}(x_{i+1/2},\mu) &= \tilde I^{(m)}(x_{i+1/2},\mu) + \epsilon^{(m)}(x_{i+1/2},\mu) +
-    \dep(x_{i+1/2},\mu) \\ 
-        &= \tilde I^{(m)}(x_{i+1/2}^-,\mu) + \epsilon^{(m)}(x_{i+1/2},\mu).
+   \tilde I^{(m+1)}(x_{i+1/2},\mu)  &= \tilde I^{(m)}(x_{i+1/2}^-,\mu) +
+   \epsilon^{(m)}(x_{i+1/2},\mu) & \mu > 0 \\
+   \tilde I^{(m+1)}(x_{i+1/2},\mu)  &= \tilde I^{(m)}(x_{i+1/2}^+,\mu) +
+   \epsilon^{(m)}(x_{i+1/2},\mu) & \mu < 0
 \end{align}
 This result has the serendipitous effect that the estimation of the solution on a face depends only on
-the interior solution $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and not the previous face value 
-$\tilde I^{(m)}(x_{i+1/2},\mu)$. This adds a benefit that the face values can be estimated in particular cells, at any chosen batch.
+the previous interior solution $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and not the previous face value 
+$\tilde I^{(m)}(x_{i+1/2},\mu)$. This has an additional benefit that the face values can
+be estimated at any chosen batch, in particular cells.  For this work, the closure is
+estimated in all cells.
 
 

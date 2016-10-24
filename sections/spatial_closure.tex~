@@ -151,8 +151,7 @@ This expression is positive as long as the moments are positive, which is true f
 physical solutions.  If the lagged, MC spatial closure produces an outflow from a cell that is
 negative, then these moments could become negative.  In such cases, we force that cell to
 use a standard lumped relation for the moment equations, with no discontinuity at the
-outflow.  As verified in Sec.~\ref{sec:sec_order}, the interior solution is still second
-order accurate in space.
+outflow.  
 
 During the Newton solve, once new half-range
 intensities are determined, the temperatures are updated using the moment same moment
@@ -165,21 +164,21 @@ accurate in the slope.
 
 \begin{figure}[H]
     \centering
-    \begin{center}
+    {\resizebox{0.5\textwidth}{!}{
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
             \draw (1.0,4.0) node[fill,circle,inner sep=0pt,minimum
             size=4.2pt] {};
             \draw [->] (1.6,4.25) -- (2.4,4.25) node[anchor=west] {$\mu$};
             \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
-            \node at (3.6,3.06) {$\phi_{LO}^+(x)$};
+            \node at (3.6,3.06) {$\phi^+(x)$};
             \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
             \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
             \draw (1.0,3.125) -- (5.90,2.120);
             \filldraw[color=cyan, fill=white] (5.9,2.120) circle (2.1pt);
             \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
         \end{tikzpicture}
-    \end{center}
+    }}
     \caption{Linear doubly-discontinous representation for mean intensity in LO equations}
     \label{fig:ldd_space}
 \end{figure}
@@ -199,10 +198,38 @@ We also want to demonstrate a better consistency between the two solvers, partic
 coarser mesh sizes.  We also want to compare to the efficiency of LD, noting that the
 extra noise of the face tallies may make the solution approach not worth it over all.
 
-\subsection{Smooth Marshak Wave}
+\subsection{Smooth Problem}
 
-The first problem is intended to have a relatively smooth solution, as well as cells that
-are not too optically thick so that the face-based solutions can be efficiently estimated.
-For this problem we use
+For the first problem, the solution has less steep gradients by having constant constant cross
+sections, a smaller boundary source, and by creating more diffusive problem parameters.
+The radiation and material energies are initially in
+equilibrium at $0.01$ keV.   An isotropic incident intensity of 50 eV is applied
+at $x=0$; the incident intensity on the right boundary is $10$ eV.
+The material properties are $\rho = 1$ g cm$^{-3}$, $c_v = 0.2$ jks/keV-g, and
+$\sigma_a=10$ cm$^{-1}$.
+The simulation end time is 0.5 sh.  The time step size increases by 10\% each time step
+until it reaching as maximum step size of 0.01 sh, beginning from $\delta_t = 0.001$ sh.
+The problem is not too optically thick so that the face-based solutions can be efficiently
+estimated, but the small c$_v$ value makes the solution relatively diffusive.  
+
+Fig.~\ref{fig:smooth_compare} compares the solutions for various spatial closures at a
+coarse mesh size, and a fine 500 cell solution which is taken as the reference answer. We
+have performed two outer HOLO iterations over each time step for all cases.   The
+fine-mesh solution uses 300,000 histories per HO solve, divided equally over 2 batchs; all
+other solutions use 100,000 histories per HO solve.  All meshes have 20 $\mu$
+cells in angle and no adaptive refinement.
+
+Visually there
+is no difference between the different spatial closures given by Eq.~\eqref{???}. The
+gamma closure is too inaccurate.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
+    \caption{\label{fig:smooth_compare} Comparison of solutions for different spatial closures.}
+\end{figure}
+
+
+
 
 

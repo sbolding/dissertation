@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  23 OCT 2016 13:48
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  24 OCT 2016 16:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -785,7 +785,33 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip102
 )
 (./mycommands.tex) (./tamuthesis.aux (./titlepage.aux) (./abstract.aux)
-(./sections/ho_solver.aux) (./bibliography.aux) (./appendices.aux))
+(./sections/introduction.aux) (./sections/algorithm_descriptions.aux)
+(./sections/lo_solver.aux
+
+LaTeX Warning: Label `lo_mat_dis' multiply defined.
+
+) (./sections/ho_solver.aux) (./sections/results.aux) (./sections/dsa.aux
+
+LaTeX Warning: Label `en:dsa_beg' multiply defined.
+
+
+LaTeX Warning: Label `en:dsa_end' multiply defined.
+
+
+LaTeX Warning: Label `tab:twomat_dsa_iters' multiply defined.
+
+) (./sections/negativities.aux) (./sections/time_closure.aux
+
+LaTeX Warning: Label `tab:void_short' multiply defined.
+
+) (./sections/conclusions.aux) (./bibliography.aux) (./appendices.aux
+
+LaTeX Warning: Label `eq:dsa_lumped' multiply defined.
+
+
+LaTeX Warning: Label `eq:bc_dsa' multiply defined.
+
+))
 \openout1 = `tamuthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
@@ -915,14 +941,149 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 ])
+\openout2 = `sections/introduction.aux'.
+
+
+(./sections/introduction.tex
+Chapter 1.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 22.
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.51 T
+      he research proposed herein provides a new HOLO algorithm for radiativ...
+[1
+
+
+
+] [2] [3]
+
+LaTeX Warning: Citation `nse_bolding' on page 4 undefined on input line 124.
+
+[4] [5] [6] [7] [8] [9] [10]
+
+LaTeX Warning: Citation `bolding_nse' on page 11 undefined on input line 349.
+
+[11]) [12]
+\openout2 = `sections/algorithm_descriptions.aux'.
+
+ (./sections/algorithm_descriptions.tex
+Chapter 2.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Reference `ho_cont' on page 13 undefined on input line 16.
+
+
+LaTeX Warning: Citation `morel_newton' on page 13 undefined on input line 38.
+
+[13
+
+
+
+] [14] [15]) [16]
+\openout2 = `sections/lo_solver.aux'.
+
+ (./sections/lo_solver.tex
+Chapter 3.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Citation `fe_book' on page 17 undefined on input line 9.
+
+
+LaTeX Warning: Citation `ray_effects' on page 17 undefined on input line 12.
+
+
+LaTeX Warning: Reference `sec:time_cont' on page 17 undefined on input line 22.
+
+
+[17
+
+
+
+] [18] [19] [20] [21]
+
+LaTeX Warning: Citation `???' on page 22 undefined on input line 210.
+
+
+LaTeX Warning: Reference `ho_trans' on page 22 undefined on input line 230.
+
+[22] [23]
+
+LaTeX Warning: Reference `lo_mat' on page 24 undefined on input line 303.
+
+[24]
+
+LaTeX Warning: Reference `eq:lo_tran' on page 25 undefined on input line 337.
+
+
+Overfull \hbox (350.44246pt too wide) detected at line 352
+[] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2\OML/cmm/m/it/12 ^^V[] [] \OT1/cmr/m/n
+/12 + [][] \OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/cmr/
+m/n/12 + [][] \OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[] \OT1/c
+mr/m/n/12 + [] \OML/cmm/m/it/12 h[]\OMS/cmsy/m/n/12 h\OML/cmm/m/it/12 ^^^\OMS/c
+msy/m/n/12 i[][]  ^^@ [] [] \OT1/cmr/m/n/12 = []\OMS/cmsy/m/n/12 h\OML/cmm/m/it
+/12 ^^[[]acT[]\OMS/cmsy/m/n/12 i[] \OT1/cmr/m/n/12 + []\OMS/cmsy/m/n/12 h\OML/c
+mm/m/it/12 ^^^\OMS/cmsy/m/n/12 i[]\OML/cmm/m/it/12 :
+ []
+
+[25]
+
+LaTeX Warning: Reference `sec:spat_close' on page 26 undefined on input line 35
+8.
+
+[26]
+
+LaTeX Warning: Reference `sec:dsa' on page 27 undefined on input line 394.
+
+[27]) [28] (./sections/spatial_closure.tex [29
+
+] [30]
+Overfull \hbox (14.48465pt too wide) in paragraph at lines 63--69
+[]\OT1/cmr/m/n/12 REWRITE: THIS IS SAY-ING WHY LDFE PRO-JEC-TION AND LDFE-DISCR
+ETI
+ []
+
+[31] [32]
+
+LaTeX Warning: Reference `' on page 33 undefined on input line 158.
+
+[33] [34]
+
+LaTeX Warning: Reference `???' on page 35 undefined on input line 223.
+
+<figures/smooth_compare.pdf, id=695, 526.58763pt x 409.82799pt>
+File: figures/smooth_compare.pdf Graphic file (type pdf)
+
+<use figures/smooth_compare.pdf>
+Package pdftex.def Info: figures/smooth_compare.pdf used on input line 228.
+(pdftex.def)             Requested size: 425.70969pt x 331.32724pt.
+ [35]) [36 <./figures/smooth_compare.pdf>]
 \openout2 = `sections/ho_solver.aux'.
 
 
 (./sections/ho_solver.tex
-Chapter 1.
+Chapter 4.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 25.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 25.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
@@ -936,11 +1097,10 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 25.
 
-[3
+[37
 
 
-
-] [4] [5] [6] [7] [8] [9] [10] [11]
+] [38] [39] [40] [41] [42] [43] [44] [45]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 298.
 
 
@@ -949,7 +1109,7 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 298.
- [12] [13]
+ [46] [47]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 377.
@@ -962,122 +1122,448 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 377.
 
+[48] [49] [50]) [51]
+\openout2 = `sections/results.aux'.
 
-LaTeX Warning: Reference `sec:spat_clos' on page xiv undefined on input line 38
-1.
+ (./sections/results.tex
+Chapter 5.
 
-[14] [15]
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
 
-LaTeX Warning: Reference `fig:ldd' on page xvi undefined on input line 429.
+[52
 
-[16]
-Overfull \hbox (32.6329pt too wide) detected at line 480
- []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
-mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
+
+
+]
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 47.
+
+[53] <figures/marshak_mesh_conv.pdf, id=942, 517.71071pt x 409.79662pt>
+File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
+
+<use figures/marshak_mesh_conv.pdf>
+Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 73.
+(pdftex.def)             Requested size: 297.99547pt x 235.88759pt.
+
+<figures/marshak_200_compare.pdf, id=943, 508.9671pt x 409.79662pt>
+File: figures/marshak_200_compare.pdf Graphic file (type pdf)
+
+<use figures/marshak_200_compare.pdf>
+Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 78.
+
+(pdftex.def)             Requested size: 297.99547pt x 239.93953pt.
+ [54] [55]
+<figures/two_mat_conv.pdf, id=962, 501.29784pt x 409.79662pt>
+File: figures/two_mat_conv.pdf Graphic file (type pdf)
+
+<use figures/two_mat_conv.pdf>
+Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 186.
+(pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
+
+<figures/two_mat_ho_compare.pdf, id=963, 501.29784pt x 409.79662pt>
+File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
+
+<use figures/two_mat_ho_compare.pdf>
+Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 190.
+
+(pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
+ [56] [57]
+Overfull \hbox (40.9509pt too wide) in paragraph at lines 249--256
+ [][] 
  []
 
-[17]) [18]
+[58]
+Overfull \hbox (42.84393pt too wide) in paragraph at lines 262--269
+ [][] 
+ []
+
+[59] [60]
+
+LaTeX Warning: Reference `app:refinement' on page 61 undefined on input line 34
+6.
+
+<figures/heated_marshak.pdf, id=1002, 526.7194pt x 417.02364pt>
+File: figures/heated_marshak.pdf Graphic file (type pdf)
+
+<use figures/heated_marshak.pdf>
+Package pdftex.def Info: figures/heated_marshak.pdf used on input line 363.
+(pdftex.def)             Requested size: 279.50218pt x 221.30145pt.
+ [61]
+Overfull \hbox (59.84676pt too wide) in paragraph at lines 375--384
+ [][] 
+ []
+
+[62] <figures/diff_limit_compare.pdf, id=1017, 523.38817pt x 409.79662pt>
+File: figures/diff_limit_compare.pdf Graphic file (type pdf)
+
+<use figures/diff_limit_compare.pdf>
+Package pdftex.def Info: figures/diff_limit_compare.pdf used on input line 412.
+
+(pdftex.def)             Requested size: 290.50563pt x 227.45857pt.
+
+
+LaTeX Warning: Reference `sec:intro' on page 63 undefined on input line 430.
+
+[63]
+
+LaTeX Warning: Reference `sec:marshak???' on page 64 undefined on input line 43
+8.
+
+[64]
+
+LaTeX Warning: Reference `sec:damped_newton' on page 65 undefined on input line
+ 473.
+
+<figures/mpv_rad_imc.pdf, id=1045, 507.24976pt x 411.71002pt>
+File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
+
+<use figures/mpv_rad_imc.pdf>
+Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 496.
+(pdftex.def)             Requested size: 258.00706pt x 209.42278pt.
+ [65]
+<figures/mpv_mats_imc.pdf, id=1054, 507.56343pt x 411.71002pt>
+File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_imc.pdf>
+Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 502.
+(pdftex.def)             Requested size: 258.00706pt x 209.29085pt.
+
+<figures/mpv_mats_holo.pdf, id=1055, 511.59412pt x 411.71002pt>
+File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
+
+<use figures/mpv_mats_holo.pdf>
+Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 509.
+(pdftex.def)             Requested size: 258.00706pt x 207.64493pt.
+ [66 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
+
+pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>]) [67 <./figures/mpv_mats_holo.pdf>] [68 <./figures/marshak_mesh_conv.pdf> <.
+/figures/marshak_200_compare.pdf
+
+pdfTeX warning: pdflatex (file ./figures/marshak_200_compare.pdf): PDF inclusio
+n: multiple pdfs with page group included in a single page
+>] [69 <./figures/two_mat_conv.pdf> <./figures/two_mat_ho_compare.pdf
+
+pdfTeX warning: pdflatex (file ./figures/two_mat_ho_compare.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+>] [70 <./figures/heated_marshak.pdf> <./figures/diff_limit_compare.pdf
+
+pdfTeX warning: pdflatex (file ./figures/diff_limit_compare.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
+>]
+\openout2 = `sections/dsa.aux'.
+
+ (./sections/dsa.tex
+Chapter 6.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Reference `sec:lo_sol' on page 71 undefined on input line 4.
+
+[71
+
+
+
+] [72]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 79--81
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+[73]
+Overfull \hbox (57.97441pt too wide) detected at line 131
+ []$[]   [] \OML/cmm/m/it/12 ^^N^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^N
+^^^[]$ 
+ []
+
+[74] [75]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 190--192
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+
+LaTeX Warning: Reference `eq:dsa_bc' on page 76 undefined on input line 197.
+
+[76] [77]
+Overfull \hbox (41.62148pt too wide) in paragraph at lines 243--245
+[]\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
+tions with $[]$. 
+ []
+
+
+LaTeX Warning: Reference `sec:two_mat' on page 78 undefined on input line 269.
+
+
+LaTeX Warning: Reference `sec:two_mat' on page 78 undefined on input line 270.
+
+
+LaTeX Warning: Reference `sec:diff_limit' on page 78 undefined on input line 27
+4.
+
+[78]) [79] [80]
+\openout2 = `sections/negativities.aux'.
+
+ (./sections/negativities.tex
+Chapter 7.
+[81
+
+
+
+] [82] [83] [84] [85]) [86]
+\openout2 = `sections/time_closure.aux'.
+
+ (./sections/time_closure.tex
+Chapter 8.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 2.
+
+
+LaTeX Warning: Reference `' on page 87 undefined on input line 4.
+
+[87
+
+
+
+]
+
+LaTeX Warning: Reference `sec:???' on page 88 undefined on input line 36.
+
+
+LaTeX Warning: Reference `sec:lo_closure_LDDTRIAL???' on page 88 undefined on i
+nput line 45.
+
+[88] [89]
+
+LaTeX Warning: Reference `eq:???' on page 90 undefined on input line 136.
+
+[90] [91] [92]
+
+LaTeX Warning: Reference `sec:???' on page 93 undefined on input line 232.
+
+[93]
+
+LaTeX Warning: Citation `shultis_paper_cj_cites???' on page 94 undefined on inp
+ut line 241.
+
+[94]
+
+LaTeX Warning: Reference `???' on page 95 undefined on input line 280.
+
+
+LaTeX Warning: Citation `holo_rh' on page 95 undefined on input line 294.
+
+
+LaTeX Warning: Reference `???' on page 95 undefined on input line 304.
+
+[95] [96]
+Overfull \hbox (0.44247pt too wide) detected at line 385
+ []$[]  [] [] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2[][][][] + [][]\OMS/cmsy/m/
+n/12 h[]i[] \OT1/cmr/m/n/12 + [][]\OMS/cmsy/m/n/12 h[]i[] \OT1/cmr/m/n/12 + \OM
+L/cmm/m/it/12 ^^[[]h[]\OMS/cmsy/m/n/12 h[]i[]$ 
+ []
+
+[97] <figures/void_imc_compare.pdf, id=1809, 553.45363pt x 408.27531pt>
+File: figures/void_imc_compare.pdf Graphic file (type pdf)
+
+<use figures/void_imc_compare.pdf>
+Package pdftex.def Info: figures/void_imc_compare.pdf used on input line 418.
+(pdftex.def)             Requested size: 279.50218pt x 206.18674pt.
+ [98]
+
+LaTeX Warning: Reference `???' on page 99 undefined on input line 431.
+
+[99 <./figures/void_imc_compare.pdf>]
+
+LaTeX Warning: Reference `void_temp_compare' on page 100 undefined on input lin
+e 443.
+
+<figures/void_temp_batch_compare.pdf, id=1893, 552.44987pt x 408.27531pt>
+File: figures/void_temp_batch_compare.pdf Graphic file (type pdf)
+
+<use figures/void_temp_batch_compare.pdf>
+Package pdftex.def Info: figures/void_temp_batch_compare.pdf used on input line
+ 468.
+(pdftex.def)             Requested size: 322.50554pt x 238.34482pt.
+ [100]
+<figures/void_ang_compare.pdf, id=1898, 553.45363pt x 408.27531pt>
+File: figures/void_ang_compare.pdf Graphic file (type pdf)
+
+<use figures/void_ang_compare.pdf>
+Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 476.
+(pdftex.def)             Requested size: 322.50554pt x 237.90874pt.
+ [101 <./figures/void_temp_batch_compare.pdf>] [102 <./figures/void_ang_compare
+.pdf>]
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 541--548
+ [][] 
+ []
+
+
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 556--563
+ [][] 
+ []
+
+[103] <figures/thin_temp_compare.pdf, id=2062, 552.44987pt x 414.17235pt>
+File: figures/thin_temp_compare.pdf Graphic file (type pdf)
+
+<use figures/thin_temp_compare.pdf>
+Package pdftex.def Info: figures/thin_temp_compare.pdf used on input line 581.
+(pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
+ [104]
+
+LaTeX Warning: Reference `' on page 105 undefined on input line 596.
+
+[105 <./figures/thin_temp_compare.pdf>]
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 632--640
+ [][] 
+ []
+
+[106]
+Overfull \hbox (52.63988pt too wide) in paragraph at lines 648--656
+ [][] 
+ []
+
+
+LaTeX Warning: Reference `sec:marshak' on page 107 undefined on input line 664.
+
+
+[107]
+<figures/marshak_time_cont_compare.pdf, id=2161, 552.44987pt x 414.17235pt>
+File: figures/marshak_time_cont_compare.pdf Graphic file (type pdf)
+
+<use figures/marshak_time_cont_compare.pdf>
+Package pdftex.def Info: figures/marshak_time_cont_compare.pdf used on input li
+ne 674.
+(pdftex.def)             Requested size: 279.50218pt x 209.54404pt.
+
+Overfull \hbox (59.15929pt too wide) in paragraph at lines 696--706
+ [][] 
+ []
+
+[108 <./figures/marshak_time_cont_compare.pdf>] [109]) [110]
+\openout2 = `sections/conclusions.aux'.
+
+
+(./sections/conclusions.tex
+Chapter 9.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 1.
+
+[111
+
+
+
+] [112]) [113]
 \openout2 = `bibliography.aux'.
 
- (./bibliography.tex (./tamuthesis.bbl [19
+ (./bibliography.tex (./tamuthesis.bbl
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [114
 
 
 
-])) [20]
+]
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ¶ in font cmr12!
+Missing character: There is no Å in font cmr12!
+Missing character: There is no ‘ in font cmr12!
+ [115] [116]
+[117])) [118]
 \openout2 = `appendices.aux'.
 
- (./appendices.tex
-(./sections/appendix1.tex
+ (./appendices.tex (./sections/appendix1.tex
 APPENDIX A.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
-[21
+[119
 
 
 
 ]
 
-LaTeX Warning: Reference `' on page xxii undefined on input line 66.
+LaTeX Warning: Reference `' on page 120 undefined on input line 66.
 
-[22]
+[120]
 
-LaTeX Warning: Reference `??' on page xxiii undefined on input line 91.
-
-
-LaTeX Warning: Reference `???' on page xxiii undefined on input line 92.
+LaTeX Warning: Reference `??' on page 121 undefined on input line 91.
 
 
-LaTeX Warning: Reference `eq:mat_cont' on page xxiii undefined on input line 99
-.
+LaTeX Warning: Reference `???' on page 121 undefined on input line 92.
 
-[23]
+[121]
 
-LaTeX Warning: Reference `eq:lo_tran' on page xxiv undefined on input line 146.
-
+LaTeX Warning: Reference `eq:lo_tran' on page 122 undefined on input line 146.
 
 
-LaTeX Warning: Reference `???' on page xxiv undefined on input line 146.
+LaTeX Warning: Reference `???' on page 122 undefined on input line 146.
 
-[24] <figures/Penguins.jpg, id=321, 770.88pt x 578.16pt>
-File: figures/Penguins.jpg Graphic file (type jpg)
+[122] [123]
+Overfull \hbox (32.6329pt too wide) detected at line 204
+ []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
+mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
+ []
 
-<use figures/Penguins.jpg>
-Package pdftex.def Info: figures/Penguins.jpg used on input line 179.
-(pdftex.def)             Requested size: 385.43906pt x 289.07928pt.
- [25] [26 <./figures/Penguins.jpg>] [27]
+[124] [125] [126]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\uppercase' on input line 223.
+(hyperref)                removing `\uppercase' on input line 259.
 
 
-LaTeX Warning: Reference `eq:x_moml' on page xxviii undefined on input line 245
-.
+LaTeX Warning: Reference `x_momr' on page 127 undefined on input line 281.
 
-
-LaTeX Warning: Reference `x_momr' on page xxviii undefined on input line 245.
-
-[28
+[127
 
 ]
-Overfull \hbox (46.66628pt too wide) detected at line 299
+Overfull \hbox (46.66628pt too wide) detected at line 335
  []$[]   [] \OML/cmm/m/it/12 ^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^^[]$
  
  []
 
-[29] [30] [31]
-Overfull \hbox (10.00034pt too wide) in paragraph at lines 403--403
+[128] [129] [130]
+Overfull \hbox (10.00034pt too wide) in paragraph at lines 439--439
 [] 
  []
 
-[32])) [33]
-
-Package caption Warning: Unused \captionsetup[sub] on input line 39.
-See the caption package documentation for explanation.
-
+[131])) [132]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 154.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 154.
-(./tamuthesis.aux (./titlepage.aux) (./abstract.aux) (./sections/ho_solver.aux)
-(./bibliography.aux) (./appendices.aux))
+ (./tamuthesis.aux (./titlepage.aux) (./abstract.aux)
+(./sections/introduction.aux) (./sections/algorithm_descriptions.aux)
+(./sections/lo_solver.aux) (./sections/ho_solver.aux) (./sections/results.aux)
+(./sections/dsa.aux) (./sections/negativities.aux) (./sections/time_closure.aux
+) (./sections/conclusions.aux) (./bibliography.aux) (./appendices.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 154.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 154.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: ED25A90C2331AE3828B5EF98B664AF4E;1582.
+(rerunfilecheck)             Checksum: 10B00518A46A33A62B4F1A26833D1869;7058.
 
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 20933 strings out of 493304
- 360590 string characters out of 6139871
- 497421 words of memory out of 5000000
- 23801 multiletter control sequences out of 15000+600000
- 12186 words of font info for 47 fonts, out of 8000000 for 9000
+ 21727 strings out of 493304
+ 373531 string characters out of 6139871
+ 512062 words of memory out of 5000000
+ 24172 multiletter control sequences out of 15000+600000
+ 12655 words of font info for 49 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,12n,55p,796b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,13n,57p,796b,709s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
@@ -1091,11 +1577,12 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 .pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
-live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on tamuthesis.pdf (33 pages, 1033281 bytes).
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on tamuthesis.pdf (134 pages, 793194 bytes).
 PDF statistics:
- 502 PDF objects out of 1000 (max. 8388607)
- 446 compressed objects within 5 object streams
- 166 named destinations out of 1000 (max. 500000)
- 170 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2580 PDF objects out of 2984 (max. 8388607)
+ 1740 compressed objects within 18 object streams
+ 516 named destinations out of 1000 (max. 500000)
+ 760 words of extra memory for PDF output out of 10000 (max. 10000000)
 

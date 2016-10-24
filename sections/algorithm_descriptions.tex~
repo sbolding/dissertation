@@ -61,8 +61,6 @@ Eq.~\eqref{eq:trans_td}.   The LDFE representation of the emission source mitiga
 transport problem for the HO operator. This HO transport problem represents a characteristic method that uses MC to
 invert the continuous streaming plus removal operator with an LDFE representation of
 sources; the representation of sources is similar to the linear moments method
- A general proof of exponential convergence for related adaptive MC transport methods is
-depicted in~\cite{spanier_mc}.  
 discussed in~\cite{larsen_error}.  We will solve this transport problem using ECMC.  The output from ECMC is
 $\tilde{I}^{n+1}(x,\mu)$, a space-angle LDFE projection of the exact solution
 $I^{n+1}(x,\mu)$ to the described transport problem.  Once computed, $\tilde{I}^{n+1}(x,\mu)$ is used

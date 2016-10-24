@@ -174,12 +174,48 @@ $l$, is defined as
     \item Repeat 2-5 until $(T^{n+1,k})^4$ and $\phi^{n+1,k}$ are converged.
 \end{enumerate}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.50]{figures/Penguins.jpg}
-\caption{TAMU figure}
-\label{fig:tamu-fig5}
-\end{figure}
+
+\section{Analytic Error Contribution for LDD Trial Space}
+\label{sec:face_err_deriv}
+
+In this section, the treatment of the outflow discontinuity residual source and error
+tallying is detailed.  Define the additional error contribution from the face
+sources at $x_{i+1/2}$ as $\dep$. We have chosen to tally the contribution from these
+sources with MC everywhere except for at $x_{i+1/2}$.  Thus, we need to solve for $\dep$
+at each face $x_{i+1/2}$ and add that contribution to the tallies
+$\epsilon(x_{i+1/2},\mu)$, which include the contribution from all other sources.  The transport equation satisfied by $\dep$, for positive
+$\mu$ and effective total cross 
+section $\hat \sigma_t$, is
+\begin{equation}
+    \label{eq:ho_face}
+    \mu \pderiv{\dep}{x} + \hat\sigma_t \dep = \rface(x_{i+1/2}^-)\delta^-(x - x_{i+1/2}) + \rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) 
+\end{equation}
+This equation is integrated from $x_{i+1/2}-\alpha$ to $x_{i+1/2}$ to produce
+\begin{multline}
+    \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
+    \hat \sigma_t \dep \dd x  \\ =  \rface(x_{i+1/2}^-) +
+        \int\limits_{x_{i+1/2}-\alpha}^0\rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) \dd x.
+\end{multline}
+The integral on the right side of the equation is zero because $\delta^+(x-x_{i+1/2})$ is
+zero for $(-\infty,x_{i+1/2}]$.  The limit of the above equation is taken as $\alpha\to0$, i.e.,
+\begin{multline}
+    \lim_{\alpha\to0}\left( \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
+    \hat \sigma_t \dep \dd x \right)  = \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
+\end{multline}
+The integral goes to zero because $\dep$ is smooth on the interior of the cell, and
+$\mu\dep(x_{i+1/2}-\alpha,\mu)$ goes to zero because there is no source upstream of
+$x_{i+1/2}^-$. Thus, the final solution is
+\begin{equation}
+    \dep(x_{i+1/2},\mu) = \frac{\rface(x_{i+1/2}^-)}{\mu} = 
+     \tilde I^{(m)}(x_{i+1/2}^-,\mu) - \tilde I^{(m)}(x_{i+1/2},\mu)
+.
+\end{equation}
+The update equation for $I(x_{i+1/2},\mu)$ is thus
+\begin{align}
+   \tilde I^{(m+1)}(x_{i+1/2},\mu) &= \tilde I^{(m)}(x_{i+1/2},\mu) + \epsilon^{(m)}(x_{i+1/2},\mu) +
+    \dep(x_{i+1/2},\mu) \\ 
+        &= \tilde I^{(m)}(x_{i+1/2}^-,\mu) + \epsilon^{(m)}(x_{i+1/2},\mu).
+\end{align}
 
 
 \section{Analytic Neutronics answer for Source fixup}

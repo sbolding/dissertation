@@ -1,54 +1,68 @@
-This is BibTeX, Version 0.99d (TeX Live 2015)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: tamuthesis.aux
 A level-1 auxiliary file: titlepage.aux
 A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: sections/introduction.aux
+A level-1 auxiliary file: sections/algorithm_descriptions.aux
+A level-1 auxiliary file: sections/lo_solver.aux
 A level-1 auxiliary file: sections/ho_solver.aux
+A level-1 auxiliary file: sections/dsa.aux
+A level-1 auxiliary file: sections/negativities.aux
 A level-1 auxiliary file: bibliography.aux
 The style file: plain.bst
 A level-1 auxiliary file: appendices.aux
 Database file #1: references.bib
+Repeated entry---line 445 of file references.bib
+ : @article{larsen_edl
+ :                    ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "morel_newton"
+Warning--I didn't find a database entry for "fe_book"
+Warning--I didn't find a database entry for "ray_effects"
+Warning--I didn't find a database entry for "???"
 Warning--empty booktitle in ans_2014
 Warning--empty booktitle in park
-You've used 12 entries,
+Warning--empty booktitle in willert
+You've used 43 entries,
             2118 wiz_defined-function locations,
-            569 strings with 5907 characters,
-and the built_in function-call counts, 3212 in all, are:
-= -- 310
-> -- 146
-< -- 0
-+ -- 60
-- -- 46
-* -- 192
-:= -- 577
-add.period$ -- 36
-call.type$ -- 12
-change.case$ -- 53
+            744 strings with 11021 characters,
+and the built_in function-call counts, 12789 in all, are:
+= -- 1266
+> -- 557
+< -- 4
++ -- 226
+- -- 178
+* -- 853
+:= -- 2203
+add.period$ -- 130
+call.type$ -- 43
+change.case$ -- 206
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 130
-empty$ -- 259
-format.name$ -- 46
-if$ -- 653
+cite$ -- 46
+duplicate$ -- 487
+empty$ -- 1031
+format.name$ -- 178
+if$ -- 2641
 int.to.chr$ -- 0
-int.to.str$ -- 12
-missing$ -- 11
-newline$ -- 63
-num.names$ -- 24
-pop$ -- 71
+int.to.str$ -- 43
+missing$ -- 42
+newline$ -- 218
+num.names$ -- 86
+pop$ -- 220
 preamble$ -- 1
-purify$ -- 47
+purify$ -- 175
 quote$ -- 0
-skip$ -- 78
+skip$ -- 312
 stack$ -- 0
-substring$ -- 145
-swap$ -- 10
-text.length$ -- 0
+substring$ -- 785
+swap$ -- 57
+text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 42
-warning$ -- 2
-while$ -- 29
-width$ -- 14
-write$ -- 129
-(There were 2 warnings)
+type$ -- 158
+warning$ -- 3
+while$ -- 126
+width$ -- 45
+write$ -- 465
+(There was 1 error message)

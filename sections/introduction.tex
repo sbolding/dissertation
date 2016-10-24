@@ -48,6 +48,56 @@ allows for the efficient reduction of statistical noise in the MC solution, redu
 inaccuracies introduced through the LO consistency
 terms. 
 
+The research proposed herein provides a new HOLO algorithm for radiative transfer.
+In this work, we propose an S$_2$-like LO operator~\cite{wolters}
+in conjunction with an exponentially-convergent MC (ECMC) method~\cite{jake} for the
+HO solver. Our LO system and approach to enforcing consistency contrast greatly from the typical formulation
+in~\cite{rmc,willert,park}. We have derived the LO operator directly from the transport
+equation, using a linear-discontinuous finite-element (LDFE) spatial
+discretization.   
+Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an iterative algorithm that can efficiently
+reduce statistical noise to acceptable levels with
+significantly less particle histories than standard MC. 
+The ECMC Method has been applied to 1D steady state neutronics problems
+previously~\cite{jake}.
+In particular, ECMC is
+exceptionally efficient in time-dependent TRT problems because information about the
+intensity from the previous time step can be used as an accurate initial guess for
+the new end of time step intensity.   However, implementation
+of ECMC is non-trivial, requiring a finite-element representation of the solution in
+all phase-space variables that are being sampled with MC.  
+The method contains many of the desired qualities, such as
+preserving the equilibrium diffusion limit, preserving the maximum principle, and in
+particular, providing high-fidelity MC solution to the TRT equations in an efficient
+manner.
+
+Sufficient MC histories must be performed to eliminate statistical
+noise in the consistency terms that can contaminate the LO solution.
+Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an algorithm that can efficiently
+reduce statistical noise to the same order as the HOLO iteration error with
+significantly less particle histories than standard MC. In particular, ECMC is
+exceptionally efficient in time-dependent TRT problems because information about the
+intensity from the previous time step can be used as an accurate initial guess for
+the new end of time step intensity. Additionally, no particle histories are required
+in regions where the radiation and material energy field are in equilibrium, similar to~\cite{rmc}.  However, implementation
+of ECMC is non-trivial, requiring a finite-element representation of the solution in
+all phase-space variables that are being sampled with MC.  The fundamental transport of particles is the same
+as standard Monte Carlo transport codes, but the source will now contain positive and
+negative weight particles.
+
+
+In this work, we demonstrate the utility of an S$_2$-like LO operator~\cite{wolters}
+in conjunction with an ECMC method~\cite{jake} for the HO solver.
+The ECMC algorithm uses information about the intensity from the previous time step to reduce statistical noise to the same order as
+the HOLO iteration error with significantly less particle histories than standard MC
+simulations, with less computational cost than IMC per history.  We have derived the LO operator directly from the transport
+equation, using a linear-discontinuous (LD) finite-element (FE) spatial
+discretization for the HO and LO solutions. Herein we describe the algorithm and
+present results for 1D, gray test problems.
+
+
+
+REWRITE:
 We have also investigated several extensions and improvements of this method.  First, an alternative
 solution method to the LO equations is explored, using an iterative source iteration
 method with linear diffusion synthetic acceleration.  The goal is to present a solution
@@ -69,6 +119,9 @@ related work on MC and HOLO solution methods for TRT are discussed.
  Herein, a brief description of thermal radiative transfer and the
 model problem are given, followed by a discussion of the standard Monte Carlo
 solution method and other related research.  
+
+Must of the work discussed in this dissertation were previously published
+in~\cite{nse_bolding}.
 
 \section{Thermal Radiative Transfer Background}
 
@@ -105,11 +158,11 @@ First, the photon radiation field, with the appropriate units used throughout th
 characterized.  Photons transporting through a material are described by the particle position vector
 $\mathbf{r}$ (cm), direction vector $\mathbf\Omega$ (str, i.e., steradians),
 time $t$ (sh, where $1\text{ sh}\equiv10^{-8}$ s), and frequency $\nu$ (Hz).  The primary
-radiation unknown is the angular intensity $I \phsp$ (Jk cm$^{-2}$ s$^{-1}$
+radiation unknown is the angular intensity $I \phsp$ (jk cm$^{-2}$ s$^{-1}$
 Hz$^{-1}$ str$^{-1}$), which represents a distribution
 function of energy
 contained in the radiation field, per unit of
-phase space.  We use the energy unit jerks (Jk), where 1 $\text{Jk}= 10^9$ J. The intensity can be related to the volumetric density of photons
+phase space.  We use the energy unit jerks (jk), where 1 $\text{jk}= 10^9$ joules. The intensity can be related to the volumetric density of photons
 $N \phsp$ (photons cm$^{-3}$ Hz$^{-1}$ str$^{-1}$) via the relation  $I\phsp =
 c h \nu N \phsp$, where $c$ is the speed of light (cm sh$^{-1}$) and $h$ is Planck's constant. The
 angular intensity is a useful quantity because it is directly related to reaction rates.
@@ -135,7 +188,7 @@ integration over all possible incoming angles $\mathbf\Omega'$ in differential
 solid angle $\dd \Omega'$.  The absorption cross section $\sigma_a$ is typically
 a strong function of temperature, i.e., $\sigma_a\equiv \sigma_a(T)$.  Following standard notation, we
 report temperatures in units of keV as an effective energy, obtained by multiplying by the Boltzmann
-constant $k_B$~\cite{wollaber}.  Thus, all material temperatures are $T \equiv T_{K}
+constant $k_B$~\cite{mihalas}.  Thus, all material temperatures are $T \equiv T_{K}
 k_B$, where $k_B$ is the Boltzmann constant (keV K$^{-1}$) and $T_{K}$ is the temperature
 in kelvin.
 
@@ -179,82 +232,62 @@ all frequencies, with algebraic manipulation, ultimately yields the 1D grey equa
 In the above equations the fundamental unknowns are the material temperature $T(x,t)$ and
 the angular intensity $I(x,\mu,t)=\int\limits_0^\infty I(x,\mu,\nu,t) \dd \nu$. The mean radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
-$E$ (Jk cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.  The integral of
+$E$ (jk cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.  The integral of
 $B_\nu(\mathbf{r},\nu,T)$ over all frequencies and angles produced the 
 grey Planckian emission source $\sigma_a a c T^4$~\cite{mihalas} in
-Eq.~\eqref{eq:mat_cont}, where $a=0.01372$ Jk cm$^{-3}$
+Eq.~\eqref{eq:mat_cont}, where $a=0.01372$ jk cm$^{-3}$
 keV$^{4}$ is the radiation constant, which is proportional to the Stefan-Boltzmann
 constant.  The term $\sigma_a \phi$ is the rate of energy absorption by the material,
 whereas the emission term represents losses to the material energy.  We have developed
 and tested our algorithm for efficient solution to Eq.~\eqref{eq:rad_cont}
 and~\eqref{eq:mat_cont}.
 
-\section{Previous Work}
+\section{Previous and Related Work}
 
-This sections describes related work on Monte Carlo solution to the TRT equations.  The
-Monte Carlo (MC) method has been used to great success for providing high-accuracy
-solutions to linear particle
+This sections describes related work on Monte Carlo solution to the TRT equations.  
+The Monte Carlo (MC) method~\cite{shultis_mc} is a standard computational method in
+the field of radiation transport.  It has been used to great success, providing high-accuracy
+solutions to particle
 transport problems described by the linear Boltzmann transport equation for many decades.  The application of MC to the linear Boltzmann
 equation is well documented in
 literature~\cite{mcnp,shultis_mc,lewis}.  The Monte Carlo method samples the underlying physics distributions to estimate the
-average behavior of a field of particles.  This can provide a highly-accurate results, in
-particular for treatement of the angular variable associated with particle transport
-problems.  The readier is directed towards
-literature~\cite{mcnp,wollaber_thesis,shultis_mc} for detailed descriptions of Monte Carlo simulation of
-particle tracking and sampling of interactions, etc.
-In terms of TRT problems, the temperature equation is almost always solved
+average behavior of a field of particles.  This can provide highly-accurate results, in
+particular for treatment of the angular variable associated with particle transport
+problems.  Detailed descriptions of MC simulation of particle tracking, sampling of
+interactions, etc. can be found in literature~\cite{mcnp,wollaber_review,shultis_mc}.
+
+With respect to TRT problems, the temperature equation is almost always solved
 deterministically to produce a linear particle transport equation. Monte carlo solution to
 this transport equation can introduce large statistical
 noise into the material temperature distribution, which is undesirable when coupling to
 other physics, e.g., in radiation hydrodynamics.  To improve the efficiency of MC solutions, hybrid MC methods utilize a
 deterministic solution to accelerate the MC solution.  
 
-In the remainder of this section, we detail the workhorse method for MC solution to TRT
-equations, the IMC method, and then discuss related moment-based acceleration and other
-alternative solution methods.  We also discuss the residual Monte Carlo method, which is
-similar to our method.
+In the remainder of this section, we detail the standard method for MC solution to TRT
+equations, the implicit Monte Carlo (IMC) method, and then discuss related moment-based acceleration and other
+alternative solution methods.  We also discuss the residual Monte Carlo (RMC) method, which is
+similar to the HO solver in our method.
 
 \subsection{The Implicit Monte Carlo Method}
 
-Monte Carlo (MC) solution to the TRT equations is typically achieved by the 
-implicit Monte Carlo (IMC) method~\cite{fnc}. This
+ The IMC method~\cite{fnc,wollaber_review}
+is the standard approach for applying the MC method to TRT problems.
+The IMC 
 method partially linearizes Eq.~\eqref{eq:rad_cont} \& Eq.~\eqref{eq:mat_cont} over a discrete time
-step, with material properties evaluated at the previous temperature.  Linearization of
-the system produces a transport equation that contains an approximate emission source and
+step, with material properties evaluated at the previous-time-step temperature.  Linearization of
+the system produces a linear transport equation that can be solved with MC simulation.
+The transport equation contains an approximate emission source and
 an effective scattering cross section representing absorption and reemission of photons
-over a time step. This transport equation is advanced over a time step via MC. The MC
-simulation tallies energy absorption over a discretized spatial mesh.  The energy
-absorption in each mesh cell is used to directly estimate a new end of time step
-temperature in that cell.  In optically thick regions, or for large time steps, the
-effective scattering dominates interactions.  In these diffusive regions IMC becomes
-computationally expensive. Acceleration methods typically attempt to improve efficiency by
-allowing particles to take discrete steps through optically thick regions based on a
-discretized diffusion approximation~\cite{imd,ddmc}.  In IMC the approximate linearization
-of the emission source is not iterated on within a time step due to the large
-computational cost of the MC transport each time step; this imposes a limit on the time
-step size to produce physically accurate results~\cite{wollaber2013discrete}. 
-
-The Monte Carlo (MC) method~\cite{shultis_mc} is a standard computational method in
-the field of radiation transport.
- The implicit Monte Carlo (IMC) method~\cite{fnc}
-is the most common approach for applying the MC method to TRT problems. The IMC
-method partially linearizes Eq.~\eqref{eq:rad_cont} and Eq.~\eqref{eq:mat_cont} over a discrete time
-step and lags material properties to produce a linear transport equation, which can be solved with MC
-simulation.  The linear transport equation contains an approximate emission source
-and effective scattering cross section that represent
-absorption and reemission of photons over a time step.  The transport equation is
+over a time step. 
+  The transport equation is
 solved with MC simulation 
 to advance the distribution of radiation to the end of the time step and determine
 the energy absorbed by the material over the time step.  The energy absorption by
 the material is tallied over a discrete spatial mesh, computed with cell-averaged
-quantities.
-  The energy absorption in each mesh cell is used to directly estimate
-a new end of time step material temperature based on the linearized material
-energy balance equation. Integration of the
-time-variable is treated continuously over the time step via MC sampling, but the
+quantities.  Integration of the
+time-variable is treated continuously for radiation variables over the time step via MC sampling, but the
 linearized Planckian source in the transport equation is based on a time-discrete
-approximation.
-  
+approximation. 
 
 The IMC method has some limitations.  In optically thick regions, or for
 large time steps, the
@@ -283,7 +316,7 @@ do not cause stability issues.
 In IMC the material and radiation energy fields are discretized spatially to solve for cell-averaged values.
 Inaccurate spatial representation of the emission source over a cell can result in
 energy propagating through the domain artificially fast, yielding non-physical
-results referred to as ``teleportation error"~\cite{teleportation}.  The IMC method uses a fixup known as source tilting
+results that are often referred to as ``teleportation error"~\cite{teleportation}.  The IMC method uses a fixup known as source tilting
 to mitigate this problem.  Source tilting reconstructs a more accurate
 linear-discontinuous representation of the
 emission source within a cell based on the cell-averaged material temperatures in adjacent
@@ -305,14 +338,15 @@ limit (EDL), at least for a more general time step size and class of problems th
 important aspect of a numerical method for TRT problems. 
 In this limit, cells are optically thick and diffusive, and the material
 and radiation energy fields approach equilibrium.
-Spatial discretizations which do not preserve the EDL can produce inaccurate
+Spatial discretizations that do not preserve the EDL can produce inaccurate
 solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_ldtrt}.
+REWRITE: IS THIS REDUNDANT WITH THE EDL DISCUS SED IN THE RESULTS?
 
 \subsection{Previous work on moment-based acceleration methods}
 
 An alternative application of MC to the TRT equations is moment-based hybrid MC methods.
 Recent work has focused on so-called high-order low-order (HOLO)
-methods~\cite{willert,park,rmc,ans_2014}. These methods involve fixed-point
+methods~\cite{willert,park,rmc,ans_2014,bolding_nse}. These methods involve fixed-point
 iterations between high-order (HO) MC solution of a transport equation and a deterministic LO
 system.  The low-order (LO)
 operator is based on angular moments of the transport equation, formulated over a fixed
@@ -328,21 +362,25 @@ present in the LO equations, that require the LO system to preserve the angular 
 MC solution.   
 These consistency terms are present in all spatial-regions of the problem, requiring
 statistical variance to be reduced sufficiently throughout the entire domain of the
-problem. 
+problem.   The LO equations are typically based on nonlinear Diffusion Acceleration
+(NDA)~\cite{willert,park}.
 
 Another area of related research is the application of
-residual Monte Carlo.  The goal of these methods is to solve an auxiliary transport
-equation for the error in some estimate of the intensity.  The error is then added to the
+residual Monte Carlo to TRT problems.  The goal of these methods is to solve an auxiliary transport
+equation with MC simulation for the error in some estimate of the intensity.  The error is then added to the
 estimate of the solution, which can produce an overall solution for the intensity that has
-less statistical noise than solution of the original transport equation would produce.  In~\cite{rmc}, the MC simulation
-solves for the change in intensity from the previous time step. This has the potential to limit statistical noise
-significantly in regions where the solution is near equilibrium.
-The work in~\cite{rmc} used residual MC as a HO solver for 1D grey problems. The
-  residual MC demonstrated impressive reduction in statistical variance.
-  However, a piecewise constant representation was used for the
-space-angle representation of the intensity, which
-does not preserve the EDL and can be inaccurate in angularly complex regions of the
-problem.  Similar to RMC, a difference formulation has been applied to another algorithm known as the symbolic IMC method
+less statistical noise than solution of the original transport equation would produce.
+The work in~\cite{rmc} used residual MC as a HO solver for 1D grey TRT problems.
+In~\cite{rmc}, the residual is formed with a fixed estimate of the solution, based
+on the previous time intensity, such that only
+sources on the faces of cells must be sampled. This reduces the dimension of the
+phase-space to be sampled~\cite{rmc}. The RMC algorithm demonstrated impressive reduction
+in statistical variance for slowly varying solutions.  However, a
+piecewise constant representation is used for the space-angle representation of the
+intensity, which does not preserve the EDL and can be inaccurate in angularly complex
+regions of the problem.  
+
+Similar to RMC, a difference formulation has been applied to another algorithm known as the symbolic IMC method
 (SIMC), for the case of 1D frequency-dependent problems~\cite{simc_const}.  SIMC forms a
 standard FE solution to the material energy balance equation, and uses symbolic
 weights in the MC transport to solve for expansion coefficents.  The difference
@@ -355,80 +393,5 @@ Both~\cite{simc_const} and~\cite{rmc} produced minimal
 statistical noise in slowly varying problems where the behavior of the system is near
 equilibrium. 
 
-\section{Overview of the HOLO Algorithm}
-
-The research proposed herein provides a new HOLO algorithm for radiative transfer.
-In this work, we propose an S$_2$-like LO operator~\cite{wolters}
-in conjunction with an exponentially-convergent MC (ECMC) method~\cite{jake} for the
-HO solver. Our LO system and approach to enforcing consistency contrast greatly from the typical formulation
-in~\cite{rmc,willert,park}. We have derived the LO operator directly from the transport
-equation, using a linear-discontinuous finite-element (LDFE) spatial
-discretization.   
-Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an iterative algorithm that can efficiently
-reduce statistical noise to acceptable levels with
-significantly less particle histories than standard MC. In particular, ECMC is
-exceptionally efficient in time-dependent TRT problems because information about the
-intensity from the previous time step can be used as an accurate initial guess for
-the new end of time step intensity.   However, implementation
-of ECMC is non-trivial, requiring a finite-element representation of the solution in
-all phase-space variables that are being sampled with MC.  
-The method contains many of the desired qualities, such as
-preserving the equilibrium diffusion limit, preserving the maximum principle, and in
-particular, providing high-fidelity MC solution to the TRT equations in an efficient
-manner.
-
-Sufficient MC histories must be performed to eliminate statistical
-noise in the consistency terms that can contaminate the LO solution.
-Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an algorithm that can efficiently
-reduce statistical noise to the same order as the HOLO iteration error with
-significantly less particle histories than standard MC. In particular, ECMC is
-exceptionally efficient in time-dependent TRT problems because information about the
-intensity from the previous time step can be used as an accurate initial guess for
-the new end of time step intensity. Additionally, no particle histories are required
-in regions where the radiation and material energy field are in equilibrium, similar to~\cite{rmc}.  However, implementation
-of ECMC is non-trivial, requiring a finite-element representation of the solution in
-all phase-space variables that are being sampled with MC.  The fundamental transport of particles is the same
-as standard Monte Carlo transport codes, but the source will now contain positive and
-negative weight particles.
-
-\subsection{Similarities to Residual Monte Carlo}
-
-Our ECMC solver contains similarities to the residual Monte Carlo (RMC) HO solver
-in~\cite{rmc}, with some key differences.  The RMC algorithm uses a particular, fixed 
-estimate of the solution to significantly reduce the statistical noise in the
-simulation compared to a standard MC simulation. The guess for the solution is chosen to produce only sources on the faces of
-cells, reducing the dimension of the phase-space to be sampled~\cite{rmc}. The RMC
-algorithm  uses a piecewise constant trial space representation for the intensity in
-$x$ and $\mu$.
-The primary difference between the methods is that ECMC iteratively estimates the
-solution, in batches, producing a known MC estimate
-of the error in that estimate.  The ECMC algorithm projects the intensity onto a linear-discontinuous
-finite-element (LDFE) trial space, although the RMC
-algorithm could similarly be formulated with an LDFE representation.  Adaptive
-mesh-refinement can be used in ECMC to produce highly accurate solutions with minimal
-statistical noise, as long as sufficient particle histories are performed. 
-The formulation of the residual in~\cite{rmc} use an estimate of the solution such
-that only face sources need to be sampled.  This residual formulation can produce minimal
-statistical noise in slowly varying problems where the behavior of the system is near
-equilibrium. Our ECMC algorithm has similar statistical efficiency by choosing the previous time step intensity as the initial guess to
-the algorithm; however, a linear volumetric source must be sampled in addition to face
-sources.  The ECMC algorithm will generally be more efficient in cases where
-the solution varies greatly over a time step or when very low statistical noise is
-desired.  Generally, the minimum number of histories per batch to obtain convergence with the
-LDFE trial space is larger than a piece-wise constant representation because additional
-histories are needed to sufficiently estimate the first moment in $x$ and $\mu$ of the
-intensity. 
-It is noted that our formulation of the LO
-equations and consistency terms contrast greatly from the typical formulation
-in~\cite{rmc,willert,park}.  
-
-In this work, we demonstrate the utility of an S$_2$-like LO operator~\cite{wolters}
-in conjunction with an ECMC method~\cite{jake} for the HO solver.
-The ECMC algorithm uses information about the intensity from the previous time step to reduce statistical noise to the same order as
-the HOLO iteration error with significantly less particle histories than standard MC
-simulations, with less computational cost than IMC per history.  We have derived the LO operator directly from the transport
-equation, using a linear-discontinuous (LD) finite-element (FE) spatial
-discretization for the HO and LO solutions. Herein we describe the algorithm and
-present results for 1D, gray test problems.
 
 
