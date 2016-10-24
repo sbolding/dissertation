@@ -135,11 +135,12 @@ extrapolation of the interior moments. Thus, we introduce a linear doubly
 discontinuous (LDD) trial space for the half-range intensities, which is depicted in Fig.~\ref{fig:ldd_space}.
 The linear relation on the interior of the cell preserves the $L$ and $R$ moments of the
 solution.  The temperature is still represented with a linear interpolant of $T^4$ and
-$T$.  
-This trial space has an extra unknown outflow, which is eliminated using the HO spatial
-closure.  For the initial LO solve, the outflow is assumed continuous, using the standard
+$T$.  This trial space has an extra unknown in each cell, for each direction, which is eliminated from the system
+with the HO spatial closure.  For the initial LO solve, the outflow is assumed continuous, using the standard
 upwinding and LD representation.  With the outflow term eliminated, the equations
-have the same numerical complexity as the LD equations.   
+have the same numerical complexity as the LD equations.  The linear representation for the
+interior solution and the emission source should preserve the equilibrium diffusion limit,
+as long as the HO spatial closure is sufficiently estimated.
 
 In the case of strong gradients, the interior representation could be driven
 negative.  Thus, we use the lumped expression to to define the linear representation.  For
