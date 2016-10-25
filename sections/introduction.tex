@@ -113,6 +113,12 @@ steps. Throughout, we compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
 
+In addition to estimating the angular
+consistency terms, the HO intensity estimates a relation between volume and face-averaged
+intensities to eliminate the remaining unknowns from the equations.  The goal is for the 
+LO moments to reproduce the HO moments more accurately than the LDFE discretization, although
+additional statistical noise is introduced through face-based tallies.
+
 In the remainder of this chapter, a brief background on TRT problems is given, before the
 simplified model that will be used for the remainder of the work is derived.  Then,
 related work on MC and HOLO solution methods for TRT are discussed.

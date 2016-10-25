@@ -54,6 +54,10 @@ manipulated space-angle moment equations to produce our consistency terms,
 which will hopefully produce more
 stability in optically-thick regions where NDA methods demonstrate stability issues.
 
+It is noted that the LD projection of the HO solution does not produce the same moments, because
+MC was used to obtain this projection, the outflow will not agree with the LO equations.
+For example, the upwinding inflow from a previous cell does not match the actual energy
+that flowed through that surface due to MC noise.
 
 The solution to the LO system is used to construct a LDFE spatial representation of
 the isotropic scattering and emission sources on the right hand side of

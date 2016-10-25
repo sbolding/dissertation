@@ -310,15 +310,15 @@ Because the material energy balance equation
 \section{Closing the LO Equations in Space and Angle}
 \label{sec:closure}
 
-
+At this point, the LO equations have too many unknowns: the relation between the volume
+and face averaged quantities and the angular consistency parameters are not known a
+priori. The HO solution is used to eliminate the consistency parameters and other
+approximations are used to eliminate the extra spatial unkonwns from the equations.
 The six degrees of freedom (DOF) over each cell $i$ are the four moments $\mom{\phi}_{L,i}^+$,
 $\mom{\phi}_{R,i}^+$, $\mom{\phi}_{L,i}^-$, and $\mom{\phi}_{R,i}^-$ and the two
-spatial edge values $T_{L,i}$ and $T_{R,i}$.  The four radiation and two material
+spatial edge values $T_{L,i}$ and $T_{R,i}$.  After closure, the four radiation and two material
 energy equations define a system of equations for the six DOF, coupled spatially through
-the streaming term. At this point, the LO equations have too many unknowns: the relation between the volume
-and face averaged quantities and the angular consistency parameters are not known a
-priori. The HO solver and other approximations are used to close the system, eliminating
-the extra unknowns from the equations. 
+the streaming term.  
 
 Before introducing the additional closures, we emphasize that at this point the only spatial or
 angular approximations to the radiation  moment equations are an LDFE
@@ -349,9 +349,10 @@ on the LDFE functional representation $\tilde I(x,\mu)$ provided by the HO solut
 
 \subsection{LDFE Spatial Closure}
 
-The relation between the volume and face averaged quantities must be known to eliminate
-the final auxiliary unknowns.
-To close the LO system spatially, we will reduce the equation to only the desired moment
+After approximating the angular consistency terms in the time-discretized LO moment equations, 
+a equation relating the spatial moments and outflow face values is
+needed to eliminate the final auxiliary unkonwns, i.e., a spatial closure.
+We will eliminate the face terms to produce equations that exclusively contain the desired moment
 unknowns.  Several closures were investigated.  The simplest closure
 is to use a linear-discontinuous (LD) spatial closure with the usual upwinding
 approximation~\cite{morel_ldtrt}.  A closure based on the HO solution is discussed in
@@ -413,7 +414,6 @@ positive, the outflow is positive. Details on the
 derivation of this relation are in Appendix~\ref{app:lo_mom_relations}. 
 The lumping closure was optionally applied in all cells or only in cells where negative
  intensities occur.  
-
 For simplicity,
 we also lump the emission source and temperature terms in the equations following the
 standard procedure~\cite{morel_ldtrt}.  In the temperature equations $2/3

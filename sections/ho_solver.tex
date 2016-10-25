@@ -421,20 +421,46 @@ the first $\mu$ moment, where the LD trial space often cannot resolve the soluti
 \section{MC solution for Linear Doubly-Discontinuous trial space}
 \label{sec:ldd_mc}
 
-In this section, modifications made to the ECMC algorithm for computing a spatial closure
-are given.  The inclusion of the outflow discontinuity in space has a minimal effect on the treatment of the
-residual source. The residual source and process of estimating moments of
+In this section, the ECMC method is extended to a LDD trial space, which was necessary to
+compute the HO spatial closure.  A projection of the HO solution at faces is needed to
+evaluate the residual at the edge values.  To incorporate this, a second
+discontinuity is introduced into the trial space.  Additionally, this discontinuity allows
+for face-averaged consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly
+evaluated with this projection at each face.
+REWRITE: add this to the intro in some fashion
+
+
+ The residual source and process of estimating moments of
 the error on the interior of a space-angle cell is unchanged.  The process of estimating
-the solution on the outgoing face requires tallying the solution when particles leave a
+the solution on the outgoing face requires tallying the error when particles leave a
 cell, using the face-averaged tallies discussed in Section~\ref{sec:face_tallies}.  
 
-The LDD trial space is the same as the LDFE space-angle trial space, except for an extra discontinuity in space, with a linear solution
-in angle.  Applying $L$ to the LDD trial space (demonstrated in 1D in
-Fig.~\ref{fig:ldd_space}), results in two $\delta$ functions at each interior face.
+ The LDD trial space is demonstrated in $x$ in
+Fig.~\ref{fig:ldd_space}.   The LDD trial space is the same as the LDFE space-angle trial space, except for an extra discontinuity in space, with a linear solution
+in angle.  For cell $ij$ and $\mu_{j-1/2} \leq \mu \leq \mu_{j+1/2}$,
+\begin{equation}\label{eq:ldd_I}
+    \tilde{I}_{ij}(x,\mu) = \left \{ \begin{array}{cl}
+        I_{a,i-1/2,j}+\frac{2}{h_j}I_{\mu,i-1/2,j}\left(\mu-\mu_j\right) &
+        x=x_{i-1/2} \\
+I_{a,ij} + \frac{2}{h_i}I_{x,ij}\left(x-x_i\right) +
+\frac{2}{h_j}I_{\mu,ij}\left(\mu-\mu_j\right) & x_{i-1/2} < x < x_{i+1/2}  \\
+    I_{a,i+1/2,j}+\frac{2}{h_j}I_{\mu,i+1/2,j}\left(\mu-\mu_j\right) &   x=x_{i+1/2}  
+\end{array} \right.,
+\end{equation}
+noting that the face-tallied quantities $I_{a,i\pm1/2}$ and $I_{\mu,i\pm1/2}$ are shared
+between adjacent cells, so the expression is the same for positive and negative $\mu$.
+
+
+
+Face-averaged consistency terms are directly evaluated using $\tilde
+I(x_{i+1/2},\mu)$ evaluated at the face of each coarse mesh cell.   
+The inclusion of the outflow discontinuity in space has a minimal effect on the treatment of the
+residual source.
+Applying $L$ to the LDD trial space, results in two $\delta$ functions at each interior face.
 For \emph{positive flow}, at a face $x_{i+1/2}$, the face portion of the residual is defined as
 \begin{align}
     \label{eq:res_face}
-    \rface(x_{i+1/2}) &= -\mu \pderiv{\tilde I^{(m)}}{x}\big|_{x_{i+1/2}}\\
+    \rface(x_{i+1/2}) &= -\mu \pderiv{\tilde I^{(m)}}{x}\bigg|_{x=x_{i+1/2}}\\
     &= \rface(x_{i+1/2}^-)\delta^-(x - x_{i+1/2}) + \rface(x_{i+1/2}^+)\delta^+(x - x_{i+1/2}) 
 \end{align}
 where

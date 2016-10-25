@@ -1,88 +1,60 @@
 
-\section{Estimating the Spatial Closure from the HO Solution}
+\section{Spatial Closure based on the HO Solution}
 \label{sec:spat_clos}
 
-REWRITE: Some of this could maybe be moved to the introduction
 This sections describes an alternative spatial closure to the LO equations based on 
 a parametric relation from the HO solution. In addition to estimating the angular
 consistency terms, the HO intensity estimates a relation between volume and face-averaged
-intensities to eliminate the remaining unknowns from the equations.  The goal is for the 
-LO moments to reproduce the HO moments more accurately than the LDFE discretization, although
-additional statistical noise is introduced through face-based tallies.  In the remainder of this section, we will motivate the HO spatial closure by forming half
-range balance equations to form a single unknown for each cell.  We will then discuss
-possible closure relations, based on modifications to standard spatial closures.
+intensities to eliminate the remaining unknowns from the equations.  In the remainder of
+this section, we will motivate the HO spatial closure by manipulating a half-range balance
+equations to form a single unknown for each cell and half range.  We will then discuss
+the forms of HO spatial closures investigated, based on modifications to standard spatial closures.
 
 \subsection{Motivation}
 
 A half-range balance equation for $\mu>0$ is formed by adding the
 exact $L$ and
-$R$ radation moment equations given by
+$R$ radiation moment equations given by
 Eq.~\eqref{eq:exact_lmomp}~and~\eqref{eq:exact_rmomp}, i.e.,
 \begin{equation}\label{eq:hr_bal}
     \mu^+_{i+1/2}\phi_{i+1/2}^+ - \mu^+_{i-1/2}\phi_{i-1/2}^+ +
     {\sigma_{a,i}h_i} \phi_i^+ = \frac{h_i}{2} q_i,
 \end{equation}
-where $q_i$ represents the cell-average of all isotropic source terms.  In the HOLO
-method, to reduce the number of unknowns, the
-angular consistency terms are estimated
-with the previous HO solution.  Additionally, the inflow term $\phi_{i-1/2}^+$ is eliminated via upwinding from the previous
-cell or a boundary condition.  An additional equation is needed to eliminate the outflow $\phi_{i+1/2}^+$ to produce an
+where $q_i$ represents the cell-averaged emission source.  In the HOLO algorithm, after
+estimating the consistency terms $\mu_{i\pm1/2}^+$ upwinding the inflow term
+$\phi_{i-1/2}^+$, an additional equation is needed to eliminate the outflow $\phi_{i+1/2}^+$ to produce an
 equation for a single unknown $\phi_{i}^+$.  Standard spatial discretizations techniques
 use a fixed approximation for all cells to eliminate the outflow in terms of other
 unknowns.  Alternatively, the HO solution can be used to estimate a parametric relation
-between the other uknowns and the outflow, i.e.,
-\begin{equation}
-    \phi_{i+1/2}^+ = f(\gamma^{HO}_i, \phi_i^+, \phi_{x,i}^+, \phi_{i-1/2}^+).
+between the other unknowns and the outflow, i.e.,
+\begin{equation}\label{eq:ho_clos}
+    \phi_{i+1/2}^+ = f(\gamma^{+,HO}_i, \phi_i^+, \phi_{x,i}^+, \phi_{i-1/2}^+),
 \end{equation}
-Here, $\gamma^{HO}_i$ is a constant estimated with the HO solution and $f$ is some
+where $\gamma^{HO,+}_i$ is a local constant to be estimated with the HO solution and $f$ is some
 function of some number of the input
 variables.  The ECMC solution can provide all of the unknowns in the above equation, so
-the value of $\gamma^{HO}_i$ can be determined.
+the value of $\gamma^{HO}_i$ can be determined directly. 
 
 If the problem were linear, or the nonlinear problem was fully converged,
-then application of this closure can ensure that the HO and LO equations produce the same moments.  To produce the
+then application of this closure can ensure that the HO and LO equations produce the same
+moments, preserving the HO accuracy.  To produce the
 same moments, the HO solution must also satisfy the local balance equation, e.g.,
-Eq.~\eqref{eq:hr_bal}.  If any higher moments are introduced through the spatial closure,
+Eq.~\eqref{eq:hr_bal}.  Then the LO equations and HO equations must have the same moments
+to satisfy both Eq.~\eqref{eq:ho_clos} and Eq.~\eqref{eq:hr_bal}, upon nonlinear
+convergence. If any higher moments are introduced through the spatial closure,
 then the HO solution must also satisfy the same relations as the LO equations.  For example, both the LO and HO equation must satisfy the
 first moment equation in space if the closure is a function of the first moment.  
-then the HO and LO solutions would produce exactly the same moments.  There are
-several issues with ECMC that cause this to not be true, even for a linear problem.
-With ECMC, global and, particularly, local energy balance are not preserved.  There
-are source biasing techniques for standard MC (e.g., systematic
-sampling) that exactly preserve the zeroth moment of the
-source~\cite{shultis_mc,wollaber_review}). 
-However, because we have to reconstruct the bilnear moment
-of $x$ and $\mu$, the consistency terms do not exactly preserve the first moment
-equation.  One final reason is that the analog treatment of absorption for particles below
-the weight cutoff (e.g., see Sec.~\ref{sec:tallies}) results in $\sigma_a \phi^{HO}_i$ and the amount
-of energy removed from a cell during MC transport to not be equal, due to statistical noise in the
-path-length estimators for $\phi^{HO}_i$.  However, ECMC will preserve
-balance to the order of the error, so the closure parameters will
-reproduce the HO moments to the accuracy of the LO solution.
-
-REWRITE:  THIS IS SAYING WHY LDFE PROJECTION AND LDFE-DISCRETI ZATION ARE NOT EQUAL,
-PROBALBY JUST DELETE
-It is noted that the LD projection of the HO solution does not produce the same moments, because
-MC was used to obtain this projection, the outflow will not agree with the LO equations.
-For example, the upwinding inflow from a previous cell does not match the actual energy
-that flowed through that surface due to MC noise.
-
-
 
 As TRT problems are non-linear (i.e., scattering or thermal emission are included in
 $q$), the moments will only be preserved upon non-linear convergence of the source.  The
 nonlinearity introduces the possibility for stability
 issues, particularly with MC noise.  However, we have already consistently formed angular consistency terms, so the
 the spatial closure should be more stable than introducing other terms, such as
-in NDA methods. 
+in NDA methods~\cite{rmc,holo,willert}. 
 
 
-%THIS SENTENCE WAS REDUNDANT I THINK, BUT GOOD
-REWRITE: MAYBE IT SHOULD GO IN THE INTRO
-After approximating the angular consistency terms in the time-discretized LO moment equations, 
-there is still more unknowns than equations, for each spatial
-cell and half range; an extra equation relating the spatial moments and outflow face values is
-needed, i.e., a spatial closure.
+
+
 
 \subsection{Choice of Spatial Closure}
 \label{sec:spat_clos_options}
@@ -99,17 +71,20 @@ and a scaled average
 where a value of $\gamma_i = 1$ produces the standard linear discontinuous expressions for
 the extrapolated outflows.  
 
-We now use the HO solution to estimate $\gamma_i$.  For example, 
+We now use the HO solution to estimate $\gamma_i$. The MC solution must be modified
+to tally the solution on faces. For example, the LO equations for
+moments at $k+1$ use closure parameters evaluated at $k+1/2$ as
 \begin{equation}
-    \gamma_i^{+,HO} = \frac{\phi_{i+1/2}^+ - \phi_{x,i}^+}{\phi_i^+}
+    \gamma_i^{+,k+1/2} = \frac{\phi_{i+1/2}^{+,HO,k+1/2} -
+    \phi_{x,i}^{+,HO,k+1/2}}{\phi_i^{+,HO,k+1/2}},
 \end{equation}
-in the scaled slope case.  For this closure, as the slope goes to zero this expression
+for the scaled-average closure.  For this closure, as the slope goes to zero this expression
 becomes undefined.  In cells where the slope is $O(10^{-13} \psi_i)$, we use $\gamma_i=1$.
 For the problems tested, no issues have occurred with this closure, even $\gamma$
 can become very large for common, small values of $|\psi^x/\psi_i|$.  This is because in
 such regions the solution is changing minimally anyways. 
 The main benefit of this closure is it allows for values of $\gamma$ that are
-equivalent to step ($\gamma_i=0$) and lumped ($\gamma_i=1/3$) expressions.
+equivalent to step ($\gamma_i=0$) and lumped ($\gamma_i=1/3$) closures.
 
 To solve the LO equations, the expression for the outflow face term is substituted in each equation, using the
 $\gamma_i$ estimated from the HO solution. There is a spatial closure parameter for each
@@ -120,13 +95,15 @@ For instance, the positive balance equation becomes
     \frac{\sigma_{a,i}h_i}{2} \phi_i^+ = \frac{h_i}{2} q_i,
     \label{eqn:clsd_posbal}
 \end{equation}
-noting that $\phi_i^+$ and $\phi_{x,i}^+$ remain as unknowns. The MC solution must be modified
-to tally the solution on faces. Our LO system is formulated in terms of $L$ and $R$ moments, rather than the average and
-slope.  Thus, the parameteric functions are expressed in terms of the $L$ and $R$
+noting that $\phi_i^+$ and $\phi_{x,i}^+$ remain as unknowns.  Our LO system is formulated in terms of $L$ and $R$ moments, rather than the average and
+slope.  Thus, the parametric functions are expressed in terms of the $L$ and $R$
 unknowns, using the relations given in App.~\ref{app:lo_mom_relations}.  
 
 
 \subsection{The Doubly-Discontinuous Trial Space}
+
+The ECMC algorithm is modified to also include a LDD trial space which allows for estimate
+of the face solution~\cite{sec:ldd_mc}.
 
 Because of the temperature unknowns and the HO scattering source representation, a
 representation on the interior of the cell for the temperature and intensity is needed.
@@ -189,6 +166,23 @@ accurate results compared to the standard LDFE solution, at least for sufficient
 can accurately represent the solution.  Although the closure will be applied everywhere,
 we expect the greatest improvement in accuracy for cells where the LDFE trial space
 produces a negative solution.
+
+\subsection{Issues with ECMC}
+
+  There are
+several issues with ECMC that cause this to not be true, even for a linear problem.
+With ECMC, global and, particularly, local energy balance are not preserved.  There
+are source biasing techniques for standard MC (e.g., systematic
+sampling) that exactly preserve the zeroth moment of the
+source~\cite{shultis_mc,wollaber_review}). 
+However, because we have to reconstruct the bilnear moment
+of $x$ and $\mu$, the consistency terms do not exactly preserve the first moment
+equation.  One final reason is that the analog treatment of absorption for particles below
+the weight cutoff (e.g., see Sec.~\ref{sec:tallies}) results in $\sigma_a \phi^{HO}_i$ and the amount
+of energy removed from a cell during MC transport to not be equal, due to statistical noise in the
+path-length estimators for $\phi^{HO}_i$.  However, ECMC will preserve
+balance to the order of the error, so the closure parameters will
+reproduce the HO moments to the accuracy of the LO solution.
 
 \section{Test Problems}
 
@@ -261,7 +255,9 @@ step from the $l$-th independent simulation.  Similarly, the
 \end{table}
 
 As the number of histories are increased, it is expected that the HO spatial closure will
-be more accurate.  However, there is no proof that this is the case.
+be more accurate. In higher mesh counts and solutions this will be accurate, but a finer
+mesh is needed to resolve the solution anyways, so there is not much hope of untieing the
+solution.  No fixup is needed for the HO solution.
 
 
 
