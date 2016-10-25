@@ -19,7 +19,7 @@ exact $L$ and
 $R$ radation moment equations given by
 Eq.~\eqref{eq:exact_lmomp}~and~\eqref{eq:exact_rmomp}, i.e.,
 \begin{equation}\label{eq:hr_bal}
-    \overline\mu^+_{i+1/2}\phi_{i+1/2}^+ - \overline\mu^+_{i-1/2}\phi_{i-1/2}^+ +
+    \mu^+_{i+1/2}\phi_{i+1/2}^+ - \mu^+_{i-1/2}\phi_{i-1/2}^+ +
     {\sigma_{a,i}h_i} \phi_i^+ = \frac{h_i}{2} q_i,
 \end{equation}
 where $q_i$ represents the cell-average of all isotropic source terms.  In the HOLO
@@ -89,11 +89,11 @@ needed, i.e., a spatial closure.
 
 We will
 explore two different closure relations: a scaled slope, i.e.,
-\begin{equation}
+\begin{equation}\label{eq:cl_slope}
     \phi_{i\pm1/2}^\pm = \phi_i^+ \pm \gamma_i \phi_{x,i}^+
 \end{equation}
 and a scaled average
-\begin{equation}
+\begin{equation}\label{eq:cl_avg}
     \phi_{i\pm1/2}^\pm = \gamma_i \phi_i^+ \pm \phi_{x,i}^+,
 \end{equation}
 where a value of $\gamma_i = 1$ produces the standard linear discontinuous expressions for
@@ -157,7 +157,7 @@ outflow.
 During the Newton solve, once new half-range
 intensities are determined, the temperatures are updated using the moment same moment
 equations given by Eq.~\eqref{}. This can be confusing because the slope moment,
-e.g., $\psi_{x,i}^\pm$, does not stricly correspond to the slope in the typical since.
+e.g., $\psi_{x,i}^\pm$, does not strictly correspond to the slope in the typical since.
 We have modified it.  This is the same as the lumped closure relation using
 $\gamma_i=1/3$, where we are preserving the average moment exactly, but only second order
 accurate in the slope.
@@ -199,6 +199,10 @@ We also want to demonstrate a better consistency between the two solvers, partic
 coarser mesh sizes.  We also want to compare to the efficiency of LD, noting that the
 extra noise of the face tallies may make the solution approach not worth it over all.
 
+We compute the accuracy by comparing to a fine mesh cell solution and the consistency between the HO and LO solutions.
+The consistency is computed using an L$_2$ norm, and the error is computed using an L2 norm and a cell-averaged norm
+given by Eq.~\eqref{???}.
+
 \subsection{Smooth Problem}
 
 For the first problem, the solution has less steep gradients by having constant constant cross
@@ -221,8 +225,30 @@ other solutions use 100,000 histories per HO solve.  All meshes have 20 $\mu$
 cells in angle and no adaptive refinement.
 
 Visually there
-is no difference between the different spatial closures given by Eq.~\eqref{???}. The
+is no difference between the different spatial closures given by Eq.~\eqref{???} and Eq.~\eqref{???}. The
 gamma closure is too inaccurate.
+
+\begin{equation}
+    \|e\|_a = \left({\frac{\sum\limits_{i=1}^{N_c}
+    \left(\phi_i^{n+1} - \phi_i^{n+1,ref}
+\right)^2}{\sum\limits_{i=1}^{N_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+\end{equation}
+%\begin{equation}
+%    \|e\|^l = \left({\frac{\sum\limits_{i=1}^{N_c}
+%    \left(\phi_i^{n+1,l} - \phi_i^{n+1,ref}
+%\right)^2}{\sum\limits_{i=1}^{N_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+%\end{equation}
+where $\phi_i^{n+1,l}$ is the cell-averaged scalar intensity at the end of the last time
+step from the $l$-th independent simulation.  Similarly, the 
+%The sample mean of $\|e\|$ from 20
+%independent simulations provides a metric for the accuracy of a particular simulation:
+%\begin{equation}
+%    \overline{\|e\|} = \frac{1}{20}\sum_{l=1}^{20} \|e\|^l
+%\end{equation}
+
+
+
+
 
 \begin{figure}[H]
     \centering
@@ -230,6 +256,12 @@ gamma closure is too inaccurate.
     \caption{\label{fig:smooth_compare} Comparison of solutions for different spatial closures.}
 \end{figure}
 
+\begin{table}[H]
+
+\end{table}
+
+As the number of histories are increased, it is expected that the HO spatial closure will
+be more accurate.  However, there is no proof that this is the case.
 
 
 

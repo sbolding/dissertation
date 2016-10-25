@@ -1,5 +1,6 @@
 
 \chapter{\uppercase {The Exponentially-Convergent Monte Carlo High-Order Solver}}
+\label{chp:ho}
 
 The time-discretized transport equation to be solved by the HO solver is
 \begin{equation}\label{eq:ho_base}

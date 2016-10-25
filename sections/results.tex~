@@ -10,6 +10,10 @@ the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
 to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
 Monte Carlo (SMC) simulation.  Results are also given for the case of a single
 ECMC batch, which is similar to a RMC method.
+The lumping-equivalent discretization
+discussed in Sec.~\ref{sec:ldfe_fixups} is used for cells where the solution for
+$\phi^{n+1}$ becomes negative. When negative values for $\phi^{n+1,\pm}(x)$ are detected, the lumping-equivalent discretization is used within
+those cells and that Newton step is repeated.
 
 A measure of variance in cell-averaged scalar intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution

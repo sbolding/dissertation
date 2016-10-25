@@ -7,8 +7,11 @@ A level-1 auxiliary file: sections/introduction.aux
 A level-1 auxiliary file: sections/algorithm_descriptions.aux
 A level-1 auxiliary file: sections/lo_solver.aux
 A level-1 auxiliary file: sections/ho_solver.aux
+A level-1 auxiliary file: sections/results.aux
 A level-1 auxiliary file: sections/dsa.aux
 A level-1 auxiliary file: sections/negativities.aux
+A level-1 auxiliary file: sections/time_closure.aux
+A level-1 auxiliary file: sections/conclusions.aux
 A level-1 auxiliary file: bibliography.aux
 The style file: plain.bst
 A level-1 auxiliary file: appendices.aux
@@ -17,52 +20,52 @@ Repeated entry---line 445 of file references.bib
  : @article{larsen_edl
  :                    ,
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "nse_bolding"
 Warning--I didn't find a database entry for "morel_newton"
 Warning--I didn't find a database entry for "fe_book"
-Warning--I didn't find a database entry for "ray_effects"
-Warning--I didn't find a database entry for "???"
+Warning--I didn't find a database entry for "shultis_paper_cj_cites???"
 Warning--empty booktitle in ans_2014
 Warning--empty booktitle in park
 Warning--empty booktitle in willert
-You've used 43 entries,
+You've used 47 entries,
             2118 wiz_defined-function locations,
-            744 strings with 11021 characters,
-and the built_in function-call counts, 12789 in all, are:
-= -- 1266
-> -- 557
+            765 strings with 11780 characters,
+and the built_in function-call counts, 13844 in all, are:
+= -- 1366
+> -- 617
 < -- 4
-+ -- 226
-- -- 178
-* -- 853
-:= -- 2203
-add.period$ -- 130
-call.type$ -- 43
-change.case$ -- 206
++ -- 250
+- -- 198
+* -- 914
+:= -- 2396
+add.period$ -- 143
+call.type$ -- 47
+change.case$ -- 227
 chr.to.int$ -- 0
-cite$ -- 46
-duplicate$ -- 487
-empty$ -- 1031
-format.name$ -- 178
-if$ -- 2641
+cite$ -- 50
+duplicate$ -- 527
+empty$ -- 1110
+format.name$ -- 198
+if$ -- 2855
 int.to.chr$ -- 0
-int.to.str$ -- 43
-missing$ -- 42
-newline$ -- 218
-num.names$ -- 86
-pop$ -- 220
+int.to.str$ -- 47
+missing$ -- 44
+newline$ -- 239
+num.names$ -- 94
+pop$ -- 248
 preamble$ -- 1
-purify$ -- 175
+purify$ -- 193
 quote$ -- 0
-skip$ -- 312
+skip$ -- 337
 stack$ -- 0
-substring$ -- 785
-swap$ -- 57
+substring$ -- 805
+swap$ -- 61
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 158
+type$ -- 174
 warning$ -- 3
-while$ -- 126
-width$ -- 45
-write$ -- 465
+while$ -- 134
+width$ -- 49
+write$ -- 509
 (There was 1 error message)

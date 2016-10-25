@@ -48,7 +48,7 @@ allows for the efficient reduction of statistical noise in the MC solution, redu
 inaccuracies introduced through the LO consistency
 terms. 
 
-The research proposed herein provides a new HOLO algorithm for radiative transfer.
+The research herein provides a new HOLO algorithm for radiative transfer.
 In this work, we propose an S$_2$-like LO operator~\cite{wolters}
 in conjunction with an exponentially-convergent MC (ECMC) method~\cite{jake} for the
 HO solver. Our LO system and approach to enforcing consistency contrast greatly from the typical formulation
@@ -118,7 +118,8 @@ simplified model that will be used for the remainder of the work is derived.  Th
 related work on MC and HOLO solution methods for TRT are discussed.
  Herein, a brief description of thermal radiative transfer and the
 model problem are given, followed by a discussion of the standard Monte Carlo
-solution method and other related research.  
+solution method and other related research.  Finally, a detailed outline of the
+dissertation is given.
 
 Must of the work discussed in this dissertation were previously published
 in~\cite{nse_bolding}.
@@ -394,4 +395,11 @@ statistical noise in slowly varying problems where the behavior of the system is
 equilibrium. 
 
 
+\section{Outline of the Disertation}
+
+In Chapter~\ref{chp:holo} an overview of the outer HOLO algorithm and how the HO and LO
+systems interact is given.  For the majority of this work, time-discretized equations will
+be assumed; in Chapter~\ref{chp:time} a higher-accuracy MC time treatment is investigated. Chapter~\ref{chp:lo} gives a detailed derivation of the LO
+equations and how they are solved.  Then, Chapter~\ref{chp:ho} details the ECMC algorithm
+that is used to solve the HO transport problem.
 

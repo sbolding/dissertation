@@ -174,12 +174,6 @@ $l$, is defined as
     \item Repeat 2-5 until $(T^{n+1,k})^4$ and $\phi^{n+1,k}$ are converged.
 \end{enumerate}
 
-\begin{figure}[H]
-\centering
-\includegraphics[scale=.50]{figures/Penguins.jpg}
-\caption{TAMU figure}
-\label{fig:tamu-fig5}
-\end{figure}
 
 \section{Analytic Error Contribution for LDD Trial Space}
 \label{sec:face_err_deriv}

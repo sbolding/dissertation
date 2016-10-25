@@ -1,5 +1,6 @@
 
 \chapter{\uppercase {The Exponentially-Convergent Monte Carlo High-Order Solver}}
+\label{chp:ho}
 
 The time-discretized transport equation to be solved by the HO solver is
 \begin{equation}\label{eq:ho_base}
@@ -43,7 +44,7 @@ $h_j$, the center of the cell is $(x_i,\mu_j)$, and
     \left(\frac{\mu - \mu_j}{h_{j}}\right)
     I(x,\mu)\, \dd x \dd \mu,
 \end{align} 
-where $I_a$ is the cell-averaged intensity, and $I_\mu$ and $I_x$ define the the first
+where $I_a$ is the cell-averaged intensity, and $I_\mu$ and $I_x$ define the first
 moment in $\mu$ and $x$ of the intensity, respectively.  The streaming term requires
 definition of $I(x,\mu)$ on faces.  Standard upwinding in space is
 used to define $I(\mu)$ on incoming faces, e.g., for an unrefined mesh,

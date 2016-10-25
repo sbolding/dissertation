@@ -1,25 +1,30 @@
 
 \chapter{\uppercase{The Moment-Based Low-Order Equations}}
+\label{chp:lo}
 
+The LO equations are based on moments, i.e., integrals of the equations, to produce a
+lower-dimensional system.  The equations incorporate extra parameters, referred to as
+consistency terms, that allow for the equations to preserve the accuracy (particularly in
+angle) of the HO solver, which is detailed in the next chapter. 
 The formulation of the LO equations is similar to a discontinuous FE method.  Weighted
-integrals of the the equations are taken with functions that have local support as weight
-functions.  The equations are written with element-wise moments of $I$ and $T$ as
-unknowns.  Leaving the solution in this form allows for use of information form a
-previous HO solution to eliminate auxillary unknowns from the equations. This is different than a standard Galerkin FE
-method~\cite{fe_book} where a
+integrals of the equations are taken using weight functions that have local support. 
+The equations are written with element-wise moments of $I$ and $T$ as
+unknowns.  Leaving the solution in this form allows for use of information from a
+previous HO solution to eliminate auxiliary unknowns from the equations. This is different
+than a standard Galerkin or collocation FE
+method~\cite{fe_book,morel_notes} where a
 functional form of the solution is directly assumed. The final equations will have a
 similar form to S$_2$ equations, but we have not used a collocation method in angle,
-which should limit ray effects~\cite{ray_effects} in higher spatial dimensions.
-The equations eliminate extra spatial unknowns in a manner similar to to a linear-discontinuous FE
-method~\cite{morel_ldtrt}.  We also explore the
-possibility of using the MC solution to modify the discretization of the LO solution in
-Sec.~\ref{sec:spat_clos}.   MOVE
+which should limit ray effects~\cite{morel_notes,lewis} in higher spatial dimensions.
+The backward Euler time discretization is used throughout this section.
+Chapter~\ref{chp:time} includes HO treatment of the radiation variables in the time
+variable.
 
 The remainder of this chapter is structured as follows: the general moments will be
-derived and then the angular and spatial closure are discussed REWRITE.  For
-simplicity, the backward Euler time discretization is used throughout this section.
-Sec.~\ref{sec:time_cont} will use the HO solution and MC transport to consistently
-close the equations in time, improving time accuracy.
+derived and then the use of HO information to close the system in angle is discussed.
+We then detail two separate spatial closures: a standard linear-discontinuous finite-element (LDFE)
+method~\cite{morel_ldtrt} and the use of the HO solution to eliminate extra
+spatial unknowns from the LO equations.  
 
 \section{Forming the Space-Angle Moment Equations}
 
@@ -30,12 +35,12 @@ element (or cell) has support $x\in[x_{i-1/2},x_{i+1/2}]$ with width $h_i=x_{i+1
 x_\il$ and cell center 
 $x_i = x_\il + h_i/2$.  There is a total of $N_c$ elements, spanning the
 spatial domain $0\leq x\leq X$.  For simplicity, this spatial mesh is fixed throughout the
-simulation.  Mesh adaptation is only applied in the HO solver.
+simulation.  Mesh adaptation is only applied in the HO solver, where applicable.
 
 \begin{figure}[H]
     \centering
     \begin{centering}
-        \begin{tikzpicture}[scale=0.78, every node/.style={transform shape}]
+        \begin{tikzpicture}[scale=1.0, every node/.style={transform shape}]
             \node at (10.7,4.0) {${1}$  };
             \draw (10.9,4.0) -- (11.1,4.0);
             \draw (11.0,0.4) -- (11.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
@@ -53,7 +58,8 @@ simulation.  Mesh adaptation is only applied in the HO solver.
 \end{figure}
 
 The spatial moments are defined by integrals weighted with the standard linear finite element (FE)
-interpolatory basis functions.  An illustration of the two linear FE basis functions for the $i$-th element is
+interpolatory basis functions.  An illustration of the two linear FE basis functions for
+the $i$-th element (or cell) is
 given in Fig.~\ref{fig:lin_fe}.  The left basis function is defined as
 \begin{equation}
     b_{L,i}(x)= \left\{\begin{matrix} \frac{x_\ir - x}{h_i} & x_\il \leq x \leq x_\ir
@@ -75,17 +81,17 @@ functions only have non-zero support in element $i$. This accommodates our later
 definition of moments and discontinuous unknowns.}
 
 The spatial moments are defined by integrals over the each element, using the two
-basis functions.  We use $\mom{\cdot}$ to indicate integration over a
+basis functions.  We use $\mom{\cdot}$ to indicate weighted integration over a
 spatial element.  The spatial moments are
 \begin{equation}\label{eq:x_moml}
 \mom{\cdot}_{L,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{L,i}(x) (\cdot) \dd x
 \end{equation}
 and
 \begin{equation}\label{eq:x_momr}
-\mom{\cdot}_{R,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{R,i}(x) (\cdot) \dd x.
+\mom{\cdot}_{R,i} = \frac{2}{h_i} \int_{x_{i-1/2}}^{\xr} b_{R,i}(x) (\cdot) \dd x,
 \end{equation}
 where the factor of $2/h_i$ is a normalization constant.
-It is noted in this notation $\mom{\phi}_{L,i}$ and
+In this notation $\mom{\phi}_{L,i}$ and
 $\mom{\phi}_{R,i}$ represent spatial moments of the intensity over cell $i$, opposed
 to $\phi_{L,i}$ and $\phi_{R,i}$, which represent the interior value of the linear
 representation of $\phi(x)$ at $x_\il$ and $x_\ir$ within the cell. 
@@ -113,7 +119,7 @@ are denoted with a superscript as
 \end{equation}
 The half-range
 integrals of $I$ are defined as $ \phi^+(x,t) = \int_0^{1} I(x,\mu,t)\, \dd \mu$ and $
-\phi^-(x,t) = 2 \pi \int_{-1}^{0} I(x,\mu,t) \,\dd
+\phi^-(x,t) =  \int_{-1}^{0} I(x,\mu,t) \,\dd
 \mu$, respectively.  Thus, in terms of half-range quantities, the mean intensity is $\phi = \phi^- +
 \phi ^+$.  It is noted that in this notation the flux is defined as
 $J=J^-+J^+$, which is not the standard definition for the half-range fluxes, e.g.,
@@ -125,7 +131,8 @@ The LO radiation equations are formed by applying the space and angle moment ope
 transport equation and performing algebraic manipulation.  We provide a detailed
 derivation of the $L$ and $+$ radiation moment equation and state the final results for the
 other moment operators.  First, the $L$ moment operator is applied to the time-discretized transport equation,
-i.e., Eq.~\eqref{eq:trans_td}.  Integration by parts on the streaming term yields
+i.e., Eq.~\eqref{eq:trans_td}.  Application of integration by parts to the streaming term
+in the resulting equation yields
 \begin{multline}
     -\frac{2}{h_i}{\mu}_{i-1/2} I_{i-1/2}^{n+1} + \frac{2}{h_i^2}\int_{\xl}^{\xr} \mu I^{n+1} \dd x
         +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right)  
@@ -158,8 +165,8 @@ The resulting equation is integrated over the positive half range:
 \subsection{The Angular Consistency Terms}
 
 Now, algebraic manipulations are performed on the streaming terms to produce face and
-volume-averaged values of $\mu$, weighted by the intensity.  Each term in the streaming
-term is multiplied by a factor of unity, with the desired unknown appropriate to each term
+volume averages of $\mu$, weighted by the intensity.  Each term in the streaming
+term of Eq.~\eqref{eq:spat_mom} is multiplied by a factor of unity, with the desired unknown appropriate to each term
 in the numerator and denominator.  Temporarily dropping the time
 index for clarity, the manipulations applied to
 the streaming term are as follows:
@@ -180,7 +187,8 @@ the streaming term are as follows:
     \mom{\phi}_{R,i}^+ \right]
     \end{align}
 The ratios in braces are what we will formally define as \emph{angular consistency terms}.
-These nonlinear functionals are approximated by the HO solver.  The angular consistency
+These nonlinear functionals are approximated by the HO solver, similar to the approach
+in~\cite{wolters}.  The angular consistency
 term for the $L$ and $+$ moments is defined as
 \begin{equation}\label{eq:ang_cons_vol}
     \cur{{\mu}}_{L,i}^{n+1,+} \equiv \frac{\mom{\mu I^{n+1}}_{L,i}^+}{\mom{I^{n+1}}_{L,i}^+} =  \frac{
@@ -206,7 +214,7 @@ term for the $L$ and $+$ operators becomes
     \right]
 \end{equation}
 It is noted that this expression does not contain a cross section in the denomainator,
-such as in the variable Eddington factor approach~\cite{???}, thus this method will be
+such as in the variable Eddington factor approach~\cite{ferguson}, thus this method will be
 stable in a void.
 
 
@@ -224,9 +232,9 @@ Eq.~\eqref{eq:stream_mom} into Eq.~\eqref{eq:spat_mom}:
   \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+},
 \end{multline}
-Similar derivations can be used to derive the other radiation moment equations.  
+The other radiation moment equations are derived analogously.  
 Pairwise application of the $L$ and $R$ basis
-moments with the $+$ and $-$ half-range integrals to Eq.~\eqref{ho_trans} 
+moments with the $+$ and $-$ half-range integrals to Eq.~\eqref{eq:trans_td} 
 ultimately yields four moment
 equations per cell.  The equation for the $R$ and $+$ moment is
 \begin{multline}\label{eq:exact_rmomp}
@@ -266,15 +274,15 @@ spatially.
 
 To derive the LO material energy equations, an approximation must be introduced to relate
 $T(x)$ and $T^4(x)$ within a cell.  We represent $T(x)$ spatially 
-with a LDFE trial space.  This trial space will ensure preservation of the equilibrium
-diffusion limit.  To simplify the relation between $T(x)$ and $T^4(x)$ 
-$ T(x) \simeq T_{L,i} b_{L,i}(x) + T_{R,i} b_{R,i}(x),\quad x\in(x_{i-1/2},x_\ir)$.
+with a LDFE trial space, i.e., $ T(x) \simeq T_{L,i} b_{L,i}(x) + T_{R,i} b_{R,i}(x),\quad x\in(x_{i-1/2},x_\ir)$.
+This trial space will ensure preservation of the equilibrium
+diffusion limit and limit artificial propagation of energy across the system~\cite{teleportation}. 
 Similarly, the emission term is represented in the material and radiation equations with the LDFE
 interpolant $T^4(x)\simeq T_{L,i}^4 b_{L,i}(x) + T_{R,i}^4 b_{R,i}(x)$.   The $L$ and $R$ spatial moments are taken of the material
-energy equations; the LDFE representations for $T(x)$ and $\sigma_a a c T^4(x)$ are used to
+energy equations, and the LDFE representations for $T(x)$ and $\sigma_a a c T^4(x)$ are used to
 simplify the spatial integrals. The final LO material energy
  equation resulting from application of the $L$ moment is
- \begin{multline}\label{lo_mat_dis}
+ \begin{multline}\label{eq:lo_mat_dis1}
      \frac{\rho_i c_{v,i}}{\Delta t}\left[ \left(\frac{2}{3}T_{L,i} + \frac{1}{3}T_{R,i}
         \right)^{n+1} - \left(\frac{2}{3}T_{L,i} + \frac{1}{3}T_{R,i}
     \right)^{n} \right]  + \sigma_{a,i}^{n+1} \left( \mom{\phi}_{L,i}^+ +
@@ -283,7 +291,7 @@ simplify the spatial integrals. The final LO material energy
         \right)^{n+1}.
 \end{multline}
 The equation for the $R$ moment is
- \begin{multline}\label{lo_mat_dis}
+ \begin{multline}\label{eq:lo_mat_dis2}
      \frac{\rho_i c_{v,i}}{\Delta t}\left[ \left(\frac{1}{3}T_{L,i} + \frac{2}{3}T_{R,i}
         \right)^{n+1} - \left(\frac{1}{3}T_{L,i} + \frac{2}{3}T_{R,i}
     \right)^{n} \right]  + \sigma_{a,i}^{n+1} \left( \mom{\phi}_{R,i}^+ +
@@ -294,27 +302,30 @@ The equation for the $R$ moment is
 Cross sections have been assumed constant over each element, evaluated at the
 average temperature within the element, i.e., $\sigma_{a,i}^{n+1} =
 \sigma_{a,i}([T^{n+1}_{L,i}+T^{n+1}_{R,i}]/2)$.
-Because the material energy balance
+Because the material energy balance equation
  only contains angularly integrated quantities, there is no need to take angular
  moments of the above equations.  
 
-REWRITE: WHAT TO DO WITH THIS PARAGRAPH?
-Because there are no derivatives of $T$ in Eq.~\eqref{lo_mat}, there is no need
-to define $T$ on the faces.  Because only moments of $\phi$ appear in the material energy
-equations, they are fully defined at this point.  The LD closure for the $L$ and $+$ equations produces
 
-
-\section{Closing the LO System with Information from the HO Solution}
+\section{Closing the LO Equations in Space and Angle}
 \label{sec:closure}
+
 
 The six degrees of freedom (DOF) over each cell $i$ are the four moments $\mom{\phi}_{L,i}^+$,
 $\mom{\phi}_{R,i}^+$, $\mom{\phi}_{L,i}^-$, and $\mom{\phi}_{R,i}^-$ and the two
-spatial edge values $T_{L,i}$ and $T_{R,i}$. The four radiation and two material
+spatial edge values $T_{L,i}$ and $T_{R,i}$.  The four radiation and two material
 energy equations define a system of equations for the six DOF, coupled spatially through
-the streaming term.  We emphasize that at this point we have not made any spatial or
-angular approximations to the transport moment equations; these moment equations are exact with
-respect to the chosen time discretization.  The material energy equation has the
-approximation of an LDFE space for $T(x)$.  Some approximation of this form is necessary
+the streaming term. At this point, the LO equations have too many unknowns: the relation between the volume
+and face averaged quantities and the angular consistency parameters are not known a
+priori. The HO solver and other approximations are used to close the system, eliminating
+the extra unknowns from the equations. 
+
+Before introducing the additional closures, we emphasize that at this point the only spatial or
+angular approximations to the radiation  moment equations are an LDFE
+representation for $T^4(x)$ and cell-averaged cross sections; these moment equations are exact with
+respect to the chosen time discretization and these approximations.  The material energy
+equations, as well as the emission source, required an approximation of LDFE in space for $T(x)$ and $T^4(x)$.  Some
+approximation is always necessary
 to relate $T$ and $T^4$.
 
 \subsection{Angular Closure}
@@ -324,23 +335,42 @@ parameters (e.g., Eq.~\eqref{eq:ang_cons_vol} and~\eqref{eq:ang_cons_face}) are 
 A lagged estimate of $I^{n+1}$ from the previous HO solve is
 used to estimate the angular consistency parameters. In the HOLO algorithm, the equations for LO unknowns at iteration $k+1$ use consistency parameters
 computed using the latest HO solution $\tilde{I}^{n+1,k+1/2}$
-as an approximation for $I^{n+1}(x,\mu)$.  We evaluate these terms using quadruature based
-on the functional form of the solution provided by the HO solution.
+as an approximation for $I^{n+1}(x,\mu)$, e.g.,
+\begin{equation}\label{eq:ang_cons_vol}
+    \cur{{\mu}}_{L,i}^{n+1,+} \simeq \frac{\mom{\mu
+       \tilde I^{n+1,k+1/2}}_{L,i}^+}{\mom{\tilde I^{n+1,k+1/2}}_{L,i}^+} =  \frac{
+{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
+\tilde I^{n+1,k+1/2}_{HO}(x,\mu) \dd x \dd \mu } 
+{{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
+\tilde I^{n+1,k+1/2}_{HO}(x,\mu) \dd x \dd \mu } .
+\end{equation}
+We evaluate these terms using quadrature based
+on the LDFE functional representation $\tilde I(x,\mu)$ provided by the HO solution.
 
-\subsection{Spatial Closure}
+\subsection{LDFE Spatial Closure}
 
 The relation between the volume and face averaged quantities must be known to eliminate
-the final auxillary unknowns.
-To close the LO system spatially, we will explore multiple options.  The simplest closure
+the final auxiliary unknowns.
+To close the LO system spatially, we will reduce the equation to only the desired moment
+unknowns.  Several closures were investigated.  The simplest closure
 is to use a linear-discontinuous (LD) spatial closure with the usual upwinding
-approximation~\cite{morel_ldtrt}.  For example, for positive flow (e.g., Eq.~\eqref{eq:lo_tran}) the face terms $\mu_{i-1/2}$ and $\phi_{i-1/2}$
+approximation~\cite{morel_ldtrt}.  A closure based on the HO solution is discussed in
+Sec.~\ref{sec:spat_clos}.  Because there are no derivatives of $T$ in Eq.~\eqref{lo_mat}, there is no need
+to define $T$ on the faces in Eq.~\eqref{eq:lo_mat_dis1} and Eq.~\eqref{eq:lo_mat_dis2};
+only moments of $\phi$ appear in the material energy
+equations, thus they are fully defined at this point and require no additional spatial
+closure.  
+
+Now, the LDFE closure is applied to the radiation moment equations for the case of
+positive flow (i.e., Eq.~\eqref{eq:exact_lmomp} and~\eqref{eq:exact_rmomp}).  The face terms $\mu_{i-1/2}$ and $\phi_{i-1/2}$
 are upwinded from the previous cell $i-1$ or from a boundary condition; the terms
 at $x_{i+1/2}$ are linearly extrapolated, computed using the $L$ and $R$ basis
-moments.  By assuming $\phi^\pm(x)$ is linear over a cell, a relation between the 
-outflow and moments can be derived, e.g., $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ -
-\mom{\phi}_L^+$. For the negative half range, $\phi^-_{i-1/2} = 2\mom{\phi}_L^- -
-\mom{\phi_R}^+$.  The LD closure, with upwinding, for the $L$ equation and positive half-range is
-\begin{equation}
+moments.  The linear approximation $\phi^+(x)=b_{L,i}(x)\phi_{L,i} +
+b_{R,i}(x)\phi_{R,i}$, for $x\in(\xl,\xr]$, is substituted into the definition for
+the moments (i.e., Eq.~\eqref{eq:x_moml}~and~\eqref{eq:x_momr}) and solved for the LD edge value
+$\phi_{i,R}$.  The resulting outflow relation for positive flow is $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ -
+\mom{\phi}_L^+$. The LD closure, with upwinding, for the $L$ equation and positive half-range is
+\begin{multline}
     -2{\mu}_{i-1/2}^{n+1,+} \left(2\mom{\phi}_{R,i-1}^+ -         \right) + \cur {\mu}_{L,i}^{n+1,+}
   \mom{\phi}_{L,i}^{n+1,+}
   +  \cur\mu_{R,i}^{n+1,+}
@@ -348,19 +378,23 @@ outflow and moments can be derived, e.g., $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ -
   \mom{\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
   \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+}.
-\end{equation}
+\end{multline}
 Similar equations can be derived for the other directions, fully defining the radiation
-equations. These equations are equivalent to an $S_2$
+equations.  The LD closure for the negative half range gives $\phi^-_{i-1/2} = 2\mom{\phi}_L^- -
+\mom{\phi_R}^+$.   These equations are equivalent in numerical complexity to an LDFE
+discretization of the S$_2$ equations~\cite{morel_ldtrt,lewis}, but with different quadrature points on the face
+and interior.
 
 Note that we have chosen to leave $\mu_{i-1/2}^{n+1,+}$ as a value to be estimated from the HO solver,
-which is more conducive to the other spatial closures described in
-Sec.~\ref{sec:spat_close}.
+which is more conducive to the HO spatial closures described in
+Sec.~\ref{sec:spat_clos}.
 Alternatively, the spatial closure could be introduced before performing the algebraic
 manipulation to form consistency terms (e.g., into Eq.~\eqref{eq:line1}).  This would produce only volume-weighted consistency
-terms for the LD spatial closure.
+terms in the equations.  
 
 
-\subsubsection{Fixups to LD Solution}
+\subsubsection{Fixups for the LDFE Solution}
+\label{sec:ldfe_fixups}
 
 The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
 optically thick cells with a steep intensity gradient, the solution becomes negative.
@@ -374,13 +408,19 @@ HO solution.  Thus, an alternative spatial closure is used that is equivalent to
 standard FE lumping procedure.  The $L$ and $R$ moments are defined the same as before,
 preserving the average within a cell, but the relation between the moments and
 the outflow is modified.   For example, for positive $\mu$,
-the outflow is now defined as $\phi^+_{i+1/2} = \mom{\phi}_R^+.$  Because the basis function $b_{R,i}(x)$ is strictly
-positive, the outflow is positive.  This closure is only used
-in cells where negative intensities occur.
+the outflow is now defined as $\phi^+_{i+1/2} = \mom{\phi}_R^+.$      Because the basis function $b_{R,i}(x)$ is strictly
+positive, the outflow is positive. Details on the
+derivation of this relation are in Appendix~\ref{app:lo_mom_relations}. 
+The lumping closure was optionally applied in all cells or only in cells where negative
+ intensities occur.  
 
-\subsection{Newton's Method for LO Equations}
+For simplicity,
+we also lump the emission source and temperature terms in the equations following the
+standard procedure~\cite{morel_ldtrt}.  In the temperature equations $2/3
+T_{L,i} + 1/3 T_{R,I}$ becomes $T_{L,i}$, etc.  
+\section{Newton's Method for LO Equations}
 
-Adding the equations for each cell together forms a global system of coupled equations.
+Summation over all cells of the closed equations forms a global system of coupled equations.
 The equations are nonlinear due to the Planckian emission source.  
 We have used Newton's method to solve the nonlinear system, based on a typical linearization of the Planckian source with cross
 sections evaluated at temperatures from the previous iteration, as described
@@ -391,18 +431,14 @@ The equations for each half-range are coupled together via scattering.
 In one spatial dimension, the scattering terms can be included in the discrete system
 matrix and directly inverted.  We consider an alternative iterative solution method that
 could be more easily extended to higher spatial dimensions in Sec.~\ref{sec:dsa}.
-Isotropic scattering,
+For the direct solution method, isotropic scattering,
 including effective scattering terms from the linearization, are included in the system matrix. The system
 matrix is an asymmetric, banded matrix with a band width of seven and is inverted
 directly. 
 Newton iterations are repeated until $\phi^{n+1}(x)$ and $T^{n+1}(x)$ are converged
-to a desired relative tolerance.  Convergence is calculated using the spatial $L_2$
+to a desired relative tolerance.  Convergence in the Newton iterations is calculated using the spatial $L_2$
 norm of the change in $\phi^{n+1}(x)$ and $T^{n+1}(x)$, relative to the norm of each
-solution.  The lumping-equivalent discretization
-discussed above is used for cells where the solution for
-$\phi^{n+1}$ becomes negative. When negative values for $\phi^{n+1,\pm}(x)$ are detected, the lumping-equivalent discretization is used within
-those cells and that Newton step is repeated. 
-
+solution.  
 
 %Application of the first order Taylor expansion in time of the
 %gray emission source, about some temperature $T^*$ at some

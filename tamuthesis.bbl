@@ -6,6 +6,14 @@ Marvin Adams and William Martin.
   transport iterations.
 \newblock {\em Nuclear Science and Engineering}, 111(2):145--167, 1992.
 
+\bibitem{bolding_nse}
+S.R. Bolding, M.~Cleveland, and J.E. Morel.
+\newblock {A High-Order Low-Order Algorithm with Exponentially-Convergent Monte
+  Carlo for Thermal Radiative Transfer}.
+\newblock {\em Nuclear Science \& Engineering: M\&C 2015 Special Issue}, Jan.
+  2017.
+\newblock Forthcoming.
+
 \bibitem{ans_2014}
 S.R. Bolding and J.E. Morel.
 \newblock {A High-Order Low-Order Algorithm with Exponentially-Convergent Monte
@@ -46,6 +54,12 @@ Jeffrey~A Favorite, Ashley~D Thomas, and Thomas~E Booth.
 \newblock On the accuracy of a common monte carlo surface flux grazing
   approximation.
 \newblock {\em Nuclear Science and Engineering}, 168(2):115--127, 2011.
+
+\bibitem{ferguson}
+Jim~Michael Ferguson.
+\newblock {\em Asymptotic accuracy of the equilibrium diffusion approximation
+  and semi-analytic solutions of radiating shocks}.
+\newblock PhD thesis, Texas A\&M University, 2014.
 
 \bibitem{fnc}
 J.~A. Fleck, Jr. and J.~D. Cummings, Jr.
@@ -138,6 +152,11 @@ J.E. Morel, T.A. Wareing, and K.~Smith.
 \newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
   Transfer Calculations}.
 \newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
+
+\bibitem{morel_notes}
+Jim Morel.
+\newblock Neutron transport theory.
+\newblock Class Lecture Notes, 2014.
 
 \bibitem{park}
 H.~Park, J.D. Densmore, A.B. Wollaber, D.A. Knoll, and R.M. Ramenzahn.
@@ -236,6 +255,12 @@ Allan~B Wollaber.
 Allan~B Wollaber, Edward~W Larsen, and Jeffery~D Densmore.
 \newblock A discrete maximum principle for the implicit monte carlo equations.
 \newblock {\em Nuclear Science and Engineering}, 173(3):259--275, 2013.
+
+\bibitem{holo_rh}
+Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
+\newblock Radiation hydrodynamics with a high-order, low-order method.
+\newblock In {\em ANS Topical Meeting, International Topical Meeting on
+  Mathematics and Computation}, Nashville Tennessee, 2015.
 
 \bibitem{wollaeger_ld}
 Ryan~T Wollaeger, Allan~B Wollaber, Todd~J Urbatsch, and Jeffery~D Densmore.
