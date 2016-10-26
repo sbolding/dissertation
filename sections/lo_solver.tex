@@ -62,20 +62,20 @@ interpolatory basis functions.  An illustration of the two linear FE basis funct
 the $i$-th element (or cell) is
 given in Fig.~\ref{fig:lin_fe}.  The left basis function is defined as
 \begin{equation}
-    b_{L,i}(x)= \left\{\begin{matrix} \frac{x_\ir - x}{h_i} & x_\il \leq x \leq x_\ir
+    b_{L,i}(x)= \left\{\begin{matrix} \frac{\ds x_\ir - x}{\ds h_i} & x_\il \leq x \leq x_\ir
         \\ 0 &  \text{elsewhere}
     \end{matrix}\right.,
 \end{equation}
 corresponding to the node $x_\il$.
 The right basis function is 
 \begin{equation}
-    b_{R,i}(x)= \left\{\begin{matrix} \frac{x - x_\il}{h_i} & x_\il \leq x \leq x_\ir
+    b_{R,i}(x)= \left\{\begin{matrix} \frac{\ds x - x_\il}{\ds h_i} & x_\il \leq x \leq x_\ir
         \\ 0 & \text{elsewhere}
     \end{matrix}\right. ,
 \end{equation}
 corresponding to the node $x_\ir$. With these definitions, a local linear approximation to a
 function $f$ can be formulated as $f(x)\simeq f_{L,i} b_{L,i}(x) + f_{R,i}
-b_{R,i}(x),\quad x\in[x_{\il},x_{\ir}]$.\footnote{In literature the FE functions are
+b_{R,i}(x),\quad x\in[x_{\il},x_{\ir}]$.\footnote{In literature the linear FE basis functions are
 formally defined with support over two adjacent elements.  However, in our notation our 
 functions only have non-zero support in element $i$. This accommodates our later
 definition of moments and discontinuous unknowns.}
@@ -97,7 +97,7 @@ to $\phi_{L,i}$ and $\phi_{R,i}$, which represent the interior value of the line
 representation of $\phi(x)$ at $x_\il$ and $x_\ir$ within the cell. 
 
 To simplify notation and discussion, we also define the slope and average moments over a
-spatial cell.  The average scalar intensity is
+spatial cell.  The element-averaged scalar intensity is
 \begin{equation}
     \phi_i = \frac{1}{h_i} \int_{\xl}^{\xr} \phi(x) \dd x
 \end{equation}
@@ -106,7 +106,7 @@ and
     \phi_{x,i} = \frac{6}{h_i} \int_{\xl}^{\xr} \left(\frac{x-x_i}{h_i} \right)
     \phi(x) \dd x . 
 \end{equation}
-The linear representation over a cell in terms of these moments is $\phi(x) = \phi_i
+The linear representation over a cell can be written as $\phi(x) = \phi_i
 + 2\phi_{x,i}(x - x_i)/h_i^2$, for $x\in(\xl,\xr)$. 
 
 \subsection{Definition of Angular Moments}
@@ -118,8 +118,8 @@ are denoted with a superscript as
     (\cdot)^\pm =  \pm\int_0^{\pm1} (\cdot) \dd \mu
 \end{equation}
 The half-range
-integrals of $I$ are defined as $ \phi^+(x,t) = \int_0^{1} I(x,\mu,t)\, \dd \mu$ and $
-\phi^-(x,t) =  \int_{-1}^{0} I(x,\mu,t) \,\dd
+integrals of $I$ are defined as $ \phi^+(x) = \int_0^{1} I(x,\mu)\, \dd \mu$ and $
+\phi^-(x) =  \int_{-1}^{0} I(x,\mu) \,\dd
 \mu$, respectively.  Thus, in terms of half-range quantities, the mean intensity is $\phi = \phi^- +
 \phi ^+$.  It is noted that in this notation the flux is defined as
 $J=J^-+J^+$, which is not the standard definition for the half-range fluxes, e.g.,
@@ -130,17 +130,20 @@ in~\cite{lewis}.
 The LO radiation equations are formed by applying the space and angle moment operators to the
 transport equation and performing algebraic manipulation.  We provide a detailed
 derivation of the $L$ and $+$ radiation moment equation and state the final results for the
-other moment operators.  First, the $L$ moment operator is applied to the time-discretized transport equation,
-i.e., Eq.~\eqref{eq:trans_td}.  Application of integration by parts to the streaming term
-in the resulting equation yields
+other moment operators.  The independent variables are often suppressed for some, or
+all, of the dependent variables for compactness. 
+
+First, the $L$ moment operator is applied to the time-discretized transport equation,
+i.e., Eq.~\eqref{eq:trans_td}; application of integration by parts to the streaming term
+yields
 \begin{multline}
-    -\frac{2}{h_i}{\mu}_{i-1/2} I_{i-1/2}^{n+1} + \frac{2}{h_i^2}\int_{\xl}^{\xr} \mu I^{n+1} \dd x
+    -\frac{2}{h_i}{\mu}_{i-1/2} I_{i-1/2}^{n+1} + \frac{2}{h_i^2}\int_{\xl}^{\xr} \mu I^{n+1}(x,\mu) \dd x
         +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right)  
-        \mom{\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} }{2} \mom{\phi}_{L,i}^{n+1} =
-        \frac{1}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
-  \frac{1}{c\Delta t}\mom{\phi}_{L,i}^{n,+}.
+        \mom{I^{n+1}}_{L,i} -  \frac{\sigma_{s,i} }{2} \mom{\phi^{n+1}}_{L,i} \\=
+        \frac{1}{2} \mom{\sigma_{a,i}^{n+1} a c T^{n+1,4}}_{L,i} +
+  \frac{1}{c\Delta t}\mom{I^n}_{L,i}.
 \end{multline}
-Here, the cross sections have been assumed constant over a cell.  The mean
+Here, $I_{i+1/2}(\mu)\equiv I(x_{i+1/2},\mu)$, and the cross sections have been assumed constant over a cell and evaluated with $T^{n+1}$.  The mean
 intensity in the scattering term is expanded in terms of half-range unknowns.
 The integral can be rewritten in terms of $L$ and $R$ moments by noting that $b_{L,i}(x) +
 b_{R,i}(x) = 2/h_i$.  These substitutions are made and the resulting equation is
@@ -148,9 +151,9 @@ multiplied by $h_i$ to produce
 \begin{multline}
     -2{\mu}_{i-1/2} I_{i-1/2}^{n+1} + \mom{\mu I^{n+1}}_{L,i} + \mom{\mu I^{n+1}}_{R,i} 
         +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
-  \mom{\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
+        \mom{I^{n+1}}_{L,i} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
   \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
-  \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+}.
+  \frac{h_i}{c\Delta t}\mom{I^n}_{L,i}.
 \end{multline}
 The resulting equation is integrated over the positive half range:
 \begin{multline}\label{eq:spat_mom}
@@ -167,7 +170,7 @@ The resulting equation is integrated over the positive half range:
 Now, algebraic manipulations are performed on the streaming terms to produce face and
 volume averages of $\mu$, weighted by the intensity.  Each term in the streaming
 term of Eq.~\eqref{eq:spat_mom} is multiplied by a factor of unity, with the desired unknown appropriate to each term
-in the numerator and denominator.  Temporarily dropping the time
+in the numerator and denominator, as in~\cite{wolters}.  Temporarily dropping the time
 index for clarity, the manipulations applied to
 the streaming term are as follows:
     \begin{align} \label{eq:line1}
@@ -204,24 +207,32 @@ definition as
         {\displaystyle \int\limits_0^1 \mu I(x_{i+1/2},\mu) \dd \mu }} 
         {{\displaystyle \int\limits_0^1 I(x_{i+1/2},\mu) \dd \mu }} \;.
 \end{equation}
-There are analogous definitions for the $R$ and $-$ moments.
-The moment of the streaming
-term for the $L$ and $+$ operators becomes
+There are analogous definitions for the $R$ and $-$ moments, e.g.,
+\begin{equation}\label{eq:ang_cons_vol}
+    \cur{{\mu}}_{R,i}^{n+1,-} \equiv \frac{\mom{\mu I^{n+1}}_{R,i}^-}{\mom{I^{n+1}}_{R,i}^-} =  \frac{
+        {\displaystyle \frac{2}{h_i}} \int\limits_{-1}^0 \int\limits_\xl^\xr \mu \, b_{R,i}(x)
+I^{n+1}(x,\mu) \dd x \dd \mu } 
+{{\displaystyle \frac{2}{h_i}} \int\limits_{-1}^0 \int\limits_\xl^\xr \, b_{R,i}(x)
+I^{n+1}(x,\mu) \dd x \dd \mu } .
+\end{equation}
+Substitution of Eq.~\eqref{eq:ang_cons_vol}~and~\eqref{eq:ang_cons_vol} simplifies
+moments of the streaming
+term for the $L$ and $+$ operators:
 \begin{equation}\label{eq:stream_mom}
         {\displaystyle \left \langle \mu \pderiv{I}{x} \right \rangle_L^+ } = 
         -\frac{\ds2}{\ds h_i} \mu_{i-1/2}^+ I_{i-1/2}^+ + \frac{1}{h_i}\left[
         \cur{\mu}_{L,i}^+ \mom{\phi}^+_{L,i} + \cur{\mu}_{R,i}^+ \mom{\phi}_{R,i}^+
     \right]
 \end{equation}
-It is noted that this expression does not contain a cross section in the denomainator,
-such as in the variable Eddington factor approach~\cite{ferguson}, thus this method will be
-stable in a void.
+It is noted that this expression does not contain a cross section in the denominator,
+such as in the variable Eddington factor approach~\cite{ferguson}, eliminating 
+issues in a void where $\sigma_t=0$.
 
 
 \subsection{The Exact Radiation Moment Equations}
 
-A final expression for the moment equation resulting from application of the $L$ moment and
-positive half-range integral is obtained by substituting the result of
+A final form of the moment equation resulting from application of the $L$ moment and
+positive half-range integral is obtained by substitution of 
 Eq.~\eqref{eq:stream_mom} into Eq.~\eqref{eq:spat_mom}:
 \begin{multline}\label{eq:exact_lmomp}
     -2{\mu}_{i-1/2}^{n+1,+} \phi_{i-1/2}^{n+1,+} + \cur {\mu}_{L,i}^{n+1,+}
@@ -247,7 +258,7 @@ equations per cell.  The equation for the $R$ and $+$ moment is
   \frac{h_i}{c\Delta t}\mom{\phi}_{R,i}^{n,+},
 \end{multline}
 The equations for the negative half-range moment are identical to the above with the
-negative half-range superscripts replacing the positive.  Explicitly,
+negative half-range integrals replacing the positive where applicable.  Explicitly,
 \begin{multline}\label{eq:exact_lmomm}
     -2{\mu}_{i-1/2}^{n+1,-} \phi_{i-1/2}^{n+1,-} + \cur {\mu}_{L,i}^{n+1,-}
   \mom{\phi}_{L,i}^{n+1,-}
@@ -338,25 +349,25 @@ computed using the latest HO solution $\tilde{I}^{n+1,k+1/2}$
 as an approximation for $I^{n+1}(x,\mu)$, e.g.,
 \begin{equation}\label{eq:ang_cons_vol}
     \cur{{\mu}}_{L,i}^{n+1,+} \simeq \frac{\mom{\mu
-       \tilde I^{n+1,k+1/2}}_{L,i}^+}{\mom{\tilde I^{n+1,k+1/2}}_{L,i}^+} =  \frac{
+    \tilde I_{HO}^{n+1,k+1/2}}_{L,i}^+}{\mom{\tilde I_{HO}^{n+1,k+1/2}}_{L,i}^+} =  \frac{
 {\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
 \tilde I^{n+1,k+1/2}_{HO}(x,\mu) \dd x \dd \mu } 
 {{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
 \tilde I^{n+1,k+1/2}_{HO}(x,\mu) \dd x \dd \mu } .
 \end{equation}
 We evaluate these terms using quadrature based
-on the LDFE functional representation $\tilde I(x,\mu)$ provided by the HO solution.
+on the LDFE functional representation $\tilde I_{HO}(x,\mu)$ provided by the HO solution.
 
 \subsection{LDFE Spatial Closure}
 
 After approximating the angular consistency terms in the time-discretized LO moment equations, 
 a equation relating the spatial moments and outflow face values is
-needed to eliminate the final auxiliary unkonwns, i.e., a spatial closure.
+needed to eliminate the final auxiliary unknowns, i.e., a spatial closure.
 We will eliminate the face terms to produce equations exclusively the desired moment
 unknowns.  Several closures were investigated.  The simplest closure
 is to use a linear-discontinuous (LD) spatial closure with the usual upwinding
 approximation~\cite{morel_ldtrt}.  A closure based on the HO solution is discussed in
-Sec.~\ref{sec:spat_clos}.  Because there are no derivatives of $T$ in Eq.~\eqref{lo_mat}, there is no need
+Sec.~\ref{sec:spat_clos}.  Because there are no derivatives of $T$ in Eq.~\eqref{eq:mat_td}, there is no need
 to define $T$ on the faces in Eq.~\eqref{eq:lo_mat_dis1} and Eq.~\eqref{eq:lo_mat_dis2};
 only moments of $\phi$ appear in the material energy
 equations, thus they are fully defined at this point and require no additional spatial
@@ -366,23 +377,23 @@ Now, the LDFE closure is applied to the radiation moment equations for the case 
 positive flow (i.e., Eq.~\eqref{eq:exact_lmomp} and~\eqref{eq:exact_rmomp}).  The face terms $\mu_{i-1/2}$ and $\phi_{i-1/2}$
 are upwinded from the previous cell $i-1$ or from a boundary condition; the terms
 at $x_{i+1/2}$ are linearly extrapolated, computed using the $L$ and $R$ basis
-moments.  The linear approximation $\phi^+(x)=b_{L,i}(x)\phi_{L,i} +
-b_{R,i}(x)\phi_{R,i}$, for $x\in(\xl,\xr]$, is substituted into the definition for
+moments.  The linear approximation $\phi^+(x)=b_{L,i}(x)\phi^+_{L,i} +
+b_{R,i}(x)\phi^+_{R,i}$, for $x\in(\xl,\xr]$, is substituted into the definition for
 the moments (i.e., Eq.~\eqref{eq:x_moml}~and~\eqref{eq:x_momr}) and solved for the LD edge value
-$\phi_{i,R}$.  The resulting outflow relation for positive flow is $\phi^+_{i+1/2} = 2\mom{\phi}_R^+ -
-\mom{\phi}_L^+$. The LD closure, with upwinding, for the $L$ equation and positive half-range is
-\begin{multline}
-    -2{\mu}_{i-1/2}^{n+1,+} \left(2\mom{\phi}_{R,i-1}^+ -         \right) + \cur {\mu}_{L,i}^{n+1,+}
+$\phi_{i,R}^+$; The resulting outflow relation for positive flow is $\phi^+_{i+1/2} \equiv \phi_{i,R}^+ = 2\mom{\phi}_{R,i}^+ -
+\mom{\phi}_{L,i}^+$; the LD closure for the negative half range produces $\phi^-_{i-1/2} = 2\mom{\phi}_{L,i}^- -
+\mom{\phi}_{R,i}^+$.  The LD closure, with upwinding, for the $L$ equation and positive half-range is
+\begin{multline} 
+    -2{\mu}_{i-1/2}^{n+1,+} \left(2\mom{\phi}_{R,i-1}^{n+1,+} -   \mom{\phi}_{L,i}^{n+1,+}      \right) + \cur {\mu}_{L,i}^{n+1,+}
   \mom{\phi}_{L,i}^{n+1,+}
   +  \cur\mu_{R,i}^{n+1,+}
-  \mom{\phi}_{R,i}^{n+1,+} +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
-  \mom{\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
-  \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
+  \mom{\phi}_{R,i}^{n+1,+}\\ +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
+  \mom{\phi}_{L,i}^{n+1,+} -  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
+  \mom\phi_{L,i}^{n+1,-}\right)\\  = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+}.
 \end{multline}
 Similar equations can be derived for the other directions, fully defining the radiation
-equations.  The LD closure for the negative half range gives $\phi^-_{i-1/2} = 2\mom{\phi}_L^- -
-\mom{\phi_R}^+$.   These equations are equivalent in numerical complexity to an LDFE
+equations.   The closed equations are equivalent in numerical complexity to an LDFE
 discretization of the S$_2$ equations~\cite{morel_ldtrt,lewis}, but with different quadrature points on the face
 and interior.
 

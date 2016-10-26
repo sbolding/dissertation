@@ -255,7 +255,9 @@ step from the $l$-th independent simulation.  Similarly, the
 \end{table}
 
 As the number of histories are increased, it is expected that the HO spatial closure will
-be more accurate.  However, there is no proof that this is the case.
+be more accurate. In higher mesh counts and solutions this will be accurate, but a finer
+mesh is needed to resolve the solution anyways, so there is not much hope of untieing the
+solution.  No fixup is needed for the HO solution.
 
 
 

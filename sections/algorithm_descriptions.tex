@@ -20,6 +20,9 @@ discrete in time for simpler application of ECMC and to avoid difficulties in co
 fully-discrete LO solver.  However, this does introduce some artificial propagation of
 energy due to the implicit time differencing in optically thin regions. 
 
+The directionality of the S$_2$ equations is convienent for closing the equations
+spatially with a discontinuous trial space.
+
 In the HOLO context, the LO solver models isotropic scattering and
 resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
 angular and spatial moments of

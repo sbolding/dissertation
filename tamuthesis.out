@@ -71,16 +71,13 @@
 \BOOKMARK [2][-]{subsection.8.3.1}{Near-Void Problem}{section.8.3}% 71
 \BOOKMARK [1][-]{section.8.4}{Optically Thin Problem}{chapter.8}% 72
 \BOOKMARK [1][-]{section.8.5}{Marshak Wave Problem}{chapter.8}% 73
-\BOOKMARK [0][-]{chapter.9}{ Conclusions and Future Work }{}% 74
-\BOOKMARK [1][-]{section.9.1}{CONCLUSIONS}{chapter.9}% 75
-\BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}% 76
-\BOOKMARK [0][-]{section*.37}{REFERENCES}{}% 77
-\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Equations for the LO System}{}% 78
-\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 79
-\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 80
-\BOOKMARK [1][-]{section.a.A.3}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.A}% 81
-\BOOKMARK [1][-]{section.a.A.4}{Analytic Neutronics answer for Source fixup}{APPENDIX.a.A}% 82
-\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivation of the WLA-DSA Equations}{}% 83
-\BOOKMARK [1][-]{section.a.B.1}{Forming a Continuous Diffusion Equation}{APPENDIX.a.B}% 84
-\BOOKMARK [2][-]{subsection.a.B.1.1}{Diffusion Boundary Conditions}{section.a.B.1}% 85
-\BOOKMARK [1][-]{section.a.B.2}{Mapping Solution onto LD Unknowns}{APPENDIX.a.B}% 86
+\BOOKMARK [0][-]{section*.37}{REFERENCES}{}% 74
+\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Equations for the LO System}{}% 75
+\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 76
+\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 77
+\BOOKMARK [1][-]{section.a.A.3}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.A}% 78
+\BOOKMARK [1][-]{section.a.A.4}{Analytic Neutronics answer for Source fixup}{APPENDIX.a.A}% 79
+\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivation of the WLA-DSA Equations}{}% 80
+\BOOKMARK [1][-]{section.a.B.1}{Forming a Continuous Diffusion Equation}{APPENDIX.a.B}% 81
+\BOOKMARK [2][-]{subsection.a.B.1.1}{Diffusion Boundary Conditions}{section.a.B.1}% 82
+\BOOKMARK [1][-]{section.a.B.2}{Mapping Solution onto LD Unknowns}{APPENDIX.a.B}% 83
