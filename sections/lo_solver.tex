@@ -428,7 +428,24 @@ The lumping closure was optionally applied in all cells or only in cells where n
 For simplicity,
 we also lump the emission source and temperature terms in the equations following the
 standard procedure~\cite{morel_ldtrt}.  In the temperature equations $2/3
-T_{L,i} + 1/3 T_{R,I}$ becomes $T_{L,i}$, etc.  
+T_{L,i} + 1/3 T_{R,i}$ becomes $T_{L,i}$, etc.  
+
+\subsection{Boundary Conditions}
+
+For all spatial closures, the specified incident angular intensity is
+incorporated into the upwinding term of the appropriate radiation moment equation.   At the left
+boundary, the upwinded current is known, so for that $L$ moment equation
+\begin{equation}
+    \mu_{1/2}^+ \phi_{1/2}^+ = \int_{0}^1 \mu I^{inc,+}(\mu) \dd \mu,
+\end{equation}
+where $I^{inc,+}(\mu)$ is the specified incident angular intensity at the left boundary.  For all
+results in this work, only isotropic incident intensities were considered.
+A similar expression is derived for the right boundary.
+  For S$_2$-equivalent LO solves, i.e., all consistency
+terms are $\pm 1/\sqrt{3}$, the half-range flux in the above equation is renormalized by
+multiplying the term in the moment equations by $2/\sqrt{3}$ to produce accurate solutions~\cite{morel_notes}.     
+
+
 \section{Newton's Method for LO Equations}
 
 Summation over all cells of the closed equations forms a global system of coupled equations.

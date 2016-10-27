@@ -113,17 +113,17 @@ steps. Throughout, we compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
 
-A projection of the intensity
-that is separate from the linear extrapolation allows for an accuracy projection of the MC
-solution at faces, which is incorporated through the HO spatial closure of 
-the LO equations discussed in Sec.~\ref{sec:spat_clos}.  Additionally, the independent solution at faces allows for face-averaged
-consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly evaluated. 
 
 In addition to estimating the angular
 consistency terms, the HO intensity estimates a relation between volume and face-averaged
 intensities to eliminate the remaining unknowns from the equations.  The goal is for the 
 LO moments to reproduce the HO moments more accurately than the LDFE discretization, although
 additional statistical noise is introduced through face-based tallies.
+A projection of the intensity
+that is separate from the linear extrapolation allows for an accuracy projection of the MC
+solution at faces, which is incorporated through the HO spatial closure of 
+the LO equations discussed in Sec.~\ref{sec:spat_clos}.  Additionally, the independent solution at faces allows for face-averaged
+consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly evaluated. 
 
 In the remainder of this chapter, a brief background on TRT problems is given, before the
 simplified model that will be used for the remainder of the work is derived.  Then,
@@ -242,8 +242,14 @@ all frequencies, with algebraic manipulation, ultimately yields the 1D grey equa
     \\ \label{eq:mat_cont}
   \rho c_v \pderiv{T(x,t)}{t} &=  \sigma_a \phi(x,t) - \sigma_a a c T^4(x,t).
 \end{align}
+The equations have associated incident boundary conditions for the angular intensity:
+\begin{align}
+    I(0,\mu) &= I^{inc,+}(\mu),\quad\quad \mu>0 \\
+    I(X,\mu) &= I^{inc,-}(\mu), \quad\quad \mu<0,
+\end{align}
+for a spatial domain spanning $0\leq x \leq X$.
 In the above equations the fundamental unknowns are the material temperature $T(x,t)$ and
-the angular intensity $I(x,\mu,t)=\int\limits_0^\infty I(x,\mu,\nu,t) \dd \nu$. The mean radiation intensity $\phi(x,t)=\int_{-1}^1
+the grey angular intensity $I(x,\mu,t)=\int\limits_0^\infty I(x,\mu,\nu,t) \dd \nu$. The mean radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
 $E$ (jk cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.  The integral of
 $B_\nu(\mathbf{r},\nu,T)$ over all frequencies and angles produced the 
@@ -251,7 +257,7 @@ grey Planckian emission source $\sigma_a a c T^4$~\cite{mihalas} in
 Eq.~\eqref{eq:mat_cont}, where $a=0.01372$ jk cm$^{-3}$
 keV$^{4}$ is the radiation constant, which is proportional to the Stefan-Boltzmann
 constant.  The term $\sigma_a \phi$ is the rate of energy absorption by the material,
-whereas the emission term represents losses to the material energy.  We have developed
+whereas the emission term represents losses to the material internal energy.  We have developed
 and tested our algorithm for efficient solution to Eq.~\eqref{eq:rad_cont}
 and~\eqref{eq:mat_cont}.
 

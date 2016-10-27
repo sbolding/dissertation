@@ -63,8 +63,10 @@ I_{a,i+1,j}-I_{x,i+1,j}+\frac{2}{h_j}I_{\mu,i+1,j}\left(\mu-\mu_j\right)
 &   \mu_{j-1/2} \leq \mu \leq \mu_{j+1/2} \leq 0
 \end{array} \right. ,
 \end{equation}
-for all $i$ and $j$ on the interior of the domain; specified boundary conditions for
-$I(x,\mu)$ are upwinded at boundaries.
+for all $i$ and $j$ on the interior of the domain.  For all simulations in this work,
+boundary conditions are provided as a specified isotropic intensity. Thus, the value of
+$I_{1j}(x_1/2,\mu)$ is a constant, for all $j$.
+
 \section{The ECMC Algorithm}
 
 The ECMC method is an iterative residual MC method. 
@@ -94,7 +96,7 @@ r^{(m),k+1/2} = \frac{\sigma_s}{2} \phi^{n+1,k} +\frac{1}{2} \left(\sigma_a a c 
 \left(\sigma_t^k + \frac{1}{c \Delta t }\right) \tilde{I}^{n+1,k+1/2}\right)^{(m)}
 \end{multline}
 where the $k$ terms have a LDFE representation in space on the coarsest mesh and are not recalculated at any point during
-the HO solve. The functional form of $\tilde{I}^n$ is defined from the final HO
+the HO solve.  The LDFE functional form of $\tilde{I}^n$ is defined from the final HO
 solution of the previous time step.  The HOLO iteration indices are suppressed for the
 remainder of this chapter because the LO-estimated $q^{k}$ and $\B L^{k}$
 \emph{remain constant for the entire HO solve}.
@@ -108,6 +110,9 @@ where $I^{n+1}$ is the exact solution\footnote{For clarity, in this chapter the 
     exact solution to the transport problem defined by Eq.~\eqref{eq:ho_base}, not to the
 continuous equations that are trying to be solved.}  to the problem defined by Eq.~\eqref{eq:ho_base} and
 ${\epsilon}^{(m)}$ is the true error in the approximate solution $\tilde{I}^{n+1,(m)}$. 
+In the above equation, the incoming error is treated with a vacuum boundary condition.  The
+residual source incorporates the incident intensity at boundaries through
+the face source.
 The $\B L$ operator in the above equation is inverted with the MC method, which
 statistically estimates an LDFE projection of the error in $\tilde{I}^{n+1,(m)}$, i.e., 
 \begin{equation}\label{eq:mc_err}
@@ -240,7 +245,8 @@ and~\eqref{eq:right_uw} is substituted into Eq.~\eqref{eq:resid} and evaluated
 to produce the residual source for each ECMC batch.  The MC source
 $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err} consists of volumetric sources and
 face sources that are sampled.  The face sources result from the spatial derivative applied to
-the discontinuities in the trial space.  The source can also produce positive and
+the discontinuities in the trial space, including a discontinuity at the boundaries for
+incoming directions~\cite{jake}.  The source can also produce positive and
 negative weight particles.  The probability distribution function (PDF) for
 sampling particle coordinates is formed by dividing $r^{(m)}(x,\mu)$ by $\|r^{(m)}(x,\mu)\|_1$,
 i.e., the $L_1$ norm over space and angle of the residual.  Particle coordinates (in $x$ and $\mu$)
