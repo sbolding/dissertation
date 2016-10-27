@@ -41,8 +41,9 @@ moments, preserving the HO accuracy.  To produce the
 same moments, the HO solution must also satisfy the local balance equation, e.g.,
 Eq.~\eqref{eq:hr_bal}.  Then the LO equations and HO equations must have the same moments
 to satisfy both Eq.~\eqref{eq:ho_clos} and Eq.~\eqref{eq:hr_bal}, upon nonlinear
-convergence. If any higher moments are introduced through the spatial closure,
-then the HO solution must also satisfy the same relations as the LO equations.  For example, both the LO and HO equation must satisfy the
+convergence of the outer HOLO iterations. If any higher moments are introduced through the spatial closure,
+then the HO solution must also satisfy the corresponding balance equations that the LO
+equations do.  For example, both the LO and HO equation must satisfy the
 first moment equation in space if the closure is a function of the first moment.  
 
 As TRT problems are non-linear (i.e., scattering or thermal emission are included in
@@ -50,7 +51,7 @@ $q$), the moments will only be preserved upon non-linear convergence of the sour
 nonlinearity introduces the possibility for stability
 issues, particularly with MC noise.  However, we have already consistently formed angular consistency terms, so the
 the spatial closure should be more stable than introducing other terms, such as
-in NDA methods~\cite{rmc,holo,willert}. 
+in NDA methods~\cite{rmc,willert}. 
 
 
 
@@ -60,85 +61,143 @@ in NDA methods~\cite{rmc,holo,willert}.
 \label{sec:spat_clos_options}
 
 We will
-explore two different closure relations: a scaled slope, i.e.,
-\begin{equation}\label{eq:cl_slope}
-    \phi_{i\pm1/2}^\pm = \phi_i^+ \pm \gamma_i \phi_{x,i}^+
+explore two different closure relations based on modifications to the standard LD closure: a scaled slope, i.e.,
+\begin{equation}\label{eq:cl_slope1}
+    \phi_{i\pm1/2}^\pm = \phi_i^+ \pm \gamma_i^{\pm} \phi_{x,i}^+
 \end{equation}
 and a scaled average
-\begin{equation}\label{eq:cl_avg}
-    \phi_{i\pm1/2}^\pm = \gamma_i \phi_i^+ \pm \phi_{x,i}^+,
+\begin{equation}\label{eq:cl_avg1}
+    \phi_{i\pm1/2}^\pm = \gamma_i^{\pm} \phi_i^+ \pm \phi_{x,i}^+,
 \end{equation}
 where a value of $\gamma_i = 1$ produces the standard linear discontinuous expressions for
-the extrapolated outflows.  
+the extrapolated outflows.  Our LO system is formulated in terms of $L$ and $R$ moments, rather than the average and
+slope.  Thus, Eq.~\eqref{eq:cl_slope1} and~\eqref{eq:cl_avg1} are expressed in terms of the $L$ and $R$
+unknowns, using the relations given in App.~\ref{app:lo_mom_relations}.  In terms of these
+moments, the scaled-slope closure is
+\begin{align}\label{eq:cl_slope}
+    \phi_{i+1/2}^+  &= \left(\frac{\ds 1 - 3 \gamma_i^+}{\ds 2 }  \right)
+    \mom{\phi}_{L,i}^+ + \left(\frac{\ds 1 + 3 \gamma_i^+}{\ds 2 }  \right)
+    \mom{\phi}_{R,i}^+ \\
+    \phi_{i-1/2}^-  &= \left(\frac{\ds 1 + 3 \gamma_i^-}{\ds 2 }  \right)
+    \mom{\phi}_{L,i}^- + \left(\frac{\ds 1 - 3 \gamma_i^-}{\ds 2 }  \right)
+    \mom{\phi}_{R,i}^- 
+\end{align}
+and the scaled-average relation is
+\begin{align}\label{eq:cl_avg}
+    \phi_{i+1/2}^+  &= \left(\frac{\ds  \gamma_i^+ - 3}{\ds 2 }  \right)
+    \mom{\phi}_{L,i}^+ + \left(\frac{\ds \gamma_i^+ + 3}{\ds 2 }  \right)
+    \mom{\phi}_{R,i}^+ \\
+    \phi_{i-1/2}^-  &= \left(\frac{\ds \gamma_i^- + 3}{\ds 2 }  \right)
+    \mom{\phi}_{L,i}^- + \left(\frac{\ds \gamma_i^- - 3}{\ds 2 }  \right)
+    \mom{\phi}_{R,i}^- .
+\end{align}
 
-We now use the HO solution to estimate $\gamma_i$. The MC solution must be modified
-to tally the solution on faces. For example, the LO equations for
+The HO solution is used to estimate $\gamma_i$. The MC solution must be modified
+to tally the MC estimated intensity on faces. For example, for $\mu>0$, the LO equations for
 moments at $k+1$ use closure parameters evaluated at $k+1/2$ as
 \begin{equation}
-    \gamma_i^{+,k+1/2} = \frac{\phi_{i+1/2}^{+,HO,k+1/2} -
-    \phi_{x,i}^{+,HO,k+1/2}}{\phi_i^{+,HO,k+1/2}},
+    \gamma_i^{+,HO,k+1/2} = \frac{\phi_{i+1/2}^{+,HO,k+1/2} -
+    \phi_{i}^{+,HO,k+1/2}}{\phi_{x,i}^{+,HO,k+1/2}},
 \end{equation}
-for the scaled-average closure.  For this closure, as the slope goes to zero this expression
+for the scaled-slope closure.  For this closure, as the slope goes to zero this expression
 becomes undefined.  In cells where the slope is $O(10^{-13} \psi_i)$, we use $\gamma_i=1$.
 For the problems tested, no issues have occurred with this closure, even $\gamma$
 can become very large for common, small values of $|\psi^x/\psi_i|$.  This is because in
 such regions the solution is changing minimally anyways. 
-The main benefit of this closure is it allows for values of $\gamma$ that are
+The main benefit of the scaled-slope closure is it allows for values of $\gamma$ that are
 equivalent to step ($\gamma_i=0$) and lumped ($\gamma_i=1/3$) closures.
-
-To solve the LO equations, the expression for the outflow face term is substituted in each equation, using the
-$\gamma_i$ estimated from the HO solution. There is a spatial closure parameter for each
-half-range, for each cell.
-For instance, the positive balance equation becomes
-\begin{equation}
-    \overline\mu^+_{i+1/2}\left( \gamma_i^{+,HO} \phi_i^+ + \phi_{x,i}^+ \right) - \overline\mu^+_{i-1/2}\phi_{i+1/2}^+ +
-    \frac{\sigma_{a,i}h_i}{2} \phi_i^+ = \frac{h_i}{2} q_i,
-    \label{eqn:clsd_posbal}
-\end{equation}
-noting that $\phi_i^+$ and $\phi_{x,i}^+$ remain as unknowns.  Our LO system is formulated in terms of $L$ and $R$ moments, rather than the average and
-slope.  Thus, the parametric functions are expressed in terms of the $L$ and $R$
-unknowns, using the relations given in App.~\ref{app:lo_mom_relations}.  
-
 
 \subsection{The Doubly-Discontinuous Trial Space}
 
-The ECMC algorithm is modified to also include a LDD trial space which allows for estimate
-of the face solution~\cite{sec:ldd_mc}.
-
 Because of the temperature unknowns and the HO scattering source representation, a
 representation on the interior of the cell for the temperature and intensity is needed.
-However, the outflow from the cell is now a parametric (i.e., non linear)
-extrapolation of the interior moments. Thus, we introduce a linear doubly
-discontinuous (LDD) trial space for the half-range intensities, which is depicted in Fig.~\ref{fig:ldd_space}.
-The linear relation on the interior of the cell preserves the $L$ and $R$ moments of the
-solution.  The temperature is still represented with a linear interpolant of $T^4$ and
-$T$.  This trial space has an extra unknown in each cell, for each direction, which is eliminated from the system
-with the HO spatial closure.  For the initial LO solve, the outflow is assumed continuous, using the standard
-upwinding and LD representation.  With the outflow term eliminated, the equations
-have the same numerical complexity as the LD equations.  The linear representation for the
-interior solution and the emission source should preserve the equilibrium diffusion limit,
-as long as the HO spatial closure is sufficiently estimated.
+Thus, we introduce a linear doubly discontinuous (LDD) trial space
+for the half-range intensities, which is depicted in Fig.~\ref{fig:ldd_space}.  The linear
+relation on the interior of the cell preserves the $L$ and $R$ moments of the solution,
+and the outflow from the cell is some parametric (i.e., non linear) extrapolation of
+those moments. 
+The temperature is still represented with a linear interpolant of $T^4$ and $T$.  This
+trial space has an extra unknown in each cell, for each direction, which is eliminated
+from the system with the HO spatial closure.  The ECMC algorithm is modified to also
+include a LDD trial space which allows for estimate of the solution at faces, as discussed
+later in Sec~\ref{sec:ldd_mc}. 
+
+
+
+To solve the LO equations, Eq.~\eqref{eq:cl_slope} or~\eqref{eq:cl_avg} is substituted
+locally for
+the appropriate outflow face term in each LO moment equation. There is a spatial closure parameter for each
+half-range, for each cell.
+ The $\gamma_i^\pm$ are
+estimated from the previous HO solution. For the initial LO solve within each
+time step, the outflow is assumed continuous, using the standard upwinding and LD closure.  
+As an example, the positive half-range and $L$ moment equation (i.e.,
+Eq.~\eqref{eq:exact_lmomp}), for the scaled-slope closure, becomes
+\begin{multline}
+    -2{\mu}_{i-1/2}^{n+1,+} \left[\left(\frac{\ds 1 - 3 \gamma_{i-1}^{HO,+}}{\ds 2 }  \right)
+        \mom{\phi}_{L,i-1}^+ + \left(\frac{\ds 1 + 3 \gamma_{i-1}^{HO,+}}{\ds 2 }  \right)
+    \mom{\phi}_{R,i-1}^+
+    \right] \\ + \cur {\mu}_{L,i}^{n+1,+}
+  \mom{\phi}_{L,i}^{n+1,+}
+  +  \cur\mu_{R,i}^{n+1,+}
+  \mom{\phi}_{R,i}^{n+1,+}\\ +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
+  \mom{\phi}_{L,i}^{n+1,+} -  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
+  \mom\phi_{L,i}^{n+1,-}\right)\\  = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
+  \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+},
+    \label{eqn:clsd_posl}
+\end{multline}
+and the $R$ moment equation becomes
+\begin{multline}
+    2{\mu}_{i+1/2}^{n+1,+} \left[
+    \left(\frac{\ds 1 - 3 \gamma_{i}^{HO,+}}{\ds 2 }  \right)
+        \mom{\phi}_{L,i}^+ + \left(\frac{\ds 1 + 3 \gamma_{i}^{HO,+}}{\ds 2 }  \right)
+    \mom{\phi}_{R,i}^+
+    \right]  \\ 
+    - \cur {\mu}_{L,i}^{n+1,+}
+  \mom{\phi}_{L,i}^{n+1,+}
+  -  \cur\mu_{R,i}^{n+1,+}
+  \mom{\phi}_{R,i}^{n+1,+} +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
+  \mom{\phi}_{R,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{R,i}^{n+1,+} +
+  \mom\phi_{R,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{R,i} +
+  \frac{h_i}{c\Delta t}\mom{\phi}_{R,i}^{n,+}.
+    \label{eqn:clsd_posr}
+\end{multline}
+These equations contain only the original desired radiation moment and LD temperature unknowns.
+Because the
+outflow from one cell is upwinded into the next cell, energy conservation by the LO
+equations is preserved.
+The closed equations have the
+same numerical complexity as the LDFE LO equations, but with an increased storage on the
+coarse mesh for the
+$\{\gamma_i\}$.  Also, the linear representation for the interior
+solutions and emission source should approach the LD closure in the equilibrium diffusion limit, as long
+as the HO spatial closure is estimated with sufficient statistical accuracy.  
+
+\subsubsection{Fixups for Negative Solutions}
 
 In the case of strong gradients, the interior representation could be driven
-negative.  Thus, we use the lumped expression to to define the linear representation.  For
+negative.  In such cases, we can use the lumping-equivalent relation from
+App.~\ref{app:lo_mom_relations} to define the linear representation.  For
 example, the lumped emission source is
 \begin{equation}
     T = \mom{T}_{L,i}^4 b_{L,i}(x) + \mom{T}_{R,i}^4 b_{R,i}(x) , \quad x\in(\xl,\xr)
 \end{equation}
-This expression is positive as long as the moments are positive, which is true for
+There are analogous relations for $T(x)$ and $\phi^\pm(x)$ over each cell.
+These expressions are positive as long as the moments are positive, which is true for
 physical solutions.  If the lagged, MC spatial closure produces an outflow from a cell that is
 negative, then these moments could become negative.  In such cases, we force that cell to
 use a standard lumped relation for the moment equations, with no discontinuity at the
-outflow.  
+outflow, and restart that Newxton solve.  It is important to note there that the spatial closure will still have the same
+relation between the moments and the outflow; this relation affects what linaer
+representation is used to reproduce the chosen moments.
 
 During the Newton solve, once new half-range
 intensities are determined, the temperatures are updated using the moment same moment
-equations given by Eq.~\eqref{}. This can be confusing because the slope moment,
+equations given by Eq.~\eqref{eq:lo_mat_dis1} and Eq.~\eqref{eq:lo_mat_dis2}. This can be confusing because the slope moment,
 e.g., $\psi_{x,i}^\pm$, does not strictly correspond to the slope in the typical since.
-We have modified it.  This is the same as the lumped closure relation using
+We have modified it in the lumped relation.  This is the same as the lumped closure relation using
 $\gamma_i=1/3$, where we are preserving the average moment exactly, but only second order
 accurate in the slope.
-
 
 \begin{figure}[H]
     \centering
@@ -154,35 +213,33 @@ accurate in the slope.
             \filldraw[color=black, fill=white] (1,3.1250) circle (2.1pt);
             \draw (1.0,3.125) -- (5.90,2.120);
             \filldraw[color=cyan, fill=white] (5.9,2.120) circle (2.1pt);
-            \draw (5.9,3.0) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
+            \draw (5.9,1.5) node[cyan,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
         \end{tikzpicture}
     }}
-    \caption{Linear doubly-discontinous representation for mean intensity in LO equations}
+    \caption{Linear doubly-discontinous representation for mean intensity in LO equations,
+    for $\mu>0$.}
     \label{fig:ldd_space}
 \end{figure}
 
-Poor statistics for the face tallies may result in this trial space producing less
-accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
-can accurately represent the solution.  Although the closure will be applied everywhere,
-we expect the greatest improvement in accuracy for cells where the LDFE trial space
-produces a negative solution.
 
-\subsection{Issues with ECMC}
+\subsection{Issues with ECMC for Spatial Closure}
 
-  There are
-several issues with ECMC that cause this to not be true, even for a linear problem.
-With ECMC, global and, particularly, local energy balance are not preserved.  There
-are source biasing techniques for standard MC (e.g., systematic
-sampling) that exactly preserve the zeroth moment of the
-source~\cite{shultis_mc,wollaber_review}). 
-However, because we have to reconstruct the bilnear moment
-of $x$ and $\mu$, the consistency terms do not exactly preserve the first moment
-equation.  One final reason is that the analog treatment of absorption for particles below
+There are several issues with ECMC that cause the LO moments to not exactly preserve
+the HO moments, even for a linear problem.  With ECMC, global and, particularly, local
+energy balance are generally not preserved.  For standard MC, there
+are source biasing techniques (e.g., systematic
+sampling) that exactly preserve the local zeroth moment of the
+source and thus satisfy the local balance equations~\cite{shultis_mc,wollaber_review}). 
+However, for our HOLO method, even with standard MC we have to reconstruct the bilnear moment
+of $x$ and $\mu$, so the consistency terms lead to LO equations that do not exactly
+preserve the first moment of the HO solution\footnote{It was verified that with standard
+    MC, with systematic sampling, and a closure that is only a function of the zeroth moment the LO solution exactly
+reproduces the HO moments, for a linear problem}.  One final reason is that the analog treatment of absorption for particles below
 the weight cutoff (e.g., see Sec.~\ref{sec:tallies}) results in $\sigma_a \phi^{HO}_i$ and the amount
-of energy removed from a cell during MC transport to not be equal, due to statistical noise in the
+of energy removed from a cell during MC transport to not be equal; this is due to statistical noise in the
 path-length estimators for $\phi^{HO}_i$.  However, ECMC will preserve
-balance to the order of the error, so the closure parameters will
-reproduce the HO moments to the accuracy of the LO solution.
+balance to the order of the iterative error and statistical noise, so the closure parameters will
+reproduce the HO moments to the accuracy of the LO solution.  
 
 \section{Test Problems}
 
@@ -222,6 +279,9 @@ Visually there
 is no difference between the different spatial closures given by Eq.~\eqref{???} and Eq.~\eqref{???}. The
 gamma closure is too inaccurate.
 
+all simulations use 585,900 histories, beginning from 30,000 histories and $10$ \mu cells, and refining 30\%
+of cells every third batch. Th
+
 \begin{equation}
     \|e\|_a = \left({\frac{\sum\limits_{i=1}^{N_c}
     \left(\phi_i^{n+1} - \phi_i^{n+1,ref}
@@ -246,7 +306,7 @@ step from the $l$-th independent simulation.  Similarly, the
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
+   % \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
     \caption{\label{fig:smooth_compare} Comparison of solutions for different spatial closures.}
 \end{figure}
 

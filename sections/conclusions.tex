@@ -1,0 +1,78 @@
+\chapter{ \uppercase{Conclusions and Future Work} }
+
+
+\section{CONCLUSIONS}
+
+We have been able to produce solutions for Marshak wave test problems using
+a new HOLO method that are in agreement with IMC.  Unlike IMC, our method requires no effective scattering
+events to be included in the MC simulation, which limits the run time of particle
+tracking, while adding the cost of a LO newton solver. Average LO iteration counts
+did not significantly increase as the time step size was increased. The LDFE spatial representation
+mitigates issues with teleportation error, producing results with spatial accuracy
+comparable to IMC with source tilting.  The ECMC approach, with initial guesses based on the
+previous radiation intensity, results in efficient reduction of statistical error and
+allows for particles to be distributed to largely varying regions of the problem.
+The LO solver resolves the non-linearities in the equations resulting in a fully
+implicit time discretization.
+The LO solver
+can accurately and efficiently resolve the solution in diffusive regions, while the HO
+transport solver provides the accuracy of a full transport treatment where necessary. 
+
+The primary difficulty to overcome in the ECMC algorithm is when the solution cannot
+be accurately represented by the trial space, e.g., in optically thick cells where
+the solution is driven negative.   We are currently developing an approach to allow
+the ECMC iterations to continue converging globally when there are such regions
+present.  It is necessary to ensure the
+ closure in the LO system is consistent with the HO
+representation for the solution in such regions.  The ability to represent the solution accurately in
+rapidly varying regions of the problem will be key for generalization of this method
+to higher dimensions.  A formulization of the ECMC method
+that allows for time-continuous MC transport (similar to IMC) is also currently being
+investigated.  This may reduce some of the loss of accuracy in optically thin regions
+due to the time discretization of the transport equation in the HO solver.
+However, greater time accuracy is not of primary concern as this method is intended
+for use in problems dominated by large absorption opacities, where the LO
+acceleration is critical. Inclusion of Compton scattering in this algorithm, which would introduce
+additional non-linear dependence through energy exchange with the
+material, is a topic for future research.
+
+
+Future work will also explore the accuracy of the HOLO method, in particular,
+analyzing the optimal number of batches and the benefit of adaptive refinement.  This will likely
+require the use of manufactured solutions.  The sensitivity of the method to mesh sizes and time step sizes will be
+investigated more thoroughly.  
+Ultimately, we plan to extend this method to multiple spatial dimensions for the 
+case of multigroup TRT equations.  For TRT problems, it is important that
+the LO spatial discretization satisfies the equilibirium diffusion limit.  To extend
+to higher dimensions, our LDFE representation may require the use of a higher-degree
+spatial representation for the LO system to achieve the diffusion
+limit. Further asymptotic
+analysis on the method will be applied before implementation. It may be necessary to use a different LO system (e.g., the non-linear diffusion
+acceleration approach in~\cite{rmc}), if the S$_2$-like equations become too
+inefficient or difficult to implement in higher dimensions.  Alternatively, a
+variable Eddington Tensor approach may provide more stability in rapidly variable
+regions of the problem while still allowing for a consistent, LDFE solution that is efficiently solvable.
+
+Poor statistics for the face tallies may result in this trial space producing less
+accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
+can accurately represent the solution.  Although the closure will be applied everywhere,
+we expect the greatest improvement in accuracy for cells where the LDFE trial space
+produces a negative solution.
+
+
+\section*{ACKNOWLEDGEMENTS}
+
+This research was supported with funding received from the DOE Office of Nuclear
+Energy's Nuclear Energy University Programs, the DOE National
+Nuclear Security Administration, under Award Number(s) DE-NA0002376, and under Los Alamos National Security,
+LLC, for the National Nuclear Security Administration of the U.S. Department of
+Energy under contract DE-AC52-06NA25396. 
+
+\section{Future Work} 
+
+SPATiAL CLOSURE:
+Additionally, because these closure
+parameters are modifications to standard spatial closures, it should be possible to filter bad
+values of $\gamma^{HO}_i$.  Future studies will investigate the stablity of
+this method more rigorously.
+

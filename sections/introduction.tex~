@@ -113,6 +113,12 @@ steps. Throughout, we compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
 
+A projection of the intensity
+that is separate from the linear extrapolation allows for an accuracy projection of the MC
+solution at faces, which is incorporated through the HO spatial closure of 
+the LO equations discussed in Sec.~\ref{sec:spat_clos}.  Additionally, the independent solution at faces allows for face-averaged
+consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly evaluated. 
+
 In addition to estimating the angular
 consistency terms, the HO intensity estimates a relation between volume and face-averaged
 intensities to eliminate the remaining unknowns from the equations.  The goal is for the 

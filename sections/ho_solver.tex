@@ -418,26 +418,21 @@ the appropriate estimator at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the fi
 moment in the $I_\mu$ estimators. Additionally, assuming an isotropic intensity near $\mu=0$ helps to limit
 the first $\mu$ moment, where the LD trial space often cannot resolve the solution anyways.
 
-\section{MC solution for Linear Doubly-Discontinuous trial space}
+\section{ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}
 \label{sec:ldd_mc}
 
-In this section, the ECMC method is extended to a LDD trial space, which was necessary to
-compute the HO spatial closure.  A projection of the HO solution at faces is needed to
-evaluate the residual at the edge values.  To incorporate this, a second
-discontinuity is introduced into the trial space.  Additionally, this discontinuity allows
-for face-averaged consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly
-evaluated with this projection at each face.
-REWRITE: add this to the intro in some fashion
+In this section, the ECMC method is extended to a spatially linear, doubly-discontinuous
+(LDD) trial space.   
+This extension is necessary for computing the HO spatial closure for
+the LO equations discussed in Sec.~\ref{sec:spat_clos}.  To incorporate a projection of
+the MC solution at faces, a second discontinuity is
+introduced into the trial space. 
 
-
- The residual source and process of estimating moments of
-the error on the interior of a space-angle cell is unchanged.  The process of estimating
-the solution on the outgoing face requires tallying the error when particles leave a
-cell, using the face-averaged tallies discussed in Section~\ref{sec:face_tallies}.  
-
- The LDD trial space is demonstrated in $x$ in
-Fig.~\ref{fig:ldd_space}.   The LDD trial space is the same as the LDFE space-angle trial space, except for an extra discontinuity in space, with a linear solution
-in angle.  For cell $ij$ and $\mu_{j-1/2} \leq \mu \leq \mu_{j+1/2}$,
+ The LDD trial space is demonstrated for the $x$ variable in
+Fig.~\ref{fig:ldd_space}.   For the HO solver, the LDD trial space is the same as the LDFE
+space-angle trial space, except for an extra discontinuity in space at the outflow face.
+The solution at faces is linear in angle over the angular width of each $x$-$\mu$ cell.
+The LDD representation for cell $ij$ is
 \begin{equation}\label{eq:ldd_I}
     \tilde{I}_{ij}(x,\mu) = \left \{ \begin{array}{cl}
         I_{a,i-1/2,j}+\frac{2}{h_j}I_{\mu,i-1/2,j}\left(\mu-\mu_j\right) &
@@ -447,16 +442,21 @@ I_{a,ij} + \frac{2}{h_i}I_{x,ij}\left(x-x_i\right) +
     I_{a,i+1/2,j}+\frac{2}{h_j}I_{\mu,i+1/2,j}\left(\mu-\mu_j\right) &   x=x_{i+1/2}  
 \end{array} \right.,
 \end{equation}
-noting that the face-tallied quantities $I_{a,i\pm1/2}$ and $I_{\mu,i\pm1/2}$ are shared
+for $\mu_{j-1/2} \leq \mu \leq \mu_{j+1/2}$.  The face-tallied quantities $I_{a,i\pm1/2}$ and $I_{\mu,i\pm1/2}$ are shared
 between adjacent cells, so the expression is the same for positive and negative $\mu$.
+The linear representation at faces preserves all angular moments of the intensity needed for the spatial closure and
+face-averaged consistency terms.  
 
-
-
+The residual source and process of estimating moments of
+the error on the interior of space-angle cells is unchanged.  The process of estimating
+the solution on the outgoing face requires tallying the error when particles leave a
+cell, using the face-averaged tallies discussed in Section~\ref{sec:face_tallies}.  
 Face-averaged consistency terms are directly evaluated using $\tilde
 I(x_{i+1/2},\mu)$ evaluated at the face of each coarse mesh cell.   
+
 The inclusion of the outflow discontinuity in space has a minimal effect on the treatment of the
 residual source.
-Applying $L$ to the LDD trial space, results in two $\delta$ functions at each interior face.
+Applying $L$ to the LDD intensity given by Eq.~\eqref{eq:ldd_I}, results in two $\delta$ functions at each interior face.
 For \emph{positive flow}, at a face $x_{i+1/2}$, the face portion of the residual is defined as
 \begin{align}
     \label{eq:res_face}
@@ -472,9 +472,10 @@ where
            \right).
 \end{align}
 Here, $I^{(m)}(x_{i+1/2},\mu)$ is the face-estimated solution at $x_{i+1/2}$ and
-$I^{(m)}(x_{i+1/2}^+)$ and $I^{(m)}(x_{i+1/2}^-)$ are the LDFE solution extrapolated to
-$x_{i+1/2}$ from the $x$ cell $i+1$ and cell $i$, respectively; all three are linear in
-$\mu$ over each space-angle cell.  Particles sampled from the
+$I^{(m)}(x_{i+1/2}^+)$ and $I^{(m)}(x_{i+1/2}^-)$ are the LDFE solution
+\emph{extrapolated} to $x_{i+1/2}$ from the $x$ cell $i+1$ and cell $i$, respectively; all
+three terms are linear in
+$\mu$ over $\mu_{j-1/2} \leq \mu \leq \mu_{j+1/2}$.  Particles sampled from the
 two $\delta$-functions have the same starting location.  The only difference is, for
 positive $\mu$, only the particles sampled from $\rface(x^-_{i+1/2})$ will contribute to the face
 tally at $x_{i+1/2}$; the opposite is true for negative $\mu$.  
@@ -486,8 +487,8 @@ two $\delta$-functions are combined into a single face source in each element\fo
 original LD trial-space residual.},
 and particles do \emph{not} score at the face from which they are sampled.  To account for the
 untallied error, we add the analytic
-contribution to the error from particles born on the upwind side of the face at the end of
-each batch.  The analytic contribution to the error at faces is derived in Sec.~\ref{sec:face_err_deriv}. 
+contribution to $\epsilon_{i+1/2}$ from $r_{\text{face}}(x_{i+1/2}^-)$, at the end of
+each batch.  This analytic contribution to the error at faces is derived in Sec.~\ref{sec:face_err_deriv}. 
 The update for $I(x_{i+1/2},\mu)$ becomes
 \begin{align}
    \tilde I^{(m+1)}(x_{i+1/2},\mu)  &= \tilde I^{(m)}(x_{i+1/2}^-,\mu) +
@@ -496,9 +497,10 @@ The update for $I(x_{i+1/2},\mu)$ becomes
    \epsilon^{(m)}(x_{i+1/2},\mu) & \mu < 0
 \end{align}
 This result has the serendipitous effect that the estimation of the solution on a face depends only on
-the previous interior solution $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and not the previous face value 
+the previous interior solutions $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and $\tilde
+I^{(m)}(x_{i-1/2}^+,\mu)$ and not the previous face value 
 $\tilde I^{(m)}(x_{i+1/2},\mu)$. This has an additional benefit that the face values can
-be estimated at any chosen batch, in particular cells.  For this work, the closure is
-estimated in all cells.
+be estimated at any chosen batch, in particular cells.  For this work, the solution is
+estimated in all cells in the LDD trial space.
 
 
