@@ -96,7 +96,7 @@ only particle histories that reach $t^{n+1}$ contribute to the estimation of $\t
 
 REWRITE: Possibly move this to the future work section
 Alternatively, an LDFE representation could be used in the time
-variable. The linear representation would produce less noise because all particle tracks
+variable. The linear representation should produce less noise because all particle tracks
 contribute to the slope, rather than just those that reach the end of the time step,
 although it would produce an approximate projection error for the end of time step
 intensity that is not produced with a discontinuity at the end of the time step.  The
@@ -154,8 +154,9 @@ The final source term is
 \end{equation}
 The source $r^{n+1}$ can be treated using the
 same analytic treatment as the outflow face source in the LDD
-trial space, detailed in Sec.~\ref{sec:ldd_mc}; the source at the end of the time step is never sampled because its
-contribution to $I^{n+1}$ can be analytically computed.  To treat the sources this way, the solution for $\tilde I^{n+1}(x,\mu)$ is
+trial space, as discussed in Sec.~\ref{sec:ldd_mc} and derived in
+App.~\ref{sec:face_err_deriv}; the source at the end of the time step is
+never sampled, because its contribution to $I^{n+1}$ can be analytically computed.  To treat the sources this way, the solution for $\tilde I^{n+1}(x,\mu)$ is
 initialized to the value of $\overline I(x,\mu)$ before a batch of particles begins.
 Then, error particles that reach the end of the time step, referred to as ``census''
 particles, contribute a standard score to the projection $\tilde I^{n+1}(x,\mu)$.

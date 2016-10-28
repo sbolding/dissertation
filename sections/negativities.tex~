@@ -54,7 +54,7 @@ representation that preserves zeroth moment, but the relation between the slope 
 first spatial moment has been modified.
 
 We also investigated an alternative closure of the equations based on energy conservation and forcing the 
-one edge value to be the floor value..  
+one edge value to be the floor value.
 The equations within cells that produce a negativity are modified to ensure the edge
 intensities are not below the floor temperature, and energy balance is
 conserved.  This fixup is only applied in cells where a intensity has occured during
@@ -110,7 +110,7 @@ a method to modify the transport equation such that $\tilde I_{\pos}$ will satis
 residual equation more accurately.  We do this in such a manner that the
 modified source will lead to the solution converging towards a solution with the same
 zeroth moment, but with a first moment in $x$ and $\mu$ that are modified.  This does not
-guarantee exponential convergence of the solution because convergence is still limited by
+guarantee exponential convergence of the solution, because convergence is still limited by
 the overall accuracy of the trial space and statistics within a batch.  However, now the error will not stagnate as rapidly
 and the solution will converge towards the positive representation $\tilde I_{\pos}$.
 

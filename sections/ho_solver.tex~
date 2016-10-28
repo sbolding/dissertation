@@ -245,7 +245,8 @@ and~\eqref{eq:right_uw} is substituted into Eq.~\eqref{eq:resid} and evaluated
 to produce the residual source for each ECMC batch.  The MC source
 $r^{(m)}(x,\mu)$ in Eq.~\eqref{eq:mc_err} consists of volumetric sources and
 face sources that are sampled.  The face sources result from the spatial derivative applied to
-the discontinuities in the trial space.  The source can also produce positive and
+the discontinuities in the trial space, including a discontinuity at the boundaries for
+incoming directions~\cite{jake}.  The source can also produce positive and
 negative weight particles.  The probability distribution function (PDF) for
 sampling particle coordinates is formed by dividing $r^{(m)}(x,\mu)$ by $\|r^{(m)}(x,\mu)\|_1$,
 i.e., the $L_1$ norm over space and angle of the residual.  Particle coordinates (in $x$ and $\mu$)

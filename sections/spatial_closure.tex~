@@ -257,35 +257,36 @@ consistency between the HO and LO solutions, particularly for coarser meshes.
 The consistency for the $(l)$-th particular simulation is measured with the relative L$_2$ norm
 of the difference between the projected HO and LO solutions, i.e.,
 \begin{equation}
-    \|\phi^{HO} - \phi^{LO}\|^(l)_{2,rel} = \frac{\ds \int_0^X \left(
-    \phi_{HO}^(l)(x) - \phi_{LO}^(l)(x) \right)^2 \dd x}{\ds 
-       \int_0^X \left(\phi_{LO}(x)^(l)\right)^2 \dd x }
+    \|\phi_{HO} - \phi_{LO}\|^{(l)}_{2,rel} = \frac{\ds \sqrt{\int_0^X \left(
+        \phi_{HO}^{(l)}(x) - \phi_{LO}^{(l)}(x) \right)^2 \dd x}}{\ds \sqrt{
+            \int_0^X \left(\phi_{LO}^{(l)}(x)\right)^2 \dd x }}
 \end{equation}
-where $\phi^{LO}(x)$ and $\phi^{HO}(x)$ are the LDFE representations in space of the
-intensity from the HO and LO solvers.
-The error between a reference solution and a fine solution for the $(l)$-th simulation
+where $\phi_{LO}(x)$ and $\phi_{HO}(x)$ are the LDFE representations in space of the
+intensity from the HO and LO solvers, from the end of the last time step.
+The error between a reference solution and a fine solution for the ${(l)}$-th simulation
 is computed as
 \begin{equation}
-    \|e\|^{(l)}_{2,rel} = \frac{\|\phi_{LO}^{n+1,(l)}(x) - \phi_{LO}^{ref}\|}{\|\phi_{LO}^{ref}\|}
+    \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
+    \phi_{LO}^{n+1,ref}\|}{\|\phi_{LO}^{n+1,ref}\|}
 \end{equation}
-All L$_2$ norms are computed using quadrature over the finest spatial mesh.  A
-integrated measure of the error in cell-averaged mean intensities on the coarse
-mesh is computed as
+All L$_2$ norms are computed using quadrature over the finest spatial mesh.  An
+integrated measure of the error in cell-averaged mean intensities on the mesh of the
+$l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
 \begin{equation}
-    \|e\|^{(l)}_a = \left({\frac{\sum\limits_{i=1}^{N_c}
-    \left(\phi_i^{n+1,(l)} - \phi_i^{n+1,ref}
-\right)^2}{\sum\limits_{i=1}^{N_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+    \|e\|^{{(l)}}_{a,rel} = \left({\frac{\ds \sum\limits_{i=1}^{N^{(l)}_c}
+    \left(\phi_i^{n+1,{(l)}} - \phi_i^{n+1,ref}
+\right)^2}{\ds \sum\limits_{i=1}^{N^{(l)}_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
 \end{equation}
-where $\phi_i^{n+1,ref}$ is computed by spatially averaging the fine mesh solution over each
-coarse spatial cell.
+where $\phi_i^{n+1,ref}$ is computed by spatially averaging the fine mesh solution over
+the $i$-th coarse spatial cell.
 
-The sample mean of each quantity is estimated based on 20 independent
+The sample mean of each of the above metrics is estimated based on 20 independent
 simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
 \begin{equation}
     s\left(\|e\|_{2,rel}\right) = \left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
-    \|e\|_{2,rel}^l - \|e\|_{2,rel} \right)^2\right]^{1/2},
+    \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
 \end{equation}
-where $\|e\|_{2,rel}$ is the mean.
+where $\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20$ is the mean.
 
 \subsection{Smooth Problem}
 
@@ -304,50 +305,37 @@ problem did not require the lumped relation to produce positive solutions.
 However, when projecting from a refined mesh back to the coarse mesh, it was
 necessary to rotate the solution to be positive.
 
-We have have performed two outer HOLO iterations over each time step for all cases; it was
-found that a third iteration did not increase consistency because of statistical
-noise.  All simulations of this problem used 585,900 histories divided over 9 ECMC
+All simulations of this problem used 585,900 histories divided over 9 ECMC
 batches;  beginning from 30,000 histories and $10$ $\mu$ cells, 30\% of cells were
 adaptively refined every third batch, and the number of histories is increased to
 keep the average number of histories per cell constant. 
-
-Fig.~\ref{fig:smooth_compare} compares the solutions for various spatial closures at
-coarse mesh sizes and a fine-mesh solution.  Visually there
-is no difference in the results between the different spatial closures given by
-Eq.~\eqref{} and Eq.~\eqref{}, as well as the LD closure. A step closure in all cells
+We have have performed two outer HOLO iterations over each time step for all cases; it was
+found that additional iterations did not increase consistency, because of the  magnitude
+of statistical noise.  Relative convergence of HOLO iterations was below 10$^{-3}$
+for two iterations for all cases.  
+Fig.~\ref{fig:smooth_compare} compares cell-averaged radiation temperatures for various spatial closures at
+coarse mesh sizes and a fine-mesh solution.  The HO spatial closures curve is for the
+scaled-slope closure given by Eq.~\eqref{eq:cl_slope}.  There was visually
+no difference in the results between the scaled-averaged, scaled-slope, or LD closure. A step closure in all cells
 was inaccurate for this problem.
-
-%\begin{equation}
-%    \|e\|^l = \left({\frac{\sum\limits_{i=1}^{N_c}
-%    \left(\phi_i^{n+1,l} - \phi_i^{n+1,ref}
-%\right)^2}{\sum\limits_{i=1}^{N_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
-%\end{equation}
-where $\phi_i^{n+1,l}$ is the cell-averaged scalar intensity at the end of the last time
-step from the $l$-th independent simulation.  Similarly, the 
-%The sample mean of $\|e\|$ from 20
-%independent simulations provides a metric for the accuracy of a particular simulation:
-%\begin{equation}
-%    \overline{\|e\|} = \frac{1}{20}\sum_{l=1}^{20} \|e\|^l
-%\end{equation}
 
 Table~\ref{tab:smooth} compares the different error metrics for different spatial
 closures and numbers of cells.  The reference solution for all calculations was the average of 10 simulations with $N_c=500$ spatial
 cells.  In all cases, the HO spatial closure produces higher accuracy in the L$_2$
 norms and greater consistency between the solvers.  However, there is not an
 improvement in accuracy of the cell-averaged intensities.  Neglecting noise, the LDFE representation can be third order
-accurate for the $\|e\|_a$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}.  
+accurate for the $\|e\|_a$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}. 
 The statistical noise induced in face tallies makes the
-additional accuracy that the MC transport can use may make this result neglible.  It
+additional accuracy that the MC transport can use not greater than the benefit of
+higher spatial integration by the MC transport.  It
 is noted that, overall, there is very low statistical noise in each of these
 solutions due to the ECMC method and relatively high number of histories; at lower
 history counts, the small gains of the HO spatial closure will degrade and stability
 becomes an issue.
 
-
-
 \begin{figure}[H]
     \centering
-   % \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
+    \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
     \caption{\label{fig:smooth_compare} Comparison of solutions for different spatial closures.}
 \end{figure}
 
@@ -374,4 +362,13 @@ HO: Scaled Average &   0.45\%  &   (1.4e-03\%)  &   0.16\%  &   (4.7e-03\%)  &  
 
 
 
+\section{Two Material Problem}
+
+The HO spatial closures were applied to solution of the two material problem detailed in Sec.~\ref{sec:two}.
+For these results, the time step size is increased from 0.001 sh to a maximum step of 0.01 sh by 5\% each
+step, with the final step adjusted to end at 2 sh.
+
+The scaled-slope closure was found to not stably converge, even for 3 batches of 10$^6$
+histories.  This coudl be caused the steep gradients at the foot of the wave.  As the
+solution slightly overshoots, the slope changes signs between cells. 
 

@@ -135,7 +135,7 @@ The source in Eq.~\eqref{eq:dsa_lumped} is the residual for a given scattering i
     \mom{\phi^{l}}_{L/R,i}\right).
 \end{equation}
 It is noted that there is no need to define the source differently for the lumped or
-standard LD DSA equations because it is in terms of moments.
+standard LD DSA equations, because it is in terms of moments.
 %or LD, resulting in equations that are
 %consistent.  For instance, for lumped LD, we desire the right equation to have $\mom{q}_{R,i} =
 %\sigma_s(\phi^{l+1/2}_{R,i} - \phi^{l}_{R,i})$.   The lumped LO system uses a spatial closure and
@@ -291,7 +291,7 @@ degradation in the performance, but the GMRES does not work significantly better
 \begin{table}
     \caption{\label{tab:twomat_dsa_iters} Scattering source iterations for the two
 material problem.  Simulation end time is 1 sh.}
-    \begin{tabular}{ccc} \hline
+    \begin{tabular}{|ccc|} \hline
         Method & Sweeps/Newton Step & Newton Steps/LO Solve \\ \hline
         SI     & 247.0 & 19.4                \\
         SI-DSA & 10.1   & 19.3      \\
@@ -305,14 +305,14 @@ material problem.  Simulation end time is 1 sh.}
 \begin{table}
     \caption{\label{tab:twomat_dsa_iters} Scattering source iterations for the equilibrium
     diffusion limit problem.  Simulation end time is 3 sh.}
-    \begin{tabular}{ccc} \hline
-        \multicolumn{3}{c}{LD LO Equations} \\ \hline
+    \begin{tabular}{|ccc|} \hline
+        \multicolumn{3}{|c|}{LD LO Equations} \\ \hline
         Method    &  Sweeps/Newton Step & Newton Steps/LO Solve \\ \hline
         SI        & 357.4  &  4.2                  \\
         SI-DSA    & 21.9   &  4.2     \\
         GMRES     & 36.5   &  4.2    \\
         GMRES-DSA & 13.3   &  4.2   \\ \hline 
-         \multicolumn{3}{c}{Lumped LO Equations} \\ \hline
+         \multicolumn{3}{|c|}{Lumped LO Equations} \\ \hline
         SI        & 359.8         & 4.1      \\ 
         SI-DSA    & 14.6          & 4.1     \\ 
         GMRES     & 37.3          &  4.1   \\

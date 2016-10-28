@@ -421,14 +421,18 @@ standard FE lumping procedure.  The $L$ and $R$ moments are defined the same as 
 preserving the average within a cell, but the relation between the moments and
 the outflow is modified.   For example, for positive $\mu$,
 the outflow is now defined as $\phi^+_{i+1/2} = \mom{\phi}_R^+.$      Because the basis function $b_{R,i}(x)$ is strictly
-positive, the outflow is positive. Details on the
+positive, the outflow tends to be positive. Strong sources and gradients can still lead to
+negativities at the edges of the LD representation.  Details on the
 derivation of this relation are in Appendix~\ref{app:lo_mom_relations}. 
 The lumping closure was optionally applied in all cells or only in cells where negative
  intensities occur.  
 For simplicity,
 we also lump the emission source and temperature terms in the equations following the
 standard procedure~\cite{morel_ldtrt}.  In the temperature equations $2/3
-T_{L,i} + 1/3 T_{R,I}$ becomes $T_{L,i}$, etc.  
+T_{L,i} + 1/3 T_{R,i}$ becomes $T_{L,i}$, etc.  
+
+An alternative fixup was applied that directly enforces the condition of an intensity
+above the floor temperature.  The value $\phi_{i,L}$ or $\phi_{i,R}$rces the 
 
 \subsection{Boundary Conditions}
 

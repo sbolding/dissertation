@@ -2,7 +2,8 @@
 \chapter{\uppercase{Computational Results}}
 
 We will compare results of the HOLO method to IMC with
-a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
+a source tilting algorithm for two test problems~\cite{jayenne}. The majority of the
+results from this section were published in~\cite{bolding_nse}. Also, we
 briefly compare performance in Section~\ref{timing}.  For all IMC results, no
 local, discrete diffusion acceleration methods for effective scattering
 (e.g., those in~\cite{imd,ddmc}) are applied.  Finally,  we will demonstrate
@@ -10,10 +11,17 @@ the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
 to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
 Monte Carlo (SMC) simulation.  Results are also given for the case of a single
 ECMC batch, which is similar to a RMC method.
+
+REWRITE:
 The lumping-equivalent discretization
 discussed in Sec.~\ref{sec:ldfe_fixups} is used for cells where the solution for
 $\phi^{n+1}$ becomes negative. When negative values for $\phi^{n+1,\pm}(x)$ are detected, the lumping-equivalent discretization is used within
 those cells and that Newton step is repeated.
+The cells
+nearest the wavefront required use of the lumping-equivalent discretization and
+$S_2$ equivalent terms during the LO
+solve, resulting in strictly positive solutions.
+
 
 A measure of variance in cell-averaged scalar intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution
@@ -70,7 +78,7 @@ Although isotropic scattering is handled by the LO solver in the algorithm descr
 considered problems with $\sigma_s = 0$ here.  Results for neutronics with isotropic
 scattering included are given in~\cite{ans_2014}.
 
-\begin{figure}[htb]
+\begin{figure}[H]
     \centering
 \begin{subfigure}{0.7\textwidth}
   \centering
@@ -183,7 +191,7 @@ region of the problem the solution quickly comes to equilibrium.  Thus, the ECMC
 algorithm has to estimate a very small change in the intensity over a time step.  Additionally, difficulties in resolving
 the solution at the wavefront are not as severe compared to the Marshak wave
 problem, where the cold cells have a much larger cross section.
-\begin{figure}
+\begin{figure}[H]
     \centering
 \begin{subfigure}{0.65\textwidth}
     \centering
@@ -217,7 +225,7 @@ hists./step     & IMC & HOLO-ECMC  &  IMC & HOLO-ECMC   \\ \hline
 We have measured the total CPU time for simulations to provide a simplified measure of the
 computational cost.  These results compare how computational times change the two
 different problems and how the methods scale with time step size and particle histories.  Absolute comparisons in the computational cost of the two
-methods cannot be made because the methods are implemented
+methods cannot be made, because the methods are implemented
 in different code infrastructures. Additionally, the HOLO method fully resolves
 non-linearities at each time step, whereas IMC is using a single linearized step with
 lagged cross sections. Simulations were performed on the same processor, using a single CPU
@@ -362,7 +370,7 @@ be resolved, the adaptive algorithm allows for a higher convergence rate of
 statistical variance.  It is noted that the consistency terms and LO solution are still computed over
 the fixed, coarser mesh.  However, in general, the refined mesh can produce higher accuracy in consistency terms that is
 not being measured by the FOM.
-\begin{figure}[htb]
+\begin{figure}[H]
   \centering
     \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
     \caption{\label{hot_plot} Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
@@ -411,7 +419,7 @@ only be accurate if the mesh cells are on the order of a mean free path, which i
 problem.  Although not plotted, the material temperature overlays the radiation
 temperature for the LDFE solution, in equilibrium with the radiation.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
     \caption{\label{fig:diff_limit}Comparison of $T_r$ for step and LDFE discretizations of the LO
