@@ -20,7 +20,6 @@ Repeated entry---line 445 of file references.bib
  : @article{larsen_edl
  :                    ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "nse_bolding"
 Warning--I didn't find a database entry for "morel_newton"
 Warning--I didn't find a database entry for "fe_book"
 Warning--I didn't find a database entry for "shultis_paper_cj_cites???"
@@ -29,7 +28,7 @@ Warning--empty booktitle in park
 Warning--empty booktitle in willert
 You've used 47 entries,
             2118 wiz_defined-function locations,
-            765 strings with 11780 characters,
+            764 strings with 11769 characters,
 and the built_in function-call counts, 13844 in all, are:
 = -- 1366
 > -- 617

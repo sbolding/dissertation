@@ -398,32 +398,33 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \section{Accuracy in the Equilibrium Diffusion Limit}
 
 As discussed in Sec.~\ref{sec:edl_overview}, we must ensure our method preserves the EDL.
-We test a problem in the EDL by adjusting material properties to produce a strongly
-diffusive domain. The EDL problem has constant cross sections with $\sigma_a=1000$
-cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ Jk keV$^{-1}$
-cm$^{-3}$.  The domain width is 0.1 cm and 4 $\mu$ cells and 3 batches of 4,000 histories
-are used for the single HO solve in all calculations. The simulation end time is 5 $sh$
-and a linear increase of 15\% from $\Delta t = 0.001$ sh to a maximum $\Delta t = 0.01$ sh is used.
-We compare the LDFE LO solution to a LO solution using a step discretization,
-which is known to not preserve the EDL for S$_N$ equations.  The step discretization is implemented by using the scaled slope spatial
-closure in Sec.~\ref{sec:spat_clos_options} with closure parameters $\gamma_i^\pm=0$ for all
-cells.  
+We have produced an EDL test problem by adjusting material properties to produce a strongly
+diffusive domain. This EDL problem has constant cross sections with $\sigma_a=1000$
+cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ jk keV$^{-1}$
+cm$^{-3}$.  The initial temperature is   The domain width is 0.1 cm and  The simulation
+end time is 5 $sh$, and the step-size increases 15\% per time step from $\Delta t = 0.001$
+sh to a maximum $\Delta t = 0.01$.
+In all simulations, 4 $\mu$ cells and 3 batches of 4,000 histories were used for the
+single HO solve, for each time step.
+We compare the LDFE LO solution to a LO solution with a step discretization,
+which is known to be inaccurate in the EDL for S$_N$ equations.  The step discretization
+is implemented with a step closure in all cells, as discussed in Sec.~\ref{sec:spat_clos_options} 
 
-The accuracy in the equilibrium diffusion limit is compared for thefthe two spatial
-discretizations, for different mesh sizes, in Fig.~\ref{fig:diff_limit}.  As demonstrated,
+The accuracy in the equilibrium diffusion limit is compared for the two spatial
+discretizations, for different mesh sizes, in Fig.~\ref{fig:diff_limit}.  Visually, 
 the LDFE spatial discretization has converged spatially, where both 20 and 200 cells
 produce the same location of the wave front.  However, the step
-discretization artificially propagates the energy forward; the inaccuracy is greater than
-what would be expected from simply truncation error.  The step discretization will
+discretization artificially propagates the energy forward, even for the 200 cells case; the inaccuracy is greater than
+what would be expected from truncation error.  The step discretization will
 only be accurate if the mesh cells are on the order of a mean free path, which is very large for this
 problem.  Although not plotted, the material temperature overlays the radiation
-temperature for the LDFE solution, in equilibrium with the radiation.
-
+temperature for the LDFE solution, in equilibrium with the radiation, as expected.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
-    \caption{\label{fig:diff_limit}Comparison of $T_r$ for step and LDFE discretizations of the LO
-equations in the equilibrium diffusion limit.}
+    \caption{\label{fig:diff_limit}Comparison of $T_r$ for a problem in the equilibrium
+    diffusion limit, with step and LDFE discretizations of the LO
+equations.}
 \end{figure}
 
 
