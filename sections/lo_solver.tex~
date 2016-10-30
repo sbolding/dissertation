@@ -12,12 +12,12 @@ The equations are written with element-wise moments of $I$ and $T$ as
 unknowns.  Leaving the solution in this form allows for use of information from a
 previous HO solution to eliminate auxiliary unknowns from the equations. This is different
 than a standard Galerkin or collocation FE
-method~\cite{fe_book,morel_notes} where a
+method~\cite{morel_ldtrt,morel_notes} where a
 functional form of the solution is directly assumed. The final equations will have a
 similar form to S$_2$ equations, but we have not used a collocation method in angle,
 which should limit ray effects~\cite{morel_notes,lewis} in higher spatial dimensions.
 The backward Euler time discretization is used throughout this section.
-Chapter~\ref{chp:time} includes HO treatment of the radiation variables in the time
+Chapter~\ref{sec:time} includes HO treatment of the radiation variables in the time
 variable.
 
 The remainder of this chapter is structured as follows: the general moments will be
@@ -97,7 +97,8 @@ to $\phi_{L,i}$ and $\phi_{R,i}$, which represent the interior value of the line
 representation of $\phi(x)$ at $x_\il$ and $x_\ir$ within the cell. 
 
 To simplify notation and discussion, we also define the slope and average moments over a
-spatial cell.  The element-averaged scalar intensity is
+spatial cell.  There is no need to introduce the bracket notation for these moments as
+there is no corresponding edge value The element-averaged scalar intensity is
 \begin{equation}
     \phi_i = \frac{1}{h_i} \int_{\xl}^{\xr} \phi(x) \dd x
 \end{equation}
