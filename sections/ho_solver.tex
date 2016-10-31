@@ -237,6 +237,25 @@ cells is approximately constant for all meshes.  At the end of the last HO
 solve in a time step, $\tilde{I}^{n+1}$ is projected back onto the original,
 coarsest mesh and stored as $\tilde{I}^{n}$ for the next time step.
 
+\subsection{Negative Values for the Radiation Intensity}
+\label{sec:ho_easyfix}
+
+For the HO solver, in cells with a steep gradient, the LDFE trial space can result in
+negative values of $\tilde{I}^{n+1}(x,\mu)$, similar to in the LO equations. In
+general, in such cells where the trial space cannot accurately represent the solution,
+error stagnation will rapidly occur.   More
+sophisticated methods for resolving negative values are investigated in
+Chapter~\ref{chp:negativities}.  However, because the residual formulation in ECMC allows
+for negative weight particles to occur, it is not strictly necessary to treat these cells
+specially during each MC batch.  Instead, two simple fixups can be applied: unphysical angular consistency terms can be
+modified, or the LDFE projection of the intensity can be modified to be strictly positive
+at the end of the MC batch.  To modify angular consistency terms, we determine if
+consistency terms lie in the appropriate half space at the end of the HO solve, an
+indication that the intensity was negative within that spatial cell.  If any terms are
+non-physical, then they are replaced with the corresponding S$_2$-equivalent value, i.e.,
+$\mu^{\pm}=\pm 1/\sqrt{3}$.  For the second fixup, we scale the slopes of the solution to
+produce a positive representation, as detailed in Sec.~\ref{sec:pos_ldfe}.
+
 \section{Systematic Sampling Algorithm for Residual Source}
 \label{sec:systematic_sampling}
 
@@ -423,6 +442,8 @@ All particles in the range $(0,|\mu_{cut}|)$ contribute the expected score by ev
 the appropriate estimator at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first angular moment would be well behaved, but it is inconsistent to only modify the zeroth 
 moment in the $I_\mu$ estimators. Additionally, assuming an isotropic intensity near $\mu=0$ helps to limit
 the first $\mu$ moment, where the LD trial space often cannot resolve the solution anyways.
+
+
 
 \section{ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}
 \label{sec:ldd_mc}

@@ -476,6 +476,7 @@ multiplying the term in the moment equations by $2/\sqrt{3}$ to produce accurate
 
 
 \section{Newton's Method for LO Equations}
+\label{sec:newton_overview}
 
 Summation over all cells of the closed equations forms a global system of coupled equations.
 The equations are nonlinear due to the Planckian emission source.  
@@ -496,6 +497,17 @@ Newton iterations are repeated until $\phi^{n+1}(x)$ and $T^{n+1}(x)$ are conver
 to a desired relative tolerance.  Convergence in the Newton iterations is calculated using the spatial $L_2$
 norm of the change in $\phi^{n+1}(x)$ and $T^{n+1}(x)$, relative to the norm of each
 solution.  
+
+In certain problems, the nonlinearities of the system can lead to divergence of the Newton
+iterations.  This is often the result of taking relatively large time steps for problems with large
+values of $\sigma_a$ and small values of $\rho c_v$.  To prevent divergence, a damped
+Newton method~\cite{damped_newton} can be used, at the cost of increased numbers of iterations.  For a
+damped Newton's method, the estimated change in the solution between iterations is multiplied by a factor $\xi\in(0,1)$, where $\xi$ is referred to as the damping factor.
+Sufficient reduction of the change in solutions between iterations will allow iterations
+to continue converging, by ensuring the solution remains with the domain of convergence.  
+The details of modifying the Newton iterations in this work to include a damping factor are given in
+App.~\ref{app:damped_newton}.  For simplicity, a fixed value of $\xi$ was used for all
+iterations in problems where damping was found to be necessary.
 
 %Application of the first order Taylor expansion in time of the
 %gray emission source, about some temperature $T^*$ at some

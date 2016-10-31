@@ -1,6 +1,7 @@
 
 
 \chapter{Resolving Negative Intensities in Optically Thick Cells}
+\label{chp:negativities}
 
 The linear-discontinuous (LD) spatial closure with upwinding is not
 strictly positive.  In particular, for optically thick cells with a steep intensity
@@ -115,6 +116,7 @@ the overall accuracy of the trial space and statistics within a batch.  However,
 and the solution will converge towards the positive representation $\tilde I_{\pos}$.
 
 \subsection{Calculating a Positive LDFE Representation}
+\label{sec:pos_ldfe}
 
 First, we define the procedure for obtaining $\tilde I_{\pos}$. We produce a positive
 representation $\tilde I_{\text{\pos}}$ over a cell by scaling the first moment

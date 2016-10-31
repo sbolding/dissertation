@@ -1,27 +1,21 @@
 
 \chapter{\uppercase{Computational Results}}
 
-We will compare results of the HOLO method to IMC with
-a source tilting algorithm for two test problems~\cite{jayenne}. The majority of the
-results from this section were published in~\cite{bolding_nse}. Also, we
+We will compare results of the time-discretized HOLO method to IMC with
+a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
 briefly compare performance in Section~\ref{timing}.  For all IMC results, no
 local, discrete diffusion acceleration methods for effective scattering
-(e.g., those in~\cite{imd,ddmc}) are applied.  Finally,  we will demonstrate
+(e.g., those in~\cite{imd,ddmc}) are applied.  We will demonstrate
 the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
 to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
-Monte Carlo (SMC) simulation.  Results are also given for the case of a single
-ECMC batch, which is similar to a RMC method.
-
-REWRITE:
-The lumping-equivalent discretization
-discussed in Sec.~\ref{sec:ldfe_fixups} is used for cells where the solution for
-$\phi^{n+1}$ becomes negative. When negative values for $\phi^{n+1,\pm}(x)$ are detected, the lumping-equivalent discretization is used within
-those cells and that Newton step is repeated.
-The cells
-nearest the wavefront required use of the lumping-equivalent discretization and
-$S_2$ equivalent terms during the LO
-solve, resulting in strictly positive solutions.
-
+Monte Carlo (SMC) simulation.  Finally, we present results that demonstrate
+preservation of the equilibrium diffusion limit and the discrete maximum
+principle by the HOLO algorithm.  Some of the results in this section were published
+previously in~\cite{bolding_nse}.  
+The results in this chapter use the simplified fixups discussed in
+Sec.~\ref{sec:ldfe_fixups} and Sec.~\ref{sec:ho_easyfix} when negative values of the
+intensity occur; more sophisticated solution methods are investigated in
+Chapter~\ref{chp:negativities}.
 
 A measure of variance in cell-averaged scalar intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution
@@ -56,6 +50,10 @@ of $N_{\text{tot}}$ for IMC or
 our HOLO method due to correlation of the solution between time steps; additionally, ECMC
 has correlations between batches.
 
+
+
+
+
 \subsection{Marshak Wave}
 \label{sec:marsh}
 
@@ -77,6 +75,9 @@ material, if the material and temperature were in equilibrium.  Cell-averaged qu
 Although isotropic scattering is handled by the LO solver in the algorithm described above, we have only
 considered problems with $\sigma_s = 0$ here.  Results for neutronics with isotropic
 scattering included are given in~\cite{ans_2014}.
+For this problem, when negative values for $\phi^{n+1,\pm}(x)$ were detected, the lumping-equivalent
+discretization was used within those cells and that Newton step was repeated.
+Non-physical angular consistency terms were replaced with S$_2$-equivalent terms.
 
 \begin{figure}[H]
     \centering
@@ -104,10 +105,11 @@ were used.  For $N_c=500$, 16,000 histories per time step were used due to incre
 number of space-angle cells that
 need to be sampled. The IMC and HOLO solutions agree as the mesh is converged.  There is
 similar agreement in the location of the wavefront due to the linear shape of the emission source over a cell.  The cells
-nearest the wavefront required use of the lumping-equivalent discretization and
+nearest the wavefront required use of the lumping-equivalent discretization of the
+radiation and
 $S_2$ equivalent terms during the LO
-solve, resulting in strictly positive solutions.
- 
+solve, resulting in strictly positive cell-averaged quantities.
+
 Fig.~\ref{marshak_200_compare} compares solutions
 for the case of 200 cells.  For the IMC solution $10^5$ histories per time step were
 simulated; for the HOLO method only $4,000$ histories per batch
@@ -188,9 +190,7 @@ Marshak wave problem.  This improvement is because the wave moves much slower in
 right region of this problem, due to
 the large, constant cross section.  Also, in the optically thin
 region of the problem the solution quickly comes to equilibrium.  Thus, the ECMC
-algorithm has to estimate a very small change in the intensity over a time step.  Additionally, difficulties in resolving
-the solution at the wavefront are not as severe compared to the Marshak wave
-problem, where the cold cells have a much larger cross section.
+algorithm has to estimate a very small change in the intensity over a time step.  
 \begin{figure}[H]
     \centering
 \begin{subfigure}{0.65\textwidth}
@@ -476,14 +476,15 @@ the first few time steps the temperature spikes are present.
 The simulations are repeated with the same specifications for the HOLO method. All HOLO
 simulations used a fixed mesh of 8 $\mu$ cells by 150 $x$ cells, 3 batches per time step,
 and 6,000 histories per batch. A single HO solve is performed per time step, and the LO
-relative convergence tolerance is $10^{-6}$. The lumping closure is used in all spatial
-cells and any negativities in the HO solution are rotated to the floor value.  
+relative convergence tolerance is $10^{-6}$. The lumping closure is used for the radiation
+terms in all spatial cells and any negativities in the HO solution are scaled to the floor
+value as discussed in Sec.~\ref{sec:ho_easyfix}.  
 
 As seen in
 Fig.~\ref{fig:holo_mpv}, the HOLO solution does not violate the maximum principle; the
 temperature is bounded from above by the radiation boundary condition.
 For these simulations, it was
-necessary to use the damped Newton's method discussed in Sec.~\ref{sec:damped_newton} to converge the solutions~\cite{damped_newton}. 
+necessary to use the damped Newton's method discussed in Sec.~\ref{sec:newton_overview} to converge the solutions~\cite{damped_newton}. 
  A fixed damping parameter with a factor of 0.5 was found to stably converge for all
  time-step sizes that were simulated. 
 Table~\ref{tab:mpv_iters} demonstrates the LO Newton iteration counts for the HOLO method.
