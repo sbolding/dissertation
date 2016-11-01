@@ -1,18 +1,18 @@
 
 \chapter{\uppercase{Computational Results}}
 
-We will compare results of the time-discretized HOLO method to IMC with
+In this chapter, we compare results of the time-discretized HOLO method to IMC with
 a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
 briefly compare performance in Section~\ref{timing}.  For all IMC results, no
 local, discrete diffusion acceleration methods for effective scattering
-(e.g., those in~\cite{imd,ddmc}) are applied.  We will demonstrate
+(e.g., those in~\cite{imd,ddmc}) are applied.  Additionally, we demonstrate
 the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
 to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
 Monte Carlo (SMC) simulation.  Finally, we present results that demonstrate
 preservation of the equilibrium diffusion limit and the discrete maximum
 principle by the HOLO algorithm.  Some of the results in this section were published
 previously in~\cite{bolding_nse}.  
-The results in this chapter use the simplified fixups discussed in
+The results in this chapter use the simplified fix-ups discussed in
 Sec.~\ref{sec:ldfe_fixups} and Sec.~\ref{sec:ho_easyfix} when negative values of the
 intensity occur; more sophisticated solution methods are investigated in
 Chapter~\ref{chp:negativities}.
@@ -54,7 +54,7 @@ has correlations between batches.
 
 
 
-\subsection{Marshak Wave}
+\section{Marshak Wave}
 \label{sec:marsh}
 
 For the first problem, the radiation and material energies are initially in
@@ -72,14 +72,10 @@ the LO newton solver for all results. Radiation energy
 distributions are plotted as an effective temperature given by
 $T_r=(\phi/(ac))^{0.25}$.  The effective temperature represents the temperature of the
 material, if the material and temperature were in equilibrium.  Cell-averaged quantities are plotted.
-Although isotropic scattering is handled by the LO solver in the algorithm described above, we have only
-considered problems with $\sigma_s = 0$ here.  Results for neutronics with isotropic
-scattering included are given in~\cite{ans_2014}.
 For this problem, when negative values for $\phi^{n+1,\pm}(x)$ were detected, the lumping-equivalent
 discretization was used within those cells and that Newton step was repeated.
 Non-physical angular consistency terms were replaced with S$_2$-equivalent terms.
-
-\begin{figure}[H]
+\begin{figure}[hp]
     \centering
 \begin{subfigure}{0.7\textwidth}
   \centering
@@ -94,7 +90,7 @@ Non-physical angular consistency terms were replaced with S$_2$-equivalent terms
 \caption{Comparison of radiation temperatures for Marshak wave problem at ${t=5}$ sh.}
 \end{figure}
 
-Fig.~\ref{marshak_mesh_conv} compares the cell-averaged radiation temperatures  for the
+Figure~\ref{marshak_mesh_conv} on page~\pageref{marshak_mesh_conv} compares the cell-averaged radiation temperatures  for the
 IMC and HOLO method with ECMC, for various number of spatial mesh cells $N_c$; we
 have used HOLO-ECMC to denote our algorithm because later results will use different HO solvers.   For
 all IMC calculations, $n=10^5$ histories per time step were used.  For the HOLO method, we have used
@@ -108,9 +104,9 @@ similar agreement in the location of the wavefront due to the linear shape of th
 nearest the wavefront required use of the lumping-equivalent discretization of the
 radiation and
 $S_2$ equivalent terms during the LO
-solve, resulting in strictly positive cell-averaged quantities.
+solve, resulting in strictly positive cell-averaged quantities.  
 
-Fig.~\ref{marshak_200_compare} compares solutions
+Figure~\ref{marshak_200_compare} compares solutions
 for the case of 200 cells.  For the IMC solution $10^5$ histories per time step were
 simulated; for the HOLO method only $4,000$ histories per batch
 (12,000 per time step) were simulated. There is significant statistical noise in the IMC solution
@@ -118,7 +114,8 @@ compared to the HOLO solution.  The HOLO solution visually demonstrates no
 statistical noise.  Because the ECMC solve is only determining the change over the
 time step, the statistical noise in the result is small relative to the magnitude of
 $I^{n+1}$.  Also, the source sampling only places particles in cells where the residual is
-large.  No particles are sampled in the equilibrium region out front of the wave. 
+large.  No particles are sampled in the equilibrium region out front of the wave.  Only a
+few angular cells are necessary to accurately reproduce the mean intensity for this problem.
 
 Table~\ref{marshak_var} compares $\ss$ and the FOM for IMC and the HOLO method, for different
 numbers of histories per time step. The FOM results are normalized to the value for IMC with
@@ -142,7 +139,7 @@ hists./step   & IMC & HOLO-ECMC &  IMC & HOLO-ECMC   \\ \hline
 
 
 
-\subsection{Two Material Problem}
+\section{Two Material Problem}
 \label{sec:two}
 
 This problem consists of an optically thin (left) and an optically thick (right) material region,
@@ -151,8 +148,9 @@ Table~\ref{two_mat_props}.  Initially the radiation and material energies are in
 equilibrium at a temperature of 0.05 keV.  An isotropic incident intensity of 0.500 keV
 is applied at $x=0$ at $t=0$; the isotropic incident intensity on the right boundary is 0.05
 keV.  The simulation end time is 5 sh. For all HOLO simulations, we have used 8
-equal-sized mesh cells in $\mu$. As for the Marshak problem, the cells nearest the wavefront required use of the lumping-equivalent discretization and
-$S_2$ equivalent terms during the LO solve.
+equal-sized mesh cells in $\mu$.  In cells nearest the wavefront we
+use the fix-up detailed in Sec.~\ref{sec:ldfe_fixups} that strictly enforces the floor temperature and preserves half-range
+balance.  The fix-up was applied, along with $S_2$ equivalent terms during the LO solve.
 \begin{table}[H]
         \caption{Material properties for two material problem\label{two_mat_props}}
 \centering
@@ -163,6 +161,7 @@ $S_2$ equivalent terms during the LO solve.
             $c_v$ (jks/keV-g) & $0.1$ & $0.1$ \\ \hline
         \end{tabular}
 \end{table}
+
 Fig.~\ref{twomat_full} compares the HOLO and IMC radiation 
 temperatures at the end of the simulation. The
 IMC and HOLO results show good agreement
@@ -219,11 +218,11 @@ hists./step     & IMC & HOLO-ECMC  &  IMC & HOLO-ECMC   \\ \hline
 \end{tabular}
 \end{table}
 
-\subsection{Performance comparison of IMC and HOLO-ECMC}
+\section{Performance comparison of IMC and HOLO-ECMC}
 \label{timing}
 
 We have measured the total CPU time for simulations to provide a simplified measure of the
-computational cost.  These results compare how computational times change the two
+computational cost.  These results compare how computational times change for the two
 different problems and how the methods scale with time step size and particle histories.  Absolute comparisons in the computational cost of the two
 methods cannot be made, because the methods are implemented
 in different code infrastructures. Additionally, the HOLO method fully resolves
@@ -280,7 +279,7 @@ Newton iters./LO Solve\\ \hline
 \end{tabular}
 \end{table}
 
-\subsection{Comparison of different HO Solvers}
+\section{Comparison of different HO Solvers}
 \label{ho_solvers}
 
 In this section we compare the results of our HOLO algorithm with different HO
@@ -298,10 +297,10 @@ material problem actually demonstrates worse variance.  Sufficient histories are
 performed to accurately estimate consistency terms throughout the problem.  For ECMC,
 a single batch produces less variance than the case of three equal batches.  This
 indicates that if the solution cannot be resolved with the trial space (i.e., the
-intensity is driven negative), a single large batch may be more accurate. It is noted
-that these results only account for statistical variance, and do not account for
-accuracy, which will depend on the estimates of $\epsilon$ computed each iteration.   
-
+intensity is driven negative), a single large batch may be more accurate. 
+It is noted
+that these results only estimate statistical variance and do not strictly account for
+accuracy.  
 \begin{table}[H]
 \centering
 \caption{\label{homarshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.  Number of ECMC batches is
@@ -314,8 +313,6 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
   100,000      & 0.98\%  & 0.03\% &  0.06\% &   1.43    & 1270  & 422     \\ \hline
 \end{tabular}
 \end{table}
-
-
 \begin{table}[H]
 \centering
 \caption{\label{hotwomat_var} \textbf{Comparison of sample standard deviations for the
@@ -331,7 +328,7 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC
 \end{tabular}
 \end{table}
 
-\subsection{Pre-heated Marshak wave problem and adaptive mesh refinement}
+\section{Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}
 
 Finally, to demonstrate the potential of ECMC with adaptive space-angle mesh refinement, we perform
 results for a modified Marshak wave problem. The problem is modified so that the LDFE
@@ -370,7 +367,7 @@ be resolved, the adaptive algorithm allows for a higher convergence rate of
 statistical variance.  It is noted that the consistency terms and LO solution are still computed over
 the fixed, coarser mesh.  However, in general, the refined mesh can produce higher accuracy in consistency terms that is
 not being measured by the FOM.
-\begin{figure}[H]
+\begin{figure}[htbp]
   \centering
     \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
     \caption{\label{hot_plot} Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
@@ -378,7 +375,7 @@ not being measured by the FOM.
 \end{figure}
 
 
-\begin{table}[H]
+\begin{table}[htbp]
 \centering
 \caption{\label{preheat_var} {Comparison of sample statistics for the 
     pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is
@@ -397,18 +394,21 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 
 \section{Accuracy in the Equilibrium Diffusion Limit}
 
-As discussed in Sec.~\ref{sec:edl_overview}, we must ensure our method preserves the EDL.
+As discussed in Sec.~\ref{sec:edl_overview}, we must ensure our method preserves the
+equilibrium diffusion limit (EDL).
 We have produced an EDL test problem by adjusting material properties to produce a strongly
 diffusive domain. This EDL problem has constant cross sections with $\sigma_a=1000$
 cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ jk keV$^{-1}$
-cm$^{-3}$.  The initial temperature is   The domain width is 0.1 cm and  The simulation
+cm$^{-3}$.  The initial temperature is 0.01 keV and the domain width is 0.1 cm. The simulation
 end time is 5 $sh$, and the step-size increases 5\% per time step from $\Delta t = 0.001$
 sh to a maximum $\Delta t = 0.01$.
 In all simulations, 4 $\mu$ cells and 3 batches of 4,000 histories were used for the
 single HO solve, for each time step.
-We compare the LDFE LO solution to a LO solution with a step discretization,
-which is known to be inaccurate in the EDL for S$_N$ equations.  The step discretization
-is implemented with a step closure in all cells, as discussed in Sec.~\ref{sec:spat_clos_options} 
+We compare HOLO results with a LDFE discretization and a step discretization of the LO
+equations.  The step discretization, with a flat representation over each cell, is known
+to be inaccurate in the EDL for S$_N$ equations.  The step discretization
+is implemented with the step closure discussed in Sec.~\ref{sec:spat_clos_options} for all
+cells.
 
 The accuracy in the equilibrium diffusion limit is compared for the two spatial
 discretizations, for different mesh sizes, in Fig.~\ref{fig:diff_limit}.  Visually, 
@@ -431,103 +431,72 @@ equations.}
 
 \section{Preservation of the Discrete Maximum Principle}
 
-An important property for a discretization of the TRT equations is preservation of the
-discrete maximum principle (MP).  The maximum principle states that the material temperature and mean intensity in the
-interior of the domain should be bounded by the solution at the boundaries of the domain, in the
-absence of interior energy sources~\cite{wollaber2013discrete,larsen_mpv}.  The analytic solution to the TRT equations satisfies a maximum
-principle~\cite{larsen_mpv}, so we desire numerical approximations that preserve the MP in
-a discrete sense, for each time step.
-%For the discrete MP, we expect the numerical solution to be bounded by the boundary
-%conditions at each time step.
-For IMC simulations, violation of the maximum principle results in the material
-temperature being artificially higher than the radiation temperature.  As discussed in Sec.~\ref{sec:intro}, IMC can violate the MP due to
-the approximate linearization of the emission source in the time discretization; it is not
-truly implicit in time.  We expect our method, with a fully implicit time discretization,
-to preserve the MP with sufficient convergence of the nonlinear emission
-source~\cite{larsen_mpv}.
-
-To numerically demonstrate that our method preserves the MP, we have simulated problems
-similar to those in~\cite{wollaber2013discrete}.  We modify the Marshak wave problem in
-Sec.~\ref{sec:marshak???}, by decreasing $c_v$ and increasing $\sigma_a$, to produce a
-problem which results in MP violations for IMC at various fixed time step sizes. 
-The spatial and temporal discretization determine the occurence of MP violations for
+To numerically demonstrate that our method preserves the discrete MP, as discussed in
+Sec.~\ref{sec:imc},  we have simulated problems similar to those
+in~\cite{wollaber2013discrete}.  We produce a problem with tightly coupled
+equations, by decreasing $c_v$ and increasing $\sigma_a$, which results in MP violations for IMC at various fixed time step sizes. 
+The spatial and temporal discretization determine the occurrence of MP violations for
 IMC. In particular, if time steps are too large or spatial
 mesh cells are too small, IMC will demonstrate MP violations~\cite{wollaber2013discrete}.  Here, we have kept the
 spatial mesh size fixed and increased the time step size to produce MP violations.
-The material
-specifications for the problem are given in Table~\ref{tab:mpv_prob}. The domain width is 2.0 cm with
+The material specifications are  $\sigma_{a} = \sigma_{a,0} T^{-3}$ cm$^{-1}$,
+$\sigma_{a,0} = 4$ cm$^{-1}$ keV$^3$, $\sigma_s=0$ cm$^{-1}$, $\rho c_v = 0.0081181$
+jks keV$^{-1}$ cm$^{-3}$.  The domain width is 2.0 cm with
 $N_c=150$ uniform spatial mesh cells.  The radiation and material energies are initially in
 equilibrium at $0.01$ keV, before an isotropic boundary source of $1$ keV is applied at
 the left boundary at $t=0$. The simulation end time is $t=0.1$ sh. 
 
 The material and radiation temperature are plotted for an IMC simulation with $\Delta
-t=0.025$ sh in
-Figure~\ref{fig:imc_mpvrad}.  Figure~\ref{fig:imc_mpv} depicts the material temperature
+t=0.025$ sh in Figure~\ref{fig:imc_mpvrad}.  Figure~\ref{fig:imc_mpv} depicts the material temperature
 for various time step sizes and the fixed mesh size of 150 cells. All IMC
 simulations used 100,000 histories per time step. As demonstrated in
 Fig.~\ref{fig:imc_mpvrad}, the material temperature exceeds the specified boundary
 temperature and is artificially hotter than the radiation temperature.  This artificial
 ``temperature spike'' also leads to a slower propagation of the
 wave~\cite{wollaber2013discrete}.  As shown in
-Fig.~\ref{fig:imc_mpv}, as larger time-step sizes are taken the nonphysical results worsen.
+Fig.~\ref{fig:imc_mpv}, as larger time-step sizes are taken the nonphysical results
+worsen with the material temperature exceeding the radiation boundary temperature.
 It is noted that although the final solution for $\Delta t=0.0001$ sh obeys the MP, during
 the first few time steps the temperature spikes are present.
-
-The simulations are repeated with the same specifications for the HOLO method. All HOLO
-simulations used a fixed mesh of 8 $\mu$ cells by 150 $x$ cells, 3 batches per time step,
-and 6,000 histories per batch. A single HO solve is performed per time step, and the LO
-relative convergence tolerance is $10^{-6}$. The lumping closure is used for the radiation
-terms in all spatial cells and any negativities in the HO solution are scaled to the floor
-value as discussed in Sec.~\ref{sec:ho_easyfix}.  
-
-As seen in
-Fig.~\ref{fig:holo_mpv}, the HOLO solution does not violate the maximum principle; the
-temperature is bounded from above by the radiation boundary condition.
-For these simulations, it was
-necessary to use the damped Newton's method discussed in Sec.~\ref{sec:newton_overview} to converge the solutions~\cite{damped_newton}. 
- A fixed damping parameter with a factor of 0.5 was found to stably converge for all
- time-step sizes that were simulated. 
-Table~\ref{tab:mpv_iters} demonstrates the LO Newton iteration counts for the HOLO method.
-For reference, a solution with $\Delta t = 10^{-4}$ sh is given, which required no damping
-to converge.  The damped iterations require more iterations to converge.  However, it is necessary to converge the nonlinear iterations to produce
-physically meaningful solutions to this problem.  The advantage of the LO solution is that
-there is no additional cost for the HO solution when the damped method is used.
-
-\begin{table}[H]
-        \caption{\label{tab:mpv_prob}Problem specifications for maximum principle
-        violation. Absorption cross section has form $\sigma_a = \sigma_{a,0}/T^3$.}
-\centering
-        \begin{tabular}{|c|c|} \hline
-            $\sigma_{a,0}$ (cm$^{-1}$ keV$^3$)  & 4.0  \\ 
-            $\sigma_s$ (cm$^{-1}$) & 0.0 \\
-            $\rho$ (g cm$^{-3}$) & 1.0  \\
-            $c_v$ (jks/keV-g) & 0.0081181  \\ \hline
-        \end{tabular}
-\end{table}
-
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_rad_imc.pdf}
     \caption{\label{fig:imc_mpvrad}$T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.}
 \end{figure}
-
-\begin{figure}[H]
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_mats_imc.pdf}
     \caption{\label{fig:imc_mpv}$T_m$ for MP violation problem with IMC for various time step
     sizes.}
 \end{figure}
 
-\begin{figure}[H]
+The simulations are repeated with the same specifications for the HOLO method. All HOLO
+simulations used a fixed mesh of 8 $\mu$ cells by 150 $x$ cells, 3 batches per time step,
+and 6,000 histories per batch. A single HO solve is performed per time step, and the LO
+relative convergence tolerance is $10^{-6}$. The lumping closure is used for the radiation
+terms in all spatial cells and any negativities in the HO solution are scaled to the floor
+value as discussed in Sec.~\ref{sec:ho_easyfix}.  For these simulations, it was
+necessary to use the damped Newton's method discussed in Sec.~\ref{sec:newton_overview} to converge the solutions~\cite{damped_newton}. 
+ A fixed damping parameter with a factor of 0.5 was found to stably converge for all
+ time-step sizes that were simulated. 
+
+As seen in
+Fig.~\ref{fig:holo_mpv}, the HOLO solution does not violate the maximum principle; the
+temperature is bounded from above by the radiation boundary condition.
+Table~\ref{tab:mpv_iters} demonstrates the LO Newton iteration counts for the HOLO method.
+For reference, a solution with $\Delta t = 10^{-5}$ sh is given, which required no damping
+to converge.  The damped iterations require more iterations to converge.  However, it is necessary to converge the nonlinear iterations to produce
+physically meaningful solutions to this problem.  The advantage of the HOLO method is that
+there is no additional cost for the HO solution when the damped method is used.
+\begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_mats_holo.pdf}
     \caption{\label{fig:holo_mpv}$T_m$ for MP violation problem with HOLO method for various time step
     sizes.}
 \end{figure}
-
-\begin{table}[H]
+\begin{table}[htbp]
     \caption{\label{tab:mpv_iters}Comparison of LO Newton iterations for HOLO solution to 
-    MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for
+    MP problem and different time step sizes. For $\Delta t=10^{-5}$ sh, no damping was used; for
     all other cases a damping factor of $0.5$ was used.}  
     \centering
         \begin{tabular}{|cc|} \hline

@@ -177,7 +177,18 @@ $\{\gamma_i\}$.  Also, the linear representation for the interior
 solutions and emission source should approach the LD closure in the equilibrium diffusion limit, as long
 as the HO spatial closure is estimated with sufficient statistical accuracy.  
 
-\subsubsection{Fixups for Negative Solutions}
+
+\subsection{Fixup for the Linear Doubly-Discontinuous Trial Space}
+
+REWRITE: Combine next two paragraphs
+The doubly discontinuous trial space presents an additional difficulty in that the outflow
+is now unhinged from the linear relationship.  For this case, we use the lumped
+representation on the interior of the solution for all cells. The outflow can still be driven negative
+due to non-linearities, which leads to negative values in down-stream cells. 
+This is a result of the HO estimation of the spatial closure using
+and the moments was based on lagged source terms.  When negativities occur, we force the
+outflow to be continous, using the lumping-equivalent LD closure in those cells.  That
+Newton iteration must then be repeated.
 
 In the case of strong gradients, the interior representation could be driven
 negative.  In such cases, we can use the lumping-equivalent relation from
@@ -291,8 +302,8 @@ where $\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20$ is the mean.
 \subsection{Smooth Problem}
 
 For this problem, the radiation and material energies are initially in
-equilibrium at $0.01$ keV.   An isotropic incident intensity of 50 eV is applied
-at $x=0$; the incident intensity on the right boundary is $10$ eV.
+equilibrium at $0.01$ keV.   An isotropic incident intensity of 0.05 keV is applied
+at $x=0$; the incident intensity on the right boundary is $0.05$ keV.
 The material properties are $\rho = 1$ g cm$^{-3}$, $c_v = 0.2$ jks/keV-g, and
 $\sigma_a=10$ cm$^{-1}$.
 The simulation end time is 0.5 sh.  The time step size increases by 10\% each time step

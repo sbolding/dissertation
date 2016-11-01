@@ -1,6 +1,6 @@
 
 
-\chapter{Resolving Negative Intensities in Optically Thick Cells}
+\chapter{Resolving Negative Intensities in Optically Thick Cells for ECMC}
 \label{chp:negativities}
 
 The linear-discontinuous (LD) spatial closure with upwinding is not
@@ -18,69 +18,14 @@ cannot be accurately represented by a linear projection in angle.  These negativ
 $\mu=0$ can occur for modest optical thicknesses and in multiple adjacent cells.
 Because of the different solution methods for the HO and LO solvers, indepedent fixups
 have been developed for each. 
-In the remainder of this chapter, we discuss the fixup methods for each the HO and LO
-solver.  Methods are then compared for statistical efficiency and accuracy for several test problems.
+In the remainder of this chapter, we discuss the fixup method applied to the HO
+solver.  Methods are then compared for statistical efficiency and accuracy for two test problems.
       We will explore several methods
 for resolving negativities.  Ideally the solutions in
 such cells should be as consistent as possible for the HO and LO equations.  However,
 the differences between the solution methods of the two equations, as well as the
 fact that the modifications made to one solver would be lagged in the next nonlinear LO solve, there
-is no guarantee of positivity.  
-
-\section{Fixup for Negative Intensities in the LO Equations}
-\label{sec:negs}
-
-In LO equations, the linear representation for $\phi(x)$ can go below the floor
-temperature or negative on the interior of the cell.
-The floor temperature is defined as the initial
-temperature of the material and radiation in problems where boundary sources are
-applied at each of the boundaries.  In such problems the radiation and material should
-continue to heat on the interior of the domain, and should physically not fall below
-the initial temperature. 
-
-Typically, for a standard LDFE Galerkin spatial discretization,
-the equations are lumped to produce a discretization that is strongly resistant to
-negative values (for 1D)~\cite{morel_ldtrt}. However, standard FE lumping
-procedures would introduce difficulties in computing the consistency terms from the
-HO solution.  Alternatively, we have derived a modified spatial closure that produces
-unknowns equivalent to those from a lumped LD method in 1D.  The modified spatial closure
-is
-\begin{align}
-    \phi_{i+1/2}^+ &= \mom{\phi}_{i,R}^+ \\
-    \phi_{i-1/2}^- &= \mom{\phi}_{i,L}^-. 
-\end{align}
-The system is then fully defined with upwinding and the assunmption of a linear relationship on
-interior of the element.  This modified closure produces a linear
-representation that preserves zeroth moment, but the relation between the slope of the line and the 
-first spatial moment has been modified.
-
-We also investigated an alternative closure of the equations based on energy conservation and forcing the 
-one edge value to be the floor value.
-The equations within cells that produce a negativity are modified to ensure the edge
-intensities are not below the floor temperature, and energy balance is
-conserved.  This fixup is only applied in cells where a intensity has occured during
-inversion of the LO streaming plus removal operator.  In the modified equation, the $L$
-and $R$ moment equations are summed to produce a
-balance equation.  The auxillary equation is then defined by defining the closure
-relation such that the appropriate LD edge
-value is the floor intensity.  Because our solution method directly inverts the LO system,
-negative edge intensities must be detected, the fixup applied, and then that Newton solve
-repeated.  In practice, this flooring procedure was observed to produce positive answers, but was not as robust as performing
-lumping in all cells.  In general, as the time step size is increased, this fixup led to the Newton
-solve diverging (i.e., damping is required to converge the iterations), more rapidly than if lumping was
-used for all cells.  A similar effect was observed when attempting to only lump the
-equations in cells where negativities were observed and resolving that Newton step.
-
-\subsection{Fixup for the Linear Doubly-Discontinuous Trial Space}
-
-The doubly discontinuous trial space presents an additional difficulty in that the outflow
-is now unhinged from the linear relationship.  For this case, we use the lumped
-representation on the interior of the solution for all cells. The outflow can still be driven negative
-due to non-linearities, which leads to negative values in down-stream cells. 
-This is a result of the HO estimation of the spatial closure using
-and the moments was based on lagged source terms.  When negativities occur, we force the
-outflow to be continous, using the lumping-equivalent LD closure in those cells.  The
-Newton solve must then be resolved.
+is no guarantee of positivity, and thus independent fixups have been developed.  
 
 
 \section{Artificial Source Method for Negativities in the HO Intensity}

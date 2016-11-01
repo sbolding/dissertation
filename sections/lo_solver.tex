@@ -386,7 +386,7 @@ $\phi_{i,R}^+$; The resulting outflow relation for positive flow is $\phi^+_{i+1
 \mom{\phi}_{L,i}^+$; the LD closure for the negative half range produces $\phi^-_{i-1/2} = 2\mom{\phi}_{L,i}^- -
 \mom{\phi}_{R,i}^+$. The $L$ moment and positive half-range equation with the LD closure and upwinding is
 \begin{multline} 
-    -2{\mu}_{i-1/2}^{n+1,+} \left(2\mom{\phi}_{R,i-1}^{n+1,+} -   \mom{\phi}_{L,i}^{n+1,+}      \right) + \cur {\mu}_{L,i}^{n+1,+}
+    -2{\mu}_{i-1/2}^{n+1,+} \left(2\mom{\phi}_{R,i-1}^{n+1,+} -   \mom{\phi}_{L,i-1}^{n+1,+}      \right) + \cur {\mu}_{L,i}^{n+1,+}
   \mom{\phi}_{L,i}^{n+1,+}
   +  \cur\mu_{R,i}^{n+1,+}
   \mom{\phi}_{R,i}^{n+1,+}\\ +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
@@ -394,7 +394,7 @@ $\phi_{i,R}^+$; The resulting outflow relation for positive flow is $\phi^+_{i+1
   \mom\phi_{L,i}^{n+1,-}\right)\\  = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
   \frac{h_i}{c\Delta t}\mom{\phi}_{L,i}^{n,+}.
 \end{multline}
-Similar equations can be derived for the other directions, fully defining the radiation
+Similar equations can be derived for the other directions and moments, fully defining the radiation
 equations.   The closed equations are equivalent in numerical complexity to an LDFE
 discretization of the S$_2$ equations~\cite{morel_ldtrt,lewis}, but with different quadrature points on the face
 and interior.
@@ -429,35 +429,7 @@ manipulation to form consistency terms (e.g., into Eq.~\eqref{eq:line1}).  This 
 terms in the equations.  
 
 
-\subsubsection{Fixups for the LDFE Solution}
-\label{sec:ldfe_fixups}
 
-The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
-optically thick cells with a steep intensity gradient, the solution becomes negative.
-These negative values of intensity can propagate to adjacent cells. In thick regions of
-TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
-free paths; negative values with an LD representation are unavoidable in practice for
-such cells and mesh refinement is of minimal use.  Typically, for a standard LDFE method,
-the equations are lumped to produce a strictly positive solution (for 1D)~\cite{morel_ldtrt}. However, standard FE lumping
-procedures would introduce difficulties in computing the consistency terms from the
-HO solution.  Thus, an alternative spatial closure is used that is equivalent to the
-standard FE lumping procedure.  The $L$ and $R$ moments are defined the same as before,
-preserving the average within a cell, but the relation between the moments and
-the outflow is modified.   For example, for positive $\mu$,
-the outflow is now defined as $\phi^+_{i+1/2} = \mom{\phi}_R^+.$      Because the basis function $b_{R,i}(x)$ is strictly
-positive, the outflow tends to be positive. Strong sources and gradients can still lead to
-negativities at the edges of the LD representation.  Details on the
-derivation of this relation are in Appendix~\ref{app:lo_mom_relations}. 
-The lumping closure was optionally applied in all cells or only in cells where negative
- intensities occur.  
-For simplicity,
-we also lump the emission source and temperature terms in the equations following the
-standard procedure~\cite{morel_ldtrt}.  In the temperature equations $2/3
-T_{L,i} + 1/3 T_{R,i}$ becomes $T_{L,i}$, etc.  
-
-An alternative fixup was applied that directly enforces the condition of an intensity
-above the floor temperature.  The value $\phi_{i,L}$ or $\phi_{i,R}$rces the 
-REWRITE: ITS ALREADY IN CHAPTER 8
 
 \subsection{Boundary Conditions}
 
@@ -527,23 +499,98 @@ iterations in problems where damping was found to be necessary.
 %conserve the total energy.  This estimate of $T^{n+1}$ can now be used as $T^*$ to form a more
 %accurate linearization of the emission source. 
 
+\section{Fix-ups for Negative Solutions with LDFE Closure}
+\label{sec:ldfe_fixups}
+
+The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for
+optically thick cells with a steep intensity gradient, the linear representations for
+$\phi(x)$ and $T(x)$ can go below the floor temperature or negative. 
+The floor temperature $T_{\min}$ is defined as the initial
+temperature of the material and radiation in problems where boundary sources are
+applied at each of the boundaries.  In such problems the radiation and material should
+continue to heat on the interior of the domain, and should physically not fall below
+the initial temperature. 
+Negative values of intensity can propagate to adjacent cells. In thick regions of
+TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
+free paths; negative values with an LD representation are unavoidable in practice for
+such cells and mesh refinement is of minimal use. 
+
+Typically, for a standard LDFE Galerkin spatial discretization,
+the equations are lumped to produce a discretization that is strongly resistant to
+negative values (for 1D)~\cite{morel_ldtrt}.
+However, standard FE lumping
+procedures would introduce difficulties in computing the consistency terms from the
+HO solution.  
+ Alternatively, we have derived a modified spatial closure that produces
+unknowns equivalent to those from a lumped LD method in 1D.
+The $L$ and $R$ moments are defined the same as before,
+preserving the average within a cell, but the relation between the moments and
+the outflow is modified. 
+In the lumping-equivalent closure, the outflows are defined as
+\begin{align}
+    \phi_{i+1/2}^+ &= \mom{\phi}_{i,R}^+ \\
+    \phi_{i-1/2}^- &= \mom{\phi}_{i,L}^-. 
+\end{align}
+The system is then fully defined with upwinding and the assumption of a linear relationship on
+interior of the element.  This modified closure produces a linear
+representation that preserves zeroth moment, but the relation between the slope of the line and the 
+first spatial moment has been modified.  Because the basis functions $b_{R,i}(x)$ and $b_{L,i}(x)$ are strictly
+positive, the outflows tends to be positive. Strong sources and gradients can still lead to
+negativities at the edges of the LD representation.  Details on the
+derivation of this relation are in Appendix~\ref{app:lo_mom_relations}. 
+The lumping closure was optionally applied in all cells or only in cells where negative
+ intensities occur.  
+
+For simplicity,
+we also lump the emission source and temperature terms in the equations following the
+standard procedure~\cite{morel_ldtrt}.  For example, the lumped version of Eq.~\eqref{eq:lo_mat_dis1}
+is
+\begin{equation}\label{eq:lumped_mat}
+     \frac{\rho_i c_{v,i}}{\Delta t}\left(T_{L,i}^{n+1} - T_{L,i}^{n}\right)  + \sigma_{a,i}^{n+1} \left( \mom{\phi}_{L,i}^+ +
+    \mom{\phi}_{L,i}^- \right)^{n+1} \\ = \sigma_{a,i}^{n+1}a c
+    \left( T_{L,i}^{n+1}\right)^4
+    \end{equation}
+noting that no modification was made to the radiation moment term in this equation.  It was found that
+lumping the temperature equations generally produced more robustness than exclusively
+modifying the spatial closure, but is not necessary for all problems.
+
+We also investigated an alternative closure of the equations based on energy conservation
+and forcing the appropriate edge value to be the floor value.
+The equations within cells that produce a negativity are modified to ensure the edge
+intensities are not below the floor temperature, and energy balance is
+conserved.  This fixup is only applied in cells where a intensity has occured during
+inversion of the LO streaming plus removal operator.  For example, if $\phi^+_{R,i}$
+is found to be negative, the modified equations (for the positive half range) in that cell are
+the balance equation, i.e., 
+\begin{multline}\label{eq:floor_outflow}
+    -{\mu}_{i-1/2}^{n+1,+} \left(2\mom{\phi}_{R,i-1}^{n+1,+} -   \mom{\phi}_{L,i-1}^{n+1,+}      \right) +
+    {\mu}_{i+1/2}^{n+1,+} \left(2\mom{\phi}_{R,i}^{n+1,+} -
+    \mom{\phi}_{R,i}^{n+1,+}\right) \\       
+   +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right)
+  \frac{h_i}{2} \left(\mom{\phi}_{L,i}^{n+1,+} + \mom{\phi}_{R,i}^{n+1,+}\right) -  \frac{\sigma_{s,i} h_i}{4} \left( \mom{\phi}_{L,i}^{n+1} +
+  \mom\phi_{R,i}^{n+1}\right)\\  = \frac{h_i}{4} \sigma_{a,i}^{n+1} a c \left(
+    \mom{T^{n+1,4}}_{L,i} + \mom{T^{n+1,4}}_{R,i} \right) +
+  \frac{h_i}{2c\Delta t}\left(\mom{\phi}_{L,i}^{n,+} + \mom{\phi}_{R,i}^{n,+}\right)
+\end{multline}
+and the closure equation, i.e., 
+\begin{equation}\label{eq:clos_outflow}
+    2\mom{\phi}_{i,R}^+ - \mom{\phi}_{i,L}^+ = T_{\min}.
+\end{equation}
+
+Because our solution method directly inverts the LO system,
+negative edge intensities must be detected, the fix-up applied locally to all elements and half-ranges
+where necessary, and then that Newton solve
+repeated.  In practice, this flooring procedure was observed to produce positive answers, but was not as robust as performing
+lumping in all cells.  In general, as the time step size is increased, this fixup led to the Newton
+solve diverging (i.e., damping is required to converge the iterations), more rapidly than if lumping was
+used for all cells.  A similar effect was observed in some problems when attempting to only lump the
+equations in cells where negativities were observed and resolving that Newton step.
+
+
 \section{Accuracy in the Equilibrium Diffusion Limit}
 \label{sec:edl_overview}
 
-A critical aspect for any numerical solution to the thermal radiative transfer equations
-is preservation of the asymptotic, equilibrium diffusion limit (EDL)~\cite{morel_ldtrt,larsen_edl}.
-In the EDL,  $\sigma_a$ becomes increasingly large and $\rho c_v$ becomes increasingly
-small.  In EDL, the solution approaches $I(x,\mu)=\frac{1}{2}acT^4$, where the
-distribution of the solution is well described by the material temperature.  In this
-limit, spatial mesh cells that resolve the spatial variation of the solution are still many
-MFPs wide; the solution typically varies relatively smoothly in space.
-Discretization schemes that do not preserve the EDL will produce solutions
-that have inaccuracies that are much greater than expected from truncation error, unless
-the mesh size is on the order of a MFP~\cite{morel_ldtrt}.  As this regime is typical in
-applications of TRT, discretizations must preserve this limit to prevent unnecessesarily
-fine mesh resolutions.
-
-In out standard LO scheme, the
+In our standard LO scheme, the
 LO equations use an LDFE representation for the temperature and the uld preserve the equilibrium diffusion limit.  In this limit, the MC HO
 solution will estimate angular consistency terms associated with an isotropic intensity,
 based on a spatially LD emission source.  This produces equations that are equivalent to

@@ -20,6 +20,9 @@ discrete in time for simpler application of ECMC and to avoid difficulties in co
 fully-discrete LO solver.  However, this does introduce some artificial propagation of
 energy due to the implicit time differencing in optically thin regions. 
 
+The directionality of the S$_2$ equations is convienent for closing the equations
+spatially with a discontinuous trial space.
+
 In the HOLO context, the LO solver models isotropic scattering and
 resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
 angular and spatial moments of
@@ -40,6 +43,11 @@ critical aspect for TRT equations~\cite{larsen_edl,morel_newton}.  Additionally,
 implicit time discretization with sufficient convergence of the nonlinear emission source
 will ensure that the method will not exhibit maximum principle
 violations~\cite{larsen_mpv}.
+
+We expect our method, with a fully implicit time discretization,
+to preserve the MP with sufficient convergence of the nonlinear emission
+source~\cite{larsen_mpv}.
+
 
 If the angular consistency parameters were estimated exactly, then
 the LO equations preserve the exact angular-averaged solution,  neglecting spatial

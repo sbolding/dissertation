@@ -134,7 +134,7 @@ solution method and other related research.  Finally, a detailed outline of the
 dissertation is given.
 
 Must of the work discussed in this dissertation were previously published
-in~\cite{nse_bolding}.
+in~\cite{bolding_nse}.
 
 \section{Thermal Radiative Transfer Background}
 
@@ -261,9 +261,32 @@ whereas the emission term represents losses to the material internal energy.  We
 and tested our algorithm for efficient solution to Eq.~\eqref{eq:rad_cont}
 and~\eqref{eq:mat_cont}.
 
+\subsection{The Equilibrium Diffusion Limit}
+
+A critical aspect for any numerical solution to the thermal radiative transfer equations
+is preservation of the asymptotic, equilibrium diffusion limit (EDL)~\cite{morel_ldtrt,larsen_edl}.
+In the EDL, the material becomes optically thick and increasingly diffusive, as $\sigma_a$ becomes large and
+$\rho c_v$ becomes small.  The solution approaches equilibrium with $I(x,\mu)=\frac{1}{2}acT^4$,
+where the distribution of the solution is well described by the material
+temperature~\cite{larsen_edl}.  For problems in this limit, spatial mesh cells that resolve the spatial variation of the solution are
+still $O(100)$ mfps or greater; the solution typically varies relatively smoothly in space.
+Discretization schemes of the transport equation must correctly limit to the appropriate
+discretized diffusion equation in the EDL.  Spatial discretizations that do not preserve
+the EDL can produce inaccurate solution, even though the mesh size should accurately capture the variation of the solution, with
+inaccuracies that are much greater than expected from truncation error.  Such methods
+require spatial mesh resolution on the order of a mfp~\cite{morel_ldtrt}.  The EDL regime is typical in
+applications of TRT, so discretizations must preserve this limit to prevent unnecessarily
+fine mesh resolutions.
+
+
+patial discretizations that do not preserve the EDL can produce inaccurate
+solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_ldtrt}.
+REWRITE: IS THIS REDUNDANT WITH THE EDL DISCUS SED IN THE RESULTS?
+
 \section{Previous and Related Work}
 
-This sections describes related work on Monte Carlo solution to the TRT equations.  
+This sections describes related work on Monte Carlo solution to the TRT equations, as well
+as some important properties that numerical solution to TRT equations must preserve.  
 The Monte Carlo (MC) method~\cite{shultis_mc} is a standard computational method in
 the field of radiation transport.  It has been used to great success, providing high-accuracy
 solutions to particle
@@ -288,49 +311,47 @@ alternative solution methods.  We also discuss the residual Monte Carlo (RMC) me
 similar to the HO solver in our method.
 
 \subsection{The Implicit Monte Carlo Method}
+\label{sec:imc}
 
- The IMC method~\cite{fnc,wollaber_review}
-is the standard approach for applying the MC method to TRT problems.
-The IMC 
-method partially linearizes Eq.~\eqref{eq:rad_cont} \& Eq.~\eqref{eq:mat_cont} over a discrete time
-step, with material properties evaluated at the previous-time-step temperature.  Linearization of
-the system produces a linear transport equation that can be solved with MC simulation.
-The transport equation contains an approximate emission source and
-an effective scattering cross section representing absorption and reemission of photons
-over a time step. 
-  The transport equation is
-solved with MC simulation 
-to advance the distribution of radiation to the end of the time step and determine
-the energy absorbed by the material over the time step.  The energy absorption by
-the material is tallied over a discrete spatial mesh, computed with cell-averaged
-quantities.  Integration of the
-time-variable is treated continuously for radiation variables over the time step via MC sampling, but the
-linearized Planckian source in the transport equation is based on a time-discrete
-approximation. 
+The IMC method~\cite{fnc,wollaber_review} is the standard approach for applying the MC
+method to TRT problems.  The IMC method partially linearizes Eq.~\eqref{eq:rad_cont} \&
+Eq.~\eqref{eq:mat_cont} over a discrete time step, with material properties evaluated at
+the previous-time-step temperature.  Linearization of the system produces a linear
+transport equation that can be solved with MC simulation.  The transport equation contains
+an approximate emission source and an effective scattering cross section representing
+absorption and reemission of photons over a time step.  The transport equation is solved
+with MC simulation to advance the distribution of radiation to the end of the time step
+and determine the energy absorbed by the material over the time step.  The energy
+absorption by the material is tallied over a discrete spatial mesh, computed with
+cell-averaged quantities.  Integration of the time-variable is treated continuously for
+radiation variables over the time step via MC sampling, but the linearized Planckian
+source in the transport equation is based on a time-discrete approximation. 
 
-The IMC method has some limitations.  In optically thick regions, or for
-large time steps, the
-effective scattering dominates interactions.  In these diffusive regions IMC
-becomes computationally expensive. Acceleration methods typically attempt to improve
-efficiency by allowing particles to take discrete steps through optically-thick
-regions based on a spatially-discretized diffusion approximation~\cite{imd,ddmc}. 
-Another issue occurs due to the approximate linearization of the system which can not
-be iteratively improved due
-to the high computational cost of the MC transport.  For some problems, the
-linearization can yield non-physical results that violate the discrete maximum
-principle if the time step size is too large or the cell size is too
-small~\cite{wollaber2013discrete}.  The violation of the maximum principle results in
-the material temperature being artificially higher than the boundary conditions and
-sources should physically allow.  The violation is caused by the temperature in the
-emission source not being fully implicit in time due to the necessary linearization.
-The work in~\cite{iimc_gentile} uses less-expensive MC iterations to produce an implicit system
-which prevents this from happening, but has very slow iterative convergence in diffusive
-problems.  
-In IMC, temperature-dependent
-material properties, in particular cross sections, are evaluated at the previous-time
-step temperature. These lagged cross sections can produce inaccurate solutions but
-do not cause stability issues.  
+The IMC method has some notable limitations.  In optically thick regions, or for large time steps,
+the effective scattering dominates interactions.  In these diffusive regions IMC becomes
+computationally expensive. Acceleration methods typically attempt to improve efficiency by
+allowing particles to take discrete steps through optically-thick regions based on a
+spatially-discretized diffusion approximation~\cite{imd,ddmc}. 
+In IMC, temperature-dependent material
+properties, in particular cross sections, are evaluated at the previous-time step
+temperature. These lagged cross sections can produce inaccurate solutions but do not cause
+stability issues.  
 
+An important aspect for numerical simulation of TRT equations is preservation of the
+discrete maximum principle (MP). The maximum principle states that the material temperature and mean intensity in the
+interior of the domain should be bounded by the solution at the boundaries of the domain, in the
+absence of interior energy sources~\cite{wollaber2013discrete,larsen_mpv}.  The analytic solution to the TRT equations satisfies a maximum
+principle~\cite{larsen_mpv}, so we desire numerical approximations that preserve the MP in
+a discrete sense, for each time step. For some problems, the IMC method can yield non-physical results that violate the MP if the time
+step size is too large or the cell size is too small~\cite{wollaber2013discrete}. The violation of the maximum principle results in the material temperature being artificially
+higher than the effective radiation temperature. 
+The violation by IMC is caused by the approximate linearization of the end-of-time-step emission source; the emission source
+is not truly implicit in time. The linearized estimate of the emission source typically can not be iteratively improved due
+to the high computational cost of the MC transport.   
+ The work in~\cite{iimc_gentile} uses less-expensive MC
+iterations to produce an implicit system which prevents this from happening, but the
+method has very
+slow iterative convergence in diffusive problems.  
 
 In IMC the material and radiation energy fields are discretized spatially to solve for cell-averaged values.
 Inaccurate spatial representation of the emission source over a cell can result in
@@ -353,13 +374,7 @@ to mitigate this problem.  Source tilting reconstructs a more accurate
 linear-discontinuous representation of the
 emission source within a cell based on the cell-averaged material temperatures in adjacent
 cells. This linear reconstruction is also necessary to preserve the asymptotic equilibrium diffusion
-limit (EDL), at least for a more general time step size and class of problems than for a piece-wise constant representation~\cite{diff_limit_imc}.  Preserving the equilibrium diffusion limit is an
-important aspect of a numerical method for TRT problems. 
-In this limit, cells are optically thick and diffusive, and the material
-and radiation energy fields approach equilibrium.
-Spatial discretizations that do not preserve the EDL can produce inaccurate
-solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_ldtrt}.
-REWRITE: IS THIS REDUNDANT WITH THE EDL DISCUS SED IN THE RESULTS?
+limit (EDL), at least for a more general time step size and class of problems than for a piece-wise constant representation~\cite{diff_limit_imc}.  
 
 \subsection{Previous work on moment-based acceleration methods}
 
