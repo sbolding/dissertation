@@ -83,20 +83,21 @@ eliminate the outflow from the equations.
 \section{Newtons Method for the LO Equations}
 \label{app:lo_newton}
 
+This section briefly derives the equations for the Newton's method solution to the nonlinear LO equations, with the LDFE representation of the temperatures, based on the approach in~\cite{morel_ldtrt}.
 Because we have only considered problems with constant densities and heat capacities, the
 linearization described below is in terms of temperature $T$ rather than material internal
 energy, for simplicity. However, the linearization can be formed in terms of internal energy
 to apply this method to a general equation of state.
 
-To formulate the Newton iterations, the Planckian source is linearized in the material and radiation equations (Eq.~\eqref{??}
-\& Eq.~\eqref{???}).
+To formulate the linear equations for each Newton step, the Planckian source is linearized in the material and radiation equations (Eq.~\eqref{eq:mat_td}
+\& Eq.~\eqref{eq:trans_td}). 
 Application of the first order Taylor expansion in time to the
-implicit emission source $B(T^{n+1})$, about some temperature $T^*$ at some
+implicit emission source $\sigma_a a c (T^{n+1})^4$, about some temperature $T^*$ at some
 time $t^*\in[t^{n},t^{n+1}]$, yields
 \begin{equation}\label{new_planck}
     \sigma_a^{n+1} a c T^{4,n+1} \simeq \sigma_a^* a c \left[T^{*4} + (T^{n+1} - T^*) 4T^{*3} \right]
 \end{equation}
-where $\sigma_a^*\equiv\sigma_a(T^*)$.  Substitution of this expression into Eq.~\eqref{eq:mat_cont} yields
+where $\sigma_a^*\equiv\sigma_a(T^*)$.  Substitution of this expression into Eq.~\eqref{eq:mat_td} yields
 \begin{equation}
     \rho c_v \left( \frac{T^{n+1} - T^{n}}{\Delta t} \right) = \sigma_a^* \phi^{n+1} -
     \sigma_a^* a c \left[ T^{*4} +  (T^{n+1} - T^*) 4T^{*3} \right].
@@ -124,7 +125,7 @@ an explicit approximation for the emission source at $t^{n+1}$ as
 where $f^* = [1 + \sigma_a^* c \Delta t 4 a T^{*3}/(\rho c_v)]^{-1}$ is often referred to
 as the Fleck factor~\cite{fnc}. 
 
-Next, the above equation must be spatially discretized.  Application of the $L$ spatial
+Next, the above equation is spatially discretized.  Application of the $L$ spatial
 moment yields
 \begin{multline}\label{eq:temp_const}
     \mom{\sigma_a^* a c T^{4,n+1}}_{L,i} = \sigma^*_{ai}(1-f_i^*)\mom{\phi^{n+1}}_{L,i} +
@@ -135,21 +136,21 @@ moment yields
     T^*_{R,i}\right)\right],
 \end{multline}
 where $T^{4,n}$ and $T^{n}$ have been assumed LD and $f^*$ is assumed constant over a cell, i.e., $f^*_i
-\equiv \sigma_a(T_i^*)$.
+\equiv f(T_i^*)$.
 The error introduced by a constant $f^*$ approaches zero as the
 non-linearity is converged because $T^*$ approaches $T^{n+1}$. 
 Based on an estimate for $T^*$, Eq.~\eqref{eq:temp_const} is an expression for
 the Planckian emission source in the radiation moment equations with an additional effective scattering source.
 A similar expression can be derived for $\mom{\sigma_{a,i} a c T^4}_R$ and the right
 moment equations.
-The expressions for the emissions source is substituted into the radiation moment equations
-(Eq.~\eqref{eq:lo_tran}--~\eqref{???}) to produce a
-linear system of equations for the new radiation intensity moments. 
+The expressions for the emissions source is substituted into the discrete radiation moment equations,
+(Eq.~\eqref{eq:exact_lmom}--~\eqref{eq:exact_rmomm}) to produce a
+linear system of equations for the new radiation intensity moments (upon closure of the moment equations). 
 
 Once the linear equations have been solved for new radiation moments, new temperature
 unknowns can be estimated.  To conserve energy, the same linearization and discretizations used to
 solve the radiation equation must be used in the material energy equation.
-Substitution of Eq.~\eqref{eq:temp_const} into the material energy $L$ moment equation
+Substitution of Eq.~\eqref{eq:temp_const} into the material energy $L$ moment equation, i.e., Eq.~\eqref{eq:lo_mat_dis1},
 ultimately yields
 \begin{multline}\label{eq:new_temp}
     \frac{2}{3}T_{L,i}^{n+1} + \frac{1}{3}T_{R,i}^{n+1}= \frac{f_i^* \sigma_{ai}^* \Delta
@@ -160,7 +161,7 @@ t}{\rho c_{v}}  \left[ \mom{\phi^{n+1}}_{L,i}  - a c\left(\frac{2}{3} T_{L,i}^{4
 A similar expression is produced for the $R$ moment equation.  This produces a local
 matrix equation to solve for new $T$ unknowns.  
 
-Based on these equations, the algorithm for solving the LO equations, with iteration index
+Based on these equations, iterations on the value of $T^*$ and unknowns $\phi^{n+1}$ and $T^{n+1}$ can be performed to converge the nonlinearities of the system. The algorithm for solving the LO equations, with iteration index
 $l$, is defined as
 \begin{enumerate}
     \item Initialize $T^{*,l}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from
@@ -168,8 +169,8 @@ $l$, is defined as
     \item  Build the LO system based on the effective scattering $(1-f^{*,l})$ and emission terms
         evaluated using $T^{*,l}$.
     \item Solve the linearized LO system to produce a new estimate $\phi^{n+1,l+1}$.
-    \item Evaluate a new estimate of $T^{n+1,l+1}$ unknowns using Eq.~\eqref{eq:new_temp}.
-    \item $T^{*,l+1}\leftarrow\tilde{T}^{n+1,l+1}$.
+    \item Evaluate a new estimate of $T^{n+1,l+1}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
+    \item $T^{*,l+1}\leftarrow{T}^{n+1,l+1}$.
     \item Repeat 2-5 until $(T^{n+1,l})^4$ and $\phi^{n+1,l}$ are converged.
 \end{enumerate}
 Convergence is based on the relative L$_2$ spatial norm of the change in $\phi^{n+1,l}$
@@ -181,18 +182,22 @@ and the emission source $\sigma_a a c \left(T^{n+1,l}\right)^4$.
 The algorithm in the previous section can be modified to improve the stability of
 convergence by including a fixed damping factor $\xi$.  In this work, the Newton's method is
 formulated to directly estimate the final solution each step, rather that in terms of the
-change in the solution between steps.  Thus, modifications must be made to the standard
-damping procedure and the algorithm above.  The damped Newton's method algorithm is as
-follows
+change in the solution between steps.  Thus, an intermediate solve based on the algorithm in the previous section is performed, followed by a damped update of the unknowns. 
+The damped Newton's method algorithm is as
+follows:
 \begin{enumerate}
     \item Choose a damping factor $\xi\in(0,1)$
     \item Initialize $T^{*,l}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from
         previous LO solve.
     \item  Build the LO system based on the effective scattering $(1-f^{*,l})$ and emission terms
         evaluated using $T^{*,l}$.
-    \item Solve the linearized LO system to produce an estimate $\hat\phi^{n+1,l}$.
-    \item Evaluate a new estimate of $\hat T^{n+1,l}$ unknowns using Eq.~\eqref{eq:new_temp}.
-    \item Compute the effective change between iterations $\delta T = \hat T$
+    \item Solve the linearized LO system to produce an estimate $\phi^{n+1,l+1/2}$.
+    \item Evaluate a new estimate of $T^{n+1,l+1/2}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
+    \item Compute new temperatures and intensities as
+        \begin{align*}
+            \phi^{n+1,l+1} &= \phi^{n+1,l}+ \xi \left( \phi^{n+1,l+1/2} - \phi^{n+1,l} \right)\\
+            T^{n+1,l+1} &= T^{n+1,l}+ \xi \left( T^{n+1,l+1/2} - T^{n+1,l} \right)
+           \end{align*}
     \item $T^{*,l+1}\leftarrow\tilde{T}^{n+1,l}$.
     \item Repeat 2-5 until $(T^{n+1,l})^4$ and $\phi^{n+1,l}$ are converged.
 \end{enumerate}

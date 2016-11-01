@@ -480,7 +480,7 @@ multiplying the term in the moment equations by $2/\sqrt{3}$ to produce accurate
 
 Summation over all cells of the closed equations forms a global system of coupled equations.
 The equations are nonlinear due to the Planckian emission source.  
-We have used Newton's method to solve the nonlinear system, based on a typical linearization of the Planckian source with cross
+We have used a local Newton's method to solve the nonlinear system, based on a typical linearization of the Planckian source with cross
 sections evaluated at temperatures from the previous iteration, as described
 in~\cite{morel_ldtrt}.  A derivation of the LO Newton equations is given
 in~\ref{app:lo_newton}.

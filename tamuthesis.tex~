@@ -117,8 +117,8 @@
 \newcommand{\tamumembertwo}{Jean Ragusa}
 \newcommand{\tamumemberthree}{Jean-Luc Guermond}
 \renewcommand{\tamudepthead}{Yassin Hassan}
-\renewcommand{\tamugradmonth}{December}
-\renewcommand{\tamugradyear}{2016}
+\renewcommand{\tamugradmonth}{May}
+\renewcommand{\tamugradyear}{2017}
 \renewcommand{\tamudepartment}{Nuclear Engineering}
 
 
