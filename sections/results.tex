@@ -427,6 +427,145 @@ temperature for the LDFE solution, in equilibrium with the radiation, as expecte
 equations.}
 \end{figure}
 
+\section{The HO Spatial Closure}
+
+To investigate the utility of the face closures we compare to the LD spatial
+closure for two test problems.  We are interested in the accuracy of the solution and
+consistency between the HO and LO solutions, particularly for coarser meshes. 
+The consistency for the $(l)$-th particular simulation is measured with the relative L$_2$ norm
+of the difference between the projected HO and LO solutions, i.e.,
+\begin{equation}
+    \|\phi_{HO} - \phi_{LO}\|^{(l)}_{2,rel} = \frac{\ds \sqrt{\int_0^X \left(
+        \phi_{HO}^{n+1,(l)}(x) - \phi_{LO}^{n+1,(l)}(x) \right)^2 \dd x}}{\ds \sqrt{
+            \int_0^X \left(\phi_{LO}^{n+1,(l)}(x)\right)^2 \dd x }}
+\end{equation}
+where $\phi_{LO}(x)$ and $\phi_{HO}(x)$ are the LDFE representations in space of the
+intensity from the HO and LO solvers, from the end of the last time step.
+The error between a reference solution and a fine solution for the ${(l)}$-th simulation
+is computed as
+\begin{equation}
+    \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
+    \phi_{LO}^{n+1,ref}\left( x \right)\|_2}{\|\phi_{LO}^{n+1,ref}\left( x \right)\|_2}
+\end{equation}
+All L$_2$ norms are computed using quadrature over the finest spatial mesh.  An
+integrated measure of the error in cell-averaged mean intensities on the mesh of the
+$l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
+\begin{equation}
+    \|e\|^{{(l)}}_{a,rel} = \left({\frac{\ds \sum\limits_{i=1}^{N^{(l)}_c}
+    \left(\phi_i^{n+1,{(l)}} - \phi_i^{n+1,ref}
+\right)^2}{\ds \sum\limits_{i=1}^{N^{(l)}_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+\end{equation}
+where $\phi_i^{n+1,ref}$ is computed by spatially averaging the fine mesh solution over
+the $i$-th coarse spatial cell.
+
+The sample mean of each of the above metrics is estimated based on 20 independent
+simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
+\begin{equation}
+    s\left(\|e\|_{2,rel}\right) = \left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
+    \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
+\end{equation}
+where $\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20$ is the mean.
+
+\subsection{Smooth Problem}
+
+For this problem, the radiation and material energies are initially in
+equilibrium at $0.01$ keV.   An isotropic incident intensity of 0.05 keV is applied
+at $x=0$; the incident intensity on the right boundary is $0.05$ keV.
+The material properties are $\rho = 1$ g cm$^{-3}$, $c_v = 0.2$ jks/keV-g, and
+$\sigma_a=10$ cm$^{-1}$.
+The simulation end time is 0.5 sh.  The time step size increases by 10\% each time step
+until the maximum step size of 0.01 sh is reached, beginning from $\Delta t = 0.001$ sh.
+This problem is intended to have less steep gradients in the intensity by having constant constant cross
+sections, a smaller boundary source, and diffusive problem parameters.
+The problem has a smaller optical thickness than other problems tested so that the face-based solutions can be efficiently
+estimated, but the small c$_v$ value makes the solution relatively diffusive.  This
+problem did not require the lumped relation to produce positive solutions.
+However, when projecting from a refined mesh back to the coarse mesh, it was
+necessary to rotate the solution to be positive.
+
+All simulations of this problem used 585,900 histories divided over 9 ECMC
+batches;  beginning from 30,000 histories and $10$ $\mu$ cells, 30\% of cells were
+adaptively refined every third batch, and the number of histories is increased to
+keep the average number of histories per cell constant. 
+We have have performed two outer HOLO iterations over each time step for all cases; it was
+found that additional iterations did not increase consistency, because of the  magnitude
+of statistical noise.  Relative convergence of HOLO iterations was below 10$^{-3}$
+for two iterations for all cases.  
+Fig.~\ref{fig:smooth_compare} compares cell-averaged radiation temperatures for various spatial closures at
+coarse mesh sizes and a fine-mesh solution.  The HO spatial closures curve is for the
+scaled-slope closure given by Eq.~\eqref{eq:cl_slope}.  There was visually
+no difference in the results between the scaled-averaged, scaled-slope, or LD closure. A step closure in all cells
+was inaccurate for this problem.
+
+Table~\ref{tab:smooth} compares the different error metrics for different spatial
+closures and numbers of cells.  The reference solution for all calculations was the average of 10 simulations with $N_c=500$ spatial
+cells.  In all cases, the HO spatial closure produces higher accuracy in the L$_2$
+norms and greater consistency between the solvers.  However, there is not an
+improvement in accuracy of the cell-averaged intensities.  Neglecting noise, the LDFE representation can be third order
+accurate for the $\|e\|_a$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}. 
+The statistical noise induced in face tallies makes the
+additional accuracy that the MC transport can use not greater than the benefit of
+higher spatial integration by the MC transport.  It
+is noted that, overall, there is very low statistical noise in each of these
+solutions due to the ECMC method and relatively high number of histories; at lower
+history counts, the small gains of the HO spatial closure will degrade and stability
+becomes an issue.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
+    \caption{\label{fig:smooth_compare} Comparison of solutions for smooth problem with different spatial closures.}
+\end{figure}
+
+\begin{table}[H]
+    \caption{\label{tab:smooth} Comparison of error metrics, reported as percentages, averaged over 20 simulations of smooth problem.  The absolute
+standard deviation for each value is reported in parenthesis. Reference solution uses 500 cells.}
+    \begin{tabular}{|l|cl|cl|cl|} \hline
+        Spatial Closure & \multicolumn{2}{|c|}{$\|e\|_2$}  & \multicolumn{2}{|c|}{$\|e\|_{a}$} & \multicolumn{2}{|c|}{$\|\phi^{HO}
+        -\phi^{LO}\|_{2}$} \\  \hline \hline
+        \multicolumn{7}{|c|}{$N_c = 20$ cells} \\ \hline
+LDFE               &   6.60\%  &   (0.17\%)  &   2.80\%     &   (5.7e-03\%)  &   2.90\%   &  (8.1e-03\%)  \\
+HO: Scaled Slope   &   6.10\%  &   (2.9e-03\%)  &   3.50\%  &   (5.8e-03\%)  &   0.021\%  &  (8.6e-03\%)  \\
+HO: Scaled Average &   6.10\%  &   (2.7e-03\%)  &   3.50\%  &   (5.0e-03\%)  &   0.023\%  &  (1.1e-02\%)  \\ \hline
+       \multicolumn{7}{|c|}{$N_c  = 50$ cells}   \\ \hline
+LDFE               &   1.60\%  &   (7.9e-04\%)  &   0.59\%  &   (3.8e-03\%)  &   0.76\%)  &  (4.8e-03\%)  \\
+HO: Scaled Slope   &   1.40\%  &   (1.5e-03\%)  &   0.67\%  &   (3.2e-03\%)  &   0.012\%  &  (4.0e-03\%)  \\
+HO: Scaled Average &   1.40\%  &   (1.5e-3\% ) &   0.67\%   &   (3.1e-03\%)  &   0.013\%  &  (3.9e-03\%)  \\ \hline
+       \multicolumn{7}{|c|}{$N_c  = 100$ cells}   \\ \hline
+LDFE               &   0.53\%  &   (2.1e-03\%)  &   0.15\%  &   (2.5e-03\%)  &   0.30\%)  &  (9.7e-03\%)  \%\\
+HO: Scaled Slope   &   0.45\%  &   (1.5e-03\%)  &   0.16\%  &   (4.6e-03\%)  &   0.012\%  &  (4.8e-03\%)  \\
+HO: Scaled Average &   0.45\%  &   (1.4e-03\%)  &   0.16\%  &   (4.7e-03\%)  &   0.012\%  &  (3.6e-03\%)  \\ \hline
+    \end{tabular}
+\end{table}
+
+
+
+\subsection{Two Material Problem}
+
+The HO spatial closures were applied to solution of the two material problem detailed in Sec.~\ref{sec:two}.
+For these results, a small time step size of 0.001 sh was used, with a simulation end time
+of 2 sh.  The scaled-slope closure was found to not stably converge, even for 2 batches of 10$^6$
+histories.  The scale-average closure allowed for convergence, with the lumpded closure, but temperatures were driven
+below the floor, and at times negative, leading to inaccurate solution.  The inaccuracies
+result from the outflow being driving negative in cells near the wave front with steep
+gradients.  The cause is that, although the HO solution was forced positive by scaling
+moments, and the face solution is positive the closure does not necessarily agree with the
+true moments. The first moment of the HO solution had to be modified to produce a positive
+solution, and by trying to use the moment relation in the LO solution, there can be
+negative solutions.  In general, in such difficult to resolve regions, the spatial closure
+does not gain improvement.
+Fig.~\ref{fig:two_mat_fail} depicts cell-averaged results at the end of the simulation.
+The inaccuracy in ghtly overshoots, the slope changes signs between cells.  Additionally,
+there is great inconsistency as the depressed temperature leads to an inaccurate HO solution.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{two_mat_fail.pdf}
+    %\includegraphics[width=0.99\linewidth]{two_mat_fail_zoom.pdf}
+    \caption{\label{fig:two_mat_fail}Inacurracies for HO spatial closure applied to
+    solution of the two material problem.}
+\end{figure}
+
+
 
 
 \section{Preservation of the Discrete Maximum Principle}
