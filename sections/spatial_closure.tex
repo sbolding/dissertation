@@ -91,6 +91,12 @@ and the scaled-average relation is
     \mom{\phi}_{L,i}^- + \left(\frac{\ds \gamma_i^- - 3}{\ds 2 }  \right)
     \mom{\phi}_{R,i}^- .
 \end{align}
+REWRITE:  It is tempting to use a closure that is only a function of the average.  This
+Although this can produce accuracy in smooth problems, it leads to a problem where the
+slope of the source is accounted for almost entirely in the slope of the radiation and the
+outflow is not forced to do anything intelligent. If you had scattering, this would become
+very inaccurate.  This can be seen by looking at marshak wave and the slope equation, as
+you come to equilibrium it causes problems.
 
 The HO solution is used to estimate $\gamma_i$. The MC solution must be modified
 to tally the MC estimated intensity on faces. For example, for $\mu>0$, the LO equations for

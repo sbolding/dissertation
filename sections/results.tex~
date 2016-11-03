@@ -345,7 +345,7 @@ time step of $\Dt=0.001$ sh.
 
 Fig.~\ref{hot_plot} compares the result from HOLO-ECMC with three batches and IMC.
 It was found that 100 $x$ cells was sufficient to resolve the solution spatially. There is slightly more noise in IMC past the wavefront due to the increased emission
-source.  Additionally, the opacity is thin enough that some photon energy is able to
+source.  Additionally, the cross section is thin enough that some photon energy is able to
 reach the right boundary, in front of the wavefront. 
 
 Table~\ref{preheat_var} compares the variances for this problem for the various HO
@@ -360,7 +360,7 @@ histories per time step were used.  All ECMC meshes used 4 equally-spaced $\mu$ 
 initially. 
    The improvement in variance by ECMC compared to SMC is not as significant
 as for the other problems.  This is a
-result of the reduced opacity leading to intensity changing throughout the spatial
+result of the reduced cross section leading to intensity changing throughout the spatial
 and angular domains.  The
 FOM is highest for the case of ECMC with adaptive refinement. When the solution can
 be resolved, the adaptive algorithm allows for a higher convergence rate of
@@ -557,6 +557,8 @@ does not gain improvement.
 Fig.~\ref{fig:two_mat_fail} depicts cell-averaged results at the end of the simulation.
 The inaccuracy in ghtly overshoots, the slope changes signs between cells.  Additionally,
 there is great inconsistency as the depressed temperature leads to an inaccurate HO solution.
+A fundamental problem with the lumping relation is that the first moment equation for the
+HO solution has a lumped temperature equation
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{two_mat_fail.pdf}

@@ -198,7 +198,7 @@ follows:
             \phi^{n+1,l+1} &= \phi^{n+1,l}+ \xi \left( \phi^{n+1,l+1/2} - \phi^{n+1,l} \right)\\
             T^{n+1,l+1} &= T^{n+1,l}+ \xi \left( T^{n+1,l+1/2} - T^{n+1,l} \right)
            \end{align*}
-    \item $T^{*,l+1}\leftarrow\tilde{T}^{n+1,l}$.
+    \item $T^{*,l+1}\leftarrow{T}^{n+1,l}$.
     \item Repeat 2-5 until $(T^{n+1,l})^4$ and $\phi^{n+1,l}$ are converged.
 \end{enumerate}
 
@@ -247,42 +247,63 @@ The update equation for $I(x_{i+1/2},\mu)$ is thus
 
 
 \section{Analytic Neutronics answer for Source fixup}
+\label{sec:analytic_neutronics}
 
 In this section we model a fixed-source, pure-absorber neutronics calculation where we know the
 analytic answer to test our fixup.  If we make the mesh thick enough, we can set the
-solution to be the equilibrium answer $\psi(x) = \frac{q(x)}{2\sigma_a}$. For a general
+floor value to be the equilibrium answer $I(x) = \frac{q(x)}{2\sigma_a}$. For a general
 isotropic source $Q(x)$, the 1D transport equation to be solved is
 \begin{equation}
-    \mu \pderiv{\psi}{x} + \sigma_a \psi(x,\mu) = \frac{q(x)}{2}
+    \mu \pderiv{I}{x} + \sigma_a I(x,\mu) = \frac{q(x)}{2}
 \end{equation}
-with boundary condition $\psi(0,\mu)=\psi_{inc}$, $\mu>0$ and
-$\psi(x_R,\mu)=\frac{q(x_R)}{2\sigma_a}$ for
+with boundary condition $I(0,\mu)=I_{inc}$, $\mu>0$ and
+$I(x_R,\mu)=\frac{q(x_R)}{2\sigma_a}$ for
 $\mu<0$, where $x_R$ is the right boundary.  
 This first order differential equation is solved using an integration factor.
 The solution to this equation for $\mu>0$ is given by
 \begin{equation}
-    \psi(x,\mu) = \psi_{inc}e^{\frac{-\sigma_a x}{\mu}} + \int_0^x \frac{q(x')}{2\mu}
-    e^{\frac{-\sigma_a x'}{\mu}} \dd x',\quad \mu>0
+    I(x,\mu) = I_{inc}e^{\frac{-\sigma_a x}{\mu}} + \int_0^x \frac{q(x')}{2\mu}
+    e^{\frac{-\sigma_a\left(x-x'\right)}{\mu}} \dd x',\quad \mu>0
 \end{equation}
 Integration of this result over the positive half range of $\mu$ gives
 \begin{equation}
-    \phi^+(x) = \psi_{inc}\E2(\sigma_a x) + \frac{1}{2}\int_0^x q(x')\E1(\sigma_a x')
+    \phi^+(x) = I_{inc}\E2(\sigma_a x) + \frac{1}{2}\int_0^x q(x')\E1\left[\sigma_a
+    \left(x-x'\right)\right]
     \dd x'.
 \end{equation}
 In the simplification of a constant source, the integral reduces to
 \begin{equation}
-    \phi^+(x) = \psi_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
+    \phi^+(x) = I_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
     \E2(\sigma_ax)\right).
 \end{equation}
 Also, for a constant source the solution for the negative half range becomes a constant, i.e.,
 \begin{equation}
     \phi^{-}(x) = \frac{q}{\sigma_a}
 \end{equation}
-Combination of the above two equations gives the solution for the scalar flux:
+Combination of the above two equations gives the solution for the mean intensity:
 \begin{equation}
-    \phi(x) = \psi_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
+    \phi(x) = I_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
     \E2(\sigma_ax)\right) + \frac{q}{\sigma_a}.
 \end{equation}
+This expression can be integrated over any spatial cell, via quadrature, to accurately approximate moments of
+the mean intensity.
+
+\subsection{Spatially Varying Cross Sections}
+
+To test the fixup we want to imitated the two-material problem in Sec.~\ref{sec:two_mat},
+but with an analytic answer.  We will set the floor to zero, as that is the easiest case.
+We do not have an internal source to simplify evaluation of the integrals.  The derivation
+proceeds the same as in the above section, but now the integration factor is
+$\exp(\int_{0}^x \sigma_a(x')/\mu\dd x')$.  With no internal volumetric source and no
+boundary source for negative $\mu$, the solution becomes
+\begin{equation}
+    \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)
+\end{equation}
+where the argument of $\E2$ is clearly just the total number of mfps traveled
+up to that point.
+
+To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
+This will ensure that the negative half range in negative $\mu$, the solution is $q_0/2$.
 
 \chapter{\uppercase{Derivation of the WLA-DSA Equations}}
 \label{sec:wla_derivation}

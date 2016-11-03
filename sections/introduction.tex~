@@ -278,11 +278,6 @@ require spatial mesh resolution on the order of a mfp~\cite{morel_ldtrt}.  The E
 applications of TRT, so discretizations must preserve this limit to prevent unnecessarily
 fine mesh resolutions.
 
-
-patial discretizations that do not preserve the EDL can produce inaccurate
-solutions, even though the mesh size should accurately capture the behavior of the solution~\cite{morel_ldtrt}.
-REWRITE: IS THIS REDUNDANT WITH THE EDL DISCUS SED IN THE RESULTS?
-
 \section{Previous and Related Work}
 
 This sections describes related work on Monte Carlo solution to the TRT equations, as well

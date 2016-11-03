@@ -1,35 +1,32 @@
 
 \chapter{\uppercase {Accelerated Iterative Solution to the LO Equations}}
 
-As described in Sec.~\ref{sec:lo_sol}, the fully-discrete, S$_2$-like LO equations
-are not easy to directly inverted efficiently in higher spatial dimensions.  
+The fully-discrete, S$_2$-like LO equations 
+cannot be directly inverted easily in higher spatial dimensions.  
 To demonstrate a possible path forward in
 higher dimensions, we have investigated the use of a standard
-source iteration scheme to invert the scattering terms in the LO equations.  As
+source iteration scheme~\cite{lewis} to invert the scattering terms in the linearized LO
+equations during each Newton iteration.  As
 material properties become more diffusive (e.g., $c_v$ is small and $\sigma_a$ is
-large), the effective scattering cross sections becomes large.  This results in a spectral radius of the source iterations that approaches
+large), the effective scattering cross sections becomes large.  This results in a spectral radius of source iterations that approaches
 unity~\cite{morel_ldtrt}.  These regimes are typical in TRT simulations, so an
-acceleration method for an iterative solution is critical. 
+acceleration method for iterative solutions is critical. 
 We have accelerated the source iterations with a nearly-consistent diffusion synthetic acceleration
-(DSA) method known as WLA~\cite{wla,wla_thesis}.
-
-REWRITE: STUFF ABOUT LUMPING ETC.
-We have also recast the DSA method as a preconditioner to an iterative
+(DSA) method known as WLA~\cite{wla,wla_thesis}. We have also recast the DSA method as a preconditioner to an iterative
 Krylov solution~\cite{larson_morel_sn} of the LO equations.  Generally, Krylov
 methods mitigate acceleration losses due to inconsistencies in the acceleration
 method.  In higher dimensions, the use of a Krylov method is necessary for effective
 acceleration for nearly-consistent acceleration methods in problems with
 mixed optical thicknesses~\cite{larson_morel_sn}, e.g., typical radiative transfer
 problems.  Also, applying the preconditioned-Krylov approach allows for the use of
-spatially lumped DSA  equations as a preconditioner, with the LO equations using
-alternative fix-up methods.  We expect better acceleration performance (DID WE GET IT?) when the
-LDD discretization is introduced into the LO equations. 
+spatially lumped DSA equations as a preconditioner, with the LO equations using an LD
+spatial closure.
 
-In the remainder of this chapter is structured as follows:  The source
+The remainder of this chapter is structured as follows:  The source
 iteration solution to the LO equations is detailed.  Then, the equations for the WLA DSA
 method are derived and the acceleration algorithm is given.  The DSA method is then recast
-as a preconditoner to a GMRES solution to the scattering iteration equations.  Finally,
-results are given for a modified test problem which requires the use of acceleration.
+as a preconditoner to a GMRES solution of the scattering iteration equations.  Finally,
+convergence results are compared for several test problems.
 
 \section{Source Iteration Solution to the Linearized LO Equations}
 \label{sec:si}
@@ -113,7 +110,6 @@ volumetric moment unknowns via a LD discretization of the P$_1$ equations~\cite{
 The LD mapping resolves issues that would occur in optically-thick cells, while the
 continuous diffusion equation is accurate in the EDL where acceleration is important~\cite{adams_dsa}.
 
-
 The continuous diffusion equation and mapping equations for the WLA method are derived in Appendix~\ref{sec:wla_derivation}.
 To allow for the use of lumped
 or standard LD in the DSA equations, we introduce the factor $\theta$, with
@@ -135,7 +131,7 @@ The source in Eq.~\eqref{eq:dsa_lumped} is the residual for a given scattering i
     \mom{\phi^{l}}_{L/R,i}\right).
 \end{equation}
 It is noted that there is no need to define the source differently for the lumped or
-standard LD DSA equations, because it is in terms of moments.
+standard LD DSA equations, because the source is in terms of moments.
 %or LD, resulting in equations that are
 %consistent.  For instance, for lumped LD, we desire the right equation to have $\mom{q}_{R,i} =
 %\sigma_s(\phi^{l+1/2}_{R,i} - \phi^{l}_{R,i})$.   The lumped LO system uses a spatial closure and
@@ -167,7 +163,8 @@ Eq.~\eqref{eq:update1}--\eqref{eq:update2} are solved in each cell to map the fa
 an LD representation over the interior.   It is noted that unlike fully consistent DSA equations, the WLA-DSA algorithm does not
 preserve particle balance to round off.  This is because the mapping procedure uses an
 approximate inflow to each cell, which is inconsistent with the partial outflows from
-adjacent cells.
+adjacent cells.  Thus, overall, our algorithm will only conserve energy to the order of
+scattering iteration convergence.
 
 Because we are interested in the time-dependent solution, we need to accelerate the solution for the
 half-range intensities, rather than just the zeroth moment. We do not accelerate the first
@@ -256,67 +253,89 @@ The opensource library \verb{mgmres{ was modified to implement the matrix-free v
 The convergence tolerance is based on the residual.
 Without preconditioning, the diffusion solve is simply removed.
 
-
 \section{Computational Results}
 
-It is noted we are not interested in measuring the reduction of
-computational time in this section because in 1D the LO equations can be directly solved efficiently.
-We are just interested in ensuring that the acceleration methods can reduce the
-number of scattering iterations sufficiently, including cases where inconsistencies
-in the LO equations are present.
+We have tested the iterative solution methods for three test problems and compare the average number
+of scattering iterations to converge.   For each simulation, three batches of 10,000 particles are ran for each HO
+the single  HO solve per time step, and 200 spatial cells were used.   The average number of source iterations per
+Newton step is recorded, as well as the total number of Newton
+iterations per time step (there are two LO solves per time step).  The initial guess for
+the effective scattering source is set to zero at the beginning of
+each LO solve.   All
+scattering iterations have a relative convergence of 10$^{-10}$.
+For all DSA simulations, we have used the lumped spatial representation for the DSA
+equations.
+%It is noted that we are not interested in measuring the reduction of
+%computational time in this section, because in 1D the LO equations can be directly solved
+%efficiently anyways.
+%We are just interested in ensuring that the acceleration methods can reduce the
+%number of scattering iterations sufficiently.
 
-We test our acceleration methods with three test problems.  The first is the two material
-problem in Sec~\ref{sec:two_mat}.  The second problem is a modification of the two material problem described in
-Sec.~\ref{sec:two_mat}. The problem specifications are the same as before, except for
-modifications to the material properties for $x>0.5$ cm.  In the right region, the
-parameters are $\sigma_a = 20,000$ cm$^{-1}$, $\sigma_s=500 $ cm$^{-1}$ $c_v =??? $ Jk
-g$^{-1}$ keV$^{-1}$.  The third test problem is the diffusion limit problem described in
-Sec.~\ref{sec:diff_limit}.
+The first test problem is the two material
+problem in Sec~\ref{sec:two}.     The time step is increased linearly by 15\% each time step from $\Delta
+t=0.001$ sh to reach a maximum time step size of $0.01$ sh.  The large time step sizes
+increases the magnitude of the effective scattering cross section.
+Table~\ref{tab:twomat_dsa_iters} compares iteration counts each method: unaccelerated
+source iteration (SI), source iteration with DSA (SI-DSA), unaccelerated GMRES (GMRES),
+and GMRES with DSA preconditioning (GMRES-DSA).  As demonstrated, DSA improves the
+convergence of the source iteration method.  The preconditioned GMRES was more efficent
+than standard GMRES.
 
-\subsection{Results for LD Spatial Discretization}
+The second test problem is a modification of the two material problem. The problem
+specifications are the same as before except for modifications to the cross sections for
+$x>0.5$ cm; in the right half of the domain, the
+parameters are $\sigma_a = 20,000$ cm$^{-1}$, $\sigma_s=500 $ cm$^{-1}$.  This problem is
+highly diffusive and nonlinear. The Newton method required damping with a damping factor of $0.6$ to
+stably converge.  Table~\ref{tab:twomat_hard_dsa_iters} compares the iterations
+Overall, the damping increases the number of Newton steps, as expected. For this problem,
+acceleration is much more critical, reducing the number of scattering iterations by a
+factor of 100.  
 
-We first test this problem with the source iteration using DSA to accelerate and compare
-to an unaccelerated SI solution.  3 batches of 10,000 particles are ran for each HO
-solve, one HO solver per time step.  We tally the total number of source iterations per
-time step, over the two solves.  We initialize the solution for the scattering iterations to zero at the beginning of
-each LO solve.  We reduce the solve time for each to 1.0 sh.  The time step begins at
-0.001 sh and linearly increases by 15 \% each time step to a maximum time step size of
-0.01 sh.  The larger time step size increases the amount of diffusive behavior.  The
-scattering iterations have a relative convergence between scattering iterations of 1.E-10.
-
-For the DSA we have used a lumped spatial representation in all cases.  This should cause
-some inconsistency issues, slightly degrading the acceleration.  There is a slight
-degradation in the performance, but the GMRES does not work significantly better.
-
-\begin{table}
+For the final test problem, we test the equilibrium diffusion limit problem from
+Sec.~\ref{sec:edl_results}.  The problem was tested with standard LD and
+lumping-equivalent LD spatial closures, with the DSA using the lumped representation in
+both cases.  Table.~\ref{tab:edl_iters} compares scattering iterations for the EDL
+problem.  There was minimal
+degradation observed for the diffusion limit problem due to the difference in spatial
+discretizations.  This is likely because both lumped LD and
+LD representations produce accurate solutions in the EDL. 
+\begin{table}[p]
     \caption{\label{tab:twomat_dsa_iters} Scattering source iterations for the two
 material problem.  Simulation end time is 1 sh.}
     \begin{tabular}{|ccc|} \hline
-        Method & Sweeps/Newton Step & Newton Steps/LO Solve \\ \hline
+        Method & Sweeps/Newton Iter. & Newton Iters./Time Step \\ \hline
         SI     & 247.0 & 19.4                \\
         SI-DSA & 10.1   & 19.3      \\
         GMRES  & 13.1    &  19.4     \\
         GMRES-DSA & 7.7  &  19.3  \\ \hline
     \end{tabular}
 \end{table}
-
-
-
-\begin{table}
-    \caption{\label{tab:twomat_dsa_iters} Scattering source iterations for the equilibrium
+\begin{table}[p]
+    \caption{\label{tab:twomat_hard_dsa_iters} Scattering source iterations for the
+    modified, diffusive two material problem. Simulation end time is 2 sh.}
+    \begin{tabular}{|ccc|} \hline
+        Method & Sweeps/Newton Step & Newton Iters./Time Step \\ \hline
+        SI        & 1037   &  25.2    \\
+        SI-DSA    & 10.9   &  25.1   \\
+        GMRES     & 11.6   &  25.1   \\
+        GMRES-DSA & 6.0    &  25.2   \\ \hline
+    \end{tabular}
+\end{table}
+\begin{table}[p]
+    \caption{\label{tab:edl_iters} Scattering source iterations for the equilibrium
     diffusion limit problem.  Simulation end time is 3 sh.}
     \begin{tabular}{|ccc|} \hline
         \multicolumn{3}{|c|}{LD LO Equations} \\ \hline
         Method    &  Sweeps/Newton Step & Newton Steps/LO Solve \\ \hline
-        SI        & 357.4  &  4.2                  \\
-        SI-DSA    & 21.9   &  4.2     \\
-        GMRES     & 36.5   &  4.2    \\
-        GMRES-DSA & 13.3   &  4.2   \\ \hline 
+        SI        & 357.4  &  8.4     \\
+        SI-DSA    & 21.9   &  8.4     \\
+        GMRES     & 36.5   &  8.4    \\
+        GMRES-DSA & 13.3   &  8.4   \\ \hline 
          \multicolumn{3}{|c|}{Lumped LO Equations} \\ \hline
-        SI        & 359.8         & 4.1      \\ 
-        SI-DSA    & 14.6          & 4.1     \\ 
-        GMRES     & 37.3          &  4.1   \\
-        GMRES-DSA & 9.8           &  4.1   \\ \hline 
+        SI        & 359.8         & 8.2      \\ 
+        SI-DSA    & 14.6          & 8.2     \\ 
+        GMRES     & 37.3          &  8.2   \\
+        GMRES-DSA & 9.8           &  8.2   \\ \hline 
     \end{tabular}
 \end{table}
 

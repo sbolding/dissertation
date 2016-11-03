@@ -155,7 +155,7 @@ The final source term is
 The source $r^{n+1}$ can be treated using the
 same analytic treatment as the outflow face source in the LDD
 trial space, as discussed in Sec.~\ref{sec:ldd_mc} and derived in
-App.~\ref{sec:face_err_deriv}; the source at the end of the time step is
+App.~\ref{sec:face_err_deriv}.  The source at the end of the time step is
 never sampled, because its contribution to $I^{n+1}$ can be analytically computed.  To treat the sources this way, the solution for $\tilde I^{n+1}(x,\mu)$ is
 initialized to the value of $\overline I(x,\mu)$ before a batch of particles begins.
 Then, error particles that reach the end of the time step, referred to as ``census''

@@ -25,7 +25,7 @@ for resolving negativities.  Ideally the solutions in
 such cells should be as consistent as possible for the HO and LO equations.  However,
 the differences between the solution methods of the two equations, as well as the
 fact that the modifications made to one solver would be lagged in the next nonlinear LO solve, there
-is no guarantee of positivity.  
+is no guarantee of positivity, and thus independent fixups have been developed.  
 
 
 \section{Artificial Source Method for Negativities in the HO Intensity}
