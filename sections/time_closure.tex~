@@ -1,48 +1,55 @@
 
 \chapter{ \uppercase {Residual Monte Carlo Treatment of the Time Variable}}
 \label{sec:time}
-Another extension and improvement for the HOLO method described in Sec.~\ref{} is the time discretization
-of the transport equation.  We have
-incorporated the time variable into the ECMC method to improve efficiency over IMC, while still preserving the
-accuracy of MC integration.  The main area of interest is in producing more accurate
-resolution of radiation wave-fronts in optically
-thin regions, where particles transport a long distance over a time step. In such regions, the MC
-integration of the time variable by IMC can produce greater accuracy than an implicit
-Euler discretization, which can produce artificially fast propagation of radiation in
-space.   A potential application where this accuracy is important is stellar atmosphere calculations.  It is
+
+In this chapter, we have modified the time-discrete HOLO method to include higher-accuracy MC treatment
+of the time variable for the radiation unknowns in the TRT equations.  The ECMC algorithm
+is modified to include the time variable, allowing for residual MC integration of the time
+variable. The LO equations are closed in time consistently using a parametric closure
+derived from the HO equations. The goal is to improve
+efficiency compared to IMC, while improving the accuracy compared to the time-discrete
+HOLO algorithm. 
+It is
 noted that no adaptive refinement in time is performed, so maintaining exponential convergence
 may not be possible.  However, we still expect the residual MC formulation of the ECMC method
 to show improvement in efficiency over standard MC.
 
-In the remainder of this chapter, the inclusion of the time variable into the ECMC trial
-space is detailed, along with modifications to particle tracking and the ECMC algorithm.
-The process of sampling, tracking, and tallies particle histories in time
-is detailed in literature\cite{wollaber_review,fnc,wollaber_thesis,cj_thesis}, but
-sufficient details are provided in this chapter.  
-Finally, a new temporal closure for the LO equations is given, and results are compared to IMC for accuracy and
-efficiency.  
+In the remainder of this chapter, modifications to the HOLO algorithm to include higher
+time accuracy are detailed.
+First, the inclusion of the time variable into the ECMC trial
+space is given, along with modifications to the HO algorithm.
+The process of sampling, tracking, and tallying particle histories in time
+can be found in literature\cite{wollaber_review,fnc,wollaber_thesis,cj_thesis}, but
+sufficient details are provided in this chapter.  Then, a new temporal closure for the LO
+equations is given.  Finally, results for the new algorithm are compared to
+IMC and the time-discrete HOLO method for accuracy and statistical efficiency.  
 
-\section{Modifications to the HO equations}
+\section{Modifications to the HO Solver}
 \label{sec:time_ho}
 
 Inclusion of the time variable $t$ in the trial space used by ECMC allows for no discretization of the
 transport operator $\B L$.  The transport operator, applied to the continuous intensity
 $I$, becomes
 \begin{equation}
-    \B LI(x,\mu,t) = \frac{1}{c}\pderiv{I}{t}  + \mu \pderiv{I}{x} + \sigma_t I
+    \B LI(x,\mu,t) = \frac{1}{c}\pderiv{I(x,\mu,t)}{t}  + \mu \pderiv{I(x,\mu,t)}{x} + \sigma_t I(x,\mu,t)
 \end{equation}
-The emission source is still treated with an implicit Euler discretization, which is
-similar to the approximation made in IMC.  The ECMC algorithm specified in
-Sec.~\ref{sec:???} does not need to be modified.  However, the residual
-source and trial-space representation are modified to include $t$.   Each batch is still estimating the error in the
-current projection estimate $\tilde I(x,\mu,t)$, but the time variable must be included in the inversion of the $\B L$
-operator.  
-\subsection{The Doubly-Discontinuous Trial Space in Time}
+The emission source is still treated with a BE discretization, which is
+similar to the approximation made in IMC.  Overall, the accuracy in the time variable will be limited by the BE discretized temperature
+terms, particularly in optically thick
+regions.  However, accuracy in thin regions can be significantly improved.
 
-It is necessary to define a new trial space that includes the time variable so that we can explicitly evaluate the residual.
-The time variable has a similar representation to the LDD trial space used for the
-spatial variable
-in Sec.~\ref{sec:lo_closure_LDDTRIAL???}, but the solution is a constant value over
+With this definition of $\B L$ and the temperature discretization, the ECMC algorithm specified in
+Sec.~\ref{sec:ecmc} is applied, without further modification.  However, the residual
+source and trial-space representation now include $t$.   Each batch is still estimating the error in the
+current projection estimate $\tilde I(x,\mu,t)$, but sampling and tallying of the time
+variable are included in the MC inversion of the $\B L$
+operator.  
+
+\subsection{Step Doubly-Discontinuous Trial Space in Time}
+
+It is necessary to define a new trial space that includes the time variable to explicitly evaluate the residual.
+The time variable trial space has a similar representation to the LDD spatial representation 
+in Sec.~\ref{sec:ldd}, but the solution is a constant value over
 the interior of the time step. This step, doubly-discontinuous (SDD) trial space is defined as
 \begin{equation}\label{eq:time_space}
     \tilde I(x,\mu,t) = \left \{ \begin{array}{cl}
@@ -55,9 +62,10 @@ where we have used $\overline I$ to denote the time-averaged LDFE \emph{projecti
 and $\mu$ of the intensity over the interior of the time step;  the beginning and end of
 time step projections are denoted $\tilde I^{n}$ and $\tilde I^{n+1}$, respectively.   An
 illustration of $t$ for the SDD trial space, over the $n$-th time step, 
-is depicted in Fig.~\ref{fig:dd_time}.    There is a projection error in using the LDFE projection to represent the intensity between time steps.  However, with
-sufficient noise reduction and mesh resolution, this should be an acceptable error
-compared to the large statistical noise of standard MC.
+is depicted in Fig.~\ref{fig:dd_time}.    There is a projection error incurred by using the LDFE
+projection to represent the intensity between time steps.  However, with sufficient noise
+reduction and mesh resolution, this should be an acceptable error compared to potentially large
+statistical noise of standard MC.
 \begin{figure}[H]
     \centering
     \begin{center}
@@ -82,39 +90,31 @@ compared to the large statistical noise of standard MC.
     \label{fig:dd_time}
 \end{figure}
 
-The SDD trial space provides a projection for all the desired unknowns to exactly produce the moment
-equations, i.e., the time-averaged, end of time step, and previous time step intensities;
+The SDD trial space provides a projection for all the desired unknowns to exactly
+reproduce the time-integrated moment
+equations, i.e., a projection of the time-averaged, end of time step, and previous time step intensities;
 temporally, these are the only unknowns that appear in equations that have
 been integrated over a time step to produce a balance statement.  Another benefit of this
 trial space is it allows for infrastructure for computing the residual from the
 time-discrete case to be used directly.  This trial space has one major drawback:
 only particle histories that reach $t^{n+1}$ contribute to the estimation of $\tilde
-\epsilon^{n+1}$, and thus $I^{n+1}$.  This is undesirable in optically thick problems.
+\epsilon^{n+1}$, within a batch.  This can be undesirable in optically thick problems.
+Additionally, the step representation over the interior of the time step may be
+inaccurate, leading to a reduction in statistical efficiency of the ECMC method.
 %where not much correction to the time-variable is necessary and accuracy is limited by the 
 %the BE discretization of the This is troubling, because in such problems you don't need much correction in
 %the time variable.
 
-REWRITE: Possibly move this to the future work section
-Alternatively, an LDFE representation could be used in the time
-variable. The linear representation should produce less noise because all particle tracks
-contribute to the slope, rather than just those that reach the end of the time step,
-although it would produce an approximate projection error for the end of time step
-intensity that is not produced with a discontinuity at the end of the time step.  The
-linear representation in time would also produce a more accurate reconstruction of the
-scattering source in time.  However, a linear representation requires the sampling
-algorithm to be significantly modified because the L$_1$ integral for computing the
-residual magnitude is now significantly complicated by the tri-linear function.  A
-possible way to sample this source is discussed in Appendix??? for completeness, but it has
-not been rigorously investigated.
+
 
 \subsection{Residual Source Definition and Sampling}
 \label{sec:time_sampling}
 
 The residual is defined as $r = q - \B L \tilde I(x,\mu,t)$, where
 \begin{equation}
-    q=\left(\sigma_a a c (T_{LO}^{n+1})^4(x) + \sigma_s\overline\phi_{LO}\right)
+    q=\frac{1}{2}\left(\sigma_a a c (T_{LO}^{n+1})^4(x) + \sigma_s\overline\phi_{LO}\right)
 \end{equation}
-is a constant in time and provided by the LO solver. We have assumed a constant reconstruction for the scattering source
+is constant in time and provided by the LO solver. We have assumed a constant reconstruction for the scattering source
 in time.
 Evaluation of the residual with Eq.~\eqref{eq:time_space} for $I$ produces a uniform source in time, as well as a $\delta$-function source at the
 beginning and end of the time step.  We write the residual source in terms of three components:
@@ -133,8 +133,7 @@ The first residual term is a constant in time with representation
 Evaluation of the above function produces both face and interior volumetric components (as
 in the time discrete case), respectively labeled $\overline r_{\text{face}}$ and
 $\overline{r}_{\text{int}}$.  To sample $x$ and $\mu$ from the face and volume distributions, the
-same rejection procedure can be used as for Eq.~\eqref{eq:???} and detailed
-in~\cite{jake}.    The time variable can then be sampled uniformly over the time step,
+same rejection procedure is used as for the time-discrete case.    The time variable is then sampled uniformly over the time step,
 i.e., $t=t^n + \eta \Delta t$, where $\eta$ is a uniform random variable with support
 $(0,1)$.
 
@@ -162,32 +161,33 @@ Then, error particles that reach the end of the time step, referred to as ``cens
 particles, contribute a standard score to the projection $\tilde I^{n+1}(x,\mu)$.
 
 With these definitions, it is thus only necessary to sample from two sources.  We apply
-the systematic-sampling algorithm described in Sec.~\ref{sec:systematic_sampling}.  The
+the systematic-sampling algorithm described in Sec.~\ref{sec:systematic_sampling} to
+determine the number of histories within each cell.  The
 number of histories sampled from each space-angle element is proportional to the magnitude
 of the residual within that cell, and a minimum number of histories is sampled from cells
 with a non-zero residual.  Then, composite-rejection sampling is used to sampled from the
-appropriate source.  The algorithm for each sample, from $x-\mu$ element $i$, is 
+appropriate source.  The algorithm for each sample, from $x$-$\mu$ element $ij$, is 
 \begin{enumerate}
     \item Sample two random numbers $\eta_1$, $\eta_2\sim U(0,1)$ 
-    \item If $\eta_1 < \|r_i^{n}\|_1/(\|r_i^{n}\|_1 + \|\overline{r_i}\|_1)$:
-    \begin{itemize}
-        \item Sample $(x,\mu)$ from $r_i^{n}$ volumetric source using rejection sampling
+    \item If $\eta_1 < \|r_{ij}^{n}\|_1/(\|r_{ij}^{n}\|_1 + \|\overline{r_{ij}}\|_1)$:
+    \begin{enumerate}
+        \item Sample $(x,\mu)$ from $r_{ij}^{n}$ volumetric source using rejection sampling
         \item Set $t=t^n$
-    \end{itemize}
-\item Else, sample from $\overline r$ source:
+    \end{enumerate}
+\item Else, sample from $\overline r_{ij}$ source:
     \begin{enumerate}
         \item \label{itm:time_step}Sample $t$ uniformly over $(t^{n},t^{n+1})$.
-        \item If $\eta_2 < \|\overline{r}_{i,\text{face}}\|_1/\|\overline{r}_{i}\|_1$:
+        \item If $\eta_2 < \|\overline{r}_{ij,\text{face}}\|_1/\|\overline{r}_{ij}\|_1$:
             \begin{itemize}
-                \item Sample $(x,\mu)$ from $\overline r_{i,\text{face}}$ face source using rejection
+                \item Sample $(x,\mu)$ from $\overline r_{ij,\text{face}}$ face source using rejection
             \end{itemize}
         \item Else:
             \begin{itemize}
-                \item Sample $(x,\mu)$ from $\overline r_{i,\text{int}}$ volumetric source using rejection
+                \item Sample $(x,\mu)$ from $\overline r_{ij,\text{int}}$ volumetric source using rejection
             \end{itemize}
     \end{enumerate}
 \end{enumerate}
-where all L$_1$ norms are over element $i$.  All L$_1$ integrals can be analytically
+where all L$_1$ norms are over $x$-$\mu$ domain of element $ij$.  All L$_1$ integrals can be analytically
 evaluated using the same numerics as in the
 time-discrete case because each residual component is either a volumetric or face
 component.  
@@ -195,19 +195,17 @@ component.
 \subsection{Importance Sampling on Interior of Time Step}
 \label{sec:imp_sampling}
 
-As an attempt to reduce variance in the estimate of $\tilde \epsilon^{n+1}(x,\mu)$, we use
-important sampling in the time variable.  Systematic sampling is still used for
-determining the cell of interest, and sampling as described above is used to determine
-which source is sampled, based on the appropriate probabilities described in the previous
-section.  However, when the interior source $\overline r(x,\mu)$ is sampled, we use
-importance sampling for the conditional sampling of the uniform time step.  The goal is to ensure that some
+As an attempt to reduce variance in the estimate of $\tilde \epsilon^{n+1}(x,\mu)$,
+importance sampling can be applied to sampling of $t$ for $\overline r(x,\mu)$.  For
+particles sampled from $\overline r(x,\mu)$, we modify the conditional PDF for sampling a
+particle start time.  The goal is to ensure that some
 histories reach the end of the time step.  In order to do this, we sample from a modified
 PDF such that a fraction $p_{surv}$ of particles sampled from $\overline r(x,\mu)$ are born
 with $t\in(t^{surv},t^{n+1})$.  We define $t^{surv}=t^{n+1}-M/(c\sigma_t)$, where $M$ is the desired
 number of MFP of travel the particle will undergo from the end of
 the time step (e.g., 2 or 3).  The weights of particles sampled from this
-distribution must be modified to prevent biasing of the solution.  This only affects
-Step~\ref{itm:time_step}.
+distribution must be modified to prevent biasing of the solution.  The importance sampling
+only affects step~\ref{itm:time_step} of the algorithm in the previous section.
 
 The new PDF to be sampled from is
 \begin{equation}
@@ -216,12 +214,13 @@ The new PDF to be sampled from is
         \frac{\ds p_{surv}}{\ds t^{n+1} - t^{surv}} & \quad t^{surv} \leq t < t^{n+1}  \\
         0 & \quad \text{elsewhere}\end{array}  \right.
 \end{equation}
-The original PDF is $f(t)= 1/\Delta t$, for $t\in(t^{n},t^{n+1})$.  Thus, using the
+The actual PDF is $f(t)= 1/\Delta t$, for $t\in(t^{n},t^{n+1})$.  Thus, using the
 standard procedure for importance sampling\cite{shultis_mc}, the starting time $t_{\text{start}}$ is sampled from
-$f^*(t)$, and then weights are multiplied by the factor
+$f^*(t)$, and then particle weights are multiplied by the factor
 $f(t_{\text{start}})/f^*(t_{\text{start}})$.  This procedure is not perfect in that if a
 particle is moving from an optically thin to an optically thick
-region, it is not guaranteed to reach census. However, this case does not introduce bias.
+region, it is not guaranteed to reach census. Additionally, the large variance in the
+starting weights of particles could increase the variance.  
 
 \subsection{Tracking and Tallying in Time}
 
@@ -230,16 +229,16 @@ perform MC tracking for $t\in[t^{n},t^{n+1}]$.
 The initial time for the particle is
 sampled as described in the previous section. In inverting the $\B L$ operator, particles
 are tracked until they reach the end of the time step.  Path lengths are sampled or the
-weight is exponentially attenuated as before (e.g., Sec.~\ref{sec:???}).  As a particle
+weight is exponentially attenuated as before (e.g., Sec.~\ref{sec:tallies}).  As a particle
 travels from position $x_{o}$ to $x_{f}$, with direction $\mu$, the time is updated as 
 \begin{equation}
     t^{f} = t^{0} + \frac{|x_{f} - x_{o}|}{c \mu}
 \end{equation}
-where $c$ is the speed of light. For analog path-length sampling, if $t^{f}>t^{n+1}$ then $t^{f}$ is adjusted to $t^{n+1}$
-and the path length is adjusted accordingly.  For continuous weight deposition, particles
+where $c$ is the speed of light. For analog path-length sampling, if $t^{f}>t^{n+1}$ then
+$t^{f}$ is adjusted to $t^{n+1}$, and the path length is adjusted accordingly.  For continuous weight deposition, particles
 are only tracked until they reach $t^{n+1}$.  A proof that this process of tracking
 particles is a MC solution to an integral equation that is exactly inverse to the $\B L$ operator is
-detailed in~\cite{cj_thesis,shultis_paper_cj_cites???}.  
+detailed in literature~\cite{cj_thesis,shultis_mc}.  
 
 Tallies must be adjusted to account for the averaging over the time step, and to compute the
 intensity at the end of time step.  To produced the time-averaged representation
@@ -269,16 +268,18 @@ where the magnitude of the weights produce the L$_1$ integral over all phase spa
 Here, $x_c$ is the center of the $n$-th
 path length, and $s_{n}$ is the path length for the $n$-th path length in the $x-\mu$ cell.
 
-Moments of $I^{n+1}(x,\mu)$ must be estimated to represent the end of time step intensity.
+Moments of $I^{n+1}(x,\mu)$ must be estimated to produce a projection of the intensity at
+the end of the time step.
 For example, the $x$ moment for the $ij$-th cell of the error at the end of time step is
 \begin{equation}
     \epsilon^{n+1}_{x,ij} = \frac{6}{h_i} \iint\limits_{\mathcal{D}_{ij}} \left(\frac{x
     - x_i}{h_i}\right) \epsilon(x,\mu,t^{n+1}) \dd x \dd \mu
 \end{equation}
 The estimators for these moments are a generalization of the census
-tallies used in IMC~\cite{wollaber_review,wollaber_thesis}.  The tallies are based on the
-definition of the intensity as $I(x,\mu,t) = c h \nu N(x,\mu,t)$ given in
-Eq.~\eqref{???}, similar to collision estimators~\cite{shultis_mc,mcnp}.  The census estimator for the $x$ moment is
+tallies used in IMC~\cite{wollaber_review,wollaber_thesis}.  These tallies estimate
+moments based on the point-wise spatial distribution of particles at a particular time.
+They are based on the definition of the intensity as $I(x,\mu,t) = c h \nu N(x,\mu,t)$ given in
+Eq.~\eqref{eq:intens_dens}, similar to collision estimators~\cite{shultis_mc,mcnp}.  The census estimator for the $x$ moment is
 \begin{equation}
     \hat\epsilon^{n+1}_{x,ij} = \frac{1}{N_{hist}} \frac{6}{h_j h_i} \sum_{n=1}^{N_{hist}}
     c w_j  \left(x_{c} - x_{i}\right)
@@ -296,45 +297,36 @@ equations in each cell~\cite{holo_rh}.  This
 source was approximated based on the difference between the exact HO integral of the time
 derivative and the approximate representation in the LO equations. The advantage
 of this form is that the LO solver exclusively deals in
-time-averaged unknowns for the radiation terms in the equations.  However, if the problem
-is strongly non-linear or the time-averaged and time-edge
-values differ greatly, this may become unstable.
+time-averaged unknowns for the radiation terms in the equations.  
+%However, if the problem
+%is strongly non-linear or the time-averaged and time-edge
+%values differ greatly, the source may become unstable.
 
 We will alternatively use a
-parametric closure in the time variable, similar to the spatial closures discussed in the
-Sec.~\ref{???}.  The time-integrated LO equations can be written exclusively in terms
-of time-averaged unknowns.  This closure
-produces LO equations that have the same numerical difficulty to solve as the BE,
-fully-discrete LO equations, but
-have the potential to preserve the accuracy of the MC integration in time, upon non-linear
-convergence of the system.   A closure relation is used to eliminate
-the end of time step moments present from the time derivative term.   We will investigate different parametric forms of the closure for robustness.   Once the time-averaged unknowns have been calculated,
+parametric closure in the time variable, similar to the spatial closures discussed in 
+Sec.~\ref{sec:spat_clos}.  The time-integrated LO equations can be written exclusively in terms
+of time-averaged unknowns.   Once the time-averaged unknowns have been calculated,
 the time closures can be used to convert the time-averaged unknowns to end-of-time-step
 values.
 
-REWRITE THIS SENTENCE
-One potential benefit of the time closure parameters is that $\overline I^{HO}$ will be
-most different from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
-$\sigma_a$ is small, leading to an optically thin problem.  However, there may be
-difficulties in the MPV problems where the problems are tightly coupled and nonlinear, but
-can lead to a large change over a time step.
-
-REWRITE: I think most of these paragraphs can be moved to intro
-
 \subsection{Derivation of Time-Averaged Moment Equations}
 
-The time-continuous radiation equations are integrated in space and angle the same as
-before.  For example, the $L$ and $+$ moment equation is
+The time-continuous radiation equations are integrated in space and angle the same as in
+the time-discrete case.  The equation resulting from application of the $L$ and $+$ moment
+operators is
 \begin{multline}
-    \frac{1}{c}   \pderiv{ }{t} \mom{\phi}^+_L - 2\left({\mu}_{i-1/2} I_{i-1/2}\right)^+ + \mom{\mu I}^+_{L,i} 
-    + \mom{\mu I}^+_{R,i} +  \sigma_{t,i} h_i \mom{\phi}_{L,i}^{+} -  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{+} +
-  \mom\phi_{L,i}^{-}\right) \\ = \frac{h_i}{2} \mom{\sigma_a a c T^4}_{L,i} 
+    \frac{1}{c}   \pderiv{ }{t} h_i \mom{\,I(x,\mu,t)\,}^+_L - 2\left({\mu}
+    I(x_{i-1/2},\mu,t)\right)^+ + \mom{\mu I(x,\mu,t)}^+_{L,i} 
+    + \mom{\mu I(x,\mu,t)}^+_{R,i} \\ +  \sigma_{t,i} h_i \mom{\phi(x,t)}_{L,i}^{+} -
+    \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi^+(x,t)}_{L,i} +
+    \mom{\phi^-(x,t)}_{L,i}\right) = \frac{h_i}{2} \mom{\sigma_a a c T^4(x)}_{L,i} 
 \end{multline}
-This equation is then integrated over the time step, and the emission source is assumed
-implicit.  The same manipulations can be
+This equation is then integrated over the time step, and the emission source is
+approximated with a BE discretization.  The manipulations in Sec.~\ref{sec:ang_cons} are
 performed on the streaming term to form angular consistency terms, but the weighting fluxes are now
-time-averaged values.  Thus, the angular consistency terms are computed with $\overline I(x,\mu)$.  
-The equations with time-averaged consistency terms are
+time-averaged values.  Thus, the angular consistency terms are evaluated with $\overline
+I(x,\mu)$.
+The final moment equation is 
 \begin{multline}\label{eq:t_moml_ex}
     \frac{\mom{\phi}_{L,i}^{+,n+1} - \mom{\phi}_{L,i}^{+,n}}{c \Delta t}
     -2\overline {\mu}_{i-1/2}^{\,+} \overline \phi_{i-1/2}^{\,+} + \overline{\cur {\mu}}_{L,i}^{+}
@@ -344,15 +336,41 @@ The equations with time-averaged consistency terms are
   \mom{\overline\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phibar}_{L,i}^{+} +
   \mom{\phibar}_{L,i}^{-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i},
 \end{multline}
-These equations are exact at this point.  The BE approximation is used for the temperature
-terms in the material energy equations, but the radiation energy deposition is a
-time-averaged valued.
-REWRITE: Maybe add material energy equation
+where over-barred quantities are averaged over the time step.  
+
+For the material energy equations, the BE approximation is used for the temperature
+terms, but the radiation energy deposition is a
+time-averaged valued.  As before, it is necessary to introduce the LDFE representation for
+$T(x)$ and $T^4(x)$.  The new temperature equation is 
+\begin{multline}\label{eq:Tt_moml_ex}
+     \frac{\rho_i c_{v,i}}{\Delta t}\left[ \left(\frac{2}{3}T_{L,i} + \frac{1}{3}T_{R,i}
+        \right)^{n+1} - \left(\frac{2}{3}T_{L,i} + \frac{1}{3}T_{R,i}
+    \right)^{n} \right]  + \sigma_{a,i}^{n+1} \left( \mom{\phibar}_{L,i}^+ +
+    \mom{\phibar}_{L,i}^- \right) \\ = \sigma_{a,i}^{n+1}a c
+\left( \frac{2}{3} T_{L,i}^4 + \frac{1}{3}T_{R,i}^4
+        \right)^{n+1},
+\end{multline}
+where cross sections remain implicit.
+Analogous equations can be derived for $\mu<0$ and the $R$ moment.
 
 \subsection{Parametric Time Closure}
 %\subsection{Alternative time discretization}
 %\label{sec:time}
 %
+The only approximation
+introduced up to this point is the BE and LDFE spatial representation for temperature
+terms.  As before, we
+will use a LDFE closure to eliminate the face terms from the radiation moment equations,
+and angular consistency terms are evaluated with the previous time-averaged HO solution,
+e.g.,
+\begin{equation}
+    \overline{\cur{{\mu}}}_{L,i}^{+} \simeq  \frac{
+{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
+I^{n+1}(x,\mu) \dd x \dd \mu } 
+{{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
+I^{n+1}(x,\mu) \dd x \dd \mu } .
+\end{equation}
+
 The closure relations in time are different than the closure relations for the spatial
 variable because we do not have a slope in time.  The following closure is a modified diamond
 relation:
@@ -389,7 +407,11 @@ The other moment equations are analogously defined.
 The value of $\gamma_{L,i}^+$, $\gamma_{R,i}^+$, $\gamma_{L,i}^-$, and $\gamma_{R,i}^-$
 can be computed by substituting the trial-space representation of $I^{HO}(x,\mu,t)$ into
 Eq.~\eqref{eq:tc_diam_l} and its analogs.
-
+One  benefit of the time closure parameters is that $\overline I^{HO}$ will be
+most different from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
+$\sigma_a$ is small, leading to an optically thin problem.  However, there may be
+difficulties in the MPV problems where the problems are tightly coupled and nonlinear, but
+can lead to a large change over a time step.  
 
 \section{Computational Results}
 

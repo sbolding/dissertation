@@ -135,29 +135,31 @@ all, of the dependent variables for compactness.
 
 First, the $L$ moment operator is applied to the time-discretized transport equation,
 i.e., Eq.~\eqref{eq:trans_td}; application of integration by parts to the streaming term
-yields
+of the resulting equation yields
 \begin{multline}
-    -\frac{2}{h_i}{\mu}_{i-1/2} I_{i-1/2}^{n+1} + \frac{2}{h_i^2}\int_{\xl}^{\xr} \mu I^{n+1}(x,\mu) \dd x
+    -\frac{2}{h_i}\mu I^{n+1}(x_{i-1/2},\mu) + \frac{2}{h_i^2}\int_{\xl}^{\xr} \mu I^{n+1}(x,\mu) \dd x
         +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right)  
-        \mom{I^{n+1}}_{L,i} -  \frac{\sigma_{s,i} }{2} \mom{\phi^{n+1}}_{L,i} \\=
-        \frac{1}{2} \mom{\sigma_{a,i}^{n+1} a c T^{n+1,4}}_{L,i} +
-  \frac{1}{c\Delta t}\mom{I^n}_{L,i}.
+        \mom{I^{n+1}(x,\mu)}_{L,i} \\ -  \frac{\sigma_{s,i} }{2} \mom{\phi^{n+1}(x)}_{L,i} =
+        \frac{1}{2} \mom{\sigma_{a,i}^{n+1} a c T^{n+1,4}(x)}_{L,i} +
+  \frac{1}{c\Delta t}\mom{I^n(x,\mu)}_{L,i}.
 \end{multline}
-Here, $I_{i+1/2}(\mu)\equiv I(x_{i+1/2},\mu)$, and the cross sections have been assumed constant over a cell and evaluated with $T^{n+1}$.  The mean
+Here, the cross sections have been assumed constant over a cell and evaluated with
+$T^{n+1}$. Now, the mean
 intensity in the scattering term is expanded in terms of half-range unknowns.
 The integral can be rewritten in terms of $L$ and $R$ moments by noting that $b_{L,i}(x) +
-b_{R,i}(x) = 2/h_i$.  These substitutions are made and the resulting equation is
+b_{R,i}(x) = 2/h_i$.  These substitutions are made, independent variables are suppressed, and the resulting equation is
 multiplied by $h_i$ to produce
 \begin{multline}
-    -2{\mu}_{i-1/2} I_{i-1/2}^{n+1} + \mom{\mu I^{n+1}}_{L,i} + \mom{\mu I^{n+1}}_{R,i} 
+    -2\mu I_{i-1/2}^{n+1} + \mom{\mu I^{n+1}}_{L,i} + \mom{\mu I^{n+1}}_{R,i} 
         +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
         \mom{I^{n+1}}_{L,i} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
   \mom\phi_{L,i}^{n+1,-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i} +
-  \frac{h_i}{c\Delta t}\mom{I^n}_{L,i}.
+  \frac{h_i}{c\Delta t}\mom{I^n}_{L,i},
 \end{multline}
+where $I_{i-1/2}(\mu)\equiv I(x_{i-1/2},\mu)$.
 The resulting equation is integrated over the positive half range:
 \begin{multline}\label{eq:spat_mom}
-    -2\left({\mu}_{i-1/2} I_{i-1/2}^{n+1}\right)^+ + \mom{\mu I^{n+1}}^+_{L,i} + \mom{\mu
+    -2\left({\mu} I_{i-1/2}^{n+1}\right)^+ + \mom{\mu I^{n+1}}^+_{L,i} + \mom{\mu
         I^{n+1}}^+_{R,i} 
         +  \left(\sigma_{t,i}^{n+1}+\frac{1}{c \Delta t} \right) h_i 
   \mom{\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phi}_{L,i}^{n+1,+} +
@@ -166,6 +168,7 @@ The resulting equation is integrated over the positive half range:
 \end{multline}
 
 \subsection{The Angular Consistency Terms}
+\label{sec:ang_cons}
 
 Now, algebraic manipulations are performed on the streaming terms to produce face and
 volume averages of $\mu$, weighted by the intensity.  Each term in the streaming

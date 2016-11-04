@@ -80,3 +80,17 @@ parameters are modifications to standard spatial closures, it should be possible
 values of $\gamma^{HO}_i$.  Future studies will investigate the stablity of
 this method more rigorously using a linear fourier stability analysis.
 
+TIME CLOSURE:
+Alternatively, an LDFE representation could be used in the time
+variable. The linear representation should produce less noise because all particle tracks
+contribute to the slope, rather than just those that reach the end of the time step,
+although it would produce an approximate projection error for the end of time step
+intensity that is not produced with a discontinuity at the end of the time step.  The
+linear representation in time would also produce a more accurate reconstruction of the
+scattering source in time.  However, a linear representation requires the sampling
+algorithm to be significantly modified because the L$_1$ integral for computing the
+residual magnitude is now significantly complicated by the tri-linear function.  It is
+necessary to incorporate important sampling or some kind of Markov Chain to sample this
+function~\cite{shultis_mc}
+
+

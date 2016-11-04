@@ -68,6 +68,7 @@ boundary conditions are provided as a specified isotropic intensity. Thus, the v
 $I_{1j}(x_1/2,\mu)$ is a constant, for all $j$.
 
 \section{The ECMC Algorithm}
+\label{sec:ecmc}
 
 The ECMC method is an iterative residual MC method. 
 In operator notation, Eq.~\eqref{eq:ho_base} can be written as

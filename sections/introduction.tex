@@ -95,7 +95,11 @@ equation, using a linear-discontinuous (LD) finite-element (FE) spatial
 discretization for the HO and LO solutions. Herein we describe the algorithm and
 present results for 1D, gray test problems.
 
-
+This closure
+produces LO equations that have the same numerical difficulty to solve as the BE,
+fully-discrete LO equations, but
+have the potential to preserve the accuracy of the MC integration in time, upon non-linear
+convergence of the system.  
 
 REWRITE:
 We have also investigated several extensions and improvements of this method.  First, an alternative
@@ -112,6 +116,24 @@ thin regions, although a projection error in the intensity is still incurred bet
 steps. Throughout, we compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
+
+The exponentially-convergent Monte
+Carlo (ECMC) algorithm was modified to include integration
+of the time variable; this includes the introduction of a step,
+doubly-discontinuous (SDD) trial space representation in time.
+A new parametric closure of the LO equations, introducing
+additional time-closure consistency terms, was derived to cap-
+ture the time accuracy of the HO ECMC simulations. The LO
+equations can preserve the accuracy of MC radiation trans-
+port treatment in time, with the same numerical expense as
+Backward Euler (BE) time-discretized S 2 equations.
+ The
+main interest is in increasing accuracy in resolution of radiation wavefronts in optically
+thin regions, where particles transport a long distance over a time step. In such regions, the MC
+integration of the time variable by IMC in the transport equation can produce greater
+accuracy than a backward
+Euler (BE) discretization, which propagates radiation energy through space artificially fast.
+A potential application where this accuracy is important is stellar atmosphere calculations. 
 
 
 In addition to estimating the angular
@@ -176,8 +198,11 @@ Hz$^{-1}$ str$^{-1}$), which represents a distribution
 function of energy
 contained in the radiation field, per unit of
 phase space.  We use the energy unit jerks (jk), where 1 $\text{jk}= 10^9$ joules. The intensity can be related to the volumetric density of photons
-$N \phsp$ (photons cm$^{-3}$ Hz$^{-1}$ str$^{-1}$) via the relation  $I\phsp =
-c h \nu N \phsp$, where $c$ is the speed of light (cm sh$^{-1}$) and $h$ is Planck's constant. The
+$N \phsp$ (photons cm$^{-3}$ Hz$^{-1}$ str$^{-1}$) via the relation
+\begin{equation}\label{eq:intens_dens}
+    I\phsp = c h \nu N \phsp,
+\end{equation}
+where $c$ is the speed of light (cm sh$^{-1}$) and $h$ is Planck's constant. The
 angular intensity is a useful quantity because it is directly related to reaction rates.
 
 The governing conservation equation for the radiation field is a transport equation given
@@ -371,7 +396,7 @@ emission source within a cell based on the cell-averaged material temperatures i
 cells. This linear reconstruction is also necessary to preserve the asymptotic equilibrium diffusion
 limit (EDL), at least for a more general time step size and class of problems than for a piece-wise constant representation~\cite{diff_limit_imc}.  
 
-\subsection{Previous work on moment-based acceleration methods}
+\subsection{Moment-Based Acceleration Methods}
 
 An alternative application of MC to the TRT equations is moment-based hybrid MC methods.
 Recent work has focused on so-called high-order low-order (HOLO)
@@ -392,7 +417,10 @@ MC solution.
 These consistency terms are present in all spatial-regions of the problem, requiring
 statistical variance to be reduced sufficiently throughout the entire domain of the
 problem.   The LO equations are typically based on nonlinear Diffusion Acceleration
-(NDA)~\cite{willert,park}.
+(NDA)~\cite{willert,park}.  The HOLO method approach developed in this work was applied to
+simplified 1D neutronics problems previously~\cite{ans_2014}.
+
+\subsection{Residual Monte Carlo Methods}
 
 Another area of related research is the application of
 residual Monte Carlo to TRT problems.  The goal of these methods is to solve an auxiliary transport
@@ -407,7 +435,9 @@ phase-space to be sampled~\cite{rmc}. The RMC algorithm demonstrated impressive 
 in statistical variance for slowly varying solutions.  However, a
 piecewise constant representation is used for the space-angle representation of the
 intensity, which does not preserve the EDL and can be inaccurate in angularly complex
-regions of the problem.  
+regions of the problem.  In this work, we apply the exponentially convergence MC (ECMC)
+algorithm that was applied to
+simplified steady state neutronics problems previously~\cite{jake}.
 
 Similar to RMC, a difference formulation has been applied to another algorithm known as the symbolic IMC method
 (SIMC), for the case of 1D frequency-dependent problems~\cite{simc_const}.  SIMC forms a
