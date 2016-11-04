@@ -12,10 +12,10 @@ Monte Carlo (SMC) simulation.  Finally, we present results that demonstrate
 preservation of the equilibrium diffusion limit and the discrete maximum
 principle by the HOLO algorithm.  Some of the results in this section were published
 previously in~\cite{bolding_nse}.  
-The results in this chapter use the simplified fix-ups discussed in
-Sec.~\ref{sec:ldfe_fixups} and Sec.~\ref{sec:ho_easyfix} when negative values of the
-intensity occur; more sophisticated solution methods are investigated in
-Chapter~\ref{chp:negativities}.
+For the results in this chapter, the lumping-equivalent discretization
+discussed in Sec.~\ref{sec:ldfe_fixups} is used for cells where the solution for
+$\phi^{n+1}$ becomes negative.  When negative intensities in the HO solution produce
+non-physical consistency terms, S$_2$ equivalent terms are used for the LO solve.
 
 A measure of variance in cell-averaged scalar intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution
@@ -74,7 +74,9 @@ $T_r=(\phi/(ac))^{0.25}$.  The effective temperature represents the temperature 
 material, if the material and temperature were in equilibrium.  Cell-averaged quantities are plotted.
 For this problem, when negative values for $\phi^{n+1,\pm}(x)$ were detected, the lumping-equivalent
 discretization was used within those cells and that Newton step was repeated.
-Non-physical angular consistency terms were replaced with S$_2$-equivalent terms.
+Non-physical angular consistency terms were replaced with S$_2$-equivalent terms.kFor
+reference, the fix-up in Sec.~\ref{sec:ldfe_fixups} that strictly enforces the floor temperature and preserves half-range
+balance produced similar accuracy and stably converged for this problem.
 \begin{figure}[hp]
     \centering
 \begin{subfigure}{0.7\textwidth}
@@ -148,9 +150,8 @@ Table~\ref{two_mat_props}.  Initially the radiation and material energies are in
 equilibrium at a temperature of 0.05 keV.  An isotropic incident intensity of 0.500 keV
 is applied at $x=0$ at $t=0$; the isotropic incident intensity on the right boundary is 0.05
 keV.  The simulation end time is 5 sh. For all HOLO simulations, we have used 8
-equal-sized mesh cells in $\mu$.  In cells nearest the wavefront we
-use the fix-up detailed in Sec.~\ref{sec:ldfe_fixups} that strictly enforces the floor temperature and preserves half-range
-balance.  The fix-up was applied, along with $S_2$ equivalent terms during the LO solve.
+equal-sized mesh cells in $\mu$.  As for the Marshak problem, the cells nearest the wavefront required use of the lumping-equivalent discretization and
+S$_2$-equivalent angular consistency terms during the LO solve.
 \begin{table}[H]
         \caption{Material properties for two material problem\label{two_mat_props}}
 \centering

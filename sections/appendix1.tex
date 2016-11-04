@@ -162,19 +162,20 @@ A similar expression is produced for the $R$ moment equation.  This produces a l
 matrix equation to solve for new $T$ unknowns.  
 
 Based on these equations, iterations on the value of $T^*$ and unknowns $\phi^{n+1}$ and $T^{n+1}$ can be performed to converge the nonlinearities of the system. The algorithm for solving the LO equations, with iteration index
-$l$, is defined as
+$m$, is defined as
 \begin{enumerate}
-    \item Initialize $T^{*,l}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from
-        previous LO solve
+    \item Initialize $T^{*,m}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from
+        previous LO solve.
     \item  Build the LO system based on the effective scattering $(1-f^{*,l})$ and emission terms
-        evaluated using $T^{*,l}$.
-    \item Solve the linearized LO system to produce a new estimate $\phi^{n+1,l+1}$.
-    \item Evaluate a new estimate of $T^{n+1,l+1}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
-    \item $T^{*,l+1}\leftarrow{T}^{n+1,l+1}$.
-    \item Repeat 2-5 until $(T^{n+1,l})^4$ and $\phi^{n+1,l}$ are converged.
+        evaluated using $T^{*,m}$.
+    \item Solve the linearized LO system to produce a new estimate $\phi^{n+1,m+1}$.
+    \item Evaluate a new estimate of $T^{n+1,m+1}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
+       \item $T^{*,m+1}\leftarrow{T}^{n+1,m}$ and $\phi^{n+1,m} \leftarrow
+           \phi^{n+1,m+1}$.
+    \item Repeat 2-5 until $(T^{n+1,m})^4$ and $\phi^{n+1,m}$ are converged.
 \end{enumerate}
-Convergence is based on the relative L$_2$ spatial norm of the change in $\phi^{n+1,l}$
-and the emission source $\sigma_a a c \left(T^{n+1,l}\right)^4$.
+Convergence is based on the relative L$_2$ spatial norm of the change in $\phi^{n+1,m}$
+and the emission source $\sigma_a a c \left(T^{n+1,m}\right)^4$.
 
 \subsection{Damped Newton Iterations}
 \label{app:damped_newton}
@@ -186,20 +187,21 @@ change in the solution between steps.  Thus, an intermediate solve based on the 
 The damped Newton's method algorithm is as
 follows:
 \begin{enumerate}
-    \item Choose a damping factor $\xi\in(0,1)$
-    \item Initialize $T^{*,l}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from
+    \item Choose a damping factor $\xi\in(0,1)$.
+    \item Initialize $T^{*,m}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from
         previous LO solve.
-    \item  Build the LO system based on the effective scattering $(1-f^{*,l})$ and emission terms
-        evaluated using $T^{*,l}$.
-    \item Solve the linearized LO system to produce an estimate $\phi^{n+1,l+1/2}$.
-    \item Evaluate a new estimate of $T^{n+1,l+1/2}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
+    \item  Build the LO system based on the effective scattering $(1-f^{*,m})$ and emission terms
+        evaluated using $T^{*,m}$.
+    \item Solve the linearized LO system to produce an estimate $\phi^{n+1,m+1/2}$.
+    \item Evaluate a new estimate of $T^{n+1,m+1/2}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
     \item Compute new temperatures and intensities as
         \begin{align*}
-            \phi^{n+1,l+1} &= \phi^{n+1,l}+ \xi \left( \phi^{n+1,l+1/2} - \phi^{n+1,l} \right)\\
-            T^{n+1,l+1} &= T^{n+1,l}+ \xi \left( T^{n+1,l+1/2} - T^{n+1,l} \right)
+            \phi^{n+1,m+1} &= \phi^{n+1,m}+ \xi \left( \phi^{n+1,m+1/2} - \phi^{n+1,m} \right)\\
+            T^{n+1,m+1} &= T^{n+1,m}+ \xi \left( T^{n+1,m+1/2} - T^{n+1,m} \right).
            \end{align*}
-    \item $T^{*,l+1}\leftarrow{T}^{n+1,l}$.
-    \item Repeat 2-5 until $(T^{n+1,l})^4$ and $\phi^{n+1,l}$ are converged.
+       \item $T^{*,m+1}\leftarrow{T}^{n+1,m}$ and $\phi^{n+1,m} \leftarrow
+           \phi^{n+1,m+1}$.
+    \item Repeat 2-5 until $(T^{n+1,m})^4$ and $\phi^{n+1,m}$ are converged.
 \end{enumerate}
 
 
@@ -372,7 +374,7 @@ To allow for the use of lumped
 or standard LD in these equations, we introduce the factor $\theta$, with
 $\theta=1/3$ for standard
 LD, and $\theta=1$ for lumped LD.  The diffusion equation becomes
-\begin{multline}\label{eq:dsa_lumped}
+\begin{multline}\label{eq:dsa_lumped_app}
     \left(\frac{\sigma_{a,i+1} h_{i+1}}{4}\left(1 - \theta\right)  -
         \frac{D_{i+1}}{h_{i+1}}\right)\phi_{i+3/2} + \left(\frac{D_{i+1}}{h_{i+1}} +
         \frac{D_{i}}{h_i} + \left(\frac{1+\theta}{2} \right)\left[\frac{\sigma_{a,i+1} h_{i+1}}{2} + \frac{\sigma_{a,i}
@@ -400,7 +402,7 @@ The Marshak boundary condition for the vacuum inflow at face $x_{1/2}$ is given 
 \end{equation}
 which can be solved for $J_{1/2}$.  Substitution of the above equation and
 Eq.~\eqref{eq:ficks} into Eq.~\eqref{eq:dsa_bc_app} gives 
-\begin{equation}\label{eq:bc_dsa}
+\begin{equation}\label{eq:bc_dsa_app}
     \left(\frac{1}{2}+ \sigma_{a,1}h_1\frac{1+\theta}{4} - \frac{D_1}{h_1}\right)\phi_{1/2} +
     \left( {\sigma_{a,1}{h_1}}\frac{1-\theta}{4} - \frac{D_1}{h_1}  \right)\phi_{3/2} =
     \frac{h_i}{2} \mom{q}_{L,1}
@@ -486,8 +488,8 @@ lumping notation yields the final equations
     \frac{\sigma_{t,i} h_i}{2} \left( \frac{(1+\theta)}{2} J_{L,i} +
     \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 . \label{eq:update2}
 \end{align}
-The above equations are completely local to each cell and fully defined, including for
-boundary cells. For simplicity, we just take $\gamma=1/2$.  The system can be solved for the desired unknowns
+The above equations are completely local to each cell and fully defined, including cells
+on the boundary. For simplicity, we just take $\gamma=1/2$ for all results.  The system can be solved for the desired unknowns
 $\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$, which represent the mapping of
 $\phi_{i+1/2}^C$ onto the LD representation for $\phi^{\pm}(x)$.
 

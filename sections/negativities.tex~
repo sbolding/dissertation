@@ -127,6 +127,6 @@ we are estimating the solution to a transport problem that has a positive LDFE p
 zeroth moment of the original solution.  The estimate of the modification to the first
 moments of the solution has statistical noise, and thus may under- or over-predict the
 necessary change in the solution.  We make the conservative choice of preserving $\delta$
-across batches, and modifying the source only when negative values occur again. 
+across batches, and adding an additional source only when negative values occur again. 
 
 
