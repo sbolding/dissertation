@@ -14,6 +14,21 @@ noted that no adaptive refinement in time is performed, so maintaining exponenti
 may not be possible.  However, we still expect the residual MC formulation of the ECMC method
 to show improvement in efficiency over standard MC.
 
+The closure of the LO equations must also be modified to account for the inconsitency in
+time-discretization with the HO equations. Previous work has enforced
+consistency in time by adding a local artificial source to the time-discretized LO
+equations in each cell~\cite{holo_rh}.  This
+source was approximated based on the difference between the exact HO integral of the time
+derivative and the approximate representation in the LO equations. The advantage
+of this form is that the LO solver exclusively deals in
+time-averaged unknowns for the radiation terms in the equations.  
+%However, if the problem
+%is strongly non-linear or the time-averaged and time-edge
+%values differ greatly, the source may become unstable.
+We will alternatively use a
+parametric closure in the time variable, similar to the spatial closures discussed in 
+Sec.~\ref{sec:spat_clos}. 
+
 In the remainder of this chapter, modifications to the HOLO algorithm to include higher
 time accuracy are detailed.
 First, the inclusion of the time variable into the ECMC trial
@@ -260,13 +275,16 @@ as
 where the magnitude of the weights produce the L$_1$ integral over all phase space, i.e.,
 \begin{equation}
 \sum\limits_{n=1}^{N} w_n = \| r(x,\mu,t) \|_1 \equiv 
-    \int\limits_{t^{n}}^{t^{n+1}} \!\!\dd t \!\!\!
-    \int\limits_{\xl}^{\xr} \!\!\!\!\! \dd x
-    \hspace{-0.081in}\int\limits_{\mu_{j-1/2}}^{\mu_{j+1/2}} \!\!\!\!\dd \mu\;
+    \int\limits_{t^{n}}^{t^{n+1}} \!\dd t \!
+    \int\limits_{0}^{X} \! \dd x
+    \hspace{-0.0301in}\int\limits_{-1}^{1} \!\!\dd \mu\;
     |r(x,\mu,t)|.
 \end{equation}
 Here, $x_c$ is the center of the $n$-th
-path length, and $s_{n}$ is the path length for the $n$-th path length in the $x-\mu$ cell.
+path length, $X$ is the width of the domain, and $s_{n}$ is the path length for the $n$-th path length in the $x$-$\mu$
+cell. As in the time-discrete case, in the simulation we normalize weights to unity and
+multiply tally results by the L$_1$ norm of the residual, and tallies are modified to
+account for continuous weight deposition.
 
 Moments of $I^{n+1}(x,\mu)$ must be estimated to produce a projection of the intensity at
 the end of the time step.
@@ -291,20 +309,7 @@ exceptionally noisy because only particles that reach the end of the time step c
 \section{Closing the LO Equations in Time}
 
 The LO equations must be closed in time consistently with the HO
-equations.   Previous work has enforced
-consistency in time by adding a local artificial source to the time-discretized LO
-equations in each cell~\cite{holo_rh}.  This
-source was approximated based on the difference between the exact HO integral of the time
-derivative and the approximate representation in the LO equations. The advantage
-of this form is that the LO solver exclusively deals in
-time-averaged unknowns for the radiation terms in the equations.  
-%However, if the problem
-%is strongly non-linear or the time-averaged and time-edge
-%values differ greatly, the source may become unstable.
-
-We will alternatively use a
-parametric closure in the time variable, similar to the spatial closures discussed in 
-Sec.~\ref{sec:spat_clos}.  The time-integrated LO equations can be written exclusively in terms
+equations.  After applying a parametric closure, the time-integrated LO equations can be written exclusively in terms
 of time-averaged unknowns.   Once the time-averaged unknowns have been calculated,
 the time closures can be used to convert the time-averaged unknowns to end-of-time-step
 values.
@@ -336,7 +341,15 @@ The final moment equation is
   \mom{\overline\phi}_{L,i}^{n+1,+} \\-  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phibar}_{L,i}^{+} +
   \mom{\phibar}_{L,i}^{-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i},
 \end{multline}
-where over-barred quantities are averaged over the time step.  
+where over-barred quantities are averaged over the time step. The $L$ and
+$+$ consistency term is
+\begin{equation}
+    \overline{\cur{{\mu}}}_{L,i}^{+} \equiv  \frac{\ds 
+        {\displaystyle \frac{2}{h_i\Delta t}} \int\limits_{t^n}^{t^{n+1}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
+I(x,\mu,t) \dd x \dd \mu \dd t } 
+{\ds {\displaystyle \frac{2}{h_i \Delta t}}\int\limits_{t^n}^{t^{n+1}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
+I(x,\mu,t) \dd x \dd \mu \dd t } .
+\end{equation}
 
 For the material energy equations, the BE approximation is used for the temperature
 terms, but the radiation energy deposition is a
@@ -353,34 +366,36 @@ $T(x)$ and $T^4(x)$.  The new temperature equation is
 where cross sections remain implicit.
 Analogous equations can be derived for $\mu<0$ and the $R$ moment.
 
+The only approximation
+introduced up to this point is the BE and LDFE spatial representation for temperature
+terms.  As before, we
+will use a LDFE closure to eliminate the face terms from the radiation moment equations.
+The angular consistency terms are evaluated with the previous time-averaged HO solution
+(based on the linearity of the integral operators), e.g.,
+\begin{equation}
+    \overline{\cur{{\mu}}}_{L,i}^{+} \simeq  \frac{ \ds
+{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
+\overline{I}_{HO}(x,\mu) \dd x \dd \mu } 
+{\ds {\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
+\overline I_{HO}(x,\mu) \dd x \dd \mu } .
+\end{equation}
 \subsection{Parametric Time Closure}
 %\subsection{Alternative time discretization}
 %\label{sec:time}
 %
-The only approximation
-introduced up to this point is the BE and LDFE spatial representation for temperature
-terms.  As before, we
-will use a LDFE closure to eliminate the face terms from the radiation moment equations,
-and angular consistency terms are evaluated with the previous time-averaged HO solution,
-e.g.,
-\begin{equation}
-    \overline{\cur{{\mu}}}_{L,i}^{+} \simeq  \frac{
-{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
-I^{n+1}(x,\mu) \dd x \dd \mu } 
-{{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
-I^{n+1}(x,\mu) \dd x \dd \mu } .
-\end{equation}
 
-The closure relations in time are different than the closure relations for the spatial
-variable because we do not have a slope in time.  The following closure is a modified diamond
+The end of time-step radiation unknowns, e.g., $\mom{\phi}_{L,i}^{n+1}$, must be
+eliminated from the system.  A different closure relations is required for the time
+variable than for the spatial variable because the HO solver does not estimate the first
+moment in the time variable.  The following closure is a modified diamond
 relation:
 \begin{equation}\label{eq:tc_diam}
-    I^{n+1} = 2\gamma \overline{I} - I^{n}
+    I^{n+1} = 2\gamma^{n} \overline{I} - I^{n}
 \end{equation}
-where $\gamma$ is the closure factor and $\overline{I}$ is the time-averaged
+where $\gamma^{n}$ is the closure factor and $\overline{I}$ is the time-averaged
 intensity.  A modified BE discretization can also be used:
 \begin{equation}\label{eq:tc_avg}
-    I^{n+1} = \gamma \overline{I}
+    I^{n+1} = \gamma^{n} \overline{I}
 \end{equation}
 
 The chosen closure relation must be used to eliminate the unknowns at $t^{n+1}$ from each
@@ -388,14 +403,15 @@ of the LO moment equations, with the values from the previous time step taken as
 range, producing four closure parameters per spatial cell.  The closure relations for the
 $L$ moment and the modified diamond relation are
 \begin{equation}\label{eq:tc_diam_l}
-    \mom{\phi}_{L,i}^{\pm,n+1} = 2 \gamma_{L,i}^{\pm}\mom{\overline\phi}_{L,i}^{\pm} -
+    \mom{\phi}_{L,i}^{\pm,n+1} = 2 \gamma_{L,i}^{n,\pm}\mom{\overline\phi}_{L,i}^{\pm} -
     \mom{\phi}_{L,i}^{\pm,n}
 \end{equation}
 with equivalent definitions for the $R$ moment.  Substitution of the above equation into
-Eq.~\eqref{eq:t_moml_ex}
+Eq.~\eqref{eq:t_moml_ex}, with the LDFE spatial closure, produces
 \begin{multline}
-    \frac{2}{c\Delta t}\left[ \gamma_{L,i}^{+} \mom{\phi}_L^{+,n+1} - \mom{\phi}_L^{+,n} \right]
-    -2\overline {\mu}_{i-1/2}^{\,+} \overline \phi_{i-1/2}^{\,+} + \overline{\cur {\mu}}_{L,i}^{+}
+    \frac{2h_i}{c\Delta t}\left[ \gamma_{L,i}^{n,+} \mom{\phi}_L^{+,n+1} - \mom{\phi}_L^{+,n} \right]
+    -2\overline {\mu}_{i-1/2}^{\,+}\left[ 2\mom{\phi}_{R,i-1}^+ -
+    \mom{\phi}_{L,i-1}^+\right] + \overline{\cur {\mu}}_{L,i}^{+}
   \mom{\phibar}_{L,i}^{+}
   +  \overline{\cur\mu}_{R,i}^{+}
   \mom{\phibar}_{R,i}^{+} +  \sigma_{t,i}^{n+1} h_i 
@@ -403,29 +419,20 @@ Eq.~\eqref{eq:t_moml_ex}
   \mom{\phibar}_{L,i}^{-}\right) = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i},
 \end{multline}
 The other moment equations are analogously defined.  
-
-The value of $\gamma_{L,i}^+$, $\gamma_{R,i}^+$, $\gamma_{L,i}^-$, and $\gamma_{R,i}^-$
+The value of $\gamma_{L,i}^{n,+}$, $\gamma_{R,i}^{n,+}$, $\gamma_{L,i}^{n,-}$, and
+    $\gamma_{R,i}^{n,-}$
 can be computed by substituting the trial-space representation of $I^{HO}(x,\mu,t)$ into
 Eq.~\eqref{eq:tc_diam_l} and its analogs.
-One  benefit of the time closure parameters is that $\overline I^{HO}$ will be
-most different from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
-$\sigma_a$ is small, leading to an optically thin problem.  However, there may be
-difficulties in the MPV problems where the problems are tightly coupled and nonlinear, but
-can lead to a large change over a time step.  
 
 \section{Computational Results}
 
-We will test the HO time closure for several problems that characterize potential physics
-regime.  Throughout this
-section, for the HOLO method, results that use the backward Euler discretization are indicated with HOLO-BE and the MC-based time
-closure are indicated with HOLO-TC, where applicable.  For simplicity, all HOLO results
-have used the lumped-relation in the LO radiation moment equations to preserve positivity. We will compare sample statistics
-and accuracy against IMC simulations.
-The systematic sampling algorithms detailed in Sec.~\ref{sec:systematic_sampling} and
-Sec.~\ref{sec:time_sampling} were used for all HOLO results in this
-section.  In
-the algorithm the average is set to the floor value and slopes to zero in such cells.
-
+The HOLO method with high-order time closure was tested for several
+representative problems. Throughout this section, for the HOLO method, results that use the
+backward Euler discretization are indicated with HOLO-BE, and results with the MC-based time
+closure are indicated with HOLO-TC, where applicable.  For simplicity, all HOLO
+results have used the lumped-relation in the LO radiation moment equations to
+preserve positivity. We will compare sample statistics and accuracy against IMC
+simulations.  
 \subsection{Near-Void Problem}
 
 For the first problem, the material properties
@@ -433,9 +440,8 @@ are uniform throughout a 2.0 cm wide domain with $\rho c_v = 0.01374$ Jks cm$^{-
 The material and radiation are initially in equilibrium at a temperature of $0.01$ keV.
 An isotropic incident intensity with $T_r = 0.150$ keV is applied
 at $x=0$ for $t>0$; the incident intensity on the right boundary is $0.01$ keV.  The simulation end
-time is 0.003 sh.  Because the problem is optically thin, no importance sampling on the
-interior of the time step is used.   For this problem, we expect IMC to be accurate
-because the small cross section leads to the material energy equation being mostly uncoupled.  
+time is 0.003 sh.    For this problem, we expect IMC to be accurate
+because with the small cross section the material energy equation becomes uncoupled.  
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.65\textwidth]{void_imc_compare.pdf}
@@ -450,8 +456,8 @@ step.  The end of time step value for the HOLO method with a BE discretization i
 For the HOLO results, three ECMC batches were performed with
 a total of $3\times10^6$ histories per time step and the IMC results were generated with
 $12\times10^6$ histories per time step. 
-The minimum number of histories for any sampled space-angle cell, $N_{cut}???$ in
- Eq.~\eqref{???}, is 20 for all HOLO simulations.
+The minimum number of histories for any sampled space-angle cell, $N_{\min}$ in
+Eq.~\eqref{eq:sys_N}, is 20 for all HOLO simulations.
 The spatial meshs had 100 spatial cells and both
 HOLO results used 20 $\mu$ cells.  
 The MC treatment of the time
@@ -460,21 +466,21 @@ the wave-front location of IMC, whereas the BE discretization artificially propa
 energy.   Although not plotted, the results were visually equivalent for either the diamond-like or implicit-like
 closures in this problem.  This is because the problem is nearly linear due to the small
 opacities, so the HO moments are reproduced accurately, independent of the chosen closure
-equation.
+equation.  
 
-A comparison of similar results, but plotted as radiation temperatures, is plotted in
-Fig.~\ref{void_temp_compare}.  By plotting
+A comparison of the same results radiation temperatures is given in Fig.~\ref{void_temp_compare}.  By plotting
 proportional to the fourth-root of the radiation energy density, the noise at low
 magnitudes past the wave-front are more apparent in the 3 batches and $\Delta t = 0.001$
-case.  This
-noise is small relative to the scale of $E_r$, but it demonstrates a defficiency of
-the trial space.  The cause is from the step representation over the time step leading to
-particles sampled near the wave-front with a time near $t^{n}$ that travel into the
-equilibrium region.  It is noted this is not a bias, but rather an undersampling; if
-sufficient histories were performed there would be negative particles that canceled out this
-error.  This effect is significantly reduced when a smaller time step is taken, although
-it increases the projection error between time steps. 
-
+case.  This noise is small relative to the scale of $E_r$, but it demonstrates a
+defficiency of the trial space.  The step representation over
+the time step leads to particles sampled near the wave-front with a time near
+$t^{n}$ that travel into the equilibrium region.  This is not a
+bias, but rather an undersampling; if sufficient histories were performed there
+would be negative particles that canceled out this error.  This effect is
+significantly reduced when a smaller time step is taken, although it increases
+the projection error between time steps. The time closure can lead to negative
+averages in the HO solution out front of the wave front.  In such cells, the
+average was set to the floor value and slopes to zero.
 For the case of a single batch, 
 there is less noise past the wavefront because the
 choice of $I^{n}(x,\mu)$ and an initial guess for $I^{n+1}(x,\mu)$ prevents most particles from
@@ -484,8 +490,6 @@ the wave is a result of the spatial discrepancy between the LDFE HO projection a
 lumped LD LO equations; this dispersion is not present in the HO solution.  This
 discrepancy can also lead to some negativities in the LD representation of
 $\phi^{n+1}(x)$, which are set to the floor value for the next calculation. 
-
-
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{void_temp_batch_compare.pdf}
@@ -511,20 +515,20 @@ trial space happens more often.  However, it is important
 to note that the mesh imprinting will be reduced as $\sigma_a$ is increased and
 absorption-emission events smooth the angular intensity across each time step.
 
-We have computed FOM statistics using Eq.~\eqref{eq:fom} with 20 independent runs for each
-problem set up and parameters.  The statistics are computed based on the time-averaged
-radiation energy densities.  
-It is noted that the FOM results for each time step size are normalized to the IMC results within
-that table.  
-The results are compared for two different time step sizes 
-in Tables~\ref{tab:void_long} and \ref{tab:void_short}.   The different number of batches for the HOLO methods are
-indicated in parenthesis next to the method names.  The results demonstrate that IMC can
-be more efficient than the ECMC method at longer time step sizes.  This is a limiting case; because minimal absorptions are
-occuring in this problem, the IMC method is just advancing the initially sampled census particles
-between time steps, so there is negligible resampling of the phase space.  Whereas, ECMC
-must resample the residual source and the step trial-space on the interior of the tiem
-step has a larger truncation error. At smaller time step sizes,
-the ECMC method, particularly for the single batch case, becomes more efficient than IMC.
+%We have computed FOM statistics using Eq.~\eqref{eq:fom} with 20 independent runs for each
+%problem set up and parameters.  The statistics are computed based on the time-averaged
+%radiation energy densities.  
+%It is noted that the FOM results for each time step size are normalized to the IMC results within
+%that table.  
+%The results are compared for two different time step sizes 
+%in Tables~\ref{tab:void_long} and \ref{tab:void_short}.   The different number of batches for the HOLO methods are
+%indicated in parenthesis next to the method names.  The results demonstrate that IMC can
+%be more efficient than the ECMC method at longer time step sizes.  This is a limiting case; because minimal absorptions are
+%occuring in this problem, the IMC method is just advancing the initially sampled census particles
+%between time steps, so there is negligible resampling of the phase space.  Whereas, ECMC
+%must resample the residual source and the step trial-space on the interior of the tiem
+%step has a larger truncation error. At smaller time step sizes,
+%the ECMC method, particularly for the single batch case, becomes more efficient than IMC.
 % THESE RESULTS ARE FOR THE CENSUS CASE
 %\begin{table}[H]
 %\centering
@@ -555,35 +559,35 @@ the ECMC method, particularly for the single batch case, becomes more efficient 
 %\end{table}
 
 
-\begin{table}[H]
-\centering
-\caption{\label{tab:void_long} \textbf{Comparison of sample statistics for the
-    time-averaged radiation energy densities, of the last time step, for the near-void
-    problem and $\Delta t = 0.001$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
-\vspace{-0.1in}
-\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
-    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
-    \multicolumn{3}{|c|}{\FOM} \\ \hline
-hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
-   300,000    & 0.27\% & 0.27\% & 0.45\%     & 1.00       &  0.96     & 0.35      \\
-  3,000,000   & 0.09\% & 0.06\% & 0.15\%     & 1.04       &  2.19     & 0.33      \\ \hline
-\end{tabular}
-\end{table}
-
-\begin{table}[H]
-\centering
-\caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
-    time-averaged radiation energy densities, of the last time step, for the near-void
-    problem and $\Delta t = 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
-\vspace{-0.1in}
-\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
-    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
-    \multicolumn{3}{|c|}{\FOM} \\ \hline
-hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
-   30,000     & 2.46\%  & 0.44\% & 1.65\%       &  1.00  & 31.07      & 2.22       \\
-  300,000     & 0.80\%  & 0.12\% & 0.37\%       &  0.95  & 43.66      & 4.47       \\ \hline
-\end{tabular}
-\end{table}
+%\begin{table}[H]
+%\centering
+%\caption{\label{tab:void_long} \textbf{Comparison of sample statistics for the
+%    time-averaged radiation energy densities, of the last time step, for the near-void
+%    problem and $\Delta t = 0.001$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
+%\vspace{-0.1in}
+%\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+%    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+%    \multicolumn{3}{|c|}{\FOM} \\ \hline
+%hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
+%   300,000    & 0.27\% & 0.27\% & 0.45\%     & 1.00       &  0.96     & 0.35      \\
+%  3,000,000   & 0.09\% & 0.06\% & 0.15\%     & 1.04       &  2.19     & 0.33      \\ \hline
+%\end{tabular}
+%\end{table}
+%
+%\begin{table}[H]
+%\centering
+%\caption{\label{tab:void_short} \textbf{Comparison of sample statistics for the
+%    time-averaged radiation energy densities, of the last time step, for the near-void
+%    problem and $\Delta t = 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
+%\vspace{-0.1in}
+%\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
+%    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+%    \multicolumn{3}{|c|}{\FOM} \\ \hline
+%hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
+%   30,000     & 2.46\%  & 0.44\% & 1.65\%       &  1.00  & 31.07      & 2.22       \\
+%  300,000     & 0.80\%  & 0.12\% & 0.37\%       &  0.95  & 43.66      & 4.47       \\ \hline
+%\end{tabular}
+%\end{table}
 
 
 
@@ -627,24 +631,10 @@ The accuracy of the HOLO-ECMC method was compared to a reference solution from I
 problem is thin enough that we expect IMC to be accuracy with sufficient particle
 histories.  The
 reference solution is the average of 20 IMC simulations of $20\times10^6$
-histories, each with $\delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
+histories, each with $\Delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
 reference solution is 0.025\%.  The L$_2$ norm of the error in cell-averaged mean
-intensities is computed 
-at the end of the last time step, was computed.  The average over 20 simulations is then
-computed to provide the metric
-\begin{equation}
-    \|e\|^l = \left({\frac{\sum\limits_{i=1}^{N_c}
-    \left(\phi_i^{n+1,l} - \phi_i^{n+1,ref}
-\right)^2}{\sum\limits_{i=1}^{N_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
-\end{equation}
-where $\phi_i^{n+1,l}$ is the cell-averaged scalar intensity at the end of the last time
-step from the $l$-th independent simulation.  The sample mean of $\|e\|$ from 20
-independent simulations provides a metric for the accuracy of a particular simulation:
-\begin{equation}
-    \overline{\|e\|} = \frac{1}{20}\sum_{l=1}^{20} \|e\|^l
-\end{equation}
-
-The accuracy results for 
+intensities is computed using Eq.~\eqref{eq:avg_err} for $\phi^{n+1}$ from the last time
+step, averaged over 20 simulations.
 
 \begin{table}[H]
 \centering
@@ -722,12 +712,13 @@ like time closure.
 hists./step   & IMC & HOLO-TC (2) & HOLO-BE (2) &  IMC   & HOLO-TC (2) & HOLO-BE (2) \\ \hline
   300,000     & 2.25\%  & 3.42\% & 0.30\%       &  1.00  &   0.43    & 2050          \\  
   1,000,000   & 1.27\%  & 0.31\% & 0.17\%       &  0.94  &  15.95    & 1806          \\ \hline
-  \multicolumn{7}{|c|}{Diamond Like Closure} \\ \hline
+  \multicolumn{7}{|c|}{HOLO-TC, Diamond-Like Closure} \\ \hline
   300,000     & --  & 3.53\% & --   &  --  &   0.41   & --  \\  
   1,000,000   & --  & 0.37\% & --   &  --  &  10.94   & --  \\ \hline
 \end{tabular}
 \end{table}
 
+\subsection{Importance Sampling on Interior of the Time Step}
 
 The importance sampling algorithm
 detailed in Sec.~\ref{sec:imp_sampling} was investigated for this problem set up.  In
@@ -744,9 +735,6 @@ $\overline{I}(x,\mu)$ is sufficient to produce visually accurate results because
 are moving so slowly. When importance sampling is used, 
 There is likely a regime of problems where it is necessary to
 sample the census more thoroughly and the importance sampling may reduce variance.  
-
-
-
 \begin{table}[H]
 \centering
 \caption{\label{tab:void_short} {Comparison of sample statistics using importance

@@ -48,7 +48,7 @@
 \BOOKMARK [1][-]{section.5.4}{Comparison of different HO Solvers}{chapter.5}% 48
 \BOOKMARK [1][-]{section.5.5}{Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}{chapter.5}% 49
 \BOOKMARK [1][-]{section.5.6}{Accuracy in the Equilibrium Diffusion Limit}{chapter.5}% 50
-\BOOKMARK [1][-]{section.5.7}{The HO Spatial Closure}{chapter.5}% 51
+\BOOKMARK [1][-]{section.5.7}{Accuracy of HO Spatial Closure}{chapter.5}% 51
 \BOOKMARK [2][-]{subsection.5.7.1}{Smooth Problem}{section.5.7}% 52
 \BOOKMARK [2][-]{subsection.5.7.2}{Two Material Problem}{section.5.7}% 53
 \BOOKMARK [1][-]{section.5.8}{Preservation of the Discrete Maximum Principle}{chapter.5}% 54
@@ -75,18 +75,19 @@
 \BOOKMARK [2][-]{subsection.8.3.1}{Near-Void Problem}{section.8.3}% 75
 \BOOKMARK [1][-]{section.8.4}{Optically Thin Problem}{chapter.8}% 76
 \BOOKMARK [1][-]{section.8.5}{Marshak Wave Problem}{chapter.8}% 77
-\BOOKMARK [0][-]{chapter.9}{ Conclusions and Future Work }{}% 78
-\BOOKMARK [1][-]{section.9.1}{CONCLUSIONS}{chapter.9}% 79
-\BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}% 80
-\BOOKMARK [0][-]{section*.39}{REFERENCES}{}% 81
-\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Equations for the LO System}{}% 82
-\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 83
-\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 84
-\BOOKMARK [2][-]{subsection.a.A.2.1}{Damped Newton Iterations}{section.a.A.2}% 85
-\BOOKMARK [1][-]{section.a.A.3}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.A}% 86
-\BOOKMARK [1][-]{section.a.A.4}{Analytic Neutronics answer for Source fixup}{APPENDIX.a.A}% 87
-\BOOKMARK [2][-]{subsection.a.A.4.1}{Spatially Varying Cross Sections}{section.a.A.4}% 88
-\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivation of the WLA-DSA Equations}{}% 89
-\BOOKMARK [1][-]{section.a.B.1}{Forming a Continuous Diffusion Equation}{APPENDIX.a.B}% 90
-\BOOKMARK [2][-]{subsection.a.B.1.1}{Diffusion Boundary Conditions}{section.a.B.1}% 91
-\BOOKMARK [1][-]{section.a.B.2}{Mapping Solution onto LD Unknowns}{APPENDIX.a.B}% 92
+\BOOKMARK [2][-]{subsection.8.5.1}{Importance Sampling on Interior of the Time Step}{section.8.5}% 78
+\BOOKMARK [0][-]{chapter.9}{ Conclusions and Future Work }{}% 79
+\BOOKMARK [1][-]{section.9.1}{CONCLUSIONS}{chapter.9}% 80
+\BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}% 81
+\BOOKMARK [0][-]{section*.37}{REFERENCES}{}% 82
+\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Equations for the LO System}{}% 83
+\BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 84
+\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 85
+\BOOKMARK [2][-]{subsection.a.A.2.1}{Damped Newton Iterations}{section.a.A.2}% 86
+\BOOKMARK [1][-]{section.a.A.3}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.A}% 87
+\BOOKMARK [1][-]{section.a.A.4}{Analytic Neutronics answer for Source fixup}{APPENDIX.a.A}% 88
+\BOOKMARK [2][-]{subsection.a.A.4.1}{Spatially Varying Cross Sections}{section.a.A.4}% 89
+\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivation of the WLA-DSA Equations}{}% 90
+\BOOKMARK [1][-]{section.a.B.1}{Forming a Continuous Diffusion Equation}{APPENDIX.a.B}% 91
+\BOOKMARK [2][-]{subsection.a.B.1.1}{Diffusion Boundary Conditions}{section.a.B.1}% 92
+\BOOKMARK [1][-]{section.a.B.2}{Mapping Solution onto LD Unknowns}{APPENDIX.a.B}% 93

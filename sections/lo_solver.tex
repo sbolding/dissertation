@@ -352,11 +352,12 @@ computed using the latest HO solution $\tilde{I}^{n+1,k+1/2}$
 as an approximation for $I^{n+1}(x,\mu)$, e.g.,
 \begin{equation}\label{eq:ang_cons_vol}
     \cur{{\mu}}_{L,i}^{n+1,+} \simeq \frac{\mom{\mu
-    \tilde I_{HO}^{n+1,k+1/2}}_{L,i}^+}{\mom{\tilde I_{HO}^{n+1,k+1/2}}_{L,i}^+} =  \frac{
-{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \mu \, b_{L,i}(x)
-\tilde I^{n+1,k+1/2}_{HO}(x,\mu) \dd x \dd \mu } 
-{{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \int\limits_\xl^\xr \, b_{L,i}(x)
-\tilde I^{n+1,k+1/2}_{HO}(x,\mu) \dd x \dd \mu } .
+    \tilde I_{HO}^{n+1,k+1/2}}_{L,i}^+}{\ds \mom{\tilde I_{HO}^{n+1,k+1/2}}_{L,i}^+} =
+    \frac{\ds 
+{\displaystyle \frac{2}{h_i}} \int\limits_0^1 \!\int\limits_\xl^\xr \mu \, b_{L,i}(x)
+\tilde I^{n+1,k+1/2}_{HO}(x,\mu)\, \dd x \dd \mu } 
+{\ds {\displaystyle \frac{2}{h_i}} \int\limits_0^1 \!\int\limits_\xl^\xr  b_{L,i}(x)
+\tilde I^{n+1,k+1/2}_{HO}(x,\mu)\, \dd x \dd \mu } .
 \end{equation}
 We evaluate these terms using quadrature based
 on the LDFE functional representation $\tilde I_{HO}(x,\mu)$ provided by the HO solution.

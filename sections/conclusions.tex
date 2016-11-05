@@ -53,8 +53,18 @@ inefficient or difficult to implement in higher dimensions.  Alternatively, a
 variable Eddington Tensor approach may provide more stability in rapidly variable
 regions of the problem while still allowing for a consistent, LDFE solution that is efficiently solvable.
 
+GENERAL BENEFIT S:
+
 The advantage of the HOLO method is that
 there is no additional cost for the HO solution when the damped method is used.
+
+TIME CLOSURE:
+
+One benefit of the time closure is that $\overline I^{HO}$ will be
+most different from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
+$\sigma_a$ is small, leading to an optically thin problem.  However, there may be
+difficulties in the MPV problems where the problems are tightly coupled and nonlinear, but
+can lead to a large change over a time step.  
 
 
 Poor statistics for the face tallies may result in this trial space producing less

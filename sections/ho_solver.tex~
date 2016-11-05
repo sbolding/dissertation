@@ -299,7 +299,7 @@ where $\|r\|_{1,ij}$ is the L$_1$ norm over cell $ij$, including the upwind face
 volumetric source.
 Thus, the number of
 particles in cell $ij$ is 
-\begin{equation}
+\begin{equation}\label{eq:sys_N}
     N_{ij} = 
 \left\{\begin{matrix}
     \lfloor(N_bp_{ij})\rceil & N_bp_{ij} > N_{\min}
@@ -343,7 +343,6 @@ variance reduction technique that reduces the variance of the function, i.e., th
 variance to be reduced by more efficiently sampling the residual in optically thick cells.  In thin
 cells, where particles transport farther, this sampling procedure does not guarantee less variance
 overall. 
-
 
 
 \section{Continuous Weight Deposition Tallies}
