@@ -12,6 +12,15 @@ the forms of HO spatial closures investigated, based on modifications to standar
 
 \subsection{Motivation}
 
+Independent of angular accuracy, the LDFE closure of the LO equations will generally
+not produce the same moments as the LDFE projection of the HO solution.  This
+discrepancy can be seen by noting that for the LO equations the linearly extrapolated outflow from one cell is defined as the
+inflow into the next cell through upwinding.  For the HO solver, the linear,
+projected MC outflow into a cell does not not match the actual energy
+that flowed through that surface due to MC noise.  Thus, we introduce an additional
+unknown into both solvers to exactly capture the MC estimation of the solution
+between cells.
+
 A half-range balance equation for $\mu>0$ is formed by adding the
 exact $L$ and
 $R$ radiation moment equations given by

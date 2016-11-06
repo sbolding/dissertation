@@ -21,52 +21,57 @@
 
 \chapter{\uppercase {Introduction}}
 
-We have developed and implemented a new high-order low-order (HOLO) algorithm for solving
-thermal radiative transfer (TRT) problems. This algorithm has several desirable properties
-that improve on current computational methods for solving TRT
-problems.  In particular, our HOLO method utilizes an exponentially-convergent Monte
-Carlo (ECMC) algorithm to solve the associated radiation transport equation.  The ECMC
-method significantly decreases the statistical noise associated with MC calculations to
-TRT problems.  In addition, we use a nonlinear low-order (LO) system that allows for the
-nonlinear dependencies in the system to be efficiently resolves.  The LO system is formed
-such that it preserves the accuracy of the ECMC
-treatment of particle transport, upon convergence of the outer iterations.  The HOLO algorithm has
-been developed and implemented for a simplified model with one spatial dimension and 
-frequency-integrated equations.
 
-The LO equations are formed with finite-element (FE) based spatial
-moments and angular moments over each half-range.  A linear-discontinuous representation
-is used to discretize the temperature field.  The LO equations are similar to S$_2$ equations,
-but contain intensity-weighted angular averages that are estimated via the HO solver.    
-The LO solver is fully implicit in time and efficiently resolves the non-linear
-temperature dependence at each time step.  The HO transport problem is a fixed-source,
-pure absorber transport problem, with sources defined by the previous LO solve.  This
-transport equation is solved with ECMC simulation to produce a globally accurate solution. 
-This
-global solution is used to compute consistency terms, which require the HO and LO solutions to converge towards the same solution.  The use of ECMC
-allows for the efficient reduction of statistical noise in the MC solution, reducing
-inaccuracies introduced through the LO consistency
-terms. 
+Accurate solutions to the thermal radiative transfer (TRT) equations are important to
+simulations in the
+high-energy, high-density physics regime, e.g., for inertial
+confinement fusion and astrophysics.  Moment-based hybrid Monte Carlo (MC)
+methods have demonstrated great potential for accelerated
+solutions to TRT problems~\cite{rmc,bolding_nse,holo_rh}.   These nonlinear acceleration methods iterate between a
+high-order (HO) transport equation and a low-order (LO) system formulated with angular moments
+and a fixed spatial mesh.  Physics operators that
+are too expensive for the HO solver to resolve directly, e.g., photon absorption and emission,
+are moved to the LO system. The lower-rank LO equations can be solved with Newton
+methods to allow for non-linearities in the LO equations to be efficiently
+resolved.  The high-order (HO) problem is defined by the radiation transport equation with
+sources computed with the previous LO solution. A MC transport solution to the HO
+problem is used to construct consistency terms that appear in the LO equations. These consistency terms preserve the accuracy of the HO
+solution in the next LO solve.
 
-The research herein provides a new HOLO algorithm for radiative transfer.
-In this work, we propose an S$_2$-like LO operator~\cite{wolters}
-in conjunction with an exponentially-convergent MC (ECMC) method~\cite{jake} for the
-HO solver. Our LO system and approach to enforcing consistency contrast greatly from the typical formulation
-in~\cite{rmc,willert,park}. We have derived the LO operator directly from the transport
-equation, using a linear-discontinuous finite-element (LDFE) spatial
-discretization.   
-Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an iterative algorithm that can efficiently
-reduce statistical noise to acceptable levels with
-significantly less particle histories than standard MC. 
-The ECMC Method has been applied to 1D steady state neutronics problems
-previously~\cite{jake}.
-In particular, ECMC is
-exceptionally efficient in time-dependent TRT problems because information about the
+
+We have developed a new high-order low-order (HOLO) algorithm for solving
+thermal radiative transfer (TRT) problems. This algorithm has several desirable
+properties that improve on current computational methods for solving TRT
+problems.  In particular, our HOLO method utilizes an exponentially-convergent
+Monte Carlo (ECMC) algorithm to solve the associated radiation transport
+equation.  The ECMC method significantly decreases the statistical noise
+associated with MC transport calculations for TRT problems. 
+The method is exceptionally efficient in time-dependent TRT problems because information about the
 intensity from the previous time step can be used as an accurate initial guess for
 the new end of time step intensity.   However, implementation
 of ECMC is non-trivial, requiring a finite-element representation of the solution in
-all phase-space variables that are being sampled with MC.  
-The method contains many of the desired qualities, such as
+all phase-space variables that are being sampled with MC. 
+
+In conjunction with the ECMC
+algorithm, we use a nonlinear
+low-order (LO) system that is fully-implicity in time and resolves the nonlinear dependencies in the system to be
+efficiently resolved.  The lower-dimensional equations are formed such that the LO
+system can preserve the
+accuracy of the ECMC treatment of particle transport, upon convergence of the
+outer iterations between the HO and LO solvers. Our LO system and approach to enforcing consistency contrast from the formulation other moment-based acceleration methods, e.g., those 
+in~\cite{rmc,willert,park}. The LO equations are formed with finite-element (FE) based spatial
+moments and angular moments over each half-range.  A linear-discontinuous representation
+is used to discretize the temperature field, and different closures of the LO
+equations have been investigated.
+
+ The HOLO algorithm has been
+developed and implemented for a simplified model with one spatial dimension and
+frequency-integrated equations. Throughout this work, we compare our
+method to the implicit Monte Carlo (IMC) method~\cite{fnc}, which is the standard MC
+transport solution method to the TRT equations.  Results are compared to the IMC
+method for one-dimensional, gray test problems and also
+demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
+The HOLO method contains many of the desired qualities, such as
 preserving the equilibrium diffusion limit, preserving the maximum principle, and in
 particular, providing high-fidelity MC solution to the TRT equations in an efficient
 manner.
@@ -75,7 +80,8 @@ Sufficient MC histories must be performed to eliminate statistical
 noise in the consistency terms that can contaminate the LO solution.
 Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an algorithm that can efficiently
 reduce statistical noise to the same order as the HOLO iteration error with
-significantly less particle histories than standard MC. In particular, ECMC is
+significantly less particle histories than standard MC, 
+with less computational cost, per history, in particle tracking than IMC because no scattering events occur. In particular, ECMC is
 exceptionally efficient in time-dependent TRT problems because information about the
 intensity from the previous time step can be used as an accurate initial guess for
 the new end of time step intensity. Additionally, no particle histories are required
@@ -85,23 +91,6 @@ all phase-space variables that are being sampled with MC.  The fundamental trans
 as standard Monte Carlo transport codes, but the source will now contain positive and
 negative weight particles.
 
-
-In this work, we demonstrate the utility of an S$_2$-like LO operator~\cite{wolters}
-in conjunction with an ECMC method~\cite{jake} for the HO solver.
-The ECMC algorithm uses information about the intensity from the previous time step to reduce statistical noise to the same order as
-the HOLO iteration error with significantly less particle histories than standard MC
-simulations, with less computational cost than IMC per history.  We have derived the LO operator directly from the transport
-equation, using a linear-discontinuous (LD) finite-element (FE) spatial
-discretization for the HO and LO solutions. Herein we describe the algorithm and
-present results for 1D, gray test problems.
-
-This closure
-produces LO equations that have the same numerical difficulty to solve as the BE,
-fully-discrete LO equations, but
-have the potential to preserve the accuracy of the MC integration in time, upon non-linear
-convergence of the system.  
-
-REWRITE:
 We have also investigated several extensions and improvements of this method.  First, an alternative
 solution method to the LO equations is explored, using an iterative source iteration
 method with linear diffusion synthetic acceleration.  The goal is to present a solution
@@ -109,32 +98,16 @@ method for the S$_2$-like equations that is more extendable to higher dimensions
 Additionally, we have investaged solution methods to resolve issues when the optically
 thick mesh cells present intensity gradients that are too difficult to resolve with the
 LDFE interior mesh representation.   In the HO equations, we add artificial sources that
-make the solution more easily representable by the chosen mesh resolution.  Finally, higher accuracy in the time
+make the solution more easily representable by the chosen mesh resolution, without
+altering the zeroth moment of the transport equation, neglecting statistical noise.  Finally, higher accuracy in the time
 variable is investigated by including the time variable in the ECMC transport
 algorithm.  This can produce more accuracy in the transport of particles across optically
 thin regions, although a projection error in the intensity is still incurred between time
-steps. Throughout, we compare results with an
-implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
-demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
-
-The exponentially-convergent Monte
-Carlo (ECMC) algorithm was modified to include integration
-of the time variable; this includes the introduction of a step,
-doubly-discontinuous (SDD) trial space representation in time.
-A new parametric closure of the LO equations, introducing
-additional time-closure consistency terms, was derived to cap-
-ture the time accuracy of the HO ECMC simulations. The LO
-equations can preserve the accuracy of MC radiation trans-
-port treatment in time, with the same numerical expense as
-Backward Euler (BE) time-discretized S 2 equations.
- The
-main interest is in increasing accuracy in resolution of radiation wavefronts in optically
-thin regions, where particles transport a long distance over a time step. In such regions, the MC
-integration of the time variable by IMC in the transport equation can produce greater
-accuracy than a backward
-Euler (BE) discretization, which propagates radiation energy through space artificially fast.
-A potential application where this accuracy is important is stellar atmosphere calculations. 
-
+steps. The equations are closed in time consistently with a parametric modification
+to standard time discretizations, as estimated by the ECMC solution.  This closure produces LO equations that have the same numerical difficulty to solve as the BE,
+fully-discrete LO equations, but
+have the potential to preserve the accuracy of the MC integration in time, upon non-linear
+convergence of the system.  
 
 In addition to estimating the angular
 consistency terms, the HO intensity estimates a relation between volume and face-averaged
@@ -147,6 +120,30 @@ solution at faces, which is incorporated through the HO spatial closure of
 the LO equations discussed in Sec.~\ref{sec:spat_clos}.  Additionally, the independent solution at faces allows for face-averaged
 consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly evaluated. 
 
+The exponentially-convergent Monte
+Carlo (ECMC) algorithm was modified to include integration
+of the time variable; this includes the introduction of a step,
+doubly-discontinuous (SDD) trial space representation in time.
+A new parametric closure of the LO equations, introducing
+additional time-closure consistency terms, was derived to cap-
+ture the time accuracy of the HO ECMC simulations. The LO
+equations can preserve the accuracy of MC radiation trans-
+port treatment in time, with the same numerical expense as
+Backward Euler (BE) time-discretized S$_2$ equations.
+ The main interest is in increasing accuracy in resolution of radiation wavefronts in optically
+thin regions, where particles transport a long distance over a time step. In such regions, the MC
+integration of the time variable in the transport equation, as done by IMC, can produce greater
+accuracy than a backward
+Euler (BE) discretization, which propagates radiation energy through space artificially fast.
+A potential application where this accuracy is important is stellar atmosphere calculations. 
+
+
+
+
+
+\section{Outline of the Disertation}
+
+
 In the remainder of this chapter, a brief background on TRT problems is given, before the
 simplified model that will be used for the remainder of the work is derived.  Then,
 related work on MC and HOLO solution methods for TRT are discussed.
@@ -155,8 +152,15 @@ model problem are given, followed by a discussion of the standard Monte Carlo
 solution method and other related research.  Finally, a detailed outline of the
 dissertation is given.
 
-Must of the work discussed in this dissertation were previously published
+In Chapter~\ref{chp:holo} an overview of the outer HOLO algorithm and how the HO and LO
+systems interact is given.  For the majority of this work, time-discretized equations will
+be assumed; in Chapter~\ref{chp:time} a higher-accuracy MC time treatment is investigated. Chapter~\ref{chp:lo} gives a detailed derivation of the LO
+equations and how they are solved.  Then, Chapter~\ref{chp:ho} details the ECMC algorithm
+that is used to solve the HO transport problem.
+Some of the work discussed in this dissertation was previously published
 in~\cite{bolding_nse}.
+
+
 
 \section{Thermal Radiative Transfer Background}
 
@@ -453,11 +457,4 @@ statistical noise in slowly varying problems where the behavior of the system is
 equilibrium. 
 
 
-\section{Outline of the Disertation}
-
-In Chapter~\ref{chp:holo} an overview of the outer HOLO algorithm and how the HO and LO
-systems interact is given.  For the majority of this work, time-discretized equations will
-be assumed; in Chapter~\ref{chp:time} a higher-accuracy MC time treatment is investigated. Chapter~\ref{chp:lo} gives a detailed derivation of the LO
-equations and how they are solved.  Then, Chapter~\ref{chp:ho} details the ECMC algorithm
-that is used to solve the HO transport problem.
 

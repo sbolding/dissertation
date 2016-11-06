@@ -2,8 +2,13 @@
 \chapter{\uppercase {Overview of the HOLO Algorithm}}
 \label{chp:holo}
 
-For simplicity, our HOLO method will use a backward Euler (BE) discretization in time, as
-well as constant specific heats and cell-wise constant cross sections. The time-discretized
+The HOLO algorithm is a nonlinear acceleration method.  Iterations are performed between a
+high-order (HO) transport equation and a low-order (LO) system formulated with angular moments
+and a fixed spatial mesh. 
+With the exception of Chapter~\ref{sec:time}, we will derive and discuss our HOLO
+method using a backward Euler (BE) time discretization for simplicity.  We have also assumed constant specific heats
+and cell-wise constant cross sections, although our method could easily be extended
+to a general material equation of state. The BE time-discretized
 equations are
 \begin{align}
     \mu \pderiv{I^{n+1}}{x} + \left(\sigma_t^{n+1} + \frac{1}{c \Delta t }\right) I^{n+1}
@@ -11,70 +16,67 @@ equations are
 \rho c_v \frac{T^{n+1} - T^n}{\Delta t} &= \sigma_a^{n+1} \phi^{n+1}
 - \sigma_a a c (T^4)^{n+1} \label{eq:mat_td},
 \end{align}
-where $\Delta t$ is the uniform time step size, the superscript $n$ is used to indicate
-the $n$-th time step. Cross sections are evaluated at the end of time step
-temperature, i.e., $\sigma_a^{n+1}\equiv\sigma_a(T^{n+1})$. It is noted that in IMC the time derivative in
-Eq.~\eqref{ho_cont} is typically treated continuously using time-dependent MC over each
-time step.  Our HO transport equation is
+where $\Delta t$ is the time step size, and the superscript $n$ is used to indicate
+the $n$-th time step. Cross sections are evaluated implicitly, i.e., at the end of time step
+temperature ($\sigma_a^{n+1}\equiv\sigma_a(T^{n+1})$). It is noted that in IMC the time derivative in
+Eq.~\eqref{eq:rad_cont} is typically treated continuously using time-dependent MC over each
+time step, but with the temperature implicitly discretized.  Our HO transport equation is
 discrete in time for simpler application of ECMC and to avoid difficulties in coupling to the
-fully-discrete LO solver.  However, this does introduce some artificial propagation of
-energy due to the implicit time differencing in optically thin regions. 
-
-The directionality of the S$_2$ equations is convienent for closing the equations
-spatially with a discontinuous trial space.
+fully-discrete LO solver.  In chapter~\ref{sec:time}, time-dependent transport is
+included in the ECMC algorithm with consistent LO equations, similar to the IMC
+treatment of the time variable, improving accuracy in optically thin
+regions.
 
 In the HOLO context, the LO solver models isotropic scattering and
 resolves the material temperature spatial distribution $T(x)$ at each time step.  The LO equations are formed via half-range 
 angular and spatial moments of
-Eq.~\eqref{eq:trans_td} and Eq.~\eqref{eq:mat_td}. The spatial moments are formed over a
-finite-element mesh and linear-discontinuous representation of the temperature is used to
-close the system.  The angular treatment in the LO equations has the same form as those
+Eq.~\eqref{eq:trans_td} and Eq.~\eqref{eq:mat_td}. 
+The spatial moments are formed over a
+finite-element mesh using linear finite-element (FE) basis functions.   The angular treatment in the LO equations has the same form as those
 used in the hybrid-S$_2$ method in~\cite{wolters},  with consistency parameters that
-represent angularly-weighted averages of the intensity.  These consistency parameters
+represent angularly-weighted averages of the intensity. 
+These consistency parameters
 area analogous to a variable Eddington factor~\cite{chandrasekhar}.  If the angular consistency parameters were exact, then the LO
-equations are exact, neglecting spatial discretization errors.  These consistency
+equations are exact, neglecting spatial discretization errors.  This provides the
+potential for the LO equations to correctly reproduce the associated space-angle
+moments of the HO solution. These consistency
 parameters are lagged in each LO solve, estimated from the previous HO solution for
 $I^{n+1}(x,\mu)$, as explained below. For the initial LO solve for each time step, the
-parameters are calculated with $I^{n}(x,\mu)$.  The discrete LO equations always conserve
-total energy, independent of the accuracy of the consistency terms.  The LO system uses a
-LDFE spatial discretization for the temperature and half-range scalar intensities.  The
-LDFE spatial discretization should correctly preserve the equilibrium diffusion limit, a
-critical aspect for TRT equations~\cite{larsen_edl,morel_newton}.  Additionally, the
-implicit time discretization with sufficient convergence of the nonlinear emission source
-will ensure that the method will not exhibit maximum principle
+parameters are calculated with $I^{n}(x,\mu)$ from the previous HO solve.  The discrete LO equations always conserve
+total energy, independent of the accuracy of the consistency terms. 
+Additionally, the
+implicit time discretization, with sufficient convergence of the nonlinear emission
+source, will ensure that the method will not exhibit maximum principle
 violations~\cite{larsen_mpv}.
 
-We expect our method, with a fully implicit time discretization,
-to preserve the MP with sufficient convergence of the nonlinear emission
-source~\cite{larsen_mpv}.
-
-
-If the angular consistency parameters were estimated exactly, then
-the LO equations preserve the exact angular-averaged solution,  neglecting spatial
-discretization errors.  These consistency parameters are lagged in each LO solve,
-estimated from the previous HO solution for the intensity, or from a previous time
-step.  The discrete LO equations always conserve total energy, independent of the accuracy of the consistency terms.
-It is noted that our LO operator is different from the nonlinear
+Our LO operator is different from the nonlinear
 diffusion acceleration (NDA) methods used by other HOLO methods~\cite{rmc,park,willert}.  In
 NDA methods, an artificial term is added to the LO equations to enforce consistency and estimated using a
-previous HO solution.  In our method we have simply algebraically 
-manipulated space-angle moment equations to produce our consistency terms,
-which will hopefully produce more
-stability in optically-thick regions where NDA methods demonstrate stability issues.
+previous HO solution.  In our method we simply algebraically 
+manipulated space-angle moment equations to produce our consistency terms, and then
+introduce a spatial closure. This should produce more
+stability in optically-thick regions where NDA methods demonstrate stability issues,
+although a formal stability analysis has not been performed.
 
-It is noted that the LD projection of the HO solution does not produce the same moments, because
-MC was used to obtain this projection, the outflow will not agree with the LO equations.
-For example, the upwinding inflow from a previous cell does not match the actual energy
-that flowed through that surface due to MC noise.
+The directionality of the half-range integrals are convenient for closing the equations
+spatially with a discontinuous trial space.  Spatially, the radiation moment
+equations are closed using either a linear-discontinuous (LD) closure or with a
+parametric relation derived from the HO solution.  A linear-discontinuous
+finite-element (LDFE) representation of $T(x)$
+and $T^4(x)$ are used to eliminate the remaining spatial unknowns.
+The LDFE spatial discretization correctly preserves the equilibrium diffusion limit, a
+critical aspect for TRT equations~\cite{larsen_edl,morel_newton}. Also, the LDFE
+representation of the emission source mitigates artificial propagation of radiation
+energy across a spatial cell.
 
 The solution to the LO system is used to construct a LDFE spatial representation of
 the isotropic scattering and emission sources on the right hand side of
-Eq.~\eqref{eq:trans_td}.   The LDFE representation of the emission source mitigates teleportation error.
- This defines a fixed-source, pure absorber
+Eq.~\eqref{eq:trans_td}.    This defines a fixed-source, pure absorber
 transport problem for the HO operator. This HO transport problem represents a characteristic method that uses MC to
 invert the continuous streaming plus removal operator with an LDFE representation of
 sources; the representation of sources is similar to the linear moments method
-discussed in~\cite{larsen_error}.  We will solve this transport problem using ECMC.  The output from ECMC is
+discussed in~\cite{larsen_error}.  We will solve this transport problem, which has
+the form of a steady-state transport equation, using the ECMC method.  The output from ECMC is
 $\tilde{I}^{n+1}(x,\mu)$, a space-angle LDFE projection of the exact solution
 $I^{n+1}(x,\mu)$ to the described transport problem.  Once computed, $\tilde{I}^{n+1}(x,\mu)$ is used
 to directly evaluate the necessary consistency parameters for the next LO solve.  Since there is a global, functional representation of
@@ -84,7 +86,12 @@ temperature at the end of the time step; it is
 only used to estimate the angular consistency parameters for the LO equations, which eliminates
 typical operator splitting stability issues that require linearization of the emission source.
 
-The process of performing subsequential HO and LO solves, within a single time step, can be repeated to obtain an increasingly accurate solution for $\phi^{n+1}(x)$ and $T^{n+1}(x)$.  Thus, the HOLO algorithm, for the $n$-th time step, is
+One HOLO fixed-point iteration $k$ denotes the process of an ECMC solve of the HO problem to estimate LO parameters, based on
+the current LO estimate of sources, followed by a solution of the 
+LO system for $T^{n+1}(x)$ and $\phi^{n+1}(x)$.
+The process of performing subsequential HO and LO solves, within a single time step,
+can be repeated to obtain an increasingly accurate solutions if the HO solution has
+sufficiently low statistical noise.  Thus, the HOLO algorithm, for the $n$-th time step, is
 \begin{enumerate}
 \item Perform a LO solve to produce an initial guess for $T^{n+1,0}(x)$
     and $\phi^{n+1,0}(x)$, based on consistency terms estimated with $\tilde{I}^{n}$.
@@ -96,12 +103,12 @@ The process of performing subsequential HO and LO solves, within a single time s
 \item Optionally repeat 2 -- 4 until desired convergence is achieved.
 \item Store $\tilde{I}^{n}\leftarrow\tilde{I}^{n+1}$, and move to the next time step.
 \end{enumerate}
-where the superscript $k$ denotes the outer HOLO iteration.
+where the superscript $k$ denotes the outer HOLO iteration\footnote{Throughout this
+    dissertation, the outer HOLO iteration index $k$ is often suppressed for visual clarity.
+    Where necessary, subscript ``$HO$'' and ``$LO$'' are also used to indicate terms from
+respective solvers explicitly.}
 The consistency terms force the HO
 and LO solutions for $\phi^{n+1}(x)$ to be consistent to the order of the current HOLO
 iteration error, as long as the LDFE spatial representation can accurately represent
 $\phi(x)$ and $T(x)$.
-%One HOLO fixed-point iteration $k$ denotes the process of an ECMC solve of the HO problem to estimate LO parameters, based on
-%the current LO estimate of sources, followed by a solution of the 
-%LO system for $T^{n+1}(x)$ and $\phi^{n+1}(x)$.
 

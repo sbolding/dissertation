@@ -601,3 +601,5 @@ based on a spatially LD emission source.  This produces equations that are equiv
 the S$_2$ equations, but with quadrature points defined by $\pm 1/2$.  Because the spatial closure produces equations that are equivalent to an LDFE
 solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
 limit, which is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.
+
+\input{sections/spatial_closure}

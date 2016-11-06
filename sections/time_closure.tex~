@@ -631,7 +631,7 @@ The accuracy of the HOLO-ECMC method was compared to a reference solution from I
 problem is thin enough that we expect IMC to be accuracy with sufficient particle
 histories.  The
 reference solution is the average of 20 IMC simulations of $20\times10^6$
-histories, each with $\delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
+histories, each with $\Delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
 reference solution is 0.025\%.  The L$_2$ norm of the error in cell-averaged mean
 intensities is computed using Eq.~\eqref{eq:avg_err} for $\phi^{n+1}$ from the last time
 step, averaged over 20 simulations.
