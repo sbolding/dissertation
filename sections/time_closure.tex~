@@ -434,6 +434,7 @@ closure are indicated with HOLO-TC, where applicable.  For simplicity, all HOLO
 results have used the lumped-relation in the LO radiation moment equations to
 preserve positivity. We will compare sample statistics and accuracy against IMC
 simulations.  
+
 \subsection{Near-Void Problem}
 
 For the first problem, the material properties
@@ -441,8 +442,7 @@ are uniform throughout a 2.0 cm wide domain with $\rho c_v = 0.01374$ Jks cm$^{-
 The material and radiation are initially in equilibrium at a temperature of $0.01$ keV.
 An isotropic incident intensity with $T_r = 0.150$ keV is applied
 at $x=0$ for $t>0$; the incident intensity on the right boundary is $0.01$ keV.  The simulation end
-time is 0.003 sh.    For this problem, we expect IMC to be accurate
-because with the small cross section the material energy equation becomes uncoupled.  
+time is 0.003 sh.      
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.65\textwidth]{void_imc_compare.pdf}
@@ -466,10 +466,10 @@ variable and the closure of the LO equations allow the LO results to correctly r
 the wave-front location of IMC, whereas the BE discretization artificially propagates
 energy.   Although not plotted, the results were visually equivalent for either the diamond-like or implicit-like
 closures in this problem.  This is because the problem is nearly linear due to the small
-opacities, so the HO moments are reproduced accurately, independent of the chosen closure
+cross sections, so the HO moments are reproduced accurately, independent of the chosen closure
 equation.  
 
-A comparison of the same results radiation temperatures is given in Fig.~\ref{fig:void_temp_compare}.  By plotting
+A comparison of the same results depicted as radiation temperatures is given in Fig.~\ref{fig:void_temp_compare}.  By plotting
 proportional to the fourth-root of the radiation energy density, the noise at low
 magnitudes past the wave-front are more apparent in the 3 batches and $\Delta t = 0.001$
 case.  This noise is small relative to the scale of $E_r$, but it demonstrates a
@@ -477,20 +477,21 @@ defficiency of the trial space.  The step representation over
 the time step leads to particles sampled near the wave-front with a time near
 $t^{n}$ that travel into the equilibrium region.  This is not a
 bias, but rather an undersampling; if sufficient histories were performed there
-would be negative particles that canceled out this error.  This effect is
-significantly reduced when a smaller time step is taken, although it increases
-the projection error between time steps. The time closure can lead to negative
+would be negative particles that canceled out this error. The ECMC iterations can lead to negative
 averages in the HO solution out front of the wave front.  In such cells, the
-average was set to the floor value and slopes to zero.
+average was set to the floor value and slopes to zero. This effect is
+significantly reduced when a smaller time step is taken, although the projection error is
+increased.
+
 For the case of a single batch, 
 there is less noise past the wavefront because the
-choice of $I^{n}(x,\mu)$ and an initial guess for $I^{n+1}(x,\mu)$ prevents most particles from
+choice of $I^{n}(x,\mu)$ as an initial guess for $I^{n+1}(x,\mu)$ prevents most particles from
 traveling past what the physical transport should allow.  The discrepancy betweeen the IMC
-and HOLO solution near the foot of
+and the single batch HOLO solution near the foot of
 the wave is a result of the spatial discrepancy between the LDFE HO projection and the
 lumped LD LO equations; this dispersion is not present in the HO solution.  This
-discrepancy can also lead to some negativities in the LD representation of
-$\phi^{n+1}(x)$, which are set to the floor value for the next calculation. 
+discrepancy can also lead to some negativities in the LD edge values of
+$\phi^{n+1}(x)$, which are set to the floor value for the next time step. 
 \begin{figure}[H]
   \centering
     \includegraphics[width=0.75\textwidth]{void_temp_batch_compare.pdf}
@@ -512,8 +513,8 @@ cells.  At coarser mesh sizes, the imprinting of the mesh is visible in the loca
 the wave-front.  This is a result of the projection onto the space-angle mesh between time
 steps.  As the mesh is refined, the solution converges towards the IMC solution.  
 Smaller time step sizes can increase the mesh imprinting because the projection onto the
-trial space happens more often.  However, it is important
-to note that the mesh imprinting will be reduced as $\sigma_a$ is increased and
+trial space happens more often.  However, it is important to note that this problem is a
+limiting case; the mesh imprinting will be reduced as $\sigma_a$ is increased and
 absorption-emission events smooth the angular intensity across each time step.
 
 %We have computed FOM statistics using Eq.~\eqref{eq:fom} with 20 independent runs for each
@@ -592,17 +593,19 @@ absorption-emission events smooth the angular intensity across each time step.
 
 
 
-\section{Optically Thin Problem}
+\subsection{Optically Thin Problem}
 
-We modify the problem in the previous problem by increasing the absorption cross section to 0.2
+We modify the previous problem by increasing the absorption cross section to 0.2
 \invcm; all other problem parameters are the same.  Radiation temperatures at the end of
 the last time step are compared for IMC, HOLO-TC, and HOLO-BE in
 Fig.~\ref{fig:thin_temp_compare}.  The HOLO-TC and HOLO-BE results were generated with 30
-$\mu$ cells, and all spatial meshes used 200 cells.  At smaller time step sizes, the
-effects of mesh imprinting are slightly apparent in the HOLO-TC results, leading to more
-dispersion near the wave-front.  For $\Delta t=0.005$ sh, there is good agreement between
-the HOLO-TC results and IMC.  As in the previous problem, the HOLO-BE results do not accurately capture
-the wavefront location. IMC demonstrates substantial statistical noise in the equilibrium region.
+$\mu$ cells, and all spatial meshes used 100 cells.  At smaller time step sizes, the
+effects of mesh imprinting are visually apparent in the HOLO-TC results, leading to more
+dispersion near the wave-front.  There is good agreement between
+the HOLO-TC results and IMC, except some dispersion near the wavefront.
+As in the previous problem, the HOLO-BE results are very
+inaccurate at capturing the wavefront location. 
+IMC demonstrates substantial statistical noise in the equilibrium region.
 
 \begin{figure}[H]
   \centering
@@ -612,65 +615,93 @@ the wavefront location. IMC demonstrates substantial statistical noise in the eq
 thin problem. }
 \end{figure}
 
-Table.~\ref{tab:fom_thin} compares computed FOM values for the census
-radiation energy densities, for the case of $\Delta t =
-0.0005$~sh.  HOLO results were generated for the case of 1 and 2 batches, with the same
-total number of histories per time step.  At low particle counts for the larger time step
-size, the HOLO-TC method
-demonstrates substantial noise.  This is due to the trial space representation of the
-census particles at the end of the time step being poorly estimated.  For the 2 batch
-case, the estimate from the first batch leads to less error in the census estimate as the
-ECMC solves are simply solving for the deviation from the time-averaged quantity.  The
-results for the case of 30,000 histories are plotted in Fig.~\ref{??} for the HO and LO
-solution.  As demonstrated, there seems to have been some instabilities introduced into
-the LO equations through noise; sufficient sampling of the census must occur.
-At smaller time-steps there is an increase in statistical efficiency, however there has
-been a loss in accuracy due to an increase in projection error.  In general, this is a
-balance that much be considered.
-
-The accuracy of the HOLO-ECMC method was compared to a reference solution from IMC. This
-problem is thin enough that we expect IMC to be accuracy with sufficient particle
+The accuracy of the HOLO-TC and IMC method were compared against a reference IMC solution.
+Because the material is loosely coupled in this problem we expect IMC to be accurate with sufficient particle
 histories.  The
 reference solution is the average of 20 IMC simulations of $20\times10^6$
 histories, each with $\Delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
 reference solution is 0.025\%.  The L$_2$ norm of the error in cell-averaged mean
 intensities is computed using Eq.~\eqref{eq:avg_err} for $\phi^{n+1}$ from the last time
-step, averaged over 20 simulations.
+step, averaged over 20 simulations.  Sample statistics for cell-averaged $\phi^{n+1}$ were also computed using the $\FOM$
+from Eq.~\eqref{eq:fom}.
+
+Table.~\ref{tab:fom_thin} compares computed values of $\|e_a\|$ and FOM for the census
+radiation energy densities, for the case of $\Delta t =
+0.0005$~sh.   HOLO results were generated for the case of 1 and 2 batches, with the same
+total number of histories per time step, where the number of batches is indicated in
+parenthesis. The standard deviation of each estimate of $\|e\|_a$ follows each value in parenthesis. 
+At low particle counts, the HOLO-TC method demonstrates substantial noise.   
+A plot
+of the inaccuracies for the case of 30,000 histories and a single batch is given in
+Fig.~\ref{fig:30k_fails}.  As demonstrated, statistical noise in the estimate of
+$\tilde I^{n+1}$ introduce instabilities into the LO result.
+This is due to the trial space representation of the
+census particles at the end of the time step being poorly estimated.  For the 2 batch
+case, there is less error in the estimate of $\tilde I^{n+1}(x,\mu)$ because only the
+deviation form the first batch estimate of $\overline I(x,\mu)$ is estimated with MC. 
+At higher history counts there is an increase in efficiency, however the IMC method is
+more accurate overall due to the projection error between time steps.  For reference, statistics were measured for the HOLO-BE method with two batches of 150,000
+histories per time step, producing $\|e\|_a=10.5\%$ and $\FOM=3100$, demonstrating
+substantial inaccuracy but improved efficiency.
+
+Table~\ref{tab:thin_short} compares results for $\Delta t = 0.0001$~sh.  The results were
+generated for two different mesh sizes, but $\|e_a\|$ is computed using the same 100
+spatial cell reference solution in both cases.  All FOM values are relative to $IMC$ with
+100 $x$ cells and 30,000 histories.  At the coarser mesh size, the HOLO-TC method has a
+factor of 95 higher FOM, indicated much-improved statistical efficiency.  However, the projection error
+limits accuracy to around 1.5$\%$.  At the finer mesh size, the
+HOLO-TC method remains more efficient (as long as the batch size is sufficient) and produces higher accuracy than the IMC results.
+For reference, statistics were measured for the HOLO-BE method with two batches of 150,000
+histories per time step. The HOLO-BE results produced $\|e\|_a=3.7\%$ and $\FOM=4700$ for the
+coarse mesh, and $\|e\|_a=3.6$ and $\FOM=9600$ for the fine mesh.  The accuracy of the HOLO-BE method
+is limited by the time integration accuracy.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{thin_30k_fails.pdf}
+    \caption{\label{fig:30k_fails}Comparison of $T_{r}^{n+1}$ for 30,000 histories per time step.  The HOLO-TC result has inssuficient
+histories to accurately estimate end of time step unknowns.}
+\end{figure}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:fom_thin} {Comparison of sample statistics for the
+\caption{\label{tab:fom_thin} {Comparison of accuracy and $\FOM$ for the
     end of time step radiation energy densities, of the last time step, for the optically
-    thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
-\vspace{-0.1in}
+    thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is ${t=0.003}$ sh.}}
+    \resizebox{\textwidth}{!}{
 \begin{tabular}{|c|ccc|ccc|}\cline{2-7}
-    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{$\|e\|_a$} &
     \multicolumn{3}{|c|}{\FOM} \\ \hline
-hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
-   30,000     & 3.01\%  & 18.29\% & 5.38\%      &  1.00  & 0.03  &  0.31      \\
-  300,000     & 0.99\%  & 0.81\%  & 0.74\%      &  0.93  & 1.38  &  1.65     \\ 
-  1,000,000   & 0.50\%  & 0.30\%  & 0.37\%      &  1.10  & 3.42  &  2.0      \\ \hline
+hists./step   & IMC & HOLO-TC (1) & HOLO-TC (2)    &  IMC   & HOLO-TC(1) & HOLO-TC(2) \\ \hline
+   30,000     & 3.0\% $(0.08\%)$   & 17.3\% $(0.5\%) $  & 4.99\%  $(0.2\%) $    &  1.00  & 0.03  &  0.31      \\
+  300,000     & 1.0\% $(0.02\%)$   & 1.1\%  $(0.02\%)$  & 1.13\%  $( 0.02\%)$    &  0.93  & 1.38  &  1.65     \\ 
+  1,000,000   & 0.5\% $(0.01\%)$   & 0.92\% $(0.01\%)$  & 0.96\%  $(0.01\%)$    &  1.10  & 3.42  &  2.0      \\ \hline
 \end{tabular}
+}
 \end{table}
 
 \begin{table}[H]
 \centering
-\caption{\label{tab:thin_short} {Comparison of sample statistics for the
-    end of time step radiation energy densities, of the last time step, for the optically
-    thin problem and $\Delta t = 1\times 10^{-4}$ sh.   Simulation end time is $\mathbf{t=0.003}$ sh.}}
+\caption{\label{tab:thin_short} {Comparison of accuracy and $\FOM$ for the end of time
+    step radiation energy densities, of the last time step, for the optically
+    thin problem and $\Delta t = 1\times 10^{-4}$ sh.  The reference results are all for 100 $x$ cells.
+    Simulation end time is ${t=0.003}$ sh.}}
 \vspace{-0.1in}
-\begin{tabular}{|c|ccc|ccc|}\cline{2-7}
-    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
-    \multicolumn{3}{|c|}{\FOM} \\ \hline
-hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(3) \\ \hline
-   30,000     & 3.00\%  & 0.55\% & 1.28\%       &  1.00  &  29.81    & 5.51    \\
-  300,000     & 0.96\%  & 0.11\% & 0.30\%       &  0.98  &  71.82    & 9.88    \\ 
-  1,000,000   & 0.49\%  & 0.06\% & 0.17\%       &  1.11  &  71.02    & 9.71    \\ \hline
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{$\mathbf{\ss}$} &
+    \multicolumn{2}{|c|}{\textbf{\FOM}} \\ \hline
+hists./step   & IMC     & HOLO-TC (1) &    IMC   & HOLO-TC(1)  \\ \hline
+\multicolumn{5}{|c|}{Results for 100 $x$ cells; HOLO-TC has 30 $\mu$ cells} \\ \hline
+   30,000     & 2.98\% $(0.09\%)$   & 1.49\% $(0.02\%)$          &  1.00  &  42.0      \\
+  300,000     & 0.96\% $(0.02\%)$   & 1.45\% $(<0.01\%)$         &  0.98  &  94.5      \\ 
+  1,000,000   & 0.49\% $(0.01\%)$  & 1.45\% $(<0.01\%)$         &  1.11  &  94.9      \\ \hline
+\multicolumn{5}{|c|}{Results for 200 $x$ cells; HOLO-TC has 60 $\mu$ cells} \\ \hline
+   30,000     & 2.93\% $(0.1\%)$   & 14.00\% $(0.4\%)$    & 0.49   &  0.05      \\
+  300,000     & 0.99\% $(0.03\%)$  & 0.37\% $(<0.01\%)$   & 0.45   &  6.98      \\ 
+  1,000,000   & 0.49\% $(0.01\%)$  & 0.18\% $(<0.01\%)$   & 0.50   &  40.04      \\ \hline
 \end{tabular}
 \end{table}
 
-
-\section{Marshak Wave Problem}
+\subsection{Marshak Wave Problem}
 
 It is important to demonstrate that the time closures are stable in a mix of optically
 thick and optically thin regions, and that the ECMC method is still efficient in such
@@ -678,11 +709,8 @@ problems.  Simulations were performed for the Marshak wave problem defined in
 Sec.~\ref{sec:marsh}.  The time step size is linearly increased from $0.001$ sh to a
 maximum step of 0.01 sh over the first 10 time steps; the last time step is adjusted to
 reach the desired simulation end time.  It was found for this problem that it was
-necessary to use more than one batch for the HOLO-TC algorithm to stably converge.
-This is because in the case of a single batch particles must reach
-census to accurately estimate the next time step value.  These results were generated using the implicit-like time
-closure.
-
+necessary to use more than one batch for the HOLO-TC algorithm to stably converge, for the
+same reasons inaccuracies were demonstrated in the previous section.  
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.65\textwidth]{marshak_time_cont_compare.pdf}
@@ -690,16 +718,19 @@ closure.
 the Marshak Wave problem, with $10^6$ histories per time step.}
 \end{figure}
 
-Figure~\ref{fig:marshak_tc} compares the accuracy of IMC, HOLO-TC, and HOLO-BE.  The
+Figure~\ref{fig:marshak_tc} compares the accuracy of IMC, HOLO-TC, and HOLO-BE. 
+These results were generated using the implicit-like time
+closure. The
 solutions are plotted at $t=3$ sh, with $10^6$ histories per time step for all
 simulations. As demonstrated, there is good agreement among the results.  It is noted that
 this problem can be accurately modeled with the Backward Euler time discretization, but
 the MC time closure appears to be stable even in the mix of optically thick and thin
-regions. Table~\ref{tab:marshak_cont} compares sample statistics for IMC and
-the HOLO-TC method with the implicit-like and diamond-like closures, and with a BE discretization.  As
-demonstrated, at the lower history count (300,000), the HOLO-TC algorithm demostrates a
-greater variance.  
-
+regions. Table~\ref{tab:marshak_cont} compares sample statistics for IMC,
+the HOLO-TC method with the implicit-like and diamond-like closures, and the HOLO-BE
+method.  As demonstrated, at the lower history count (300,000), the HOLO-TC algorithm demostrates a
+greater variance than IMC, but is more efficient at the higher batch size.  The HOLO-BE
+method is signficantly more efficient for comparable accuracy in this problem with a very
+optically thick region.
 \begin{table}[H]
 \centering
 \caption{\label{tab:marshak_cont} {Comparison of sample statistics for the
@@ -719,23 +750,25 @@ hists./step   & IMC & HOLO-TC (2) & HOLO-BE (2) &  IMC   & HOLO-TC (2) & HOLO-BE
 \end{tabular}
 \end{table}
 
-\subsection{Importance Sampling on Interior of the Time Step}
+\subsubsection{Importance Sampling on Interior of the Time Step}
 
 The importance sampling algorithm
-detailed in Sec.~\ref{sec:imp_sampling} was investigated for this problem set up.  In
+detailed in Sec.~\ref{sec:imp_sampling} was investigated for the Marshak wave problem.  In
 particular, various values of $p_{surv}$ with a fixed value of 2 MFP of survival distance
 were investigated.  Sample statistics were measured for the HOLO-TC algorithm and the case of two batches of
-100,000 histories per time step, with a max time step of 0.01 sh.    The importance
-sampling algorithm was found to generally increase the variance, for this problem.  This
+100,000 histories per time step, with a max time step size of 0.01 sh.    The importance
+sampling algorithm was found to generally increase the variance for this problem.  This
 is likely caused by the fact that when no importance sampling is used, in the very thick
 cells essentially no particles reach the census.  In such cells, because the ECMC
 algorithm is estimating the difference between the first batch's estimate of
 $\overline{I}(x,\mu)$ and $\tilde I^{n+1}(x,\mu)$, it just accepts $\overline I(x,\mu)$ as
 $I^{n+1}(x,\mu)$.  The initialization of the solution to the first batches estimate of
-$\overline{I}(x,\mu)$ is sufficient to produce visually accurate results because the waves
-are moving so slowly. When importance sampling is used, 
-There is likely a regime of problems where it is necessary to
-sample the census more thoroughly and the importance sampling may reduce variance.  
+$\overline{I}(x,\mu)$ is sufficient to produce visually accurate results because the
+problem is evolving slowly, although this a biased result due to undersampling
+of the phase space. When importance sampling is used, then more particles reach
+the census, increasing variance overall.  If too many particles are sampled near the end
+of the time step, then the variance of the time-averaged solution
+increases, decreasing accuracy over all. 
 \begin{table}[H]
 \centering
 \caption{\label{tab:void_short} {Comparison of sample statistics using importance

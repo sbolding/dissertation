@@ -457,6 +457,12 @@ This extension is necessary for computing the HO spatial closure for
 the LO equations discussed in Sec.~\ref{sec:spat_clos}.  To incorporate a projection of
 the MC solution at faces, a second discontinuity is
 introduced into the trial space. 
+A projection of the intensity
+that is separate from the linearly-extrapolated outflows allows for a angular LD
+projection of the MC solution at faces.  This solution is incorporated into the LO
+solution through the HO spatial closure of 
+the LO equations.  Additionally, the independent solution at faces allows for face-averaged
+consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly evaluated. 
 
  The LDD trial space is demonstrated for the $x$ variable in
 Fig.~\ref{fig:ldd_space}.   For the HO solver, the LDD trial space is the same as the LDFE

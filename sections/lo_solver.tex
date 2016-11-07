@@ -584,19 +584,19 @@ where necessary, and then that Newton solve
 repeated.  In practice, this flooring procedure was observed to produce positive answers, but was not as robust as performing
 lumping in all cells.  In general, as the time step size is increased, this fixup led to the Newton
 solve diverging (i.e., damping is required to converge the iterations), more rapidly than if lumping was
-used for all cells.  A similar effect was observed in some problems when attempting to only lump the
-equations in cells where negativities were observed and resolving that Newton step.
+used for all cells.  
 
 
-\section{Accuracy in the Equilibrium Diffusion Limit}
+\section{Accuracy of LO Equations in the Equilibrium Diffusion Limit}
 \label{sec:edl_overview}
 
-In our standard LO scheme, the
-LO equations use an LDFE representation for the temperature and the uld preserve the equilibrium diffusion limit.  In this limit, the MC HO
+In our LO scheme, the
+LO equations use an LDFE representation for the temperature.  The radiation terms can also
+be closed with an LDFE closure.  In the EDL limit, the MC HO
 solution will estimate angular consistency terms associated with an isotropic intensity,
-based on a spatially LD emission source.  This produces equations that are equivalent to
+based on a spatially LD emission source.  This produces LO equations that are equivalent to
 the S$_2$ equations, but with quadrature points defined by $\pm 1/2$.  Because the spatial closure produces equations that are equivalent to an LDFE
 solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
-limit, which is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.
+limit; the LDFE discretization of the S$_2$ equations is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.
 
 \input{sections/spatial_closure}

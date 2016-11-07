@@ -130,7 +130,7 @@ each batch producing more statistically accurate estimates of the error $\epsilo
 which results in an increased convergence rate of $\epsilon$ overall.  
 \begin{table}[H]
 \centering
-\caption{\label{marshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.   Simulation end time is $\mathbf{t=5}$ sh.}}
+\caption{\label{marshak_var} {Comparison of sample statistics for the Marshak Wave problem.   Simulation end time is ${t=5}$ sh.}}
 \vspace{-0.1in}
 \begin{tabular}{|c|cc|cc|}\cline{2-5}
     \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} &
@@ -210,8 +210,8 @@ algorithm has to estimate a very small change in the intensity over a time step.
 
 \begin{table}[H]
 \centering
-\caption{\label{twomat_var} \textbf{Comparison of sample statistics for the
-    two material problem for 200 $x$ cells.   Simulation end time is $\mathbf{t=2}$ sh.}}
+\caption{\label{twomat_var} {Comparison of sample statistics for the
+    two material problem for 200 $x$ cells.   Simulation end time is ${t=2}$ sh.}}
 \vspace{-0.1in}
 \begin{tabular}{|c|cc|cc|}\cline{2-5}
     \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{\ss} & \multicolumn{2}{|c|}{$s_{\max}$} \\ \hline
@@ -257,7 +257,7 @@ behavior,the cost of the effective scattering cross section in IMC is more appar
 resulting in longer simulation times. 
 \begin{table}[H]
 \centering
-\caption{\label{marshak_table} \textbf{Comparison of average CPU times per history
+\caption{\label{marshak_table} {Comparison of average CPU times per history
     and LO iteration counts for the Marshak Wave problem. }}
 \vspace{-0.1in}
 	\begin{tabular}{|cc|c|cc|}\hline
@@ -271,7 +271,7 @@ iters./LO solve \\ \hline
 
 \begin{table}[htb!]
 \centering
-\caption{\label{twomat_table} \textbf{Average CPU times per history and LO iteration
+\caption{\label{twomat_table} {Average CPU times per history and LO iteration
 counts required for the two material problem.}}
 	\begin{tabular}{|cc|c|cc|} \hline
 hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist)  &
@@ -306,7 +306,7 @@ that these results only estimate statistical variance and do not strictly accoun
 accuracy.  
 \begin{table}[H]
 \centering
-\caption{\label{homarshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.  Number of ECMC batches is
+\caption{\label{homarshak_var} {Comparison of sample statistics for the Marshak Wave problem.  Number of ECMC batches is
 indicated in parenthesis.}}
 \vspace{-0.1in}
 \begin{tabular}{|c|ccc|ccc|}\cline{2-7}
@@ -318,7 +318,7 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
 \end{table}
 \begin{table}[H]
 \centering
-\caption{\label{hotwomat_var} \textbf{Comparison of sample standard deviations for the
+\caption{\label{hotwomat_var} {Comparison of sample standard deviations for the
     two material problem. Number of ECMC batches is indicated in parenthesis.}}
 \vspace{-0.1in}
 \begin{tabular}{|c|ccc|ccc|}\cline{2-7}
@@ -354,8 +354,7 @@ reach the right boundary, in front of the wavefront.
 Table~\ref{preheat_var} compares the variances for this problem for the various HO
 solvers. The FOM values are normalized to the case of HOLO-SMC with 12,000
 histories per time step. The final row of the table is for an ECMC simulation with adaptive mesh
-refinement (AMR).  The strategy for refinement is described in
-Appendix~\ref{app:refinement}.  The adaptive
+refinement (AMR).  The adaptive
 mesh refinement case used a total of nine batches, with a refinement occurring at the end
 of the third and sixth batches, for every time step. The initial number of histories was adjusted so that
 the average number of histories per time step is near 100,000; on average 99,881
@@ -374,7 +373,7 @@ not being measured by the FOM.
   \centering
     \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
     \caption{\label{hot_plot} Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
-    $x$ cells at $\mathbf{t=0.5}$ sh.}
+    $x$ cells at ${t=0.5}$ sh.}
 \end{figure}
 
 
