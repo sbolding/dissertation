@@ -43,10 +43,10 @@ and are independent of the chosen spatial representation
 Once a linear relation on the interior has been assumed, there are other useful closures that can be
 derived.  The standard linear interpolatory expansion, for the positive half-range, is restated here:
 \begin{equation}
-\phi^+(x) = \phi^+_{L,i} b_{L,i}(x) + \phi^+_{R,i} b_{R,i}(x)
+\phi^+(x) = \phi^+_{L,i} b_{L,i}(x) + \phi^+_{R,i} b_{R,i}(x), \quad \xl < x \leq \xr.
 \end{equation}
 Using this expansion, one can derive a relation between the outflow from a cell and the
-hat function moments that is equivalent to the standard LDFE Galerkin method:
+hat function moments (i.e., Eq.~\eqref{} and~\eqref{}) that is equivalent to the standard LDFE Galerkin method:
 \begin{equation}
     \phi_{i,R}^+ = 2 \mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+,
 \end{equation}
@@ -56,19 +56,19 @@ of the cell defines the value for $\phi_{i,L}^+$:
     \phi_{i,L}^+ = 2 \mom{\phi}_{L,i}^+ - \mom{\phi}_{R,i}^+,
 \end{equation}
 
-To eliminate the LO unknowns in a manner that produces the same moments as the LDFE
-Galerkin method, the
+To eliminate the LO unknowns in a manner that produces the same moments as the lumped LDFE
+Galerkin discretization, the
 following expression can be used for the outflow from a cell
 \begin{equation}
     \phi_{i+1/2}^+ = \phi_i^+ + \frac{\phi_{x,i}^+}{3},
 \end{equation}
 which in terms of the hat function moments is equivalent to $\phi_{i+1/2}^+ =
-\mom{\phi}_{R,i}^+$.  Inserting this expression into Eq.~\eqref{}, and using the same
+\mom{\phi}_{R,i}^+$.  Inserting this expression into the radiation moment equations, with the same
 definition for the linear representation over the interior of $\phi_{i+1/2}^+(x) =
 \phi_{L,i} b_{L,i}(x) + \phi_{R,i} b_{R,i}(x)$, will produce an equivalent set of unknowns
 as a linear discontinuous method with a lumped representation for the radiation.  The
 temperature equation must be independently lumped. This
-relation preserves the average within a cell but modifies the first moment.  
+relation preserves the average within a cell but does not correctly reproduce the first moment.  
 
 A similar expression produces a lumped-equivalent representation on the interior of the cell:
 \begin{equation}
@@ -77,7 +77,8 @@ A similar expression produces a lumped-equivalent representation on the interior
 The moment equations are not modified by using this expression, however the interpretation
 of the moments as a linear representation over the cell has been altered.  This allows for
 us to ensure a lumped representation on the interior while still using the HO solution to
-eliminate the outflow from the equations.
+eliminate the outflow from the equations.  However, the first moment equation does not
+agree necessarily.
 
 
 \section{Newtons Method for the LO Equations}
@@ -144,7 +145,7 @@ the Planckian emission source in the radiation moment equations with an addition
 A similar expression can be derived for $\mom{\sigma_{a,i} a c T^4}_R$ and the right
 moment equations.
 The expressions for the emissions source is substituted into the discrete radiation moment equations,
-(Eq.~\eqref{eq:exact_lmom}--~\eqref{eq:exact_rmomm}) to produce a
+(Eq.~\eqref{eq:exact_lmomp}--\eqref{eq:exact_rmomm}) to produce a
 linear system of equations for the new radiation intensity moments (upon closure of the moment equations). 
 
 Once the linear equations have been solved for new radiation moments, new temperature
@@ -292,7 +293,7 @@ the mean intensity.
 
 \subsection{Spatially Varying Cross Sections}
 
-To test the fixup we want to imitated the two-material problem in Sec.~\ref{sec:two_mat},
+To test the fixup we want to imitated the two-material problem in Sec.~\ref{sec:two},
 but with an analytic answer.  We will set the floor to zero, as that is the easiest case.
 We do not have an internal source to simplify evaluation of the integrals.  The derivation
 proceeds the same as in the above section, but now the integration factor is
@@ -301,7 +302,7 @@ boundary source for negative $\mu$, the solution becomes
 \begin{equation}
     \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)
 \end{equation}
-where the argument of $\E2$ is clearly just the total number of mfps traveled
+where the argument of $\E2$ is clearly just the total number of MFPs traveled
 up to that point.
 
 To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
@@ -329,7 +330,7 @@ equations~\cite{lewis,wla_thesis}, i.e.,
     \pderiv{J}{x} + \sigma_a \phi &= q_0 \\ \label{eq:p1}
     \sigma_t J + \frac{1}{3} \pderiv{\phi}{x} &= 0.
 \end{align}
-The spatial finite element moments (defined by Eq.~\eqref{eq:x_moml} and~\eqref{x_momr})
+The spatial finite element moments (defined by Eq.~\eqref{eq:x_moml} and~\eqref{eq:x_momr})
 are taken of the above equations. 
 The mean intensity is assumed linear on the interior of the cell, i.e.,
 $\phi(x)=\phi_Lb_L(x) + \phi_Rb_R(x)$, for $x\in(\xl,\xr)$.   Taking the left moment,
@@ -489,7 +490,7 @@ lumping notation yields the final equations
     \frac{(1-\theta)}{2}J_{R,i}\right) &= 0 . \label{eq:update2}
 \end{align}
 The above equations are completely local to each cell and fully defined, including cells
-on the boundary. For simplicity, we just take $\gamma=1/2$.  The system can be solved for the desired unknowns
+on the boundary. For simplicity, we just take $\gamma=1/2$ for all results.  The system can be solved for the desired unknowns
 $\phi_{i,L}$, $\phi_{i,R}$, $J_{i,L}$, and $J_{i,R}$, which represent the mapping of
 $\phi_{i+1/2}^C$ onto the LD representation for $\phi^{\pm}(x)$.
 

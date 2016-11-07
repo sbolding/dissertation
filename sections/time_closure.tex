@@ -3,31 +3,17 @@
 \label{sec:time}
 
 In this chapter, we have modified the time-discrete HOLO method to include higher-accuracy MC treatment
-of the time variable for the radiation unknowns in the TRT equations.  The ECMC algorithm
+of the time variable for the radiation unknowns in the TRT equations. 
+A potential application where this accuracy is important is stellar atmosphere calculations. 
+The ECMC algorithm
 is modified to include the time variable, allowing for residual MC integration of the time
 variable. The LO equations are closed in time consistently using a parametric closure
 derived from the HO equations. The goal is to improve
 efficiency compared to IMC, while improving the accuracy compared to the time-discrete
-HOLO algorithm. 
-It is
+HOLO algorithm.  It is
 noted that no adaptive refinement in time is performed, so maintaining exponential convergence
 may not be possible.  However, we still expect the residual MC formulation of the ECMC method
 to show improvement in efficiency over standard MC.
-
-The closure of the LO equations must also be modified to account for the inconsitency in
-time-discretization with the HO equations. Previous work has enforced
-consistency in time by adding a local artificial source to the time-discretized LO
-equations in each cell~\cite{holo_rh}.  This
-source was approximated based on the difference between the exact HO integral of the time
-derivative and the approximate representation in the LO equations. The advantage
-of this form is that the LO solver exclusively deals in
-time-averaged unknowns for the radiation terms in the equations.  
-%However, if the problem
-%is strongly non-linear or the time-averaged and time-edge
-%values differ greatly, the source may become unstable.
-We will alternatively use a
-parametric closure in the time variable, similar to the spatial closures discussed in 
-Sec.~\ref{sec:spat_clos}. 
 
 In the remainder of this chapter, modifications to the HOLO algorithm to include higher
 time accuracy are detailed.
@@ -308,8 +294,23 @@ exceptionally noisy because only particles that reach the end of the time step c
 
 \section{Closing the LO Equations in Time}
 
-The LO equations must be closed in time consistently with the HO
-equations.  After applying a parametric closure, the time-integrated LO equations can be written exclusively in terms
+The closure of the LO equations must be modified to account for inconsistencies in the
+time-discretization of the two solvers. Previous work has enforced
+consistency in time by adding a local artificial source to the time-discretized LO
+equations in each cell~\cite{holo_rh}.  This
+source was approximated based on the difference between the exact HO integral of the time
+derivative and the approximate representation in the LO equations. The advantage
+of this form is that the LO solver exclusively deals in
+time-averaged unknowns for the radiation terms in the equations.  
+%However, if the problem
+%is strongly non-linear or the time-averaged and time-edge
+%values differ greatly, the source may become unstable.
+We will alternatively use a
+parametric closure in the time variable, similar to the spatial closures discussed in 
+Sec.~\ref{sec:spat_clos}. 
+
+
+After applying a parametric closure, the time-integrated LO equations can be written exclusively in terms
 of time-averaged unknowns.   Once the time-averaged unknowns have been calculated,
 the time closures can be used to convert the time-averaged unknowns to end-of-time-step
 values.
@@ -468,7 +469,7 @@ closures in this problem.  This is because the problem is nearly linear due to t
 opacities, so the HO moments are reproduced accurately, independent of the chosen closure
 equation.  
 
-A comparison of the same results radiation temperatures is given in Fig.~\ref{void_temp_compare}.  By plotting
+A comparison of the same results radiation temperatures is given in Fig.~\ref{fig:void_temp_compare}.  By plotting
 proportional to the fourth-root of the radiation energy density, the noise at low
 magnitudes past the wave-front are more apparent in the 3 batches and $\Delta t = 0.001$
 case.  This noise is small relative to the scale of $E_r$, but it demonstrates a
@@ -620,7 +621,7 @@ demonstrates substantial noise.  This is due to the trial space representation o
 census particles at the end of the time step being poorly estimated.  For the 2 batch
 case, the estimate from the first batch leads to less error in the census estimate as the
 ECMC solves are simply solving for the deviation from the time-averaged quantity.  The
-results for the case of 30,000 histories are plotted in Fig.~\ref{} for the HO and LO
+results for the case of 30,000 histories are plotted in Fig.~\ref{??} for the HO and LO
 solution.  As demonstrated, there seems to have been some instabilities introduced into
 the LO equations through noise; sufficient sampling of the census must occur.
 At smaller time-steps there is an increase in statistical efficiency, however there has
@@ -674,7 +675,7 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (3) &  IMC   & HOLO-TC(1) & HOLO-TC(
 It is important to demonstrate that the time closures are stable in a mix of optically
 thick and optically thin regions, and that the ECMC method is still efficient in such
 problems.  Simulations were performed for the Marshak wave problem defined in
-Sec.~\ref{sec:marshak}.  The time step size is linearly increased from $0.001$ sh to a
+Sec.~\ref{sec:marsh}.  The time step size is linearly increased from $0.001$ sh to a
 maximum step of 0.01 sh over the first 10 time steps; the last time step is adjusted to
 reach the desired simulation end time.  It was found for this problem that it was
 necessary to use more than one batch for the HOLO-TC algorithm to stably converge.
@@ -695,10 +696,9 @@ simulations. As demonstrated, there is good agreement among the results.  It is 
 this problem can be accurately modeled with the Backward Euler time discretization, but
 the MC time closure appears to be stable even in the mix of optically thick and thin
 regions. Table~\ref{tab:marshak_cont} compares sample statistics for IMC and
-the HOLO method with continuous time treatment and with a BE discretization.  As
+the HOLO-TC method with the implicit-like and diamond-like closures, and with a BE discretization.  As
 demonstrated, at the lower history count (300,000), the HOLO-TC algorithm demostrates a
-greater variance.  These results used the implicit
-like time closure.
+greater variance.  
 
 \begin{table}[H]
 \centering
@@ -710,9 +710,10 @@ like time closure.
     \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
     \multicolumn{3}{|c|}{\FOM} \\ \hline
 hists./step   & IMC & HOLO-TC (2) & HOLO-BE (2) &  IMC   & HOLO-TC (2) & HOLO-BE (2) \\ \hline
+  \multicolumn{7}{|c|}{HOLO-TC using Implicit-Like Closure} \\ \hline
   300,000     & 2.25\%  & 3.42\% & 0.30\%       &  1.00  &   0.43    & 2050          \\  
   1,000,000   & 1.27\%  & 0.31\% & 0.17\%       &  0.94  &  15.95    & 1806          \\ \hline
-  \multicolumn{7}{|c|}{HOLO-TC, Diamond-Like Closure} \\ \hline
+  \multicolumn{7}{|c|}{HOLO-TC using Diamond-Like Closure} \\ \hline
   300,000     & --  & 3.53\% & --   &  --  &   0.41   & --  \\  
   1,000,000   & --  & 0.37\% & --   &  --  &  10.94   & --  \\ \hline
 \end{tabular}
@@ -722,7 +723,7 @@ hists./step   & IMC & HOLO-TC (2) & HOLO-BE (2) &  IMC   & HOLO-TC (2) & HOLO-BE
 
 The importance sampling algorithm
 detailed in Sec.~\ref{sec:imp_sampling} was investigated for this problem set up.  In
-particular, various values of $p_{surv}$ with a fixed value of 2 mfp of survival distance
+particular, various values of $p_{surv}$ with a fixed value of 2 MFP of survival distance
 were investigated.  Sample statistics were measured for the HOLO-TC algorithm and the case of two batches of
 100,000 histories per time step, with a max time step of 0.01 sh.    The importance
 sampling algorithm was found to generally increase the variance, for this problem.  This

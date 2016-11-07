@@ -31,7 +31,7 @@ convergence results are compared for several test problems.
 \section{Source Iteration Solution to the Linearized LO Equations}
 \label{sec:si}
 
-The linearized, time-discrete LO equations can be solved with a source iteration
+The time-discrete LO equations, after linearization, can be solved with a source iteration
 method~\cite{lewis,morel_dsa,mcclarren_notes}.  In the source iteration
 process the scattering source is lagged, which
 uncouples unknowns between the two half ranges.  This produces a lower-triangular

@@ -1,5 +1,6 @@
 
 \chapter{\uppercase{Computational Results}}
+\label{chp:results}
 
 In this chapter, we compare results of the time-discretized HOLO method to IMC with
 a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
@@ -353,8 +354,7 @@ reach the right boundary, in front of the wavefront.
 Table~\ref{preheat_var} compares the variances for this problem for the various HO
 solvers. The FOM values are normalized to the case of HOLO-SMC with 12,000
 histories per time step. The final row of the table is for an ECMC simulation with adaptive mesh
-refinement (AMR).  The strategy for refinement is described in
-Appendix~\ref{app:refinement}.  The adaptive
+refinement (AMR).  The adaptive
 mesh refinement case used a total of nine batches, with a refinement occurring at the end
 of the third and sixth batches, for every time step. The initial number of histories was adjusted so that
 the average number of histories per time step is near 100,000; on average 99,881

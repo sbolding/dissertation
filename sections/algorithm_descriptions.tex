@@ -72,7 +72,8 @@ energy across a spatial cell.
 The solution to the LO system is used to construct a LDFE spatial representation of
 the isotropic scattering and emission sources on the right hand side of
 Eq.~\eqref{eq:trans_td}.    This defines a fixed-source, pure absorber
-transport problem for the HO operator. This HO transport problem represents a characteristic method that uses MC to
+transport problem for the HO operator, with an emission source that is truly implicit in
+time. This HO transport problem represents a characteristic method that uses MC to
 invert the continuous streaming plus removal operator with an LDFE representation of
 sources; the representation of sources is similar to the linear moments method
 discussed in~\cite{larsen_error}.  We will solve this transport problem, which has
@@ -85,6 +86,22 @@ require additional tallies.  The HO solution is not used to directly estimate a 
 temperature at the end of the time step; it is
 only used to estimate the angular consistency parameters for the LO equations, which eliminates
 typical operator splitting stability issues that require linearization of the emission source.
+
+Sufficient MC histories must be performed to eliminate statistical
+noise in the consistency terms that can contaminate the LO solution.
+Exponentially-convergent Monte Carlo (ECMC)\cite{jake,ans_2014} provides an algorithm that can efficiently
+reduce statistical noise to the same order as the HOLO iteration error with
+significantly less particle histories than standard MC.  Additionally, each particle
+history requires less computational cost in particle tracking than IMC because no
+scattering events occurs in the HO solver. In particular, ECMC is
+exceptionally efficient in time-dependent TRT problems because information about the
+intensity from the previous time step can be used as an accurate initial guess for
+the new end of time step intensity. Additionally, no particle histories are required
+in regions where the radiation and material energy field are in equilibrium, similar to~\cite{rmc}.  However, implementation
+of ECMC is non-trivial, requiring a finite-element representation of the solution in
+all phase-space variables that are being sampled with MC.  The fundamental transport of particles is the same
+as standard Monte Carlo transport codes, but the source will now contain positive and
+negative weight particles.
 
 One HOLO fixed-point iteration $k$ denotes the process of an ECMC solve of the HO problem to estimate LO parameters, based on
 the current LO estimate of sources, followed by a solution of the 

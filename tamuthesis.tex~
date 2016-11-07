@@ -134,7 +134,7 @@
 \include{sections/algorithm_descriptions}
 \include{sections/lo_solver}
 \include{sections/ho_solver}
-%\include{sections/results}
+\include{sections/results}
 \include{sections/dsa}
 \include{sections/negativities}
 \include{sections/time_closure}

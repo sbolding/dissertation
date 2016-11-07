@@ -5,7 +5,16 @@
 This sections describes an alternative spatial closure to the LO equations based on 
 a parametric relation from the HO solution. In addition to estimating the angular
 consistency terms, the HO intensity estimates a relation between volume and face-averaged
-intensities to eliminate the remaining unknowns from the equations.  In the remainder of
+intensities to eliminate the remaining unknowns from the equations. 
+ The goal is for the 
+LO moments to reproduce the HO moments more accurately than the LDFE discretization, although
+additional statistical noise is introduced through face-based tallies.
+A projection of the intensity
+that is separate from the linear extrapolation allows for an accuracy projection of the MC
+solution at faces, which is incorporated through the HO spatial closure of 
+the LO equations.  Additionally, the independent solution at faces allows for face-averaged
+consistency terms (e.g., Eq.~\eqref{eq:ang_cons_face}) to be directly evaluated. 
+In the remainder of
 this section, we will motivate the HO spatial closure by manipulating a half-range balance
 equations to form a single unknown for each cell and half range.  We will then discuss
 the forms of HO spatial closures investigated, based on modifications to standard spatial closures.

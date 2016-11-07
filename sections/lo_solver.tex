@@ -8,7 +8,7 @@ consistency terms, that allow for the equations to preserve the accuracy (partic
 angle) of the HO solver, which is detailed in the next chapter. 
 The formulation of the LO equations is similar to a discontinuous FE method.  Weighted
 integrals of the equations are taken using weight functions that have local support. 
-The equations are written with element-wise moments of $I$ and $T$ as
+The equations are written with element-wise moments of $I(x,\mu)$ and $T(x)$ as
 unknowns.  Leaving the solution in this form allows for use of information from a
 previous HO solution to eliminate auxiliary unknowns from the equations. This is different
 than a standard Galerkin or collocation FE
@@ -16,15 +16,12 @@ method~\cite{morel_ldtrt,morel_notes} where a
 functional form of the solution is directly assumed. The final equations will have a
 similar form to S$_2$ equations, but we have not used a collocation method in angle,
 which should limit ray effects~\cite{morel_notes,lewis} in higher spatial dimensions.
-The backward Euler time discretization is used throughout this section.
-Chapter~\ref{sec:time} includes HO treatment of the radiation variables in the time
-variable.
 
 The remainder of this chapter is structured as follows: the general moments will be
 derived and then the use of HO information to close the system in angle is discussed.
 We then detail two separate spatial closures: a standard linear-discontinuous finite-element (LDFE)
 method~\cite{morel_ldtrt} and the use of the HO solution to eliminate extra
-spatial unknowns from the LO equations.  
+spatial unknowns from the LO equations.  Details on solving the equations are also given.
 
 \section{Forming the Space-Angle Moment Equations}
 
@@ -464,7 +461,7 @@ in~\ref{app:lo_newton}.
 The equations for each half-range are coupled together via scattering.  
 In one spatial dimension, the scattering terms can be included in the discrete system
 matrix and directly inverted.  We consider an alternative iterative solution method that
-could be more easily extended to higher spatial dimensions in Sec.~\ref{sec:dsa}.
+could be more easily extended to higher spatial dimensions in Chapter~\ref{chp:dsa}.
 For the direct solution method, isotropic scattering,
 including effective scattering terms from the linearization, are included in the system matrix. The system
 matrix is an asymmetric, banded matrix with a band width of seven and is inverted

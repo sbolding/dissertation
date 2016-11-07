@@ -367,9 +367,9 @@ the weight of the error particle in the MC simulation.
 As in~\cite{park}, because we are solving a pure absorber problem with Monte Carlo, we will allow
 particles to stream without absorption to reduce statistical 
 variance in the tallies.  The weight of particles is reduced deterministically along
-the path as they stream, with no need to sample a path length. Histories are allowed to stream in this manner for 6 mean free paths (mfp)
-before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 mfp allows particles to 
-continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of mfp, so there is no need to resample at material
+the path as they stream, with no need to sample a path length. Histories are allowed to stream in this manner for 6 mean free paths (MFP)
+before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 MFP allows particles to 
+continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of MFP, so there is no need to resample at material
 interfaces.
 
 Weight is attenuated exponentially, i.e., $w(x,\mu)\propto

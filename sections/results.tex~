@@ -1,5 +1,6 @@
 
 \chapter{\uppercase{Computational Results}}
+\label{chp:results}
 
 In this chapter, we compare results of the time-discretized HOLO method to IMC with
 a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we

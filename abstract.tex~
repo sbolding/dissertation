@@ -30,10 +30,17 @@ The LO solver is fully implicit in time and efficiently resolves the non-linear
 temperature dependence at each time step.   The HO solver
 utilizes exponentially-convergent Monte Carlo (ECMC) to give a globally accurate solution
 for the angular intensity to a fixed-source, pure absorber transport problem.  This
-global solution is used to compute consistency terms, which require the HO and LO solutions to converge towards the same solution.  The use of ECMC
+global solution is used to compute consistency terms, which require the HO and LO solutions to converge towards the same solution. 
+The use of ECMC
 allows for the efficient reduction of statistical noise in the MC solution, reducing
 inaccuracies introduced through the LO consistency
-terms.  We compare results with an
+terms. We have investigated the use of the HO solver to more accurately close the system in the
+spatial variable, improving consistency between the two solver.  The time variable cans also be closed, significantly increasing
+accuracy in optically thin problems compared to a backward Euler discretization. 
+Finally, we have applied standard source iteration and Krylov procedures to iteratively solve the LO
+S$_2$-like equations, after linearization, accelerated with linear diffusion synthetic
+acceleration.
+We compare results with an
 implicit Monte Carlo (IMC) code for one-dimensional, gray test problems and 
 demonstrate the efficiency of ECMC over standard Monte Carlo in this HOLO algorithm.
 
