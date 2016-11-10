@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  7 NOV 2016 16:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  9 NOV 2016 16:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -807,9 +807,10 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./mycommands.tex)
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
- (./tamuthesis.aux (./titlepage.aux) (./acknowledgements.aux) (./lists.aux) (./
-sections/introduction.aux)
-(./sections/algorithm_descriptions.aux) (./sections/lo_solver.aux
+ (./tamuthesis.aux (./titlepage.aux) (./abstract.aux)
+(./dedication.aux) (./acknowledgements.aux) (./lists.aux)
+(./sections/introduction.aux) (./sections/algorithm_descriptions.aux)
+(./sections/lo_solver.aux
 
 LaTeX Warning: Label `eq:ang_cons_vol' multiply defined.
 
@@ -817,8 +818,8 @@ LaTeX Warning: Label `eq:ang_cons_vol' multiply defined.
 LaTeX Warning: Label `eq:ang_cons_vol' multiply defined.
 
 ) (./sections/ho_solver.aux) (./sections/results.aux) (./sections/dsa.aux)
-(./sections/negativities.aux) (./sections/time_closure.aux) (./bibliography.aux
-) (./appendices.aux))
+(./sections/negativities.aux) (./sections/time_closure.aux)
+(./sections/conclusions.aux) (./bibliography.aux) (./appendices.aux))
 \openout1 = `tamuthesis.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
@@ -941,48 +942,57 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}])
-\openout2 = `acknowledgements.aux'.
+\openout2 = `abstract.aux'.
 
- (./acknowledgements.tex)pdfTeX warning (ext4): destination with the same ident
-ifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.130 \include{acknowledgements}
-                                 [1
+ (./abstract.tex [2
 
 
 
-] [2]
-\openout2 = `lists.aux'.
+])
+\openout2 = `dedication.aux'.
 
- (./lists.tex (./tamuthesis.toc
+ (./dedication.tex
 [3
 
 
+
+])
+\openout2 = `acknowledgements.aux'.
+
+ (./acknowledgements.tex) [4
+
+
+
+] [5]
+\openout2 = `lists.aux'.
+
+ (./lists.tex (./tamuthesis.toc [6
+
+
 ]
-Overfull \hbox (12.88857pt too wide) in paragraph at lines 41--41
+Overfull \hbox (12.88857pt too wide) in paragraph at lines 42--42
  [][] [][]\OT1/cmr/m/n/12 THE EXPONENTIALLY-CONVERGENT MONTE CARLO HIGH-ORDER 
  []
 
 
-Overfull \hbox (1.94162pt too wide) in paragraph at lines 71--71
+Overfull \hbox (1.94162pt too wide) in paragraph at lines 72--72
  [][] [][]\OT1/cmr/m/n/12 RESOLVING NEG-A-TIVE IN-TEN-SI-TIES IN OP-TI-CALLY TH
 ICK CELLS 
  []
 
-[4])
+[7])
 \tf@toc=\write5
 \openout5 = `tamuthesis.toc'.
 
- [5] (./tamuthesis.lof [6])
+ [8] (./tamuthesis.lof [9])
 \tf@lof=\write6
 \openout6 = `tamuthesis.lof'.
 
- [7] (./tamuthesis.lot [8])
+ [10] (./tamuthesis.lot [11])
 \tf@lot=\write7
 \openout7 = `tamuthesis.lot'.
 
- [9])
+ [12])
 \openout2 = `sections/introduction.aux'.
 
 
@@ -1001,52 +1011,8 @@ l.50 I
 
 
 
-]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
- been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.84 
-      [2]
-
-LaTeX Warning: Reference `chp:conclusions' on page 3 undefined on input line 11
-6.
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.3}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.117 
-       [3]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.4}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.146 
-       [4]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.5}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.189 
-       [5]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.6}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.220 \begin{align}
-                   \label{eq:rad_cont} [6]pdfTeX warning (ext4): destination wi
-th the same identifier (name{page.7}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.245 
-       [7]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.8}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.277 
-       [8]pdfTeX warning (ext4): destination with the same identifier (name{pag
-e.9}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.306 
-       [9] [10] [11] [12]) [13]
+] [2] [3] [4] [5] [6] [7] [8] [9] [10]
+[11] [12] [13]) [14]
 \openout2 = `sections/algorithm_descriptions.aux'.
 
  (./sections/algorithm_descriptions.tex
@@ -1055,15 +1021,11 @@ Chapter 2.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
-[14
+[15
 
 
 
-]
-
-LaTeX Warning: Citation `morel_newton' on page 15 undefined on input line 69.
-
-[15] [16] [17]) [18]
+] [16] [17] [18]) [19]
 \openout2 = `sections/lo_solver.aux'.
 
  (./sections/lo_solver.tex
@@ -1072,13 +1034,13 @@ Chapter 3.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
-[19
+[20
 
 
 
-] [20] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33]
-[34] (./sections/spatial_closure.tex [35] [36] [37] [38] [39] [40] [41]))
-[42]
+] [21] [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34]
+[35] (./sections/spatial_closure.tex [36] [37] [38] [39] [40] [41] [42]))
+[43]
 \openout2 = `sections/ho_solver.aux'.
 
  (./sections/ho_solver.tex
@@ -1107,11 +1069,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 29.
 
-[43
+[44
 
 
 
-] [44] [45] [46] [47] [48] [49] [50] [51] [52]
+] [45] [46] [47] [48] [49] [50] [51] [52] [53]
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 328.
 
 
@@ -1120,7 +1082,7 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 328.
- [53] [54]
+ [54] [55]
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 406.
@@ -1133,7 +1095,7 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `math shift' on input line 406.
 
-[55] [56] [57] [58]) [59]
+[56] [57] [58] [59]) [60]
 \openout2 = `sections/results.aux'.
 
  (./sections/results.tex
@@ -1142,48 +1104,48 @@ Chapter 5.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
-[60
+[61
 
 
 
-] <figures/marshak_mesh_conv.pdf, id=1275, 517.71071pt x 409.79662pt>
+] <figures/marshak_mesh_conv.pdf, id=1323, 517.71071pt x 409.79662pt>
 File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
 
 <use figures/marshak_mesh_conv.pdf>
 Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 86.
 (pdftex.def)             Requested size: 297.99547pt x 235.88759pt.
 
-<figures/marshak_200_compare.pdf, id=1276, 508.9671pt x 409.79662pt>
+<figures/marshak_200_compare.pdf, id=1324, 508.9671pt x 409.79662pt>
 File: figures/marshak_200_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_200_compare.pdf>
 Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 91.
 
 (pdftex.def)             Requested size: 297.99547pt x 239.93953pt.
- [61] [62] [63 <./figures/marshak_mesh_conv.pdf> <./figures/marshak_200_compare
+ [62] [63] [64 <./figures/marshak_mesh_conv.pdf> <./figures/marshak_200_compare
 .pdf
 
 pdfTeX warning: pdflatex (file ./figures/marshak_200_compare.pdf): PDF inclusio
 n: multiple pdfs with page group included in a single page
->] [64] [65] <figures/two_mat_conv.pdf, id=1412, 501.29784pt x 409.79662pt>
+>] [65] [66] <figures/two_mat_conv.pdf, id=1459, 501.29784pt x 409.79662pt>
 File: figures/two_mat_conv.pdf Graphic file (type pdf)
 
 <use figures/two_mat_conv.pdf>
 Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 200.
 (pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
 
-<figures/two_mat_ho_compare.pdf, id=1413, 501.29784pt x 409.79662pt>
+<figures/two_mat_ho_compare.pdf, id=1460, 501.29784pt x 409.79662pt>
 File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
 
 <use figures/two_mat_ho_compare.pdf>
 Package pdftex.def Info: figures/two_mat_ho_compare.pdf used on input line 204.
 
 (pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
- [66] [67 <./figures/two_mat_conv.pdf> <./figures/two_mat_ho_compare.pdf
+ [67] [68 <./figures/two_mat_conv.pdf> <./figures/two_mat_ho_compare.pdf
 
 pdfTeX warning: pdflatex (file ./figures/two_mat_ho_compare.pdf): PDF inclusion
 : multiple pdfs with page group included in a single page
->] [68]
+>] [69]
 Overfull \hbox (40.9509pt too wide) in paragraph at lines 263--270
  [][] 
  []
@@ -1193,69 +1155,69 @@ Overfull \hbox (42.84393pt too wide) in paragraph at lines 276--283
  [][] 
  []
 
-[69] [70] <figures/heated_marshak.pdf, id=1555, 526.7194pt x 417.02364pt>
+[70] [71] <figures/heated_marshak.pdf, id=1603, 526.7194pt x 417.02364pt>
 File: figures/heated_marshak.pdf Graphic file (type pdf)
 
 <use figures/heated_marshak.pdf>
 Package pdftex.def Info: figures/heated_marshak.pdf used on input line 374.
 (pdftex.def)             Requested size: 279.50218pt x 221.30145pt.
- [71]
+ [72]
 Overfull \hbox (59.84676pt too wide) in paragraph at lines 386--395
  [][] 
  []
 
-[72] <figures/diff_limit_compare.pdf, id=1567, 523.38817pt x 409.79662pt>
+[73] <figures/diff_limit_compare.pdf, id=1616, 523.38817pt x 409.79662pt>
 File: figures/diff_limit_compare.pdf Graphic file (type pdf)
 
 <use figures/diff_limit_compare.pdf>
 Package pdftex.def Info: figures/diff_limit_compare.pdf used on input line 427.
 
 (pdftex.def)             Requested size: 290.50563pt x 227.45857pt.
- [73 <./figures/heated_marshak.pdf>]
-[74 <./figures/diff_limit_compare.pdf>] [75] [76]
-<figures/smooth_compare.pdf, id=1697, 526.58763pt x 409.82799pt>
+ [74 <./figures/heated_marshak.pdf>]
+[75 <./figures/diff_limit_compare.pdf>] [76] [77]
+<figures/smooth_compare.pdf, id=1744, 526.58763pt x 409.82799pt>
 File: figures/smooth_compare.pdf Graphic file (type pdf)
 
 <use figures/smooth_compare.pdf>
 Package pdftex.def Info: figures/smooth_compare.pdf used on input line 523.
 (pdftex.def)             Requested size: 425.70969pt x 331.32724pt.
- [77]
+ [78]
 Overfull \hbox (35.24425pt too wide) in paragraph at lines 530--546
 [][] 
  []
 
-[78 <./figures/smooth_compare.pdf>]
-<figures/two_mat_fail.pdf, id=1767, 511.37454pt x 409.82799pt>
+[79 <./figures/smooth_compare.pdf>]
+<figures/two_mat_fail.pdf, id=1815, 511.37454pt x 409.82799pt>
 File: figures/two_mat_fail.pdf Graphic file (type pdf)
 
 <use figures/two_mat_fail.pdf>
 Package pdftex.def Info: figures/two_mat_fail.pdf used on input line 571.
 (pdftex.def)             Requested size: 258.00706pt x 206.78326pt.
- [79] [80 <./figures/two_mat_fail.pdf>]
-<figures/mpv_rad_imc.pdf, id=1848, 507.24976pt x 411.71002pt>
+ [80] [81 <./figures/two_mat_fail.pdf>]
+<figures/mpv_rad_imc.pdf, id=1897, 507.24976pt x 411.71002pt>
 File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_rad_imc.pdf>
 Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 611.
 (pdftex.def)             Requested size: 258.00706pt x 209.42278pt.
 
-<figures/mpv_mats_imc.pdf, id=1849, 507.56343pt x 411.71002pt>
+<figures/mpv_mats_imc.pdf, id=1898, 507.56343pt x 411.71002pt>
 File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_imc.pdf>
 Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 616.
 (pdftex.def)             Requested size: 258.00706pt x 209.29085pt.
- [81] [82 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
+ [82] [83 <./figures/mpv_rad_imc.pdf> <./figures/mpv_mats_imc.pdf
 
 pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
 iple pdfs with page group included in a single page
->] <figures/mpv_mats_holo.pdf, id=1967, 511.59412pt x 411.71002pt>
+>] <figures/mpv_mats_holo.pdf, id=2014, 511.59412pt x 411.71002pt>
 File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_holo.pdf>
 Package pdftex.def Info: figures/mpv_mats_holo.pdf used on input line 641.
 (pdftex.def)             Requested size: 258.00706pt x 207.64493pt.
-) [83] [84 <./figures/mpv_mats_holo.pdf>]
+) [84] [85 <./figures/mpv_mats_holo.pdf>]
 \openout2 = `sections/dsa.aux'.
 
 
@@ -1265,23 +1227,23 @@ Chapter 6.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
-[85
+[86
 
 
 
-] [86]
+] [87]
 Overfull \hbox (41.62148pt too wide) in paragraph at lines 88--90
 []\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
 tions with $[]$. 
  []
 
-[87]
+[88]
 Overfull \hbox (57.97441pt too wide) detected at line 138
  []$[]   [] \OML/cmm/m/it/12 ^^N^^^[] \OT1/cmr/m/n/12 + [] \OML/cmm/m/it/12 ^^N
 ^^^[]$ 
  []
 
-[88] [89]
+[89] [90]
 Overfull \hbox (41.62148pt too wide) in paragraph at lines 202--204
 []\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
 tions with $[]$. 
@@ -1291,13 +1253,13 @@ tions with $[]$.
 Overfull \vbox (0.59207pt too high) has occurred while \output is active []
 
 
-[90] [91]
+[91] [92]
 Overfull \hbox (41.62148pt too wide) in paragraph at lines 263--265
 []\OT1/cmr/m/n/12 Evaluate ef-fec-tive scat-ter-ing and ab-sorp-tion cross sec-
 tions with $[]$. 
  []
 
-[92] [93]) [94] [95]
+[93] [94]) [95] [96]
 \openout2 = `sections/negativities.aux'.
 
  (./sections/negativities.tex
@@ -1306,11 +1268,11 @@ Chapter 7.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 4.
 
-[96
+[97
 
 
 
-] [97] [98] [99]) [100]
+] [98] [99] [100]) [101]
 \openout2 = `sections/time_closure.aux'.
 
  (./sections/time_closure.tex
@@ -1319,75 +1281,88 @@ Chapter 8.
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 2.
 
-[101
+[102
 
 
 
-] [102] [103] [104] [105] [106] [107] [108] [109] [110] [111]
+] [103] [104] [105] [106] [107] [108] [109] [110] [111] [112]
 Overfull \hbox (85.06113pt too wide) detected at line 421
  []$[]  [] [] \OMS/cmsy/m/n/12 ^^@ \OT1/cmr/m/n/12 2[][] [] + [][]\OMS/cmsy/m/n
 /12 h[]i[] \OT1/cmr/m/n/12 + [][]\OMS/cmsy/m/n/12 h[]i[] \OT1/cmr/m/n/12 + \OML
 /cmm/m/it/12 ^^[[]h[]\OMS/cmsy/m/n/12 h[]i[]$ 
  []
 
-[112] <figures/void_imc_compare.pdf, id=2312, 553.45363pt x 408.27531pt>
+[113] <figures/void_imc_compare.pdf, id=2359, 553.45363pt x 408.27531pt>
 File: figures/void_imc_compare.pdf Graphic file (type pdf)
 
 <use figures/void_imc_compare.pdf>
 Package pdftex.def Info: figures/void_imc_compare.pdf used on input line 448.
 (pdftex.def)             Requested size: 279.50218pt x 206.18674pt.
- [113] [114 <./figures/void_imc_compare.pdf>] <figures/void_temp_batch_compare.
-pdf, id=2396, 552.44987pt x 408.27531pt>
+ [114] [115 <./figures/void_imc_compare.pdf>] <figures/void_temp_batch_compare.
+pdf, id=2444, 552.44987pt x 408.27531pt>
 File: figures/void_temp_batch_compare.pdf Graphic file (type pdf)
 
 <use figures/void_temp_batch_compare.pdf>
 Package pdftex.def Info: figures/void_temp_batch_compare.pdf used on input line
  497.
 (pdftex.def)             Requested size: 322.50554pt x 238.34482pt.
- [115]
-<figures/void_ang_compare.pdf, id=2401, 553.45363pt x 408.27531pt>
+ [116]
+<figures/void_ang_compare.pdf, id=2449, 553.45363pt x 408.27531pt>
 File: figures/void_ang_compare.pdf Graphic file (type pdf)
 
 <use figures/void_ang_compare.pdf>
 Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 505.
 (pdftex.def)             Requested size: 322.50554pt x 237.90874pt.
- [116 <./figures/void_temp_batch_compare.pdf>] [117 <./figures/void_ang_compare
+ [117 <./figures/void_temp_batch_compare.pdf>] [118 <./figures/void_ang_compare
 .pdf>]
-<figures/thin_temp_compare.pdf, id=2554, 552.44987pt x 414.17235pt>
+<figures/thin_temp_compare.pdf, id=2602, 552.44987pt x 414.17235pt>
 File: figures/thin_temp_compare.pdf Graphic file (type pdf)
 
 <use figures/thin_temp_compare.pdf>
 Package pdftex.def Info: figures/thin_temp_compare.pdf used on input line 612.
 (pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
- [118 <./figures/thin_temp_compare.pdf>]
-<figures/thin_30k_fails.pdf, id=2638, 552.44987pt x 414.17235pt>
+ [119 <./figures/thin_temp_compare.pdf>]
+<figures/thin_30k_fails.pdf, id=2685, 552.44987pt x 414.17235pt>
 File: figures/thin_30k_fails.pdf Graphic file (type pdf)
 
 <use figures/thin_30k_fails.pdf>
 Package pdftex.def Info: figures/thin_30k_fails.pdf used on input line 660.
 (pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
- [119] [120 <./figures/thin_30k_fails.pdf>]
-<figures/marshak_time_cont_compare.pdf, id=2707, 552.44987pt x 414.17235pt>
+ [120] [121 <./figures/thin_30k_fails.pdf>]
+<figures/marshak_time_cont_compare.pdf, id=2755, 552.44987pt x 414.17235pt>
 File: figures/marshak_time_cont_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_time_cont_compare.pdf>
 Package pdftex.def Info: figures/marshak_time_cont_compare.pdf used on input li
 ne 716.
 (pdftex.def)             Requested size: 279.50218pt x 209.54404pt.
- [121]
+ [122]
 Overfull \hbox (59.15929pt too wide) in paragraph at lines 740--751
  [][] 
  []
 
-[122 <./figures/marshak_time_cont_compare.pdf>] [123]) [124]
+[123 <./figures/marshak_time_cont_compare.pdf>] [124]) [125]
+\openout2 = `sections/conclusions.aux'.
+
+
+(./sections/conclusions.tex
+Chapter 9.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\uppercase' on input line 1.
+
+[126
+
+
+
+] [127] [128]) [129]
 \openout2 = `bibliography.aux'.
 
-
-(./bibliography.tex (./tamuthesis.bbl
+ (./bibliography.tex (./tamuthesis.bbl
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
- [125
+ [130
 
 
 
@@ -1396,39 +1371,39 @@ Missing character: There is no Ã in font cmr12!
 Missing character: There is no ¶ in font cmr12!
 Missing character: There is no Å in font cmr12!
 Missing character: There is no ‘ in font cmr12!
- [126] [127] [128] [129])) [130]
+ [131]
+[132] [133] [134])) [135]
 \openout2 = `appendices.aux'.
 
-
-(./appendices.tex (./sections/appendix1.tex
+ (./appendices.tex (./sections/appendix1.tex
 APPENDIX A.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 19.
 
-[131
+[136
 
 
 
-] [132] [133] [134]
+] [137] [138] [139]
 Overfull \hbox (19.17519pt too wide) in paragraph at lines 173--174
 []\OT1/cmr/m/n/12 Evaluate a new es-ti-mate of $\OML/cmm/m/it/12 T[]$ \OT1/cmr/
 m/n/12 with en-ergy up-date equa-tions, e.g., Eq. []. 
  []
 
-[135] [136]
+[140] [141]
 Overfull \hbox (32.6329pt too wide) detected at line 235
  []$[]   [] [] \OT1/cmr/m/n/12 = [] \OML/cmm/m/it/12 r[]\OT1/cmr/m/n/12 (\OML/c
 mm/m/it/12 x[]\OT1/cmr/m/n/12 )$ []  
  []
 
-[137] [138] [139] [140]
+[142] [143] [144] [145]
 APPENDIX B.
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 (hyperref)                removing `\uppercase' on input line 311.
 
-[141
+[146
 
 ]
 Overfull \hbox (46.66628pt too wide) detected at line 387
@@ -1436,37 +1411,34 @@ Overfull \hbox (46.66628pt too wide) detected at line 387
  
  []
 
-[142] [143] [144]
+[147] [148] [149]
 Overfull \hbox (10.00034pt too wide) in paragraph at lines 491--491
 [] 
  []
 
-[145])) [146]
+[150])) [151]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 152.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 152.
- (./tamuthesis.aux (./titlepage.aux) (./acknowledgements.aux)
-(./lists.aux) (./sections/introduction.aux)
-(./sections/algorithm_descriptions.aux) (./sections/lo_solver.aux)
-(./sections/ho_solver.aux) (./sections/results.aux) (./sections/dsa.aux)
-(./sections/negativities.aux) (./sections/time_closure.aux) (./bibliography.aux
-) (./appendices.aux))
+ (./tamuthesis.aux (./titlepage.aux) (./abstract.aux)
+(./dedication.aux) (./acknowledgements.aux) (./lists.aux)
+(./sections/introduction.aux) (./sections/algorithm_descriptions.aux)
+(./sections/lo_solver.aux) (./sections/ho_solver.aux) (./sections/results.aux)
+(./sections/dsa.aux) (./sections/negativities.aux) (./sections/time_closure.aux
+) (./sections/conclusions.aux) (./bibliography.aux) (./appendices.aux))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 152.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 152.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: 4A5D67FE113530CE9DFFD20CE983CAC9;7726.
-
-
-LaTeX Warning: There were undefined references.
+(rerunfilecheck)             Checksum: 5F7D4487BA7AF0870D4B3ECB7CBB04C3;7940.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22364 strings out of 493304
- 383486 string characters out of 6139871
- 536451 words of memory out of 5000000
- 24728 multiletter control sequences out of 15000+600000
+ 22411 strings out of 493304
+ 384080 string characters out of 6139871
+ 538425 words of memory out of 5000000
+ 24734 multiletter control sequences out of 15000+600000
  13261 words of font info for 51 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,13n,59p,823b,712s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1485,10 +1457,10 @@ amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on tamuthesis.pdf (156 pages, 885468 bytes).
+Output written on tamuthesis.pdf (163 pages, 894543 bytes).
 PDF statistics:
- 3162 PDF objects out of 3580 (max. 8388607)
- 2199 compressed objects within 22 object streams
- 576 named destinations out of 1000 (max. 500000)
- 842 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 3235 PDF objects out of 3580 (max. 8388607)
+ 2264 compressed objects within 23 object streams
+ 597 named destinations out of 1000 (max. 500000)
+ 874 words of extra memory for PDF output out of 10000 (max. 10000000)
 

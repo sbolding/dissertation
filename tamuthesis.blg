@@ -3,6 +3,9 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: tamuthesis.aux
 A level-1 auxiliary file: titlepage.aux
 A level-1 auxiliary file: abstract.aux
+A level-1 auxiliary file: dedication.aux
+A level-1 auxiliary file: acknowledgements.aux
+A level-1 auxiliary file: lists.aux
 A level-1 auxiliary file: sections/introduction.aux
 A level-1 auxiliary file: sections/algorithm_descriptions.aux
 A level-1 auxiliary file: sections/lo_solver.aux
@@ -20,15 +23,12 @@ Repeated entry---line 445 of file references.bib
  : @article{larsen_edl
  :                    ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "morel_newton"
-Warning--I didn't find a database entry for "fe_book"
-Warning--I didn't find a database entry for "shultis_paper_cj_cites???"
 Warning--empty booktitle in ans_2014
 Warning--empty booktitle in park
 Warning--empty booktitle in willert
 You've used 47 entries,
             2118 wiz_defined-function locations,
-            764 strings with 11769 characters,
+            764 strings with 11768 characters,
 and the built_in function-call counts, 13844 in all, are:
 = -- 1366
 > -- 617

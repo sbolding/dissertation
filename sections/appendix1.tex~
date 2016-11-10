@@ -46,7 +46,7 @@ derived.  The standard linear interpolatory expansion, for the positive half-ran
 \phi^+(x) = \phi^+_{L,i} b_{L,i}(x) + \phi^+_{R,i} b_{R,i}(x), \quad \xl < x \leq \xr.
 \end{equation}
 Using this expansion, one can derive a relation between the outflow from a cell and the
-hat function moments (i.e., Eq.~\eqref{} and~\eqref{}) that is equivalent to the standard LDFE Galerkin method:
+hat function moments (i.e., Eq.~\eqref{eq:x_moml} and~\eqref{eq:x_momr}) that is equivalent to the standard LDFE Galerkin method:
 \begin{equation}
     \phi_{i,R}^+ = 2 \mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+,
 \end{equation}
@@ -297,7 +297,7 @@ To test the fixup we want to imitated the two-material problem in Sec.~\ref{sec:
 but with an analytic answer.  We will set the floor to zero, as that is the easiest case.
 We do not have an internal source to simplify evaluation of the integrals.  The derivation
 proceeds the same as in the above section, but now the integration factor is
-$\exp(\int_{0}^x \sigma_a(x')/\mu\dd x')$.  With no internal volumetric source and no
+$\exp(\int_{0}^x \sigma_a(x')\dd x'/\mu)$.  With no internal volumetric source and no
 boundary source for negative $\mu$, the solution becomes
 \begin{equation}
     \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)

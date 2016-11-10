@@ -84,12 +84,14 @@ thin regions, where a BE time discretization propagates radiation energy through
 
 The HOLO algorithm has been
 developed and implemented for a simplified model with one spatial dimension and
-frequency-integrated equations. Throughout this work, we compare our
+frequency-integrated equations. 
+Although not discussed here, the HOLO method approach
+developed in this work was also applied to 1D neutronics problems in~\cite{ans_2014}.
+Throughout this work, we compare our
 method to the implicit Monte Carlo (IMC) method~\cite{fnc}, which is the standard MC
 transport solution method to the TRT equations.  Results are given for several test
 problems to demonstrate the potential benefits of this method.  We have also demonstrated the efficiency of ECMC over standard Monte Carlo
-as a HO solver in this HOLO algorithm.
-
+as a HO solver in this HOLO algorithm.  
 \section{Dissertation Layout}
 
 
@@ -113,7 +115,7 @@ Chapter~\ref{chp:negativities} we investigate a potential approach for resolving
 with difficult to resolve solutions in the ECMC algorithm.
 For the majority of this work time-discretized equations are assumed, but in
 Chapter~\ref{sec:time} a MC-based time treatment of radiation transport is investigated.
-Finally, Chapter~\ref{chp:conclusions} 
+Finally, Chapter~\ref{chp:conclusions} provides discussion and future work for the method.
 
 \section{Thermal Radiative Transfer Background}
 
@@ -260,7 +262,7 @@ require spatial mesh resolution on the order of a MFP~\cite{morel_ldtrt}.  The E
 applications of TRT, so discretizations must preserve this limit to prevent unnecessarily
 fine mesh resolutions.
 
-\section{Previous and Related Work}
+\section{Previous Work}
 
 This sections describes related work on Monte Carlo solution to the TRT equations, as well
 as some important properties that numerical solution to TRT equations must preserve.  
@@ -276,7 +278,7 @@ problems.  Detailed descriptions of MC simulation of particle tracking, sampling
 interactions, etc. can be found in literature~\cite{mcnp,wollaber_review,shultis_mc}.
 
 With respect to TRT problems, the temperature equation is almost always solved
-deterministically to produce a linear particle transport equation. Monte carlo solution to
+deterministically to produce a linear particle transport equation. Monte Carlo solution to
 this transport equation can introduce large statistical
 noise into the material temperature distribution, which is undesirable when coupling to
 other physics, e.g., in radiation hydrodynamics.  To improve the efficiency of MC solutions, hybrid MC methods utilize a
@@ -374,8 +376,18 @@ MC solution.
 These consistency terms are present in all spatial-regions of the problem, requiring
 statistical variance to be reduced sufficiently throughout the entire domain of the
 problem.   The LO equations are typically based on nonlinear Diffusion Acceleration
-(NDA)~\cite{willert,park}.  The HOLO method approach developed in this work was applied to
-simplified 1D neutronics problems previously~\cite{ans_2014}.
+(NDA)~\cite{willert,park}. 
+
+The LO system used in our method is similar to the hybrid-S$_2$
+method developed in~\cite{wolters}, which was applied to continuous energy neutronics
+problems.  Angularly, the method integrates over half-ranges to form nonlinear
+functionals, which in our work are referred to as consistency terms.  The primary difference is in the treatment of the spatial discretization;
+because a linear reconstruction of the emission source is needed for accurate solution to TRT
+problems, we cannot perform the same manipulations as in~\cite{wolters} where only
+cell-averaged unknowns are determined.  Additionally, the diamond-difference spatial
+discretization used is not accurate for TRT problems in the equilibrium diffusion
+limit~\cite{larsen_edl}.
+
 
 \subsection{Residual Monte Carlo Methods}
 

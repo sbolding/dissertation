@@ -66,7 +66,7 @@ parametric relation derived from the HO solution.  A linear-discontinuous
 finite-element (LDFE) representation of $T(x)$
 and $T^4(x)$ are used to eliminate the remaining spatial unknowns.
 The LDFE spatial discretization correctly preserves the equilibrium diffusion limit, a
-critical aspect for TRT equations~\cite{larsen_edl,morel_newton}. Also, the LDFE
+critical aspect for TRT equations~\cite{larsen_edl,morel_ldtrt}. Also, the LDFE
 representation of the emission source mitigates artificial propagation of radiation
 energy across a spatial cell.
 

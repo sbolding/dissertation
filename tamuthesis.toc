@@ -1,106 +1,111 @@
 
 \renewcommand {\cftchapleader } {\cftdotfill {4.5}}
-\contentsline {chapter}{ACKNOWLEDGEMENTS}{1}{chapter*.1}
-\contentsline {chapter}{TABLE OF CONTENTS}{3}{section*.2}
-\contentsline {chapter}{LIST OF FIGURES}{6}{section*.3}
-\contentsline {chapter}{LIST OF TABLES}{8}{section*.4}
+\contentsline {chapter}{ABSTRACT}{ii}{chapter*.1}
+\contentsline {chapter}{ACKNOWLEDGEMENTS}{iv}{chapter*.3}
+\contentsline {chapter}{TABLE OF CONTENTS}{vi}{section*.4}
+\contentsline {chapter}{LIST OF FIGURES}{ix}{section*.5}
+\contentsline {chapter}{LIST OF TABLES}{xi}{section*.6}
 \contentsline {chapter}{\numberline {1}\uppercase {Introduction}}{1}{chapter.1}
 \vskip +10pt
 \contentsline {section}{\numberline {1.1}Dissertation Layout}{3}{section.1.1}
 \contentsline {section}{\numberline {1.2}Thermal Radiative Transfer Background}{4}{section.1.2}
 \contentsline {subsection}{\numberline {1.2.1}The Equations of Thermal Radiative Transfer}{5}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}Derivation of 1D Grey Model}{6}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.2}Derivation of 1D Grey Model}{7}{subsection.1.2.2}
 \contentsline {subsection}{\numberline {1.2.3}The Equilibrium Diffusion Limit}{8}{subsection.1.2.3}
-\contentsline {section}{\numberline {1.3}Previous and Related Work}{8}{section.1.3}
+\contentsline {section}{\numberline {1.3}Previous Work}{8}{section.1.3}
 \contentsline {subsection}{\numberline {1.3.1}The Implicit Monte Carlo Method}{9}{subsection.1.3.1}
 \contentsline {subsection}{\numberline {1.3.2}Moment-Based Acceleration Methods}{12}{subsection.1.3.2}
-\contentsline {subsection}{\numberline {1.3.3}Residual Monte Carlo Methods}{12}{subsection.1.3.3}
-\contentsline {chapter}{\numberline {2}\uppercase {Overview of the HOLO Algorithm}}{14}{chapter.2}
-\contentsline {chapter}{\numberline {3}\uppercase {The Moment-Based Low-Order Equations}}{19}{chapter.3}
+\contentsline {subsection}{\numberline {1.3.3}Residual Monte Carlo Methods}{13}{subsection.1.3.3}
+\contentsline {chapter}{\numberline {2}\uppercase {Overview of the HOLO Algorithm}}{15}{chapter.2}
+\contentsline {chapter}{\numberline {3}\uppercase {The Moment-Based Low-Order Equations}}{20}{chapter.3}
 \vskip +10pt
-\contentsline {section}{\numberline {3.1}Forming the Space-Angle Moment Equations}{19}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}LO Spatial mesh and Finite-Element Spatial Moments}{19}{subsection.3.1.1}
-\contentsline {subsection}{\numberline {3.1.2}Definition of Angular Moments}{22}{subsection.3.1.2}
-\contentsline {subsection}{\numberline {3.1.3}Space-Angle Moments of the Radiation Transport Equation}{22}{subsection.3.1.3}
-\contentsline {subsection}{\numberline {3.1.4}The Angular Consistency Terms}{23}{subsection.3.1.4}
-\contentsline {subsection}{\numberline {3.1.5}The Exact Radiation Moment Equations}{25}{subsection.3.1.5}
-\contentsline {subsection}{\numberline {3.1.6}Material Energy Equations}{26}{subsection.3.1.6}
-\contentsline {section}{\numberline {3.2}Closing the LO Equations in Space and Angle}{27}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Angular Closure}{28}{subsection.3.2.1}
-\contentsline {subsection}{\numberline {3.2.2}LDFE Spatial Closure}{28}{subsection.3.2.2}
-\contentsline {subsection}{\numberline {3.2.3}Boundary Conditions}{30}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}Newton's Method for LO Equations}{31}{section.3.3}
-\contentsline {section}{\numberline {3.4}Fix-ups for Negative Solutions with LDFE Closure}{32}{section.3.4}
-\contentsline {section}{\numberline {3.5}Accuracy of LO Equations in the Equilibrium Diffusion Limit}{34}{section.3.5}
-\contentsline {section}{\numberline {3.6}Spatial Closure based on the HO Solution}{35}{section.3.6}
-\contentsline {subsection}{\numberline {3.6.1}Motivation}{35}{subsection.3.6.1}
-\contentsline {subsection}{\numberline {3.6.2}Choice of Spatial Closure}{37}{subsection.3.6.2}
-\contentsline {subsection}{\numberline {3.6.3}The Linear Doubly-Discontinuous Trial Space}{38}{subsection.3.6.3}
-\contentsline {subsection}{\numberline {3.6.4}Fixup for the Linear Doubly-Discontinuous Trial Space}{40}{subsection.3.6.4}
-\contentsline {subsection}{\numberline {3.6.5}Issues with the Spatial Closure for HO Solver}{41}{subsection.3.6.5}
-\contentsline {chapter}{\numberline {4}\uppercase {The Exponentially-Convergent Monte Carlo High-Order Solver}}{43}{chapter.4}
+\contentsline {section}{\numberline {3.1}Forming the Space-Angle Moment Equations}{20}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}LO Spatial mesh and Finite-Element Spatial Moments}{20}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Definition of Angular Moments}{23}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Space-Angle Moments of the Radiation Transport Equation}{23}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}The Angular Consistency Terms}{24}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}The Exact Radiation Moment Equations}{26}{subsection.3.1.5}
+\contentsline {subsection}{\numberline {3.1.6}Material Energy Equations}{27}{subsection.3.1.6}
+\contentsline {section}{\numberline {3.2}Closing the LO Equations in Space and Angle}{28}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}Angular Closure}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}LDFE Spatial Closure}{29}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Boundary Conditions}{31}{subsection.3.2.3}
+\contentsline {section}{\numberline {3.3}Newton's Method for LO Equations}{32}{section.3.3}
+\contentsline {section}{\numberline {3.4}Fix-ups for Negative Solutions with LDFE Closure}{33}{section.3.4}
+\contentsline {section}{\numberline {3.5}Accuracy of LO Equations in the Equilibrium Diffusion Limit}{35}{section.3.5}
+\contentsline {section}{\numberline {3.6}Spatial Closure based on the HO Solution}{36}{section.3.6}
+\contentsline {subsection}{\numberline {3.6.1}Motivation}{36}{subsection.3.6.1}
+\contentsline {subsection}{\numberline {3.6.2}Choice of Spatial Closure}{38}{subsection.3.6.2}
+\contentsline {subsection}{\numberline {3.6.3}The Linear Doubly-Discontinuous Trial Space}{39}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {3.6.4}Fixup for the Linear Doubly-Discontinuous Trial Space}{41}{subsection.3.6.4}
+\contentsline {subsection}{\numberline {3.6.5}Issues with the Spatial Closure for HO Solver}{42}{subsection.3.6.5}
+\contentsline {chapter}{\numberline {4}\uppercase {The Exponentially-Convergent Monte Carlo High-Order Solver}}{44}{chapter.4}
 \vskip +10pt
-\contentsline {section}{\numberline {4.1}Implementation of LDFE $x$-$\mu $ Trial Space}{43}{section.4.1}
-\contentsline {section}{\numberline {4.2}The ECMC Algorithm}{45}{section.4.2}
-\contentsline {subsection}{\numberline {4.2.1}Projection and Statistical Accuracy of ECMC}{47}{subsection.4.2.1}
-\contentsline {subsection}{\numberline {4.2.2}Adaptive Mesh Refinement}{49}{subsection.4.2.2}
-\contentsline {subsection}{\numberline {4.2.3}Negative Values for the Radiation Intensity}{50}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Systematic Sampling Algorithm for Residual Source}{51}{section.4.3}
-\contentsline {section}{\numberline {4.4}Continuous Weight Deposition Tallies}{53}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Face Tallies and correction near $\mu =0$}{55}{subsection.4.4.1}
-\contentsline {section}{\numberline {4.5}ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}{56}{section.4.5}
-\contentsline {chapter}{\numberline {5}\uppercase {Computational Results}}{60}{chapter.5}
+\contentsline {section}{\numberline {4.1}Implementation of LDFE $x$-$\mu $ Trial Space}{44}{section.4.1}
+\contentsline {section}{\numberline {4.2}The ECMC Algorithm}{46}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Projection and Statistical Accuracy of ECMC}{48}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Adaptive Mesh Refinement}{50}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}Negative Values for the Radiation Intensity}{51}{subsection.4.2.3}
+\contentsline {section}{\numberline {4.3}Systematic Sampling Algorithm for Residual Source}{52}{section.4.3}
+\contentsline {section}{\numberline {4.4}Continuous Weight Deposition Tallies}{54}{section.4.4}
+\contentsline {subsection}{\numberline {4.4.1}Face Tallies and correction near $\mu =0$}{56}{subsection.4.4.1}
+\contentsline {section}{\numberline {4.5}ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}{57}{section.4.5}
+\contentsline {chapter}{\numberline {5}\uppercase {Computational Results}}{61}{chapter.5}
 \vskip +10pt
-\contentsline {section}{\numberline {5.1}Marshak Wave}{61}{section.5.1}
-\contentsline {section}{\numberline {5.2}Two Material Problem}{65}{section.5.2}
-\contentsline {section}{\numberline {5.3}Performance comparison of IMC and HOLO-ECMC}{68}{section.5.3}
-\contentsline {section}{\numberline {5.4}Comparison of different HO Solvers}{70}{section.5.4}
-\contentsline {section}{\numberline {5.5}Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}{71}{section.5.5}
-\contentsline {section}{\numberline {5.6}Accuracy in the Equilibrium Diffusion Limit}{73}{section.5.6}
-\contentsline {section}{\numberline {5.7}Accuracy of HO Spatial Closure}{75}{section.5.7}
-\contentsline {subsection}{\numberline {5.7.1}Smooth Problem}{76}{subsection.5.7.1}
-\contentsline {subsection}{\numberline {5.7.2}Two Material Problem}{79}{subsection.5.7.2}
-\contentsline {section}{\numberline {5.8}Preservation of the Discrete Maximum Principle}{81}{section.5.8}
-\contentsline {chapter}{\numberline {6}\uppercase {Accelerated Iterative Solution to the LO Equations}}{85}{chapter.6}
+\contentsline {section}{\numberline {5.1}Marshak Wave}{62}{section.5.1}
+\contentsline {section}{\numberline {5.2}Two Material Problem}{66}{section.5.2}
+\contentsline {section}{\numberline {5.3}Performance comparison of IMC and HOLO-ECMC}{69}{section.5.3}
+\contentsline {section}{\numberline {5.4}Comparison of different HO Solvers}{71}{section.5.4}
+\contentsline {section}{\numberline {5.5}Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}{72}{section.5.5}
+\contentsline {section}{\numberline {5.6}Accuracy in the Equilibrium Diffusion Limit}{74}{section.5.6}
+\contentsline {section}{\numberline {5.7}Accuracy of HO Spatial Closure}{76}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Smooth Problem}{77}{subsection.5.7.1}
+\contentsline {subsection}{\numberline {5.7.2}Two Material Problem}{80}{subsection.5.7.2}
+\contentsline {section}{\numberline {5.8}Preservation of the Discrete Maximum Principle}{82}{section.5.8}
+\contentsline {chapter}{\numberline {6}\uppercase {Accelerated Iterative Solution to the LO Equations}}{86}{chapter.6}
 \vskip +10pt
-\contentsline {section}{\numberline {6.1}Source Iteration Solution to the Linearized LO Equations}{86}{section.6.1}
-\contentsline {section}{\numberline {6.2}Linear Diffusion Synthetic Acceleration}{87}{section.6.2}
-\contentsline {subsection}{\numberline {6.2.1}The WLA-DSA Accelerated Source Iteration Algorithm}{90}{subsection.6.2.1}
-\contentsline {section}{\numberline {6.3}GMRES Solution to the LO Equations}{91}{section.6.3}
-\contentsline {section}{\numberline {6.4}Computational Results}{93}{section.6.4}
-\contentsline {chapter}{\numberline {7}\uppercase {Resolving Negative Intensities in Optically Thick Cells for ECMC}}{96}{chapter.7}
+\contentsline {section}{\numberline {6.1}Source Iteration Solution to the Linearized LO Equations}{87}{section.6.1}
+\contentsline {section}{\numberline {6.2}Linear Diffusion Synthetic Acceleration}{88}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}The WLA-DSA Accelerated Source Iteration Algorithm}{91}{subsection.6.2.1}
+\contentsline {section}{\numberline {6.3}GMRES Solution to the LO Equations}{92}{section.6.3}
+\contentsline {section}{\numberline {6.4}Computational Results}{94}{section.6.4}
+\contentsline {chapter}{\numberline {7}\uppercase {Resolving Negative Intensities in Optically Thick Cells for ECMC}}{97}{chapter.7}
 \vskip +10pt
-\contentsline {section}{\numberline {7.1}Artificial Source Method for Negativities in the HO Intensity}{97}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Calculating a Positive LDFE Representation}{98}{subsection.7.1.1}
-\contentsline {subsection}{\numberline {7.1.2}Adding an Artificial Source}{99}{subsection.7.1.2}
-\contentsline {section}{\numberline {7.2}Computational Results}{100}{section.7.2}
-\contentsline {chapter}{\numberline {8} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{101}{chapter.8}
+\contentsline {section}{\numberline {7.1}Artificial Source Method for Negativities in the HO Intensity}{98}{section.7.1}
+\contentsline {subsection}{\numberline {7.1.1}Calculating a Positive LDFE Representation}{99}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {7.1.2}Adding an Artificial Source}{100}{subsection.7.1.2}
+\contentsline {section}{\numberline {7.2}Computational Results}{101}{section.7.2}
+\contentsline {chapter}{\numberline {8} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{102}{chapter.8}
 \vskip +10pt
-\contentsline {section}{\numberline {8.1}Modifications to the HO Solver}{101}{section.8.1}
-\contentsline {subsection}{\numberline {8.1.1}Step Doubly-Discontinuous Trial Space in Time}{102}{subsection.8.1.1}
-\contentsline {subsection}{\numberline {8.1.2}Residual Source Definition and Sampling}{104}{subsection.8.1.2}
-\contentsline {subsection}{\numberline {8.1.3}Importance Sampling on Interior of Time Step}{106}{subsection.8.1.3}
-\contentsline {subsection}{\numberline {8.1.4}Tracking and Tallying in Time}{107}{subsection.8.1.4}
-\contentsline {section}{\numberline {8.2}Closing the LO Equations in Time}{109}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}Derivation of Time-Averaged Moment Equations}{110}{subsection.8.2.1}
-\contentsline {subsection}{\numberline {8.2.2}Parametric Time Closure}{111}{subsection.8.2.2}
-\contentsline {section}{\numberline {8.3}Computational Results}{113}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}Near-Void Problem}{113}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}Optically Thin Problem}{117}{subsection.8.3.2}
-\contentsline {subsection}{\numberline {8.3.3}Marshak Wave Problem}{122}{subsection.8.3.3}
-\contentsline {subsubsection}{\numberline {8.3.3.1}Importance Sampling on Interior of the Time Step}{123}{subsubsection.8.3.3.1}
-\contentsline {chapter}{REFERENCES}{125}{section*.41}
+\contentsline {section}{\numberline {8.1}Modifications to the HO Solver}{102}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Step Doubly-Discontinuous Trial Space in Time}{103}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Residual Source Definition and Sampling}{105}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}Importance Sampling on Interior of Time Step}{107}{subsection.8.1.3}
+\contentsline {subsection}{\numberline {8.1.4}Tracking and Tallying in Time}{108}{subsection.8.1.4}
+\contentsline {section}{\numberline {8.2}Closing the LO Equations in Time}{110}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Derivation of Time-Averaged Moment Equations}{111}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Parametric Time Closure}{112}{subsection.8.2.2}
+\contentsline {section}{\numberline {8.3}Computational Results}{114}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Near-Void Problem}{114}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}Optically Thin Problem}{118}{subsection.8.3.2}
+\contentsline {subsection}{\numberline {8.3.3}Marshak Wave Problem}{123}{subsection.8.3.3}
+\contentsline {subsubsection}{\numberline {8.3.3.1}Importance Sampling on Interior of the Time Step}{124}{subsubsection.8.3.3.1}
+\contentsline {chapter}{\numberline {9} \uppercase {Conclusions and Future Work} }{126}{chapter.9}
+\vskip +10pt
+\contentsline {section}{\numberline {9.1}CONCLUSIONS}{126}{section.9.1}
+\contentsline {section}{\numberline {9.2}Future Work}{128}{section.9.2}
+\contentsline {chapter}{REFERENCES}{130}{section*.43}
 \renewcommand {\cftchapaftersnum }{}
-\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{131}{APPENDIX.a.A}
+\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{136}{APPENDIX.a.A}
 \vskip +10pt
-\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{131}{section.a.A.1}
-\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{133}{section.a.A.2}
-\contentsline {subsection}{\numberline {A.2.1}Damped Newton Iterations}{136}{subsection.a.A.2.1}
-\contentsline {section}{\numberline {A.3}Analytic Error Contribution for LDD Trial Space}{137}{section.a.A.3}
-\contentsline {section}{\numberline {A.4}Analytic Neutronics answer for Source fixup}{138}{section.a.A.4}
-\contentsline {subsection}{\numberline {A.4.1}Spatially Varying Cross Sections}{139}{subsection.a.A.4.1}
-\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivation of the WLA-DSA Equations}}{141}{APPENDIX.a.B}
+\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{136}{section.a.A.1}
+\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{138}{section.a.A.2}
+\contentsline {subsection}{\numberline {A.2.1}Damped Newton Iterations}{141}{subsection.a.A.2.1}
+\contentsline {section}{\numberline {A.3}Analytic Error Contribution for LDD Trial Space}{142}{section.a.A.3}
+\contentsline {section}{\numberline {A.4}Analytic Neutronics answer for Source fixup}{143}{section.a.A.4}
+\contentsline {subsection}{\numberline {A.4.1}Spatially Varying Cross Sections}{144}{subsection.a.A.4.1}
+\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivation of the WLA-DSA Equations}}{146}{APPENDIX.a.B}
 \vskip +10pt
-\contentsline {section}{\numberline {B.1}Forming a Continuous Diffusion Equation}{141}{section.a.B.1}
-\contentsline {subsection}{\numberline {B.1.1}Diffusion Boundary Conditions}{143}{subsection.a.B.1.1}
-\contentsline {section}{\numberline {B.2}Mapping Solution onto LD Unknowns}{143}{section.a.B.2}
+\contentsline {section}{\numberline {B.1}Forming a Continuous Diffusion Equation}{146}{section.a.B.1}
+\contentsline {subsection}{\numberline {B.1.1}Diffusion Boundary Conditions}{148}{subsection.a.B.1.1}
+\contentsline {section}{\numberline {B.2}Mapping Solution onto LD Unknowns}{148}{section.a.B.2}

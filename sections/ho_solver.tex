@@ -451,7 +451,8 @@ the first $\mu$ moment, where the LD trial space often cannot resolve the soluti
 \section{ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}
 \label{sec:ldd_mc}
 
-In this section, the ECMC method is extended to a spatially linear, doubly-discontinuous
+In this section, the treatment of the spatial variable for the ECMC method is extended to
+a linear, doubly-discontinuous
 (LDD) trial space.   
 This extension is necessary for computing the HO spatial closure for
 the LO equations discussed in Sec.~\ref{sec:spat_clos}.  To incorporate a projection of
@@ -488,7 +489,9 @@ the error on the interior of space-angle cells is unchanged.  The process of est
 the solution on the outgoing face requires tallying the error when particles leave a
 cell, using the face-averaged tallies discussed in Section~\ref{sec:face_tallies}.  
 Face-averaged consistency terms are directly evaluated using $\tilde
-I(x_{i+1/2},\mu)$ evaluated at the face of each coarse mesh cell.   
+I(x_{i+1/2},\mu)$ evaluated at the face of each coarse mesh cell.   Particularly near
+$\mu=0$, the linear representation in $\mu$ can be driven negative.  In such cells, we
+scale the slope in $\mu$ so that the solution is positive.
 
 The inclusion of the outflow discontinuity in space has a minimal effect on the treatment of the
 residual source.
@@ -537,6 +540,6 @@ the previous interior solutions $\tilde I^{(m)}(x_{i+1/2}^-,\mu)$ and $\tilde
 I^{(m)}(x_{i-1/2}^+,\mu)$ and not the previous face value 
 $\tilde I^{(m)}(x_{i+1/2},\mu)$. This has an additional benefit that the face values can
 be estimated at any chosen batch, in particular cells.  For this work, the solution is
-estimated in all cells in the LDD trial space.
+estimated in all cells with the LDD trial space.  
 
 
