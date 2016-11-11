@@ -251,12 +251,24 @@ The update equation for $I(x_{i+1/2},\mu)$ is thus
 \label{sec:analytic_neutronics}
 
 In this section we model a fixed-source, pure-absorber neutral particle transport
-calculationn that has a known analytic answer.  If we make the mesh thick enough, we can set the
-floor value to be the equilibrium answer $I(x) = \frac{q(x)}{2\sigma_a}$. For a general
-isotropic source $Q(x)$, the 1D transport equation to be solved is
+calculation with a known analytic answer.  For a general
+isotropic source $q(x)$, the 1D transport equation to be solved is
 \begin{equation}
     \mu \pderiv{I}{x} + \sigma_a I(x,\mu) = \frac{q(x)}{2}
 \end{equation}
+The problem is designed to imitate the two-material problem in Sec.~\ref{sec:two} for the
+purpose of testing the HO fixup for negative solutions.  Thus, the domain has two
+different constant cross sections and a small isotropic source.  
+We do not have an internal source to simplify evaluation of the integrals.  The derivation
+proceeds the same as in the above section, but now the integration factor is
+$\exp(\int_{0}^x \sigma_a(x')\dd x'/\mu)$.  With no internal volumetric source and no
+boundary source for negative $\mu$, the solution becomes
+\begin{equation}
+    \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)
+\end{equation}
+where the argument of $\E2$ is clearly just the total number of MFPs traveled
+up to that point.  To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
+This will ensure that the negative half range in negative $\mu$, the solution is $q_0/2$.
 with boundary condition $I(0,\mu)=I_{inc}$, $\mu>0$ and
 $I(x_R,\mu)=\frac{q(x_R)}{2\sigma_a}$ for
 $\mu<0$, where $x_R$ is the right boundary.  
@@ -289,18 +301,6 @@ Combination of the above two equations gives the solution for the mean intensity
 This expression can be integrated over any spatial cell, via quadrature, to accurately approximate moments of
 the mean intensity.
 
-To test the fixups for the HO solver we have applied  imitated the two-material problem in Sec.~\ref{sec:two},
-but with an analytic answer.  We will set the floor to zero, as that is the easiest case.
-We do not have an internal source to simplify evaluation of the integrals.  The derivation
-proceeds the same as in the above section, but now the integration factor is
-$\exp(\int_{0}^x \sigma_a(x')\dd x'/\mu)$.  With no internal volumetric source and no
-boundary source for negative $\mu$, the solution becomes
-\begin{equation}
-    \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)
-\end{equation}
-where the argument of $\E2$ is clearly just the total number of MFPs traveled
-up to that point.  To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
-This will ensure that the negative half range in negative $\mu$, the solution is $q_0/2$.
 
 \chapter{\uppercase{Derivation of the WLA-DSA Equations}}
 \label{sec:wla_derivation}
