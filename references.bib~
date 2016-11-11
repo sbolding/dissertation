@@ -17,6 +17,15 @@
 	Year = {1992},
 }
 
+@book{fem_book,
+      title={The finite element method: linear static and dynamic finite element
+          analysis},
+      author={Hughes, Thomas JR},
+      year={2012},
+      publisher={Courier Corporation}
+}
+
+
 @BOOK{shultis_mc,
     author = "J.K. Shultis and W.L. Dunn",
     title = "{E}xploring {M}onte {C}arlo {M}ethods",
@@ -220,16 +229,6 @@ year = "2004",
 author = "Jeffery D. Densmore and Edward W. Larsen"
 }
 
-@article{larsen_edl,
-title = "Asymptotic analysis of radiative transfer problems",
-journal = "Journal of Quantitative Spectroscopy and Radiative Transfer",
-volume = "29",
-number = "4",
-pages = "285 - 310",
-year = "1983",
-issn = "0022-4073",
-author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
-}
 
 
 @article{favorite_faces,
@@ -337,6 +336,20 @@ author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
     month = {Jan.},
     year = "2017"
 }
+
+@phdthesis{ferguson,
+  title={Asymptotic accuracy of the equilibrium diffusion approximation and semi-analytic solutions of radiating shocks},
+  author={Ferguson, Jim Michael},
+  year={2014},
+  school={Texas A\&M University}
+}
+
+
+
+
+
+
+
 
 @phdthesis{wollaber_thesis,
   title={Advanced Monte Carlo methods for thermal radiation transport},

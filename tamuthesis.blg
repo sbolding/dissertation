@@ -19,52 +19,48 @@ A level-1 auxiliary file: bibliography.aux
 The style file: plain.bst
 A level-1 auxiliary file: appendices.aux
 Database file #1: references.bib
-Repeated entry---line 445 of file references.bib
- : @article{larsen_edl
- :                    ,
-I'm skipping whatever remains of this entry
 Warning--empty booktitle in ans_2014
 Warning--empty booktitle in park
 Warning--empty booktitle in willert
-You've used 47 entries,
+You've used 48 entries,
             2118 wiz_defined-function locations,
-            764 strings with 11768 characters,
-and the built_in function-call counts, 13844 in all, are:
-= -- 1366
-> -- 617
+            767 strings with 11873 characters,
+and the built_in function-call counts, 14069 in all, are:
+= -- 1384
+> -- 624
 < -- 4
-+ -- 250
-- -- 198
-* -- 914
-:= -- 2396
-add.period$ -- 143
-call.type$ -- 47
-change.case$ -- 227
++ -- 254
+- -- 200
+* -- 923
+:= -- 2435
+add.period$ -- 146
+call.type$ -- 48
+change.case$ -- 230
 chr.to.int$ -- 0
-cite$ -- 50
-duplicate$ -- 527
-empty$ -- 1110
-format.name$ -- 198
-if$ -- 2855
+cite$ -- 51
+duplicate$ -- 539
+empty$ -- 1134
+format.name$ -- 200
+if$ -- 2905
 int.to.chr$ -- 0
-int.to.str$ -- 47
-missing$ -- 44
-newline$ -- 239
-num.names$ -- 94
-pop$ -- 248
+int.to.str$ -- 48
+missing$ -- 46
+newline$ -- 244
+num.names$ -- 96
+pop$ -- 256
 preamble$ -- 1
-purify$ -- 193
+purify$ -- 196
 quote$ -- 0
-skip$ -- 337
+skip$ -- 343
 stack$ -- 0
-substring$ -- 805
-swap$ -- 61
+substring$ -- 813
+swap$ -- 62
 text.length$ -- 4
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 174
+type$ -- 176
 warning$ -- 3
-while$ -- 134
-width$ -- 49
-write$ -- 509
-(There was 1 error message)
+while$ -- 135
+width$ -- 50
+write$ -- 519
+(There were 3 warnings)

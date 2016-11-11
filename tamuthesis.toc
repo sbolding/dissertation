@@ -1,10 +1,10 @@
 
 \renewcommand {\cftchapleader } {\cftdotfill {4.5}}
 \contentsline {chapter}{ABSTRACT}{ii}{chapter*.1}
-\contentsline {chapter}{ACKNOWLEDGEMENTS}{iv}{chapter*.3}
-\contentsline {chapter}{TABLE OF CONTENTS}{vi}{section*.4}
-\contentsline {chapter}{LIST OF FIGURES}{ix}{section*.5}
-\contentsline {chapter}{LIST OF TABLES}{xi}{section*.6}
+\contentsline {chapter}{ACKNOWLEDGEMENTS}{v}{chapter*.3}
+\contentsline {chapter}{TABLE OF CONTENTS}{vii}{section*.4}
+\contentsline {chapter}{LIST OF FIGURES}{xi}{section*.5}
+\contentsline {chapter}{LIST OF TABLES}{xiii}{section*.6}
 \contentsline {chapter}{\numberline {1}\uppercase {Introduction}}{1}{chapter.1}
 \vskip +10pt
 \contentsline {section}{\numberline {1.1}Dissertation Layout}{3}{section.1.1}
@@ -96,16 +96,17 @@
 \contentsline {section}{\numberline {9.2}Future Work}{128}{section.9.2}
 \contentsline {chapter}{REFERENCES}{130}{section*.43}
 \renewcommand {\cftchapaftersnum }{}
-\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Equations for the LO System}}{136}{APPENDIX.a.A}
+\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Relations for the LO System}}{136}{APPENDIX.a.A}
 \vskip +10pt
 \contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{136}{section.a.A.1}
 \contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{138}{section.a.A.2}
 \contentsline {subsection}{\numberline {A.2.1}Damped Newton Iterations}{141}{subsection.a.A.2.1}
-\contentsline {section}{\numberline {A.3}Analytic Error Contribution for LDD Trial Space}{142}{section.a.A.3}
-\contentsline {section}{\numberline {A.4}Analytic Neutronics answer for Source fixup}{143}{section.a.A.4}
-\contentsline {subsection}{\numberline {A.4.1}Spatially Varying Cross Sections}{144}{subsection.a.A.4.1}
-\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivation of the WLA-DSA Equations}}{146}{APPENDIX.a.B}
+\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivations for High-Order Solver}}{143}{APPENDIX.a.B}
 \vskip +10pt
-\contentsline {section}{\numberline {B.1}Forming a Continuous Diffusion Equation}{146}{section.a.B.1}
-\contentsline {subsection}{\numberline {B.1.1}Diffusion Boundary Conditions}{148}{subsection.a.B.1.1}
-\contentsline {section}{\numberline {B.2}Mapping Solution onto LD Unknowns}{148}{section.a.B.2}
+\contentsline {section}{\numberline {B.1}Analytic Error Contribution for LDD Trial Space}{143}{section.a.B.1}
+\contentsline {section}{\numberline {B.2}Analytic Answer for Fixed Source Problem}{144}{section.a.B.2}
+\contentsline {chapter}{APPENDIX \numberline {C}\uppercase {Derivation of the WLA-DSA Equations}}{147}{APPENDIX.a.C}
+\vskip +10pt
+\contentsline {section}{\numberline {C.1}Forming a Continuous Diffusion Equation}{147}{section.a.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Diffusion Boundary Conditions}{149}{subsection.a.C.1.1}
+\contentsline {section}{\numberline {C.2}Mapping Solution onto LD Unknowns}{149}{section.a.C.2}

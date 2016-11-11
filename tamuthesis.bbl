@@ -79,6 +79,12 @@ N.A. Gentile.
   carlo time-dependent radiative transfer simulations.
 \newblock {\em Journal of Computational Physics}, 172(2):543--571, 2001.
 
+\bibitem{fem_book}
+Thomas~JR Hughes.
+\newblock {\em The finite element method: linear static and dynamic finite
+  element analysis}.
+\newblock Courier Corporation, 2012.
+
 \bibitem{simc_const}
 Eugene D.~Brooks III, Michael~Scott McKinley, Frank Daffin, and Abraham Szöke.
 \newblock Symbolic implicit monte carlo radiation transport in the difference
@@ -121,10 +127,10 @@ Edward~W Larsen and Jim~E Morel.
 \newblock In {\em Nuclear Computational Science}, pages 1--84. Springer, 2010.
 
 \bibitem{larsen_edl}
-EW~Larsen, GC~Pomraning, and VC~Badham.
+E.W. Larsen, G.C. Pomraning, and V.C. Badham.
 \newblock Asymptotic analysis of radiative transfer problems.
 \newblock {\em Journal of Quantitative Spectroscopy and Radiative Transfer},
-  29(4):285--310, 1983.
+  29(4):285 -- 310, 1983.
 
 \bibitem{lewis}
 Elmer~Eugene Lewis and Warren~F Miller.

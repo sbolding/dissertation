@@ -84,14 +84,14 @@
 \BOOKMARK [1][-]{section.9.1}{CONCLUSIONS}{chapter.9}% 84
 \BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}% 85
 \BOOKMARK [0][-]{section*.43}{REFERENCES}{}% 86
-\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Equations for the LO System}{}% 87
+\BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Relations for the LO System}{}% 87
 \BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 88
 \BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 89
 \BOOKMARK [2][-]{subsection.a.A.2.1}{Damped Newton Iterations}{section.a.A.2}% 90
-\BOOKMARK [1][-]{section.a.A.3}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.A}% 91
-\BOOKMARK [1][-]{section.a.A.4}{Analytic Neutronics answer for Source fixup}{APPENDIX.a.A}% 92
-\BOOKMARK [2][-]{subsection.a.A.4.1}{Spatially Varying Cross Sections}{section.a.A.4}% 93
-\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivation of the WLA-DSA Equations}{}% 94
-\BOOKMARK [1][-]{section.a.B.1}{Forming a Continuous Diffusion Equation}{APPENDIX.a.B}% 95
-\BOOKMARK [2][-]{subsection.a.B.1.1}{Diffusion Boundary Conditions}{section.a.B.1}% 96
-\BOOKMARK [1][-]{section.a.B.2}{Mapping Solution onto LD Unknowns}{APPENDIX.a.B}% 97
+\BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivations for High-Order Solver}{}% 91
+\BOOKMARK [1][-]{section.a.B.1}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.B}% 92
+\BOOKMARK [1][-]{section.a.B.2}{Analytic Answer for Fixed Source Problem}{APPENDIX.a.B}% 93
+\BOOKMARK [0][-]{APPENDIX.a.C}{APPENDIX Derivation of the WLA-DSA Equations}{}% 94
+\BOOKMARK [1][-]{section.a.C.1}{Forming a Continuous Diffusion Equation}{APPENDIX.a.C}% 95
+\BOOKMARK [2][-]{subsection.a.C.1.1}{Diffusion Boundary Conditions}{section.a.C.1}% 96
+\BOOKMARK [1][-]{section.a.C.2}{Mapping Solution onto LD Unknowns}{APPENDIX.a.C}% 97

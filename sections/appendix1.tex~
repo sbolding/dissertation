@@ -16,70 +16,67 @@
 
 \phantomsection
 
-\chapter{\uppercase{Derivations and Equations for the LO System}}
+\chapter{\uppercase{Derivations and Relations for the LO System}}
 
 \section{Useful Moment Relations for LO Equations}
 \label{app:lo_mom_relations}
 
-There are several relations between various moment definitions that are useful in
-derivation and manipulation of the LO equations. The following are derived for $\phi(x)$,
-but can be applied to general moments of functions.  The volumetric average terms
-can be eliminated in terms of the $L$ and $R$ moments from the relation
-$b_{L,i}(x)+b_{R,i}(x)=1$.
+It is useful for derivation and solution of the LO equations to define  several relations between various spatial moments. 
+The following relations are derived for $\phi(x)$,
+but they can be applied to the moments of general functions.  The cell-averaged $\phi(x)$ 
+can be eliminated in terms of the $L$ and $R$ moments using the definition
+$b_{L,i}(x)+b_{R,i}(x)=1$ as follows:
 \begin{align}\label{app:atoL}
     \phi_{i} &= \frac{1}{h_i} \int\limits_\xl^\xr 1 \;\phi(x) \dd x \\
              &= \frac{1}{h_i} \left(\int\limits_\xl^\xr b_{L,i}(x) \phi(x) \dd x +
              \int\limits_\xl^\xr b_{R,i}(x) \phi(x) \dd x \right)\\
              &= \frac{1}{2} \left( \mom{\phi}_{L,i} + \mom{\phi}_{R,i} \right)
 \end{align}
-A similar relation can be derived for the first moment in space as
+A similar relation between the first moment and the $L$ and $R$ moments as
 \begin{equation}
     {\phi}_{x,i} = \frac{3}{2} \left(\mom{\phi}_{R,i} - \mom{\phi}_{L,i}\right)
 \end{equation}
 The above relations can be inverted to derived a relation for the $L$ and $R$ moments in terms of the slope
 and average moments.  These moment expressions are defined purely in terms of integrals,
-and are independent of the chosen spatial representation
+and are independent of the chosen spatial representation.
 
-Once a linear relation on the interior has been assumed, there are other useful closures that can be
+Once a linear relation on the interior has been assumed, there are useful spatial closures that can be
 derived.  The standard linear interpolatory expansion, for the positive half-range, is restated here:
 \begin{equation}
 \phi^+(x) = \phi^+_{L,i} b_{L,i}(x) + \phi^+_{R,i} b_{R,i}(x), \quad \xl < x \leq \xr.
 \end{equation}
-Using this expansion, one can derive a relation between the outflow from a cell and the
-hat function moments (i.e., Eq.~\eqref{eq:x_moml} and~\eqref{eq:x_momr}) that is equivalent to the standard LDFE Galerkin method:
+This representation is substituted into the FE basis moment definitions given by
+Eq.~\eqref{eq:x_moml} and Eq.~\eqref{eq:x_momr} and the integrals evaluated.  The
+resulting expressions produce a relation between the edge values and the outflow from a
+cell, i.e., 
 \begin{equation}
-    \phi_{i,R}^+ = 2 \mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+,
+    \phi_{i,R}^+ = 2 \mom{\phi}_{R,i}^+ - \mom{\phi}_{L,i}^+
 \end{equation}
-where for standard LD $\phi_{i+1/2}^+\equiv\phi_{i,R}$.  The assumption of a linear relation on the interior
-of the cell defines the value for $\phi_{i,L}^+$:
+and
 \begin{equation}
-    \phi_{i,L}^+ = 2 \mom{\phi}_{L,i}^+ - \mom{\phi}_{R,i}^+,
+    \phi_{i,L}^+ = 2 \mom{\phi}_{L,i}^+ - \mom{\phi}_{R,i}^+.
 \end{equation}
+As in the standard LDFE discretization with upwinding (for $\mu>0$) we make the
+approximations $\phi_{i+1/2}^=\phi_{i,R}$ and $\phi_{i-1/2}^+=\phi_{i-1,R}$. Substitution
+of the above expressions into the LO equations produce
+equations exclusively in terms of moment unknowns.  The solution to these equations produces a linear
+representation over each cell that is equivalent to those of a standard LDFE Galerkin
+discretization~\cite{fem_book}.
 
-To eliminate the LO unknowns in a manner that produces the same moments as the lumped LDFE
+To eliminate the LO unknowns in a manner that produces the same moments as a lumped LDFE
 Galerkin discretization, the
 following expression can be used for the outflow from a cell
-\begin{equation}
+\begin{equation}\label{eq:lump_rep}
     \phi_{i+1/2}^+ = \phi_i^+ + \frac{\phi_{x,i}^+}{3},
 \end{equation}
-which in terms of the hat function moments is equivalent to $\phi_{i+1/2}^+ =
+which in terms of the FE moments is equivalent to $\phi_{i+1/2}^+ =
 \mom{\phi}_{R,i}^+$.  Inserting this expression into the radiation moment equations, with the same
 definition for the linear representation over the interior of $\phi_{i+1/2}^+(x) =
 \phi_{L,i} b_{L,i}(x) + \phi_{R,i} b_{R,i}(x)$, will produce an equivalent set of unknowns
-as a linear discontinuous method with a lumped representation for the radiation.  The
-temperature equation must be independently lumped. This
+as a linear discontinuous method with matrix lumping for the radiation terms.  The
+temperature equation and emission source must be independently lumped with an analogous
+defintion of the edge values to Eq.~\eqref{eq:lump_rep}. This
 relation preserves the average within a cell but does not correctly reproduce the first moment.  
-
-A similar expression produces a lumped-equivalent representation on the interior of the cell:
-\begin{equation}
-    \phi_{i,R}^+ = \phi_i^+ + \frac{\phi_x^+}{3},
-\end{equation}
-The moment equations are not modified by using this expression, however the interpretation
-of the moments as a linear representation over the cell has been altered.  This allows for
-us to ensure a lumped representation on the interior while still using the HO solution to
-eliminate the outflow from the equations.  However, the first moment equation does not
-agree necessarily.
-
 
 \section{Newtons Method for the LO Equations}
 \label{app:lo_newton}
@@ -205,6 +202,7 @@ follows:
     \item Repeat 2-5 until $(T^{n+1,m})^4$ and $\phi^{n+1,m}$ are converged.
 \end{enumerate}
 
+\chapter{\uppercase{Derivations for High-Order Solver}}
 
 \section{Analytic Error Contribution for LDD Trial Space}
 \label{sec:face_err_deriv}
@@ -249,11 +247,11 @@ The update equation for $I(x_{i+1/2},\mu)$ is thus
 \end{align}
 
 
-\section{Analytic Neutronics answer for Source fixup}
+\section{Analytic Answer for Fixed Source Problem}
 \label{sec:analytic_neutronics}
 
-In this section we model a fixed-source, pure-absorber neutronics calculation where we know the
-analytic answer to test our fixup.  If we make the mesh thick enough, we can set the
+In this section we model a fixed-source, pure-absorber neutral particle transport
+calculationn that has a known analytic answer.  If we make the mesh thick enough, we can set the
 floor value to be the equilibrium answer $I(x) = \frac{q(x)}{2\sigma_a}$. For a general
 isotropic source $Q(x)$, the 1D transport equation to be solved is
 \begin{equation}
@@ -291,9 +289,7 @@ Combination of the above two equations gives the solution for the mean intensity
 This expression can be integrated over any spatial cell, via quadrature, to accurately approximate moments of
 the mean intensity.
 
-\subsection{Spatially Varying Cross Sections}
-
-To test the fixup we want to imitated the two-material problem in Sec.~\ref{sec:two},
+To test the fixups for the HO solver we have applied  imitated the two-material problem in Sec.~\ref{sec:two},
 but with an analytic answer.  We will set the floor to zero, as that is the easiest case.
 We do not have an internal source to simplify evaluation of the integrals.  The derivation
 proceeds the same as in the above section, but now the integration factor is
@@ -303,9 +299,7 @@ boundary source for negative $\mu$, the solution becomes
     \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)
 \end{equation}
 where the argument of $\E2$ is clearly just the total number of MFPs traveled
-up to that point.
-
-To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
+up to that point.  To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
 This will ensure that the negative half range in negative $\mu$, the solution is $q_0/2$.
 
 \chapter{\uppercase{Derivation of the WLA-DSA Equations}}
