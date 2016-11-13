@@ -26,6 +26,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{tabularx}
+\usepackage{natbib}
 %\usepackage{breqn}
 \usepackage{booktabs}
 \usepackage[linesnumbered,lined,boxed,commentsnumbered]{algorithm2e}
@@ -104,7 +105,7 @@
 %--------------------------------------
 \input{mycommands}
 
-\includeonly{titlepage,abstract}
+%\includeonly{titlepage,abstract}
 
 \begin{document}
 

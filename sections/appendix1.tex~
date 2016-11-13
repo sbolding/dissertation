@@ -251,54 +251,57 @@ The update equation for $I(x_{i+1/2},\mu)$ is thus
 \label{sec:analytic_neutronics}
 
 In this section we model a fixed-source, pure-absorber neutral particle transport
-calculation with a known analytic answer.  For a general
-isotropic source $q(x)$, the 1D transport equation to be solved is
-\begin{equation}
+calculation with a known analytic answer and spatial moments of the mean intensity that can be evaluated
+semi-analytically.  For a general
+isotropic source $q(x)$, the 1D transport equation to be solved is 
+\begin{equation}\label{apptr}
     \mu \pderiv{I}{x} + \sigma_a I(x,\mu) = \frac{q(x)}{2}
 \end{equation}
-The problem is designed to imitate the two-material problem in Sec.~\ref{sec:two} for the
-purpose of testing the HO fixup for negative solutions.  Thus, the domain has two
-different constant cross sections and a small isotropic source.  
-We do not have an internal source to simplify evaluation of the integrals.  The derivation
-proceeds the same as in the above section, but now the integration factor is
-$\exp(\int_{0}^x \sigma_a(x')\dd x'/\mu)$.  With no internal volumetric source and no
-boundary source for negative $\mu$, the solution becomes
+A problem is designed to imitate the two-material problem in Sec.~\ref{sec:two} for the
+purpose of testing the fix-up for the HO solver in Chapter~\ref{chp:negativities}.  Thus, the domain has two
+different constant cross sections and a small isotropic source throughout the domain.  
+The boundary conditions are $I(0,\mu)=I_{inc}$ for $\mu>0$ and
+$I(X,\mu)=\frac{q(X)}{2\sigma_a}$ for
+$\mu<0$, where $x=X$ is the right boundary.  
+For positive directions, this first order differential equation is solved using an integration factor
+$\exp(\tau(x)/\mu)$ where $\tau(x) = \int_{0}^x \sigma_a(x')\dd x'$.
+The solution of Eq.~\eqref{apptr} for the positive half-range intensity is 
 \begin{equation}
-    \phi(x) = I_{inc} \E2\left(\int_{0}^x\sigma(x')\dd x'\right)
-\end{equation}
-where the argument of $\E2$ is clearly just the total number of MFPs traveled
-up to that point.  To include an internal volumetric source, we can make the source $q(x) = q_0 \sigma_a(x)$.
-This will ensure that the negative half range in negative $\mu$, the solution is $q_0/2$.
-with boundary condition $I(0,\mu)=I_{inc}$, $\mu>0$ and
-$I(x_R,\mu)=\frac{q(x_R)}{2\sigma_a}$ for
-$\mu<0$, where $x_R$ is the right boundary.  
-This first order differential equation is solved using an integration factor.
-The solution to this equation for $\mu>0$ is given by
-\begin{equation}
-    I(x,\mu) = I_{inc}e^{\frac{-\sigma_a x}{\mu}} + \int_0^x \frac{q(x')}{2\mu}
-    e^{\frac{-\sigma_a\left(x-x'\right)}{\mu}} \dd x',\quad \mu>0
+    I(x,\mu) =  I_{inc}e^{-\tau(x)/\mu} + \int_0^x \frac{q(x')}{2\mu}
+    \exp\left(\frac{\ds \tau(x')-\tau(x)}{\ds \mu}\right) \dd x',\quad \mu>0.
 \end{equation}
 Integration of this result over the positive half range of $\mu$ gives
-\begin{equation}
-    \phi^+(x) = I_{inc}\E2(\sigma_a x) + \frac{1}{2}\int_0^x q(x')\E1\left[\sigma_a
-    \left(x-x'\right)\right]
-    \dd x'.
+\begin{equation}\label{e122}
+    \phi^+(x) = I_{inc}\E2\left[\tau(x)\right] + \frac{1}{2}\int_0^x q(x')\E1\left[\tau(x)
+        - \tau(x')\right]
+    \dd x',
 \end{equation}
-In the simplification of a constant source, the integral reduces to
+where the linearity of $\tau(x)$ has been used to simplify the argument of the $\E1$
+function.
+
+The internal volumetric source is now defined as $q(x) = q_0 \sigma_a(x)$, where $q_0$ is
+a constant.  This
+definition simulates a floor equilibrium distribution and insures that $\phi^-(x)$ is a
+constant throughout the domain.  This source definition is substituted into
+Eq.~\eqref{e122} with the following general relation~\cite{abramowitz}
 \begin{equation}
-    \phi^+(x) = I_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
-    \E2(\sigma_ax)\right).
+    \E1(y) = -\frac{\dd\E2(y)}{\dd y}  
 \end{equation}
-Also, for a constant source the solution for the negative half range becomes a constant, i.e.,
+to yield a perfect derivative inside the integral. The resulting solution is
 \begin{equation}
-    \phi^{-}(x) = \frac{q}{\sigma_a}
+    \phi^+(x) = I_{inc}\E2\left[\tau(x)\right] + \frac{q_0}{2} \left(1 -
+    \E2\left[\tau(x) \right]\right).
+\end{equation}
+The solution for the negative half range is
+\begin{equation}
+    \phi^{-}(x) = \frac{q(x)}{2\sigma_a} = \frac{q_0}{2}
 \end{equation}
 Combination of the above two equations gives the solution for the mean intensity:
 \begin{equation}
-    \phi(x) = I_{inc}\E2(\sigma_a x) + \frac{q}{2\sigma_a} \left(1 -
-    \E2(\sigma_ax)\right) + \frac{q}{\sigma_a}.
+    \phi(x) = I_{inc}\E2\left[\tau(x)\right] + \frac{q_0}{2} \left(2 -
+    \E2\left[\tau(x)\right]\right) .
 \end{equation}
-This expression can be integrated over any spatial cell, via quadrature, to accurately approximate moments of
+This expression can be integrated over any spatial cell, via high-precision quadrature, to accurately approximate moments of
 the mean intensity.
 
 

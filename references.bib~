@@ -28,14 +28,14 @@
 
 @BOOK{shultis_mc,
     author = "J.K. Shultis and W.L. Dunn",
-    title = "{E}xploring {M}onte {C}arlo {M}ethods",
+    title = "Exploring {M}onte {C}arlo Methods",
     publisher = "Academic Press",
     address = "Burlington, MA 01803",
     year = "2012"
 }
 
 @article{radhydro_code,
-  title={ZEUS-2D: A radiation magnetohydrodynamics code for astrophysical flows in two space dimensions. I-The hydrodynamic algorithms and tests.},
+  title={{ZEUS-2D}: A radiation magnetohydrodynamics code for astrophysical flows in two space dimensions. I-The hydrodynamic algorithms and tests.},
   author={Stone, James M and Norman, Michael L},
   journal={The Astrophysical Journal Supplement Series},
   volume={80},
@@ -54,16 +54,6 @@
   publisher={Elsevier}
 }
 
-@article{larsen_edl,
-  title={Asymptotic analysis of radiative transfer problems},
-  author={Larsen, EW and Pomraning, GC and Badham, VC},
-  journal={Journal of Quantitative Spectroscopy and Radiative Transfer},
-  volume={29},
-  number={4},
-  pages={285--310},
-  year={1983},
-  publisher={Elsevier}
-}
 
 
 @book{mihalas,
@@ -75,8 +65,8 @@
 
 @PHDTHESIS{wolters,
     author = "E.R. Wolters",
-    title = "Hybrid Monte Carlo - Deterministic Neutron Transport Methods Using
-        Nonlinear Functionals",
+    title = {Hybrid {M}onte {C}arlo - Deterministic Neutron Transport Methods Using
+        Nonlinear Functionals},
     school = "Michigan",
     year = "2011"
 }
@@ -125,7 +115,7 @@ Year = {2008},
 
 
 @article{wollaeger_ld,
-  title={Implicit Monte Carlo with a linear discontinuous finite element material solution and piecewise non-constant opacity},
+  title={Implicit {M}onte {C}arlo with a linear discontinuous finite element material solution and piecewise non-constant opacity},
   author={Wollaeger, Ryan T and Wollaber, Allan B and Urbatsch, Todd J and Densmore, Jeffery D},
   journal={Journal of Computational and Theoretical Transport},
   pages={00--00},
@@ -137,7 +127,7 @@ Year = {2008},
 
 @unpublished{jake_mnc,
     author = "J.R. Peterson and J.E. Morel and J.C. Ragusa",
-    title = "{E}xponentially {C}onvergent {M}onte {C}arlo for the 1-D {T}ransport {E}quation",
+    title = "{E}xponentially Convergent {M}onte {C}arlo for the 1-D Transport Equation",
     note = "{M\&C}",
     address = "Sun Valley, ID",
     date = "May 5-9",
@@ -154,7 +144,7 @@ Year = {2008},
 }
 
 @article{teleportation,
-  title={Comparison of implicit and symbolic implicit Monte Carlo line transport with frequency weight vector extension},
+  title={Comparison of implicit and symbolic implicit {M}onte {C}arlo line transport with frequency weight vector extension},
   author={McKinley, Michael Scott and Brooks III, Eugene D and Szoke, Abraham},
   journal={Journal of Computational Physics},
   volume={189},
@@ -174,7 +164,7 @@ Year = {2008},
 
 
 @article{imd,
-  title={Implicit Monte Carlo diffusion: An acceleration method for Monte Carlo time-dependent radiative transfer simulations},
+  title={Implicit {M}onte {C}arlo diffusion: An acceleration method for {M}onte {C}arlo time-dependent radiative transfer simulations},
   author={Gentile, N.A.},
   journal={Journal of Computational Physics},
   volume={172},
@@ -198,7 +188,7 @@ Year = {2008},
 
 @article{fnc,
     author = {Fleck,Jr., J. A. and Cummings,Jr., J. D.},
-    title = {An Implicit Monte Carlo Scheme for Calculating Time and Frequency Dependent Nonlinear Radiation Transport},
+    title = {An Implicit {M}onte {C}arlo Scheme for Calculating Time and Frequency Dependent Nonlinear Radiation Transport},
     journal = {J. Comput. Phys.},
     volume = {8},
     number = {3},
@@ -220,7 +210,7 @@ Year = {2008},
 }
 
 @article{densmore_edl,
-title = "Asymptotic equilibrium diffusion analysis of time-dependent Monte Carlo methods for grey radiative transfer ",
+title = "Asymptotic equilibrium diffusion analysis of time-dependent {M}onte {C}arlo methods for grey radiative transfer ",
 journal = "Journal of Computational Physics ",
 volume = "199",
 number = "1",
@@ -229,10 +219,28 @@ year = "2004",
 author = "Jeffery D. Densmore and Edward W. Larsen"
 }
 
+@article{larsen_edl,
+title = "Asymptotic analysis of radiative transfer problems",
+journal = "Journal of Quantitative Spectroscopy and Radiative Transfer",
+volume = "29",
+number = "4",
+pages = "285 - 310",
+year = "1983",
+author = "E.W. Larsen and G.C. Pomraning and V.C. Badham",
+}
+
+@book{abramowitz,
+      title={Handbook of mathematical functions: with formulas, graphs, and mathematical
+          tables},
+      author={Abramowitz, Milton and Stegun, Irene A},
+      volume={55},
+      year={1964},
+      publisher={Courier Corporation}
+}
 
 
 @article{favorite_faces,
-  title={On the Accuracy of a Common Monte Carlo Surface Flux Grazing Approximation},
+  title={On the Accuracy of a Common {M}onte {C}arlo Surface Flux Grazing Approximation},
   author={Favorite, Jeffrey A and Thomas, Ashley D and Booth, Thomas E},
   journal={Nuclear Science and Engineering},
   volume={168},
@@ -293,8 +301,8 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
 
 
 @BOOK{toro,
-  title = {Riemann {S}olvers and {N}umerical {M}ethods for {F}luid {D}ynamics: A {P}ractical
-	{I}ntroduction},
+  title = {Riemann Solvers and Numerical Methods for Fluid Dynamics: A Practical
+	Introduction},
   publisher = {Springer},
   year = {1999},
   author = {E.F. Toro},
@@ -311,13 +319,13 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
 
 @MastersTHESIS{jake,
     author = "J.R. Peterson",
-    title = "{E}xponentially {C}onvergent {M}onte {C}arlo for the 1-D {T}ransport    {E}quation",
+    title = "{E}xponentially Convergent {M}onte {C}arlo for the 1-D Transport    Equation",
     school = "Texas A\&M",
     year = "2014"
 }
 
 @article{wollaber_review,
-  title={Four decades of implicit Monte Carlo},
+  title={Four decades of implicit {M}onte {C}arlo},
   author={Wollaber, Allan B},
   journal={Journal of Computational and Theoretical Transport},
   volume={45},
@@ -352,14 +360,14 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
 
 
 @phdthesis{wollaber_thesis,
-  title={Advanced Monte Carlo methods for thermal radiation transport},
+  title={Advanced {M}onte {C}arlo methods for thermal radiation transport},
   author={Wollaber, Allan B},
   year={2008},
   school={The University of Michigan}
 }
 
 @phdthesis{cj_thesis,
-  title={Discrete-ordinates cost optimization of weight-dependent variance reduction techniques for Monte Carlo neutral particle transport},
+  title={Discrete-ordinates cost optimization of weight-dependent variance reduction techniques for {M}onte {C}arlo neutral particle transport},
   author={Solomon, Clell J},
   year  ={2010},
   school={Kansas State University}
@@ -385,15 +393,6 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
     year = "1991"
 }
 
-
-@unpublished{jake_mnc,
-    author = "J.R. Peterson and J.E. Morel and J.C. Ragusa",
-    title = "{E}xponentially {C}onvergent {M}onte {C}arlo for the 1-D {T}ransport {E}quation",
-    note = "{M\&C}",
-    address = "Sun Valley, ID",
-    date = "May 5-9",
-    year = 2013
-}
 
 
 @inproceedings{holo_rh,
@@ -426,7 +425,7 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
 
 @article{iimc_gentile,
     author = {N. A. Gentile and Ben C. Yee},
-    title = {Iterative Implicit Monte Carlo},
+    title = {Iterative Implicit {M}onte {C}arlo},
     journal = {Journal of Computational and Theoretical Transport},
     volume = {0},
     number = {0},
@@ -436,17 +435,17 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
 
 @article{simc,
     author = {Eugene D. Brooks III and Abraham Szőke and Jayson D.L. Peterson},
-    title = {``Piecewise linear discretization of Symbolic Implicit Monte Carlo
-        radiation transport in the difference formulation ''},
+    title = {Piecewise linear discretization of Symbolic Implicit {M}onte {C}arlo
+        radiation transport in the difference formulation},
     year = {2006},
-    journal = {``Journal of Computational Physics ''},
-    volume = {"220"},
-    number = "1",
+    journal = {Journal of Computational Physics},
+    volume = {220},
+    number = {1},
     pages = {471 - 497}
 }
 
 @article{simc_const,
-    title = "Symbolic implicit Monte Carlo radiation transport in the difference formulation: a piecewise constant discretization ",
+    title = "Symbolic implicit {M}onte {C}arlo radiation transport in the difference formulation: a piecewise constant discretization ",
     journal = "Journal of Computational Physics ",
     volume = "205",
     number = "2",
@@ -457,7 +456,7 @@ author = "Jeffery D. Densmore and Edward W. Larsen"
 
 
 @article{diff_limit_imc,
-title = "Asymptotic analysis of the spatial discretization of radiation absorption and re-emission in Implicit Monte Carlo ",
+title = "Asymptotic analysis of the spatial discretization of radiation absorption and re-emission in Implicit {M}onte {C}arlo ",
 journal = "Journal of Computational Physics ",
 volume = "230",
 number = "4",
@@ -469,7 +468,7 @@ author = "Jeffery D. Densmore"
 
 
 @article{wollaber2013discrete,
-  title={A Discrete Maximum Principle for the Implicit Monte Carlo Equations},
+  title={A Discrete Maximum Principle for the Implicit {M}onte {C}arlo Equations},
   author={Wollaber, Allan B and Larsen, Edward W and Densmore, Jeffery D},
   journal={Nuclear Science and Engineering},
   volume={173},
@@ -481,7 +480,7 @@ author = "Jeffery D. Densmore"
 
 
 @article{ddmc,
-  title={A hybrid transport-diffusion Monte Carlo method for frequency-dependent radiative-transfer simulations},
+  title={A hybrid transport-diffusion {M}onte {C}arlo method for frequency-dependent radiative-transfer simulations},
   author={Densmore, Jeffery D and Thompson, Kelly G and Urbatsch, Todd J},
   journal={Journal of Computational Physics},
   volume={231},
@@ -515,7 +514,7 @@ author = "Jeffery D. Densmore"
 }
 
 @article{rmc,
-    title = "Residual Monte Carlo High-order Solver for Moment-Based Accelerated Thermal Radiative Transfer Equations ",
+    title = "Residual {M}onte {C}arlo High-order Solver for Moment-Based Accelerated Thermal Radiative Transfer Equations ",
     journal = "Journal of Computational Physics ",
     volume = "276",
     pages = "405 - 421",
@@ -524,7 +523,7 @@ author = "Jeffery D. Densmore"
 }
 @inproceedings{park,
     author = "H. Park and J.D. Densmore and A.B. Wollaber and D.A. Knoll and  R.M. Ramenzahn",
-    title = "{Monte Carlo Solution Methods in a Moment-Based Scale-Bridging Algorithm
+    title = "{{M}onte {C}arlo Solution Methods in a Moment-Based Scale-Bridging Algorithm
         For Thermal Radiative Transfer Problems}",
     address = "M\&C. Sun Valley, ID",
     date = "May 5-9",
@@ -574,7 +573,7 @@ author = "Jeffery D. Densmore"
 }  
 
 @manual{mcnp,
-    author= {X-3 Monte Carlo Team},
+    author= {X-3 {M}onte {C}arlo Team},
     title = {MCNP - A General N-Particle Transport Code, Version 6: Volume I, Overview and    Theory},
     note = {LA-UR-03-1987},
     year = {2005}
@@ -583,7 +582,7 @@ author = "Jeffery D. Densmore"
                    
 @unpublished{jayenne,
     author = "T.J. Urbatsch and T.M. Evans",
-    title = "{Milagro Version 2 An Implicit Monte Carlo Code for Thermal Radiative
+    title = "{Milagro Version 2 An Implicit {M}onte {C}arlo Code for Thermal Radiative
         Transfer: Capabilities, Development, and Usage}",
     note = "Los Alamos National Laboratory Report LA-14195-MS",
     year = "2006"

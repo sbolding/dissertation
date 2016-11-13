@@ -609,7 +609,7 @@ the first few time steps the temperature spikes are present.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_rad_imc.pdf}
-    \caption{\label{fig:imc_mpvrad}$T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.}
+    \caption{\label{fig:imc_mpvrad}$T_r$ and $T_m$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.}
 \end{figure}
 \begin{figure}[htbp]
     \centering
