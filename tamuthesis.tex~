@@ -136,9 +136,9 @@
 \include{sections/ho_solver}
 \include{sections/results}
 \include{sections/dsa}
-\include{sections/negativities}
+%\include{sections/negativities}
 \include{sections/time_closure}
-\include{sections/conclusions}
+%\include{sections/conclusions}
 
 %fix spacing in bibliography, if any...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -180,7 +180,7 @@ result to the previous solution yields the desired moments of the exact solution
                   &\simeq \B L^{-1} q
 \end{align}
 where the above expression is equal in the limit of an infinite number of histories,
-within a single batch.
+within a single batch.  
 
 A MC batch provide a standard MC transport estimate of moments of the error.  Each batch
 estimate of the moments of $\epsilon$ has a statistical uncertainty that, with sufficient
@@ -205,6 +205,20 @@ correctly reproduce the confidence interval that the sample variance from the
 original simulation estimated.  Additionally, the number of histories within
 each batch are likely too low  for the central limit theorem to truly apply, as
 they  do not sample the full solution space sufficiently~\cite{mcnp}.  
+
+Even for a fixed-source problem, the solution produced by the ECMC method only preserves
+global energy balance to the order of the magnitude of the residual.  
+At the end of any batch, the continuous equation satisfied by the solution is
+\begin{equation}
+    \pderiv{\tilde I^{n+1}(x,\mu)}{x} + \sigma_t \tilde I^{n+1} = q - r(x,\mu).
+\end{equation}
+Integration of the residual over $x$ and $\mu$ will generally produce a non-zero zeroth moment 
+over each cell, due to the $\delta$-function face sources and slope of the solution within
+a cell.  Thus, integration over the domain will not produce the desired balance
+relation that would result if there was a zero residual.  The magnitude of the zeroth moment of
+the residual provides some measure of how well balance is being preserved.  However, it is noted that all of the
+energy created within a batch, through positive and negative weight particles, is being
+conserved correctly; all weight is either absorbed or leaked from the system.
 
 \subsection{Adaptive Mesh Refinement}
 

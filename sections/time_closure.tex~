@@ -621,15 +621,14 @@ histories.  The
 reference solution is the average of 20 IMC simulations of $20\times10^6$
 histories, each with $\Delta t =10^{-4}$ sh.  The estimated value of $\ss$ for the
 reference solution is 0.025\%.  The L$_2$ norm of the error in cell-averaged mean
-intensities is computed using Eq.~\eqref{eq:avg_err} for $\phi^{n+1}$ from the last time
+intensities $\|e\|_{a}$ is computed using Eq.~\eqref{eq:avg_err} for $\phi^{n+1}$ from the last time
 step, averaged over 20 simulations.  Sample statistics for cell-averaged $\phi^{n+1}$ were also computed using the $\FOM$
 from Eq.~\eqref{eq:fom}.
 
-Table.~\ref{tab:fom_thin} compares computed values of $\|e_a\|$ and FOM for the census
-radiation energy densities, for the case of $\Delta t =
-0.0005$~sh.   HOLO results were generated for the case of 1 and 2 batches, with the same
+Table.~\ref{tab:fom_thin} compares computed values of $\|e\|_{a,rel}$ and FOM for the census
+radiation energy densities, for the case of $\Delta t =0.0005$~sh.   HOLO results were generated for the case of 1 and 2 batches, with the same
 total number of histories per time step, where the number of batches is indicated in
-parenthesis. The standard deviation of each estimate of $\|e\|_a$ follows each value in parenthesis. 
+parenthesis. The standard deviation of each estimate of $\|e\|_{a,rel}$ follows each value in parenthesis. 
 At low particle counts, the HOLO-TC method demonstrates substantial noise.   
 A plot
 of the inaccuracies for the case of 30,000 histories and a single batch is given in
@@ -641,19 +640,19 @@ case, there is less error in the estimate of $\tilde I^{n+1}(x,\mu)$ because onl
 deviation form the first batch estimate of $\overline I(x,\mu)$ is estimated with MC. 
 At higher history counts there is an increase in efficiency, however the IMC method is
 more accurate overall due to the projection error between time steps.  For reference, statistics were measured for the HOLO-BE method with two batches of 150,000
-histories per time step, producing $\|e\|_a=10.5\%$ and $\FOM=3100$, demonstrating
+histories per time step, producing $\|e\|_{a,rel}=10.5\%$ and $\FOM=3100$, demonstrating
 substantial inaccuracy but improved efficiency.
 
 Table~\ref{tab:thin_short} compares results for $\Delta t = 0.0001$~sh.  The results were
-generated for two different mesh sizes, but $\|e_a\|$ is computed using the same 100
+generated for two different mesh sizes, but $\|e_{a,rel}\|$ is computed using the same 100
 spatial cell reference solution in both cases.  All FOM values are relative to $IMC$ with
 100 $x$ cells and 30,000 histories.  At the coarser mesh size, the HOLO-TC method has a
 factor of 95 higher FOM, indicated much-improved statistical efficiency.  However, the projection error
 limits accuracy to around 1.5$\%$.  At the finer mesh size, the
 HOLO-TC method remains more efficient (as long as the batch size is sufficient) and produces higher accuracy than the IMC results.
 For reference, statistics were measured for the HOLO-BE method with two batches of 150,000
-histories per time step. The HOLO-BE results produced $\|e\|_a=3.7\%$ and $\FOM=4700$ for the
-coarse mesh, and $\|e\|_a=3.6$ and $\FOM=9600$ for the fine mesh.  The accuracy of the HOLO-BE method
+histories per time step. The HOLO-BE results produced $\|e\|_{a,rel}=3.7\%$ and $\FOM=4700$ for the
+coarse mesh, and $\|e\|_{a,rel}=3.6$ and $\FOM=9600$ for the fine mesh.  The accuracy of the HOLO-BE method
 is limited by the time integration accuracy.
 \begin{figure}
     \centering
@@ -669,7 +668,7 @@ histories to accurately estimate end of time step unknowns.}
     thin problem and $\Delta t = 5\times 10^{-4}$ sh.   Simulation end time is ${t=0.003}$ sh.}}
     \resizebox{\textwidth}{!}{
 \begin{tabular}{|c|ccc|ccc|}\cline{2-7}
-    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{$\|e\|_a$} &
+    \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{$\|e\|_{a,rel}$} &
     \multicolumn{3}{|c|}{\FOM} \\ \hline
 hists./step   & IMC & HOLO-TC (1) & HOLO-TC (2)    &  IMC   & HOLO-TC(1) & HOLO-TC(2) \\ \hline
    30,000     & 3.0\% $(0.08\%)$   & 17.3\% $(0.5\%) $  & 4.99\%  $(0.2\%) $    &  1.00  & 0.03  &  0.31      \\

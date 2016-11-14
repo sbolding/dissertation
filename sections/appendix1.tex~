@@ -281,7 +281,7 @@ function.
 
 The internal volumetric source is now defined as $q(x) = q_0 \sigma_a(x)$, where $q_0$ is
 a constant.  This
-definition simulates a floor equilibrium distribution and insures that $\phi^-(x)$ is a
+definition simulates a floor equilibrium distribution and ensures that $\phi^-(x)$ is a
 constant throughout the domain.  This source definition is substituted into
 Eq.~\eqref{e122} with the following general relation~\cite{abramowitz}
 \begin{equation}

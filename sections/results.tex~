@@ -52,10 +52,6 @@ of $N_{\text{tot}}$ for IMC or
 our HOLO method due to correlation of the solution between time steps; additionally, ECMC
 has correlations between batches.
 
-
-
-
-
 \section{Marshak Wave}
 \label{sec:marsh}
 
@@ -509,7 +505,7 @@ closures and numbers of cells.  The reference solution for all calculations was 
 cells.  In all cases, the HO spatial closure produces higher accuracy in the L$_2$
 norms and greater consistency between the solvers.  However, there is not an
 improvement in accuracy of the cell-averaged intensities.  Neglecting noise, the LDFE representation can be third order
-accurate for the $\|e\|_a$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}. 
+accurate for the $\|e\|_{a,rel}$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}. 
 The statistical noise induced in face tallies makes the
 additional accuracy that the MC transport can use not greater than the benefit of
 higher spatial integration by the MC transport.  It
@@ -528,8 +524,9 @@ becomes an issue.
     \caption{\label{tab:smooth} Comparison of error metrics, reported as percentages, averaged over 20 simulations of smooth problem.  The absolute
 standard deviation for each value is reported in parenthesis. Reference solution uses 500 cells.}
     \begin{tabular}{|l|cl|cl|cl|} \hline
-        Spatial Closure & \multicolumn{2}{|c|}{$\|e\|_2$}  & \multicolumn{2}{|c|}{$\|e\|_{a}$} & \multicolumn{2}{|c|}{$\|\phi^{HO}
-        -\phi^{LO}\|_{2}$} \\  \hline \hline
+        Spatial Closure & \multicolumn{2}{|c|}{$\|e\|_2$}  &
+        \multicolumn{2}{|c|}{$\|e\|_{a,rel}$} & \multicolumn{2}{|c|}{$\|\phi^{HO}
+        -\phi^{LO}\|_{2,rel}$} \\  \hline \hline
         \multicolumn{7}{|c|}{$N_c = 20$ cells} \\ \hline
 LDFE               &   6.60\%  &   (0.17\%)  &   2.80\%     &   (5.7e-03\%)  &   2.90\%   &  (8.1e-03\%)  \\
 HO: Scaled Slope   &   6.10\%  &   (2.9e-03\%)  &   3.50\%  &   (5.8e-03\%)  &   0.021\%  &  (8.6e-03\%)  \\

@@ -192,7 +192,7 @@ as the HO spatial closure is estimated with sufficient statistical accuracy.
 
 \subsection{Fixup for the Linear Doubly-Discontinuous Trial Space}
 
-REWRITE: THIS SECTION NEEDS TO BE REWRITTEN
+REWRITE: THIS SECTION WILL BE REWRITTEN
 % For this case, we use the lumped
 %representation on the interior of the solution for all cells. The outflow can still be driven negative
 %due to non-linearities, which leads to negative values in down-stream cells. 
@@ -253,7 +253,7 @@ absorption term $\sigma_{a,i}\mom{\phi}_{L,i}$.
 There are several issues with ECMC that cause the LO solution to not exactly preserve
 the zeroth and first moments of the HO solution, even for a linear transport problem.  With ECMC, global and particularly local
 energy balance are generally not preserved. 
-Thus, the HO balance equation is not satisfied exactly and the closure relation is no
+The HO balance equation is not satisfied exactly and the closure relation is no
 longer exact for the zeroth moment of the LO equation.
 However, ECMC will preserve balance to the order of
 the iterative error and statistical noise.  

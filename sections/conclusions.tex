@@ -3,80 +3,86 @@
 
 \section{CONCLUSIONS}
 
-Our HOLO method produces accurate solutions for Marshak wave test problems using
-a new HOLO method that are in agreement with IMC.  Unlike IMC, our method requires no effective scattering
-events to be included in the MC simulation, which limits the run time of particle
-tracking, while adding the cost of a LO Newton solver. Average LO iteration counts
-did not significantly increase as the time step size was increased. The LDFE spatial representation
-mitigates issues with teleportation error, producing results with spatial accuracy
-comparable to IMC with source tilting. 
-
-  Because our LO system allows for iterations
-to eliminate the nonlinearities of the system, with an implicit discretization, the method does not demonstrate 
-maximum principle violations. Even though damping was required to prevent maximum
-priniciple violations, an advantage of the HOLO method is that
-there is no additional cost for the HO solution when the damped method is used, which
-is typically the most expensive portion of the algorithm.
- The LDFE discretization of the LO system has been shown to preserve the equilibrium
-diffusion limit.
-
- The ECMC approach for a HO solver, with initial guesses based on the
-previous radiation intensity, results in efficient reduction of statistical error.  The systematic sampling algorithm
-distributes particles to regions of the where the solution varies greatly over the time step.
-The LO solver resolves the non-linearities in the equations resulting in a fully
-implicit time discretization.
-The LO solver
-can accurately and efficiently resolve the solution in diffusive regions, while the HO
+We have implemented and tested a new HOLO algorithm for 1D, grey TRT problems.  The HO
+solver utilizes ECMC, and the LO system is based on half-range angular moments and LDFE
+spatial moments. Overall, the LO solver can accurately and efficiently resolve the solution in diffusive regions, while the HO
 transport solver provides the accuracy of a full transport treatment where necessary. 
+Our HOLO method produces accurate solutions for Marshak wave test
+problems that are in agreement with IMC.  Unlike IMC, our method requires no effective
+scattering events to be included in the MC simulation, which limits the run time of
+particle tracking while adding the cost of a LO Newton solver. The LDFE spatial
+representation mitigates issues with teleportation error, producing results with spatial
+accuracy comparable to IMC with source tilting.  The LDFE discretization of the LO system
+and material temperature was also shown to preserve the equilibrium diffusion limit.  
+The efficiency of the LO system allows for nonlinearities in the system to be resolved
+with Newton iterations.  The fully nonlinear system with an implicit discretization
+prevents maximum principle violations. Even though damping of the Newton iterations was
+required for convergence to prevent violations, an advantage of the HOLO method is that
+there is no additional cost for the HO solution when the damped method is used.
+Typically, the HO solver will be the most expensive portion of the algorithm. 
+We have also implemented iterative solution methods to the LO equations using the GMRES and
+standard source iteration approaches.  A nearly-consistent DSA method was able to
+significantly reduce the number of required scattering iterations for the source iteration
+approach. 
 
+The ECMC algorithm was shown to be more statistically efficient than standard MC as a HO
+solver for TRT problems.  The residual formulation with an initial guesses based on the
+previous radiation intensity results in efficient reduction of statistical error.  The
+systematic source sampling algorithm distributes particles to regions of the problem where the
+solution varies greatly over the time step.  For problems where the LDFE space-angle trial space
+can reasonably approximate the solution, mesh refinement allows for exponential
+convergence and improved FOM values.   In problems with optically
+thick regions and strong solution gradients, the residual formulation of ECMC can still
+improve efficiency throughout the domain.  Once a maximum refinement level has been
+achieved and the error has stagnated, the final batch of particile histories can be 
+extended to increase statistical accuracy in the final estimate of the error, but at the
+standard MC convergence rate.
+REWRITE: Add conclusions from Chapter 7.
+
+The linear doubly-discontinuous (LDD) trial space was introduced to estimate the HO
+solution at faces, allowing for a parametric spatial closure of the LO equations. 
 For problems where the LD trial space can reasonably resolve the solution, a 
-HO spatial closure is able to increase consistency between the HO and LO solutions and improve
+HO spatial closure was able to increase consistency between the HO and LO solutions and improve
 accuracy in the L$_2$ norm.  The cell-averaged intensities do not improve due to the additional statistical noise
 in the face tallies and inaccuracies in the moment equations for the ECMC solver because of the residual formulation.
+In problems where the solution is not resolved by the LD represenation, the
+inconsistencies in the first moment for the HO solver and the lumped LD LO equations make
+the spatial closure ineffective and unstable.
+In higher dimensions, preserving the spatial accuracy of the HO solution method may
+demonstrate a greater increase in accuracy than 1D where the LD spatial closure is
+third-order accuracy in the averages.  However, the closure is fundamentally limited in
+accuracy in diffusive problems because of the requirement of a linear closure for $T(x)$ and $T^4(x)$. 
 
-
-We have demonstrated the ability to extend the HOLO algorithm to continuous treatment of the radiation 
+We have also demonstrated the ability to extend the HOLO algorithm to continuous treatment of the radiation 
 variable.  The SDD trial space in the time variable allows for the transport operator to be inverted
 continuously in the ECMC algorithm.  This improves accuracy over the BE discretization in optically thin regions.
-The parametric LO closure preserves the accuracy of the HO treatment in the LO moments. 
+The parametric LO closure preserves the accuracy of the HO treatment in the LO moments,
+with minimal approximations in the LO equations. 
 A particular benefit of the time closure is that $\overline I^{HO}$ is most different
 from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
 the problem is relatively linear.  However, in optically thick problems, inaccuracies
-in the SDD for estimating $I_{HO}^{n+1}$ leads to a nead for sampling many histories.
-
-Poor statistics for the face tallies may result in this trial space producing less
-accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
-can accurately represent the solution.  Although the closure will be applied everywhere,
-we expect the greatest improvement in accuracy for cells where the LDFE trial space
-produces a negative solution.
-
-
+in the SDD for estimating $I_{HO}^{n+1}$ leads to an increase in the required number of
+histories for convergence.
 
 \section{Future Work} 
 
-Potentially, because the spatial closure parameters are modifications to standard spatial closures, it should be possible to filter bad
-values of $\gamma^{HO}_i$.  Future studies will investigate the stablity of
-this method more rigorously using a linear fourier stability analysis.
+The primary difficulty to overcome in the ECMC algorithm is when the solution cannot be
+accurately represented by the trial space, e.g., in optically thick cells where the
+solution is driven negative.   We are currently developing an approach to allow the ECMC
+iterations to continue converging globally when there are such regions present.  It is
+necessary to ensure the closure in the LO system is consistent with the HO representation
+for the solution in such regions.  The ability to represent the solution accurately in
+rapidly varying regions of the problem will be key for generalization of this method to
+higher dimensions.  The spatial closure is ineffective primarily because of
+inconsistencies in the first moment between the HO and LO equations.  It is necessary to
+introduce a solution method that corrects the first moment equation in the HO solution and
+LO solution but will not affect energy conservation.  A straight-forward approach would be
+to apply slope limiters to the temperature and LD representation of the mean intensities,
+although this may lead to some diffusivity of the solution on coarser meshes.  Future
+studies should investigate the stablity of the LO closures more rigorously using a linear
+fourier stability analysis. 
 
-The primary difficulty to overcome in the ECMC algorithm is when the solution cannot
-be accurately represented by the trial space, e.g., in optically thick cells where
-the solution is driven negative.   We are currently developing an approach to allow
-the ECMC iterations to continue converging globally when there are such regions
-present.  It is necessary to ensure the
- closure in the LO system is consistent with the HO
-representation for the solution in such regions.  The ability to represent the solution accurately in
-rapidly varying regions of the problem will be key for generalization of this method
-to higher dimensions.  A formulization of the ECMC method
-that allows for time-continuous MC transport (similar to IMC) is also currently being
-investigated.  This may reduce some of the loss of accuracy in optically thin regions
-due to the time discretization of the transport equation in the HO solver.
-However, greater time accuracy is not of primary concern as this method is intended
-for use in problems dominated by large absorption opacities, where the LO
-acceleration is critical. Inclusion of Compton scattering in this algorithm, which would introduce
-additional non-linear dependence through energy exchange with the
-material, is a topic for future research.
-  To extend
-to higher dimensions, our LDFE representation may require the use of a higher-degree
+To extend to higher dimensions, our LDFE representation may require the use of a higher-degree
 spatial representation for the LO system to achieve the diffusion
 limit. Further asymptotic
 analysis on the method will be applied before implementation. It may be necessary to use a different LO system (e.g., the non-linear diffusion
@@ -84,9 +90,14 @@ acceleration approach in~\cite{rmc}), if the S$_2$-like equations become too
 inefficient or difficult to implement in higher dimensions.  Alternatively, a
 variable Eddington Tensor approach may provide more stability in rapidly variable
 regions of the problem while still allowing for a consistent, LDFE solution that is efficiently solvable.
+For the HO solver, extension to higher dimensions is a great task.  The main hurdle to
+overcome is infrastructure.  In particular, the greatest difficulty is a FE, functional
+representation in all phase space variables and the ability to
+track on such a FE mesh; for 2D grey problems this is a four-dimensional FE space.  This
+required technology is fundamentally different than the approach in most S$_N$ methods.
 
-TIME CLOSURE:
-Alternatively, an LDFE representation could be used in the time
+The HO time closure could be modified to improve statistical efficiency by improving on
+the SDD trial space. Alternatively, an LDFE representation could be used in the time
 variable. The linear representation should produce less noise because all particle tracks
 contribute to the slope, rather than just those that reach the end of the time step,
 although it would produce an approximate projection error for the end of time step
@@ -95,8 +106,17 @@ linear representation in time would also produce a more accurate reconstruction 
 scattering source in time.  However, a linear representation requires the sampling
 algorithm to be significantly modified because the L$_1$ integral for computing the
 residual magnitude is now significantly complicated by the tri-linear function.  It is
-necessary to incorporate important sampling or some kind of Markov Chain to sample this
-function~\cite{shultis_mc}
+necessary to incorporate important sampling or potentially Markov Chain MC to sample this
+function~\cite{shultis_mc}.  One potential path forward is to use improtance sampling
+where the new function being sampled is a PDF based on a step representation of the
+residual.  The magnitude of this function can be exactly integrated with one point
+quadrature.  In such an approach, the magnitude of the residual source is being
+approximated with MC.  The goal is that this will be sufficiently close enough to the
+residual that it will be more statistically efficient than simpler approachs, e.g.,
+sampling from a uniform space.
+It remains to be seen if this additional sampling introduces too
+much noise for the method to be efficient.  However, testing this approach would be useful
+for extensions to higher dimensions which have the same requirement.
 
 
 

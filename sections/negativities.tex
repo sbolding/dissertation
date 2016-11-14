@@ -154,36 +154,52 @@ for the mean intensity, as derived in App.~\ref{sec:analytic_neutronics}, is
     \phi(x) = I_{inc}\E2\left[\tau(x)\right] + \frac{q_0}{2} \left(2 -
     \E2\left[\tau(x)\right]\right),
 \end{equation}
-where $I_{inc}=1000$ cm$^{-2}$-str$^{-1}$ is the incident intensity at the left
-boundary and $q_0 = 0.5$ cm$^{-2}$-s$^{-1}$; The equilibrium solution which is
-used as the floor in the applied fixups is $I_{\min} = 0.5$ cm$^{-2}$-s$^{-1}$-str$^{-1}$.
+where $I_{inc}=1000$ cm$^{-2}$ str$^{-1}$ is the incident intensity at the left
+boundary and $q_0 = 0.5$ cm$^{-2}$ s$^{-1}$; The equilibrium solution which is
+used as the floor in the applied fixups is $I_{\min} = 0.5$ cm$^{-2}$ s$^{-1}$ str$^{-1}$.
 
 The problem was simulated with the HOLO algorithm with four batches of 100,000 histories.
-For the LO solver, the lumped LD spatial closure in all cells. 
-For the first batch of the single HO solve, the solution is initialized to $\tilde I(x,\mu)=q_0/2$.
+For the LO solver, the lumped LD spatial closure is used in all cells.
+For the single HO solve, the solution is initialized to $\tilde I(x,\mu)=q_0/2$.
 A plot of the angular
-intensity\footnote{The triangular structure in the plots is only an artifact of the plotting
-software.} is given in Fig.~\ref{fig:neut_ang_full.pdf} from the end of the HO solve.
-Figure~\ref{fig:neut_ang_zoom.pdf} plots the solution for only those cells in which the solution has dropped
-below $I_{\min}$, using a smaller scale for visual clarity.  As expected, near $\mu=0$  nd
-near the sharp gradients in the thick material, the solution is driven negative.
-Fig.~\ref{fig:neut_rot_zoom.pdf} depicts the solution with 
+intensity\footnote{The triangular structure in the plots are only an artifact of the plotting
+software.} is given in Fig.~\ref{fig:neut_ang_full} from the end of the HO solve.
+Figure~\ref{fig:neut_ang_zoom} plots the solution for all cells in which the solution goes
+below $I_{\min}$ for some portion of the domain, using a smaller scale for visual clarity.
+As expected, near $\mu=0$ and near the interface of the thick material the LDFE projection
+is driven negative and cannot accurately represent the solution.
 \begin{figure}[hp]
     \centering
 \begin{subfigure}{0.7\textwidth}
   \centering
     \includegraphics[width=0.99\linewidth]{neut_ang_full.pdf}
-    \caption{\label{fig:neut_ang_full} $\tilde I(x,\mu)$ Convergence of IMC and HOLO-ECMC solutions.}
+    \caption{\label{fig:neut_ang_full} Full plot of $\tilde I(x,\mu)$.}
 \end{subfigure}
 \begin{subfigure}{0.7\textwidth}
   \centering
   \includegraphics[width=0.99\linewidth]{neut_ang_zoom.pdf}
-  \caption{\label{k_200_compare}  Comparison of solutions for 200 spatial cells. }
+  \caption{\label{k_200_compare} $\tilde I(x,\mu)$ for cells where $\tilde I(x,\mu)$
+  crosses $I_{\min}$.   }
 \end{subfigure}
-\caption{Comparison of radiation temperatures for Marshak wave problem at ${t=5}$ sh.}
+\caption{Plots of $\tilde I(x,\mu)$ for the fixed-source problem.}
 \end{figure}
 
+We now test the artificial source fixup and compare to two different cases.  The L$_2$
+norm of the error in cell-averaged mean intensities $\|e\|_{a,rel}$ is computed using
+Eq.~\eqref{eq:avg_err} from the last time step, averaged over 20
+simulations.  Table.~\ref{} compares 
 
-
+\begin{table}
+    \begin{tabular}{|c|cl|cl|c|} \hline
+        Method & \multicolumn{2}{|c|}{$\|e\|_{a,rel}$} & 
+        \multicolumn{2}{|c|}{$\|\phi_{HO}-\phi_{LO}\|_{a,rel}$} &\multicolumn{1}{|c|}{FOM}
+        \\ \hline 
+ Rotate Every Batch &   & ()  &   & () &   \\
+ Rotate Last Batch  &   & ()  &   & () &   \\
+ Artificial Source  &   & ()  &   & () &   \\ \hline
+    \end{tabular}
+    \capion{\label{table:} Comparison of accuracy in cell-averaged $\phi(x)$ value for
+fixed source problem and 100,000 histories per batch.}
+\end{table}
 
 
