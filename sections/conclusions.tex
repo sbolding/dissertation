@@ -9,9 +9,15 @@ events to be included in the MC simulation, which limits the run time of particl
 tracking, while adding the cost of a LO Newton solver. Average LO iteration counts
 did not significantly increase as the time step size was increased. The LDFE spatial representation
 mitigates issues with teleportation error, producing results with spatial accuracy
-comparable to IMC with source tilting.   Because our LO system allows for iterations
+comparable to IMC with source tilting. 
+
+  Because our LO system allows for iterations
 to eliminate the nonlinearities of the system, with an implicit discretization, the method does not demonstrate 
-maximum principle violations.  The LDFE discretization of the LO system has been shown to preserve the equilibrium
+maximum principle violations. Even though damping was required to prevent maximum
+priniciple violations, an advantage of the HOLO method is that
+there is no additional cost for the HO solution when the damped method is used, which
+is typically the most expensive portion of the algorithm.
+ The LDFE discretization of the LO system has been shown to preserve the equilibrium
 diffusion limit.
 
  The ECMC approach for a HO solver, with initial guesses based on the
@@ -23,22 +29,20 @@ The LO solver
 can accurately and efficiently resolve the solution in diffusive regions, while the HO
 transport solver provides the accuracy of a full transport treatment where necessary. 
 
-The spatial closure
+For problems where the LD trial space can reasonably resolve the solution, a 
+HO spatial closure is able to increase consistency between the HO and LO solutions and improve
+accuracy in the L$_2$ norm.  The cell-averaged intensities do not improve due to the additional statistical noise
+in the face tallies and inaccuracies in the moment equations for the ECMC solver because of the residual formulation.
 
 
-GENERAL BENEFIT S:
-
-The advantage of the HOLO method is that
-there is no additional cost for the HO solution when the damped method is used.
-
-TIME CLOSURE:
-
-One benefit of the time closure is that $\overline I^{HO}$ will be
-most different from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
-$\sigma_a$ is small, leading to an optically thin problem.  However, there may be
-difficulties in the MPV problems where the problems are tightly coupled and nonlinear, but
-can lead to a large change over a time step.  
-
+We have demonstrated the ability to extend the HOLO algorithm to continuous treatment of the radiation 
+variable.  The SDD trial space in the time variable allows for the transport operator to be inverted
+continuously in the ECMC algorithm.  This improves accuracy over the BE discretization in optically thin regions.
+The parametric LO closure preserves the accuracy of the HO treatment in the LO moments. 
+A particular benefit of the time closure is that $\overline I^{HO}$ is most different
+from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
+the problem is relatively linear.  However, in optically thick problems, inaccuracies
+in the SDD for estimating $I_{HO}^{n+1}$ leads to a nead for sampling many histories.
 
 Poor statistics for the face tallies may result in this trial space producing less
 accurate results compared to the standard LDFE solution, at least for sufficiently fine meshes where LD
