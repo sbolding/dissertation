@@ -198,7 +198,7 @@ simulations.  Table.~\ref{} compares
  Rotate Last Batch  &   & ()  &   & () &   \\
  Artificial Source  &   & ()  &   & () &   \\ \hline
     \end{tabular}
-    \capion{\label{table:} Comparison of accuracy in cell-averaged $\phi(x)$ value for
+    \caption{\label{table:} Comparison of accuracy in cell-averaged $\phi(x)$ value for
 fixed source problem and 100,000 histories per batch.}
 \end{table}
 

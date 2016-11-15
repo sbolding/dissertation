@@ -92,6 +92,7 @@ method to the implicit Monte Carlo (IMC) method~\cite{fnc}, which is the standar
 transport solution method to the TRT equations.  Results are given for several test
 problems to demonstrate the potential benefits of this method.  We have also demonstrated the efficiency of ECMC over standard Monte Carlo
 as a HO solver in this HOLO algorithm.  
+
 \section{Dissertation Layout}
 
 

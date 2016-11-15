@@ -6,20 +6,24 @@ In this chapter, we compare results of the time-discretized HOLO method to IMC w
 a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
 briefly compare performance in Section~\ref{timing}.  For all IMC results, no
 local, discrete diffusion acceleration methods for effective scattering
-(e.g., those in~\cite{imd,ddmc}) are applied.  Additionally, we demonstrate
+(e.g., those in~\cite{imd,ddmc}) were applied.  Additionally, we demonstrate
 the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
-to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
+to the same HOLO algorithm with the ECMC algorithm replaced with a standard
 Monte Carlo (SMC) simulation.  Finally, we present results that demonstrate
 preservation of the equilibrium diffusion limit and the discrete maximum
 principle by the HOLO algorithm.  Some of the results in this section were published
 previously in~\cite{bolding_nse}.  
 For the results in this chapter, the lumping-equivalent discretization
-discussed in Sec.~\ref{sec:ldfe_fixups} is used for cells where the solution for
+discussed in Sec.~\ref{sec:ldfe_fixups} was used for cells where the solution for
 $\phi^{n+1}$ becomes negative.  When negative intensities in the HO solution produce
 non-physical consistency terms, S$_2$ equivalent terms are used for the LO solve as
 discussed in Sec.~\ref{sec:ho_easyfix}.
 
-A measure of variance in cell-averaged scalar intensities was
+\section{Metrics of Accuracy and Statistical Efficiency}
+\label{sec:metrics}
+
+Several different metrics are used quantify results throughout this chapter as needed.
+A measure of variance in cell-averaged mean intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution
 methods.  To form sample standard deviations, twenty independent simulations for each
 particular result were performed using unique random number generator seeds.
@@ -51,6 +55,46 @@ $N_{tot}$~\cite{shultis_mc}.  The FOM is not necessarily expected to be independ
 of $N_{\text{tot}}$ for IMC or
 our HOLO method due to correlation of the solution between time steps; additionally, ECMC
 has correlations between batches.
+
+The consistency between HO and LO solutions and the accuracy as 
+compared to a reference solution are computed for some simulations.
+The consistency for the $(l)$-th particular simulation is measured with the relative L$_2$ norm
+of the difference between the projected HO and LO solutions, i.e.,
+\begin{equation}
+    \|\phi_{HO} - \phi_{LO}\|^{(l)}_{2,rel} = \frac{\ds \sqrt{\int_0^X \left(
+        \phi_{HO}^{n+1,(l)}(x) - \phi_{LO}^{n+1,(l)}(x) \right)^2 \dd x}}{\ds \sqrt{
+            \int_0^X \left(\phi_{LO}^{n+1,(l)}(x)\right)^2 \dd x }}
+\end{equation}
+where $\phi_{LO}(x)$ and $\phi_{HO}(x)$ are the LDFE representations in space of the
+intensity from the HO and LO solvers, from the end of the last time step.
+The error between a reference solution, e.g., a fine mesh solution, and the ${(l)}$-th simulation
+is computed as
+\begin{equation}
+    \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
+    \phi_{LO}^{n+1,ref}\left( x \right)\|_2}{\|\phi_{LO}^{n+1,ref}\left( x \right)\|_2}
+\end{equation}
+All L$_2$ norms are computed using quadrature over the finest spatial mesh.  An
+integrated measure of the error in cell-averaged mean intensities on the mesh of the
+$l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
+\begin{equation}
+    \|e\|^{{(l)}}_{a,rel} = \left({\frac{\ds \sum\limits_{i=1}^{N^{(l)}_c}
+    \left(\phi_i^{n+1,{(l)}} - \phi_i^{n+1,ref}
+\right)^2}{\ds \sum\limits_{i=1}^{N^{(l)}_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+\end{equation}
+where $\phi_i^{n+1,ref}$ is computed by spatially averaging the reference solution over
+the $i$-th coarse spatial cell.
+
+The sample mean of each of the above norms is estimated based on 20 independent
+simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
+\begin{equation}
+    s\left(\|e\|_{2,rel}\right) = \left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
+    \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
+\end{equation}
+where
+\begin{equation}\label{eq:avg_err}
+\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20
+\end{equation}
+is the corresponding sample mean.
 
 \section{Marshak Wave}
 \label{sec:marsh}
@@ -430,44 +474,11 @@ equations.}
 
 To investigate the utility of the face closures we compare to the LD spatial
 closure for two test problems.  We are interested in the accuracy of the solution and
-consistency between the HO and LO solutions, particularly for coarser meshes. 
-The consistency for the $(l)$-th particular simulation is measured with the relative L$_2$ norm
-of the difference between the projected HO and LO solutions, i.e.,
-\begin{equation}
-    \|\phi_{HO} - \phi_{LO}\|^{(l)}_{2,rel} = \frac{\ds \sqrt{\int_0^X \left(
-        \phi_{HO}^{n+1,(l)}(x) - \phi_{LO}^{n+1,(l)}(x) \right)^2 \dd x}}{\ds \sqrt{
-            \int_0^X \left(\phi_{LO}^{n+1,(l)}(x)\right)^2 \dd x }}
-\end{equation}
-where $\phi_{LO}(x)$ and $\phi_{HO}(x)$ are the LDFE representations in space of the
-intensity from the HO and LO solvers, from the end of the last time step.
-The error between a reference solution and a fine solution for the ${(l)}$-th simulation
-is computed as
-\begin{equation}
-    \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
-    \phi_{LO}^{n+1,ref}\left( x \right)\|_2}{\|\phi_{LO}^{n+1,ref}\left( x \right)\|_2}
-\end{equation}
-All L$_2$ norms are computed using quadrature over the finest spatial mesh.  An
-integrated measure of the error in cell-averaged mean intensities on the mesh of the
-$l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
-\begin{equation}
-    \|e\|^{{(l)}}_{a,rel} = \left({\frac{\ds \sum\limits_{i=1}^{N^{(l)}_c}
-    \left(\phi_i^{n+1,{(l)}} - \phi_i^{n+1,ref}
-\right)^2}{\ds \sum\limits_{i=1}^{N^{(l)}_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
-\end{equation}
-where $\phi_i^{n+1,ref}$ is computed by spatially averaging the fine mesh solution over
-the $i$-th coarse spatial cell.
-
-The sample mean of each of the above metrics is estimated based on 20 independent
-simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
-\begin{equation}
-    s\left(\|e\|_{2,rel}\right) = \left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
-    \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
-\end{equation}
-where
-\begin{equation}\label{eq:avg_err}
-\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20
-\end{equation}
-is the sample mean.
+consistency between the HO and LO solutions, particularly for coarser meshes,
+based on the metrics in Sec.~\ref{sec:metrics}. For error computations, the reference
+solution is based on a fine spatial mesh and L$_2$ norms are computed with quadrature over
+the fine mesh.  Cell-averaged quanties are found by spatially averaging the fine mesh solution over
+each coarse spatial cell. Twenty independent simulations were performed for each metric.
 
 \subsection{Smooth Problem}
 

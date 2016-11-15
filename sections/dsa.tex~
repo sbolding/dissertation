@@ -1,5 +1,6 @@
 
 \chapter{\uppercase {Accelerated Iterative Solution to the LO Equations}}
+\label{chp:dsa}
 
 The fully-discrete, S$_2$-like LO equations 
 cannot be directly inverted easily in higher spatial dimensions.  
@@ -214,7 +215,7 @@ and~\eqref{eq:dsa_lumped}, for \\${\{\delta
     \end{itemize}
 \item Add correction to the moment unknowns with Eq.~\eqref{eq:up1} and~\eqref{eq:up2}.
     \item\label{en:dsa_end} If $\|\u \psi^{l+1} - \u \psi^{l} \|_2 < $ tolerance $\|\u
-        \psi^{l+1} \|$, then
+        \psi^{l+1} \|_2$, then
         exit. Else, repeat steps~\ref{en:dsa_beg}--\ref{en:dsa_end}.
 \end{enumerate}
 
