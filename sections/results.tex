@@ -29,7 +29,7 @@ methods.  To form sample standard deviations, twenty independent simulations for
 particular result were performed using unique random number generator seeds.
 The variance of a particular cell-averaged $\phi(x)$ is 
 \begin{equation} 
-    S_i^2 =  \frac{20}{20-1} \sum_{l=1}^{20} \left(\overline{\phi_{i}} -
+    S_i^2 =  \frac{1}{20-1} \sum_{l=1}^{20} \left(\overline{\phi_{i}} -
     \phi_{i}^l\right)^2,
 \end{equation}
 where $\phi_{i}^l$ is the cell-averaged scalar intensity for cell $i$ from the $l$-th of 20 independent simulations and
@@ -84,10 +84,12 @@ $l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
 where $\phi_i^{n+1,ref}$ is computed by spatially averaging the reference solution over
 the $i$-th coarse spatial cell.
 
+Because the method is stochastic, it is necessary to approximately estimate the average
+error of each method.
 The sample mean of each of the above norms is estimated based on 20 independent
 simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
 \begin{equation}
-    s\left(\|e\|_{2,rel}\right) = \left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
+    s\left(\|e\|^{(l)}_{2,rel}\right) = \frac{1}{\sqrt{20}}\left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
     \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
 \end{equation}
 where

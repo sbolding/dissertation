@@ -77,38 +77,38 @@
 \contentsline {subsection}{\numberline {7.1.2}Adding an Artificial Source}{102}{subsection.7.1.2}
 \contentsline {section}{\numberline {7.2}Computational Results}{103}{section.7.2}
 \contentsline {subsection}{\numberline {7.2.1}Analytic Fixed Source Problem}{103}{subsection.7.2.1}
-\contentsline {chapter}{\numberline {8} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{106}{chapter.8}
+\contentsline {chapter}{\numberline {8} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{107}{chapter.8}
 \vskip +10pt
-\contentsline {section}{\numberline {8.1}Modifications to the HO Solver}{106}{section.8.1}
-\contentsline {subsection}{\numberline {8.1.1}Step Doubly-Discontinuous Trial Space in Time}{107}{subsection.8.1.1}
-\contentsline {subsection}{\numberline {8.1.2}Residual Source Definition and Sampling}{109}{subsection.8.1.2}
-\contentsline {subsection}{\numberline {8.1.3}Importance Sampling on Interior of Time Step}{111}{subsection.8.1.3}
-\contentsline {subsection}{\numberline {8.1.4}Tracking and Tallying in Time}{112}{subsection.8.1.4}
-\contentsline {section}{\numberline {8.2}Closing the LO Equations in Time}{114}{section.8.2}
-\contentsline {subsection}{\numberline {8.2.1}Derivation of Time-Averaged Moment Equations}{115}{subsection.8.2.1}
-\contentsline {subsection}{\numberline {8.2.2}Parametric Time Closure}{116}{subsection.8.2.2}
-\contentsline {section}{\numberline {8.3}Computational Results}{118}{section.8.3}
-\contentsline {subsection}{\numberline {8.3.1}Near-Void Problem}{118}{subsection.8.3.1}
-\contentsline {subsection}{\numberline {8.3.2}Optically Thin Problem}{122}{subsection.8.3.2}
-\contentsline {subsection}{\numberline {8.3.3}Marshak Wave Problem}{127}{subsection.8.3.3}
-\contentsline {subsubsection}{\numberline {8.3.3.1}Importance Sampling on Interior of the Time Step}{128}{subsubsection.8.3.3.1}
-\contentsline {chapter}{\numberline {9} \uppercase {Conclusions and Future Work} }{130}{chapter.9}
+\contentsline {section}{\numberline {8.1}Modifications to the HO Solver}{107}{section.8.1}
+\contentsline {subsection}{\numberline {8.1.1}Step Doubly-Discontinuous Trial Space in Time}{108}{subsection.8.1.1}
+\contentsline {subsection}{\numberline {8.1.2}Residual Source Definition and Sampling}{110}{subsection.8.1.2}
+\contentsline {subsection}{\numberline {8.1.3}Importance Sampling on Interior of Time Step}{112}{subsection.8.1.3}
+\contentsline {subsection}{\numberline {8.1.4}Tracking and Tallying in Time}{113}{subsection.8.1.4}
+\contentsline {section}{\numberline {8.2}Closing the LO Equations in Time}{115}{section.8.2}
+\contentsline {subsection}{\numberline {8.2.1}Derivation of Time-Averaged Moment Equations}{116}{subsection.8.2.1}
+\contentsline {subsection}{\numberline {8.2.2}Parametric Time Closure}{117}{subsection.8.2.2}
+\contentsline {section}{\numberline {8.3}Computational Results}{119}{section.8.3}
+\contentsline {subsection}{\numberline {8.3.1}Near-Void Problem}{119}{subsection.8.3.1}
+\contentsline {subsection}{\numberline {8.3.2}Optically Thin Problem}{123}{subsection.8.3.2}
+\contentsline {subsection}{\numberline {8.3.3}Marshak Wave Problem}{128}{subsection.8.3.3}
+\contentsline {subsubsection}{\numberline {8.3.3.1}Importance Sampling on Interior of the Time Step}{129}{subsubsection.8.3.3.1}
+\contentsline {chapter}{\numberline {9} \uppercase {Conclusions and Future Work} }{131}{chapter.9}
 \vskip +10pt
-\contentsline {section}{\numberline {9.1}CONCLUSIONS}{130}{section.9.1}
-\contentsline {section}{\numberline {9.2}Future Work}{132}{section.9.2}
-\contentsline {chapter}{REFERENCES}{135}{section*.45}
+\contentsline {section}{\numberline {9.1}CONCLUSIONS}{131}{section.9.1}
+\contentsline {section}{\numberline {9.2}Future Work}{133}{section.9.2}
+\contentsline {chapter}{REFERENCES}{136}{section*.45}
 \renewcommand {\cftchapaftersnum }{}
-\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Relations for the LO System}}{141}{APPENDIX.a.A}
+\contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Relations for the LO System}}{142}{APPENDIX.a.A}
 \vskip +10pt
-\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{141}{section.a.A.1}
-\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{143}{section.a.A.2}
-\contentsline {subsection}{\numberline {A.2.1}Damped Newton Iterations}{146}{subsection.a.A.2.1}
-\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivations for High-Order Solver}}{148}{APPENDIX.a.B}
+\contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{142}{section.a.A.1}
+\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{144}{section.a.A.2}
+\contentsline {subsection}{\numberline {A.2.1}Damped Newton Iterations}{147}{subsection.a.A.2.1}
+\contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivations for High-Order Solver}}{149}{APPENDIX.a.B}
 \vskip +10pt
-\contentsline {section}{\numberline {B.1}Analytic Error Contribution for LDD Trial Space}{148}{section.a.B.1}
-\contentsline {section}{\numberline {B.2}Analytic Answer for Fixed Source Problem}{149}{section.a.B.2}
-\contentsline {chapter}{APPENDIX \numberline {C}\uppercase {Derivation of the WLA-DSA Equations}}{152}{APPENDIX.a.C}
+\contentsline {section}{\numberline {B.1}Analytic Error Contribution for LDD Trial Space}{149}{section.a.B.1}
+\contentsline {section}{\numberline {B.2}Analytic Answer for Fixed Source Problem}{150}{section.a.B.2}
+\contentsline {chapter}{APPENDIX \numberline {C}\uppercase {Derivation of the WLA-DSA Equations}}{153}{APPENDIX.a.C}
 \vskip +10pt
-\contentsline {section}{\numberline {C.1}Forming a Continuous Diffusion Equation}{152}{section.a.C.1}
-\contentsline {subsection}{\numberline {C.1.1}Diffusion Boundary Conditions}{154}{subsection.a.C.1.1}
-\contentsline {section}{\numberline {C.2}Mapping Solution onto LD Unknowns}{154}{section.a.C.2}
+\contentsline {section}{\numberline {C.1}Forming a Continuous Diffusion Equation}{153}{section.a.C.1}
+\contentsline {subsection}{\numberline {C.1.1}Diffusion Boundary Conditions}{155}{subsection.a.C.1.1}
+\contentsline {section}{\numberline {C.2}Mapping Solution onto LD Unknowns}{155}{section.a.C.2}

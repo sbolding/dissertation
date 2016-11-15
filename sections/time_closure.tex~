@@ -313,7 +313,7 @@ Sec.~\ref{sec:spat_clos}.
 After applying a parametric closure, the time-integrated LO equations can be written exclusively in terms
 of time-averaged unknowns.   Once the time-averaged unknowns have been calculated,
 the time closures can be used to convert the time-averaged unknowns to end-of-time-step
-values.
+values for the next time step.
 
 \subsection{Derivation of Time-Averaged Moment Equations}
 
@@ -686,7 +686,7 @@ hists./step   & IMC & HOLO-TC (1) & HOLO-TC (2)    &  IMC   & HOLO-TC(1) & HOLO-
     Simulation end time is ${t=0.003}$ sh.}}
 \vspace{-0.1in}
 \begin{tabular}{|c|cc|cc|}\cline{2-5}
-    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{$\mathbf{\ss}$} &
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{$\mathbf{\|e\|_{a,rel}}$} &
     \multicolumn{2}{|c|}{\textbf{\FOM}} \\ \hline
 hists./step   & IMC     & HOLO-TC (1) &    IMC   & HOLO-TC(1)  \\ \hline
 \multicolumn{5}{|c|}{Results for 100 $x$ cells; HOLO-TC has 30 $\mu$ cells} \\ \hline

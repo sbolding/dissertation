@@ -186,20 +186,35 @@ is driven negative and cannot accurately represent the solution.
 
 We now test the artificial source fixup and compare to two different cases.  The L$_2$
 norm of the error in cell-averaged mean intensities $\|e\|_{a,rel}$ is computed using
-Eq.~\eqref{eq:avg_err} from the last time step, averaged over 20
-simulations.  Table.~\ref{tab:fixed_source_accuracy} compares 
+Eq.~\eqref{eq:avg_err} from the last time step, averaged over 100
+simulations.  Table.~\ref{tab:fixed_source_accuracy} compares the error and sample
+statistics.  The absolute sample standard deviation of each value follows each value in parenthesis 
+as appropriate.  Generally, the fixup does not improve accuracy for this problem, and
+rotating every batch appears to produce less error surprisingly.
 
 \begin{table}
     \begin{tabular}{|c|cl|cl|c|} \hline
-        Method & \multicolumn{2}{|c|}{$\|e\|_{a,rel}$} & 
-        \multicolumn{2}{|c|}{$\|\phi_{HO}-\phi_{LO}\|_{a,rel}$} &\multicolumn{1}{|c|}{FOM}
+        Method & \multicolumn{2}{|c|}{$\|e_{LO}\|_{a,rel}$} & 
+        \multicolumn{2}{|c|}{$\|e_{HO}\|_{a,rel}$} &\multicolumn{1}{|c|}{FOM}
         \\ \hline 
- Rotate Every Batch &   & ()  &   & () &   \\
- Rotate Last Batch  &   & ()  &   & () &   \\
- Artificial Source  &   & ()  &   & () &   \\ \hline
+        \multicolumn{6}{|c|}{$N_b = 10^4$ histories per batch} \\ \hline
+     artif.src.rad.results.txt &1.354\%  & (0.07\%)  & 1.657\%  & (0.10\%) & 0.43  \\  
+       nofixup.rad.results.txt &1.135\%  & (0.04\%)  & 1.335\%  & (0.05\%) & 0.68  \\  
+ rotate.always.rad.results.txt &0.883\%  & (0.04\%)  & 1.036\%  & (0.05\%) & 1.09  \\  
+   rotate.last.rad.results.txt &1.100\%  & (0.04\%)  & 1.335\%  & (0.05\%) & 0.72  \\ \hline 
+   \multicolumn{6}{|c|}{$N_b = 10^5$ histories per batch} \\ \hline
+     artif.src.rad.results.txt &0.261\%  & (0.01\%)  & 0.304\%  & (0.01\%) & 1.34  \\  
+       nofixup.rad.results.txt &0.268\%  & (0.01\%)  & 0.302\%  & (0.01\%) & 1.29  \\  
+ rotate.always.rad.results.txt &0.232\%  & (0.01\%)  & 0.265\%  & (0.01\%) & 1.76  \\  
+   rotate.last.rad.results.txt &0.267\%  & (0.01\%)  & 0.302\%  & (0.01\%) & 1.30  \\ \hline 
+   \multicolumn{6}{|c|}{$N_b = 10^6$ histories per batch} \\ \hline
+     artif.src.rad.results.txt &0.081\%  & (0.002\%)  & 0.097\%  & (0.002\%) & 1.47  \\  
+       nofixup.rad.results.txt &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.38  \\  
+ rotate.always.rad.results.txt &0.072\%  & (0.002\%)  & 0.082\%  & (0.003\%) & 1.84  \\  
+   rotate.last.rad.results.txt &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.39  \\ \hline 
     \end{tabular}
     \caption{\label{tab:fixed_source_accuracy} Comparison of accuracy in cell-averaged $\phi(x)$ value for
-fixed source problem and 100,000 histories per batch.}
+fixed source problem and various number of histories per batch.}
 \end{table}
 
 
