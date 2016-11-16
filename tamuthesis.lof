@@ -1,0 +1,38 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\vskip -10pt
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Illustration of linear finite element basis functions $b_{L,i}(x)$ and $b_{R,i}(x)$ for spatial element $i$.\relax }}{21}{figure.caption.7}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Linear discontinuous trial space for half-range mean intensity and $\mu >0$, in LO equations.\relax }}{31}{figure.caption.8}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Linear doubly-discontinuous representation for mean intensity in LO equations. \relax }}{42}{figure.caption.9}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\vskip -10pt
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparison of radiation temperatures for Marshak wave problem at ${t=5}$ sh.\relax }}{67}{figure.caption.10}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Comparison of radiation temperatures for two material problem. \relax }}{71}{figure.caption.13}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100 $x$ cells at ${t=0.5}$ sh.\relax }}{77}{figure.caption.19}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Comparison of $T_r$ for a problem in the equilibrium diffusion limit, with step and LDFE discretizations of the LO equations.\relax }}{78}{figure.caption.21}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Comparison of solutions for smooth problem with different spatial closures.\relax }}{81}{figure.caption.22}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Inacurracies for HO spatial closure applied to solution of the two material problem.\relax }}{83}{figure.caption.24}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces $T_r$ and $T_m$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.\relax }}{85}{figure.caption.25}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces $T_m$ for MP violation problem with IMC for various time step sizes.\relax }}{85}{figure.caption.26}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces $T_m$ for MP violation problem with HOLO method for various time step sizes.\relax }}{87}{figure.caption.27}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\vskip -10pt
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Plots of $\mathaccentV {tilde}07EI(x,\mu )$ for the fixed-source problem.\relax }}{105}{figure.caption.32}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Comparison of cell-averaged radiation temperatures for two material problem and various fixup methods.\relax }}{107}{figure.caption.34}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Comparison of cell-averaged radiation temperatures for Marshak wave problem and various fixup methods.\relax }}{108}{figure.caption.36}
+\addvspace {10\p@ }
+\vskip -10pt
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Step doubly-discontinuous representation of $t$ for the HO solution.\relax }}{112}{figure.caption.38}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Comparison of radiation energy densities of IMC and HOLO method for the HO time closure and a BE discretization.\relax }}{123}{figure.caption.39}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Comparison of radiation temperatures of IMC and the HOLO method for different time step sizes and numbers of batches, for the near-void problem.\relax }}{125}{figure.caption.40}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Comparison of radiation energy densities for the HOLO method with different numbers of $\mu $ cells. $\Delta t=0.001$ sh, for near-void problem.\relax }}{126}{figure.caption.41}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Comparison of radiation temperatures of IMC and the HOLO method for different time step sizes and numbers of batches, for optically thin problem. \relax }}{127}{figure.caption.42}
+\contentsline {figure}{\numberline {8.6}{\ignorespaces Comparison of $T_{r}^{n+1}$ for 30,000 histories per time step. The HOLO-TC result has inssuficient histories to accurately estimate end of time step unknowns.\relax }}{129}{figure.caption.43}
+\contentsline {figure}{\numberline {8.7}{\ignorespaces Comparison of HOLO-TC, HOLO-BE, and IMC methods for the Marshak Wave problem, with $10^6$ histories per time step.\relax }}{131}{figure.caption.46}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

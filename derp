@@ -1,0 +1,580 @@
+diff --git a/sections/results.tex b/sections/results.tex
+index 9bba7a9..d46b866 100644
+--- a/sections/results.tex
++++ b/sections/results.tex
+@@ -1,26 +1,21 @@
+ 
+ \chapter{\uppercase{Computational Results}}
+ 
+-We will compare results of the HOLO method to IMC with
++In this chapter, we compare results of the time-discretized HOLO method to IMC with
+ a source tilting algorithm for two test problems~\cite{jayenne}.  Also, we
+ briefly compare performance in Section~\ref{timing}.  For all IMC results, no
+ local, discrete diffusion acceleration methods for effective scattering
+-(e.g., those in~\cite{imd,ddmc}) are applied.  Finally,  we will demonstrate
++(e.g., those in~\cite{imd,ddmc}) are applied.  Additionally, we demonstrate
+ the efficiency advantage of ECMC in our HOLO algorithm by comparing the results
+ to the same HOLO algorithm if the ECMC algorithm is replaced with a standard
+-Monte Carlo (SMC) simulation.  Results are also given for the case of a single
+-ECMC batch, which is similar to a RMC method.
+-
+-REWRITE:
+-The lumping-equivalent discretization
+-discussed in Sec.~\ref{sec:ldfe_fixups} is used for cells where the solution for
+-$\phi^{n+1}$ becomes negative. When negative values for $\phi^{n+1,\pm}(x)$ are detected, the lumping-equivalent discretization is used within
+-those cells and that Newton step is repeated.
+-The cells
+-nearest the wavefront required use of the lumping-equivalent discretization and
+-$S_2$ equivalent terms during the LO
+-solve, resulting in strictly positive solutions.
+-
++Monte Carlo (SMC) simulation.  Finally, we present results that demonstrate
++preservation of the equilibrium diffusion limit and the discrete maximum
++principle by the HOLO algorithm.  Some of the results in this section were published
++previously in~\cite{bolding_nse}.  
++The results in this chapter use the simplified fix-ups discussed in
++Sec.~\ref{sec:ldfe_fixups} and Sec.~\ref{sec:ho_easyfix} when negative values of the
++intensity occur; more sophisticated solution methods are investigated in
++Chapter~\ref{chp:negativities}.
+ 
+ A measure of variance in cell-averaged scalar intensities was
+ calculated to provide a quantitative measure of the statistical accuracy of different solution
+@@ -55,7 +50,11 @@ of $N_{\text{tot}}$ for IMC or
+ our HOLO method due to correlation of the solution between time steps; additionally, ECMC
+ has correlations between batches.
+ 
+-\subsection{Marshak Wave}
++
++
++
++
++\section{Marshak Wave}
+ \label{sec:marsh}
+ 
+ For the first problem, the radiation and material energies are initially in
+@@ -73,11 +72,10 @@ the LO newton solver for all results. Radiation energy
+ distributions are plotted as an effective temperature given by
+ $T_r=(\phi/(ac))^{0.25}$.  The effective temperature represents the temperature of the
+ material, if the material and temperature were in equilibrium.  Cell-averaged quantities are plotted.
+-Although isotropic scattering is handled by the LO solver in the algorithm described above, we have only
+-considered problems with $\sigma_s = 0$ here.  Results for neutronics with isotropic
+-scattering included are given in~\cite{ans_2014}.
+-
+-\begin{figure}[htb]
++For this problem, when negative values for $\phi^{n+1,\pm}(x)$ were detected, the lumping-equivalent
++discretization was used within those cells and that Newton step was repeated.
++Non-physical angular consistency terms were replaced with S$_2$-equivalent terms.
++\begin{figure}[hp]
+     \centering
+ \begin{subfigure}{0.7\textwidth}
+   \centering
+@@ -92,7 +90,7 @@ scattering included are given in~\cite{ans_2014}.
+ \caption{Comparison of radiation temperatures for Marshak wave problem at ${t=5}$ sh.}
+ \end{figure}
+ 
+-Fig.~\ref{marshak_mesh_conv} compares the cell-averaged radiation temperatures  for the
++Figure~\ref{marshak_mesh_conv} on page~\pageref{marshak_mesh_conv} compares the cell-averaged radiation temperatures  for the
+ IMC and HOLO method with ECMC, for various number of spatial mesh cells $N_c$; we
+ have used HOLO-ECMC to denote our algorithm because later results will use different HO solvers.   For
+ all IMC calculations, $n=10^5$ histories per time step were used.  For the HOLO method, we have used
+@@ -103,11 +101,12 @@ were used.  For $N_c=500$, 16,000 histories per time step were used due to incre
+ number of space-angle cells that
+ need to be sampled. The IMC and HOLO solutions agree as the mesh is converged.  There is
+ similar agreement in the location of the wavefront due to the linear shape of the emission source over a cell.  The cells
+-nearest the wavefront required use of the lumping-equivalent discretization and
++nearest the wavefront required use of the lumping-equivalent discretization of the
++radiation and
+ $S_2$ equivalent terms during the LO
+-solve, resulting in strictly positive solutions.
+- 
+-Fig.~\ref{marshak_200_compare} compares solutions
++solve, resulting in strictly positive cell-averaged quantities.  
++
++Figure~\ref{marshak_200_compare} compares solutions
+ for the case of 200 cells.  For the IMC solution $10^5$ histories per time step were
+ simulated; for the HOLO method only $4,000$ histories per batch
+ (12,000 per time step) were simulated. There is significant statistical noise in the IMC solution
+@@ -115,7 +114,8 @@ compared to the HOLO solution.  The HOLO solution visually demonstrates no
+ statistical noise.  Because the ECMC solve is only determining the change over the
+ time step, the statistical noise in the result is small relative to the magnitude of
+ $I^{n+1}$.  Also, the source sampling only places particles in cells where the residual is
+-large.  No particles are sampled in the equilibrium region out front of the wave. 
++large.  No particles are sampled in the equilibrium region out front of the wave.  Only a
++few angular cells are necessary to accurately reproduce the mean intensity for this problem.
+ 
+ Table~\ref{marshak_var} compares $\ss$ and the FOM for IMC and the HOLO method, for different
+ numbers of histories per time step. The FOM results are normalized to the value for IMC with
+@@ -139,7 +139,7 @@ hists./step   & IMC & HOLO-ECMC &  IMC & HOLO-ECMC   \\ \hline
+ 
+ 
+ 
+-\subsection{Two Material Problem}
++\section{Two Material Problem}
+ \label{sec:two}
+ 
+ This problem consists of an optically thin (left) and an optically thick (right) material region,
+@@ -148,8 +148,9 @@ Table~\ref{two_mat_props}.  Initially the radiation and material energies are in
+ equilibrium at a temperature of 0.05 keV.  An isotropic incident intensity of 0.500 keV
+ is applied at $x=0$ at $t=0$; the isotropic incident intensity on the right boundary is 0.05
+ keV.  The simulation end time is 5 sh. For all HOLO simulations, we have used 8
+-equal-sized mesh cells in $\mu$. As for the Marshak problem, the cells nearest the wavefront required use of the lumping-equivalent discretization and
+-$S_2$ equivalent terms during the LO solve.
++equal-sized mesh cells in $\mu$.  In cells nearest the wavefront we
++use the fix-up detailed in Sec.~\ref{sec:ldfe_fixups} that strictly enforces the floor temperature and preserves half-range
++balance.  The fix-up was applied, along with $S_2$ equivalent terms during the LO solve.
+ \begin{table}[H]
+         \caption{Material properties for two material problem\label{two_mat_props}}
+ \centering
+@@ -160,6 +161,7 @@ $S_2$ equivalent terms during the LO solve.
+             $c_v$ (jks/keV-g) & $0.1$ & $0.1$ \\ \hline
+         \end{tabular}
+ \end{table}
++
+ Fig.~\ref{twomat_full} compares the HOLO and IMC radiation 
+ temperatures at the end of the simulation. The
+ IMC and HOLO results show good agreement
+@@ -187,10 +189,8 @@ Marshak wave problem.  This improvement is because the wave moves much slower in
+ right region of this problem, due to
+ the large, constant cross section.  Also, in the optically thin
+ region of the problem the solution quickly comes to equilibrium.  Thus, the ECMC
+-algorithm has to estimate a very small change in the intensity over a time step.  Additionally, difficulties in resolving
+-the solution at the wavefront are not as severe compared to the Marshak wave
+-problem, where the cold cells have a much larger cross section.
+-\begin{figure}
++algorithm has to estimate a very small change in the intensity over a time step.  
++\begin{figure}[H]
+     \centering
+ \begin{subfigure}{0.65\textwidth}
+     \centering
+@@ -218,13 +218,13 @@ hists./step     & IMC & HOLO-ECMC  &  IMC & HOLO-ECMC   \\ \hline
+ \end{tabular}
+ \end{table}
+ 
+-\subsection{Performance comparison of IMC and HOLO-ECMC}
++\section{Performance comparison of IMC and HOLO-ECMC}
+ \label{timing}
+ 
+ We have measured the total CPU time for simulations to provide a simplified measure of the
+-computational cost.  These results compare how computational times change the two
++computational cost.  These results compare how computational times change for the two
+ different problems and how the methods scale with time step size and particle histories.  Absolute comparisons in the computational cost of the two
+-methods cannot be made because the methods are implemented
++methods cannot be made, because the methods are implemented
+ in different code infrastructures. Additionally, the HOLO method fully resolves
+ non-linearities at each time step, whereas IMC is using a single linearized step with
+ lagged cross sections. Simulations were performed on the same processor, using a single CPU
+@@ -279,7 +279,7 @@ Newton iters./LO Solve\\ \hline
+ \end{tabular}
+ \end{table}
+ 
+-\subsection{Comparison of different HO Solvers}
++\section{Comparison of different HO Solvers}
+ \label{ho_solvers}
+ 
+ In this section we compare the results of our HOLO algorithm with different HO
+@@ -297,10 +297,10 @@ material problem actually demonstrates worse variance.  Sufficient histories are
+ performed to accurately estimate consistency terms throughout the problem.  For ECMC,
+ a single batch produces less variance than the case of three equal batches.  This
+ indicates that if the solution cannot be resolved with the trial space (i.e., the
+-intensity is driven negative), a single large batch may be more accurate. It is noted
+-that these results only account for statistical variance, and do not account for
+-accuracy, which will depend on the estimates of $\epsilon$ computed each iteration.   
+-
++intensity is driven negative), a single large batch may be more accurate. 
++It is noted
++that these results only estimate statistical variance and do not strictly account for
++accuracy.  
+ \begin{table}[H]
+ \centering
+ \caption{\label{homarshak_var} \textbf{Comparison of sample statistics for the Marshak Wave problem.  Number of ECMC batches is
+@@ -313,8 +313,6 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
+   100,000      & 0.98\%  & 0.03\% &  0.06\% &   1.43    & 1270  & 422     \\ \hline
+ \end{tabular}
+ \end{table}
+-
+-
+ \begin{table}[H]
+ \centering
+ \caption{\label{hotwomat_var} \textbf{Comparison of sample standard deviations for the
+@@ -330,7 +328,7 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC
+ \end{tabular}
+ \end{table}
+ 
+-\subsection{Pre-heated Marshak wave problem and adaptive mesh refinement}
++\section{Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}
+ 
+ Finally, to demonstrate the potential of ECMC with adaptive space-angle mesh refinement, we perform
+ results for a modified Marshak wave problem. The problem is modified so that the LDFE
+@@ -347,7 +345,7 @@ time step of $\Dt=0.001$ sh.
+ 
+ Fig.~\ref{hot_plot} compares the result from HOLO-ECMC with three batches and IMC.
+ It was found that 100 $x$ cells was sufficient to resolve the solution spatially. There is slightly more noise in IMC past the wavefront due to the increased emission
+-source.  Additionally, the opacity is thin enough that some photon energy is able to
++source.  Additionally, the cross section is thin enough that some photon energy is able to
+ reach the right boundary, in front of the wavefront. 
+ 
+ Table~\ref{preheat_var} compares the variances for this problem for the various HO
+@@ -362,14 +360,14 @@ histories per time step were used.  All ECMC meshes used 4 equally-spaced $\mu$
+ initially. 
+    The improvement in variance by ECMC compared to SMC is not as significant
+ as for the other problems.  This is a
+-result of the reduced opacity leading to intensity changing throughout the spatial
++result of the reduced cross section leading to intensity changing throughout the spatial
+ and angular domains.  The
+ FOM is highest for the case of ECMC with adaptive refinement. When the solution can
+ be resolved, the adaptive algorithm allows for a higher convergence rate of
+ statistical variance.  It is noted that the consistency terms and LO solution are still computed over
+ the fixed, coarser mesh.  However, in general, the refined mesh can produce higher accuracy in consistency terms that is
+ not being measured by the FOM.
+-\begin{figure}[htb]
++\begin{figure}[htbp]
+   \centering
+     \includegraphics[width=0.65\textwidth]{heated_marshak.pdf}
+     \caption{\label{hot_plot} Comparison of radiation temperatures for the pre-heated Marshak wave problem for 100
+@@ -377,7 +375,7 @@ not being measured by the FOM.
+ \end{figure}
+ 
+ 
+-\begin{table}[H]
++\begin{table}[htbp]
+ \centering
+ \caption{\label{preheat_var} {Comparison of sample statistics for the 
+     pre-heated marshak wave problem for 100 $x$ cells. Number of ECMC batches is
+@@ -395,136 +393,252 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hli
+ \end{table}
+ 
+ \section{Accuracy in the Equilibrium Diffusion Limit}
+-
+-As discussed in Sec.~\ref{sec:edl_overview}, we must ensure our method preserves the EDL.
+-We test a problem in the EDL by adjusting material properties to produce a strongly
+-diffusive domain. The EDL problem has constant cross sections with $\sigma_a=1000$
+-cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ Jk keV$^{-1}$
+-cm$^{-3}$.  The domain width is 0.1 cm and 4 $\mu$ cells and 3 batches of 4,000 histories
+-are used for the single HO solve in all calculations. The simulation end time is 5 $sh$
+-and a linear increase of 15\% from $\Delta t = 0.001$ sh to a maximum $\Delta t = 0.01$ sh is used.
+-We compare the LDFE LO solution to a LO solution using a step discretization,
+-which is known to not preserve the EDL for S$_N$ equations.  The step discretization is implemented by using the scaled slope spatial
+-closure in Sec.~\ref{sec:spat_clos_options} with closure parameters $\gamma_i^\pm=0$ for all
+-cells.  
+-
+-The accuracy in the equilibrium diffusion limit is compared for thefthe two spatial
+-discretizations, for different mesh sizes, in Fig.~\ref{fig:diff_limit}.  As demonstrated,
++\label{sec:edl_results}
++
++As discussed in Sec.~\ref{sec:edl_overview}, we must ensure our method preserves the
++equilibrium diffusion limit (EDL).
++We have produced an EDL test problem by adjusting material properties to produce a strongly
++diffusive domain. This EDL problem has constant cross sections with $\sigma_a=1000$
++cm$^{-1}$, $\sigma_s=10$ cm$^{-1}$, $\rho c_v=6.8784\times 10^{-3}$ jk keV$^{-1}$
++cm$^{-3}$.  The initial temperature is 0.01 keV and the domain width is 0.1 cm. The simulation
++end time is 5 $sh$, and the step-size increases 5\% per time step from $\Delta t = 0.001$
++sh to a maximum $\Delta t = 0.01$.
++In all simulations, 4 $\mu$ cells and 3 batches of 4,000 histories were used for the
++single HO solve, for each time step.
++We compare HOLO results with a LDFE discretization and a step discretization of the LO
++equations.  The step discretization, with a flat representation over each cell, is known
++to be inaccurate in the EDL for S$_N$ equations.  The step discretization
++is implemented with the step closure discussed in Sec.~\ref{sec:spat_clos_options} for all
++cells.
++
++The accuracy in the equilibrium diffusion limit is compared for the two spatial
++discretizations, for different mesh sizes, in Fig.~\ref{fig:diff_limit}.  Visually, 
+ the LDFE spatial discretization has converged spatially, where both 20 and 200 cells
+ produce the same location of the wave front.  However, the step
+-discretization artificially propagates the energy forward; the inaccuracy is greater than
+-what would be expected from simply truncation error.  The step discretization will
++discretization artificially propagates the energy forward, even for the 200 cells case; the inaccuracy is greater than
++what would be expected from truncation error.  The step discretization will
+ only be accurate if the mesh cells are on the order of a mean free path, which is very large for this
+ problem.  Although not plotted, the material temperature overlays the radiation
+-temperature for the LDFE solution, in equilibrium with the radiation.
+-
+-\begin{figure}
++temperature for the LDFE solution, in equilibrium with the radiation, as expected.
++\begin{figure}[H]
+     \centering
+     \includegraphics[width=0.6755799\textwidth]{diff_limit_compare.pdf}
+-    \caption{\label{fig:diff_limit}Comparison of $T_r$ for step and LDFE discretizations of the LO
+-equations in the equilibrium diffusion limit.}
++    \caption{\label{fig:diff_limit}Comparison of $T_r$ for a problem in the equilibrium
++    diffusion limit, with step and LDFE discretizations of the LO
++equations.}
++\end{figure}
++
++\section{The HO Spatial Closure}
++
++To investigate the utility of the face closures we compare to the LD spatial
++closure for two test problems.  We are interested in the accuracy of the solution and
++consistency between the HO and LO solutions, particularly for coarser meshes. 
++The consistency for the $(l)$-th particular simulation is measured with the relative L$_2$ norm
++of the difference between the projected HO and LO solutions, i.e.,
++\begin{equation}
++    \|\phi_{HO} - \phi_{LO}\|^{(l)}_{2,rel} = \frac{\ds \sqrt{\int_0^X \left(
++        \phi_{HO}^{n+1,(l)}(x) - \phi_{LO}^{n+1,(l)}(x) \right)^2 \dd x}}{\ds \sqrt{
++            \int_0^X \left(\phi_{LO}^{n+1,(l)}(x)\right)^2 \dd x }}
++\end{equation}
++where $\phi_{LO}(x)$ and $\phi_{HO}(x)$ are the LDFE representations in space of the
++intensity from the HO and LO solvers, from the end of the last time step.
++The error between a reference solution and a fine solution for the ${(l)}$-th simulation
++is computed as
++\begin{equation}
++    \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
++    \phi_{LO}^{n+1,ref}\left( x \right)\|_2}{\|\phi_{LO}^{n+1,ref}\left( x \right)\|_2}
++\end{equation}
++All L$_2$ norms are computed using quadrature over the finest spatial mesh.  An
++integrated measure of the error in cell-averaged mean intensities on the mesh of the
++$l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
++\begin{equation}
++    \|e\|^{{(l)}}_{a,rel} = \left({\frac{\ds \sum\limits_{i=1}^{N^{(l)}_c}
++    \left(\phi_i^{n+1,{(l)}} - \phi_i^{n+1,ref}
++\right)^2}{\ds \sum\limits_{i=1}^{N^{(l)}_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
++\end{equation}
++where $\phi_i^{n+1,ref}$ is computed by spatially averaging the fine mesh solution over
++the $i$-th coarse spatial cell.
++
++The sample mean of each of the above metrics is estimated based on 20 independent
++simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
++\begin{equation}
++    s\left(\|e\|_{2,rel}\right) = \left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
++    \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
++\end{equation}
++where $\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20$ is the mean.
++
++\subsection{Smooth Problem}
++
++For this problem, the radiation and material energies are initially in
++equilibrium at $0.01$ keV.   An isotropic incident intensity of 0.05 keV is applied
++at $x=0$; the incident intensity on the right boundary is $0.05$ keV.
++The material properties are $\rho = 1$ g cm$^{-3}$, $c_v = 0.2$ jks/keV-g, and
++$\sigma_a=10$ cm$^{-1}$.
++The simulation end time is 0.5 sh.  The time step size increases by 10\% each time step
++until the maximum step size of 0.01 sh is reached, beginning from $\Delta t = 0.001$ sh.
++This problem is intended to have less steep gradients in the intensity by having constant constant cross
++sections, a smaller boundary source, and diffusive problem parameters.
++The problem has a smaller optical thickness than other problems tested so that the face-based solutions can be efficiently
++estimated, but the small c$_v$ value makes the solution relatively diffusive.  This
++problem did not require the lumped relation to produce positive solutions.
++However, when projecting from a refined mesh back to the coarse mesh, it was
++necessary to rotate the solution to be positive.
++
++All simulations of this problem used 585,900 histories divided over 9 ECMC
++batches;  beginning from 30,000 histories and $10$ $\mu$ cells, 30\% of cells were
++adaptively refined every third batch, and the number of histories is increased to
++keep the average number of histories per cell constant. 
++We have have performed two outer HOLO iterations over each time step for all cases; it was
++found that additional iterations did not increase consistency, because of the  magnitude
++of statistical noise.  Relative convergence of HOLO iterations was below 10$^{-3}$
++for two iterations for all cases.  
++Fig.~\ref{fig:smooth_compare} compares cell-averaged radiation temperatures for various spatial closures at
++coarse mesh sizes and a fine-mesh solution.  The HO spatial closures curve is for the
++scaled-slope closure given by Eq.~\eqref{eq:cl_slope}.  There was visually
++no difference in the results between the scaled-averaged, scaled-slope, or LD closure. A step closure in all cells
++was inaccurate for this problem.
++
++Table~\ref{tab:smooth} compares the different error metrics for different spatial
++closures and numbers of cells.  The reference solution for all calculations was the average of 10 simulations with $N_c=500$ spatial
++cells.  In all cases, the HO spatial closure produces higher accuracy in the L$_2$
++norms and greater consistency between the solvers.  However, there is not an
++improvement in accuracy of the cell-averaged intensities.  Neglecting noise, the LDFE representation can be third order
++accurate for the $\|e\|_a$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}. 
++The statistical noise induced in face tallies makes the
++additional accuracy that the MC transport can use not greater than the benefit of
++higher spatial integration by the MC transport.  It
++is noted that, overall, there is very low statistical noise in each of these
++solutions due to the ECMC method and relatively high number of histories; at lower
++history counts, the small gains of the HO spatial closure will degrade and stability
++becomes an issue.
++
++\begin{figure}[H]
++    \centering
++    \includegraphics[width=0.99\linewidth]{smooth_compare.pdf}
++    \caption{\label{fig:smooth_compare} Comparison of solutions for smooth problem with different spatial closures.}
++\end{figure}
++
++\begin{table}[H]
++    \caption{\label{tab:smooth} Comparison of error metrics, reported as percentages, averaged over 20 simulations of smooth problem.  The absolute
++standard deviation for each value is reported in parenthesis. Reference solution uses 500 cells.}
++    \begin{tabular}{|l|cl|cl|cl|} \hline
++        Spatial Closure & \multicolumn{2}{|c|}{$\|e\|_2$}  & \multicolumn{2}{|c|}{$\|e\|_{a}$} & \multicolumn{2}{|c|}{$\|\phi^{HO}
++        -\phi^{LO}\|_{2}$} \\  \hline \hline
++        \multicolumn{7}{|c|}{$N_c = 20$ cells} \\ \hline
++LDFE               &   6.60\%  &   (0.17\%)  &   2.80\%     &   (5.7e-03\%)  &   2.90\%   &  (8.1e-03\%)  \\
++HO: Scaled Slope   &   6.10\%  &   (2.9e-03\%)  &   3.50\%  &   (5.8e-03\%)  &   0.021\%  &  (8.6e-03\%)  \\
++HO: Scaled Average &   6.10\%  &   (2.7e-03\%)  &   3.50\%  &   (5.0e-03\%)  &   0.023\%  &  (1.1e-02\%)  \\ \hline
++       \multicolumn{7}{|c|}{$N_c  = 50$ cells}   \\ \hline
++LDFE               &   1.60\%  &   (7.9e-04\%)  &   0.59\%  &   (3.8e-03\%)  &   0.76\%)  &  (4.8e-03\%)  \\
++HO: Scaled Slope   &   1.40\%  &   (1.5e-03\%)  &   0.67\%  &   (3.2e-03\%)  &   0.012\%  &  (4.0e-03\%)  \\
++HO: Scaled Average &   1.40\%  &   (1.5e-3\% ) &   0.67\%   &   (3.1e-03\%)  &   0.013\%  &  (3.9e-03\%)  \\ \hline
++       \multicolumn{7}{|c|}{$N_c  = 100$ cells}   \\ \hline
++LDFE               &   0.53\%  &   (2.1e-03\%)  &   0.15\%  &   (2.5e-03\%)  &   0.30\%)  &  (9.7e-03\%)  \%\\
++HO: Scaled Slope   &   0.45\%  &   (1.5e-03\%)  &   0.16\%  &   (4.6e-03\%)  &   0.012\%  &  (4.8e-03\%)  \\
++HO: Scaled Average &   0.45\%  &   (1.4e-03\%)  &   0.16\%  &   (4.7e-03\%)  &   0.012\%  &  (3.6e-03\%)  \\ \hline
++    \end{tabular}
++\end{table}
++
++
++
++\subsection{Two Material Problem}
++
++The HO spatial closures were applied to solution of the two material problem detailed in Sec.~\ref{sec:two}.
++For these results, a small time step size of 0.001 sh was used, with a simulation end time
++of 2 sh.  The scaled-slope closure was found to not stably converge, even for 2 batches of 10$^6$
++histories.  The scale-average closure allowed for convergence, with the lumpded closure, but temperatures were driven
++below the floor, and at times negative, leading to inaccurate solution.  The inaccuracies
++result from the outflow being driving negative in cells near the wave front with steep
++gradients.  The cause is that, although the HO solution was forced positive by scaling
++moments, and the face solution is positive the closure does not necessarily agree with the
++true moments. The first moment of the HO solution had to be modified to produce a positive
++solution, and by trying to use the moment relation in the LO solution, there can be
++negative solutions.  In general, in such difficult to resolve regions, the spatial closure
++does not gain improvement.
++Fig.~\ref{fig:two_mat_fail} depicts cell-averaged results at the end of the simulation.
++The inaccuracy in ghtly overshoots, the slope changes signs between cells.  Additionally,
++there is great inconsistency as the depressed temperature leads to an inaccurate HO solution.
++A fundamental problem with the lumping relation is that the first moment equation for the
++HO solution has a lumped temperature equation
++\begin{figure}[H]
++    \centering
++    \includegraphics[width=0.6\linewidth]{two_mat_fail.pdf}
++    %\includegraphics[width=0.99\linewidth]{two_mat_fail_zoom.pdf}
++    \caption{\label{fig:two_mat_fail}Inacurracies for HO spatial closure applied to
++    solution of the two material problem.}
+ \end{figure}
+ 
+ 
+ 
++
+ \section{Preservation of the Discrete Maximum Principle}
+ 
+-An important property for a discretization of the TRT equations is preservation of the
+-discrete maximum principle (MP).  The maximum principle states that the material temperature and mean intensity in the
+-interior of the domain should be bounded by the solution at the boundaries of the domain, in the
+-absence of interior energy sources~\cite{wollaber2013discrete,larsen_mpv}.  The analytic solution to the TRT equations satisfies a maximum
+-principle~\cite{larsen_mpv}, so we desire numerical approximations that preserve the MP in
+-a discrete sense, for each time step.
+-%For the discrete MP, we expect the numerical solution to be bounded by the boundary
+-%conditions at each time step.
+-For IMC simulations, violation of the maximum principle results in the material
+-temperature being artificially higher than the radiation temperature.  As discussed in Sec.~\ref{sec:intro}, IMC can violate the MP due to
+-the approximate linearization of the emission source in the time discretization; it is not
+-truly implicit in time.  We expect our method, with a fully implicit time discretization,
+-to preserve the MP with sufficient convergence of the nonlinear emission
+-source~\cite{larsen_mpv}.
+-
+-To numerically demonstrate that our method preserves the MP, we have simulated problems
+-similar to those in~\cite{wollaber2013discrete}.  We modify the Marshak wave problem in
+-Sec.~\ref{sec:marshak???}, by decreasing $c_v$ and increasing $\sigma_a$, to produce a
+-problem which results in MP violations for IMC at various fixed time step sizes. 
+-The spatial and temporal discretization determine the occurence of MP violations for
++To numerically demonstrate that our method preserves the discrete MP, as discussed in
++Sec.~\ref{sec:imc},  we have simulated problems similar to those
++in~\cite{wollaber2013discrete}.  We produce a problem with tightly coupled
++equations, by decreasing $c_v$ and increasing $\sigma_a$, which results in MP violations for IMC at various fixed time step sizes. 
++The spatial and temporal discretization determine the occurrence of MP violations for
+ IMC. In particular, if time steps are too large or spatial
+ mesh cells are too small, IMC will demonstrate MP violations~\cite{wollaber2013discrete}.  Here, we have kept the
+ spatial mesh size fixed and increased the time step size to produce MP violations.
+-The material
+-specifications for the problem are given in Table~\ref{tab:mpv_prob}. The domain width is 2.0 cm with
++The material specifications are  $\sigma_{a} = \sigma_{a,0} T^{-3}$ cm$^{-1}$,
++$\sigma_{a,0} = 4$ cm$^{-1}$ keV$^3$, $\sigma_s=0$ cm$^{-1}$, $\rho c_v = 0.0081181$
++jks keV$^{-1}$ cm$^{-3}$.  The domain width is 2.0 cm with
+ $N_c=150$ uniform spatial mesh cells.  The radiation and material energies are initially in
+ equilibrium at $0.01$ keV, before an isotropic boundary source of $1$ keV is applied at
+ the left boundary at $t=0$. The simulation end time is $t=0.1$ sh. 
+ 
+ The material and radiation temperature are plotted for an IMC simulation with $\Delta
+-t=0.025$ sh in
+-Figure~\ref{fig:imc_mpvrad}.  Figure~\ref{fig:imc_mpv} depicts the material temperature
++t=0.025$ sh in Figure~\ref{fig:imc_mpvrad}.  Figure~\ref{fig:imc_mpv} depicts the material temperature
+ for various time step sizes and the fixed mesh size of 150 cells. All IMC
+ simulations used 100,000 histories per time step. As demonstrated in
+ Fig.~\ref{fig:imc_mpvrad}, the material temperature exceeds the specified boundary
+ temperature and is artificially hotter than the radiation temperature.  This artificial
+ ``temperature spike'' also leads to a slower propagation of the
+ wave~\cite{wollaber2013discrete}.  As shown in
+-Fig.~\ref{fig:imc_mpv}, as larger time-step sizes are taken the nonphysical results worsen.
++Fig.~\ref{fig:imc_mpv}, as larger time-step sizes are taken the nonphysical results
++worsen with the material temperature exceeding the radiation boundary temperature.
+ It is noted that although the final solution for $\Delta t=0.0001$ sh obeys the MP, during
+ the first few time steps the temperature spikes are present.
++\begin{figure}[htbp]
++    \centering
++    \includegraphics[width=0.6\linewidth]{mpv_rad_imc.pdf}
++    \caption{\label{fig:imc_mpvrad}$T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.}
++\end{figure}
++\begin{figure}[htbp]
++    \centering
++    \includegraphics[width=0.6\linewidth]{mpv_mats_imc.pdf}
++    \caption{\label{fig:imc_mpv}$T_m$ for MP violation problem with IMC for various time step
++    sizes.}
++\end{figure}
+ 
+ The simulations are repeated with the same specifications for the HOLO method. All HOLO
+ simulations used a fixed mesh of 8 $\mu$ cells by 150 $x$ cells, 3 batches per time step,
+ and 6,000 histories per batch. A single HO solve is performed per time step, and the LO
+-relative convergence tolerance is $10^{-6}$. The lumping closure is used in all spatial
+-cells and any negativities in the HO solution are rotated to the floor value.  
++relative convergence tolerance is $10^{-6}$. The lumping closure is used for the radiation
++terms in all spatial cells and any negativities in the HO solution are scaled to the floor
++value as discussed in Sec.~\ref{sec:ho_easyfix}.  For these simulations, it was
++necessary to use the damped Newton's method discussed in Sec.~\ref{sec:newton_overview} to converge the solutions~\cite{damped_newton}. 
++ A fixed damping parameter with a factor of 0.5 was found to stably converge for all
++ time-step sizes that were simulated. 
+ 
+ As seen in
+ Fig.~\ref{fig:holo_mpv}, the HOLO solution does not violate the maximum principle; the
+ temperature is bounded from above by the radiation boundary condition.
+-For these simulations, it was
+-necessary to use the damped Newton's method discussed in Sec.~\ref{sec:damped_newton} to converge the solutions~\cite{damped_newton}. 
+- A fixed damping parameter with a factor of 0.5 was found to stably converge for all
+- time-step sizes that were simulated. 
+ Table~\ref{tab:mpv_iters} demonstrates the LO Newton iteration counts for the HOLO method.
+-For reference, a solution with $\Delta t = 10^{-4}$ sh is given, which required no damping
++For reference, a solution with $\Delta t = 10^{-5}$ sh is given, which required no damping
+ to converge.  The damped iterations require more iterations to converge.  However, it is necessary to converge the nonlinear iterations to produce
+-physically meaningful solutions to this problem.  The advantage of the LO solution is that
++physically meaningful solutions to this problem.  The advantage of the HOLO method is that
+ there is no additional cost for the HO solution when the damped method is used.
+-
+-\begin{table}[H]
+-        \caption{\label{tab:mpv_prob}Problem specifications for maximum principle
+-        violation. Absorption cross section has form $\sigma_a = \sigma_{a,0}/T^3$.}
+-\centering
+-        \begin{tabular}{|c|c|} \hline
+-            $\sigma_{a,0}$ (cm$^{-1}$ keV$^3$)  & 4.0  \\ 
+-            $\sigma_s$ (cm$^{-1}$) & 0.0 \\
+-            $\rho$ (g cm$^{-3}$) & 1.0  \\
+-            $c_v$ (jks/keV-g) & 0.0081181  \\ \hline
+-        \end{tabular}
+-\end{table}
+-
+-\begin{figure}[H]
+-    \centering
+-    \includegraphics[width=0.6\linewidth]{mpv_rad_imc.pdf}
+-    \caption{\label{fig:imc_mpvrad}$T_r$ and $T$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.}
+-\end{figure}
+-
+-\begin{figure}[H]
+-    \centering
+-    \includegraphics[width=0.6\linewidth]{mpv_mats_imc.pdf}
+-    \caption{\label{fig:imc_mpv}$T_m$ for MP violation problem with IMC for various time step
+-    sizes.}
+-\end{figure}
+-
+-\begin{figure}[H]
++\begin{figure}[htbp]
+     \centering
+     \includegraphics[width=0.6\linewidth]{mpv_mats_holo.pdf}
+     \caption{\label{fig:holo_mpv}$T_m$ for MP violation problem with HOLO method for various time step
+     sizes.}
+ \end{figure}
+-
+-\begin{table}[H]
++\begin{table}[htbp]
+     \caption{\label{tab:mpv_iters}Comparison of LO Newton iterations for HOLO solution to 
+-    MP problem and different time step sizes. For $\Delta t=0.1$ sh, no damping was used; for
++    MP problem and different time step sizes. For $\Delta t=10^{-5}$ sh, no damping was used; for
+     all other cases a damping factor of $0.5$ was used.}  
+     \centering
+         \begin{tabular}{|cc|} \hline

@@ -40,24 +40,22 @@ construct consistency terms that appear in the LO equations. These consistency t
 preserve the accuracy of the HO solution in the next LO solve.
 
 We have developed a new high-order low-order (HOLO) algorithm for solving TRT problems. This algorithm has several desirable
-properties that improve on current computational methods: the HOLO method preserves the equilibrium diffusion limit, prevents violation
+properties, some of which improve on current computational methods: the HOLO method preserves the equilibrium diffusion limit, prevents violation
 of the maximum principle, and can provide high-fidelity MC solution to the TRT equations in an efficient
 manner.  In particular, our HOLO method utilizes an exponentially-convergent
 Monte Carlo (ECMC) algorithm to solve the associated radiation transport
 equation.  The ECMC method significantly decreases the statistical noise
-associated with MC transport calculations for TRT problems. 
-
-In conjunction with the ECMC
+associated with MC transport calculations for TRT problems.  In conjunction with the ECMC
 algorithm, we use a nonlinear
 low-order (LO) system that is fully implicit in time and is solved with Newton's method. 
 The lower-dimensional equations are derived directly from the TRT equations, formed such that the LO
-system can preserve the accuracy of the ECMC treatment of particle transport.  Our LO
-system and approach to enforcing consistency contrast from the formulation in other
-moment-based acceleration methods, e.g., those in~\cite{rmc,willert,park}. The LO
+system can preserve the accuracy of the ECMC treatment of particle transport.   The LO
 equations are formed with linear finite-element (FE) based spatial moments and angular
 moments over each half-range.  A linear-discontinuous (LD) representation is used to discretized
 the temperature field, and a HO-estimated parametric and LD spatial closure of the LO
-radiation equations have been investigated.
+radiation equations have been investigated.  Our LO
+system and approach to enforcing consistency contrast from the formulation in other
+moment-based acceleration methods, e.g., those in~\cite{rmc,willert,park}.
 
 We have also investigated several extensions and improvements of this method.  First,
 alternative, iterative solution methods to the LO equations were implemented, using
@@ -65,9 +63,10 @@ typical source iteration methods with linear diffusion synthetic acceleration.  
 method for the LO equations that is more extendible to higher dimensions.
 Additionally, we have investigated methods to resolve issues when the optically
 thick mesh cells produce intensity gradients that are too difficult to resolve with the
-LDFE mesh representation.   In the HO equations, we add artificial sources that
+LDFE mesh representation.   In the HO equations, we can add artificial sources that
 make the solution more easily representable by the chosen mesh resolution, without
-altering the zeroth moment of the transport equation, neglecting statistical noise.
+altering the zeroth moment of the transport equation, neglecting statistical noise.  This
+approach was found to provide minimal improvement in some problems.
 Finally, higher accuracy treatment of the time variable in the transport equation
 was investigated.  The ECMC algorithm was modified to include integration
 of the time variable; this includes the introduction of a step,
@@ -90,8 +89,8 @@ developed in this work was also applied to 1D neutronics problems in~\cite{ans_2
 Throughout this work, we compare our
 method to the implicit Monte Carlo (IMC) method~\cite{fnc}, which is the standard MC
 transport solution method to the TRT equations.  Results are given for several test
-problems to demonstrate the potential benefits of this method.  We have also demonstrated the efficiency of ECMC over standard Monte Carlo
-as a HO solver in this HOLO algorithm.  
+problems to demonstrate the benefits of the HOLO method.  We have also demonstrated the efficiency of ECMC over standard Monte Carlo
+as a HO solver in the HOLO algorithm.  
 
 \section{Dissertation Layout}
 
@@ -116,7 +115,7 @@ Chapter~\ref{chp:negativities} we investigate a potential approach for resolving
 with difficult to resolve solutions in the ECMC algorithm.
 For the majority of this work time-discretized equations are assumed, but in
 Chapter~\ref{sec:time} a MC-based time treatment of radiation transport is investigated.
-Finally, Chapter~\ref{chp:conclusions} provides discussion and future work for the method.
+Finally, Chapter~\ref{chp:conclusions} provides a summary, discussion, and potential future work for the method.
 
 \section{Thermal Radiative Transfer Background}
 

@@ -1,7 +1,6 @@
 
 
-\chapter{\uppercase{Resolving Negative Intensities in Optically Thick Cells for
-ECMC}}
+\chapter{\uppercase{Resolving Issues with Negative Intensities for ECMC}}
 \label{chp:negativities}
 
 The linear-discontinuous (LD) spatial closure with upwinding is not
@@ -189,29 +188,32 @@ norm of the error in cell-averaged mean intensities $\|e\|_{a,rel}$ is computed 
 Eq.~\eqref{eq:avg_err} from the last time step, averaged over 100
 simulations.  Table.~\ref{tab:fixed_source_accuracy} compares the error and sample
 statistics.  The absolute sample standard deviation of each value follows each value in parenthesis 
-as appropriate.  Generally, the fixup does not improve accuracy for this problem, and
-rotating every batch appears to produce less error surprisingly.
+as appropriate.  Generally, artificial source fixup does not improve accuracy for this problem, and
+rotating every batch appears to produce less error.  The artificial source can lead to
+more negativities in down stream cells in some cases.  It is noted that for
+this problem that although some negative intensities occur, the angular consistency terms
+are not necessary.  
 
 \begin{table}
     \begin{tabular}{|c|cl|cl|c|} \hline
-        Method & \multicolumn{2}{|c|}{$\|e_{LO}\|_{a,rel}$} & 
+      Fixup  Method & \multicolumn{2}{|c|}{$\|e_{LO}\|_{a,rel}$} & 
         \multicolumn{2}{|c|}{$\|e_{HO}\|_{a,rel}$} &\multicolumn{1}{|c|}{FOM}
         \\ \hline 
-        \multicolumn{6}{|c|}{$N_b = 10^4$ histories per batch} \\ \hline
-     artif.src.rad.results.txt &1.354\%  & (0.07\%)  & 1.657\%  & (0.10\%) & 0.43  \\  
-       nofixup.rad.results.txt &1.135\%  & (0.04\%)  & 1.335\%  & (0.05\%) & 0.68  \\  
- rotate.always.rad.results.txt &0.883\%  & (0.04\%)  & 1.036\%  & (0.05\%) & 1.09  \\  
-   rotate.last.rad.results.txt &1.100\%  & (0.04\%)  & 1.335\%  & (0.05\%) & 0.72  \\ \hline 
-   \multicolumn{6}{|c|}{$N_b = 10^5$ histories per batch} \\ \hline
-     artif.src.rad.results.txt &0.261\%  & (0.01\%)  & 0.304\%  & (0.01\%) & 1.34  \\  
-       nofixup.rad.results.txt &0.268\%  & (0.01\%)  & 0.302\%  & (0.01\%) & 1.29  \\  
- rotate.always.rad.results.txt &0.232\%  & (0.01\%)  & 0.265\%  & (0.01\%) & 1.76  \\  
-   rotate.last.rad.results.txt &0.267\%  & (0.01\%)  & 0.302\%  & (0.01\%) & 1.30  \\ \hline 
-   \multicolumn{6}{|c|}{$N_b = 10^6$ histories per batch} \\ \hline
-     artif.src.rad.results.txt &0.081\%  & (0.002\%)  & 0.097\%  & (0.002\%) & 1.47  \\  
-       nofixup.rad.results.txt &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.38  \\  
- rotate.always.rad.results.txt &0.072\%  & (0.002\%)  & 0.082\%  & (0.003\%) & 1.84  \\  
-   rotate.last.rad.results.txt &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.39  \\ \hline 
+        \multicolumn{6}{|c|}{4 batchs, $N_b = 10^4$ histories per batch} \\ \hline
+     Artificial Source &1.354\%  & (0.07\%)  & 1.657\%  & (0.10\%) & 0.43  \\  
+       S$_2$ Fixup &1.135\%  & (0.04\%)  & 1.335\%  & (0.05\%) & 0.68  \\  
+ Rotate every Batch &0.883\%  & (0.04\%)  & 1.036\%  & (0.05\%) & 1.09  \\  
+   Rotate Last Batch &1.100\%  & (0.04\%)  & 1.335\%  & (0.05\%) & 0.72  \\ \hline 
+   \multicolumn{6}{|c|}{4 batchs, $N_b = 10^5$ histories per batch} \\ \hline
+     Artificial Source &0.261\%  & (0.01\%)  & 0.304\%  & (0.01\%) & 1.34  \\  
+       S$_2$ Fixup &0.268\%  & (0.01\%)  & 0.302\%  & (0.01\%) & 1.29  \\  
+ Rotate every Batch &0.232\%  & (0.01\%)  & 0.265\%  & (0.01\%) & 1.76  \\  
+   Rotate Last Batch &0.267\%  & (0.01\%)  & 0.302\%  & (0.01\%) & 1.30  \\ \hline 
+   \multicolumn{6}{|c|}{4 batchs, $N_b = 10^6$ histories per batch} \\ \hline
+     Artificial Source &0.081\%  & (0.002\%)  & 0.097\%  & (0.002\%) & 1.47  \\  
+       S$_2$ fixup &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.38  \\  
+ Rotate every Batch &0.072\%  & (0.002\%)  & 0.082\%  & (0.003\%) & 1.84  \\  
+   Rotate Last Batch &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.39  \\ \hline 
     \end{tabular}
     \caption{\label{tab:fixed_source_accuracy} Comparison of accuracy in cell-averaged $\phi(x)$ value for
 fixed source problem and various number of histories per batch.}
@@ -219,18 +221,94 @@ fixed source problem and various number of histories per batch.}
 
 \subsection{Radiative Transfer Problems}
 
-We now apply each of the fixups to the Marshak wave problem and two material problem from
-Secs.~\ref{sec:marsh} and~\ref{sec:two}. For the Marshak wave problem, $\Delta t$ is
-linearly increased from 0.001 sh to a maximum step size of $\Delta t = 0.01$ sh.  The
-simulation end time is 5 sh and the lumped representation is used for the LO equations in
-all cells.  Table~\ref{tab:marsh_fixups} compares sample statistics for cell-averaged
-solutions from the final time step, from 20 independent simulations, for different numbers
+We now test each of the fixups to the Marshak wave problem and two material problem from
+Secs.~\ref{sec:marsh} and~\ref{sec:two}. For both problems, $\Delta t$ is
+linearly increased from 0.001 sh to a maximum step size of $\Delta t_{\max} = 0.01$ sh,
+the lumped representation is used for the LO solver in all cells, and the single HO solve
+has three uniform batches of histories per time step.
+For the two material problem, the simulation end time is 2 sh.  .  Table~\ref{tab:marsh_fixups} compares sample statistics for cell-averaged
+solutions from the final time step for the Marshak wave problem and different numbers of
+histories per time step.  The statistics were from 20 independent simulations, for different numbers
 of histories per batch.  As demonstrated, there is no improvement with the artificial
 source approach.  A plot of the radiation temperature for the final solution is given in
 Fig.~\ref{fig:marsh_fix} for each of the fixups.  As demonstrated, there is generally good
 agreement, independent of the fixup used.  The artificial source slightly distributes the
 wave-front. 
 
+\begin{figure}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+    \includegraphics[width=0.99\linewidth]{twomat_fixups.pdf}
+    \caption{\label{fig:twomat_fix_full} Full plot of $T_r(x)$.}
+\end{subfigure}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+  \includegraphics[width=0.99\linewidth]{twomat_fixups_zoom.pdf}
+  \caption{\label{fig:twomat_fix_zoom} Plot of $T_r$ near wave-front.}
+\end{subfigure}
+    \centering
+    \caption{\label{fig:twomat_fix}Comparison of cell-averaged radiation temperatures for
+two material problem and various fixup methods.}
+\end{figure}
+
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{|c|cc|} \hline
+  Fixup  Method & \ss & \FOM  \\ \hline \hline
+    \multicolumn{3}{|c|}{$30,000$ histories per time step} \\ \hline
+    Artificial Source &  0.020\%  & 1.65 \\
+    S$_2$ fixup & 0.022\% &  1.37     \\
+    Rotate Last Batch & 0.021\% &  1.45    \\
+    Rotate Every Batch &  0.025\%  & 1.00    \\ \hline
+    \multicolumn{3}{|c|}{$120,000$ histories per time step} \\ \hline
+Artificial Source &   0.0049\% & 6.77 \\
+S$_2$ fixup & 0.0055\% & 5.29 \\
+Rotate Last Batch & 0.0061\% & 4.33 \\
+Rotate Every Batch &  0.0066\% & 3.67  \\ \hline
+    \end{tabular}
+    \caption{\label{tab:twomat_fix}Comparison of sample statistics for different HO fixup
+methods applied to the two material problem. Simulation end time is $t=2$ sh.}
+\end{table}
+
+
+\begin{figure}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+    \includegraphics[width=0.99\linewidth]{marshak_fixups.pdf}
+    \caption{\label{fig:twomat_fix_full} Full plot of $T_r(x)$.}
+\end{subfigure}
+\vspace{0.2in}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+  \includegraphics[width=0.99\linewidth]{marshak_fixups_zoom.pdf}
+  \caption{\label{fig:twomat_fix_zoom} Plot of $T_r$ near wave-front.}
+\end{subfigure}
+    \centering
+    \caption{\label{fig:twomat_fix}Comparison of cell-averaged radiation temperatures for
+Marshak wave problem and various fixup methods.}
+\end{figure}
+
+
+\begin{table}
+    \centering
+    \begin{tabular}{c|cc|} \hline
+    Method & FOM  & \ss  \\ \hline
+    \multicolumn{3}{|c|}{$18,000$ histories per time step} \\ \hline
+    Artificial Source  &  0.020\%  & 1.65 \\
+    S$_2$ fixup        &  0.022\%  & 1.37     \\
+    Rotate Last Batch  &  0.021\%  & 1.45    \\
+    Rotate Every Batch &  0.025\%  & 1.00    \\ \hline
+    \multicolumn{3}{|c|}{$100,000$ histories per time step} \\ \hline
+Artificial Source      &   0.0049\% & 6.77 \\
+S$_2$ fixup            & 0.0055\%   & 5.29 \\
+Rotate Last Batch      & 0.0061\%   & 4.33 \\
+Rotate Every Batch     &  0.0066\%  & 3.67  \\ \hline
+    \end{tabular}
+    \caption{\label{tab:marsh_fix}Comparison of sample statistics for different HO fixup
+methods and the Marshak wave problem. Simulation end time is $t=5$ sh.}
+\end{table}
 
 
 

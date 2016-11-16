@@ -83,7 +83,7 @@ statistical noise of standard MC.
             \draw (1.0,2.45) -- (5.90,2.45);
             \filldraw[color=black, fill=white] (5.9,2.450) circle (2.1pt);
             \draw (5.9,1.6) node[black,fill,circle,inner sep=0pt,minimum size=4.2pt] {};
-            \node[anchor=west] at (5.9,1.6) {${\tilde{I}_{HO}^{n+1}}$};
+            \node[anchor=west] at (5.9,1.6) {${\tilde{I}_{HO}^{n+1}(x,\mu)}$};
         \end{tikzpicture}
  %   }
     \end{center}
@@ -313,7 +313,7 @@ Sec.~\ref{sec:spat_clos}.
 After applying a parametric closure, the time-integrated LO equations can be written exclusively in terms
 of time-averaged unknowns.   Once the time-averaged unknowns have been calculated,
 the time closures can be used to convert the time-averaged unknowns to end-of-time-step
-values for the next time step.
+values, for the next time step.
 
 \subsection{Derivation of Time-Averaged Moment Equations}
 

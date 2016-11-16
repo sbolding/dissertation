@@ -63,7 +63,7 @@
 \BOOKMARK [2][-]{subsection.6.2.1}{The WLA-DSA Accelerated Source Iteration Algorithm}{section.6.2}% 63
 \BOOKMARK [1][-]{section.6.3}{GMRES Solution to the LO Equations}{chapter.6}% 64
 \BOOKMARK [1][-]{section.6.4}{Computational Results}{chapter.6}% 65
-\BOOKMARK [0][-]{chapter.7}{Resolving Negative Intensities in Optically Thick Cells for ECMC}{}% 66
+\BOOKMARK [0][-]{chapter.7}{Resolving Issues with Negative Intensities for ECMC}{}% 66
 \BOOKMARK [1][-]{section.7.1}{Artificial Source Method for Negativities in the HO Intensity}{chapter.7}% 67
 \BOOKMARK [2][-]{subsection.7.1.1}{Calculating a Positive LDFE Representation}{section.7.1}% 68
 \BOOKMARK [2][-]{subsection.7.1.2}{Adding an Artificial Source}{section.7.1}% 69
@@ -86,7 +86,7 @@
 \BOOKMARK [0][-]{chapter.9}{ Conclusions and Future Work }{}% 86
 \BOOKMARK [1][-]{section.9.1}{CONCLUSIONS}{chapter.9}% 87
 \BOOKMARK [1][-]{section.9.2}{Future Work}{chapter.9}% 88
-\BOOKMARK [0][-]{section*.45}{REFERENCES}{}% 89
+\BOOKMARK [0][-]{section*.49}{REFERENCES}{}% 89
 \BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Relations for the LO System}{}% 90
 \BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 91
 \BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 92
