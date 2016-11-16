@@ -10,9 +10,9 @@ transport solver provides the accuracy of a full transport treatment where neces
 Our HOLO method produces accurate solutions for Marshak wave test
 problems that are in agreement with IMC.  Unlike IMC, our method requires no effective
 scattering events to be included in the MC simulation, which limits the run time of
-particle tracking while adding the cost of a LO Newton solver. The LDFE spatial
+particle tracking, while adding the cost of a LO Newton solver. The LDFE spatial
 representation mitigates issues with teleportation error, producing results with spatial
-accuracy comparable to IMC with source tilting.  The LDFE discretization of the LO system
+accuracy that is better than IMC with source tilting at coarser meshes.  The LDFE discretization of the LO system
 and material temperature was also shown to preserve the equilibrium diffusion limit.  
 The efficiency of the LO system allows for nonlinearities in the system to be resolved
 with Newton iterations.  The fully nonlinear system with an implicit discretization
@@ -26,7 +26,7 @@ significantly reduce the number of required scattering iterations for the source
 approach. 
 
 The ECMC algorithm was shown to be more statistically efficient than standard MC as a HO
-solver for TRT problems.  The residual formulation with an initial guesses based on the
+solver for TRT problems.  The residual formulation with an initial guess based on the
 previous radiation intensity results in efficient reduction of statistical error.  The
 systematic source sampling algorithm distributes particles to regions of the problem where the
 solution varies greatly over the time step.  For problems where the LDFE space-angle trial space
@@ -34,7 +34,7 @@ can reasonably approximate the solution, mesh refinement allows for exponential
 convergence and improved FOM values.   In problems with optically
 thick regions and strong solution gradients, the residual formulation of ECMC can still
 improve efficiency throughout the domain.  Once a maximum refinement level has been
-achieved and the error has stagnated, the final batch of particile histories can be 
+achieved and the error has stagnated, the final batch of particle histories can be 
 extended to increase statistical accuracy in the final estimate of the error, but at the
 standard MC convergence rate.
 REWRITE: Add conclusions from Chapter 7. Mention that strong gradient causes problems
@@ -43,26 +43,29 @@ The linear doubly-discontinuous (LDD) trial space was introduced to estimate the
 solution at faces, allowing for a parametric spatial closure of the LO equations. 
 For problems where the LD trial space can reasonably resolve the solution, a 
 HO spatial closure was able to increase consistency between the HO and LO solutions and improve
-accuracy in the L$_2$ norm.  The cell-averaged intensities do not improve due to the additional statistical noise
-in the face tallies and inaccuracies in the moment equations for the ECMC solver because of the residual formulation.
-In problems where the solution is not resolved by the LD represenation, the
+accuracy in the L$_2$ norm.  The accuracy for cell-averaged mean intensities was not improved due to the additional statistical noise
+in the face tallies and inaccuracies in the HO moment equations for the ECMC solver because of the residual formulation.
+In problems where the solution is not resolved by the LD representation, the
 inconsistencies in the first moment for the HO solver and the lumped LD LO equations make
 the spatial closure ineffective and unstable.
 In higher dimensions, preserving the spatial accuracy of the HO solution method may
-demonstrate a greater increase in accuracy than 1D where the LD spatial closure is
+demonstrate a greater accuracy than 1D where the LD spatial closure is
 third-order accuracy in the averages.  However, the closure is fundamentally limited in
 accuracy in diffusive problems because of the requirement of a linear closure for $T(x)$ and $T^4(x)$. 
 
 We have also demonstrated the ability to extend the HOLO algorithm to continuous treatment of the radiation 
 variable.  The SDD trial space in the time variable allows for the transport operator to be inverted
-continuously in the ECMC algorithm.  This improves accuracy over the BE discretization in optically thin regions.
-The parametric LO closure preserves the accuracy of the HO treatment in the LO moments,
-with minimal approximations in the LO equations. 
-A particular benefit of the time closure is that $\overline I^{HO}$ is most different
-from $I^{HO,n+1}$ in problems that are optically thin.  In such problems,
-the problem is relatively linear.  However, in optically thick problems, inaccuracies
-in the SDD for estimating $I_{HO}^{n+1}$ leads to an increase in the required number of
-histories for convergence.
+continuously in the ECMC algorithm.  This improves accuracy for the radiation energy
+density in optically thin region compared to a full BE discretization.  The
+parametric LO closure preserves the accuracy of the HO treatment in the LO moments,
+with comparable accuracy for a diamond-like and implicit-like closure.  A particular benefit of the time
+closure is that $\overline I^{HO}$ is most different from $I^{HO,n+1}$ in problems
+that are optically thin.  In such problems, the problem is relatively linear, so the
+closure can 
+However, in optically thick problems, inaccuracies in the SDD for estimating
+$I_{HO}^{n+1}$ leads to an increase in the required number of histories for
+convergence.  In thick problems, the diamond-like closure can introduce instabilities
+because of the initial solve in a time step using CN and statistical noise.
 
 \section{Future Work} 
 
