@@ -77,6 +77,7 @@
 \contentsline {subsection}{\numberline {7.1.2}Adding an Artificial Source}{102}{subsection.7.1.2}
 \contentsline {section}{\numberline {7.2}Computational Results}{103}{section.7.2}
 \contentsline {subsection}{\numberline {7.2.1}Analytic Fixed Source Problem}{103}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {7.2.2}Radiative Transfer Problems}{104}{subsection.7.2.2}
 \contentsline {chapter}{\numberline {8} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{107}{chapter.8}
 \vskip +10pt
 \contentsline {section}{\numberline {8.1}Modifications to the HO Solver}{107}{section.8.1}

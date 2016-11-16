@@ -164,7 +164,7 @@ For the single HO solve, the solution is initialized to $\tilde I(x,\mu)=q_0/2$.
 A plot of the angular
 intensity\footnote{The triangular structure in the plots are only an artifact of the plotting
 software.} is given in Fig.~\ref{fig:neut_ang_full} from the end of the HO solve.
-Figure~\ref{fig:neut_ang_zoom} plots the solution for all cells in which the solution goes
+Figure~\ref{fig:neut_ang_zoom} depicts the solution for all cells in which the solution goes
 below $I_{\min}$ for some portion of the domain, using a smaller scale for visual clarity.
 As expected, near $\mu=0$ and near the interface of the thick material the LDFE projection
 is driven negative and cannot accurately represent the solution.
@@ -178,7 +178,7 @@ is driven negative and cannot accurately represent the solution.
 \begin{subfigure}{0.7\textwidth}
   \centering
   \includegraphics[width=0.99\linewidth]{neut_ang_zoom.pdf}
-  \caption{\label{k_200_compare} $\tilde I(x,\mu)$ for cells where $\tilde I(x,\mu)$
+  \caption{\label{fig:neut_ang_zoom} $\tilde I(x,\mu)$ for cells where $\tilde I(x,\mu)$
   crosses $I_{\min}$.   }
 \end{subfigure}
 \caption{Plots of $\tilde I(x,\mu)$ for the fixed-source problem.}
@@ -186,7 +186,7 @@ is driven negative and cannot accurately represent the solution.
 
 We now test the artificial source fixup and compare to two different cases.  The L$_2$
 norm of the error in cell-averaged mean intensities $\|e\|_{a,rel}$ is computed using
-Eq.~\eqref{eq:avg_err} from the last time step, averaged over 20
+Eq.~\eqref{eq:avg_err} from the last time step, averaged over 100
 simulations.  Table.~\ref{tab:fixed_source_accuracy} compares the error and sample
 statistics.  The absolute sample standard deviation of each value follows each value in parenthesis 
 as appropriate.  Generally, the fixup does not improve accuracy for this problem, and
@@ -216,5 +216,22 @@ rotating every batch appears to produce less error surprisingly.
     \caption{\label{tab:fixed_source_accuracy} Comparison of accuracy in cell-averaged $\phi(x)$ value for
 fixed source problem and various number of histories per batch.}
 \end{table}
+
+\subsection{Radiative Transfer Problems}
+
+We now apply each of the fixups to the Marshak wave problem and two material problem from
+Secs.~\ref{sec:marsh} and~\ref{sec:two}. For the Marshak wave problem, $\Delta t$ is
+linearly increased from 0.001 sh to a maximum step size of $\Delta t = 0.01$ sh.  The
+simulation end time is 5 sh and the lumped representation is used for the LO equations in
+all cells.  Table~\ref{tab:marsh_fixups} compares sample statistics for cell-averaged
+solutions from the final time step, from 20 independent simulations, for different numbers
+of histories per batch.  As demonstrated, there is no improvement with the artificial
+source approach.  A plot of the radiation temperature for the final solution is given in
+Fig.~\ref{fig:marsh_fix} for each of the fixups.  As demonstrated, there is generally good
+agreement, independent of the fixup used.  The artificial source slightly distributes the
+wave-front. 
+
+
+
 
 

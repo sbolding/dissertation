@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  15 NOV 2016 15:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.9.28)  16 NOV 2016 09:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1113,14 +1113,14 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 ] [63] [64]
-<figures/marshak_mesh_conv.pdf, id=1367, 517.71071pt x 409.79662pt>
+<figures/marshak_mesh_conv.pdf, id=1372, 517.71071pt x 409.79662pt>
 File: figures/marshak_mesh_conv.pdf Graphic file (type pdf)
 
 <use figures/marshak_mesh_conv.pdf>
 Package pdftex.def Info: figures/marshak_mesh_conv.pdf used on input line 128.
 (pdftex.def)             Requested size: 297.99547pt x 235.88759pt.
 
-<figures/marshak_200_compare.pdf, id=1368, 508.9671pt x 409.79662pt>
+<figures/marshak_200_compare.pdf, id=1373, 508.9671pt x 409.79662pt>
 File: figures/marshak_200_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_200_compare.pdf>
@@ -1132,14 +1132,14 @@ Package pdftex.def Info: figures/marshak_200_compare.pdf used on input line 133
 
 pdfTeX warning: pdflatex (file ./figures/marshak_200_compare.pdf): PDF inclusio
 n: multiple pdfs with page group included in a single page
->] [68] <figures/two_mat_conv.pdf, id=1499, 501.29784pt x 409.79662pt>
+>] [68] <figures/two_mat_conv.pdf, id=1504, 501.29784pt x 409.79662pt>
 File: figures/two_mat_conv.pdf Graphic file (type pdf)
 
 <use figures/two_mat_conv.pdf>
 Package pdftex.def Info: figures/two_mat_conv.pdf used on input line 242.
 (pdftex.def)             Requested size: 276.7087pt x 226.20796pt.
 
-<figures/two_mat_ho_compare.pdf, id=1500, 501.29784pt x 409.79662pt>
+<figures/two_mat_ho_compare.pdf, id=1505, 501.29784pt x 409.79662pt>
 File: figures/two_mat_ho_compare.pdf Graphic file (type pdf)
 
 <use figures/two_mat_ho_compare.pdf>
@@ -1160,7 +1160,7 @@ Overfull \hbox (42.84393pt too wide) in paragraph at lines 318--325
  [][] 
  []
 
-[73] [74] <figures/heated_marshak.pdf, id=1647, 526.7194pt x 417.02364pt>
+[73] [74] <figures/heated_marshak.pdf, id=1652, 526.7194pt x 417.02364pt>
 File: figures/heated_marshak.pdf Graphic file (type pdf)
 
 <use figures/heated_marshak.pdf>
@@ -1171,7 +1171,7 @@ Overfull \hbox (59.84676pt too wide) in paragraph at lines 428--437
  [][] 
  []
 
-[76] <figures/diff_limit_compare.pdf, id=1659, 523.38817pt x 409.79662pt>
+[76] <figures/diff_limit_compare.pdf, id=1664, 523.38817pt x 409.79662pt>
 File: figures/diff_limit_compare.pdf Graphic file (type pdf)
 
 <use figures/diff_limit_compare.pdf>
@@ -1180,7 +1180,7 @@ Package pdftex.def Info: figures/diff_limit_compare.pdf used on input line 469.
 (pdftex.def)             Requested size: 290.50563pt x 227.45857pt.
  [77 <./figures/heated_marshak.pdf>]
 [78 <./figures/diff_limit_compare.pdf>] [79]
-<figures/smooth_compare.pdf, id=1780, 526.58763pt x 409.82799pt>
+<figures/smooth_compare.pdf, id=1785, 526.58763pt x 409.82799pt>
 File: figures/smooth_compare.pdf Graphic file (type pdf)
 
 <use figures/smooth_compare.pdf>
@@ -1192,21 +1192,21 @@ Overfull \hbox (35.24425pt too wide) in paragraph at lines 539--556
  []
 
 [81 <./figures/smooth_compare.pdf>]
-<figures/two_mat_fail.pdf, id=1851, 511.37454pt x 409.82799pt>
+<figures/two_mat_fail.pdf, id=1856, 511.37454pt x 409.82799pt>
 File: figures/two_mat_fail.pdf Graphic file (type pdf)
 
 <use figures/two_mat_fail.pdf>
 Package pdftex.def Info: figures/two_mat_fail.pdf used on input line 581.
 (pdftex.def)             Requested size: 258.00706pt x 206.78326pt.
  [82] [83 <./figures/two_mat_fail.pdf>]
-<figures/mpv_rad_imc.pdf, id=1933, 507.24976pt x 411.71002pt>
+<figures/mpv_rad_imc.pdf, id=1938, 507.24976pt x 411.71002pt>
 File: figures/mpv_rad_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_rad_imc.pdf>
 Package pdftex.def Info: figures/mpv_rad_imc.pdf used on input line 621.
 (pdftex.def)             Requested size: 258.00706pt x 209.42278pt.
 
-<figures/mpv_mats_imc.pdf, id=1934, 507.56343pt x 411.71002pt>
+<figures/mpv_mats_imc.pdf, id=1939, 507.56343pt x 411.71002pt>
 File: figures/mpv_mats_imc.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_imc.pdf>
@@ -1216,7 +1216,7 @@ Package pdftex.def Info: figures/mpv_mats_imc.pdf used on input line 626.
 
 pdfTeX warning: pdflatex (file ./figures/mpv_mats_imc.pdf): PDF inclusion: mult
 iple pdfs with page group included in a single page
->] <figures/mpv_mats_holo.pdf, id=2050, 511.59412pt x 411.71002pt>
+>] <figures/mpv_mats_holo.pdf, id=2055, 511.59412pt x 411.71002pt>
 File: figures/mpv_mats_holo.pdf Graphic file (type pdf)
 
 <use figures/mpv_mats_holo.pdf>
@@ -1278,23 +1278,24 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 ] [100] [101] [102] [103]
-
-LaTeX Warning: Reference `fig:neut_ang_zoom' on page 104 undefined on input lin
-e 167.
-
-<figures/neut_ang_full.pdf, id=2293, 462.52798pt x 361.35pt>
+<figures/neut_ang_full.pdf, id=2299, 462.52798pt x 361.35pt>
 File: figures/neut_ang_full.pdf Graphic file (type pdf)
 
 <use figures/neut_ang_full.pdf>
 Package pdftex.def Info: figures/neut_ang_full.pdf used on input line 175.
 (pdftex.def)             Requested size: 297.99547pt x 232.81808pt.
 
-<figures/neut_ang_zoom.pdf, id=2294, 462.52798pt x 361.35pt>
+<figures/neut_ang_zoom.pdf, id=2300, 462.52798pt x 361.35pt>
 File: figures/neut_ang_zoom.pdf Graphic file (type pdf)
 
 <use figures/neut_ang_zoom.pdf>
 Package pdftex.def Info: figures/neut_ang_zoom.pdf used on input line 180.
 (pdftex.def)             Requested size: 297.99547pt x 232.81808pt.
+
+
+LaTeX Warning: Reference `tab:marsh_fixups' on page 104 undefined on input line
+ 226.
+
 ) [104] [105 <./figures/neut_ang_full.pdf> <./figures/neut_ang_zoom.pdf
 
 pdfTeX warning: pdflatex (file ./figures/neut_ang_zoom.pdf): PDF inclusion: mul
@@ -1319,14 +1320,14 @@ Overfull \hbox (85.06113pt too wide) detected at line 421
 /cmm/m/it/12 ^^[[]h[]\OMS/cmsy/m/n/12 h[]i[]$ 
  []
 
-[118] <figures/void_imc_compare.pdf, id=4560, 553.45363pt x 408.27531pt>
+[118] <figures/void_imc_compare.pdf, id=4568, 553.45363pt x 408.27531pt>
 File: figures/void_imc_compare.pdf Graphic file (type pdf)
 
 <use figures/void_imc_compare.pdf>
 Package pdftex.def Info: figures/void_imc_compare.pdf used on input line 448.
 (pdftex.def)             Requested size: 279.50218pt x 206.18674pt.
  [119] [120 <./figures/void_imc_compare.pdf>] <figures/void_temp_batch_compare.
-pdf, id=4645, 552.44987pt x 408.27531pt>
+pdf, id=4653, 552.44987pt x 408.27531pt>
 File: figures/void_temp_batch_compare.pdf Graphic file (type pdf)
 
 <use figures/void_temp_batch_compare.pdf>
@@ -1334,7 +1335,7 @@ Package pdftex.def Info: figures/void_temp_batch_compare.pdf used on input line
  497.
 (pdftex.def)             Requested size: 322.50554pt x 238.34482pt.
  [121]
-<figures/void_ang_compare.pdf, id=4650, 553.45363pt x 408.27531pt>
+<figures/void_ang_compare.pdf, id=4658, 553.45363pt x 408.27531pt>
 File: figures/void_ang_compare.pdf Graphic file (type pdf)
 
 <use figures/void_ang_compare.pdf>
@@ -1342,21 +1343,21 @@ Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 505.
 (pdftex.def)             Requested size: 322.50554pt x 237.90874pt.
  [122 <./figures/void_temp_batch_compare.pdf>] [123 <./figures/void_ang_compare
 .pdf>]
-<figures/thin_temp_compare.pdf, id=4803, 552.44987pt x 414.17235pt>
+<figures/thin_temp_compare.pdf, id=4811, 552.44987pt x 414.17235pt>
 File: figures/thin_temp_compare.pdf Graphic file (type pdf)
 
 <use figures/thin_temp_compare.pdf>
 Package pdftex.def Info: figures/thin_temp_compare.pdf used on input line 612.
 (pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
  [124 <./figures/thin_temp_compare.pdf>]
-<figures/thin_30k_fails.pdf, id=4886, 552.44987pt x 414.17235pt>
+<figures/thin_30k_fails.pdf, id=4894, 552.44987pt x 414.17235pt>
 File: figures/thin_30k_fails.pdf Graphic file (type pdf)
 
 <use figures/thin_30k_fails.pdf>
 Package pdftex.def Info: figures/thin_30k_fails.pdf used on input line 659.
 (pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
  [125] [126 <./figures/thin_30k_fails.pdf>]
-<figures/marshak_time_cont_compare.pdf, id=4956, 552.44987pt x 414.17235pt>
+<figures/marshak_time_cont_compare.pdf, id=4964, 552.44987pt x 414.17235pt>
 File: figures/marshak_time_cont_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_time_cont_compare.pdf>
@@ -1463,7 +1464,7 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 152.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 152.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 152.
 Package rerunfilecheck Info: File `tamuthesis.out' has not changed.
-(rerunfilecheck)             Checksum: 9EC2AA1A2A5F4DF3E47617DD1EFC4033;8104.
+(rerunfilecheck)             Checksum: F6F120F9D8EA78BF2A264EEF71125D3B;8186.
 
 
 LaTeX Warning: There were undefined references.
@@ -1473,10 +1474,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 22459 strings out of 493304
- 384845 string characters out of 6139871
- 539274 words of memory out of 5000000
- 24762 multiletter control sequences out of 15000+600000
+ 22461 strings out of 493304
+ 384886 string characters out of 6139871
+ 540275 words of memory out of 5000000
+ 24763 multiletter control sequences out of 15000+600000
  14817 words of font info for 57 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  56i,13n,59p,823b,712s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1496,10 +1497,10 @@ are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/tex
 live/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on tamuthesis.pdf (172 pages, 1489561 bytes).
+Output written on tamuthesis.pdf (172 pages, 1489840 bytes).
 PDF statistics:
- 5458 PDF objects out of 6186 (max. 8388607)
- 2360 compressed objects within 24 object streams
- 615 named destinations out of 1000 (max. 500000)
- 900 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 5466 PDF objects out of 6186 (max. 8388607)
+ 2368 compressed objects within 24 object streams
+ 616 named destinations out of 1000 (max. 500000)
+ 908 words of extra memory for PDF output out of 10000 (max. 10000000)
 
