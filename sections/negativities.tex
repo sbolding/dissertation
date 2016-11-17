@@ -17,14 +17,14 @@ angle.  These negativities near $\mu=0$ can occur for modest optical thicknesses
 multiple adjacent cells, caused in part by the previous intensity source term which has a
 strong gradient in $\mu$. 
 
-In the remainder of this chapter, we discuss fixup methods applied to the HO solver.
+In the remainder of this chapter, we present different fixup methods applied to the HO solver.
 Methods are then compared for statistical efficiency and accuracy for test problems.
 Ideally the fixup should be applied in a manner that the solutions in such cells are as consistent as possible between the HO
-and LO equations.  However, modifications made to the HO solver would be lagged in the
-next nonlinear LO solve, so there would be no guarantee of positivity if the fixup is
-consistently applied to the next LO solve. Additionally, the LO solver must preserve
+and LO equations.  However, even if the HO fixup was applied consistently to the LO
+next nonlinear LO solve, this would be based on a lagged HO problem so there is no
+guarantee of positivity for the new LO solution. Additionally, the LO solver must preserve
 energy conservation, whereas the HO solver is primarily used for angular shape parameters
-and is generally not conservative. Thus, because of the difference in solution
+and is not conservative. Thus, because of the difference in solution
 methods of the two system, independent fixups have been developed.  
 
 \section{Calculating a Positive LDFE Representation}
@@ -44,7 +44,8 @@ requirement to fixup the cells.  However, in cells where $\tilde{I}^{n+1}(x,\mu)
 zero, the angular consistency terms are not guaranteed to lie in the appropriate
 half-space, potentially introducing instabilities.  
 
-The first moments can easily be modified to produce a positive representation $\tilde
+The first moments can easily be modified, rotating the linear representation for the intensity
+about the average, to produce a positive representation $\tilde
 I_{\pos}$ at the end of a batch.  We produce a positive representation $\tilde
 I_{\text{\pos}}$ over a cell by scaling the first moment in $x$ and $\mu$ uniformly.  The
 process of modifying the first moments to produce a positive solution is under defined, so
@@ -70,18 +71,18 @@ double precision variables.
 
 \section{Artificial Source Method for Negativities in the HO Intensity}
 
-The moments of the modified positive solution $\tilde I_{\pos}$ will
-not necessarily satisfy the residual equation as accurately as the original solution, which leads to
-rapid error stagnation.  Additionally, the next MC batch based on the residual source from
-$\tilde I_{\pos}$ can produce negative cell averages in down stream cells.
-Thus, we have devised
-a method to modify the transport equation such that $\tilde I_{\pos}$ will locally satisfy the
-residual equation more accurately.  We do this in such a manner that the
+The moments of the modified positive solution $\tilde I_{\pos}$ will not necessarily
+satisfy the residual equation as accurately as the original solution, which leads to rapid
+error stagnation.  Additionally, the next MC batch based on the residual source from
+$\tilde I_{\pos}$ can produce negative cell averages in down stream cells.  Thus, we have
+devised a method to modify the transport equation such that $\tilde I_{\pos}$ will locally
+satisfy the residual equation more accurately.  We do this in such a manner that the
 modified source will lead to the solution converging towards a solution with the same
 zeroth moment, but with a first moment in $x$ and $\mu$ that are modified.  This does not
 guarantee exponential convergence of the solution, because convergence is still limited by
-the overall accuracy of the trial space and statistics within a batch.  However, now the error will not stagnate as rapidly
-and the solution will converge towards the positive representation $\tilde I_{\pos}$.
+the overall accuracy of the trial space and statistics within a batch.  However, now the
+error will not stagnate as rapidly and the solution will converge towards the positive
+representation $\tilde I_{\pos}$.
 
 To mitigate stagnation and improve efficiency, we can add an artificial source
 $\tilde\delta^{m+1}(x,\mu)$ to the HO transport equation.
@@ -124,12 +125,19 @@ across batches, and adding an additional source only when negative values occur 
 
 \section{Computational Results}
 
-We will apply several different fixup approaches based on the previous sections for
-
-We detect if
+We will apply several different fixup approaches based on the above discussion.
+The first method, labeled as ``S$_2$ fixup'' is the simplified fixup used to generate some
+of the results in Chapter~\ref{chp:results}: we detect if
 the consistency terms lie in the appropriate half space at the end of the HO solve,
 an indication that the intensity was negative within that cell.  If the terms are non-physical, then
-they are replaced with the corresponding S$_2$-equivalent value.
+they are replaced with the corresponding S$_2$-equivalent value. At the end of each time
+step the solution is rotated positive for the next time step.  The second method, labeled
+as ``Rotate Every Batch'' rotates the solution above the floor value as needed at the end of every batch, as
+described in Sec.~\ref{sec:pos_ldfe}.  The method ``Rotate Last Batch'' only applies the
+fixup at the end of the final batch, allowing negative intensities in earlier batches.
+The final approach is labeled ``Artificial Source'' and is described in the previous
+section.  The artificial source is not saved
+between time steps.
 
 \subsection{Analytic Fixed Source Problem}
 
@@ -143,10 +151,10 @@ isotropic source is proportional to $\sigma_a$, so the 1D transport equation to 
     \mu \pderiv{I(x,\mu)}{x} + \sigma_a I(x,\mu) = \frac{q_0\sigma_a(x)}{2}.
 \end{equation}
 The form of the source simulates a floor equilibrium distribution and ensures that $\phi^-(x)$ is a
-constant throughout the domain with appropriate boundary conditions. i
+constant throughout the domain with appropriate boundary conditions. 
 
-For this problem, the domain width is 1.0 cm and $\sigma_s=0$ throughout.  The cross
-sections are $\sigma_a=0.2$ \invcm for $0\leq x <0.5$ cm and $\sigma_a=1000$ for
+For this problem, the domain width is 1.0 cm and $\sigma_s=0$ throughout.  The absorption
+cross section is defined as $\sigma_a=0.2$ cm$^{-1}$ for $0\leq x <0.5$ cm and $\sigma_a=1000$ cm$^{-1}$ for
 $0.5<x\leq1.0$ cm.  The analytic solution
 for the mean intensity, as derived in App.~\ref{sec:analytic_neutronics}, is
 \begin{equation}
@@ -157,16 +165,32 @@ where $I_{inc}=1000$ cm$^{-2}$ str$^{-1}$ is the incident intensity at the left
 boundary and $q_0 = 0.5$ cm$^{-2}$ s$^{-1}$; The equilibrium solution which is
 used as the floor in the applied fixups is $I_{\min} = 0.5$ cm$^{-2}$ s$^{-1}$ str$^{-1}$.
 
-The problem was simulated with the HOLO algorithm with four batches of 100,000 histories.
+The problem was simulated with the HOLO algorithm with four batches of 100,000 histories,
+with no HO fixup.
 For the LO solver, the lumped LD spatial closure is used in all cells.
 For the single HO solve, the solution is initialized to $\tilde I(x,\mu)=q_0/2$.
-A plot of the angular
+A plot of the HO representation for the 
 intensity\footnote{The triangular structure in the plots are only an artifact of the plotting
 software.} is given in Fig.~\ref{fig:neut_ang_full} from the end of the HO solve.
-Figure~\ref{fig:neut_ang_zoom} depicts the solution for all cells in which the solution goes
-below $I_{\min}$ for some portion of the domain, using a smaller scale for visual clarity.
+Figure~\ref{fig:neut_ang_zoom} depicts the solution for all cells in which $\tilde
+I(x,\mu)$ is
+below $I_{\min}$, for some portion of that cell's domain, using a smaller scale for visual clarity.
 As expected, near $\mu=0$ and near the interface of the thick material the LDFE projection
 is driven negative and cannot accurately represent the solution.
+
+The various fixup methods were tested on this problem for different numbers of simulated histories.  The L$_2$
+norm of the error in cell-averaged mean intensities $\|e\|_{a,rel}$ was computed using
+Eq.~\eqref{eq:avg_err} for both the HO and LO solutions, averaged over 100
+simulations.  Table~\ref{tab:fixed_source_accuracy} compares the errors and FOM values. 
+The absolute sample standard deviation follows each value in parenthesis 
+as appropriate.  Generally, the artificial source fixup did not improve accuracy or
+statistics for this problem, and the other fixups show similar performance.
+%Fig.~\ref{???} compares the scalar intensities for the different methods.
+In some cases
+the artificial source led to additional negative values in down-stream space-angle cells in later
+batches.  It is noted that for
+this problem that although some negative intensities occur, for the S$_2$ fixup angular consistency terms
+were non-physical in only a few cases.  
 \begin{figure}[hp]
     \centering
 \begin{subfigure}{0.7\textwidth}
@@ -182,18 +206,6 @@ is driven negative and cannot accurately represent the solution.
 \end{subfigure}
 \caption{Plots of $\tilde I(x,\mu)$ for the fixed-source problem.}
 \end{figure}
-
-We now test the artificial source fixup and compare to two different cases.  The L$_2$
-norm of the error in cell-averaged mean intensities $\|e\|_{a,rel}$ is computed using
-Eq.~\eqref{eq:avg_err} from the last time step, averaged over 100
-simulations.  Table.~\ref{tab:fixed_source_accuracy} compares the error and sample
-statistics.  The absolute sample standard deviation of each value follows each value in parenthesis 
-as appropriate.  Generally, artificial source fixup does not improve accuracy for this problem, and
-rotating every batch appears to produce less error.  The artificial source can lead to
-more negativities in down stream cells in some cases.  It is noted that for
-this problem that although some negative intensities occur, the angular consistency terms
-are not necessary.  
-
 \begin{table}
     \begin{tabular}{|c|cl|cl|c|} \hline
       Fixup  Method & \multicolumn{2}{|c|}{$\|e_{LO}\|_{a,rel}$} & 
@@ -226,16 +238,36 @@ Secs.~\ref{sec:marsh} and~\ref{sec:two}. For both problems, $\Delta t$ is
 linearly increased from 0.001 sh to a maximum step size of $\Delta t_{\max} = 0.01$ sh,
 the lumped representation is used for the LO solver in all cells, and the single HO solve
 has three uniform batches of histories per time step.
-For the two material problem, the simulation end time is 2 sh.  .  Table~\ref{tab:marsh_fixups} compares sample statistics for cell-averaged
-solutions from the final time step for the Marshak wave problem and different numbers of
-histories per time step.  The statistics were from 20 independent simulations, for different numbers
-of histories per batch.  As demonstrated, there is no improvement with the artificial
-source approach.  A plot of the radiation temperature for the final solution is given in
-Fig.~\ref{fig:marsh_fix} for each of the fixups.  As demonstrated, there is generally good
-agreement, independent of the fixup used.  The artificial source slightly distributes the
-wave-front. 
 
-\begin{figure}
+For the two material problem, the simulation end time is 2 sh.
+Table~\ref{tab:twomat_fixups} compares sample statistics for cell-averaged solutions from
+the final time step for the two material problem and different numbers of histories per
+time step.  The statistics were generated with 20 independent simulations, for each case.
+For this problem, there is a slight improvement in statistics with the artificial source
+approach.  A plot of the radiation temperature for the final LO solution is given in
+Fig.~\ref{fig:twomat_fix} for each of the fixups and a reference solution.  Each plotted
+solution is for a single simulation with $120,000$
+histories per time step. Visually
+there is agreement between all of the fixup methods. 
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|c|cc|} \hline
+  Fixup  Method & \ss & \FOM  \\ \hline \hline
+    \multicolumn{3}{|c|}{$30,000$ histories per time step} \\ \hline
+    Artificial Source &  0.020\%  & 1.65 \\
+    S$_2$ fixup & 0.022\% &  1.37     \\
+    Rotate Last Batch & 0.021\% &  1.45    \\
+    Rotate Every Batch &  0.025\%  & 1.00    \\ \hline
+    \multicolumn{3}{|c|}{$120,000$ histories per time step} \\ \hline
+Artificial Source &   0.0049\% & 6.77 \\
+S$_2$ fixup & 0.0055\% & 5.29 \\
+Rotate Last Batch & 0.0061\% & 4.33 \\
+Rotate Every Batch &  0.0066\% & 3.67  \\ \hline
+    \end{tabular}
+    \caption{\label{tab:twomat_fixups}Comparison of sample statistics for different HO fixup
+methods applied to the two material problem. Simulation end time is $t=2$ sh.}
+\end{table}
+\begin{figure}[h]
 \begin{subfigure}{0.7\textwidth}
   \centering
     \includegraphics[width=0.99\linewidth]{twomat_fixups.pdf}
@@ -251,50 +283,21 @@ wave-front.
 two material problem and various fixup methods.}
 \end{figure}
 
-
-
+The process is repeated for the Marshak wave problem with a simulation end time of $t=5$ sh. 
+Table~\ref{tab:marshak_fix} compares sample statistics, and Fig.~\ref{fig:marshak_fix}
+compares LO radiation temperatures for the case of $100,000$ histories per time step.
+For this problem, the artificial source method is less statistically efficient. 
+Visually there is a slight dispersion in one cell for the artificial source method.  This
+is caused by the artificial source method introducing extra slope into the solution.
+The zeroth moment of the intensity can be affected for a finite number of histories.  In
+this case, the extra volumetric source is being sampled and leading to artificial energy
+propagation down stream.  Generally, although locally the stagnation of the residual is
+being reduced by the added source, there is potential for down stream cells to be affected
+by under-sampling, decreasing the overall efficiency and accuracy.
 \begin{table}
     \centering
     \begin{tabular}{|c|cc|} \hline
-  Fixup  Method & \ss & \FOM  \\ \hline \hline
-    \multicolumn{3}{|c|}{$30,000$ histories per time step} \\ \hline
-    Artificial Source &  0.020\%  & 1.65 \\
-    S$_2$ fixup & 0.022\% &  1.37     \\
-    Rotate Last Batch & 0.021\% &  1.45    \\
-    Rotate Every Batch &  0.025\%  & 1.00    \\ \hline
-    \multicolumn{3}{|c|}{$120,000$ histories per time step} \\ \hline
-Artificial Source &   0.0049\% & 6.77 \\
-S$_2$ fixup & 0.0055\% & 5.29 \\
-Rotate Last Batch & 0.0061\% & 4.33 \\
-Rotate Every Batch &  0.0066\% & 3.67  \\ \hline
-    \end{tabular}
-    \caption{\label{tab:twomat_fix}Comparison of sample statistics for different HO fixup
-methods applied to the two material problem. Simulation end time is $t=2$ sh.}
-\end{table}
-
-
-\begin{figure}
-\begin{subfigure}{0.7\textwidth}
-  \centering
-    \includegraphics[width=0.99\linewidth]{marshak_fixups.pdf}
-    \caption{\label{fig:twomat_fix_full} Full plot of $T_r(x)$.}
-\end{subfigure}
-\vspace{0.2in}
-\begin{subfigure}{0.7\textwidth}
-  \centering
-  \includegraphics[width=0.99\linewidth]{marshak_fixups_zoom.pdf}
-  \caption{\label{fig:twomat_fix_zoom} Plot of $T_r$ near wave-front.}
-\end{subfigure}
-    \centering
-    \caption{\label{fig:twomat_fix}Comparison of cell-averaged radiation temperatures for
-Marshak wave problem and various fixup methods.}
-\end{figure}
-
-
-\begin{table}
-    \centering
-    \begin{tabular}{c|cc|} \hline
-    Method & FOM  & \ss  \\ \hline
+    Method & FOM  & \ss  \\ \hline \hline
     \multicolumn{3}{|c|}{$18,000$ histories per time step} \\ \hline
     Artificial Source  &  0.238\%  & 0.89 \\
     S$_2$ fixup        &  0.232\%  & 0.93  \\
@@ -306,9 +309,26 @@ S$_2$ fixup            &  0.047\%  & 4.04 \\
 Rotate Last Batch      &  0.052\%  & 3.31 \\
 Rotate Every Batch     &  0.049\%  & 3.70  \\ \hline
     \end{tabular}
-    \caption{\label{tab:marsh_fix}Comparison of sample statistics for different HO fixup
+    \caption{\label{tab:marshak_fix}Comparison of sample statistics for different HO fixup
 methods and the Marshak wave problem. Simulation end time is $t=5$ sh.}
 \end{table}
+\begin{figure}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+    \includegraphics[width=0.99\linewidth]{marshak_fixups.pdf}
+    \caption{\label{fig:marshak_fix_full} Full plot of $T_r(x)$.}
+\end{subfigure}
+\vspace{0.2in}
+\begin{subfigure}{0.7\textwidth}
+  \centering
+  \includegraphics[width=0.99\linewidth]{marshak_fixups_zoom.pdf}
+  \caption{\label{fig:marshak_fix_zoom} Plot of $T_r$ near wave-front.}
+\end{subfigure}
+    \centering
+    \caption{\label{fig:marshak_fix}Comparison of cell-averaged radiation temperatures for
+Marshak wave problem and various fixup methods.}
+\end{figure}
+
 
 
 

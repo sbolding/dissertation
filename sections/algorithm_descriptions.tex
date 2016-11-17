@@ -2,7 +2,7 @@
 \chapter{\uppercase {Overview of the HOLO Algorithm}}
 \label{chp:holo}
 
-The HOLO algorithm is a nonlinear acceleration method.  Iterations are performed between a
+The HOLO algorithm is a nonlinear acceleration method.  Fixed-point iterations are performed between a
 high-order (HO) transport equation and a low-order (LO) system formulated with angular moments
 and a fixed spatial mesh. 
 With the exception of Chapter~\ref{sec:time}, we will derive and discuss our HOLO
@@ -37,7 +37,7 @@ used in the hybrid-S$_2$ method in~\cite{wolters},  with consistency parameters 
 represent angularly-weighted averages of the intensity.  In this work, consistency refers
 to how accurately the LO moments reproduce moments of the HO solution.
 The angular consistency parameters
-area analogous to a variable Eddington factor~\cite{chandrasekhar}.  If the consistency parameters were exact, then the LO
+are analogous to a variable Eddington factor~\cite{chandrasekhar}.  If the consistency parameters were exact, then the LO
 equations are exact, neglecting spatial discretization errors.  This provides the
 potential for the LO equations to correctly reproduce the associated space-angle
 moments of the HO solution. These consistency
@@ -95,7 +95,7 @@ reduce statistical noise to the same order as the HOLO iteration error with
 significantly less particle histories than standard MC.  Additionally, each particle
 history requires less computational cost in particle tracking than IMC because no
 scattering events occurs in the HO solver. In particular, ECMC is
-exceptionally efficient in time-dependent TRT problems because information about the
+exceptionally efficient in time-dependent TRT problems because the projection of the
 intensity from the previous time step can be used as an accurate initial guess for
 the new end of time step intensity. Additionally, no particle histories are required
 in regions where the radiation and material energy field are in equilibrium, similar to~\cite{rmc}.  However, implementation
@@ -124,7 +124,7 @@ sufficiently low statistical noise.  Thus, the HOLO algorithm, for the $n$-th ti
 where the superscript $k$ denotes the outer HOLO iteration\footnote{Throughout this
     dissertation, the outer HOLO iteration index $k$ is often suppressed for visual clarity.
     Where necessary, subscript ``$HO$'' and ``$LO$'' are also used to indicate terms from
-respective solvers explicitly.}
+respective solvers explicitly.}.
 The consistency terms force the HO
 and LO solutions for $\phi^{n+1}(x)$ to be consistent to the order of the current HOLO
 iteration error, as long as the LDFE spatial representation can accurately represent

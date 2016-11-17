@@ -500,6 +500,19 @@ iterations in problems where damping was found to be necessary.
 %conserve the total energy.  This estimate of $T^{n+1}$ can now be used as $T^*$ to form a more
 %accurate linearization of the emission source. 
 
+
+\section{Accuracy of LO Equations in the Equilibrium Diffusion Limit}
+\label{sec:edl_overview}
+
+In our LO scheme, the
+LO equations use an LDFE representation for the temperature.  The radiation terms can also
+be closed with an LDFE closure.  In the EDL limit, the MC HO
+solution will estimate angular consistency terms associated with an isotropic intensity,
+based on a spatially LD emission source.  This produces LO equations that are equivalent to
+the S$_2$ equations, but with quadrature points defined by $\pm 1/2$.  Because the spatial closure produces equations that are equivalent to an LDFE
+solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
+limit; the LDFE discretization of the S$_2$ equations is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.
+
 \section{Fix-ups for Negative Solutions with LDFE Closure}
 \label{sec:ldfe_fixups}
 
@@ -509,7 +522,7 @@ $\phi(x)$ and $T(x)$ can go below the floor temperature or negative.
 The floor temperature $T_{\min}$ is defined as the initial
 temperature of the material and radiation in problems where boundary sources are
 applied at each of the boundaries.  In such problems the radiation and material should
-continue to heat on the interior of the domain, and should physically not fall below
+continue to heat on the interior of the domain, and physically should not fall below
 the initial temperature. 
 Negative values of intensity can propagate to adjacent cells. In thick regions of
 TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
@@ -553,14 +566,16 @@ is
     \end{equation}
 noting that no modification was made to the radiation moment term in this equation.  It was found that
 lumping the temperature equations generally produced more robustness than exclusively
-modifying the spatial closure, but is not necessary for all problems.
+modifying the spatial closure, but it is not necessary for all problems.
+
+\subsection{Balance Preserving Fixup}
 
 We also investigated an alternative closure of the equations based on energy conservation
 and forcing the appropriate edge value to be the floor value.
 The equations within cells that produce a negativity are modified to ensure the edge
 intensities are not below the floor temperature, and energy balance is
-conserved.  This fixup is only applied in cells where a intensity has occured during
-inversion of the LO streaming plus removal operator.  For example, if $\phi^+_{R,i}$
+conserved.  This fixup is applied in cells where a negative intensity is detected during
+a Newton iteration.  For example, if $\phi^+_{R,i}$
 is found to be negative, the modified equations (for the positive half range) in that cell are
 the balance equation, i.e., 
 \begin{multline}\label{eq:floor_outflow}
@@ -581,22 +596,11 @@ and the closure equation, i.e.,
 Because our solution method directly inverts the LO system,
 negative edge intensities must be detected, the fix-up applied locally to all elements and half-ranges
 where necessary, and then that Newton solve
-repeated.  In practice, this flooring procedure was observed to produce positive answers, but was not as robust as performing
-lumping in all cells.  In general, as the time step size is increased, this fixup led to the Newton
-solve diverging (i.e., damping is required to converge the iterations), more rapidly than if lumping was
-used for all cells.  
+repeated.  In practice, this flooring procedure was observed to produce positive answers,
+but was not as robust as the lumping closure in all cells.  In general, as the time step
+size or problem nonlinearities were increased, this fixup led to the Newton
+solves diverging.  
 
 
-\section{Accuracy of LO Equations in the Equilibrium Diffusion Limit}
-\label{sec:edl_overview}
-
-In our LO scheme, the
-LO equations use an LDFE representation for the temperature.  The radiation terms can also
-be closed with an LDFE closure.  In the EDL limit, the MC HO
-solution will estimate angular consistency terms associated with an isotropic intensity,
-based on a spatially LD emission source.  This produces LO equations that are equivalent to
-the S$_2$ equations, but with quadrature points defined by $\pm 1/2$.  Because the spatial closure produces equations that are equivalent to an LDFE
-solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
-limit; the LDFE discretization of the S$_2$ equations is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.
 
 \input{sections/spatial_closure}

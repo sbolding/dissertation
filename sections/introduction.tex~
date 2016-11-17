@@ -148,7 +148,6 @@ radiation-hydrodynamic systems~\cite{radhydro_code,os_rh}.
 
 \subsection{The Equations of Thermal Radiative Transfer}
 
-REWRITE: HERE
 First, the photon radiation field, with the appropriate units used throughout this work, is
 characterized.  Photons transporting through a material are described by the particle position vector
 $\mathbf{r}$ (cm), direction vector $\mathbf\Omega$ (str, i.e., steradians),
@@ -191,9 +190,9 @@ k_B$, where $k_B$ is the Boltzmann constant (keV K$^{-1}$) and $T_{K}$ is the te
 in kelvin.
 
 The material is characterized by the material internal
-energy as a function of position.  The internal energy $e$ is related to the material
+energy as a function of position.  The internal energy $E$ is related to the material
 temperature $T$ through an equation of state.   In this work, a perfect gas equation of state is
-assumed~\cite{toro}, which produces the relation $\rho c_v T = e$, where $\rho$ is the
+assumed~\cite{toro}, which produces the relation $\rho c_v T = E$, where $\rho$ is the
 material mass density and $c_v$ is the specific heat.  Thus, we will use $T(\mathbf{r},t)$ as the
 primary unknown to describe the material energy distribution.  The material energy conservation equation is
 \begin{equation}
@@ -236,14 +235,14 @@ for a spatial domain spanning $0\leq x \leq X$.
 In the above equations the fundamental unknowns are the material temperature $T(x,t)$ and
 the grey angular intensity $I(x,\mu,t)=\int\limits_0^\infty I(x,\mu,\nu,t) \dd \nu$. The mean radiation intensity $\phi(x,t)=\int_{-1}^1
 I(x,\mu,t) \dd \mu$ is related to the radiation energy density
-$E$ (jk cm$^{-3}$ sh$^{-1}$) by the relation $E = \phi/c$.  The integral of
+$E_r$ (jk cm$^{-3}$ sh$^{-1}$) by the relation $E_r = \phi/c$.  The integral of
 $B_\nu(\mathbf{r},\nu,T)$ over all frequencies and angles produced the 
 grey Planckian emission source $\sigma_a a c T^4$~\cite{mihalas} in
 Eq.~\eqref{eq:mat_cont}, where $a=0.01372$ jk cm$^{-3}$
 keV$^{4}$ is the radiation constant, which is proportional to the Stefan-Boltzmann
 constant.  The term $\sigma_a \phi$ is the rate of energy absorption by the material,
 whereas the emission term represents losses to the material internal energy.  We have developed
-and tested our algorithm for efficient solution to Eq.~\eqref{eq:rad_cont}
+our algorithm to produce efficient solutions to Eq.~\eqref{eq:rad_cont}
 and~\eqref{eq:mat_cont}.
 
 \subsection{The Equilibrium Diffusion Limit}
@@ -251,22 +250,23 @@ and~\eqref{eq:mat_cont}.
 A critical aspect for any numerical solution to the thermal radiative transfer equations
 is preservation of the asymptotic, equilibrium diffusion limit (EDL)~\cite{morel_ldtrt,larsen_edl}.
 In the EDL, the material becomes optically thick and increasingly diffusive, as $\sigma_a$ becomes large and
-$\rho c_v$ becomes small.  The solution approaches equilibrium with $I(x,\mu)=\frac{1}{2}acT^4$,
+$\rho c_v$ becomes small.  The solution approaches equilibrium with
+$I(x,\mu)=\frac{1}{2}acT^4(x)$,
 where the distribution of the solution is well described by the material
 temperature~\cite{larsen_edl}.  For problems in this limit, spatial mesh cells that resolve the spatial variation of the solution are
-still $O(100)$ mean free paths (MFPs) or greater; the solution typically varies relatively smoothly in space.
+$O(100)$ mean free paths (MFPs) or much greater; the solution typically varies relatively smoothly in space.
 Discretization schemes of the transport equation must correctly limit to the appropriate
 discretized diffusion equation in the EDL.  Spatial discretizations that do not preserve
-the EDL can produce inaccurate solution, even though the mesh size should accurately capture the variation of the solution, with
+the EDL can produce inaccurate solutions, even though the mesh size should accurately capture the variation of the solution, with
 inaccuracies that are much greater than expected from truncation error.  Such methods
 require spatial mesh resolution on the order of a MFP~\cite{morel_ldtrt}.  The EDL regime is typical in
-applications of TRT, so discretizations must preserve this limit to prevent unnecessarily
-fine mesh resolutions.
+applications of TRT, so discretizations must preserve this limit to produce accurate
+solutions with reasonable mesh resolutions.
 
 \section{Previous Work}
 
 This sections describes related work on Monte Carlo solution to the TRT equations, as well
-as some important properties that numerical solution to TRT equations must preserve.  
+as some additional important properties that numerical solution to TRT equations must preserve.  
 The Monte Carlo (MC) method~\cite{shultis_mc} is a standard computational method in
 the field of radiation transport.  It has been used to great success, providing high-accuracy
 solutions to particle
@@ -287,7 +287,7 @@ deterministic solution to accelerate the MC solution.
 
 In the remainder of this section, we detail the standard method for MC solution to TRT
 equations, the implicit Monte Carlo (IMC) method, and then discuss related moment-based acceleration and other
-alternative solution methods.  We also discuss the residual Monte Carlo (RMC) method, which is
+alternative hybrid solution methods.  We also discuss the residual Monte Carlo (RMC) method, which is
 similar to the HO solver in our method.
 
 \subsection{The Implicit Monte Carlo Method}
@@ -318,11 +318,12 @@ temperature. These lagged cross sections can produce inaccurate solutions but do
 stability issues.  
 
 An important aspect for numerical simulation of TRT equations is preservation of the
-discrete maximum principle (MP). The maximum principle states that the material temperature and mean intensity in the
+discrete maximum principle (MP). The MP states that the material temperature and mean intensity in the
 interior of the domain should be bounded by the solution at the boundaries of the domain, in the
-absence of interior energy sources~\cite{wollaber2013discrete,larsen_mpv}.  The analytic solution to the TRT equations satisfies a maximum
-principle~\cite{larsen_mpv}, so we desire numerical approximations that preserve the MP in
-a discrete sense, for each time step. For some problems, the IMC method can yield non-physical results that violate the MP if the time
+absence of interior energy sources~\cite{wollaber2013discrete,larsen_mpv}.  The analytic
+solution to the TRT equations satisfies the MP~\cite{larsen_mpv}, so we desire numerical approximations that preserve the MP in
+a discrete sense, for each time step.  The BE time discretization of the TRT equations has
+been shown to preserve the MP~\cite{larsen_mpv}. For some problems, the IMC method can yield non-physical results that violate the MP if the time
 step size is too large or the cell size is too small~\cite{wollaber2013discrete}. The violation of the maximum principle results in the material temperature being artificially
 higher than the effective radiation temperature. 
 The violation by IMC is caused by the approximate linearization of the end-of-time-step emission source; the emission source
@@ -330,8 +331,7 @@ is not truly implicit in time. The linearized estimate of the emission source ty
 to the high computational cost of the MC transport.   
  The work in~\cite{iimc_gentile} uses less-expensive MC
 iterations to produce an implicit system which prevents this from happening, but the
-method has very
-slow iterative convergence in diffusive problems.  
+method as currently formulated has slow iterative convergence in diffusive problems.  
 
 In IMC the material and radiation energy fields are discretized spatially to solve for cell-averaged values.
 Inaccurate spatial representation of the emission source over a cell can result in
@@ -340,21 +340,10 @@ results that are often referred to as ``teleportation error"~\cite{teleportation
 to mitigate this problem.  Source tilting reconstructs a more accurate
 linear-discontinuous representation of the
 emission source within a cell based on the cell-averaged material temperatures in adjacent
-cells.  Recent work in IMC has incorporated a linear-discontinuous finite-element representation directly into 
+cells. This linear reconstruction is also necessary to preserve the asymptotic equilibrium diffusion
+limit (EDL), at least for a more general time step size and class of problems than for a piece-wise constant representation~\cite{diff_limit_imc}.   Recent work in IMC has incorporated a linear-discontinuous finite-element representation directly into 
 the discretization of the material temperature equation~\cite{wollaeger_ld}.
 
-%PICTURE OF STANDARD MC SOLUTION AND MAXIMUM PRINCIPLE VIOLATION?
-
-%WHAT IS UP WITH THE WEIRD DIFFUSION LIMIT
-
-For TRT simulations, inaccurate spatial representation of the emission source over a cell can result in
-energy propagating through the domain artificially fast, yielding non-physical
-results referred to as ``teleportation error"~\cite{teleportation}.  The IMC method uses a fixup known as source tilting
-to mitigate this problem.  Source tilting reconstructs a more accurate
-linear-discontinuous representation of the
-emission source within a cell based on the cell-averaged material temperatures in adjacent
-cells. This linear reconstruction is also necessary to preserve the asymptotic equilibrium diffusion
-limit (EDL), at least for a more general time step size and class of problems than for a piece-wise constant representation~\cite{diff_limit_imc}.  
 
 \subsection{Moment-Based Acceleration Methods}
 
@@ -369,7 +358,7 @@ to resolve, e.g., absorption-reemission physics, are moved to the LO
 system.  The reduced angular dimensionality of the system and Newton methods allow for non-linearities in the LO equations to be fully
 resolved efficiently~\cite{willert,park}.  The high-order (HO) transport problem is defined by 
 Eq.~\eqref{eq:rad_cont}, with sources estimated from the previous LO solution.  
-The high-order (HO) transport equation is solved via MC to produce a high-fidelity solution for
+The HO transport equation can be  solved via MC to produce a high-fidelity solution for
 the angular intensity.  The MC estimate of the angular intensity is used to estimate
 consistency terms,
 present in the LO equations, that require the LO system to preserve the angular accuracy of the
@@ -393,8 +382,8 @@ limit~\cite{larsen_edl}.
 \subsection{Residual Monte Carlo Methods}
 
 Another area of related research is the application of
-residual Monte Carlo to TRT problems.  The goal of these methods is to solve an auxiliary transport
-equation with MC simulation for the error in some estimate of the intensity.  The error is then added to the
+residual Monte Carlo to TRT problems.  The goal of these methods is to use MC simulation
+to solve a auxiliary continuous transport equation for the error in some estimate of the intensity.  The error is then added to the
 estimate of the solution, which can produce an overall solution for the intensity that has
 less statistical noise than solution of the original transport equation would produce.
 The work in~\cite{rmc} used residual MC as a HO solver for 1D grey TRT problems.
@@ -408,6 +397,7 @@ intensity, which does not preserve the EDL and can be inaccurate in angularly co
 regions of the problem.  In this work, we apply the exponentially convergence MC (ECMC)
 algorithm that was applied to
 simplified steady state neutronics problems previously~\cite{jake}.
+%REWRITE: add something about Jeff Favorite ECMC stuff
 
 Similar to RMC, a difference formulation has been applied to another algorithm known as the symbolic IMC method
 (SIMC), for the case of 1D frequency-dependent problems~\cite{simc_const}.  SIMC forms a
@@ -421,6 +411,3 @@ representation of the emission source, demonstrating accuracy in the EDL~\cite{s
 Both~\cite{simc_const} and~\cite{rmc} produced minimal
 statistical noise in slowly varying problems where the behavior of the system is near
 equilibrium. 
-
-
-

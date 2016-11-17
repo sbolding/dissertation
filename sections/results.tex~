@@ -13,27 +13,24 @@ Monte Carlo (SMC) simulation.  Finally, we present results that demonstrate
 preservation of the equilibrium diffusion limit and the discrete maximum
 principle by the HOLO algorithm.  Some of the results in this section were published
 previously in~\cite{bolding_nse}.  
-For the results in this chapter, the lumping-equivalent discretization
-discussed in Sec.~\ref{sec:ldfe_fixups} was used for cells where the solution for
-$\phi^{n+1}$ becomes negative.  When negative intensities in the HO solution produce
-non-physical consistency terms, S$_2$ equivalent terms are used for the LO solve as
-discussed in Sec.~\ref{sec:ho_easyfix}.
 
 \section{Metrics of Accuracy and Statistical Efficiency}
 \label{sec:metrics}
 
-Several different metrics are used quantify results throughout this chapter as needed.
+Several different metrics are used quantify results throughout this chapter as
+appropriate.
 A measure of variance in cell-averaged mean intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution
-methods.  To form sample standard deviations, twenty independent simulations for each
-particular result were performed using unique random number generator seeds.
-The variance of a particular cell-averaged $\phi(x)$ is 
+methods.  To form the sample standard deviations, $N_{sim}$ independent simulations for each
+particular result were performed, using unique random number generator seeds.  Unless
+otherwise indicated, $N_{sim}=20$.
+The sample variance of a particular cell-averaged $\phi(x)$ is 
 \begin{equation} 
-    S_i^2 =  \frac{1}{20-1} \sum_{l=1}^{20} \left(\overline{\phi_{i}} -
-    \phi_{i}^l\right)^2,
+    S_i^2 =  \frac{1}{N_{sim}-1} \sum_{l=1}^{N_{sim}} \left(\overline{\phi_{i}} -
+    \phi_{i}^{(l)}\right)^2,
 \end{equation}
-where $\phi_{i}^l$ is the cell-averaged scalar intensity for cell $i$ from the $l$-th of 20 independent simulations and
-$\overline{\phi_{i}}$ is the corresponding sample mean from the 20 simulations. To
+where $\phi_{i}^{(l)}$ is the cell-averaged scalar intensity for cell $i$ from the ${(l)}$-th of $N_{sim}$ independent simulations and
+$\overline{\phi_{i}}$ is the corresponding sample mean from the $N_{sim}$ simulations. To
 provide a normalized, spatially-integrated result, we form a norm over cells as 
 \begin{equation}
     \ss = \left({\frac{\sum\limits_{i=1}^{N_c}
@@ -67,7 +64,7 @@ of the difference between the projected HO and LO solutions, i.e.,
 \end{equation}
 where $\phi_{LO}(x)$ and $\phi_{HO}(x)$ are the LDFE representations in space of the
 intensity from the HO and LO solvers, from the end of the last time step.
-The error between a reference solution, e.g., a fine mesh solution, and the ${(l)}$-th simulation
+The error between a reference solution, e.g., a fine mesh solution, and the $l$-th simulation
 is computed as
 \begin{equation}
     \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
@@ -84,15 +81,17 @@ $l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
 where $\phi_i^{n+1,ref}$ is computed by spatially averaging the reference solution over
 the $i$-th coarse spatial cell.
 
-The sample mean of each of the above norms is estimated based on 20 independent
-simulations; the sample standard deviation for each \emph{mean} is also reported, e.g.,
+Because the method is stochastic, it is necessary to approximately estimate the average
+error of each metric.
+The sample mean of each of the above norms is estimated based on $N_{sim}$ independent
+simulations; the sample standard deviation for the \emph{sample mean of each quantity} is also reported, e.g.,
 \begin{equation}
-    s\left(\|e\|^{(l)}_{2,rel}\right) = \frac{1}{\sqrt{20}}\left[\frac{1}{20-1}\sum_{l=1}^{20} \left(
+    s\left(\|e\|^{(l)}_{2,rel}\right) = \frac{1}{\sqrt{N_{sim}}}\left[\frac{1}{N_{sim}-1}\sum_{l=1}^{N_{sim}} \left(
     \|e\|_{2,rel}^{(l)} - \|e\|_{2,rel} \right)^2\right]^{1/2},
 \end{equation}
 where
 \begin{equation}\label{eq:avg_err}
-\|e\|_{2,rel}=\sum_{l=1}^{20}\|e\|_{2,rel}^{(l)}/20
+    \|e\|_{2,rel}=\frac{1}{N_{sim}}\sum_{l=1}^{N_{sim}}\|e\|_{2,rel}^{(l)}
 \end{equation}
 is the corresponding sample mean.
 
@@ -477,7 +476,7 @@ closure for two test problems.  We are interested in the accuracy of the solutio
 consistency between the HO and LO solutions, particularly for coarser meshes,
 based on the metrics in Sec.~\ref{sec:metrics}. For error computations, the reference
 solution is based on a fine spatial mesh and L$_2$ norms are computed with quadrature over
-the fine mesh.  Cell-averaged quanties are found by spatially averaging the fine mesh solution over
+the fine mesh.  Cell-averaged quantities are found by spatially averaging the fine mesh solution over
 each coarse spatial cell. Twenty independent simulations were performed for each metric.
 
 \subsection{Smooth Problem}
@@ -517,12 +516,11 @@ cells.  In all cases, the HO spatial closure produces higher accuracy in the L$_
 norms and greater consistency between the solvers.  However, there is not an
 improvement in accuracy of the cell-averaged intensities.  Neglecting noise, the LDFE representation can be third order
 accurate for the $\|e\|_{a,rel}$ norm and second-order accurate in the L$_2$ norm~\cite{morel_ldtrt}. 
-The statistical noise induced in face tallies makes the
-additional accuracy that the MC transport can use not greater than the benefit of
-higher spatial integration by the MC transport.  It
-is noted that, overall, there is very low statistical noise in each of these
+The additional statistical noise and issues discussed in Sec.~\ref{sec:ecmc_issues}
+prevent the MC spatial integration from increasing accuracy spatially over the LDFE discretized LO
+equations.  It is noted that, overall, there is very low statistical noise in each of these
 solutions due to the ECMC method and relatively high number of histories; at lower
-history counts, the small gains of the HO spatial closure will degrade and stability
+history counts, the gains of the HO spatial closure will degrade and stability
 becomes an issue.
 
 \begin{figure}[H]
@@ -534,7 +532,7 @@ becomes an issue.
 \begin{table}[H]
     \caption{\label{tab:smooth} Comparison of error metrics, reported as percentages, averaged over 20 simulations of smooth problem.  The absolute
 standard deviation for each value is reported in parenthesis. Reference solution uses 500 cells.}
-    \begin{tabular}{|l|cl|cl|cl|} \hline
+    \begin{tabular}{|r|cl|cl|cl|} \hline
         Spatial Closure & \multicolumn{2}{|c|}{$\|e\|_2$}  &
         \multicolumn{2}{|c|}{$\|e\|_{a,rel}$} & \multicolumn{2}{|c|}{$\|\phi^{HO}
         -\phi^{LO}\|_{2,rel}$} \\  \hline \hline
@@ -543,16 +541,40 @@ LDFE               &   6.60\%  &   (0.17\%)  &   2.80\%     &   (5.7e-03\%)  &  
 HO: Scaled Slope   &   6.10\%  &   (2.9e-03\%)  &   3.50\%  &   (5.8e-03\%)  &   0.021\%  &  (8.6e-03\%)  \\
 HO: Scaled Average &   6.10\%  &   (2.7e-03\%)  &   3.50\%  &   (5.0e-03\%)  &   0.023\%  &  (1.1e-02\%)  \\ \hline
        \multicolumn{7}{|c|}{$N_c  = 50$ cells}   \\ \hline
-LDFE               &   1.60\%  &   (7.9e-04\%)  &   0.59\%  &   (3.8e-03\%)  &   0.76\%)  &  (4.8e-03\%)  \\
+LDFE               &   1.60\%  &   (7.9e-04\%)  &   0.59\%  &   (3.8e-03\%)  &   0.76\%  &  (4.8e-03\%)  \\
 HO: Scaled Slope   &   1.40\%  &   (1.5e-03\%)  &   0.67\%  &   (3.2e-03\%)  &   0.012\%  &  (4.0e-03\%)  \\
 HO: Scaled Average &   1.40\%  &   (1.5e-3\% ) &   0.67\%   &   (3.1e-03\%)  &   0.013\%  &  (3.9e-03\%)  \\ \hline
        \multicolumn{7}{|c|}{$N_c  = 100$ cells}   \\ \hline
-LDFE               &   0.53\%  &   (2.1e-03\%)  &   0.15\%  &   (2.5e-03\%)  &   0.30\%)  &  (9.7e-03\%)  \%\\
+LDFE               &   0.53\%  &   (2.1e-03\%)  &   0.15\%  &   (2.5e-03\%)  &   0.30\%  &  (9.7e-03\%)  \\
 HO: Scaled Slope   &   0.45\%  &   (1.5e-03\%)  &   0.16\%  &   (4.6e-03\%)  &   0.012\%  &  (4.8e-03\%)  \\
 HO: Scaled Average &   0.45\%  &   (1.4e-03\%)  &   0.16\%  &   (4.7e-03\%)  &   0.012\%  &  (3.6e-03\%)  \\ \hline
     \end{tabular}
 \end{table}
 
+\subsubsection{Issues with the Spatial Closure for HO Solver}
+\label{sec:ecmc_issues}
+There were several observed issues with the ECMC method that cause the LO solution to not exactly preserve
+the zeroth and first moments of the HO solution, even for a linear transport problem.  With ECMC, global and particularly local
+energy balance are generally not preserved by the LDFE representation of the intensity. 
+The HO balance equation is not satisfied exactly and the closure relation is no
+longer exact for the zeroth moment of the LO equation.
+However, ECMC will preserve balance to the order of
+the iterative error and statistical noise.  
+For standard MC, there
+are source biasing techniques (e.g., systematic
+sampling) that exactly preserve the local zeroth moment of the
+source and thus satisfy local balance~\cite{shultis_mc,wollaber_review}).
+Even with standard MC, for the HOLO method with the LDFE trial space as formulated, we have to reconstruct the bilinear moment
+of $x$ and $\mu$ when computing consistency terms, so the LO equation will not
+preserve the first moment of the HO solution\footnote{It was verified that with
+standard MC, systematic sampling, no analog sampling, and a closure that is only a
+function of the zeroth moment, the LO solution exactly reproduces the HO moments, for
+a linear problem}.  One final inconsistency is caused by the analog treatment of absorption for
+particles below the weight cutoff (e.g., see Sec.~\ref{sec:tallies}).  This results in a
+discrepancy between $\sigma_a c \phi^{HO}_i$ and the actual amount of energy removed from a cell during MC
+transport, due to statistical noise in the path-length
+estimators for $\phi^{HO}_i$.   Thus, the discrete local balance equation over each cell is not exactly
+preserved by $\phi^{HO}_i$.
 
 
 \subsection{Two Material Problem}
@@ -560,20 +582,18 @@ HO: Scaled Average &   0.45\%  &   (1.4e-03\%)  &   0.16\%  &   (4.7e-03\%)  &  
 The HO spatial closures were applied to solution of the two material problem detailed in Sec.~\ref{sec:two}.
 For these results, a small time step size of 0.001 sh was used, with a simulation end time
 of 2 sh.  The scaled-slope closure was found to not stably converge, even for 2 batches of 10$^6$
-histories.  The scale-average closure allowed for convergence, with the lumpded closure, but temperatures were driven
-below the floor, and at times negative, leading to inaccurate solution.  The inaccuracies
+histories.  The scale-average closure allowed for convergence, with the lumped
+representation discussed in Sec.~\ref{sec:ldd_fix},
+but temperatures were driven
+below the floor (and at times negative) leading to an inaccurate solution. Fig.~\ref{fig:two_mat_fail} depicts cell-averaged results at the end of the simulation.
+
+The inaccuracies
 result from the outflow being driving negative in cells near the wave front with steep
-gradients.  The cause is that, although the HO solution was forced positive by scaling
-moments, and the face solution is positive the closure does not necessarily agree with the
-true moments. The first moment of the HO solution had to be modified to produce a positive
-solution, and by trying to use the moment relation in the LO solution, there can be
-negative solutions.  In general, in such difficult to resolve regions, the spatial closure
-does not gain improvement.
-Fig.~\ref{fig:two_mat_fail} depicts cell-averaged results at the end of the simulation.
-The inaccuracy in ghtly overshoots, the slope changes signs between cells.  Additionally,
-there is great inconsistency as the depressed temperature leads to an inaccurate HO solution.
-A fundamental problem with the lumping relation is that the first moment equation for the
-HO solution has a lumped temperature equation
+gradients.  The cause is an inconsistency between the lumped LO moment equations and the
+fixups for the HO solution in negative cells.  In cells with a negative intensity, the HO solution was forced
+positive by scaling the first moments, and the face solution is strictly positive.
+However, the relation betweens these moments does not ensure a positive outflow in the LO
+equation because the HO and LO first moment equations do not agree.  
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{two_mat_fail.pdf}

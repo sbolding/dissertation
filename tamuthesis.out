@@ -27,14 +27,14 @@
 \BOOKMARK [2][-]{subsection.3.2.2}{LDFE Spatial Closure}{section.3.2}% 27
 \BOOKMARK [2][-]{subsection.3.2.3}{Boundary Conditions}{section.3.2}% 28
 \BOOKMARK [1][-]{section.3.3}{Newton's Method for LO Equations}{chapter.3}% 29
-\BOOKMARK [1][-]{section.3.4}{Fix-ups for Negative Solutions with LDFE Closure}{chapter.3}% 30
-\BOOKMARK [1][-]{section.3.5}{Accuracy of LO Equations in the Equilibrium Diffusion Limit}{chapter.3}% 31
-\BOOKMARK [1][-]{section.3.6}{Spatial Closure based on the HO Solution}{chapter.3}% 32
-\BOOKMARK [2][-]{subsection.3.6.1}{Motivation}{section.3.6}% 33
-\BOOKMARK [2][-]{subsection.3.6.2}{Choice of Spatial Closure}{section.3.6}% 34
-\BOOKMARK [2][-]{subsection.3.6.3}{The Linear Doubly-Discontinuous Trial Space}{section.3.6}% 35
-\BOOKMARK [2][-]{subsection.3.6.4}{Fixup for the Linear Doubly-Discontinuous Trial Space}{section.3.6}% 36
-\BOOKMARK [2][-]{subsection.3.6.5}{Issues with the Spatial Closure for HO Solver}{section.3.6}% 37
+\BOOKMARK [1][-]{section.3.4}{Accuracy of LO Equations in the Equilibrium Diffusion Limit}{chapter.3}% 30
+\BOOKMARK [1][-]{section.3.5}{Fix-ups for Negative Solutions with LDFE Closure}{chapter.3}% 31
+\BOOKMARK [2][-]{subsection.3.5.1}{Balance Preserving Fixup}{section.3.5}% 32
+\BOOKMARK [1][-]{section.3.6}{Spatial Closure based on the HO Solution}{chapter.3}% 33
+\BOOKMARK [2][-]{subsection.3.6.1}{Motivation}{section.3.6}% 34
+\BOOKMARK [2][-]{subsection.3.6.2}{Choice of Spatial Closure}{section.3.6}% 35
+\BOOKMARK [2][-]{subsection.3.6.3}{The Linear Doubly-Discontinuous Trial Space}{section.3.6}% 36
+\BOOKMARK [2][-]{subsection.3.6.4}{Fixup for the Linear Doubly-Discontinuous Trial Space}{section.3.6}% 37
 \BOOKMARK [0][-]{chapter.4}{The Exponentially-Convergent Monte Carlo High-Order Solver}{}% 38
 \BOOKMARK [1][-]{section.4.1}{Implementation of LDFE x- Trial Space}{chapter.4}% 39
 \BOOKMARK [1][-]{section.4.2}{The ECMC Algorithm}{chapter.4}% 40
