@@ -71,13 +71,12 @@
 \contentsline {section}{\numberline {6.3}GMRES Solution to the LO Equations}{94}{section.6.3}
 \contentsline {section}{\numberline {6.4}Computational Results}{96}{section.6.4}
 \contentsline {chapter}{\numberline {7}\uppercase {Resolving Issues with Negative Intensities for ECMC}}{99}{chapter.7}
-\contentsline {subsection}{\numberline {7.0.1}Calculating a Positive LDFE Representation}{100}{subsection.7.0.1}
 \vskip +10pt
-\contentsline {section}{\numberline {7.1}Artificial Source Method for Negativities in the HO Intensity}{101}{section.7.1}
-\contentsline {subsection}{\numberline {7.1.1}Adding an Artificial Source}{102}{subsection.7.1.1}
-\contentsline {section}{\numberline {7.2}Computational Results}{103}{section.7.2}
-\contentsline {subsection}{\numberline {7.2.1}Analytic Fixed Source Problem}{103}{subsection.7.2.1}
-\contentsline {subsection}{\numberline {7.2.2}Radiative Transfer Problems}{106}{subsection.7.2.2}
+\contentsline {section}{\numberline {7.1}Calculating a Positive LDFE Representation}{100}{section.7.1}
+\contentsline {section}{\numberline {7.2}Artificial Source Method for Negativities in the HO Intensity}{101}{section.7.2}
+\contentsline {section}{\numberline {7.3}Computational Results}{103}{section.7.3}
+\contentsline {subsection}{\numberline {7.3.1}Analytic Fixed Source Problem}{103}{subsection.7.3.1}
+\contentsline {subsection}{\numberline {7.3.2}Radiative Transfer Problems}{106}{subsection.7.3.2}
 \contentsline {chapter}{\numberline {8} \uppercase {Residual Monte Carlo Treatment of the Time Variable}}{111}{chapter.8}
 \vskip +10pt
 \contentsline {section}{\numberline {8.1}Modifications to the HO Solver}{111}{section.8.1}
