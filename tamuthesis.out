@@ -64,9 +64,9 @@
 \BOOKMARK [1][-]{section.6.3}{GMRES Solution to the LO Equations}{chapter.6}% 64
 \BOOKMARK [1][-]{section.6.4}{Computational Results}{chapter.6}% 65
 \BOOKMARK [0][-]{chapter.7}{Resolving Issues with Negative Intensities for ECMC}{}% 66
-\BOOKMARK [1][-]{section.7.1}{Artificial Source Method for Negativities in the HO Intensity}{chapter.7}% 67
-\BOOKMARK [2][-]{subsection.7.1.1}{Calculating a Positive LDFE Representation}{section.7.1}% 68
-\BOOKMARK [2][-]{subsection.7.1.2}{Adding an Artificial Source}{section.7.1}% 69
+\BOOKMARK [1][-]{subsection.7.0.1}{Calculating a Positive LDFE Representation}{chapter.7}% 67
+\BOOKMARK [1][-]{section.7.1}{Artificial Source Method for Negativities in the HO Intensity}{chapter.7}% 68
+\BOOKMARK [2][-]{subsection.7.1.1}{Adding an Artificial Source}{section.7.1}% 69
 \BOOKMARK [1][-]{section.7.2}{Computational Results}{chapter.7}% 70
 \BOOKMARK [2][-]{subsection.7.2.1}{Analytic Fixed Source Problem}{section.7.2}% 71
 \BOOKMARK [2][-]{subsection.7.2.2}{Radiative Transfer Problems}{section.7.2}% 72

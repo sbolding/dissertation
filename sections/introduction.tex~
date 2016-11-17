@@ -119,7 +119,7 @@ Finally, Chapter~\ref{chp:conclusions} provides a summary, discussion, and poten
 
 \section{Thermal Radiative Transfer Background}
 
-Thermal radiative transfer (TRT) physics are used to model the time-dependent coupling between a photon
+Thermal radiative transfer (TRT) physics describe the time-dependent coupling between a photon
 radiation field and a high-temperature material, which is typically a plasma.  The desired
 transient unknowns are the spatial
 energy-density distributions of the radiation and material.  As photons transport through
@@ -148,6 +148,7 @@ radiation-hydrodynamic systems~\cite{radhydro_code,os_rh}.
 
 \subsection{The Equations of Thermal Radiative Transfer}
 
+REWRITE: HERE
 First, the photon radiation field, with the appropriate units used throughout this work, is
 characterized.  Photons transporting through a material are described by the particle position vector
 $\mathbf{r}$ (cm), direction vector $\mathbf\Omega$ (str, i.e., steradians),

@@ -21,17 +21,17 @@
 \addvspace {10\p@ }
 \vskip -10pt
 \contentsline {figure}{\numberline {7.1}{\ignorespaces Plots of $\mathaccentV {tilde}07EI(x,\mu )$ for the fixed-source problem.\relax }}{105}{figure.caption.32}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces Comparison of cell-averaged radiation temperatures for two material problem and various fixup methods.\relax }}{107}{figure.caption.34}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Comparison of cell-averaged radiation temperatures for Marshak wave problem and various fixup methods.\relax }}{108}{figure.caption.36}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Comparison of cell-averaged radiation temperatures for two material problem and various fixup methods.\relax }}{108}{figure.caption.34}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Comparison of cell-averaged radiation temperatures for Marshak wave problem and various fixup methods.\relax }}{109}{figure.caption.36}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {figure}{\numberline {8.1}{\ignorespaces Step doubly-discontinuous representation of $t$ for the HO solution.\relax }}{112}{figure.caption.38}
-\contentsline {figure}{\numberline {8.2}{\ignorespaces Comparison of radiation energy densities of IMC and HOLO method for the HO time closure and a BE discretization.\relax }}{123}{figure.caption.39}
-\contentsline {figure}{\numberline {8.3}{\ignorespaces Comparison of radiation temperatures of IMC and the HOLO method for different time step sizes and numbers of batches, for the near-void problem.\relax }}{125}{figure.caption.40}
-\contentsline {figure}{\numberline {8.4}{\ignorespaces Comparison of radiation energy densities for the HOLO method with different numbers of $\mu $ cells. $\Delta t=0.001$ sh, for near-void problem.\relax }}{126}{figure.caption.41}
-\contentsline {figure}{\numberline {8.5}{\ignorespaces Comparison of radiation temperatures of IMC and the HOLO method for different time step sizes and numbers of batches, for optically thin problem. \relax }}{127}{figure.caption.42}
-\contentsline {figure}{\numberline {8.6}{\ignorespaces Comparison of $T_{r}^{n+1}$ for 30,000 histories per time step. The HOLO-TC result has inssuficient histories to accurately estimate end of time step unknowns.\relax }}{129}{figure.caption.43}
-\contentsline {figure}{\numberline {8.7}{\ignorespaces Comparison of HOLO-TC, HOLO-BE, and IMC methods for the Marshak Wave problem, with $10^6$ histories per time step.\relax }}{131}{figure.caption.46}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Step doubly-discontinuous representation of $t$ for the HO solution.\relax }}{113}{figure.caption.38}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Comparison of radiation energy densities of IMC and HOLO method for the HO time closure and a BE discretization.\relax }}{124}{figure.caption.39}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces Comparison of radiation temperatures of IMC and the HOLO method for different time step sizes and numbers of batches, for the near-void problem.\relax }}{126}{figure.caption.40}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces Comparison of radiation energy densities for the HOLO method with different numbers of $\mu $ cells. $\Delta t=0.001$ sh, for near-void problem.\relax }}{127}{figure.caption.41}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Comparison of radiation temperatures of IMC and the HOLO method for different time step sizes and numbers of batches, for optically thin problem. \relax }}{128}{figure.caption.42}
+\contentsline {figure}{\numberline {8.6}{\ignorespaces Comparison of $T_{r}^{n+1}$ for 30,000 histories per time step. The HOLO-TC result has inssuficient histories to accurately estimate end of time step unknowns.\relax }}{130}{figure.caption.43}
+\contentsline {figure}{\numberline {8.7}{\ignorespaces Comparison of HOLO-TC, HOLO-BE, and IMC methods for the Marshak Wave problem, with $10^6$ histories per time step.\relax }}{132}{figure.caption.46}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

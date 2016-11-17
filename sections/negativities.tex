@@ -3,65 +3,54 @@
 \chapter{\uppercase{Resolving Issues with Negative Intensities for ECMC}}
 \label{chp:negativities}
 
-The linear-discontinuous (LD) spatial closure with upwinding is not
-strictly positive.  In particular, for optically thick cells with a steep intensity
-gradient, the linear representation of the intensity can become negative at the edge of the cells.
-A common example in 1D is for the Marshak Wave
-problem where negative
-intensities in the representation occurs at the foot of the radiation wave front. These negativities are not physical and typically propagate to
-adjacent cells. In thick regions of
-TRT problems, reasonably fine spatial cells can still be on the order of millions of mean
-free paths; negativities with an LD representation are unavoidable in practice for
-such cells, and mesh refinement is of minimal use.
-The HO solver is prone to additional negativities near $\mu=0$ where the intensity
-cannot be accurately represented by a linear projection in angle.  These negativities near
-$\mu=0$ can occur for modest optical thicknesses and in multiple adjacent cells.
-Because of the different solution methods for the HO and LO solvers, indepedent fixups
-have been developed for each. 
-In the remainder of this chapter, we discuss the fixup method applied to the HO
-solver.  Methods are then compared for statistical efficiency and accuracy for two test problems.
-      We will explore several methods
-for resolving negativities.  Ideally the solutions in
-such cells should be as consistent as possible for the HO and LO equations.  However,
-the differences between the solution methods of the two equations, as well as the
-fact that the modifications made to one solver would be lagged in the next nonlinear LO solve, there
-is no guarantee of positivity, and thus independent fixups have been developed.  
+The linear-discontinuous (LD) spatial closure with upwinding is not strictly positive.  In
+particular, for optically thick cells with a steep intensity gradient, the linear
+representation of the intensity can become negative at the edge of the cells.  A common
+example in 1D is for the Marshak Wave problem where negative intensities in the
+representation occurs at the foot of the radiation wave front. These negativities are not
+physical and typically propagate to adjacent cells through the streaming term. In thick regions of TRT problems,
+reasonably fine spatial cells can still be on the order of millions of mean free paths;
+negativities with an LD representation are unavoidable in practice for such cells, and
+mesh refinement is of minimal use.  The LDFE representation of the intensity for the HO solver is prone to additional negativities near
+$\mu=0$ where the intensity often cannot be accurately represented by a linear projection in
+angle.  These negativities near $\mu=0$ can occur for modest optical thicknesses and in
+multiple adjacent cells, caused in part by the previous intensity source term which has a
+strong gradient in $\mu$. 
+
+In the remainder of this chapter, we discuss fixup methods applied to the HO solver.
+Methods are then compared for statistical efficiency and accuracy for test problems.
+Ideally the fixup should be applied in a manner that the solutions in such cells are as consistent as possible between the HO
+and LO equations.  However, modifications made to the HO solver would be lagged in the
+next nonlinear LO solve, so there would be no guarantee of positivity if the fixup is
+consistently applied to the next LO solve. Additionally, the LO solver must preserve
+energy conservation, whereas the HO solver is primarily used for angular shape parameters
+and is generally not conservative. Thus, because of the difference in solution
+methods of the two system, independent fixups have been developed.  
 
 
-\section{Artificial Source Method for Negativities in the HO Intensity}
+
+
+
+
+\subsection{Calculating a Positive LDFE Representation}
+\label{sec:pos_ldfe}
 
 For the HO solver, in cells near the radiation wavefront, the LDFE trial space results in
-negative values in $\tilde{I}^{n+1}(x,\mu)$, similar to the LO solver.  Because the residual formulation in ECMC allows for negative weight
-particles to occur, currently we do not treat these cells specially.  We detect if
-the consistency terms lie in the appropriate half space at the end of the HO solve,
-an indication that the intensity was negative within that cell.  If the terms are non-physical, then
-they are replaced with the corresponding S$_2$-equivalent value. In general,
+negative values in $\tilde{I}^{n+1}(x,\mu)$, similar to the LO solver. 
+In general,
 in such cells where the trial space cannot accurately represent the solution, error stagnation will
 rapidly occur. 
+Because the residual formulation in ECMC allows for negative weight
+particles to occur, there is not a strict requirement to fixup the cells.  However, in
+cells where $\tilde{I}^{n+1}(x,\mu)$ crosses zero, the angular consistency terms are not guaranteed to
+lie in the appropriate half-space, potentially introducing instabilities.  
 
-The HO solver requires a different fixup approach for negative values of the intensity.
 At the end of any particular batch, a LDFE projection of the intensity $\tilde I(x,\mu)$
 has been determined.  This projection is based on a statistical estimate of the moments of the
 intensity, based on the truncated representation of sources.  Although the statistically estimated moments are 
 physically accurate, when these moments are
 projected onto a linear space the representation becomes negative, over some portion of certain elements' domains.  The first
 moments can easily be modified to produce a positive representation $\tilde I_{\pos}$.
-However, this modified solution will
-not satisfy the residual equation as accurately as the original solution, which leads to
-rapid error stagnation.  Additionally, the next MC batch based on the residual source from
-$\tilde I_{\pos}$ will tend to produce negative cell averages in down stream cells.
-
-Thus, we have devised
-a method to modify the transport equation such that $\tilde I_{\pos}$ will satisfy the
-residual equation more accurately.  We do this in such a manner that the
-modified source will lead to the solution converging towards a solution with the same
-zeroth moment, but with a first moment in $x$ and $\mu$ that are modified.  This does not
-guarantee exponential convergence of the solution, because convergence is still limited by
-the overall accuracy of the trial space and statistics within a batch.  However, now the error will not stagnate as rapidly
-and the solution will converge towards the positive representation $\tilde I_{\pos}$.
-
-\subsection{Calculating a Positive LDFE Representation}
-\label{sec:pos_ldfe}
 
 First, we define the procedure for obtaining $\tilde I_{\pos}$. We produce a positive
 representation $\tilde I_{\text{\pos}}$ over a cell by scaling the first moment
@@ -87,6 +76,24 @@ corresponding to equilibrium with the floor temperature.  When $I_a$ is below th
 the floor value and $I_x$ and $I_\mu$ set to zero.  It is been noted that in application
 the difference between $I_{a}$ and $I_{\min}$ can be on the order of numerical roundoff for
 double precision variables.
+
+
+
+\section{Artificial Source Method for Negativities in the HO Intensity}
+
+The moments of the modified positive solution $\tilde I_{\pos}$ will
+not satisfy the residual equation as accurately as the original solution, which leads to
+rapid error stagnation.  Additionally, the next MC batch based on the residual source from
+$\tilde I_{\pos}$ can produce negative cell averages in down stream cells.
+Thus, we have devised
+a method to modify the transport equation such that $\tilde I_{\pos}$ will locally satisfy the
+residual equation more accurately.  We do this in such a manner that the
+modified source will lead to the solution converging towards a solution with the same
+zeroth moment, but with a first moment in $x$ and $\mu$ that are modified.  This does not
+guarantee exponential convergence of the solution, because convergence is still limited by
+the overall accuracy of the trial space and statistics within a batch.  However, now the error will not stagnate as rapidly
+and the solution will converge towards the positive representation $\tilde I_{\pos}$.
+
 
 \subsection{Adding an Artificial Source}
 
@@ -130,6 +137,11 @@ necessary change in the solution.  We make the conservative choice of preserving
 across batches, and adding an additional source only when negative values occur again. 
 
 \section{Computational Results}
+
+We detect if
+the consistency terms lie in the appropriate half space at the end of the HO solve,
+an indication that the intensity was negative within that cell.  If the terms are non-physical, then
+they are replaced with the corresponding S$_2$-equivalent value.
 
 \subsection{Analytic Fixed Source Problem}
 

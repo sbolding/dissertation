@@ -22,14 +22,14 @@
 \addvspace {10\p@ }
 \vskip -10pt
 \contentsline {table}{\numberline {7.1}{\ignorespaces Comparison of accuracy in cell-averaged $\phi (x)$ value for fixed source problem and various number of histories per batch.\relax }}{106}{table.caption.33}
-\contentsline {table}{\numberline {7.2}{\ignorespaces Comparison of sample statistics for different HO fixup methods applied to the two material problem. Simulation end time is $t=2$ sh.\relax }}{109}{table.caption.35}
-\contentsline {table}{\numberline {7.3}{\ignorespaces Comparison of sample statistics for different HO fixup methods and the Marshak wave problem. Simulation end time is $t=5$ sh.\relax }}{109}{table.caption.37}
+\contentsline {table}{\numberline {7.2}{\ignorespaces Comparison of sample statistics for different HO fixup methods applied to the two material problem. Simulation end time is $t=2$ sh.\relax }}{107}{table.caption.35}
+\contentsline {table}{\numberline {7.3}{\ignorespaces Comparison of sample statistics for different HO fixup methods and the Marshak wave problem. Simulation end time is $t=5$ sh.\relax }}{110}{table.caption.37}
 \addvspace {10\p@ }
 \vskip -10pt
-\contentsline {table}{\numberline {8.1}{\ignorespaces {Comparison of accuracy and $\ensuremath {\text {FOM}}$ for the end of time step radiation energy densities, of the last time step, for the optically thin problem and $\Delta t = 5\times 10^{-4}$ sh. Simulation end time is ${t=0.003}$ sh.}\relax }}{130}{table.caption.44}
-\contentsline {table}{\numberline {8.2}{\ignorespaces {Comparison of accuracy and $\ensuremath {\text {FOM}}$ for the end of time step radiation energy densities, of the last time step, for the optically thin problem and $\Delta t = 1\times 10^{-4}$ sh. The reference results are all for 100 $x$ cells. Simulation end time is ${t=0.003}$ sh.}\relax }}{130}{table.caption.45}
-\contentsline {table}{\numberline {8.3}{\ignorespaces {Comparison of sample statistics for the end of time step radiation energy densities, of the last time step, for the marshak wave problem and maximum time step of $0.01$ sh. Simulation end time is $\mathbf {t=3.0}$ sh.}\relax }}{132}{table.caption.47}
-\contentsline {table}{\numberline {8.4}{\ignorespaces {Comparison of sample statistics using importance sampling on the interior of the time step, for the Marshak Wave problem. Simulation end time is $\mathbf {t=1.0}$ sh.} and max $\Delta t$ is 0.01 sh\relax }}{133}{table.caption.48}
+\contentsline {table}{\numberline {8.1}{\ignorespaces {Comparison of accuracy and $\ensuremath {\text {FOM}}$ for the end of time step radiation energy densities, of the last time step, for the optically thin problem and $\Delta t = 5\times 10^{-4}$ sh. Simulation end time is ${t=0.003}$ sh.}\relax }}{131}{table.caption.44}
+\contentsline {table}{\numberline {8.2}{\ignorespaces {Comparison of accuracy and $\ensuremath {\text {FOM}}$ for the end of time step radiation energy densities, of the last time step, for the optically thin problem and $\Delta t = 1\times 10^{-4}$ sh. The reference results are all for 100 $x$ cells. Simulation end time is ${t=0.003}$ sh.}\relax }}{131}{table.caption.45}
+\contentsline {table}{\numberline {8.3}{\ignorespaces {Comparison of sample statistics for the end of time step radiation energy densities, of the last time step, for the marshak wave problem and maximum time step of $0.01$ sh. Simulation end time is $\mathbf {t=3.0}$ sh.}\relax }}{133}{table.caption.47}
+\contentsline {table}{\numberline {8.4}{\ignorespaces {Comparison of sample statistics using importance sampling on the interior of the time step, for the Marshak Wave problem. Simulation end time is $\mathbf {t=1.0}$ sh.} and max $\Delta t$ is 0.01 sh\relax }}{134}{table.caption.48}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

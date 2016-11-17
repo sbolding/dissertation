@@ -142,7 +142,8 @@ The ECMC algorithm iterates on this process as follows:
     \item Initialize the guess for $\tilde{I}^{n+1,(0)}$ to $\tilde{I}^{n}$ or the
         projection of $\tilde{I}^{n+1}$ from the latest HO solve
 \item Compute $r^{(m)}$.
-\item Perform a MC simulation to obtain $\tilde{\epsilon}^{(m)} = \B L^{-1} r^{(m)}$
+\item Perform a MC simulation to obtain $\tilde{\epsilon}^{(m)} = \B L^{-1} r^{(m)}$ with
+    a batch of $N_b$ particle histories.
 \item Compute a new estimate of the intensity $\tilde I^{n+1,(m+1)} = \tilde I^{n+1,(m)}
 + \tilde\epsilon^{(m)}$
 \item Repeat steps 2 -- 4 until desired convergence criteria is achieved. 
