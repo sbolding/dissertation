@@ -83,26 +83,27 @@ guarantee exponential convergence of the solution, because convergence is still 
 the overall accuracy of the trial space and statistics within a batch.  However, now the error will not stagnate as rapidly
 and the solution will converge towards the positive representation $\tilde I_{\pos}$.
 
-To mitigate stagnation and improve accuracy, we can add an artificial source
+To mitigate stagnation and improve efficiency, we can add an artificial source
 $\tilde\delta^{m+1}(x,\mu)$ to the HO transport equation.
 This source is estimated iteratively as
 \begin{equation*}
     \tilde\delta(x,\mu)^{(m+1)} = \mathbf{L}(\tilde{I}^{n+1,(m)} -
     \tilde{I}^{n+1,(m)}_{\text{pos}}),
 \end{equation*}
-where $\tilde{I}_{pos}^{n+1}$ is the modified positive solution. The source $\tilde
+where $\tilde{I}_{\pos}^{n+1,(m)}$ is the modified positive solution, for all cells that required
+modification.  The source $\tilde
 \delta$ is added to all later batches.  If necessary, we can add an additional source in
 later batches where negative values occur once more. The residual for the modified
 transport problem will have the same residual magnitude as the original $\tilde I$, which
 will have lower magnitude than the modified solution which does not have the MC estimated
 first moments (this is only true for the first application of the modified source).  Care
-must be taken to modify the source on the interior and exterior of the solution,
+must be taken to modify the source on the interior and exterior of the cell,
 particularly when the solutions in adjacent cells has been modified.  The source
 $\tilde\delta$ lies in the same functional space as the residual and can thus use the
 existing code infrastructure to compute the source.  This will also make this approach
-straight forward to extend to higher dimensions.  
+straight forward to extend to higher dimensions and adaptively refined meshes.  
 
-To provide insight into this choice of source, consider the modified transport problem
+To provide insight into the choice of this source, consider the modified transport problem
 that will be solved with ECMC, where the fixup has been applied at batch $m$:
 \begin{equation}
    \B L I^{n+1} = q + \mathbf{L}(\tilde{I}^{n+1,(m)} -
@@ -114,14 +115,16 @@ Application of $\B L^{-1}$ to both sides of the equation produces
     \tilde{I}^{n+1,(m)}_{\text{pos}}).
 \end{equation}
 Because $\tilde I$ and $\tilde I_\pos$ have the same zeroth moment, we have not modified
-the zeroth moment of the solution overall.  Monte Carlo transport is used to estimate $L^{-1}$, thus 
-we are estimating the solution to a transport problem that has a positive LDFE projection but preserves the
+the zeroth moment of the solution overall, in the limit of an infinite number of histories.  Monte Carlo transport is used to estimate $L^{-1}$, thus 
+we are estimating the solution to a transport problem that has a modified first moment in the LDFE projection but preserves the
 zeroth moment of the original solution.  The estimate of the modification to the first
 moments of the solution has statistical noise, and thus may under- or over-predict the
 necessary change in the solution.  We make the conservative choice of preserving $\delta$
 across batches, and adding an additional source only when negative values occur again. 
 
 \section{Computational Results}
+
+We will apply several different fixup approaches based on the previous sections for
 
 We detect if
 the consistency terms lie in the appropriate half space at the end of the HO solve,
@@ -130,7 +133,7 @@ they are replaced with the corresponding S$_2$-equivalent value.
 
 \subsection{Analytic Fixed Source Problem}
 
-We first test the artificial source fixup for an analytic fixed-source, pure-absorber transport problem.  It is
+We first test the fixup methods for an analytic fixed-source, pure-absorber transport problem.  It is
 difficult to generate an analytic answer to non-trivial TRT problems, so we apply the
 fixups to a
 fixed-source problem with similar characteristics to the two material problem in
