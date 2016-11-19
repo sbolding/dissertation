@@ -282,28 +282,12 @@ transfer equations}
         \item[] Equations are \colb{nonlinear} and may be tightly coupled \\  
             \colG{Absorption opacity ($\sigma_a$) can be a strong function of $T$}
 %        \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
+        \item[] Typically solved with implicit Monte Carlo (IMC) \\
+            \colG{which linearizes the system over a time step}
 \end{itemize}
 \end{frame}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}
-    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems}
-        \vspace{-0.2in}
-\begin{itemize}
-    \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
-        \colG{Opacities are evaluated with $T(t^n)$}\vspace{0.21in}
-\setlength\wideitemsep{0.2in}
-    \begin{itemize}
-        \item Produces a linear transport equation
-               \\ \colG{with effective emission and scattering terms}
-        \item MC particle histories are simulated 
-            \\ \colG{tallying radiation energy deposition}
-        \item Emission source is \textbf{not} fully time-implicit.\\
-            \colG{Uses MC integration over $\Delta t$ for intensity}
-    \end{itemize}
-\end{itemize}
-\end{frame}
 
 \begin{frame}
 \frametitle{We developed a \colb{high-order low-order (HOLO) method} \\ that improves on several drawbacks of IMC}
@@ -966,24 +950,9 @@ subsectionstyle=hide
         \item[] Next step is to extend to higher dimensions \\
             \colG{main hurdle to overcome is infrastructure}
     \end{itemize} \pause
-    \begin{tcolorbox}
-    More details in: S.R. Bolding, M. Cleveland, and J.E. Morel. A HOLO Algorithm
-with ECMC for Radiative Transfer. NS\&E: M\&C 2015 Special Issue, 2016. Accepted.
-\end{tcolorbox}
 \end{frame}
 
 
-\titlegraphic{\centering\begin{tabular}{lr}\hspace{-2em}\includegraphics[trim=0.0in 0.0in 0.0in 0.0in,clip,height=0.18\textheight]{NEUP.jpg} &
- \hspace{+2em}\includegraphics[trim=0.0in 0.4in 0.0in 0.0in,clip,height=0.18\textheight]{lanl-logo-footer.png} 
-\end{tabular}}
-\title{Simulations of Neutron Multiplicity Experiments with Perturbations to Nuclear Data}
-    \author{Simon Bolding and C.J. Solomon}
-\begin{frame}
-    \maketitle
-\end{frame}
-
-
-\include{slides_defense_mult}
 
 
 \date{}
@@ -991,6 +960,25 @@ with ECMC for Radiative Transfer. NS\&E: M\&C 2015 Special Issue, 2016. Accepted
 \begin{frame}
     \vspace{-0.21in}
     \titlepage \vspace{-0.2113in}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Implicit Monte Carlo (IMC) is the standard Monte Carlo transport method for TRT problems}
+        \vspace{-0.2in}
+\begin{itemize}
+    \item[] The system is \emph{linearized} over a time step $t\in[t^n,t^{n+1}]$ \\ 
+        \colG{Opacities are evaluated with $T(t^n)$}\vspace{0.21in}
+\setlength\wideitemsep{0.2in}
+    \begin{itemize}
+        \item Produces a linear transport equation
+               \\ \colG{with effective emission and scattering terms}
+        \item MC particle histories are simulated 
+            \\ \colG{tallying radiation energy deposition}
+        \item Emission source is \textbf{not} fully time-implicit.\\
+            \colG{Uses MC integration over $\Delta t$ for intensity}
+    \end{itemize}
+\end{itemize}
 \end{frame}
 
 \appendix
@@ -1219,6 +1207,8 @@ with ECMC for Radiative Transfer. NS\&E: M\&C 2015 Special Issue, 2016. Accepted
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}
