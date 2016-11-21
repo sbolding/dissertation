@@ -107,6 +107,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 \newcommand{\shorttitle}{\color{black} A HOLO Algorithm for Thermal Radiative Transfer
     \makebox[\linewidth]{\rule{\textwidth}{5pt}}
 }
+\newcommand{\phibar}{\ensuremath{\overline{\phi}}}
 
 %The next lines automatically add outline slides at start of each section
 \AtBeginSection[]
@@ -277,7 +278,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
   \\
   C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
-            \vspace{-0.34043in}
+            \vspace{-0.54043in}
         \item[] TRT equations are \colb{nonlinear} and may be tightly coupled \\  
             \colG{Absorption opacity ($\sigma_a$) can be a strong function of $T$}
 %        \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
@@ -575,7 +576,8 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{We eliminate auxillary spatial unknowns \\ with a linear-discontinuous (LD) representation
+    \frametitle{We eliminate auxillary spatial unknowns  \\ to produce global
+        system of equations
     }
     \begin{columns}
         \begin{column}{0.2\linewidth}
@@ -618,16 +620,17 @@ subsectionstyle=hide
     \begin{enumerate}
         \item Assume $T(x)$ and $T^4(x)$ are LD \\
             \colG{preserving equi. diff. limit}
-        \item Assume $\phi^{\pm}$ linear on interior
-        \item Eliminate outflows with parametric closure from HO solution, e.g., \vspace{0.1in}
+        \item Assume $\phi^{\pm}(x)$ linear  \\ 
+            \colG{over each cell}
+        \item Can eliminate outflows with parametric closure from HO solution, e.g., \vspace{0.1in}
             \begin{center}{\textcolor{Gray}{%
                     \fbox{ {\color{black} $\displaystyle  
             \phi_{i+1/2}^+ = \colb{\gamma_{i,HO}^+}\mom{\phi}_{a,i}^+ + \mom{\phi}_{x,i}^+$}}}}
             \end{center}
             \colG{where  {$\gamma_{i,HO}^+ = 1$ gives LD}}
-            \vspace{0.1in}
-       \item Global system solved with Newton's method and lagged \textbf{implicit
-           opacities}.\\ \colG{Energy is always conserved}
+        \item[] HO closure improves consistency
+            \\ \colG{Add face tallies to ECMC}
+ %       \item \colG{Energy is always conserved}
        \end{enumerate}
    }
     \end{column}
@@ -635,9 +638,10 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{Apply source-iteration with linear diffusion-synthetic acceleration (DSA) to solve LO system}
+    \frametitle{Apply source-iteration with linear diffusion-synthetic acceleration (DSA)
+    to linearized LO system}
     \begin{itemize}
-        \item[] Source iteration with WLA-DSA \\ \colG{for (effective) scattering source
+        \item[] Used source iteration (SI) with WLA-DSA  \\ \colG{for (effective) scattering source
             of each Newton step}
             \vspace{0.1in}
             \begin{enumerate}
@@ -645,8 +649,10 @@ subsectionstyle=hide
                     source}
                 \item Solve approximate \colb{spatially continuous} diffusion equation for error in
                     scattering iterations
-                \item Update with local balance equations over elements
+                \item Update moments w/ local balance equations 
+                    \\ \colG{over each spatial element}
             \end{enumerate}
+            \pause
          \item[] Recast as a GMRES solution with DSA-preconditioning
      \end{itemize}
 \end{frame}
@@ -692,6 +698,21 @@ subsectionstyle=hide
 \subsection{}
 
 
+\begin{frame}
+    \frametitle{Implementation specifics for most results are given below:}               
+    {\addtolength\wideitemsep{11pt}
+    \begin{itemize}
+        \item HOLO method is written in stand-alone \textrm{C}\texttt{++} (15k lines) \\
+        \colG{IMC results from Jayenne (LANL code)}
+    \item One HO solve per time step, with two LO solves
+        \begin{itemize}
+            \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no adaptive mesh refinement}
+        \end{itemize}
+    \item Figure of Merit:  \boxed{\text{FOM}=\frac{\displaystyle 1}{\displaystyle
+        \left(\frac{\ds\|\sigma(\phi_i)\|}{\ds\|\phi_i\|}\right)^2 N_{\text{total}}}}\\ \colG{normalized so IMC FOM=1}
+    \end{itemize}
+    }
+\end{frame}
 
 
 \begin{frame}
@@ -713,22 +734,6 @@ subsectionstyle=hide
 \end{picture}}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Implementation specifics for most results are given below:}               
-    {\addtolength\wideitemsep{11pt}
-    \begin{itemize}
-        \item HOLO method is stand-alone C++ code (15k lines) \\
-        \colG{IMC results from Jayenne (LANL code)}
-    \item One HO solve per time step, with two LO solves
-        \begin{itemize}
-            \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no adaptive mesh refinement}
-        \end{itemize}
-    \item Lumped LD discretization for $T(x)$ and $\phi(x)$
-    \item Figure of Merit:  \boxed{\text{FOM}=\frac{\displaystyle 1}{\displaystyle
-        \left(\frac{\ds\|\sigma(\phi_i)\|}{\ds\|\phi_i\|}\right)^2 N_{\text{total}}}}\\ \colG{normalized so IMC FOM=1}
-    \end{itemize}
-    }
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -756,23 +761,26 @@ subsectionstyle=hide
         \vspace{0.1in}
         \begin{itemize}
             \item Left half is optically thin ($\sigma\!=\!0.2$ cm$^{-1}$),
-                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{8 $\mu$ cells}
+                right half is thick ($\sigma_a\!=\!2000$ cm$^{-1}$). \colG{8 $\mu$ cells,
+                $\Delta t = 0.001$ sh}
             \item Results for HOLO with different HO solvers:\\
                 \vspace{0.03in}\colb{ECMC} (FOM=10,000),  \colr{ standard MC}
                 (FOM=0.46), and \colg{ S$_2$}
         \end{itemize}
     \begin{figure}
-        \vspace{-0.1in}
-    \includegraphics[width=0.6099\textwidth]{two_mat_ho_compare.pdf}
+        \vspace{-0.1in} \includegraphics[width=0.6099\textwidth]{two_mat_ho_compare.pdf}
     \centering
     \end{figure}
 }
 \end{frame}
 
 \begin{frame}
-    \frametitle{The LDFE discretization for the LO equations \\ preserves the equilibrium diffusion limit}
+    \frametitle{The LDFE discretization of the LO equations \\ preserves the equilibrium diffusion limit}
+                \vspace{0.05in}
         \begin{itemize}
-            \item \colG{Large, constant $\sigma_a$ and small $c_v$}
+            \item EDL Problem: \colG{Large, constant $\sigma_a$ and small $c_v$}
+                \vspace{-0.1in}
+            \item Apply HOLO algorithm, 12k histories per step
         \end{itemize}
 \begin{figure}
     \centering
@@ -782,13 +790,14 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{Tested the HO spatial closure  for a simpler TRT problem}
+    \frametitle{Tested the HO spatial closure for a easier TRT problem}
     \begin{itemize}
-        \item[] Fairly diffusive domain so that \\ linear discontinuous $T(x)$ is positive
+        \item Fairly diffusive domain so that \\ linear discontinuous $T(x)$ is positive
             \begin{itemize}
-                \item Problem is approaching state, $\Delta t_{\max} = 0.01$ sh
+                \item[]\colG{ Problem is approaching state, $\Delta t_{\max} = 0.01$ sh}
             \end{itemize}
-        \item[] Use ECMC with adaptive refinement \\ and 585,000 histories per time step
+        \item Use ECMC with adaptive refinement, 2 HOLO iters \\ \colG{and 585k
+            histories per HO solve}
     \end{itemize}
 \begin{figure}[H]
     \centering
@@ -797,16 +806,17 @@ subsectionstyle=hide
 \end{frame}
 
 \begin{frame}
-    \frametitle{The HO spatial closure improves L$_2$ error and consistency, but does not decrease error in cell averages}
+    \frametitle{The HO spatial closure improves L$_2$ error and consistency but does not
+    decrease error in cell-averaged qantities}
     {\addtolength{\leftmargini}{-1.0cm}
         \fontsize{11.2}{12.0}\selectfont
     \begin{itemize}
-\item Compute error for 50 cells, compared to 500 cell reference \\ \colG{Average results from 20 independent simulations}
+\item Compute errors for 50 cells, compared to 500 cell reference. \\ \colG{Average results from 20 independent simulations}
     \end{itemize}
         \begin{table}
             \begin{center}
-    \begin{tabular}{r|ccc} \hline
-        Spatial Closure & \multicolumn{1}{|c}{$\|e(x)\|_{rel}$}  &
+                \begin{tabular}{r|ccc} \cline{2-4}
+          & \multicolumn{1}{|c}{$\|e(x)\|_{rel}$}  &
         \multicolumn{1}{c}{$\|e_i\|_{rel}$} & \multicolumn{1}{c}{$\|\phi_{HO}(x)
     -\phi_{LO}(x)\|_{rel}$} \\  \hline 
 LDFE   Closure            &   1.60\%   &   0.59\%   &   0.76\%   \\
@@ -816,7 +826,8 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 \colG{*$1\sigma \leq 0.01 \%$ for all results}
         \end{table}
     \begin{itemize}
-        \item For ECMC, $\tilde \phi_{HO}(x)$ does \emph{not satisfy}  moment equations
+            \pause
+        \item For ECMC, $\tilde \phi_{HO}(x)$ does \emph{not satisfy} moment equations
         \item Issues with using HO spatial closure and lumping \\ \colG{but standard lumped LDFE is accurate}
     \end{itemize}
 }
@@ -830,53 +841,82 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \begin{itemize}
         \item  Desire a positive $\tilde I_{HO}(x,\mu)$ for consistency terms \\
             \colG{to produce a physical, stable LO solution}
-        \item \colb{Rotate} negative $\tilde I(x,\mu)$ to positive at end of batch:
+        \item \colb{Rotate} negative $\tilde I(x,\mu)$ above $I_{\text{floor}}$  at end of batch:
 \begin{equation*}
     \tilde I_{\text{pos}} = I_{a} + \colb{C}\left[\frac{2}{h_x}I_x(x-x_i) +
     \frac{2}{h_\mu}I_\mu(\mu-\mu_j)\right],\quad     (x,\mu) \in \mathcal{D}_{ij},
 \end{equation*}\pause
-        \item Optionally add artificial source to next batch to attempt to mitigate stagnation
+        \item Optionally add artificial \colb{source} to next batch as attempt to mitigate stagnation
             \begin{equation*}
-                \B L I^{(m+1)} = q_{LO} +  \mathbf{L}\left(\tilde{I}^{n+1,(m)} -
-    \tilde{I}^{n+1,(m)}_{\text{pos}}\right),
+                \B L I^{(m+1)} = q_{LO} + \colb{ \mathbf{L}\left(\tilde{I}^{n+1,(m)} -
+                \tilde{I}^{n+1,(m)}_{\text{pos}}\right)}
             \end{equation*}
-                \item If we apply $\B L^{-1}$ to both sides
-\begin{equation}
-    I^{n+1} = \B L^{-1} q + (\tilde{I}^{n+1,(m)} -
-    \tilde{I}^{n+1,(m)}_{\text{pos}}).
-\end{equation}
+        \item[] If we apply $\B L^{-1}$ to both sides
+\begin{equation*}
+    \tilde I^{(m+1)} = \B L^{-1} q_{LO} + (\tilde{I}^{(m)} -
+    \tilde{I}^{(m)}_{\text{pos}}).
+\end{equation*}
     \end{itemize}
 }
 \end{frame}
 
+
 \begin{frame}
-    \frametitle{Apply rotation and artificial source to an analytic fixed-source problem}
+    \frametitle{Apply rotation and artificial source methods   \\ to steady state, pure-absorber  neutronics problem}
+    {\addtolength{\leftmargini}{-1.2cm}
     \begin{itemize}
-        \item Thin ($\sigma_a=0.2$ cm$^{-1}$) and thick ($\sigma_a=1000$ cm$^{-1}$) regions, $q(x)={I_{\text{floor}}}{\sigma_a(x)}$
+        \item Thin ($\sigma_a=0.2$ cm$^{-1}$) and thick ($\sigma_a=1000$ cm$^{-1}$)
+            regions 
+            \vspace{-0.15in}
+        \item $q(x)={I_{\text{floor}}}{\sigma_a(x)}$ 
     \end{itemize}
+}
+\vspace{0.2in}
     \begin{columns}
     \begin{column}{0.5\textwidth}
         \vspace{0pt}
   \centering
-  NEED A PICTURE OF FIXED SOURCE PROBLEM???
-    %\includegraphics[width=\linewidth]{heated_marshak_new.pdf}
+  \u{${\tilde I(x,\mu)}$}
+    \includegraphics[width=\linewidth]{neut_ang_full.pdf}
     \end{column}
     \begin{column}{0.5\textwidth}
         \vspace{0pt}
         \centering
+        \u{${\tilde I(x,\mu)}<I_{\text{floor}}$}
         \includegraphics[width=\linewidth]{neut_ang_zoom.pdf}
     \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Artificial source does not improve solution for analytic neutronics problem}
+    \frametitle{Plot of cell-averaged mean intensities $\phi(x)$ \\ for 100 spatial cells}
+    \begin{figure}
+        \vspace{-0.1in} \includegraphics[width=0.76099\textwidth]{neut_analytic_phi.pdf}
+    \centering
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Artificial source does not improve \\ solution for analytic neutronics problem}
     \begin{itemize}
-        \item Thin ($\sigma_a=0.2$ cm$^{-1}$) and thick ($\sigma_a=1000$ cm$^{-1}$) regions, $q(x)={I_{\text{floor}}}{\sigma_a(x)}$
+        \item Compute cell-averaged error norms for HO and LO solutions, with \colb{4
+            batchs, $10^5$ histories per batch}
+            \vspace{0.2in}
+\begin{table}
+    \begin{tabular}{c|ccc} \hline
+      Fixup  Method & \multicolumn{1}{|c}{$\|e_{LO}\|_{a,rel}$} & 
+        \multicolumn{1}{c}{$\|e_{HO}\|_{a,rel}$} &\multicolumn{1}{c}{FOM}
+        \\ \hline
+ Rotate every Batch &0.232\%       & 0.265\%   & 1.76  \\  
+   Rotate Last Batch &0.267\%      & 0.302\%   & 1.30  \\ \hline 
+     Artificial Source &0.261\%    & 0.304\%   & 1.34  \\  \hline
+    \end{tabular}
+        \colG{*$1\sigma \leq 0.01 \%$ for all results}
+\end{table}
+    \item The artificial source reduces magnitude of local residual,
+        but can produce inaccurate solutions down stream 
+    \item Mixed results for TRT problems \\ \colG{but all results have similar and high efficiency}
     \end{itemize}
-    \begin{table}
-        
-    \end{table}
 \end{frame}
 
 
@@ -945,8 +985,8 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 \section{Monte Carlo time integration}
 
 \begin{frame}
-    \frametitle{The time variable can be included in the ECMC trial space \\ with a
-    consistent LO time closure }
+    \frametitle{The time variable can be included in the ECMC trial space \\ allowing for
+        accurate time integration of intensity }
     \begin{columns}
         \begin{column}[t]{0.2\textwidth}
             \vspace{-20pt}
@@ -973,53 +1013,101 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 {\addtolength{\leftmargini}{-0.1in}
 \fontsize{10.0pt}{9.0pt}\selectfont
     \begin{itemize}
+        \item[] Introduce  trial space representation for $I(x,\mu,t)$ \\ 
+            \colG{step doubly discontinuous in $t$, LDFE in $x$ \& $\mu$}
         \item[] Include continuous $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in $\B L$ for residual
-            source\\
-            \colG{leaving $T(x)$ still implicit}
-        \item[] Sample and track particle histories in time. \\ \colG{Tally the time-averaged and
-                $t^{n+1}$ error}
-        \vspace{0.08in}
-    \item[] In \colb{LO equations}, parameterize $\phi_{LO}^{n+1}$ \\ in terms of
-        \textbf{time-averaged}
-        unknowns, e.g.,
+            source\\ \colG{leaving $T(x)$ and $T^4(x)$ implicit}:
             \begin{equation*}
-                \mom{\phi}_{L,i}^{n+1} = 2\highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} -
-                \mom{\phi}^{n}_{L,i}
+                r(x,\mu,t) = \frac{1}{2}\sigma_a^{n+1} a c \left(T^{n+1}\right)^4 -
+                \frac{1}{c}\pderiv{\tilde I}{t} - \mu \pderiv{\tilde I}{x} - \sigma_t
+                \pderiv{\tilde I}{x} 
             \end{equation*}
-    \end{itemize}
-}
+        \item[] Sample and track particle histories in time. \\ \colG{Tally time-averaged and
+                $t^{n+1}$ errors}
+        \end{itemize}
+    }
     \end{column}      
     \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{The time-closure parameters preserve accuracy \\ of MC time integration  in the LO solution}
-    \fontsize{10.0pt}{10.0pt}\selectfont
-    \vspace{0.1in}
-    \begin{itemize}
-        \item Material has $\sigma_a = 10^{-6}$ cm$^{-1}$, so temperature uncouples  \\ \colG{take 3 large time
-                steps and compare $E_{R}^{n+1}=\phi^{n+1}/c$}
-            \item 300,000 histories/step, 100 spatial cells, \textbf{FOM=0.53}
-    \end{itemize}
-\begin{figure}[H]
-  \centering
-    \includegraphics[width=0.71\textwidth]{thin_temp_compare.pdf}
-\end{figure}
+    \frametitle{The LO equations must be closed consistently \\ by eliminating $t^{n+1}$
+unknowns locally}
+    \begin{enumerate}
+\item Form LO Equations with space-angle moments as before, but integrated over a time
+    step \\ \colG{Treat temperature implicitly}
+\item Angular consistency terms all time-averaged
+    \\ \colG{ evaluated with time-averaged projection $\overline I_{HO}$}
+    \item Parameterize $\phi_{LO}^{n+1}$  in terms of
+        \textbf{time-averaged} unknowns, e.g.,
+            \begin{equation*}
+                \mom{\phi}_{L,i}^{n+1} \rightarrow \highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} 
+            \end{equation*}
+    \item Use closure to advance to next time step
+        \\ \colG{after solving for moment unknowns}
+    \end{enumerate}
 \end{frame}
 
 
+
 \begin{frame}
-    \frametitle{With sufficient histories in a mix of optical thicknesses \\ HOLO-TC is stable}
-    \fontsize{8.0pt}{10.0pt}\selectfont
+    \frametitle{The time closure preserves the accuracy \\ of MC time
+    integration in LO solution} %Efficiency of time closure (HOLO-TC) \\ increases with optical thickness}
+    \fontsize{10.0pt}{10.0pt}\selectfont
     \vspace{0.1in}
     \begin{itemize}
-        \item \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\textwidth]{marshak_time_cont_compare.pdf}
-    \caption{\label{fig:marshak_tc} Comparison of HOLO-TC, HOLO-BE, and IMC methods for
-the Marshak Wave problem, with $10^6$ histories per time step.}
-\end{figure}
+        \item Material has $\sigma_a = 0.2$ cm$^{-1}$, temperature mostly uncouples  \\
+            \colG{Plots depict $T_{r}^{n+1}$ at $t=0.1$ }
+        \item For HOLO w/ time closure (HOLO-TC) \\ small time steps decrease noise but increase projection error
+        \item HOLO Backward Euler (HOLO-BE) is inaccurate
     \end{itemize}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.590\textwidth]{thin_temp_compare.pdf}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The HOLO-TC method is more efficient  \\ than IMC with sufficiently fine mesh}
+    \begin{itemize}
+        \item Results for 200 $x$ cells, HOLO-TC has 60 $\mu$ cells \\ \colG{ $\Delta t =
+            0.001$ sh}
+        \item Error computed against IMC reference answer \\  with $4\times10^8$
+            histories/step, 100 $x$ cells
+    \end{itemize}
+    \begin{table}
+\begin{tabular}{|c|cc|cc|}\cline{2-5}
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{$\mathbf{\|e_i\|_{rel}}$} &
+    \multicolumn{2}{|c|}{\textbf{FOM}} \\ \hline
+hists./step   & IMC     & HOLO-TC (1) &    IMC   & HOLO-TC(1)  \\ \hline
+\multicolumn{5}{|c|}{Results for 200 $x$ cells; HOLO-TC has 60 $\mu$ cells} \\ \hline
+   30,000     & 2.93\%  & 14.00\%    & 1      &  0.10      \\
+  300,000     & 0.99\%  & 0.37\%    & 0.92   &  14.2      \\ 
+  1,000,000   & 0.49\%  & 0.18\%    & 1.02   &  81.7      \\ \hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{The HO temporal closure is stable \\ in a mix of optical thicknesses with
+    sufficient histories}
+{\addtolength{\leftmargini}{-0.2in}
+    \fontsize{9.0pt}{10.0pt}\selectfont
+    \vspace{0.1in}
+    \begin{itemize}
+        \item Marshak wave problem, $10^6$ hists/step over 2 batches
+    \end{itemize}
+            \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.56\textwidth]{marshak_time_cont_compare.pdf}
+\end{figure}
+\begin{itemize}
+    \item Multiple batches are more efficent at estimating census
+    \item HOLO-BE (FOM=1800) more efficient than HOLO-TC (FOM=15)
+        \\ \colG{step doubly-discontinuous trial space inaccurate}
+    \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
@@ -1031,21 +1119,21 @@ the Marshak Wave problem, with $10^6$ histories per time step.}
             \colG{with bounded angular consistency terms}
         \item[] Next step is to extend to higher dimensions \\
             \colG{main hurdle to overcome is infrastructure}
-    \end{itemize} \pause
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{Future Work}
     \begin{itemize}
-        \item[] 
+        \item[] Need consistent way to resolve negativities
+            \\ \colG{strictly positive trial space for moments}
         \item[] Extend time treatment to a linear variable
+            \\ \colG{sampling is significantly complicated}
+        \item[] Improve efficiency of ECMC \\ with asymmetric mesh refinement
+        \item[] Long term consider  kernel density estimators  \\ 
+            to improve efficiency of the ECMC method
     \end{itemize}
 \end{frame}
-
-
-
-
-
 
 \appendix
 \newcounter{finalframe}
@@ -1061,6 +1149,23 @@ the Marshak Wave problem, with $10^6$ histories per time step.}
 \author{}
 \date{}
 
+
+
+
+\begin{frame}
+    \frametitle{FOM and error norm definitions}
+    Cell-averaged error norms
+\begin{equation}
+    \|e_i\|^{{(l)}}_{rel} = \left({\frac{\ds \sum\limits_{i=1}^{N^{(l)}_c}
+    \left(\phi_i^{n+1,{(l)}} - \phi_i^{n+1,ref}
+\right)^2}{\ds \sum\limits_{i=1}^{N^{(l)}_c}\left(\phi_i^{n+1,ref}\right)^2}}\right)^{1/2},
+\end{equation}
+FOM is based on the following variance
+\begin{equation} 
+    \sigma(\phi_i)^2 =  \frac{1}{N_{sim}-1} \sum_{l=1}^{N_{sim}} \left(\overline{\phi_{i}} -
+    \phi_{i}^{(l)}\right)^2,
+\end{equation}
+\end{frame}
 
 
 \begin{frame}
@@ -1097,6 +1202,62 @@ the Marshak Wave problem, with $10^6$ histories per time step.}
 \end{frame}
 
 \begin{frame}
+    \frametitle{Time-integrated moment equation for $L$, $+$}
+\begin{multline}\label{eq:t_moml_ex}
+    \frac{\mom{\phi}_{L,i}^{+,n+1} - \mom{\phi}_{L,i}^{+,n}}{c \Delta t}
+    -2\overline {\mu}_{i-1/2}^{\,+} \overline \phi_{i-1/2}^{\,+} + \overline{\cur {\mu}}_{L,i}^{+}
+  \mom{\phibar}_{L,i}^{+}
+  +  \overline{\cur\mu}_{R,i}^{+}
+  \mom{\phibar}_{R,i}^{+}  \\ +   \sigma_{t,i}^{n+1} h_i 
+  \mom{\overline\phi}_{L,i}^{n+1,+} -  \frac{\sigma_{s,i} h_i}{2} \left( \mom{\phibar}_{L,i}^{+} +
+  \mom{\phibar}_{L,i}^{-}\right)  \\ = \frac{h_i}{2} \mom{\sigma_a^{n+1} a c T^{n+1,4}}_{L,i},
+\end{multline}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{The time-closure parameters preserve accuracy \\ of MC time integration in the LO solution}
+    \begin{itemize}
+        \item[] Near-void problem, $\sigma_a=10^{-6}$ cm$^{-1}$ \\ \colG{take 3
+                \textbf{large} time steps}
+            \begin{itemize}
+                    \vspace{0.1in}
+    {   \fontsize{9.0pt}{9.0pt}\selectfont
+        \item Comparison radiation energy densities $E_{r} = \phi(x)/c$ \\ for
+            \colb{time-averaged} and \colb{census} values
+            \vspace{-0.1in}
+        \item 3 batches of 100,000 hists./step, 100 $x$ cells, \textbf{FOM=0.53}}
+    \end{itemize}
+    \end{itemize}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.60\textwidth]{void_imc_compare.pdf}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Projection error for near-void problem}
+\begin{figure}[H]
+  \centering
+    \includegraphics[width=0.75\textwidth]{void_ang_compare.pdf}
+    \caption{\label{fig:bumps} Comparison of radiation energy densities for
+    the HOLO method with different numbers of $\mu$ cells. $\Delta t=0.001$ sh, for
+near-void problem.}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Without sufficient histories, time closure can introduce instabilities}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.75\textwidth]{thin_30k_fails.pdf}
+\end{figure}
+\end{frame}
+
+
+
+\begin{frame}
     \frametitle{Exponential convergence can be maintained if the LDFE mesh resolves the solution reasonably}
     \begin{columns}
     \begin{column}{0.5\textwidth}
@@ -1112,22 +1273,6 @@ the Marshak Wave problem, with $10^6$ histories per time step.}
 \end{columns}
 \end{frame}
 
-
-\begin{frame}
-    \frametitle{We need a way to resolve issues when the LDFE representation of the intensity is
-        negative}
-    {\addtolength\wideitemsep{5pt}
-    \begin{itemize}
-        \item[] Negative intensities can occur in optically thick cells \\
-            \colG{Mesh refinement is of minimal use}
-        \item[] $\tilde I_{HO}(x,\mu)$ must be positive for consistency terms \\
-            \colG{to produce a physical, stable LO solution}
-         \item[] Independent fix up for LO solution
-             \colG{\\E.g., lumping or preserving balance with floored $\phi(x)$}
-    \end{itemize}
-}
-
-\end{frame}
 
 \begin{frame}
     \frametitle{Can add source $\delta$ to produce a positive projection $\tilde I_{pos}$ 

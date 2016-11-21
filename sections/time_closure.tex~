@@ -599,7 +599,8 @@ We modify the previous problem by increasing the absorption cross section to 0.2
 \invcm; all other problem parameters are the same.  Radiation temperatures at the end of
 the last time step are compared for IMC, HOLO-TC, and HOLO-BE in
 Fig.~\ref{fig:thin_temp_compare}.  The HOLO-TC and HOLO-BE results were generated with 30
-$\mu$ cells, and all spatial meshes used 100 cells.  At smaller time step sizes, the
+$\mu$ cells, and all spatial meshes used 100 cells.  All results used $3\times10^6$
+histories per time step.  At smaller time step sizes, the
 effects of mesh imprinting are visually apparent in the HOLO-TC results, leading to more
 dispersion near the wave-front.  There is good agreement between
 the HOLO-TC results and IMC, except some dispersion near the wavefront.
