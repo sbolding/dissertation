@@ -575,7 +575,7 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{We must eliminate auxillary spatial unknowns \\ with a linear-discontinuous (LD) representation
+    \frametitle{We eliminate auxillary spatial unknowns \\ with a linear-discontinuous (LD) representation
     }
     \begin{columns}
         \begin{column}{0.2\linewidth}
@@ -614,10 +614,12 @@ subsectionstyle=hide
 \end{column}
 \begin{column}{0.75\linewidth}
     \addtolength{\wideitemsep}{0.11in}
+    {        \fontsize{11.0pt}{10.2pt}\selectfont
     \begin{enumerate}
         \item Assume $T(x)$ and $T^4(x)$ are LD \\
             \colG{preserving equi. diff. limit}
-        \item Eliminate $\phi_{i+1/2}^\pm$ with parametric closure from HO solution, e.g., \vspace{0.1in}
+        \item Assume $\phi^{\pm}$ linear on interior
+        \item Eliminate outflows with parametric closure from HO solution, e.g., \vspace{0.1in}
             \begin{center}{\textcolor{Gray}{%
                     \fbox{ {\color{black} $\displaystyle  
             \phi_{i+1/2}^+ = \colb{\gamma_{i,HO}^+}\mom{\phi}_{a,i}^+ + \mom{\phi}_{x,i}^+$}}}}
@@ -627,6 +629,7 @@ subsectionstyle=hide
        \item Global system solved with Newton's method and lagged \textbf{implicit
            opacities}.\\ \colG{Energy is always conserved}
        \end{enumerate}
+   }
     \end{column}
 \end{columns}
 \end{frame}
@@ -649,7 +652,7 @@ subsectionstyle=hide
 \end{frame}
 
 
-\section{Overview of algorithm}
+\section{Summary of algorithm}
 
 
 \begin{frame}
@@ -793,11 +796,12 @@ subsectionstyle=hide
 \end{figure}
 \end{frame}
 
-
 \begin{frame}
     \frametitle{The HO spatial closure improves L$_2$ error and consistency, but does not decrease error in cell averages}
+    {\addtolength{\leftmargini}{-1.0cm}
+        \fontsize{11.2}{12.0}\selectfont
     \begin{itemize}
-\item Compute error $e$ for 50 cells, compared to 500 cell reference \\ \colG{Average results from 20 simulations}
+\item Compute error for 50 cells, compared to 500 cell reference \\ \colG{Average results from 20 simulations}
     \end{itemize}
         \begin{table}
             \begin{center}
@@ -815,6 +819,7 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
         \item For ECMC, $\tilde \phi_{HO}(x)$ does \emph{not satisfy}  moment equations
         \item Issues with using HO spatial closure and lumping \\ \colG{but standard lumped LDFE is accurate}
     \end{itemize}
+}
 \end{frame}
 
 \begin{frame}
@@ -829,7 +834,7 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 \begin{equation*}
     \tilde I_{\text{pos}} = I_{a} + \colb{C}\left[\frac{2}{h_x}I_x(x-x_i) +
     \frac{2}{h_\mu}I_\mu(\mu-\mu_j)\right],\quad     (x,\mu) \in \mathcal{D}_{ij},
-\end{equation*}
+\end{equation*}\pause
         \item Optionally add artificial source to next batch to attempt to mitigate stagnation
             \begin{equation*}
                 \B L I^{(m+1)} = q_{LO} +  \mathbf{L}\left(\tilde{I}^{n+1,(m)} -
