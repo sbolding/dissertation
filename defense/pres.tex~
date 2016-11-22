@@ -213,7 +213,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
 
 \title[HOLO for TRT]{A High-Order Low-Order Algorithm with Exponentially-Convergent Monte Carlo for
     Thermal Radiative Transfer}
-    \author[S.R. Bolding]{{Simon Bolding and Jim Morel}}
+    \author[S.R. Bolding]{{Simon Bolding \\ \vspace{0.1in}Advisor:  Jim Morel}}
     \date{\vspace{-0.1in}{22 November 2016} }
 \subject{}
 %\institute{Los Alamos National Laboratory}
@@ -274,13 +274,13 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \item[] \begin{align*}\label{ho_cont}
 \hspace{-0.134in}
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
-    &= \frac{1}{4\pi} \sigma_a a c T^4,
+    &= \frac{\sigma_s \phi(x)}{4\pi}\sigma_s \phi(x)+  \frac{1}{4\pi} \sigma_a a c T^4,
   \\
   C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
             \vspace{-0.54043in}
         \item[] TRT equations are \colb{nonlinear} and may be tightly coupled \\  
-            \colG{Absorption opacity ($\sigma_a$) can be a strong function of $T$}
+            \colG{Absorption cross section ($\sigma_a$) can be a strong function of $T$}
 %        \item[] For practical applications, spatial discretizations \\ must preserve the \colb{equilibrium diffusion limit} (EDL)
         \item[] Typically solved with implicit Monte Carlo (IMC) \\
             \colG{which partially linearizes the system over a time step}
@@ -395,6 +395,28 @@ subsectionstyle=hide
 % }
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+{\addtolength\leftmargini{-0.165in}
+\begin{frame}
+    \frametitle{Exponentially Convergent Monte Carlo (ECMC) \\ can efficiently reduce noise globally}
+    \begin{itemize}
+            \addtolength{\wideitemsep}{0.14in}
+        \item[] ECMC is an iterative form of residual Monte Carlo
+            \\ \colG{applied to particle transport problems}
+        \item[] Each MC batch tallies the \textbf{error} in solution estimate
+            \begin{itemize}
+                \item \colG{standard MC particle transport,\\ but a \colr{complex} source}
+                    \vspace{-0.21in}
+                \item \colG{ECMC requires  a \colr{functional} representation \\ for all phase space variables being sampled}
+    \end{itemize}
+
+        \item[] Can reduce solution error \colb{globally} $\propto e^{-\alpha N}$ \\
+            \colG{Adaptive $h$-refinement can help represent error}
+     \end{itemize}
+ \end{frame}
+ }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  \begin{frame}
  \frametitle{ECMC uses a \colb{projection} $\tilde I(x,\mu)$ onto a \\ space-angle LDFE  mesh to represent the solution}
@@ -485,7 +507,8 @@ subsectionstyle=hide
                     \vspace{0.02in}
                 \item Particles in  each $x$-$\mu$ cell $\propto |r^{(m)}|$ in cell
                 \vspace{-0.15in}
-                \item No sampling from cells in thermal equilibrium
+                \item Set minimum $N$ for each cell  \\
+                    \colG{except for zero from cells in thermal equilibrium}
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -565,9 +588,8 @@ subsectionstyle=hide
     \right)^+_{i-1/2} }{\ds I^+_{i-1/2}}}
         I^+_{i-1/2} 
             \end{array}$
-    \pause
     \begin{itemize}
-            \vspace{0.3in}
+            \vspace{0.2in}
             \item[] Now, approximate angular consistency terms \\ 
                 with \colb{$\tilde I_{HO}^{n+1}(x,\mu)$} from previous HO solve
     \end{itemize}
@@ -576,7 +598,7 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{We eliminate auxillary spatial unknowns  \\ to produce global
+    \frametitle{We eliminate auxillary spatial unknowns  \\ to close global
         system of equations
     }
     \begin{columns}
@@ -629,7 +651,7 @@ subsectionstyle=hide
             \end{center}
             \colG{where  {$\gamma_{i,HO}^+ = 1$ gives LD}}
         \item[] HO closure improves consistency
-            \\ \colG{Add face tallies to ECMC}
+            \\ \colG{Requires face tallies in ECMC}
  %       \item \colG{Energy is always conserved}
        \end{enumerate}
    }
@@ -699,17 +721,17 @@ subsectionstyle=hide
 
 
 \begin{frame}
-    \frametitle{Implementation specifics for most results are given below:}               
+    \frametitle{Implementation specifics for results are:}               
     {\addtolength\wideitemsep{11pt}
     \begin{itemize}
         \item HOLO method is written in stand-alone \textrm{C}\texttt{++} (15k lines) \\
         \colG{IMC results from Jayenne (LANL code)}
-    \item One HO solve per time step, with two LO solves
+    \item Unless stated, one HO solve per time step, \\  with two LO solves
         \begin{itemize}
             \item \emph{each HO} solve has 3 ECMC batches \\ \colG{no adaptive mesh refinement}
         \end{itemize}
     \item Figure of Merit:  \boxed{\text{FOM}=\frac{\displaystyle 1}{\displaystyle
-        \left(\frac{\ds\|\sigma(\phi_i)\|}{\ds\|\phi_i\|}\right)^2 N_{\text{total}}}}\\ \colG{normalized so IMC FOM=1}
+        \left(\frac{\ds\|\sigma(\phi_i)\|}{\ds\|\phi_i\|}\right)^2 N_{\text{total}}}}\\\vspace{0.05in} \colG{normalized so IMC FOM=1}
     \end{itemize}
     }
 \end{frame}
@@ -807,7 +829,7 @@ subsectionstyle=hide
 
 \begin{frame}
     \frametitle{The HO spatial closure improves L$_2$ error and consistency but does not
-    decrease error in cell-averaged qantities}
+    decrease error in cell-averaged quantities}
     {\addtolength{\leftmargini}{-1.0cm}
         \fontsize{11.2}{12.0}\selectfont
     \begin{itemize}
@@ -816,9 +838,9 @@ subsectionstyle=hide
         \begin{table}
             \begin{center}
                 \begin{tabular}{r|ccc} \cline{2-4}
-          & \multicolumn{1}{|c}{$\|e(x)\|_{rel}$}  &
-        \multicolumn{1}{c}{$\|e_i\|_{rel}$} & \multicolumn{1}{c}{$\|\phi_{HO}(x)
-    -\phi_{LO}(x)\|_{rel}$} \\  \hline 
+          & \multicolumn{1}{|c}{$\|e(x)\|_{2,rel}$}  &
+        \multicolumn{1}{c}{$\|e_i\|_{2,rel}$} & \multicolumn{1}{c}{$\|\phi_{HO}(x)
+    -\phi_{LO}(x)\|_{2,rel}$} \\  \hline 
 LDFE   Closure            &   1.60\%   &   0.59\%   &   0.76\%   \\
 HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \end{tabular}
@@ -828,6 +850,10 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \begin{itemize}
             \pause
         \item For ECMC, $\tilde \phi_{HO}(x)$ does \emph{not satisfy} moment equations
+            \vspace{-0.1in}
+            \begin{equation*}
+               \B  L \tilde I(x,\mu) = q - r(x,\mu)
+            \end{equation*}
         \item Issues with using HO spatial closure and lumping \\ \colG{but standard lumped LDFE is accurate}
     \end{itemize}
 }
@@ -848,13 +874,14 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 \end{equation*}\pause
         \item Optionally add artificial \colb{source} to next batch as attempt to mitigate stagnation
             \begin{equation*}
-                \B L I^{(m+1)} = q_{LO} + \colb{ \mathbf{L}\left(\tilde{I}^{n+1,(m)} -
+                \B L I^{(m+1)} = q + \colb{ \mathbf{L}\left(\tilde{I}^{n+1,(m)} -
                 \tilde{I}^{n+1,(m)}_{\text{pos}}\right)}
             \end{equation*}
+            \vspace{-0.3in}
         \item[] If we apply $\B L^{-1}$ to both sides
 \begin{equation*}
-    \tilde I^{(m+1)} = \B L^{-1} q_{LO} + (\tilde{I}^{(m)} -
-    \tilde{I}^{(m)}_{\text{pos}}).
+    \tilde I^{(m+1)} = \B L^{-1} q + (\tilde{I}^{(m)} -
+    \tilde{I}^{(m)}_{\text{pos}})
 \end{equation*}
     \end{itemize}
 }
@@ -882,14 +909,14 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \begin{column}{0.5\textwidth}
         \vspace{0pt}
         \centering
-        \u{${\tilde I(x,\mu)}<I_{\text{floor}}$}
+    \u{${\tilde I(x,\mu)}<I_{\text{floor}}$} (zoom)
         \includegraphics[width=\linewidth]{neut_ang_zoom.pdf}
     \end{column}
 \end{columns}
 \end{frame}
 
 \begin{frame}
-    \frametitle{Plot of cell-averaged mean intensities $\phi(x)$ \\ for 100 spatial cells}
+    \frametitle{Plot of cell-averaged mean intensities $\phi(x)$ \\ for analytic problem and 100 spatial cells}
     \begin{figure}
         \vspace{-0.1in} \includegraphics[width=0.76099\textwidth]{neut_analytic_phi.pdf}
     \centering
@@ -904,11 +931,11 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
             \vspace{0.2in}
 \begin{table}
     \begin{tabular}{c|ccc} \hline
-      Fixup  Method & \multicolumn{1}{|c}{$\|e_{LO}\|_{a,rel}$} & 
-        \multicolumn{1}{c}{$\|e_{HO}\|_{a,rel}$} &\multicolumn{1}{c}{FOM}
+        Fixup  Method & \multicolumn{1}{|c}{$\|e_{i}^{LO}\|_{2,rel}$} & 
+        \multicolumn{1}{c}{$\|e_{i}^{HO}\|_{a,rel}$} &\multicolumn{1}{c}{FOM}
         \\ \hline
  Rotate every Batch &0.232\%       & 0.265\%   & 1.76  \\  
-   Rotate Last Batch &0.267\%      & 0.302\%   & 1.30  \\ \hline 
+   Rotate Last Batch &0.267\%      & 0.302\%   & 1.30  \\ 
      Artificial Source &0.261\%    & 0.304\%   & 1.34  \\  \hline
     \end{tabular}
         \colG{*$1\sigma \leq 0.01 \%$ for all results}
@@ -970,11 +997,11 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 \begin{table}[p]
     \centering
     \begin{tabular}{c|c} \hline
-        Method & Avg. Sweeps/Time step \\ \hline
-        SI        & 25,900      \\
-        SI-DSA    & \colb{273}        \\
-        GMRES     & 292         \\
-        GMRES-DSA & \colb{151}      \\ \hline
+        Method & Avg. Sweeps/Newton Iter. \\ \hline
+        SI        & \colr{1037}      \\
+        SI-DSA    & \colb{10.9}        \\
+        GMRES     & 11.6        \\
+        GMRES-DSA & \colb{6}      \\ \hline
     \end{tabular}
 \end{table}
 \begin{itemize}
@@ -1017,11 +1044,12 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
             \colG{step doubly discontinuous in $t$, LDFE in $x$ \& $\mu$}
         \item[] Include continuous $\frac{1}{c}\pderiv{}{t}\left(\cdot\right)$ in $\B L$ for residual
             source\\ \colG{leaving $T(x)$ and $T^4(x)$ implicit}:
+            \vspace{-0.1in}
             \begin{equation*}
                 r(x,\mu,t) = \frac{1}{2}\sigma_a^{n+1} a c \left(T^{n+1}\right)^4 -
                 \frac{1}{c}\pderiv{\tilde I}{t} - \mu \pderiv{\tilde I}{x} - \sigma_t
                 \pderiv{\tilde I}{x} 
-            \end{equation*}
+            \end{equation*}\vspace{-0.10in}
         \item[] Sample and track particle histories in time. \\ \colG{Tally time-averaged and
                 $t^{n+1}$ errors}
         \end{itemize}
@@ -1032,19 +1060,19 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 
 \begin{frame}
     \frametitle{The LO equations must be closed consistently \\ by eliminating $t^{n+1}$
-unknowns locally}
+unknowns with HO information}
     \begin{enumerate}
 \item Form LO Equations with space-angle moments as before, but integrated over a time
-    step \\ \colG{Treat temperature implicitly}
-\item Angular consistency terms all time-averaged
-    \\ \colG{ evaluated with time-averaged projection $\overline I_{HO}$}
-    \item Parameterize $\phi_{LO}^{n+1}$  in terms of
-        \textbf{time-averaged} unknowns, e.g.,
+    step \\ \colG{Treat $T(x)$ terms implicitly}
+\item Angular consistency terms are now time-averaged
+    \\ \colG{ evaluated with time-averaged projection $\overline I_{HO}(x,\mu)$}
+    \item Eliminate moments of $\phi_{LO}^{n+1}$  in terms of
+        \textbf{time-averaged} moments, e.g.,
             \begin{equation*}
-                \mom{\phi}_{L,i}^{n+1} \rightarrow \highlight{\gamma^{HO}_{L,i}} \overline{\mom{\phi}}_{L,i} 
+                \mom{\phi}_{L,i}^{n+1,+} = \highlight{\gamma^{HO,+}_{L,i}} {\mom{\overline{\phi}}}^+_{L,i} 
             \end{equation*}
     \item Use closure to advance to next time step
-        \\ \colG{after solving for moment unknowns}
+        \\ \colG{after solving for time-averaged unknowns}
     \end{enumerate}
 \end{frame}
 
@@ -1058,7 +1086,7 @@ unknowns locally}
     \begin{itemize}
         \item Material has $\sigma_a = 0.2$ cm$^{-1}$, temperature mostly uncouples  \\
             \colG{Plots depict $T_{r}^{n+1}$ at $t=0.1$ }
-        \item For HOLO w/ time closure (HOLO-TC) \\ small time steps decrease noise but increase projection error
+        \item For HOLO w/ time closure (HOLO-TC) \\ smaller time steps decrease noise but increase projection error
         \item HOLO Backward Euler (HOLO-BE) is inaccurate
     \end{itemize}
 \begin{figure}[H]
@@ -1077,13 +1105,12 @@ unknowns locally}
     \end{itemize}
     \begin{table}
 \begin{tabular}{|c|cc|cc|}\cline{2-5}
-    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{$\mathbf{\|e_i\|_{rel}}$} &
+    \multicolumn{1}{c|}{}       & \multicolumn{2}{|c|}{$\mathbf{\|e_i\|_{2,rel}}$} &
     \multicolumn{2}{|c|}{\textbf{FOM}} \\ \hline
 hists./step   & IMC     & HOLO-TC (1) &    IMC   & HOLO-TC(1)  \\ \hline
-\multicolumn{5}{|c|}{Results for 200 $x$ cells; HOLO-TC has 60 $\mu$ cells} \\ \hline
-   30,000     & 2.93\%  & 14.00\%    & 1      &  0.10      \\
+    30,000     & 2.93\%  & \colr{14.00\%}    & 1      &  0.10      \\
   300,000     & 0.99\%  & 0.37\%    & 0.92   &  14.2      \\ 
-  1,000,000   & 0.49\%  & 0.18\%    & 1.02   &  81.7      \\ \hline
+    1,000,000   & 0.49\%  &\colb{ 0.18\% }   & 1.02   & \colb{ 81.7}      \\ \hline
 \end{tabular}
 \end{table}
 
@@ -1123,18 +1150,22 @@ hists./step   & IMC     & HOLO-TC (1) &    IMC   & HOLO-TC(1)  \\ \hline
 \end{frame}
 
 \begin{frame}
-    \frametitle{Future Work}
+    \frametitle{Future work\ldots very distant future}
     \begin{itemize}
         \item[] Need consistent way to resolve negativities
             \\ \colG{strictly positive trial space for moments}
-        \item[] Extend time treatment to a linear variable
+        \item[] Extend time treatment to a linear trial space
             \\ \colG{sampling is significantly complicated}
-        \item[] Improve efficiency of ECMC \\ with asymmetric mesh refinement
-        \item[] Long term consider  kernel density estimators  \\ 
-            to improve efficiency of the ECMC method
+        \item[] Improve efficiency of ECMC \\ \colG{with asymmetric mesh refinement}
+        \item[] Consider Kernel Density Estimators for ECMC \\ \colG{ to improve efficiency within a batch}
     \end{itemize}
 \end{frame}
 
+\begin{frame}
+    \titlepage \vspace{-0.213in}
+    \begin{center}
+    \end{center}    
+\end{frame}
 \appendix
 \newcounter{finalframe}
 \setcounter{finalframe}{\value{framenumber}}
