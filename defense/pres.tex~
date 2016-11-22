@@ -469,7 +469,7 @@ subsectionstyle=hide
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
-    \frametitle{We apply the ECMC algorithm to the \colb{pure-absorber} \\ time-discrete transport equation}
+    \frametitle{We apply the ECMC algorithm to the \\ \colb{pure-absorber}  time-discrete transport equation}
         \vspace{-0.05in}
         \begin{align*}
             \hspace{-0.2in}
@@ -555,7 +555,7 @@ subsectionstyle=hide
         \vspace{0.2in}
     \item[] Half-range integrals reduce angular dimensionality
     \begin{equation*}
-        \boxed{{\displaystyle I^+(x) =
+        \boxed{{\displaystyle \phi^+(x) =
         2\pi\int_0^1 I(x,\mu) \d \mu}}
     \end{equation*}
 \end{itemize}
@@ -605,16 +605,14 @@ subsectionstyle=hide
         \begin{column}{0.2\linewidth}
     \begin{centering}
         \begin{tikzpicture}[scale=0.62, every node/.style={transform shape}]
-            \draw (1.0,2.125) node[fill,circle,inner sep=0pt,minimum
-            size=4.2pt] {};
+            \filldraw[color=black,fill=white] (1.0,2.125) circle (2.1pt);
             \draw (1.0,0.4) -- (1.0,0.6) node[below, pos=0.4] {$x_{i-1/2}$};
             \draw (5.90,0.4) -- (5.90,0.6) node[below, pos=0.4] {$x_{i+1/2}$};
             \node at (5.6,4.1) {$T_{i,R}^4$};
             \node at (1.2,2.7) {$T_{i,L}^4$};
             \draw [thick] (1.0,0.5) -- (5.9,0.5) node[anchor=north west] {};
             \draw (1.0,2.125) -- (5.90,3.70);
-            \draw (5.9,3.70) node[fill,circle,inner sep=0pt,minimum
-            size=4.2pt] {};
+            \filldraw[color=black,fill=white] (5.9,3.7) circle (2.1pt);
         \end{tikzpicture}
         \vspace{0.1in}
         \begin{tikzpicture}[scale=0.58, every node/.style={transform shape}]
@@ -671,7 +669,7 @@ subsectionstyle=hide
                     source}
                 \item Solve approximate \colb{spatially continuous} diffusion equation for error in
                     scattering iterations
-                \item Update moments w/ local balance equations 
+                \item Update moments w/ approx. local balance equations 
                     \\ \colG{over each spatial element}
             \end{enumerate}
             \pause
@@ -1086,7 +1084,7 @@ unknowns with HO information}
     \vspace{0.1in}
     \begin{itemize}
         \item Material has $\sigma_a = 0.2$ cm$^{-1}$, temperature mostly uncouples  \\
-            \colG{Plots depict $T_{r}^{n+1}$ at $t=0.1$ }
+            \colG{Plots depict $T_{r}^{n+1}$ at $t=0.1$ sh}
         \item For HOLO w/ time closure (HOLO-TC) \\ smaller time steps decrease noise but increase projection error
         \item HOLO Backward Euler (HOLO-BE) is inaccurate
     \end{itemize}
