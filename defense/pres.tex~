@@ -274,7 +274,7 @@ centered, text width=2cm, draw=black, text=white,fill=Gray!140!blue!70!white]
     \item[] \begin{align*}\label{ho_cont}
 \hspace{-0.134in}
     \frac{1}{c}\pderiv{I}{t} + \mu \pderiv{I}{x} + \sigma_t I(x,\mu,t)
-    &= \frac{\sigma_s \phi(x)}{4\pi}\sigma_s \phi(x)+  \frac{1}{4\pi} \sigma_a a c T^4,
+    &= \frac{\sigma_s \phi(x)}{4\pi} +  \frac{1}{4\pi} \sigma_a a c T^4,
   \\
   C_v \pderiv{T(x,t)}{t} &=  \highlight{\sigma_a \phi(x,t)} - \highlight{\sigma_a a c T^4}\\
 \end{align*}
@@ -816,7 +816,7 @@ subsectionstyle=hide
     \begin{itemize}
         \item Fairly diffusive domain so that \\ linear discontinuous $T(x)$ is positive
             \begin{itemize}
-                \item[]\colG{ Problem is approaching state, $\Delta t_{\max} = 0.01$ sh}
+                \item[]\colG{ $\Delta t$ increased from 0.001 sh to  $\Delta t_{\max} = 0.01$ sh}
             \end{itemize}
         \item Use ECMC with adaptive refinement, 2 HOLO iters \\ \colG{and 585k
             histories per HO solve}
@@ -849,7 +849,7 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
         \end{table}
     \begin{itemize}
             \pause
-        \item For ECMC, $\tilde \phi_{HO}(x)$ does \emph{not satisfy} moment equations
+    \item For ECMC, $\tilde I_{HO}(x,\mu)$ does \emph{not satisfy} moment equations
             \vspace{-0.1in}
             \begin{equation*}
                \B  L \tilde I(x,\mu) = q - r(x,\mu)
@@ -864,7 +864,7 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \colG{and mesh refinement is of minimal use}}
 
     {\addtolength\wideitemsep{5pt}
-    \begin{itemize}
+        \begin{itemize}\vspace{0.05in}
         \item  Desire a positive $\tilde I_{HO}(x,\mu)$ for consistency terms \\
             \colG{to produce a physical, stable LO solution}
         \item \colb{Rotate} negative $\tilde I(x,\mu)$ above $I_{\text{floor}}$  at end of batch:
@@ -872,6 +872,7 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \tilde I_{\text{pos}} = I_{a} + \colb{C}\left[\frac{2}{h_x}I_x(x-x_i) +
     \frac{2}{h_\mu}I_\mu(\mu-\mu_j)\right],\quad     (x,\mu) \in \mathcal{D}_{ij},
 \end{equation*}\pause
+\vspace{-0.2in}
         \item Optionally add artificial \colb{source} to next batch as attempt to mitigate stagnation
             \begin{equation*}
                 \B L I^{(m+1)} = q + \colb{ \mathbf{L}\left(\tilde{I}^{n+1,(m)} -
@@ -899,6 +900,14 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
     \end{itemize}
 }
 \vspace{0.2in}
+    \begin{figure}
+        \vspace{-0.1in} \includegraphics[width=0.56099\textwidth]{neut_analytic_phi.pdf}
+    \centering
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{The angular intensity is difficult to resolve \\ at the material interface and near $\mu=0$}
     \begin{columns}
     \begin{column}{0.5\textwidth}
         \vspace{0pt}
@@ -913,14 +922,6 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
         \includegraphics[width=\linewidth]{neut_ang_zoom.pdf}
     \end{column}
 \end{columns}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Plot of cell-averaged mean intensities $\phi(x)$ \\ for analytic problem and 100 spatial cells}
-    \begin{figure}
-        \vspace{-0.1in} \includegraphics[width=0.76099\textwidth]{neut_analytic_phi.pdf}
-    \centering
-    \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -1012,8 +1013,8 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
 \section{Monte Carlo time integration}
 
 \begin{frame}
-    \frametitle{The time variable can be included in the ECMC trial space \\ allowing for
-        accurate time integration of intensity }
+    \frametitle{The time variable is included in the ECMC trial space \\ allowing for
+        accurate time integration of HO intensity }
     \begin{columns}
         \begin{column}[t]{0.2\textwidth}
             \vspace{-20pt}
@@ -1047,8 +1048,8 @@ HO Closure        &   1.40\%  &   0.67\%     &   0.013\%  \\ \hline
             \vspace{-0.1in}
             \begin{equation*}
                 r(x,\mu,t) = \frac{1}{2}\sigma_a^{n+1} a c \left(T^{n+1}\right)^4 -
-                \frac{1}{c}\pderiv{\tilde I}{t} - \mu \pderiv{\tilde I}{x} - \sigma_t
-                \pderiv{\tilde I}{x} 
+                \frac{1}{c}\pderiv{\tilde I}{t} - \mu \pderiv{\tilde I}{x} - \sigma_a
+                {\tilde I}
             \end{equation*}\vspace{-0.10in}
         \item[] Sample and track particle histories in time. \\ \colG{Tally time-averaged and
                 $t^{n+1}$ errors}
@@ -1066,8 +1067,8 @@ unknowns with HO information}
     step \\ \colG{Treat $T(x)$ terms implicitly}
 \item Angular consistency terms are now time-averaged
     \\ \colG{ evaluated with time-averaged projection $\overline I_{HO}(x,\mu)$}
-    \item Eliminate moments of $\phi_{LO}^{n+1}$  in terms of
-        \textbf{time-averaged} moments, e.g.,
+\item Eliminate space-angle moments of $I^{n+1}_{LO}$  in terms of
+    \textbf{time-averaged} moments $\overline I_{LO}$, e.g.,
             \begin{equation*}
                 \mom{\phi}_{L,i}^{n+1,+} = \highlight{\gamma^{HO,+}_{L,i}} {\mom{\overline{\phi}}}^+_{L,i} 
             \end{equation*}
