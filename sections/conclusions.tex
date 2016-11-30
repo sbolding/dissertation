@@ -1,7 +1,7 @@
 \chapter{ \uppercase{Conclusions and Future Work} }
 \label{chp:conclusions}
 
-\section{CONCLUSIONS}
+\section{Conclusions}
 
 We have implemented and tested a new HOLO algorithm for 1D, grey TRT problems.  The HO
 solver utilizes ECMC, and the LO system is based on half-range angular moments and LDFE
@@ -118,8 +118,8 @@ acceleration approach in~\cite{rmc}), if the S$_2$-like equations become too
 inefficient or difficult to implement in higher dimensions. Although accelerated iterative
 solution technique with DSA was demonstrated.  Alternatively, a variable Eddington Tensor approach may provide more stability in rapidly variable
 regions of the problem while still allowing for a consistent, LDFE solution that is efficiently solvable.
-Additionally, future studies should investigate the stablity of the S$_2$-like LO closures more rigorously using a linear
-fourier stability analysis. 
+Additionally, future studies should investigate the stability of the S$_2$-like LO closures more rigorously using a linear
+Fourier stability analysis. 
 
 The HO treatment of the time variable could be improved by replacing the SSD trial space
 with an LDFE representation in the time variable. The linear representation should produce
@@ -143,7 +143,7 @@ representation of the solution.  The magnitude of the step representation of the
 can be exactly integrated with quadrature to form the PDF.  In such an approach, the
 magnitude of the true residual source is being
 approximated with MC through particle weights, e.g., $w(x,\mu,t)=r(x,\mu,t)/r^*(x,\mu,t)$
-(this is similar to the method referred to as self-normalizing importance sampling). Since ECMC is not
+(this is similar to the method referred to as self-normalizing importance sampling). Because ECMC is not
 conservative anyways, the statistical error in the magnitude of the residual should be
 acceptable for most problems.  The goal of such an approach is
 that the step residual will be sufficiently close to the true residual, with sufficient

@@ -25,7 +25,7 @@ spatial unknowns from the LO equations.  Details on solving the equations are al
 
 \section{Forming the Space-Angle Moment Equations}
 
-\subsection{LO Spatial mesh and Finite-Element Spatial Moments}
+\subsection{LO Spatial Mesh and Finite-Element Spatial Moments}
 
 The LO equations are formulated over a FE mesh.  The domain for the $i$-th spatial
 element (or cell) has support $x\in[x_{i-1/2},x_{i+1/2}]$ with width $h_i=x_{i+1/2} -
@@ -51,7 +51,7 @@ simulation.  Mesh adaptation is only applied in the HO solver, where applicable.
         \end{tikzpicture}
     \end{centering}
     \caption{Illustration of linear finite element basis functions $b_{L,i}(x)$ and
-    $b_{R,i}(x)$ for spatial element $i$.\label{fig:lin_fe}}
+    $b_{R,i}(x)$, for spatial element $i$.\label{fig:lin_fe}}
 \end{figure}
 
 The spatial moments are defined by integrals weighted with the standard linear finite element (FE)
@@ -324,7 +324,7 @@ Because the material energy balance equation
 At this point, the LO equations have too many unknowns: the relation between the volume
 and face averaged quantities and the angular consistency parameters are not known a
 priori. The HO solution is used to eliminate the consistency parameters and other
-approximations are used to eliminate the extra spatial unkonwns from the equations.
+approximations are used to eliminate the extra spatial unknowns from the equations.
 The six degrees of freedom (DOF) over each cell $i$ are the four moments $\mom{\phi}_{L,i}^+$,
 $\mom{\phi}_{R,i}^+$, $\mom{\phi}_{L,i}^-$, and $\mom{\phi}_{R,i}^-$ and the two
 spatial edge values $T_{L,i}$ and $T_{R,i}$.  After closure, the four radiation and two material
@@ -418,7 +418,7 @@ and interior.
             \filldraw (5.9,2.30) circle (2.1pt);
         \end{tikzpicture}
     }}
-    \caption{Linear discontinuous trial space for half-range mean intensity and $\mu>0$,
+    \caption{Linear-discontinuous trial space for half-range mean intensity and ${\mu>0}$,
         in LO equations.\label{fig:ld_il}}
 \end{figure}
 
@@ -513,7 +513,7 @@ the S$_2$ equations, but with quadrature points defined by $\pm 1/2$.  Because t
 solution to the S$_2$ equations, we expect the equations to preserve the equilibrium diffusion
 limit; the LDFE discretization of the S$_2$ equations is known to preserve the EDL based on discrete asymptotic analysis~\cite{morel_ldtrt}.
 
-\section{Fix-ups for Negative Solutions with LDFE Closure}
+\section{Fixups for Negative Solutions with LDFE Closure}
 \label{sec:ldfe_fixups}
 
 The linear-discontinuous (LD) closure with upwinding is not strictly positive.  In particular, for

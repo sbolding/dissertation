@@ -384,7 +384,7 @@ particles to stream without absorption to reduce statistical
 variance in the tallies.  The weight of particles is reduced deterministically along
 the path as they stream, with no need to sample a path length. Histories are allowed to stream in this manner for 6 mean free paths (MFP)
 before switching to analog path length sampling; this limits the tracking of very small weight histories. The choice of 6 MFP allows particles to 
-continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of MFP, so there is no need to resample at material
+continuously deposit weight until they reach 0.25\% of their original weight.  Path lengths are tracked in terms of MFP, so there is no need to re-sample at material
 interfaces.
 
 Weight is attenuated exponentially, i.e., $w(x,\mu)\propto
@@ -418,7 +418,7 @@ average score from all histories:
 where $N_b$ is the number of particle histories performed within that batch.
 
 
-\subsection{Face Tallies and correction near $\mu=0$}
+\subsection{Face Tallies and Correction Near $\mu=0$}
 \label{sec:face_tallies}
 
 Face-averaged estimators of $\epsilon(x,\mu)$ are required to compute the outflow for
@@ -539,7 +539,7 @@ Instead, the
 two $\delta$-functions are combined into a single face source in each element\footnote{The combination of the two $\delta$-functions produces the same residual source as the
 original LD trial-space residual.},
 and particles do \emph{not} score at the face from which they are sampled.  To account for the
-untallied error, we add the analytic
+un-tallied error, we add the analytic
 contribution to $\epsilon_{i+1/2}$ from $r_{\text{face}}(x_{i+1/2}^-)$, at the end of
 each batch.  This analytic contribution to the error at faces is derived in Sec.~\ref{sec:face_err_deriv}. 
 The update for $I(x_{i+1/2},\mu)$ becomes

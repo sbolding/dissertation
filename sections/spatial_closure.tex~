@@ -1,12 +1,12 @@
 
-\section{Spatial Closure based on the HO Solution}
+\section{Spatial Closure Based on the HO Solution}
 \label{sec:spat_clos}
 
-This sections describes an alternative spatial closure to the LO equations based on 
-a parametric relation from the HO solution. In addition to estimating the angular
+This sections describes an alternative spatial closure to the LO equations with
+a parametric relation determined from the HO solution. In addition to estimating the angular
 consistency terms, the HO intensity is used to estimate a relation between volume and face-averaged
 intensities to eliminate the face unknowns from the LO equations. 
- The goal is to improve consistency compared to the the LDFE discretization, although
+ The goal is to improve consistency compared to the LDFE discretization, although
 additional statistical noise is introduced through face-based tallies.
 In the remainder of
 this section, we motivate the HO spatial closure by manipulating a half-range balance
@@ -60,7 +60,7 @@ As TRT problems are non-linear (i.e., scattering or thermal emission are include
 $q$), the moments will only be preserved upon non-linear convergence of the source.  The
 nonlinearity introduces the possibility for stability
 issues, particularly with MC noise.  However, we have already consistently formed angular consistency terms, so the
-the spatial closure should be more stable than introducing auxillary terms, such as
+the spatial closure should be more stable than introducing auxiliary terms, such as
 in NDA methods~\cite{rmc,willert}, but has a higher memory cost per spatial cell. 
 
 \subsection{Choice of Spatial Closure}
@@ -206,7 +206,7 @@ The closed equations have the
 same numerical complexity as the LDFE LO equations, but with an increased storage on the
 coarse mesh for the
 $\gamma_i^{\pm}$ values.  The linear representation for the interior
-solutions and emission source approachs the LD closure in the equilibrium diffusion limit, as long
+solutions and emission source approaches the LD closure in the equilibrium diffusion limit, as long
 as the HO spatial closure is estimated with sufficient statistical accuracy.  
 
 
@@ -238,7 +238,7 @@ linear representation that the moments correspond to.  For example in the $L$ mo
 the material energy (Eq.~\eqref{eq:lo_mat_dis1}), the lumped representation changes $2/3
 T_{L,i} + 1/3 T_{R,i}$ to $T_{L,i}$, but no modifications are made to the
 absorption term $\sigma_{a,i}\mom{\phi}_{L,i}$; no modifications are made to
-the radiation terms in the radiaiton moment equations.
+the radiation terms in the radiation moment equations.
 %In such cases, we force that cell to
 %use a standard lumped relation for the moment equations, with no discontinuity at the
 %outflow, and restart that Newton solve.  %During the Newton solve, once new half-range

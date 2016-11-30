@@ -459,7 +459,7 @@ a total of $3\times10^6$ histories per time step and the IMC results were genera
 $12\times10^6$ histories per time step. 
 The minimum number of histories for any sampled space-angle cell, $N_{\min}$ in
 Eq.~\eqref{eq:sys_N}, is 20 for all HOLO simulations.
-The spatial meshs had 100 spatial cells and both
+The spatial meshes had 100 spatial cells and both
 HOLO results used 20 $\mu$ cells.  
 The MC treatment of the time
 variable and the closure of the LO equations allow the LO results to correctly reconstruct
@@ -473,10 +473,10 @@ A comparison of the same results depicted as radiation temperatures is given in 
 proportional to the fourth-root of the radiation energy density, the noise at low
 magnitudes past the wave-front are more apparent in the 3 batches and $\Delta t = 0.001$
 case.  This noise is small relative to the scale of $E_r$, but it demonstrates a
-defficiency of the trial space.  The step representation over
+deficiency of the trial space.  The step representation over
 the time step leads to particles sampled near the wave-front with a time near
 $t^{n}$ that travel into the equilibrium region.  This is not a
-bias, but rather an undersampling; if sufficient histories were performed there
+bias but rather an under-sampling of the phase space; if sufficient histories were performed there
 would be negative particles that canceled out this error. The ECMC iterations can lead to negative
 averages in the HO solution out front of the wave front.  In such cells, the
 average was set to the floor value and slopes to zero. This effect is
@@ -486,7 +486,7 @@ increased.
 For the case of a single batch, 
 there is less noise past the wavefront because the
 choice of $I^{n}(x,\mu)$ as an initial guess for $I^{n+1}(x,\mu)$ prevents most particles from
-traveling past what the physical transport should allow.  The discrepancy betweeen the IMC
+traveling past what the physical transport should allow.  The discrepancy between the IMC
 and the single batch HOLO solution near the foot of
 the wave is a result of the spatial discrepancy between the LDFE HO projection and the
 lumped LD LO equations; this dispersion is not present in the HO solution.  This
@@ -504,8 +504,8 @@ near-void problem.}
   \centering
     \includegraphics[width=0.75\textwidth]{void_ang_compare.pdf}
     \caption{\label{fig:bumps} Comparison of radiation energy densities for
-    the HOLO method with different numbers of $\mu$ cells. $\Delta t=0.001$ sh, for
-near-void problem.}
+    the HOLO method with different numbers of $\mu$ cells, for the near-void problem; $\Delta t=0.001$ sh.
+}
 \end{figure}
 
 Figure.~\ref{fig:bumps} compares radiation energy densities for various numbers of $\mu$
@@ -658,7 +658,7 @@ is limited by the time integration accuracy.
 \begin{figure}
     \centering
     \includegraphics[width=0.75\textwidth]{thin_30k_fails.pdf}
-    \caption{\label{fig:30k_fails}Comparison of $T_{r}^{n+1}$ for 30,000 histories per time step.  The HOLO-TC result has inssuficient
+    \caption{\label{fig:30k_fails}Comparison of $T_{r}^{n+1}$ for 30,000 histories per time step.  The HOLO-TC result has insufficient
 histories to accurately estimate end of time step unknowns.}
 \end{figure}
 
@@ -727,15 +727,15 @@ this problem can be accurately modeled with the Backward Euler time discretizati
 the MC time closure appears to be stable even in the mix of optically thick and thin
 regions. Table~\ref{tab:marshak_cont} compares sample statistics for IMC,
 the HOLO-TC method with the implicit-like and diamond-like closures, and the HOLO-BE
-method.  As demonstrated, at the lower history count (300,000), the HOLO-TC algorithm demostrates a
+method.  As demonstrated, at the lower history count (300,000), the HOLO-TC algorithm demonstrates a
 greater variance than IMC, but is more efficient at the higher batch size.  The HOLO-BE
-method is signficantly more efficient for comparable accuracy in this problem with a very
+method is significantly more efficient for comparable accuracy in this problem with a very
 optically thick region.
 \begin{table}[H]
 \centering
 \caption{\label{tab:marshak_cont} {Comparison of sample statistics for the
-    end of time step radiation energy densities, of the last time step, for the marshak
-    wave problem and maximum time step of $0.01$ sh.  Simulation end time is $\mathbf{t=3.0}$ sh.}}
+    end of time step radiation energy densities, of the last time step, for the Marshak
+    wave problem and maximum time step of $0.01$ sh.  Simulation end time is ${t=3.0}$ sh.}}
 \vspace{-0.1in}
 \begin{tabular}{|c|ccc|ccc|}\cline{2-7}
     \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
@@ -764,16 +764,16 @@ algorithm is estimating the difference between the first batch's estimate of
 $\overline{I}(x,\mu)$ and $\tilde I^{n+1}(x,\mu)$, it just accepts $\overline I(x,\mu)$ as
 $I^{n+1}(x,\mu)$.  The initialization of the solution to the first batches estimate of
 $\overline{I}(x,\mu)$ is sufficient to produce visually accurate results because the
-problem is evolving slowly, although this a biased result due to undersampling
+problem is evolving slowly, although this a biased result due to under-sampling
 of the phase space. When importance sampling is used, then more particles reach
 the census, increasing variance overall.  If too many particles are sampled near the end
 of the time step, then the variance of the time-averaged solution
 increases, decreasing accuracy over all. 
 \begin{table}[H]
 \centering
-\caption{\label{tab:void_short} {Comparison of sample statistics using importance
+\caption{\label{tab:void_short} Comparison of sample statistics using importance
     sampling on the interior of the time step, for the Marshak Wave problem.  Simulation
-    end time is $\mathbf{t=1.0}$ sh.} and max $\Delta t$ is 0.01 sh}
+    end time is ${t=1.0}$ sh and max $\Delta t$ is 0.01 sh.}
 \vspace{-0.1in}
 \begin{tabular}{|cc|} \hline
         $p_{surv}$ & {\FOM} \\ \hline

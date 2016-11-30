@@ -3,8 +3,8 @@
 \contentsline {chapter}{ABSTRACT}{ii}{chapter*.1}
 \contentsline {chapter}{ACKNOWLEDGEMENTS}{v}{chapter*.3}
 \contentsline {chapter}{TABLE OF CONTENTS}{vii}{section*.4}
-\contentsline {chapter}{LIST OF FIGURES}{xi}{section*.5}
-\contentsline {chapter}{LIST OF TABLES}{xiii}{section*.6}
+\contentsline {chapter}{LIST OF FIGURES}{x}{section*.5}
+\contentsline {chapter}{LIST OF TABLES}{xii}{section*.6}
 \contentsline {chapter}{\numberline {1}\uppercase {Introduction}}{1}{chapter.1}
 \vskip +10pt
 \contentsline {section}{\numberline {1.1}Dissertation Layout}{3}{section.1.1}
@@ -20,7 +20,7 @@
 \contentsline {chapter}{\numberline {3}\uppercase {The Moment-Based Low-Order Equations}}{20}{chapter.3}
 \vskip +10pt
 \contentsline {section}{\numberline {3.1}Forming the Space-Angle Moment Equations}{20}{section.3.1}
-\contentsline {subsection}{\numberline {3.1.1}LO Spatial mesh and Finite-Element Spatial Moments}{20}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.1}LO Spatial Mesh and Finite-Element Spatial Moments}{20}{subsection.3.1.1}
 \contentsline {subsection}{\numberline {3.1.2}Definition of Angular Moments}{23}{subsection.3.1.2}
 \contentsline {subsection}{\numberline {3.1.3}Space-Angle Moments of the Radiation Transport Equation}{23}{subsection.3.1.3}
 \contentsline {subsection}{\numberline {3.1.4}The Angular Consistency Terms}{24}{subsection.3.1.4}
@@ -32,9 +32,9 @@
 \contentsline {subsection}{\numberline {3.2.3}Boundary Conditions}{31}{subsection.3.2.3}
 \contentsline {section}{\numberline {3.3}Newton's Method for LO Equations}{32}{section.3.3}
 \contentsline {section}{\numberline {3.4}Accuracy of LO Equations in the Equilibrium Diffusion Limit}{33}{section.3.4}
-\contentsline {section}{\numberline {3.5}Fix-ups for Negative Solutions with LDFE Closure}{33}{section.3.5}
+\contentsline {section}{\numberline {3.5}Fixups for Negative Solutions with LDFE Closure}{33}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Balance Preserving Fixup}{35}{subsection.3.5.1}
-\contentsline {section}{\numberline {3.6}Spatial Closure based on the HO Solution}{36}{section.3.6}
+\contentsline {section}{\numberline {3.6}Spatial Closure Based on the HO Solution}{36}{section.3.6}
 \contentsline {subsection}{\numberline {3.6.1}Motivation}{36}{subsection.3.6.1}
 \contentsline {subsection}{\numberline {3.6.2}Choice of Spatial Closure}{38}{subsection.3.6.2}
 \contentsline {subsection}{\numberline {3.6.3}The Linear Doubly-Discontinuous Trial Space}{39}{subsection.3.6.3}
@@ -48,15 +48,15 @@
 \contentsline {subsection}{\numberline {4.2.3}Negative Values for the Radiation Intensity}{51}{subsection.4.2.3}
 \contentsline {section}{\numberline {4.3}Systematic Sampling Algorithm for Residual Source}{51}{section.4.3}
 \contentsline {section}{\numberline {4.4}Continuous Weight Deposition Tallies}{54}{section.4.4}
-\contentsline {subsection}{\numberline {4.4.1}Face Tallies and correction near $\mu =0$}{56}{subsection.4.4.1}
+\contentsline {subsection}{\numberline {4.4.1}Face Tallies and Correction Near $\mu =0$}{56}{subsection.4.4.1}
 \contentsline {section}{\numberline {4.5}ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}{57}{section.4.5}
 \contentsline {chapter}{\numberline {5}\uppercase {Computational Results}}{61}{chapter.5}
 \vskip +10pt
 \contentsline {section}{\numberline {5.1}Metrics of Accuracy and Statistical Efficiency}{61}{section.5.1}
 \contentsline {section}{\numberline {5.2}Marshak Wave}{64}{section.5.2}
 \contentsline {section}{\numberline {5.3}Two Material Problem}{67}{section.5.3}
-\contentsline {section}{\numberline {5.4}Performance comparison of IMC and HOLO-ECMC}{70}{section.5.4}
-\contentsline {section}{\numberline {5.5}Comparison of different HO Solvers}{72}{section.5.5}
+\contentsline {section}{\numberline {5.4}Performance Comparison of IMC and HOLO-ECMC}{70}{section.5.4}
+\contentsline {section}{\numberline {5.5}Comparison of Different HO Solvers}{72}{section.5.5}
 \contentsline {section}{\numberline {5.6}Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}{73}{section.5.6}
 \contentsline {section}{\numberline {5.7}Accuracy in the Equilibrium Diffusion Limit}{75}{section.5.7}
 \contentsline {section}{\numberline {5.8}Accuracy of HO Spatial Closure}{77}{section.5.8}
@@ -95,7 +95,7 @@
 \contentsline {subsubsection}{\numberline {8.3.3.1}Importance Sampling on Interior of the Time Step}{132}{subsubsection.8.3.3.1}
 \contentsline {chapter}{\numberline {9} \uppercase {Conclusions and Future Work} }{134}{chapter.9}
 \vskip +10pt
-\contentsline {section}{\numberline {9.1}CONCLUSIONS}{134}{section.9.1}
+\contentsline {section}{\numberline {9.1}Conclusions}{134}{section.9.1}
 \contentsline {section}{\numberline {9.2}Future Work}{136}{section.9.2}
 \contentsline {chapter}{REFERENCES}{140}{section*.49}
 \renewcommand {\cftchapaftersnum }{}

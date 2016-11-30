@@ -115,8 +115,8 @@ $T_r=(\phi/(ac))^{0.25}$.  The effective temperature represents the temperature 
 material, if the material and temperature were in equilibrium.  Cell-averaged quantities are plotted.
 For this problem, when negative values for $\phi^{n+1,\pm}(x)$ were detected, the lumping-equivalent
 discretization was used within those cells and that Newton step was repeated.
-Non-physical angular consistency terms were replaced with S$_2$-equivalent terms.kFor
-reference, the fix-up in Sec.~\ref{sec:ldfe_fixups} that strictly enforces the floor temperature and preserves half-range
+Non-physical angular consistency terms were replaced with S$_2$-equivalent terms. For
+reference, the fixup in Sec.~\ref{sec:ldfe_fixups} that strictly enforces the floor temperature and preserves half-range
 balance produced similar accuracy and stably converged for this problem.
 \begin{figure}[hp]
     \centering
@@ -194,7 +194,7 @@ keV.  The simulation end time is 5 sh. For all HOLO simulations, we have used 8
 equal-sized mesh cells in $\mu$.  As for the Marshak problem, the cells nearest the wavefront required use of the lumping-equivalent discretization and
 S$_2$-equivalent angular consistency terms during the LO solve.
 \begin{table}[H]
-        \caption{Material properties for two material problem\label{two_mat_props}}
+        \caption{Material properties for two material problem.\label{two_mat_props}}
 \centering
         \begin{tabular}{|c|cc|}  \cline{2-3}
             \multicolumn{1}{c|}{}   & $x \in [0,0.5)$ cm & $x \in [0.5,1.0]$ cm   \\ \hline
@@ -260,7 +260,7 @@ hists./step     & IMC & HOLO-ECMC  &  IMC & HOLO-ECMC   \\ \hline
 \end{tabular}
 \end{table}
 
-\section{Performance comparison of IMC and HOLO-ECMC}
+\section{Performance Comparison of IMC and HOLO-ECMC}
 \label{timing}
 
 We have measured the total CPU time for simulations to provide a simplified measure of the
@@ -291,7 +291,7 @@ newton iterations as the time step is increased, but the average cost per histor
 not significantly increased.   Similar to the results
 in~\cite{park}, as the time step size is increased to to 0.005 sh, the IMC method
 increases in cost per time step, due to an increase in effective scattering events, particularly for the two material problem. Because
-the cross sections in the the two material problem do not have a $T^{-3}$
+the cross sections in the two material problem do not have a $T^{-3}$
 behavior,the cost of the effective scattering cross section in IMC is more apparent,
 resulting in longer simulation times. 
 \begin{table}[H]
@@ -321,7 +321,7 @@ Newton iters./LO Solve\\ \hline
 \end{tabular}
 \end{table}
 
-\section{Comparison of different HO Solvers}
+\section{Comparison of Different HO Solvers}
 \label{ho_solvers}
 
 In this section we compare the results of our HOLO algorithm with different HO
@@ -637,13 +637,13 @@ the first few time steps the temperature spikes are present.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_rad_imc.pdf}
-    \caption{\label{fig:imc_mpvrad}$T_r$ and $T_m$ for MP violation problem with IMC and $\Delta t = 0.001$ sh.}
+    \caption{\label{fig:imc_mpvrad}$T_r$ and $T_m$ for maximum principle violation problem with IMC and $\Delta t = 0.001$ sh.}
 \end{figure}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_mats_imc.pdf}
-    \caption{\label{fig:imc_mpv}$T_m$ for MP violation problem with IMC for various time step
-    sizes.}
+    \caption{\label{fig:imc_mpv}$T_m$ for maximum principle violation problem with IMC for various time step
+    sizes. The IMC solution does not preserve the discrete maximum principle.}
 \end{figure}
 
 The simulations are repeated with the same specifications for the HOLO method. All HOLO
@@ -667,8 +667,8 @@ there is no additional cost for the HO solution when the damped method is used.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\linewidth]{mpv_mats_holo.pdf}
-    \caption{\label{fig:holo_mpv}$T_m$ for MP violation problem with HOLO method for various time step
-    sizes.}
+    \caption{\label{fig:holo_mpv}$T_m$ for maximum principle violation problem with HOLO method for various time step
+    sizes. The HOLO solution preserves the discrete maximum principle.}
 \end{figure}
 \begin{table}[htbp]
     \caption{\label{tab:mpv_iters}Comparison of LO Newton iterations for HOLO solution to 

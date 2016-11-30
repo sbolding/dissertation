@@ -204,9 +204,12 @@ were non-physical in only a few cases.
   \caption{\label{fig:neut_ang_zoom} $\tilde I(x,\mu)$ for cells where $\tilde I(x,\mu)$
   crosses $I_{\min}$.   }
 \end{subfigure}
-\caption{Plots of $\tilde I(x,\mu)$ for the fixed-source problem.}
+\caption{LDFE projection of angular intensity $\tilde I(x,\mu)$ for the fixed-source problem.}
 \end{figure}
+
 \begin{table}
+    \caption{\label{tab:fixed_source_accuracy} Comparison of accuracy in cell-averaged $\phi(x)$ value for
+fixed source problem and various number of histories per batch.}
     \begin{tabular}{|c|cl|cl|c|} \hline
       Fixup  Method & \multicolumn{2}{|c|}{$\|e_{LO}\|_{a,rel}$} & 
         \multicolumn{2}{|c|}{$\|e_{HO}\|_{a,rel}$} &\multicolumn{1}{|c|}{FOM}
@@ -227,8 +230,6 @@ were non-physical in only a few cases.
  Rotate every Batch &0.072\%  & (0.002\%)  & 0.082\%  & (0.003\%) & 1.84  \\  
    Rotate Last Batch &0.083\%  & (0.002\%)  & 0.094\%  & (0.003\%) & 1.39  \\ \hline 
     \end{tabular}
-    \caption{\label{tab:fixed_source_accuracy} Comparison of accuracy in cell-averaged $\phi(x)$ value for
-fixed source problem and various number of histories per batch.}
 \end{table}
 
 \subsection{Radiative Transfer Problems}
@@ -251,6 +252,8 @@ histories per time step. Visually
 there is agreement between all of the fixup methods. 
 \begin{table}[h]
     \centering
+    \caption{\label{tab:twomat_fixups}Comparison of sample statistics for different HO fixup
+methods applied to the two material problem. Simulation end time is $t=2$ sh.}
     \begin{tabular}{|c|cc|} \hline
   Fixup  Method & \ss & \FOM  \\ \hline \hline
     \multicolumn{3}{|c|}{$30,000$ histories per time step} \\ \hline
@@ -264,8 +267,6 @@ S$_2$ fixup & 0.0055\% & 5.29 \\
 Rotate Last Batch & 0.0061\% & 4.33 \\
 Rotate Every Batch &  0.0066\% & 3.67  \\ \hline
     \end{tabular}
-    \caption{\label{tab:twomat_fixups}Comparison of sample statistics for different HO fixup
-methods applied to the two material problem. Simulation end time is $t=2$ sh.}
 \end{table}
 \begin{figure}[h]
 \begin{subfigure}{0.7\textwidth}
