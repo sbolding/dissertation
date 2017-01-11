@@ -29,15 +29,14 @@ confinement fusion and astrophysics.  Moment-based hybrid Monte Carlo (MC)
 methods have demonstrated great potential for accelerated
 solutions to TRT problems~\cite{rmc,bolding_nse,holo_rh}.   These nonlinear acceleration
 methods perform fixed-point iterations  between a
-high-order (HO) transport equation and a low-order (LO) system. The LO system is
-formulated with angular moments and a fixed spatial mesh.  Physics operators that are too
-expensive for the HO solver to resolve directly, e.g., photon absorption and emission, are
-moved to the LO system. The lower-rank LO equations can be solved with Newton methods to
-allow for non-linearities in the LO equations to be efficiently resolved.  The high-order
-(HO) problem is defined by the radiation transport equation with known sources computed
-using the previous LO solution. A MC transport solution to the HO problem is used to
-construct consistency terms that appear in the LO equations. These consistency terms
-preserve the accuracy of the HO solution in the next LO solve.
+high-order (HO) transport equation and a low-order (LO) system.
+The LO system is obtained from the HO system by means of spatial and angular
+moments.  The HO system provides closure terms to the LO system that make the
+LO system exactly reproduce the HO moments, upon nonlinear convergence.  The LO system provides low-order source terms to the HO
+system that are expensive to iteratively converge, e.g., the photon emission and isotropic scattering sources. The two systems are
+synergistic in that the LO system with fixed closure terms can be fully solved
+much more efficiently than the HO system, and the HO system can
+accurately compute angular closure terms given fixed low-order source terms.
 
 We have developed a new high-order low-order (HOLO) algorithm for solving TRT problems. This algorithm has several desirable
 properties, some of which improve on current computational methods: the HOLO method preserves the equilibrium diffusion limit, prevents violation
@@ -51,10 +50,9 @@ low-order (LO) system that is fully implicit in time and is solved with Newton's
 The lower-dimensional equations are derived directly from the TRT equations, formed such that the LO
 system can preserve the accuracy of the ECMC treatment of particle transport.   The LO
 equations are formed with linear finite-element (FE) based spatial moments and angular
-moments over each half-range.  A linear-discontinuous (LD) representation is used to discretized
-the temperature field, and a HO-estimated parametric and LD spatial closure of the LO
-radiation equations have been investigated.  Our LO
-system and approach to enforcing consistency contrast from the formulation in other
+moments over each half-range.  A linear-discontinuous (LD) representation is used to discretize
+the temperature field. Two different spatial closures of the LO equations have been investigated: the standard LD FEM closure and a new parametric closure that is fully consistent with the HO equations.  Our LO
+system and approach to enforcing consistency contrast from the formulations used in other
 moment-based acceleration methods, e.g., those in~\cite{rmc,willert,park}.
 
 We have also investigated several extensions and improvements of this method.  First,
@@ -161,7 +159,7 @@ $N \phsp$ (photons cm$^{-3}$ Hz$^{-1}$ str$^{-1}$) via the relation
 \begin{equation}\label{eq:intens_dens}
     I\phsp = c h \nu N \phsp,
 \end{equation}
-where $c$ is the speed of light (cm sh$^{-1}$) and $h$ is Planck's constant. The
+where $c=299.792458$ cm sh$^{-1}$ is the speed of light and $h=4.13567\times 10^{-18}$ keV Hz$^{-1}$ is Planck's constant. The
 angular intensity is a useful quantity because it is directly related to reaction rates.
 
 The governing conservation equation for the radiation field is a transport equation given
@@ -248,17 +246,22 @@ and~\eqref{eq:mat_cont}.
 \subsection{The Equilibrium Diffusion Limit}
 
 A critical aspect for any numerical solution to the thermal radiative transfer equations
-is preservation of the asymptotic, equilibrium diffusion limit (EDL)~\cite{morel_ldtrt,larsen_edl}.
+is preservation of the asymptotic, equilibrium-diffusion limit (EDL)~\cite{morel_ldtrt,larsen_edl}.
 In the EDL, the material becomes optically thick and increasingly diffusive, as $\sigma_a$ becomes large and
 $\rho c_v$ becomes small.  The solution approaches equilibrium with
 $I(x,\mu)=\frac{1}{2}acT^4(x)$,
 where the distribution of the solution is well described by the material
-temperature~\cite{larsen_edl}.  For problems in this limit, spatial mesh cells that resolve the spatial variation of the solution are
-$O(100)$ mean free paths (MFPs) or much greater; the solution typically varies relatively smoothly in space.
-Discretization schemes of the transport equation must correctly limit to the appropriate
-discretized diffusion equation in the EDL.  Spatial discretizations that do not preserve
-the EDL can produce inaccurate solutions, even though the mesh size should accurately capture the variation of the solution, with
-inaccuracies that are much greater than expected from truncation error.  Such methods
+temperature~\cite{larsen_edl}. 
+The spatial scale length for diffusive solutions, the diffusion length, can be
+equal to an arbitrary number of mean-free-paths (MFPs), but transport
+discretization schemes are only guaranteed to converge in the limit as the
+number of MFPs per cells becomes small~\cite{morel_ldtrt}.  To achieve convergence with
+a small number of diffusion lengths per cell in diffusive problems, the transport discretization must preserve the EDL.
+
+Discretization schemes of the transport equation that preserve the EDL correctly limit to the appropriate
+discretized diffusion equation in diffusive problems.  Spatial discretizations that do not preserve
+the EDL can produce inaccurate solutions, even though the mesh size accurately resolves the diffusion length scale, with
+inaccuracies that are much greater than expected from truncation error.  Such non-preserving methods
 require spatial mesh resolution on the order of a MFP~\cite{morel_ldtrt}.  The EDL regime is typical in
 applications of TRT, so discretizations must preserve this limit to produce accurate
 solutions with reasonable mesh resolutions.
@@ -395,19 +398,19 @@ in statistical variance for slowly varying solutions.  However, a
 piecewise constant representation is used for the space-angle representation of the
 intensity, which does not preserve the EDL and can be inaccurate in angularly complex
 regions of the problem.  In this work, we apply the exponentially convergence MC (ECMC)
-algorithm that was applied to
-simplified steady state neutronics problems previously~\cite{jake}.
+algorithm that was previously applied to
+simplified steady state neutronics problems~\cite{jake}.
 %REWRITE: add something about Jeff Favorite ECMC stuff
 
 Similar to RMC, a difference formulation has been applied to another algorithm known as the symbolic IMC method
 (SIMC), for the case of 1D frequency-dependent problems~\cite{simc_const}.  SIMC forms a
 standard FE solution to the material energy balance equation, and uses symbolic
-weights in the MC transport to solve for expansion coefficents.  The difference
+weights in the MC transport to solve for expansion coefficients.  The difference
 formulation modifies the transport equation to solve for unknowns representing the
 deviation of the intensity from
 equilibrium with the material energy.  The difference
 formulation was also applied to a linear-discontinuous FE spatial
 representation of the emission source, demonstrating accuracy in the EDL~\cite{simc}. 
-Both~\cite{simc_const} and~\cite{rmc} produced minimal
+The algorithms in~\cite{simc_const} and~\cite{rmc} produced minimal
 statistical noise in slowly varying problems where the behavior of the system is near
 equilibrium. 

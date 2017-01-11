@@ -17,7 +17,7 @@ previously in~\cite{bolding_nse}.
 \section{Metrics of Accuracy and Statistical Efficiency}
 \label{sec:metrics}
 
-Several different metrics are used quantify results throughout this chapter as
+Several different metrics were used to quantify results throughout this chapter as
 appropriate.
 A measure of variance in cell-averaged mean intensities was
 calculated to provide a quantitative measure of the statistical accuracy of different solution
@@ -54,7 +54,7 @@ our HOLO method due to correlation of the solution between time steps; additiona
 has correlations between batches.
 
 The consistency between HO and LO solutions and the accuracy as 
-compared to a reference solution are computed for some simulations.
+compared to a reference solution were computed for some simulations.
 The consistency for the $(l)$-th particular simulation is measured with the relative L$_2$ norm
 of the difference between the projected HO and LO solutions, i.e.,
 \begin{equation}
@@ -70,7 +70,7 @@ is computed as
     \|e\|^{{(l)}}_{2,rel} = \frac{\|\phi_{LO}^{n+1,{(l)}}(x) -
     \phi_{LO}^{n+1,ref}\left( x \right)\|_2}{\|\phi_{LO}^{n+1,ref}\left( x \right)\|_2}
 \end{equation}
-All L$_2$ norms are computed using quadrature over the finest spatial mesh.  An
+All L$_2$ norms were computed using quadrature over the finest spatial mesh.  An
 integrated measure of the error in cell-averaged mean intensities on the mesh of the
 $l$-th simulation, with $N_c^{(l)}$ spatial cells, is computed as
 \begin{equation}
@@ -194,7 +194,7 @@ keV.  The simulation end time is 5 sh. For all HOLO simulations, we have used 8
 equal-sized mesh cells in $\mu$.  As for the Marshak problem, the cells nearest the wavefront required use of the lumping-equivalent discretization and
 S$_2$-equivalent angular consistency terms during the LO solve.
 \begin{table}[H]
-        \caption{Material properties for two material problem\label{two_mat_props}}
+        \caption{Material properties for two material problem.\label{two_mat_props}}
 \centering
         \begin{tabular}{|c|cc|}  \cline{2-3}
             \multicolumn{1}{c|}{}   & $x \in [0,0.5)$ cm & $x \in [0.5,1.0]$ cm   \\ \hline
@@ -372,8 +372,8 @@ hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC
 
 \section{Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}
 
-Finally, to demonstrate the potential of ECMC with adaptive space-angle mesh refinement, we perform
-results for a modified Marshak wave problem. The problem is modified so that the LDFE
+Finally, to demonstrate the potential of ECMC with adaptive space-angle mesh refinement, we compare
+results for a modified Marshak wave problem. The problem parameters are chosen such that the LDFE
 trial space can accurately represent the solution (i.e., the intensity is strictly
 positive).  Mesh refinement is of minimal use in the previous problems due to most of
 the error existing at the wavefronts, caused by the large cross sections.   The modified problem has the same material
@@ -494,13 +494,13 @@ The problem has a smaller optical thickness than other problems tested so that t
 estimated, but the small c$_v$ value makes the solution relatively diffusive.  This
 problem did not require the lumped relation to produce positive solutions.
 However, when projecting from a refined mesh back to the coarse mesh, it was
-necessary to rotate the solution to be positive.
+necessary to rotate the solution to be positive for some time steps.
 
 All simulations of this problem used 585,900 histories divided over 9 ECMC
 batches;  beginning from 30,000 histories and $10$ $\mu$ cells, 30\% of cells were
-adaptively refined every third batch, and the number of histories is increased to
+adaptively refined every third batch, and the number of histories was increased to
 keep the average number of histories per cell constant. 
-We have have performed two outer HOLO iterations over each time step for all cases; it was
+We have performed two outer HOLO iterations over each time step for all cases; it was
 found that additional iterations did not increase consistency, because of the  magnitude
 of statistical noise.  Relative convergence of HOLO iterations was below 10$^{-3}$
 for two iterations for all cases.  

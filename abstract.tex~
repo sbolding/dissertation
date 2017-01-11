@@ -22,40 +22,36 @@
 
 \indent 
 We have implemented a new high-order low-order (HOLO) algorithm for solving
-thermal radiative transfer problems.  Within each discrete time step, fixed-point iterations are performed between a
+thermal radiative transfer (TRT) problems.  Within each discrete time step, fixed-point iterations are performed between a
 high-order (HO) exponentially-convergent Monte Carlo (ECMC) solver and a low-order (LO)
 system of equations.  The LO system is based on spatial
 and angular moments of the transport equation and a linear-discontinuous
 finite-element (LDFE) spatial representation, producing equations similar to the standard
 S$_2$ equations.  
-The LO solver is fully implicit in time and efficiently resolves the non-linear
-temperature dependence at each time step with Newton's method.   The HO solver
-utilizes ECMC to give a globally accurate solution
+The LO solver is fully implicit in time and efficiently converges the non-linear
+temperature dependence with Newton's method.   The HO solver
+provides a globally accurate solution
 for the angular intensity to a fixed-source, pure absorber transport problem.  This
-global solution is used to compute consistency terms that require the HO and LO solutions
-to converge towards the same solution, neglecting spatial discretization inconsistencies. The use of ECMC
-allows for the efficient reduction of statistical noise in the Monte Carlo (MC) solution,
-reducing statistical inaccuracies introduced through the LO consistency
-terms. 
+global solution is used to compute consistency terms in the LO equations that require the HO and LO solutions
+to converge towards the same solution. The use of ECMC
+allows for the efficient reduction of statistical noise in the solution.
   
-We have also investigated several extensions of this algorithm. A parametric closure is used to more
-accurately close the LO system in the spatial variable, based on relations between the HO
-moments and point solutions at edges. The spatial closure improves consistency between the two solvers compared to
-a standard LDFE spatial discretization of the LO system.  Additionally, the ECMC algorithm has been extended to include
-integration of the time variable for the angular intensity with a consistent parametric time closure of the LO
-radiation equations.  The Monte Carlo integration of the time variable increases accuracy in optically thin problems compared to a
-backward Euler discretization and improves statistical efficiency compared to IMC.
-However, the required number of Monte Carlo histories is increased to sufficiently sample the
-higher-dimensional trial space, compared to the time-discrete HOLO
-algorithm.  We have also developed a method to delay ECMC stagnation when the solution is
-not accurately represented by the trial space, while producing a physical, positive solution.  Finally, we have applied standard source iteration and Krylov procedures to iteratively solve the LO
-equations, within each Newton iteration, accelerated with linear diffusion synthetic
-acceleration (DSA).  
+We investigated several extensions of this algorithm.
+ A parametric closure
+of the LO system was used for the spatial variable, based on local
+relations computed with the HO solver.
+. The spatial closure improves
+consistency between the two solvers compared to a standard LDFE spatial
+discretization of the LO system.  The ECMC algorithm has been
+extended to integrate the angular intensity in time,
+with a consistent time closure of the LO radiation equations.  The
+time closure increases accuracy in optically-thin problems compared to a backward Euler discretization.  
+Finally, we have applied standard source iteration and Krylov procedures to
+iteratively solve the LO equations, with linear diffusion synthetic acceleration.  
 
 Herein, we present results for one-dimensional, gray test problems.  Results demonstrate
 several desirable properties of this algorithm: the HOLO method preserves the equilibrium diffusion limit, prevents violation
-of the maximum principle, and can provide high-fidelity MC solutions to the thermal
-radiative transfer equations
+of the maximum principle, and can provide high-fidelity MC solutions to the TRT equations
 with minimal statistical noise.  We have compared results with an implicit Monte Carlo
 (IMC) code and compared the efficiency of ECMC to standard Monte Carlo in this HOLO
 algorithm.  Our HOLO algorithm is more accurate and more efficient than standard IMC.  The
