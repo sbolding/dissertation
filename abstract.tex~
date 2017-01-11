@@ -40,7 +40,7 @@ We investigated several extensions of this algorithm.
  A parametric closure
 of the LO system was used for the spatial variable, based on local
 relations computed with the HO solver.
-. The spatial closure improves
+The spatial closure improves
 consistency between the two solvers compared to a standard LDFE spatial
 discretization of the LO system.  The ECMC algorithm has been
 extended to integrate the angular intensity in time,
@@ -48,6 +48,8 @@ with a consistent time closure of the LO radiation equations.  The
 time closure increases accuracy in optically-thin problems compared to a backward Euler discretization.  
 Finally, we have applied standard source iteration and Krylov procedures to
 iteratively solve the LO equations, with linear diffusion synthetic acceleration.  
+
+'th
 
 Herein, we present results for one-dimensional, gray test problems.  Results demonstrate
 several desirable properties of this algorithm: the HOLO method preserves the equilibrium diffusion limit, prevents violation

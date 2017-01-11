@@ -25,30 +25,35 @@ standard source iteration approaches.  A nearly-consistent DSA method was able t
 significantly reduce the number of required scattering iterations for the source iteration
 approach. 
 
-The ECMC algorithm was shown to be more statistically efficient than standard MC as a HO
-solver for TRT problems.  The residual formulation with an initial guess based on the
-previous radiation intensity results in efficient reduction of statistical error.  The
-systematic source sampling algorithm distributes particles to regions of the problem where the
-solution varies greatly over the time step.  For problems where the LDFE space-angle trial space
-can reasonably approximate the solution, mesh refinement allows for exponential
-convergence and improved FOM values.   In problems with optically
-thick regions and strong solution gradients, the residual formulation of ECMC can still
-improve efficiency throughout the domain.  Once a maximum refinement level has been
-achieved and the error has stagnated, the final batch of particle histories can be 
-extended to increase statistical accuracy in the final estimate of the error, but at the
-standard MC convergence rate.  Fixups for the HO solver based on rotating negative
-solutions to produce a positive solution were investigated.  With a positive
-representation of the intensity, the LO solutions were found to be stable and accurate for
-the problems tested.  The addition of an artificial source was found to be inaccurate, due
-to the effects it had on the solution in down stream cells.  Generally, local modifications to
-the residual are ineffective due to the effect on other regions of the problem. However,
-at least for the problems tested, even with rapid stagnation the residual formulation of
-ECMC leads to high statistical efficiency.  
+The ECMC algorithm was shown to be more statistically efficient than standard
+MC as a HO solver for TRT problems.  The residual formulation with an initial
+guess based on the previous radiation intensity results in efficient reduction
+of statistical error.  Overall, the ECMC algorithm is more effective than
+standard MC in the HOLO context where it is necessary to accurately estimate
+the angular intensity globally to produce consistency terms in each spatial
+cell. The systematic source sampling algorithm distributes particles to regions
+of the problem where the solution varies greatly over the time step.  For
+problems where the LDFE space-angle trial space can reasonably approximate the
+solution, mesh refinement allows for exponential convergence and improved FOM
+values.   In problems with optically thick regions and strong solution
+gradients, the residual formulation of ECMC can still improve efficiency
+throughout the domain.  Once a maximum refinement level has been achieved and
+the error has stagnated, the final batch of particle histories can be extended
+to increase statistical accuracy in the final estimate of the error, but at the
+standard MC convergence rate.  Fixups for the HO solver based on rotating
+negative solutions to produce a positive solution were investigated.  With a
+positive representation of the intensity, the LO solutions were found to be
+stable and accurate for the problems tested.  The addition of an artificial
+source was found to be inaccurate, due to the effects it had on the solution in
+down stream cells.  Generally, local modifications to the residual are
+ineffective due to the effect on other regions of the problem. However, at
+least for the problems tested, even with rapid stagnation the residual
+formulation of ECMC leads to high statistical efficiency.  
 
 The linear doubly-discontinuous (LDD) trial space was introduced to estimate the HO
 solution at faces, allowing for a parametric spatial closure of the LO equations. 
 For problems where the LD trial space can reasonably resolve the solution, a 
-HO spatial closure was able to increase consistency between the HO and LO solutions and improve
+HO spatial closure was able to increase discrete consistency between the HO and LO solutions and improve
 accuracy in the L$_2$ norm.  The accuracy for cell-averaged mean intensities was not improved due to the additional statistical noise
 in the face tallies and inaccuracies in the HO moment equations for the ECMC solver because of the residual formulation.
 In problems where the solution is not resolved by the LD representation, the
@@ -59,19 +64,20 @@ demonstrate a greater accuracy than 1D where the LD spatial closure is
 third-order accuracy in the averages.  However, the closure is fundamentally limited in
 accuracy in diffusive problems because of the requirement of a linear closure for $T(x)$ and $T^4(x)$. 
 
-We have also demonstrated the ability to extend the HOLO algorithm to continuous treatment of the radiation 
-variable.  The SDD trial space in the time variable allows for the transport operator to be inverted
-continuously in the ECMC algorithm.  This improves accuracy for the radiation energy
-density in optically thin region compared to a full BE discretization.  The
-parametric LO closure preserves the accuracy of the HO treatment in the LO moments,
-with comparable accuracy for a diamond-like and implicit-like closure.  A particular benefit of the time
-closure is that $\overline I^{HO}$ is most different from $I^{HO,n+1}$ in problems
-that are optically thin.  In such problems, the problem is relatively linear, so the
-closure can 
-However, in optically thick problems, inaccuracies in the SDD for estimating
-$I_{HO}^{n+1}$ leads to an increase in the required number of histories for
-convergence.  In thick problems, the diamond-like closure can introduce instabilities
-because of the initial solve in a time step using CN and statistical noise.
+We have also demonstrated the ability to extend the HOLO algorithm to
+continuous treatment of the time variable for radiation terms.  The SDD trial
+space in the time variable allows for the transport operator to be inverted
+continuously in the ECMC algorithm.  This improves accuracy for the radiation
+energy density in optically thin region compared to a full BE discretization.
+The parametric LO closure preserves the accuracy of the HO treatment in the LO
+moments, with comparable accuracy for a diamond-like and implicit-like closure.
+A particular benefit of the time closure is that $\overline I^{HO}$ is most
+different from $I^{HO,n+1}$ in problems that are optically thin.  In such
+problems, the problem is relatively linear, so the closure can However, in
+optically thick problems, inaccuracies in the SDD for estimating $I_{HO}^{n+1}$
+leads to an increase in the required number of histories for convergence.  In
+thick problems, the diamond-like closure can introduce instabilities because of
+the initial solve in a time step using CN and statistical noise.
 
 \section{Future Work} 
 

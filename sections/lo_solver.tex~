@@ -51,7 +51,7 @@ simulation.  Mesh adaptation is only applied in the HO solver, where applicable.
         \end{tikzpicture}
     \end{centering}
     \caption{Illustration of linear finite element basis functions $b_{L,i}(x)$ and
-    $b_{R,i}(x)$ for spatial element $i$.\label{fig:lin_fe}}
+    $b_{R,i}(x)$, for spatial element $i$.\label{fig:lin_fe}}
 \end{figure}
 
 The spatial moments are defined by integrals weighted with the standard linear finite element (FE)
