@@ -4,7 +4,7 @@
 
 The HOLO algorithm is a nonlinear acceleration method.  Fixed-point iterations are performed between a
 high-order (HO) transport equation and a low-order (LO) system formulated with angular moments
-and a fixed spatial mesh. 
+and spatial moments on a fixed spatial mesh. 
 With the exception of Chapter~\ref{sec:time}, we will derive and discuss our HOLO
 method using a backward Euler (BE) time discretization for simplicity.  We have also assumed constant specific heats
 and cell-wise constant cross sections, although our method could easily be extended
@@ -37,7 +37,7 @@ used in the hybrid-S$_2$ method in~\cite{wolters},  with consistency parameters 
 represent angularly-weighted averages of the intensity.  In this work, consistency refers
 to how accurately the LO moments reproduce moments of the HO solution.
 The angular consistency parameters
-are analogous to a variable Eddington factor~\cite{chandrasekhar}.  If the consistency parameters were exact, then the LO
+are analogous to a variable Eddington factor~\cite{chandrasekhar}.  If the consistency parameters are exact, then the LO
 equations are exact, neglecting spatial discretization errors.  This provides the
 potential for the LO equations to correctly reproduce the associated space-angle
 moments of the HO solution. These consistency
@@ -52,7 +52,7 @@ violations~\cite{larsen_mpv}.
 
 Our LO operator is different from the nonlinear
 diffusion acceleration (NDA) methods used by other HOLO methods~\cite{rmc,park,willert}.  In
-NDA methods, an artificial term is added to the LO equations to enforce consistency and estimated using a
+NDA methods, an ad hoc term is added to the LO equations to enforce consistency and estimated using a
 previous HO solution.  In our method we simply algebraically 
 manipulated space-angle moment equations to produce our consistency terms, and then
 introduce a spatial closure. This should produce more

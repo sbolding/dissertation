@@ -2,7 +2,7 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Illustration of linear finite element basis functions $b_{L,i}(x)$ and $b_{R,i}(x)$, for spatial element $i$.\relax }}{21}{figure.caption.7}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Linear-discontinuous trial space for half-range mean intensity and ${\mu >0}$, in LO equations.\relax }}{31}{figure.caption.8}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Linear-discontinuous trial space for half-range mean intensity and ${\mu >0}$, in LO equations.\relax }}{30}{figure.caption.8}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Linear doubly-discontinuous representation for mean intensity in LO equations. \relax }}{40}{figure.caption.9}
 \addvspace {10\p@ }
 \addvspace {10\p@ }

@@ -78,10 +78,13 @@ temperature equation and emission source must be independently lumped with an an
 defintion of the edge values to Eq.~\eqref{eq:lump_rep}. This
 relation preserves the average within a cell but does not correctly reproduce the first moment.  
 
-\section{Newtons Method for the LO Equations}
+\section{Hybrid Picard-Newton Method for the LO Equations}
 \label{app:lo_newton}
 
-This section briefly derives the equations for the Newton's method solution to the nonlinear LO equations, with the LDFE representation of the temperatures, based on the approach in~\cite{morel_ldtrt}.
+This section briefly derives the equations for the Picard-Newton method solution to the nonlinear LO equations,
+with the LDFE representation of the temperatures, based on the approach in~\cite{morel_ldtrt}.  The Picard
+iterations are necessary because material properties are lagged within each Newton Steps, neglecting that portion
+of the Jacobian..
 Because we have only considered problems with constant densities and heat capacities, the
 linearization described below is in terms of temperature $T$ rather than material internal
 energy, for simplicity. However, the linearization can be formed in terms of internal energy
@@ -159,7 +162,7 @@ t}{\rho c_{v}}  \left[ \mom{\phi^{n+1}}_{L,i}  - a c\left(\frac{2}{3} T_{L,i}^{4
 A similar expression is produced for the $R$ moment equation.  This produces a local
 matrix equation to solve for new $T_{L,i}$ and $T_{R,i}$ unknowns.  
 
-Based on these equations, iterations on the value of $T^*$ and unknowns $\phi^{n+1}$ and $T^{n+1}$ can be performed to converge the nonlinearities of the system. The algorithm for solving the LO equations, with iteration index
+Based on these equations, iterations on the value of the $T^*$ and FE unknowns for $\phi^{n+1}$ and $T^{n+1}$ can be performed to converge the nonlinearities of the system. The algorithm for solving the LO equations, with iteration index
 $m$, is defined as
 \begin{enumerate}
     \item Initialize $T^{*,m}$ unknowns using $T^n$ or the last estimate of $T^{n+1}$ from

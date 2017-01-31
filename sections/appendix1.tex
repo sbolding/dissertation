@@ -78,10 +78,13 @@ temperature equation and emission source must be independently lumped with an an
 defintion of the edge values to Eq.~\eqref{eq:lump_rep}. This
 relation preserves the average within a cell but does not correctly reproduce the first moment.  
 
-\section{Newtons Method for the LO Equations}
+\section{Hybrid Picard-Newton Method for the LO Equations}
 \label{app:lo_newton}
 
-This section briefly derives the equations for the Newton's method solution to the nonlinear LO equations, with the LDFE representation of the temperatures, based on the approach in~\cite{morel_ldtrt}.
+This section briefly derives the equations for the Picard-Newton method solution to the nonlinear LO equations,
+with the LDFE representation of the temperatures, based on the approach in~\cite{morel_ldtrt}.  The Picard
+iterations are necessary because material properties are lagged within each Newton Steps, neglecting that portion
+of the Jacobian.
 Because we have only considered problems with constant densities and heat capacities, the
 linearization described below is in terms of temperature $T$ rather than material internal
 energy, for simplicity. However, the linearization can be formed in terms of internal energy

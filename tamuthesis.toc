@@ -27,10 +27,10 @@
 \contentsline {subsection}{\numberline {3.1.5}The Exact Radiation Moment Equations}{26}{subsection.3.1.5}
 \contentsline {subsection}{\numberline {3.1.6}Material Energy Equations}{27}{subsection.3.1.6}
 \contentsline {section}{\numberline {3.2}Closing the LO Equations in Space and Angle}{28}{section.3.2}
-\contentsline {subsection}{\numberline {3.2.1}Angular Closure}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.1}Angular Closure}{28}{subsection.3.2.1}
 \contentsline {subsection}{\numberline {3.2.2}LDFE Spatial Closure}{29}{subsection.3.2.2}
 \contentsline {subsection}{\numberline {3.2.3}Boundary Conditions}{31}{subsection.3.2.3}
-\contentsline {section}{\numberline {3.3}Newton's Method for LO Equations}{32}{section.3.3}
+\contentsline {section}{\numberline {3.3}Newton's Method for LO Equations}{31}{section.3.3}
 \contentsline {section}{\numberline {3.4}Accuracy of LO Equations in the Equilibrium Diffusion Limit}{33}{section.3.4}
 \contentsline {section}{\numberline {3.5}Fixups for Negative Solutions with LDFE Closure}{33}{section.3.5}
 \contentsline {subsection}{\numberline {3.5.1}Balance Preserving Fixup}{35}{subsection.3.5.1}
@@ -46,7 +46,7 @@
 \contentsline {subsection}{\numberline {4.2.1}Projection and Statistical Accuracy of ECMC}{47}{subsection.4.2.1}
 \contentsline {subsection}{\numberline {4.2.2}Adaptive Mesh Refinement}{50}{subsection.4.2.2}
 \contentsline {subsection}{\numberline {4.2.3}Negative Values for the Radiation Intensity}{51}{subsection.4.2.3}
-\contentsline {section}{\numberline {4.3}Systematic Sampling Algorithm for Residual Source}{51}{section.4.3}
+\contentsline {section}{\numberline {4.3}Systematic Sampling Algorithm for Residual Source}{52}{section.4.3}
 \contentsline {section}{\numberline {4.4}Continuous Weight Deposition Tallies}{54}{section.4.4}
 \contentsline {subsection}{\numberline {4.4.1}Face Tallies and Correction Near $\mu =0$}{56}{subsection.4.4.1}
 \contentsline {section}{\numberline {4.5}ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}{57}{section.4.5}
@@ -58,8 +58,8 @@
 \contentsline {section}{\numberline {5.4}Performance Comparison of IMC and HOLO-ECMC}{70}{section.5.4}
 \contentsline {section}{\numberline {5.5}Comparison of Different HO Solvers}{72}{section.5.5}
 \contentsline {section}{\numberline {5.6}Pre-heated Marshak Wave Problem and Adaptive Mesh Refinement}{73}{section.5.6}
-\contentsline {section}{\numberline {5.7}Accuracy in the Equilibrium Diffusion Limit}{75}{section.5.7}
-\contentsline {section}{\numberline {5.8}Accuracy of HO Spatial Closure}{77}{section.5.8}
+\contentsline {section}{\numberline {5.7}Accuracy in the Equilibrium Diffusion Limit}{74}{section.5.7}
+\contentsline {section}{\numberline {5.8}Accuracy of HO Spatial Closure}{76}{section.5.8}
 \contentsline {subsection}{\numberline {5.8.1}Smooth Problem}{77}{subsection.5.8.1}
 \contentsline {subsubsection}{\numberline {5.8.1.1}Issues with the Spatial Closure for HO Solver}{80}{subsubsection.5.8.1.1}
 \contentsline {subsection}{\numberline {5.8.2}Two Material Problem}{81}{subsection.5.8.2}
@@ -102,7 +102,7 @@
 \contentsline {chapter}{APPENDIX \numberline {A}\uppercase {Derivations and Relations for the LO System}}{146}{APPENDIX.a.A}
 \vskip +10pt
 \contentsline {section}{\numberline {A.1}Useful Moment Relations for LO Equations}{146}{section.a.A.1}
-\contentsline {section}{\numberline {A.2}Newtons Method for the LO Equations}{148}{section.a.A.2}
+\contentsline {section}{\numberline {A.2}Hybrid Picard-Newton Method for the LO Equations}{148}{section.a.A.2}
 \contentsline {subsection}{\numberline {A.2.1}Damped Newton Iterations}{151}{subsection.a.A.2.1}
 \contentsline {chapter}{APPENDIX \numberline {B}\uppercase {Derivations for High-Order Solver}}{153}{APPENDIX.a.B}
 \vskip +10pt

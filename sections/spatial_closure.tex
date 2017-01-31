@@ -2,7 +2,7 @@
 \section{Spatial Closure Based on the HO Solution}
 \label{sec:spat_clos}
 
-This sections describes an alternative spatial closure to the LO equations with
+This section describes an alternative spatial closure to the LO equations with
 a parametric relation determined with the HO solution. In addition to estimating the angular
 consistency terms, the HO intensity is used to estimate a relation between volume and face-averaged
 intensities to eliminate the face unknowns from the LO equations. 
@@ -33,7 +33,7 @@ Eq.~\eqref{eq:exact_lmomp}~and~\eqref{eq:exact_rmomp}, i.e.,
     {\sigma_{a,i}h_i} \phi_i^+ = \frac{h_i}{2} q_i,
 \end{equation}
 where $q_i$ represents the cell-averaged emission source.  In the HOLO algorithm, after
-estimating the consistency terms $\mu_{i\pm1/2}^+$ upwinding the inflow term
+estimating the consistency terms $\mu_{i\pm1/2}^+$, upwinding the inflow term
 $\phi_{i-1/2}^+$, an additional equation is needed to eliminate the outflow $\phi_{i+1/2}^+$ to produce an
 equation for a single unknown $\phi_{i}^+$.  Standard spatial discretizations techniques
 use a fixed approximation for all cells to eliminate the outflow in terms of other
@@ -49,7 +49,7 @@ the value of $\gamma^{HO}_i$ can be determined directly.
 
 If the problem were linear, or the nonlinear problem was fully converged,
 then application of this closure can ensure that the HO and LO equations produce the same
-moments, preserving the HO accuracy.  To produce the
+moments, preserving the HO solution.  To produce the
 same zeroth moment, the HO solution must also satisfy the local balance equation, e.g.,
 Eq.~\eqref{eq:hr_bal}.  Then the LO equations and HO equations will have the same moments
 to satisfy both Eq.~\eqref{eq:ho_clos} and Eq.~\eqref{eq:hr_bal}, upon nonlinear
@@ -133,9 +133,8 @@ those moments.
 The temperature is still represented with a linear interpolant of $T^4$ and $T$.  This
 trial space has an extra unknown in the radiation equations for each cell and direction, which is eliminated
 from the system with the HO spatial closure.  The ECMC algorithm is modified to also
-include a LDD trial space which allows for estimate of the solution at faces, as discussed
+include a LDD trial space which allows for estimation of the solution at faces, as discussed
 later in Sec~\ref{sec:ldd_mc}. 
-
 \begin{figure}[H]
     \centering
     {\resizebox{0.5\textwidth}{!}{

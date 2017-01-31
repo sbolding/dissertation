@@ -143,18 +143,18 @@ Michael~Scott McKinley, Eugene~D Brooks~III, and Abraham Szoke.
   transport with frequency weight vector extension.
 \newblock {\em Journal of Computational Physics}, 189(1):330--349, 2003.
 
+\bibitem{diff_limit_imc}
+Jeffery~D. Densmore.
+\newblock Asymptotic analysis of the spatial discretization of radiation
+  absorption and re-emission in implicit {M}onte {C}arlo.
+\newblock {\em Journal of Computational Physics}, 230(4):1116 -- 1133, 2011.
+
 \bibitem{wollaeger_ld}
 Ryan~T Wollaeger, Allan~B Wollaber, Todd~J Urbatsch, and Jeffery~D Densmore.
 \newblock Implicit {M}onte {C}arlo with a linear discontinuous finite element
   material solution and piecewise non-constant opacity.
 \newblock {\em Journal of Computational and Theoretical Transport}, pages
   00--00, 2016.
-
-\bibitem{diff_limit_imc}
-Jeffery~D. Densmore.
-\newblock Asymptotic analysis of the spatial discretization of radiation
-  absorption and re-emission in implicit {M}onte {C}arlo.
-\newblock {\em Journal of Computational Physics}, 230(4):1116 -- 1133, 2011.
 
 \bibitem{wolters}
 E.R. Wolters.

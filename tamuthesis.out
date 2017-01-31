@@ -88,7 +88,7 @@
 \BOOKMARK [0][-]{section*.49}{REFERENCES}{}% 88
 \BOOKMARK [0][-]{APPENDIX.a.A}{APPENDIX Derivations and Relations for the LO System}{}% 89
 \BOOKMARK [1][-]{section.a.A.1}{Useful Moment Relations for LO Equations}{APPENDIX.a.A}% 90
-\BOOKMARK [1][-]{section.a.A.2}{Newtons Method for the LO Equations}{APPENDIX.a.A}% 91
+\BOOKMARK [1][-]{section.a.A.2}{Hybrid Picard-Newton Method for the LO Equations}{APPENDIX.a.A}% 91
 \BOOKMARK [2][-]{subsection.a.A.2.1}{Damped Newton Iterations}{section.a.A.2}% 92
 \BOOKMARK [0][-]{APPENDIX.a.B}{APPENDIX Derivations for High-Order Solver}{}% 93
 \BOOKMARK [1][-]{section.a.B.1}{Analytic Error Contribution for LDD Trial Space}{APPENDIX.a.B}% 94

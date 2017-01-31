@@ -100,7 +100,8 @@ r^{(m),k+1/2} = \frac{\sigma_s}{2} \phi^{n+1,k} +\frac{1}{2} \left(\sigma_a a c 
 \left(\sigma_t^k + \frac{1}{c \Delta t }\right) \tilde{I}^{n+1,k+1/2}\right)^{(m)}
 \end{multline}
 where the $k$ terms have a LDFE representation in space on the coarsest mesh and are not recalculated at any point during
-the HO solve.  The LDFE functional form of $\tilde{I}^n$ is defined from the final HO
+the HO solve.  The spatial derivative in the streaming term produces $\delta$-functions due to the discontinuities in the trial space.
+The LDFE functional form of $\tilde{I}^n$ is defined from the final HO
 solution of the previous time step.  The HOLO iteration indices are suppressed for the
 remainder of this chapter because the LO-estimated $q^{k}$ and $\B L^{k}$
 \emph{remain constant for the entire HO solve}.
@@ -183,14 +184,14 @@ result to the previous solution yields the desired moments of the exact solution
 where the above expression is equal in the limit of an infinite number of histories,
 within a single batch.  
 
-A MC batch provide a standard MC transport estimate of moments of the error.  Each batch
+A MC batch provides a standard MC transport estimate of moments of the error.  Each batch
 estimate of the moments of $\epsilon$ has a statistical uncertainty that, with sufficient
 sampling, is governed by the standard $1/\sqrt{N}$ convergence rate~\cite{shultis_mc}, for a
 particular source $r^{(m)}$, where $N$ is the number of histories performed.  If the statistical estimate of the projection $\tilde\epsilon$ is not sufficiently
 accurate, then the iterations would diverge. It is noted that there is statistical correlation across batches because
 $I^{n+1,(m+1)}$ and $\epsilon^{(m)}$ are correlated through $I^{n+1,(m)}$ and the MC source $r^{(m)}$.  
 A general proof of exponential
-convergence for related adaptive MC transport methods is depicted in~\cite{spanier_mc}.  
+convergence for related adaptive MC transport methods is given in~\cite{spanier_mc}.  
 
 Because the intensity is saved between time steps, there is correlation that
 can not be easily measured.  However, within a batch, the statistical uncertainty in moments of $\epsilon^{(m)}$ can be estimated with the
@@ -418,7 +419,7 @@ average score from all histories:
 where $N_b$ is the number of particle histories performed within that batch.
 
 
-\subsection{Face Tallies and correction near $\mu=0$}
+\subsection{Face Tallies and Correction Near $\mu=0$}
 \label{sec:face_tallies}
 
 Face-averaged estimators of $\epsilon(x,\mu)$ are required to compute the outflow for
@@ -459,7 +460,7 @@ For negative $\mu$, $\overline{1/\mu}=-2/\mu_{cut}$.
 All particles in the range $(0,|\mu_{cut}|)$ contribute the expected score by evaluating
 the appropriate estimator at $\pm\mu = \pm2/\mu_{cut}$.  It is noted that the first angular moment would be well behaved, but it is inconsistent to only modify the zeroth 
 moment in the $I_\mu$ estimators. Additionally, assuming an isotropic intensity near $\mu=0$ helps to limit
-the first $\mu$ moment, where the LD trial space often cannot resolve the solution anyways.
+the first $\mu$ moment, where the LD trial space often cannot resolve the solution anyway.
 
 
 \section{ECMC Solution with Linear Doubly-Discontinuous FE Trial Space}
