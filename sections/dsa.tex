@@ -43,7 +43,7 @@ inflow to the $i$-th cell is defined from the previous cell or boundary conditio
 of equations can be solved for the $\mom{\phi}_{L,i}^+$ and $\mom{\phi}_{R,i}^+$ unknowns.
 The negative direction unknowns are
 determined similarly, starting from the
-right boundary towards the left.  The newly computed half-range
+right boundary and proceeding towards the left.  The newly computed half-range
 intensities can then be used to estimate the scattering source for the next iteration.  This
 process is repeated until convergence.  
 
@@ -104,7 +104,7 @@ iteration are
 \begin{align}
     \B M \u \psi^{l+1/2} &= \frac{1}{2}\B S \u \psi^{l} + \u Q \\
     \B D \delta \u\phi^{l+1/2} &= \B S (\u\psi^{l+1/2} - \u\psi^{l}) \label{eq:dsa_oper} \\
-     \u \psi^{l+1} &= \u \psi^{l+1/2} + \delta \u \phi^{l+1/2},
+    \u \psi^{l+1} &= \u \psi^{l+1/2} + \frac{1}{2}\delta \u \phi^{l+1/2},
 \end{align}
 where $\delta \phi$ represents the error in the mean intensity unknowns.
 The operator $\B D$ represents a diffusion-like approximation to the transport equation. The DSA equations contain a standard
@@ -117,7 +117,7 @@ It is important for the spatial discretization of Eq.~\eqref{eq:dsa_oper} to be 
 acceleration to be effective and stable~\cite{adams_dsa}.  The WLA method first solves a spatially-continuous
 discretization of the diffusion equation
 for the error at faces $\{x_{i+1/2}:\; i=0,1,\ldots,N_c\}$.  The error on the faces is then mapped onto the
-volumetric moment unknowns via a LD discretization of the P$_1$ equations~\cite{wla}.
+volumetric moment errors via a LD discretization of the P$_1$ equations~\cite{wla}.
 The LD mapping resolves issues that would occur in optically-thick cells, and the
 continuous diffusion equation is accurate in the EDL where acceleration is important~\cite{adams_dsa}.
 
@@ -153,7 +153,7 @@ by the LO unknowns.
 %source $\mom{q}_{R,i} = \sigma_{s,i}\left({\phi^{l+1/2}}_{R,i} -
 %    \phi^{l}_{R,i}\right) $. 
 
-The upwinding in the LO system exactly satisfies the inflow boundary conditions, therefore
+The LO iteratre exactly satisfies the inflow boundary conditions, therefore
 a vacuum boundary condition is applied to the diffusion error equations.
 Application of Eq.~\eqref{eq:dsa_bc_app} gives the left boundary condition:
 \begin{equation}\label{eq:bc_dsa}
@@ -179,19 +179,18 @@ approximate inflow to each cell, which is inconsistent with the partial outflows
 adjacent cells.  Thus, overall, our algorithm will only conserve energy to the order of
 scattering iteration convergence.
 
-Because we are interested in the time-dependent solution, we need to accelerate the solution for the
+Because we are interested in the time-dependent solution, we need to update the solution for the
 half-range intensities, rather than just the zeroth moment. We do not accelerate the first
 moment of the angular intensity, as the solution for $\Delta J$ is inaccurate due to the
-approximations introduced.  The error in the half-range moments, using
-the lumping notation\footnote{The $\theta$ is different for lumped LD or standard LD
-    discretization of the DSA equations, independent of the discretization in the LO
-equations.} 
-\begin{align}\label{eq:up1}
-    \mom{\delta \phi}^{\pm}_L =&  \frac{1+\theta}{4}\delta \phi^{\pm}_{L} +
-    \frac{1-\theta}{4}\delta \phi^{\pm}_{R}  \\ \label{eq:up2}
-    \mom{\delta \phi}^{\pm}_R =&  \frac{1-\theta}{4}\delta \phi^{\pm}_{L} +
-    \frac{1+\theta}{4}\delta \phi^{\pm}_{R}      ,
+approximations introduced.  The LD edge values for the error must be mapped onto the corresponding spatial moments.
+The updated half-range moments for each cell, as derived in the appendix, using
+the lumping notation is\begin{align}\label{eq:up1}
+    \mom{\psi}_{L}^{\pm,l+1} &= \mom{\psi}_{L}^{\pm,l+1/2} + \frac{1}{2}\left[ \frac{1+\theta}{4}\delta \phi_{L}^{l+1/2} +
+    \frac{1-\theta}{4}\delta \phi_{R}^{l+1/2} \right] \\ \label{eq:up2}
+    \mom{\psi}_{R}^{\pm,l+1} &= \mom{\psi}_{L}^{\pm,l+1/2} + \frac{1}{2}\left[ \frac{1-\theta}{4}\delta \phi^{l+1/2}_{L} +
+\frac{1+\theta}{4}\delta \phi^{l+1/2}_{R}  \right]    .
 \end{align}
+
 
 \subsection{The WLA-DSA Accelerated Source Iteration Algorithm}
 
@@ -210,10 +209,10 @@ The source iteration with linear DSA procedure, for the $m$-th Newton iteration,
     \item Solve continuous DSA equations, i.e., Eqs.~\eqref{eq:dsa_lumped}, \eqref{eq:bc_dsar},
 and~\eqref{eq:dsa_lumped}, for \\${\{\delta
             \phi^{l+1/2}_{i+1/2}:\;i=0,1,\ldots,N_c\}}$.
-        \item Map the continuous error onto the moment unknowns, via
+        \item Map the continuous error onto the moment errors, via
             Eq.~\eqref{eq:update1}--\eqref{eq:update2}.
     \end{itemize}
-\item Add correction to the moment unknowns with Eq.~\eqref{eq:up1} and~\eqref{eq:up2}.
+\item Add correction to the moment unknowns via Eq.~\eqref{eq:up1} and~\eqref{eq:up2} to produce $\u \psi^{l+1} = \u\psi^{l+1/2} + \frac{1}{2}\delta \u\phi^{l+1/2}$
     \item\label{en:dsa_end} If $\|\u \psi^{l+1} - \u \psi^{l} \|_2 < $ tolerance $\|\u
         \psi^{l+1} \|_2$, then
         exit. Else, repeat steps~\ref{en:dsa_beg}--\ref{en:dsa_end}.
@@ -284,7 +283,7 @@ and~\ref{en:dsa2} are removed.
 \section{Computational Results}
 
 We have tested the iterative solution methods for three test problems and compare the average number
-of scattering iterations to converge.   For each simulation, three batches of 10,000 particles are ran for each HO
+of scattering iterations to converge.   For each simulation, three batches of 10,000 particles are ran for 
 the single  HO solve per time step, and 200 spatial cells were used.   The average number of source iterations per
 Newton step is recorded, as well as the total number of Newton
 iterations per time step (there are two LO solves per time step).  The initial guess for
@@ -303,7 +302,7 @@ The first test problem is the two material
 problem in Sec~\ref{sec:two}.     The time step is increased linearly by 15\% each time step from $\Delta
 t=0.001$ sh to reach a maximum time step size of $0.01$ sh.  The large time step sizes
 increases the magnitude of the effective scattering cross section.
-Table~\ref{tab:twomat_dsa_iters} compares iteration counts each method: unaccelerated
+Table~\ref{tab:twomat_dsa_iters} gives iteration counts for each method: unaccelerated
 source iteration (SI), source iteration with DSA (SI-DSA), unaccelerated GMRES (GMRES),
 and GMRES with DSA preconditioning (GMRES-DSA).  As demonstrated, DSA improves the
 convergence of the source iteration method.  The preconditioned GMRES was more efficient
@@ -314,7 +313,7 @@ specifications are the same as before except for modifications to the cross sect
 $x>0.5$ cm; in the right half of the domain, the
 parameters are $\sigma_a = 20,000$ cm$^{-1}$, $\sigma_s=500 $ cm$^{-1}$.  This problem is
 highly diffusive and nonlinear. The Newton method required damping with a damping factor of $0.6$ to
-stably converge.  Table~\ref{tab:twomat_hard_dsa_iters} compares the iterations
+stably converge.  Table~\ref{tab:twomat_hard_dsa_iters} gives the iteration counts.
 Overall, the damping increases the number of Newton steps, as expected. For this problem,
 acceleration is much more critical, reducing the number of scattering iterations by a
 factor of 100.  

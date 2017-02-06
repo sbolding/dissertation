@@ -252,6 +252,8 @@ histories per time step. Visually
 there is agreement between all of the fixup methods. 
 \begin{table}[h]
     \centering
+    \caption{\label{tab:twomat_fixups}Comparison of sample statistics for different HO fixup
+methods applied to the two material problem. Simulation end time is $t=2$ sh.}
     \begin{tabular}{|c|cc|} \hline
   Fixup  Method & \ss & \FOM  \\ \hline \hline
     \multicolumn{3}{|c|}{$30,000$ histories per time step} \\ \hline
@@ -265,8 +267,6 @@ S$_2$ fixup & 0.0055\% & 5.29 \\
 Rotate Last Batch & 0.0061\% & 4.33 \\
 Rotate Every Batch &  0.0066\% & 3.67  \\ \hline
     \end{tabular}
-    \caption{\label{tab:twomat_fixups}Comparison of sample statistics for different HO fixup
-methods applied to the two material problem. Simulation end time is $t=2$ sh.}
 \end{table}
 \begin{figure}[h]
 \begin{subfigure}{0.7\textwidth}
