@@ -33,7 +33,7 @@ convergence results are compared for several test problems.
 \label{sec:si}
 
 The time-discrete LO equations, after linearization, can be solved with a source iteration
-method~\cite{lewis,morel_dsa,mcclarren_notes}.  In the source iteration
+method~\cite{lewis,larson_morel_sn,mcclarren_notes}.  In the source iteration
 process the scattering source is lagged, which
 uncouples unknowns between the two half ranges.  This produces a lower-triangular
 system where the spatial unknowns can be solved for sequentially along the two directions of flow via a
@@ -136,7 +136,7 @@ LD, and $\theta=1$ for lumped LD.  With suppression of the time indices, the dif
         \frac{h_{i}}{2}\mom{q}_{R,i}
         \;\,. 
 \end{multline}
-The source in Eq.~\eqref{eq:dsa_lumped} is the residual for a given scattering iteration~\cite{morel_dsa,lewis}
+The source in Eq.~\eqref{eq:dsa_lumped} is the residual for a given scattering iteration~\cite{larson_morel_sn,lewis}
 \begin{equation}\label{eq:dsa_src}
     \mom{q}_{L/R,i} = \sigma_{s,i}\left(\mom{\phi^{l+1/2}}_{L/R,i} -
     \mom{\phi^{l}}_{L/R,i}\right).
@@ -239,7 +239,7 @@ operation of $\B S$ and $\B M^{-1}$ as detailed in Sec.~\eqref{sec:si} to apply 
 I  - \B M^{-1}\B S\right)$ to the generated Krylov vectors. 
 
 The GMRES method will generally converge faster than the source iteration
-procedure~\cite{morel_dsa}.  However, as the system becomes scattering dominated,
+procedure~\cite{larson_morel_sn}.  However, as the system becomes scattering dominated,
 convergence will degrade.  To improve the convergence rate, we precondition the GMRES
 system with a solution of the WLA-DSA equations.  The goal of preconditioning is to efficiently apply an
 operator to the equation that will approximate the inverse of the matrix operator. Left

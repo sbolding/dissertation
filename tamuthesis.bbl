@@ -8,9 +8,9 @@ Jeffrey Willert and H.~Park.
 
 \bibitem{bolding_nse}
 S.R. Bolding, M.~Cleveland, and J.E. Morel.
-\newblock {A High-Order Low-Order Algorithm with Exponentially-Convergent Monte
-  Carlo for Thermal Radiative Transfer}.
-\newblock {\em Nuclear Science \& Engineering: M\&C 2015 Special Issue}, Jan.
+\newblock A high-order low-order algorithm with exponentially-convergent
+  {M}onte {C}arlo for thermal radiative transfer.
+\newblock {\em {Nuclear Science \& Engineering: M\&C 2015 Special Issue}}, Jan.
   2017.
 
 \bibitem{holo_rh}
@@ -21,20 +21,20 @@ Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
 
 \bibitem{willert}
 J.~Willert, C.T. Kelly, D.A. Knoll, and H.~Park.
-\newblock {A Hybrid Approach to the Neutron Transport k-Eigenvalue Problem
-  using NDA-based Algorithms}.
+\newblock A hybrid approach to the neutron transport k-eigenvalue problem using
+  {NDA}-based algorithms.
 \newblock M\&C. Sun Valley, ID, 2013.
 
 \bibitem{park}
 H.~Park, J.D. Densmore, A.B. Wollaber, D.A. Knoll, and R.M. Ramenzahn.
-\newblock {{M}onte {C}arlo Solution Methods in a Moment-Based Scale-Bridging
-  Algorithm For Thermal Radiative Transfer Problems}.
+\newblock {M}onte {C}arlo solution methods in a moment-based scale-bridging
+  algorithm for thermal radiative transfer problems.
 \newblock M\&C. Sun Valley, ID, 2013.
 
 \bibitem{ans_2014}
 S.R. Bolding and J.E. Morel.
-\newblock {A High-Order Low-Order Algorithm with Exponentially-Convergent Monte
-  Carlo for $k$-Eigenvalue problems}.
+\newblock A high-order low-order algorithm with exponentially-convergent
+  {M}onte {C}arlo for $k$-eigenvalue problems.
 \newblock ANS Winter Meeting. Anaheim, CA, 2014.
 
 \bibitem{fnc}
@@ -51,12 +51,12 @@ Dimitri Mihalas and Barbara Weibel-Mihalas.
 \bibitem{radhydro_code}
 James~M Stone and Michael~L Norman.
 \newblock {ZEUS-2D}: A radiation magnetohydrodynamics code for astrophysical
-  flows in two space dimensions. i-the hydrodynamic algorithms and tests.
+  flows in two space dimensions. {I-T}he hydrodynamic algorithms and tests.
 \newblock {\em The Astrophysical Journal Supplement Series}, 80:753--790, 1992.
 
 \bibitem{os_rh}
 Samet~Y Kadioglu, Dana~A Knoll, Robert~B Lowrie, and Rick~M Rauenzahn.
-\newblock A second order self-consistent imex method for radiation
+\newblock A second order self-consistent {IMEX} method for radiation
   hydrodynamics.
 \newblock {\em Journal of Computational Physics}, 229(22):8313--8332, 2010.
 
@@ -79,8 +79,8 @@ E.F. Toro.
 
 \bibitem{morel_ldtrt}
 J.E. Morel, T.A. Wareing, and K.~Smith.
-\newblock {Linear-Discontinuous Spatial Differencing Scheme for $S_n$ Radiative
-  Transfer Calculations}.
+\newblock Linear-discontinuous spatial differencing scheme for {S}$_n$
+  radiative transfer calculations.
 \newblock {\em Journal of Computational Physics}, 128:445--462, 1996.
 
 \bibitem{larsen_edl}
@@ -198,7 +198,7 @@ Thomas~JR Hughes.
 
 \bibitem{morel_notes}
 Jim Morel.
-\newblock {Neutron Transport Theory}.
+\newblock Neutron transport theory.
 \newblock Class Lecture Notes. Unpublished, 2014.
 
 \bibitem{ferguson}
@@ -233,14 +233,14 @@ Jeffrey~A Favorite, Ashley~D Thomas, and Thomas~E Booth.
 
 \bibitem{jayenne}
 T.J. Urbatsch and T.M. Evans.
-\newblock {Milagro Version 2 An Implicit {M}onte {C}arlo Code for Thermal
-  Radiative Transfer: Capabilities, Development, and Usage}.
+\newblock Milagro version 2: An implicit {M}onte {C}arlo code for thermal
+  radiative transfer: Capabilities, development, and usage.
 \newblock Los Alamos National Laboratory Report LA-14195-MS, 2006.
 
 \bibitem{wla}
 T.A. Wareing, E.W. Larsen, and M.L. Adams.
-\newblock {Asymptotic Diffusion Accelerated Discontinuous Finite Element
-  Schemes for the S$_N$ Equations in Slab and X-Y Geometries}.
+\newblock Asymptotic diffusion accelerated discontinuous finite element schemes
+  for the {S}$_n$ equations in slab and {X-Y} geometries.
 \newblock In {\em {International Topical Meeting on Advances in Mathematics,
   Computations, Reactor Physics}}, volume~3, Pittsburgh, PA, 1991.
 
@@ -255,11 +255,6 @@ T.A. Wareing.
 \newblock Advances in discrete-ordinates methodology.
 \newblock {\em Nuclear Computational Science. Springer Netherlands}, pages
   1--–84, 2010.
-
-\bibitem{morel_dsa}
-Edward~W Larsen and Jim~E Morel.
-\newblock Advances in discrete-ordinates methodology.
-\newblock In {\em Nuclear Computational Science}, pages 1--84. Springer, 2010.
 
 \bibitem{mcclarren_notes}
 Ryan McClarren.
@@ -279,9 +274,9 @@ Yousef Saad.
 
 \bibitem{cheuk}
 C.Y. Lau and M.L. Adams.
-\newblock {Discrete Ordinates Quadratures Based on Linear and Quadratic
-  Discontinuous Finite Elements over Spherical Quadrilaterals}.
-\newblock {\em Nuclear Science \& Engineering: M\&C 2015 Special Issue}, Jan.
+\newblock Discrete ordinates quadratures based on linear and quadratic
+  discontinuous finite elements over spherical quadrilaterals.
+\newblock {\em {Nuclear Science \& Engineering: M\&C 2015 Special Issue}}, Jan.
   2017.
 
 \bibitem{abramowitz}

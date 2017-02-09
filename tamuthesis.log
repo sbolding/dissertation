@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 FEB 2017 21:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  8 FEB 2017 21:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1313,14 +1313,14 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 ] [99] [100] [101] [102]
-<figures/neut_ang_full.pdf, id=2303, 462.52798pt x 361.35pt>
+<figures/neut_ang_full.pdf, id=2302, 462.52798pt x 361.35pt>
 File: figures/neut_ang_full.pdf Graphic file (type pdf)
 
 <use figures/neut_ang_full.pdf>
 Package pdftex.def Info: figures/neut_ang_full.pdf used on input line 198.
 (pdftex.def)             Requested size: 297.99547pt x 232.81808pt.
 
-<figures/neut_ang_zoom.pdf, id=2304, 462.52798pt x 361.35pt>
+<figures/neut_ang_zoom.pdf, id=2303, 462.52798pt x 361.35pt>
 File: figures/neut_ang_zoom.pdf Graphic file (type pdf)
 
 <use figures/neut_ang_zoom.pdf>
@@ -1330,14 +1330,14 @@ Package pdftex.def Info: figures/neut_ang_zoom.pdf used on input line 203.
 
 pdfTeX warning: pdflatex (file ./figures/neut_ang_zoom.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
->] <figures/twomat_fixups.pdf, id=4466, 511.82936pt x 408.27531pt>
+>] <figures/twomat_fixups.pdf, id=4465, 511.82936pt x 408.27531pt>
 File: figures/twomat_fixups.pdf Graphic file (type pdf)
 
 <use figures/twomat_fixups.pdf>
 Package pdftex.def Info: figures/twomat_fixups.pdf used on input line 274.
 (pdftex.def)             Requested size: 297.99547pt x 237.70938pt.
 
-<figures/twomat_fixups_zoom.pdf, id=4467, 523.4666pt x 408.27531pt>
+<figures/twomat_fixups_zoom.pdf, id=4466, 523.4666pt x 408.27531pt>
 File: figures/twomat_fixups_zoom.pdf Graphic file (type pdf)
 
 <use figures/twomat_fixups_zoom.pdf>
@@ -1348,14 +1348,14 @@ Package pdftex.def Info: figures/twomat_fixups_zoom.pdf used on input line 279.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<figures/marshak_fixups.pdf, id=4470, 519.71822pt x 408.27531pt>
+<figures/marshak_fixups.pdf, id=4469, 519.71822pt x 408.27531pt>
 File: figures/marshak_fixups.pdf Graphic file (type pdf)
 
 <use figures/marshak_fixups.pdf>
 Package pdftex.def Info: figures/marshak_fixups.pdf used on input line 319.
 (pdftex.def)             Requested size: 297.99547pt x 234.10858pt.
 
-<figures/marshak_fixups_zoom.pdf, id=4471, 523.33328pt x 408.27531pt>
+<figures/marshak_fixups_zoom.pdf, id=4470, 523.33328pt x 408.27531pt>
 File: figures/marshak_fixups_zoom.pdf Graphic file (type pdf)
 
 <use figures/marshak_fixups_zoom.pdf>
@@ -1385,14 +1385,14 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 
 
 ] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120] [121]
-<figures/void_imc_compare.pdf, id=4852, 553.45363pt x 408.27531pt>
+<figures/void_imc_compare.pdf, id=4851, 553.45363pt x 408.27531pt>
 File: figures/void_imc_compare.pdf Graphic file (type pdf)
 
 <use figures/void_imc_compare.pdf>
 Package pdftex.def Info: figures/void_imc_compare.pdf used on input line 450.
 (pdftex.def)             Requested size: 279.50218pt x 206.18674pt.
  [122] [123 <./figures/void_imc_compare.pdf>] <figures/void_temp_batch_compare.
-pdf, id=4936, 552.44987pt x 408.27531pt>
+pdf, id=4935, 552.44987pt x 408.27531pt>
 File: figures/void_temp_batch_compare.pdf Graphic file (type pdf)
 
 <use figures/void_temp_batch_compare.pdf>
@@ -1400,7 +1400,7 @@ Package pdftex.def Info: figures/void_temp_batch_compare.pdf used on input line
  499.
 (pdftex.def)             Requested size: 322.50554pt x 238.34482pt.
  [124]
-<figures/void_ang_compare.pdf, id=4941, 553.45363pt x 408.27531pt>
+<figures/void_ang_compare.pdf, id=4940, 553.45363pt x 408.27531pt>
 File: figures/void_ang_compare.pdf Graphic file (type pdf)
 
 <use figures/void_ang_compare.pdf>
@@ -1408,21 +1408,21 @@ Package pdftex.def Info: figures/void_ang_compare.pdf used on input line 507.
 (pdftex.def)             Requested size: 322.50554pt x 237.90874pt.
  [125 <./figures/void_temp_batch_compare.pdf>] [126 <./figures/void_ang_compare
 .pdf>]
-<figures/thin_temp_compare.pdf, id=5094, 552.44987pt x 414.17235pt>
+<figures/thin_temp_compare.pdf, id=5093, 552.44987pt x 414.17235pt>
 File: figures/thin_temp_compare.pdf Graphic file (type pdf)
 
 <use figures/thin_temp_compare.pdf>
 Package pdftex.def Info: figures/thin_temp_compare.pdf used on input line 615.
 (pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
  [127 <./figures/thin_temp_compare.pdf>]
-<figures/thin_30k_fails.pdf, id=5178, 552.44987pt x 414.17235pt>
+<figures/thin_30k_fails.pdf, id=5177, 552.44987pt x 414.17235pt>
 File: figures/thin_30k_fails.pdf Graphic file (type pdf)
 
 <use figures/thin_30k_fails.pdf>
 Package pdftex.def Info: figures/thin_30k_fails.pdf used on input line 662.
 (pdftex.def)             Requested size: 322.50554pt x 241.78741pt.
  [128] [129 <./figures/thin_30k_fails.pdf>]
-<figures/marshak_time_cont_compare.pdf, id=5247, 552.44987pt x 414.17235pt>
+<figures/marshak_time_cont_compare.pdf, id=5246, 552.44987pt x 414.17235pt>
 File: figures/marshak_time_cont_compare.pdf Graphic file (type pdf)
 
 <use figures/marshak_time_cont_compare.pdf>
@@ -1452,6 +1452,11 @@ Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
 \openout2 = `bibliography.aux'.
 
  (./bibliography.tex (./tamuthesis.bbl
+Underfull \hbox (badness 1527) in paragraph at lines 35--39
+[]\OT1/cmr/m/n/12 S.R. Bold-ing and J.E. Morel.  A high-order low-order al-go-r
+ithm with
+ []
+
 [140
 
 
@@ -1537,10 +1542,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 24289 strings out of 493089
- 440162 string characters out of 6134842
- 575571 words of memory out of 5000000
- 26596 multiletter control sequences out of 15000+600000
+ 24287 strings out of 493089
+ 440137 string characters out of 6134842
+ 575539 words of memory out of 5000000
+ 26595 multiletter control sequences out of 15000+600000
  14817 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,13n,59p,823b,738s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1561,10 +1566,10 @@ e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2015/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on tamuthesis.pdf (175 pages, 1578122 bytes).
+Output written on tamuthesis.pdf (175 pages, 1577993 bytes).
 PDF statistics:
- 5757 PDF objects out of 6186 (max. 8388607)
- 2451 compressed objects within 25 object streams
- 623 named destinations out of 1000 (max. 500000)
+ 5756 PDF objects out of 6186 (max. 8388607)
+ 2450 compressed objects within 25 object streams
+ 622 named destinations out of 1000 (max. 500000)
  920 words of extra memory for PDF output out of 10000 (max. 10000000)
 
