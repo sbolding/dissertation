@@ -12,7 +12,6 @@ S.R. Bolding, M.~Cleveland, and J.E. Morel.
   Carlo for Thermal Radiative Transfer}.
 \newblock {\em Nuclear Science \& Engineering: M\&C 2015 Special Issue}, Jan.
   2017.
-\newblock Forthcoming.
 
 \bibitem{holo_rh}
 Allan~B. Wollaber, H.~Park, R.B. Lowrie, R.M. Rauenzahn, and M.E. Cleveland.
@@ -199,8 +198,8 @@ Thomas~JR Hughes.
 
 \bibitem{morel_notes}
 Jim Morel.
-\newblock Neutron transport theory.
-\newblock Class Lecture Notes, 2014.
+\newblock {Neutron Transport Theory}.
+\newblock Class Lecture Notes. Unpublished, 2014.
 
 \bibitem{ferguson}
 Jim~Michael Ferguson.
@@ -277,6 +276,13 @@ Marvin Adams and William Martin.
 Yousef Saad.
 \newblock {\em Iterative methods for sparse linear systems}.
 \newblock Siam, 2003.
+
+\bibitem{cheuk}
+C.Y. Lau and M.L. Adams.
+\newblock {Discrete Ordinates Quadratures Based on Linear and Quadratic
+  Discontinuous Finite Elements over Spherical Quadrilaterals}.
+\newblock {\em Nuclear Science \& Engineering: M\&C 2015 Special Issue}, Jan.
+  2017.
 
 \bibitem{abramowitz}
 Milton Abramowitz and Irene~A Stegun.

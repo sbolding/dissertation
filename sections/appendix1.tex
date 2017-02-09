@@ -30,11 +30,11 @@ $b_{L,i}(x)+b_{R,i}(x)=1$ as follows:
     \phi_{i} &= \frac{1}{h_i} \int\limits_\xl^\xr 1 \;\phi(x) \dd x \\
              &= \frac{1}{h_i} \left(\int\limits_\xl^\xr b_{L,i}(x) \phi(x) \dd x +
              \int\limits_\xl^\xr b_{R,i}(x) \phi(x) \dd x \right)\\
-             &= \frac{1}{2} \left( \mom{\phi}_{L,i} + \mom{\phi}_{R,i} \right)
+             &= \frac{1}{2} \left( \mom{\phi}_{L,i} + \mom{\phi}_{R,i} \right).
 \end{align}
-A similar relation between the first moment and the $L$ and $R$ moments as
+A similar relation between the first moment and the $L$ and $R$ moments is
 \begin{equation}
-    {\phi}_{x,i} = \frac{3}{2} \left(\mom{\phi}_{R,i} - \mom{\phi}_{L,i}\right)
+    {\phi}_{x,i} = \frac{3}{2} \left(\mom{\phi}_{R,i} - \mom{\phi}_{L,i}\right).
 \end{equation}
 The above relations can be inverted to derived a relation for the $L$ and $R$ moments in terms of the slope
 and average moments.  These moment expressions are defined purely in terms of integrals,
@@ -57,7 +57,7 @@ and
     \phi_{i,L}^+ = 2 \mom{\phi}_{L,i}^+ - \mom{\phi}_{R,i}^+.
 \end{equation}
 As in the standard LDFE discretization with upwinding (for $\mu>0$) we make the
-approximations $\phi_{i+1/2}^=\phi_{i,R}$ and $\phi_{i-1/2}^+=\phi_{i-1,R}$. Substitution
+approximations $\phi_{i+1/2}^+=\phi_{i,R}^+$ and $\phi_{i-1/2}^+=\phi_{i-1,R}^+$. Substitution
 of the above expressions into the LO equations produce
 equations exclusively in terms of moment unknowns.  The solution to these equations produces a linear
 representation over each cell that is equivalent to those of a standard LDFE Galerkin
@@ -96,7 +96,7 @@ Application of the first order Taylor expansion in time to the
 implicit emission source $\sigma_a a c (T^{n+1})^4$, about some temperature $T^*$ at some
 time $t^*\in[t^{n},t^{n+1}]$, yields
 \begin{equation}\label{new_planck}
-    \sigma_a^{n+1} a c T^{4,n+1} \simeq \sigma_a^* a c \left[T^{*4} + (T^{n+1} - T^*) 4T^{*3} \right]
+    \sigma_a^{n+1} a c T^{4,n+1} \simeq \sigma_a^* a c \left[T^{*4} + (T^{n+1} - T^*) 4T^{*3} \right],
 \end{equation}
 where $\sigma_a^*\equiv\sigma_a(T^*)$.  Substitution of this expression into Eq.~\eqref{eq:mat_td} yields
 \begin{equation}
@@ -144,7 +144,7 @@ Based on an estimate for $T^*$, Eq.~\eqref{eq:temp_const} is an expression for
 the Planckian emission source in the radiation moment equations with an additional effective scattering source.
 A similar expression can be derived for $\mom{\sigma_{a,i} a c T^4}_R$ and the right
 moment equations.
-The expressions for the emissions source is substituted into the discrete radiation moment equations,
+The expressions for the emission source is substituted into the discrete radiation moment equations,
 (Eq.~\eqref{eq:exact_lmomp}--\eqref{eq:exact_rmomm}) to produce a
 linear system of equations for the new radiation intensity moments (upon closure of the moment equations). 
 
@@ -342,7 +342,7 @@ evaluating integrals, and rearranging yields
 where $J_i$ is the average of the flux $J$ over the cell. The moments of $q$ are
 not simplified to be compatible with the error equations which are in terms of moments. For the $R$ moment
 \begin{equation}
-    J_{i+1/2} - J_{i}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{2}{3} \phi_{L,i} + \frac{1}{3}
+    J_{i+1/2} - J_{i}  + \frac{\sigma_{a,i}h_i}{2} \left(\frac{1}{3} \phi_{L,i} + \frac{2}{3}
     \phi_{R,i} \right) = \frac{h_i}{2} \mom{q}_{R,i}\,\,.
 \end{equation}
 The equation for the $L$ moment is evaluated for cell $i+1$ and added to the $R$ moment
@@ -439,10 +439,10 @@ system. First, the scalar intensity is assumed to be the value provided by the c
 diffusion solution at each face, i.e., $\phi_{i\pm1/2} = \phi_{i\pm1/2}^C$.
 Then, the fluxes are decomposed into half-range values to decouple the equations
 between cells.  At $x_{\ir}$, the flux is composed as $J_{i+1/2} = J_{\ir}^+ + J_{\ir}^-$,
-noting that in this notation the half-range fluxes are $J_{\ir}^{\pm}=\pm \int_{0}^\pm
+noting that in this notation the half-range fluxes are $J_{\ir}^{\pm}=\pm \int_{0}^{\pm  1}
 \mu I(x_{i+1/2},\mu) \dd \mu$\footnote{Typically, the half-range fluxes are defined with
     integrals weighted with $| \mu |$, but this notation would not be consistent with our
-definition of the half-range consistency terms}.  We approximate the incoming fluxes, e.g.,
+definition of the half-range consistency terms.}.  We approximate the incoming fluxes, e.g.,
 $J_{i+1/2}^-$, based on $\phi_{i+1/2}^C$ and a P$_1$ approximation.   
 The P$_1$ approximation provides the following relation~\cite{wla_thesis}
 \begin{equation}

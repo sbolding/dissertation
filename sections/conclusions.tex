@@ -86,7 +86,10 @@ For the HO solver, extension to higher dimensions is a great task.  The main hur
 overcome is infrastructure.  In particular, the greatest difficulty is a FE, functional
 representation in all phase space variables and the ability to
 track on such a FE mesh; for 2D grey problems this is a four-dimensional FE space.  This
-required technology is fundamentally different than the approach in most S$_N$ methods.
+required technology is fundamentally different than the approach in most S$_N$ methods.  Recently, 
+locally-adaptive angular quadratures, based on quadrilateral finite-elements in angle, have been developed~\cite{cheuk}.  
+The underlying basis functions of the quadrature sets could be used for the angular trial space, but the quadratures are far from being
+the mature technology needed for our method.
 
 Another difficult issue for our algorithm is when the solution cannot be
 accurately represented by the trial space, e.g., in optically thick cells where the
@@ -148,7 +151,7 @@ where the sampling function $f^*(x,\mu,t)$ is a PDF for the residual resulting f
 representation of the solution.  The magnitude of the step representation of the residual
 can be exactly integrated with quadrature to form the PDF.  In such an approach, the
 magnitude of the true residual source is being
-approximated with MC through particle weights, e.g., $w(x,\mu,t)=r(x,\mu,t)/r^*(x,\mu,t)$
+approximated with MC through particle weights, e.g., $w(x,\mu,t)=r(x,\mu,t)/f^*(x,\mu,t)$
 (this is similar to the method referred to as self-normalizing importance sampling). Because ECMC is not
 conservative anyways, the statistical error in the magnitude of the residual should be
 acceptable for most problems.  The goal of such an approach is
