@@ -45,6 +45,14 @@
 \usepackage{float}
 \usepackage{cancel}
 
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\makeatletter
+% \patchcmd{<cmd>}{<search>}{<replace>}{<succes>}{<failure>}
+\patchcmd{\@chapter}{\addtocontents{lof}{\protect\addvspace{10\p@}}}{}{}{}% LoF
+\patchcmd{\@chapter}{\addtocontents{lot}{\protect\addvspace{10\p@}}}{}{}{}% LoT
+\makeatother
+    
+
 %---------------
 % tikz stuff
 \usepackage{tikz}
@@ -128,7 +136,7 @@
 \include{abstract}
 \include{dedication}
 \include{acknowledgements}
-%\include{nomenclature}
+\include{nomenclature}
 \include{lists}  % This is simply a file that formats and adds your toc, lof, and lot, please do not edit this unless you have a specific need. 
 \include{sections/introduction}
 \include{sections/algorithm_descriptions}

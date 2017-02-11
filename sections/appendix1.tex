@@ -170,7 +170,7 @@ $m$, is defined as
     \item  Build the LO system based on the effective scattering $(1-f^{*,l})$ and emission terms
         evaluated using $T^{*,m}$.
     \item Solve the linearized LO system to produce a new estimate $\phi^{n+1,m+1}$.
-    \item Evaluate a new estimate of $T^{n+1,m+1}$ with energy update equations, e.g., Eq.~\eqref{eq:new_temp}.
+    \item Estimate a new $T^{n+1,m+1}$ with energy update equation, e.g., Eq.~\eqref{eq:new_temp}.
        \item $T^{*,m+1}\leftarrow{T}^{n+1,m}$ and $\phi^{n+1,m} \leftarrow
            \phi^{n+1,m+1}$.
     \item Repeat 2-5 until $(T^{n+1,m})^4$ and $\phi^{n+1,m}$ are converged.
@@ -232,7 +232,7 @@ The integral on the right side of the equation is zero because $\delta^+(x-x_{i+
 zero for $(-\infty,x_{i+1/2}]$.  The limit of the above equation is taken as $\alpha\to0$, i.e.,
 \begin{multline}
     \lim_{\alpha\to0}\left( \mu\dep(x_{i+1/2},\mu) - \mu\dep(x_{i+1/2}-\alpha,\mu)  + \int\limits_{x_{i+1/2}-\alpha}^0 
-    \hat \sigma_t \dep \dd x \right)  = \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
+    \hat \sigma_t \dep \dd x \right)  \\= \lim_{\alpha\to0} \rface(x_{i+1/2}^-) 
 \end{multline}
 The integral goes to zero because $\dep$ is smooth on the interior of the cell, and
 $\mu\dep(x_{i+1/2}-\alpha,\mu)$ goes to zero because there is no source upstream of

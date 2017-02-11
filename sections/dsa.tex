@@ -85,7 +85,7 @@ The scattering inversion must be
 performed within each Newton iteration.  Thus, for the $m$-th \emph{Newton step}, the source
 iteration process is defined as
 \begin{enumerate}
-    \item Evaluate effective scattering and absorption cross sections with
+    \item Evaluate effective scattering and absorption cross sections with the temperatures from the current Newton step, i.e., 
         ${\{T^m_i:\;\, i=1,2,\ldots,N_c\}}$.
     \item\label{en:si_beg} Compute new scattering source $\frac{1}{2}\B S \u\psi^l$.
     \item Perform sweeps to calculate $\u \psi^{l+1} = \B M^{-1} \B S\u\psi^{l} + \B M^{-1} \u Q$
@@ -128,9 +128,9 @@ $\theta=1/3$ for standard
 LD, and $\theta=1$ for lumped LD.  With suppression of the time indices, the diffusion equation for the face at $x_{i+1/2}$ is 
 \begin{multline}\label{eq:dsa_lumped}
     \left(\frac{\sigma_{a,i+1} h_{i+1}}{4}\left(1 - \theta\right)  -
-        \frac{D_{i+1}}{h_{i+1}}\right)\delta\phi_{i+3/2} + \left(\frac{D_{i+1}}{h_{i+1}} +
+        \frac{D_{i+1}}{h_{i+1}}\right)\delta\phi_{i+3/2}  \\ + \left(\frac{D_{i+1}}{h_{i+1}} +
         \frac{D_{i}}{h_i} + \left(\frac{1+\theta}{2} \right)\left[\frac{\sigma_{a,i+1} h_{i+1}}{2} + \frac{\sigma_{a,i}
-        h_{i}}{2}\right]\right)\delta\phi_{i+1/2} \\ + \left(\frac{\sigma_{a,i}
+        h_{i}}{2}\right]\right)\delta\phi_{i+1/2} \\ +  \left(\frac{\sigma_{a,i}
         h_{i}}{4}\left(1 - \theta\right) -
         \frac{D_{i}}{h_{i}}\right)\delta\phi_{i-1/2} = \frac{h_{i+1}}{2} \mom{q}_{L,i+1} +
         \frac{h_{i}}{2}\mom{q}_{R,i}
@@ -198,7 +198,7 @@ We define the process of solving the diffusion like equations and mapping the er
 unknowns back onto the moment equations as the operator $\B D^{-1}$.
 The source iteration with linear DSA procedure, for the $m$-th Newton iteration, is
 \begin{enumerate}
-    \item Evaluate effective scattering and absorption cross sections with
+    \item Evaluate effective scattering and absorption cross sections with the temperatures from the current Newton step, i.e.,
         ${\{T^m_i:\;\, i=1,2,\ldots,N_c\}}$.
     \item\label{en:dsa_beg} Compute new scattering source $\B S \u \psi^l$.
     \item Perform sweeps to calculate $\u \psi^{l+1/2} = \B M^{-1} \B S \u \psi^{l} + \B
@@ -259,7 +259,7 @@ The open-source library \verb{mgmres{ was modified to implement the matrix-free 
     S\right)$ applied to the Krylov vectors returned from the GMRES solver.
  The preconditioned-GMRES algorithm is
 \begin{enumerate}
-    \item Evaluate effective scattering and absorption cross sections with
+    \item Evaluate effective scattering and absorption cross sections with the temperatures from the current Newton step, i.e.,
         ${\{T^m_i:\;\, i=1,2,\ldots,N_c\}}$.
     \item Initialize Krylov vector as $\u \psi^0 = 0$.
     \item \label{en:dsa1}Form source vector $\u b$ with sweep:  $\u b = \B

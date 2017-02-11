@@ -301,7 +301,7 @@ resulting in longer simulation times.
     and LO iteration counts for the Marshak Wave problem. }}
 \vspace{-0.1in}
 	\begin{tabular}{|cc|c|cc|}\hline
-hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist) & Newton
+hists./step & \hspace{-0.0997in} $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO ($\mu$s/hist) & Newton
 iters./LO solve \\ \hline
 100,000                    &   0.001	& 10  &  5.3   & 3.8               \\
 12,000           &   0.001	& 9.7 &	 8.1   & 4.1               \\
@@ -314,7 +314,7 @@ iters./LO solve \\ \hline
 \caption{\label{twomat_table} {Average CPU times per history and LO iteration
 counts required for the two material problem.}}
 	\begin{tabular}{|cc|c|cc|} \hline
-hists./step & $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO-ECMC ($\mu$s/hist)  &
+hists./step & \hspace{-0.0997in} $\Delta t (sh)$ & IMC ($\mu$s/hist.) & HOLO ($\mu$s/hist)  &
 Newton iters./LO Solve\\ \hline
 100,000          &   0.001	& 17  &	3.5   & 4.9 \\
 30,000   &    0.001	& 18  &	6.9   &    5.0 \\
@@ -422,10 +422,10 @@ indicated in parenthesis.}}
 \begin{tabular}{|c|ccc|ccc|}\cline{2-7}
     \multicolumn{1}{c|}{}       & \multicolumn{3}{|c|}{\ss} &
     \multicolumn{3}{|c|}{\FOM} \\ \hline
-hists./step   & SMC & ECMC (1) & ECMC (3)  & SMC & ECMC (1) & ECMC (3)   \\ \hline
+hists./step   & SMC & \hspace{-0.1in} ECMC (1) & \hspace{-0.1in} ECMC (3)  & SMC & \hspace{-0.1in} ECMC (1) &\hspace{-0.1in}  ECMC (3)   \\ \hline
    12,000	  & 0.86\%   & 0.13\% & 0.24\% & 1      & 41  & 13      \\
   100,000     & 0.16\%   & 0.042\% & 0.08\% & 3.32   & 52  & 15       \\ 
-  99,881 (AMR, 9 batches) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
+  99,881 (AMR) & --  & \multicolumn{2}{c|}{ 0.038\%} & -- &
   \multicolumn{2}{c|}{61}               \\ \hline
 \end{tabular}
 \end{table}
@@ -529,6 +529,7 @@ becomes an issue.
 \begin{table}[H]
     \caption{\label{tab:smooth} Comparison of error metrics, reported as percentages, averaged over 20 simulations of smooth problem.  The absolute
 standard deviation for each value is reported in parenthesis. Reference solution uses 500 cells.}
+\resizebox{\textwidth}{!}{
     \begin{tabular}{|r|cl|cl|cl|} \hline
         Spatial Closure & \multicolumn{2}{|c|}{$\|e\|_2$}  &
         \multicolumn{2}{|c|}{$\|e\|_{a,rel}$} & \multicolumn{2}{|c|}{$\|\phi^{HO}
@@ -545,7 +546,7 @@ HO: Scaled Average &   1.40\%  &   (1.5e-3\% ) &   0.67\%   &   (3.1e-03\%)  &  
 LDFE               &   0.53\%  &   (2.1e-03\%)  &   0.15\%  &   (2.5e-03\%)  &   0.30\%  &  (9.7e-03\%)  \\
 HO: Scaled Slope   &   0.45\%  &   (1.5e-03\%)  &   0.16\%  &   (4.6e-03\%)  &   0.012\%  &  (4.8e-03\%)  \\
 HO: Scaled Average &   0.45\%  &   (1.4e-03\%)  &   0.16\%  &   (4.7e-03\%)  &   0.012\%  &  (3.6e-03\%)  \\ \hline
-    \end{tabular}
+    \end{tabular}}
 \end{table}
 
 \subsubsection{Issues with the Spatial Closure for HO Solver}

@@ -24,43 +24,43 @@ Warning--empty booktitle in park
 Warning--empty booktitle in ans_2014
 You've used 49 entries,
             1791 wiz_defined-function locations,
-            719 strings with 11653 characters,
-and the built_in function-call counts, 9570 in all, are:
-= -- 856
+            718 strings with 11640 characters,
+and the built_in function-call counts, 9367 in all, are:
+= -- 833
 > -- 384
-< -- 4
+< -- 3
 + -- 151
 - -- 102
-* -- 579
-:= -- 1569
+* -- 568
+:= -- 1554
 add.period$ -- 147
 call.type$ -- 49
-change.case$ -- 34
+change.case$ -- 35
 chr.to.int$ -- 0
 cite$ -- 52
-duplicate$ -- 443
-empty$ -- 988
+duplicate$ -- 433
+empty$ -- 966
 format.name$ -- 102
-if$ -- 2131
+if$ -- 2079
 int.to.chr$ -- 0
 int.to.str$ -- 49
 missing$ -- 48
 newline$ -- 248
 num.names$ -- 49
-pop$ -- 158
+pop$ -- 153
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 150
+skip$ -- 139
 stack$ -- 0
-substring$ -- 548
-swap$ -- 59
-text.length$ -- 4
+substring$ -- 506
+swap$ -- 50
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 3
-while$ -- 85
+while$ -- 83
 width$ -- 51
 write$ -- 526
 (There were 3 warnings)
