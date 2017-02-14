@@ -5,6 +5,7 @@ A level-1 auxiliary file: titlepage.aux
 A level-1 auxiliary file: abstract.aux
 A level-1 auxiliary file: dedication.aux
 A level-1 auxiliary file: acknowledgements.aux
+A level-1 auxiliary file: nomenclature.aux
 A level-1 auxiliary file: lists.aux
 A level-1 auxiliary file: sections/introduction.aux
 A level-1 auxiliary file: sections/algorithm_descriptions.aux
@@ -24,43 +25,43 @@ Warning--empty booktitle in park
 Warning--empty booktitle in ans_2014
 You've used 49 entries,
             1791 wiz_defined-function locations,
-            718 strings with 11640 characters,
-and the built_in function-call counts, 9367 in all, are:
-= -- 833
+            721 strings with 11667 characters,
+and the built_in function-call counts, 9460 in all, are:
+= -- 845
 > -- 384
 < -- 3
 + -- 151
 - -- 102
-* -- 568
-:= -- 1554
+* -- 582
+:= -- 1564
 add.period$ -- 147
 call.type$ -- 49
 change.case$ -- 35
 chr.to.int$ -- 0
 cite$ -- 52
-duplicate$ -- 433
-empty$ -- 966
+duplicate$ -- 434
+empty$ -- 976
 format.name$ -- 102
-if$ -- 2079
+if$ -- 2099
 int.to.chr$ -- 0
 int.to.str$ -- 49
 missing$ -- 48
 newline$ -- 248
 num.names$ -- 49
-pop$ -- 153
+pop$ -- 151
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
 skip$ -- 139
 stack$ -- 0
-substring$ -- 506
+substring$ -- 531
 swap$ -- 50
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 3
-while$ -- 83
+while$ -- 85
 width$ -- 51
-write$ -- 526
+write$ -- 527
 (There were 3 warnings)
